@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Data Mining Concepts and Techniques (CS24303) - Complete Neuroscience-Backed Study Suite Generator
-Generates:
-1. Module 1: Data Attributes & Proximity Metrics Notes (HTML & PDF)
-2. Module 2: Data Preprocessing & Normalization Notes (HTML & PDF)
-3. Module 3: Data Warehousing & OLAP Cubes Notes (HTML & PDF)
-4. Module 4: Apriori & FP-Growth Pattern Mining Notes (HTML & PDF)
-5. Module 5: Advanced Pattern Mining & Applications Notes (HTML & PDF)
-6. 10-Page Master Quick Revision Notes (HTML & PDF)
-7. Full Course Master Compilation (HTML & PDF)
+Data Mining Concepts and Techniques (CS24303) - Comprehensive 10-15 Page/Module Study Suite Generator
+BIT Mesra (NEP Scheme 2024-25)
+
+Generates publication-grade, neuroscience-backed, deeply comprehensive study notes:
+1. Module 1: Introduction to Data Mining, Data Objects & Proximity (14 Topics | ~14 Pages)
+2. Module 2: Data Preprocessing, Normalization & Reduction (6 Topics | ~12 Pages)
+3. Module 3: Data Warehousing, OLAP Cubes & AOI (9 Topics | ~14 Pages)
+4. Module 4: Frequent Pattern Mining: Apriori & FP-Growth (7 Topics | ~15 Pages)
+5. Module 5: Advanced Pattern Mining & Applications (10 Topics | ~12 Pages)
+6. 10-Page Master Quick Revision Notes (Dense Exam Night Cheat Book)
+7. Full Course Master Book (End-to-End Mega Book ~65-70 Pages)
 """
 
 import os
@@ -19,9 +21,9 @@ BASE_CSS = r"""
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0f766e;       /* Dark Teal */
+  --primary: #0f766e;       /* Deep Teal */
   --primary-light: #f0fdfa;
-  --accent: #0284c7;        /* Blue */
+  --accent: #0284c7;        /* Sky Blue */
   --secondary: #d97706;     /* Amber */
   --success: #059669;
   --success-bg: #ecfdf5;
@@ -29,6 +31,8 @@ BASE_CSS = r"""
   --warning-bg: #fffbeb;
   --danger: #dc2626;
   --danger-bg: #fef2f2;
+  --purple: #7e22ce;
+  --purple-bg: #faf5ff;
   --dark: #0f172a;
   --text: #1e293b;
   --text-muted: #64748b;
@@ -43,16 +47,16 @@ body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
   background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  line-height: 1.65;
+  font-size: 12.5px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
+  padding: 38px 44px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
 
@@ -82,9 +86,11 @@ body {
 .badge-teal { background: #ccfbf1; color: #0f766e; }
 .badge-amber { background: #fef3c7; color: #92400e; }
 .badge-green { background: #d1fae5; color: #065f46; }
+.badge-blue { background: #e0f2fe; color: #0369a1; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
@@ -101,47 +107,60 @@ h1.doc-title {
   background: #f0fdfa;
   border: 1px solid #99f6e4;
   border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 25px;
+  padding: 16px 20px;
+  margin-bottom: 26px;
   page-break-inside: avoid;
 }
 
 .toc-title {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #0f766e;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
+  gap: 6px 24px;
   font-size: 11.5px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 16.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 28px 0 12px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.8px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0d9488;
+  margin: 18px 0 8px 0;
+  page-break-after: avoid;
 }
 
-p { margin-bottom: 8px; text-align: justify; }
+h4.subsubsection-title {
+  font-size: 12.8px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 14px 0 6px 0;
+  page-break-after: avoid;
+}
+
+p { margin-bottom: 9px; text-align: justify; }
 
 .callout {
   border-radius: 6px;
-  padding: 10px 14px;
-  margin: 11px 0;
+  padding: 11px 15px;
+  margin: 12px 0;
   font-size: 11.8px;
   border-left: 4px solid;
   page-break-inside: avoid;
@@ -150,7 +169,9 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
 .callout-blue { background: #f0fdfa; border-color: #0f766e; color: #134e4a; }
 .callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
+.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
 .callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-neuro { background: #eff6ff; border-color: #2563eb; color: #1e3a8a; }
 
 .callout-title {
   font-weight: 700;
@@ -163,7 +184,7 @@ p { margin-bottom: 8px; text-align: justify; }
 table.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
+  margin: 12px 0;
   font-size: 11.5px;
   background: #ffffff;
   border-radius: 6px;
@@ -177,12 +198,12 @@ table.custom-table th {
   color: #ffffff;
   font-weight: 600;
   text-align: left;
-  padding: 6px 10px;
+  padding: 7px 10px;
   font-size: 11px;
 }
 
 table.custom-table td {
-  padding: 5.5px 10px;
+  padding: 6px 10px;
   border-bottom: 1px solid #e2e8f0;
   vertical-align: middle;
 }
@@ -202,25 +223,25 @@ code {
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 10px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
   font-size: 11px;
-  line-height: 1.4;
+  line-height: 1.45;
   overflow-x: auto;
-  margin: 9px 0;
+  margin: 10px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+ul, ol { margin: 6px 0 10px 18px; font-size: 12px; }
+li { margin-bottom: 3.5px; }
 
 .diagram-container {
   background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  padding: 14px;
+  margin: 14px 0;
   text-align: center;
   page-break-inside: avoid;
 }
@@ -229,7 +250,7 @@ li { margin-bottom: 3px; }
   font-size: 10px;
   font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
+  margin-top: 6px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -238,13 +259,45 @@ li { margin-bottom: 3px; }
   background: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-.qa-q { font-weight: 700; color: #0f766e; font-size: 12.2px; margin-bottom: 5px; }
+.qa-q { font-weight: 700; color: #0f766e; font-size: 12.3px; margin-bottom: 5px; }
 .qa-a { font-size: 11.8px; color: var(--text); }
+
+.worked-box {
+  background: #f8fafc;
+  border: 1px solid #94a3b8;
+  border-left: 5px solid #0284c7;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0369a1;
+  margin-bottom: 6px;
+}
+
+.formula-card {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.page-break {
+  page-break-before: always;
+  break-before: page;
+}
 
 @media print {
   body { background: #ffffff; font-size: 11.8px; }
@@ -265,7 +318,7 @@ li { margin-bottom: 3px; }
       color: #94a3b8;
     }
   }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
+  .toc-box, .diagram-container, .callout, table, pre, .qa-card, .worked-box, .formula-card {
     page-break-inside: avoid;
   }
 }
@@ -295,9 +348,9 @@ def wrap_html(title, subtitle, badge_text, body_html):
     <div class="doc-subtitle">__SUBTITLE__</div>
   </div>
   __BODY__
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Mining Concepts & Techniques (CS24303) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+  <div style="margin-top: 25px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
+    <span>Data Mining Concepts & Techniques (CS24303) — In-Depth Study Suite</span>
+    <span>BIT Mesra | B.Tech CSE (5th Sem)</span>
   </div>
 </div>
 <script>
@@ -315,208 +368,21 @@ def wrap_html(title, subtitle, badge_text, body_html):
 </html>"""
     return template.replace("__TITLE__", title).replace("__SUBTITLE__", subtitle).replace("__BADGE__", badge_text).replace("__BODY__", body_html).replace("__BASE_CSS__", BASE_CSS)
 
-DM_M1_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module I: Data Attributes & Proximity Metrics — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. KDD Process & Data Mining Functionalities</div>
-    <div>2. Data Object Types & Attribute Categories</div>
-    <div>3. Five-Number Summary, Boxplots & Dispersion</div>
-    <div>4. Proximity Metrics: Euclidean, Manhattan, Minkowski</div>
-    <div>5. Cosine Similarity & Jaccard Coefficient</div>
-  </div>
-</div>
+# Import the 5 module bodies from modular files or embedded rich strings
+from dm_module1_content import DM_M1_EXHAUSTIVE
+from dm_module2_content import DM_M2_EXHAUSTIVE
+from dm_module3_content import DM_M3_EXHAUSTIVE
+from dm_module4_content import DM_M4_EXHAUSTIVE
+from dm_module5_content import DM_M5_EXHAUSTIVE
+from dm_revision_content import DM_REVISION_EXHAUSTIVE
 
-<h2 class="section-title">1. Proximity and Distance Metrics Formulations</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Metric Name</th>
-      <th style="width: 45%;">Mathematical Formulation</th>
-      <th>Application Domain</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Euclidean Distance ($L_2$)</strong></td>
-      <td>$$d(x, y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$$</td>
-      <td>Standard spatial coordinate distance for continuous numeric features.</td>
-    </tr>
-    <tr>
-      <td><strong>Manhattan Distance ($L_1$)</strong></td>
-      <td>$$d(x, y) = \sum_{i=1}^n |x_i - y_i|$$</td>
-      <td>Grid-like city block routing; robust against extreme outliers.</td>
-    </tr>
-    <tr>
-      <td><strong>Cosine Similarity</strong></td>
-      <td>$$\text{sim}(x, y) = \frac{x \cdot y}{\|x\| \|y\|} = \frac{\sum x_i y_i}{\sqrt{\sum x_i^2}\sqrt{\sum y_i^2}}$$</td>
-      <td>Document text mining, TF-IDF vector comparisons (invariant to document length).</td>
-    </tr>
-    <tr>
-      <td><strong>Jaccard Coefficient</strong></td>
-      <td>$$J(A, B) = \frac{|A \cap B|}{|A \cup B|} = \frac{q}{q + r + s}$$</td>
-      <td>Asymmetric binary attributes (e.g., market basket item presence).</td>
-    </tr>
-  </tbody>
-</table>
-"""
-
-DM_M2_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module II: Data Preprocessing & Normalization — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Data Cleaning & Smoothing by Binning</div>
-    <div>2. Correlation Analysis: Chi-Square ($\chi^2$) & Pearson $r$</div>
-    <div>3. Min-Max Normalization & Z-Score Scaling</div>
-    <div>4. Dimensionality Reduction via PCA</div>
-    <div>5. Discretization & Concept Hierarchies</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Data Transformation: Normalization Formulations</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Normalization Method</th>
-      <th style="width: 45%;">Formula</th>
-      <th>Key Use Case</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Min-Max Normalization</strong></td>
-      <td>$$v' = \frac{v - \min_A}{\max_A - \min_A} (new\_\max_A - new\_\min_A) + new\_\min_A$$</td>
-      <td>Maps values linearly into predetermined interval $[0, 1]$.</td>
-    </tr>
-    <tr>
-      <td><strong>Z-Score (Zero-Mean)</strong></td>
-      <td>$$v' = \frac{v - \mu_A}{\sigma_A}$$</td>
-      <td>Useful when min and max are unknown or outliers dominate.</td>
-    </tr>
-  </tbody>
-</table>
-"""
-
-DM_M3_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module III: Data Warehousing & OLAP Cubes — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. OLTP vs. OLAP Multidimensional Modeling</div>
-    <div>2. Schemas: Star, Snowflake & Fact Constellation</div>
-    <div>3. Lattice of Cuboids & Data Cube Computation</div>
-    <div>4. OLAP Operations: Roll-up, Drill-down, Slice, Dice, Pivot</div>
-    <div>5. Attribute-Oriented Induction (AOI)</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Core OLAP Operations</h2>
-<ul>
-  <li><strong>Roll-Up (Drill-Up):</strong> Summarizes data by climbing up concept hierarchies (e.g., Day $\rightarrow$ Month $\rightarrow$ Quarter $\rightarrow$ Year).</li>
-  <li><strong>Drill-Down (Roll-Down):</strong> Navigates from higher-level summary to detailed granular data.</li>
-  <li><strong>Slice:</strong> Performs a selection on one dimension (e.g., `Time = "Q1"`).</li>
-  <li><strong>Dice:</strong> Defines a sub-cube by selecting on two or more dimensions (e.g., `Time = "Q1"` and `Location = "India"`).</li>
-  <li><strong>Pivot (Rotate):</strong> Rotates multidimensional axes to provide an alternative perspective.</li>
-</ul>
-"""
-
-DM_M4_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module IV: Apriori & FP-Growth Pattern Mining — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Market Basket Analysis: Support & Confidence</div>
-    <div>2. The Apriori Downward Closure Property</div>
-    <div>3. Apriori Candidate Generation: Join & Prune</div>
-    <div>4. FP-Tree Construction & Recursive Mining</div>
-    <div>5. Pattern Correlation: Lift & Kulczynski</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Support, Confidence & Lift Formulations</h2>
-$$\text{Support}(A \implies B) = P(A \cup B) = \frac{\text{count}(A \cup B)}{|D|}$$
-$$\text{Confidence}(A \implies B) = P(B \mid A) = \frac{\text{Support}(A \cup B)}{\text{Support}(A)}$$
-$$\text{Lift}(A, B) = \frac{P(A \cup B)}{P(A) P(B)}$$
-
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Exam Question (10 Marks)</div>
-  <strong>Problem:</strong> Explain the Apriori property and demonstrate how the prune step eliminates candidate itemsets without scanning the database.<br>
-  <strong>Solution:</strong> <em>Apriori Property:</em> All non-empty subsets of a frequent itemset must also be frequent. If any $(k-1)$-subset of candidate $C_k$ is not present in frequent list $L_{k-1}$, $C_k$ cannot be frequent and is immediately pruned without costly database I/O.
-</div>
-"""
-
-DM_M5_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module V: Advanced Pattern Mining & Applications — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Multilevel & Multidimensional Association Rules</div>
-    <div>2. Quantitative Association Rule Mining</div>
-    <div>3. Constraint-Based Mining (Antimonotonic, Monotonic, Succinct)</div>
-    <div>4. Mining Colossal & Compressed Patterns</div>
-    <div>5. Real-World Applications (Retail Basket, Fraud Detection)</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Constraint Properties in Frequent Itemset Mining</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Constraint Type</th>
-      <th style="width: 45%;">Formal Property Definition</th>
-      <th>Pushing Strategy in Mining</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Antimonotonic</strong></td>
-      <td>If itemset $S$ violates constraint $C$, all supersets $S' \supset S$ also violate $C$. (e.g., $\text{sum}(S.\text{price}) \le 100$).</td>
-      <td>Prunes itemset search branch immediately (like Apriori support).</td>
-    </tr>
-    <tr>
-      <td><strong>Monotonic</strong></td>
-      <td>If itemset $S$ satisfies constraint $C$, all supersets $S' \supset S$ also satisfy $C$. (e.g., $\text{sum}(S.\text{price}) \ge 500$).</td>
-      <td>Once satisfied, all descendant supersets need not be tested against $C$.</td>
-    </tr>
-  </tbody>
-</table>
-"""
-
-DM_REVISION_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">⛏️ 10-Page Master Quick Revision — Data Mining (CS24303)</div>
-  <div class="toc-grid">
-    <div>Page 1-2: Attribute Types, Statistical Summaries & Distance Metrics</div>
-    <div>Page 3-4: Data Cleaning, Chi-Square Correlation & Normalization Formulas</div>
-    <div>Page 5-6: OLAP Cubes, Star vs. Snowflake Schemas & Operations</div>
-    <div>Page 7-8: Apriori Join/Prune, FP-Tree Construction & Lift Analysis</div>
-    <div>Page 9-10: Antimonotonic Constraints, Colossal Patterns & Exam PYQs</div>
-  </div>
-</div>
-
-<h2 class="section-title">⚡ High-Yield Data Mining Formulas Matrix</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Exact Formula / Rule</th>
-      <th>Key Insight</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Chi-Square ($\chi^2$)</strong></td><td>$\chi^2 = \sum \frac{(O - E)^2}{E}$ where $E = \frac{\text{row\_total} \times \text{col\_total}}{N}$</td><td>Tests nominal attribute independence.</td></tr>
-    <tr><td><strong>Min-Max Norm</strong></td><td>$v' = \frac{v - \min}{\max - \min}(new\_\max - new\_\min) + new\_\min$</td><td>Maps to target range linearly.</td></tr>
-    <tr><td><strong>Z-Score Norm</strong></td><td>$v' = \frac{v - \mu}{\sigma}$</td><td>Zero mean, unit variance.</td></tr>
-    <tr><td><strong>Apriori Property</strong></td><td>Subset of frequent itemset is frequent $\implies$ Superset of infrequent is infrequent</td><td>Foundation of candidate pruning.</td></tr>
-    <tr><td><strong>Lift Metric</strong></td><td>$\text{Lift}(A, B) = \frac{P(A \cup B)}{P(A)P(B)}$</td><td>$>1$: Positively correlated; $<1$: Negatively correlated.</td></tr>
-  </tbody>
-</table>
-"""
-
-DM_MODULES = [
-    ("Module 1: Data Attributes & Proximity Metrics", "KDD Pipeline, Attribute Types, Boxplots, Euclidean & Cosine Distance", "Module I Notes", DM_M1_BODY, "Module_1_Data_Attributes_Notes"),
-    ("Module 2: Data Preprocessing & Normalization", "Binning, Chi-Square Correlation, Min-Max, Z-Score & PCA", "Module II Notes", DM_M2_BODY, "Module_2_Preprocessing_Notes"),
-    ("Module 3: Data Warehousing & OLAP Cubes", "Star/Snowflake Schemas, Data Cube Computation & OLAP Operations", "Module III Notes", DM_M3_BODY, "Module_3_Data_Warehouse_Notes"),
-    ("Module 4: Apriori & FP-Growth Pattern Mining", "Support/Confidence, Apriori Join & Prune, FP-Tree Mining, Lift", "Module IV Notes", DM_M4_BODY, "Module_4_Pattern_Mining_Notes"),
-    ("Module 5: Advanced Pattern Mining & Applications", "Multilevel Rules, Antimonotonic Constraints, Colossal Patterns", "Module V Notes", DM_M5_BODY, "Module_5_Advanced_Mining_Notes"),
-    ("Data Mining — 10-Page Master Quick Revision", "High-Yield Formula Sheet, Schema Matrices & Top BIT Mesra PYQ Solutions", "10-Page Master Revision", DM_REVISION_BODY, "Data_Mining_10_Page_Master_Revision"),
+MODULES = [
+    ("Module 1: Data Attributes & Proximity Metrics", "KDD Pipeline, 4 Attribute Types, Boxplots, Euclidean & Cosine Distance", "Module I Notes (14 Topics)", DM_M1_EXHAUSTIVE, "Module_1_Data_Attributes_Notes"),
+    ("Module 2: Data Preprocessing & Normalization", "Data Cleaning, Chi-Square Correlation, Min-Max, Z-Score & PCA Reduction", "Module II Notes (6 Topics)", DM_M2_EXHAUSTIVE, "Module_2_Preprocessing_Notes"),
+    ("Module 3: Data Warehousing & OLAP Cubes", "Star/Snowflake Schemas, Data Cube Computation & 5 OLAP Operations", "Module III Notes (9 Topics)", DM_M3_EXHAUSTIVE, "Module_3_Data_Warehouse_Notes"),
+    ("Module 4: Apriori & FP-Growth Pattern Mining", "Support/Confidence, Apriori Join & Prune, FP-Tree Mining & Lift", "Module IV Notes (7 Topics)", DM_M4_EXHAUSTIVE, "Module_4_Pattern_Mining_Notes"),
+    ("Module 5: Advanced Pattern Mining & Applications", "Multilevel Rules, Antimonotonic Constraints, Colossal & Closed Patterns", "Module V Notes (10 Topics)", DM_M5_EXHAUSTIVE, "Module_5_Advanced_Mining_Notes"),
+    ("Data Mining — 10-Page Master Quick Revision", "High-Yield Formula Sheet, Schema Matrices & Top BIT Mesra PYQ Solutions", "10-Page Master Revision", DM_REVISION_EXHAUSTIVE, "Data_Mining_10_Page_Master_Revision"),
 ]
 
 def build_all_dm():
@@ -526,14 +392,14 @@ def build_all_dm():
     os.makedirs(html_dir, exist_ok=True)
     os.makedirs(pdf_dir, exist_ok=True)
 
-    print("Launching Chromium for Data Mining suite...")
+    print("Launching Chromium for exhaustive Data Mining suite...")
     with sync_playwright() as p:
         browser = p.chromium.launch(
             executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             headless=True
         )
         full_course_body = ""
-        for title, subtitle, badge, body, filename in DM_MODULES:
+        for title, subtitle, badge, body, filename in MODULES:
             html_content = wrap_html(title, subtitle, badge, body)
             html_file = os.path.join(html_dir, f"{filename}.html")
             pdf_file = os.path.join(pdf_dir, f"{filename}.pdf")
@@ -543,7 +409,7 @@ def build_all_dm():
 
             page = browser.new_page()
             page.goto(f"file://{html_file}", wait_until="networkidle")
-            page.wait_for_timeout(1500)
+            page.wait_for_timeout(2000)
             page.pdf(
                 path=pdf_file,
                 format="A4",
@@ -560,8 +426,8 @@ def build_all_dm():
         # Full Course Master
         full_master_html = wrap_html(
             "Data Mining Concepts and Techniques (CS24303) — Full Course Master Book",
-            "Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank",
-            "Full Course Master",
+            "Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank (46 Topics)",
+            "Full Course Master (46 Topics)",
             full_course_body
         )
         full_html_file = os.path.join(html_dir, "Data_Mining_Full_Course_Master.html")
@@ -571,7 +437,7 @@ def build_all_dm():
 
         page = browser.new_page()
         page.goto(f"file://{full_html_file}", wait_until="networkidle")
-        page.wait_for_timeout(2500)
+        page.wait_for_timeout(3500)
         page.pdf(
             path=full_pdf_file,
             format="A4",
