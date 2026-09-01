@@ -1,0 +1,5211 @@
+# 🎓 B.Tech CSE 5th Semester – Complete Study Guide & Syllabus Notes
+
+> **Institution:** BIT Mesra  
+> **Program:** B.Tech Computer Science & Engineering (NEP Scheme 2024-25)  
+> **Total Semester Credits:** 26.0  
+> **Course Catalog:** Core Courses (20.0 Credits) | Program Electives (3.0 Credits) | Open Electives (3.0 Credits)
+
+---
+
+## 📌 Table of Contents
+- [1. Overview & Semester Structure](#1-overview--semester-structure)
+- [2. Core Courses](#2-core-courses)
+  - [2.1 Data Communication and Computer Networks (CS24305)](#21-data-communication-and-computer-networks-cs24305)
+    - [Syllabus & Todo List](#dccn-syllabus--todo-list)
+    - [Comprehensive Notes](#dccn-comprehensive-notes)
+    - [Question Bank & Comprehensive Solutions](#dccn-question-bank--comprehensive-solutions)
+  - [2.2 Compiler Design (CS24301)](#22-compiler-design-cs24301)
+  - [2.3 Data Mining Concepts and Techniques (CS24303)](#23-data-mining-concepts-and-techniques-cs24303)
+  - [2.4 Artificial Intelligence (CS24307)](#24-artificial-intelligence-cs24307)
+  - [2.5 Compiler Design Lab (CS24302)](#25-compiler-design-lab-cs24302)
+  - [2.6 Data Communication and Computer Networks Lab (CS24306)](#26-data-communication-and-computer-networks-lab-cs24306)
+  - [2.7 Artificial Intelligence Lab (CS24308)](#27-artificial-intelligence-lab-cs24308)
+- [3. Program Electives](#3-program-electives)
+  - [3.1 Natural Language Processing (CS24351)](#31-natural-language-processing-cs24351)
+    - [Syllabus & Todo List](#nlp-syllabus--todo-list)
+    - [Topic 1: Introduction to Natural Language Processing](#topic-1-introduction-to-natural-language-processing-nlp)
+    - [Topic 2: Why NLP is Booming Right Now](#topic-2-why-nlp-is-booming-right-now)
+    - [Topic 3: Regular Expressions (Regex) for NLP](#topic-3-regular-expressions-regex-for-nlp)
+  - [3.2 Software Engineering (CS24353)](#32-software-engineering-cs24353)
+- [4. Open Elective Courses Reference](#4-open-elective-courses-reference)
+
+---
+
+## 1. Overview & Semester Structure
+## Core Courses (Compulsory)
+
+| Course Code | Subject | Credits |
+| --- | --- | --- |
+| CS24305 | [Data Communication and Computer Networks](#data-communication-and-computer-networks) | 3.0 |
+| CS24301 | [Compiler Design](#compiler-design) | 3.0 |
+| CS24303 | [Data Mining Concepts and Techniques](#data-mining-concepts-and-techniques) | 3.0 |
+| CS24307 | [Artificial Intelligence](#artificial-intelligence) | 3.0 |
+| CS24302 | [Compiler Design Lab](#compiler-design-lab) | 1.5 |
+| CS24306 | [Data Communication and Computer Networks Lab](#data-communication-and-computer-networks-lab) | 1.5 |
+| CS24308 | [Artificial Intelligence Lab](#artificial-intelligence-lab) | 1.5 |
+| CS24300 | Project – I | 2.0 |
+| HS24133 | Communication Skill – II | 1.5 |
+
+**Total Core Credits:** **20.0**
+
+---
+
+## Program Elective – I (Choose One)
+
+| Course Code | Subject | Credits |
+| --- | --- | --- |
+| CS24351 | [Natural Language Processing](#natural-language-processing) | 3.0 |
+| CS24353 | [Software Engineering](#software-engineering) | 3.0 |
+
+---
+
+## Open Elective – II (Choose One)
+
+| Course Code | Subject | Credits |
+| --- | --- | --- |
+| HS24405 | German – I | 3.0 |
+| MO24201 | Massive Open Online Course – I | 3.0 |
+| SR26410 | Introduction to Aerospace Engineering | 3.0 |
+| RG26301 | Principles of Remote Sensing | 3.0 |
+| PE24319 | Project Management | 3.0 |
+| ME24343 | Elements of Hydel and Thermal Power Plants | 3.0 |
+| HS26253 | Psychology of Everyday Life | 3.0 |
+| HS26251 | Ethics and Philosophy of Technology | 3.0 |
+| HS24403 | French – I | 3.0 |
+| EE24355 | Linear Control Theory | 3.0 |
+| EC24333 | Introduction to Microcontrollers | 3.0 |
+| EC24231 | Introduction to Communication System | 3.0 |
+| CE24391 | Environmental Management | 3.0 |
+| BE24354 | Biotreatment of Municipal & Industrial Wastes | 3.0 |
+| BE24353 | Fundamentals of Bioelectronic Devices | 3.0 |
+
+## Total Semester Structure
+
+- **9 Core Courses (including labs and Project-I)** — **20 credits**
+- **1 Program Elective** — **3 credits**
+- **1 Open Elective** — **3 credits**
+
+**Total Credits:** **26.0**
+
+---
+## 2. Core Courses
+### 2.1 Data Communication and Computer Networks (CS24305)
+- Docs
+    
+    [Notes](#21-data-communication-and-computer-networks-cs24305)
+    
+    [Questions](#dccn-question-bank--comprehensive-solutions)
+    
+    [AI323 DATA COMMUNICATION AND COMPUTER NETWORKS_END.pdf](5thsem/Data%20Communication%20and%20Computer%20Networks/Data%20Communication%20and%20Computer%20Networks/AI323_DATA_COMMUNICATION_AND_COMPUTER_NETWORKS_END.pdf)
+    
+    [AI323 DATA COMMUNICATION AND COMPUTER NETWORKS_MID.pdf](5thsem/Data%20Communication%20and%20Computer%20Networks/Data%20Communication%20and%20Computer%20Networks/AI323_DATA_COMMUNICATION_AND_COMPUTER_NETWORKS_MID.pdf)
+    
+    [IT365 DATA COMMUNICATION & COMPUTER NETWORKS_END.pdf](5thsem/Data%20Communication%20and%20Computer%20Networks/Data%20Communication%20and%20Computer%20Networks/IT365_DATA_COMMUNICATION__COMPUTER_NETWORKS_END.pdf)
+    
+    [IT365 DATA COMMUNICATION AND COMPUTER NETWORKS _MID.pdf](5thsem/Data%20Communication%20and%20Computer%20Networks/Data%20Communication%20and%20Computer%20Networks/IT365_DATA_COMMUNICATION_AND_COMPUTER_NETWORKS__MID.pdf)
+    
+- Syllabus
+    
+    ![Screenshot 2026-07-19 at 10.03.43 AM.png](5thsem/Data%20Communication%20and%20Computer%20Networks/Data%20Communication%20and%20Computer%20Networks/Screenshot_2026-07-19_at_10.03.43_AM.png)
+    
+
+### 📚 Data Communications & Networking Todo List
+
+#### Module I – Data Communications and Networking Overview
+
+- [ ]  Communications Model
+- [ ]  Data Communications
+- [ ]  Networks
+- [ ]  Internet
+- [ ]  OSI Model
+- [ ]  TCP/IP Protocol Architecture
+- [ ]  Standards and Protocol Layers
+- [ ]  Internet Applications
+- [ ]  Data Transmission Concepts & Terminology
+- [ ]  Analog Data Transmission
+- [ ]  Digital Data Transmission
+- [ ]  Transmission Impairments
+- [ ]  Channel Capacity
+
+**Progress:** `0/13`
+
+---
+
+#### Module II – Transmission Media and Signal Encoding Techniques
+
+- [ ]  Guided Transmission Mediums
+- [ ]  Wireless Transmission & Propagation
+- [ ]  Digital Signaling
+- [ ]  Analog Signaling
+- [ ]  Encoding Techniques
+- [ ]  Modulation Techniques
+
+**Progress:** `0/6`
+
+---
+
+#### Module III – Error Handling, Data Link Control Protocols & Multiplexing
+
+- [ ]  Types of Errors
+- [ ]  Error Detection Techniques
+- [ ]  Error Correction Techniques
+- [ ]  Flow Control
+- [ ]  Error Control
+- [ ]  High-Level Data Link Control (HDLC)
+- [ ]  Frequency Division Multiplexing (FDM)
+- [ ]  Time Division Multiplexing (TDM)
+
+**Progress:** `0/8`
+
+---
+
+#### Module IV – Wide Area Networks & Local Area Networks
+
+- [ ]  Switching Network
+- [ ]  Circuit-Switching Networks
+- [ ]  Circuit-Switching Concepts
+- [ ]  Packet-Switching Principles
+- [ ]  Principles of Cellular Networks
+- [ ]  Cellular Network Generations
+- [ ]  Network Topologies
+- [ ]  LAN Protocol Architecture
+- [ ]  Virtual LANs (VLANs)
+
+**Progress:** `0/9`
+
+---
+
+#### Module V – Ethernet, Wireless LAN Overview & Internetworking
+
+- [ ]  Traditional Ethernet
+- [ ]  High-Speed Ethernet
+- [ ]  IEEE 802.11 (Wi-Fi)
+- [ ]  Internet Protocol (IP)
+- [ ]  IP Addressing
+- [ ]  Transport Protocols
+- [ ]  Routing in Packet Switching Networks
+- [ ]  Distance Vector Routing
+- [ ]  Link State Routing
+- [ ]  Path Vector Routing
+- [ ]  Congestion Control
+- [ ]  Traffic Management
+- [ ]  SMTP
+- [ ]  DNS
+- [ ]  HTTP
+- [ ]  DHCP
+
+**Progress:** `0/16`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (13 topics)
+- [ ]  Module II (6 topics)
+- [ ]  Module III (8 topics)
+- [ ]  Module IV (9 topics)
+- [ ]  Module V (16 topics)
+
+**Total Topics:** **52**
+
+**Completed:** `0/52` (0%)
+
+---
+
+[Notes](#21-data-communication-and-computer-networks-cs24305)
+
+#### DCCN Comprehensive Notes
+- M1
+    
+    # 📘 Data Communications & Networking – Module I Notes (4-Page Revision Notes)
+    
+    > **Module I:** Data Communications & Networking Overview
+    > 
+    > 
+    > Covers:
+    > 
+    > - Communications Model
+    > - Data Communications
+    > - Networks
+    > - Internet
+    > - OSI Model
+    > - TCP/IP Architecture
+    > - Standards & Protocol Layers
+    > - Internet Applications
+    > - Data Transmission Concepts
+    > - Analog & Digital Transmission
+    > - Transmission Impairments
+    > - Channel Capacity
+    
+    ---
+    
+    # 📄 PAGE 1 – Data Communication Fundamentals
+    
+    ## 1. What is Data Communication?
+    
+    **Definition:**
+    
+    Data communication is the exchange of data between two or more devices through a transmission medium.
+    
+    ### Components
+    
+    ```
+    Source → Sender → Transmission Medium → Receiver → Destination
+                     ↑
+                  Protocol
+    ```
+    
+    | Component | Description |
+    | --- | --- |
+    | Sender | Device that sends data |
+    | Receiver | Device that receives data |
+    | Message | Information being transmitted |
+    | Medium | Path used to send data |
+    | Protocol | Rules governing communication |
+    
+    ---
+    
+    ## Communication Model
+    
+    ```
+    Sender
+       │
+    Encoder
+       │
+    Transmission Medium
+       │
+    Decoder
+       │
+    Receiver
+    ```
+    
+    Example:
+    
+    ```
+    Phone
+       ↓
+    Wi-Fi
+       ↓
+    Internet
+       ↓
+    Friend's Phone
+    ```
+    
+    ---
+    
+    ## Characteristics of Data Communication
+    
+    A good communication system should provide:
+    
+    - ✔ Delivery
+    - ✔ Accuracy
+    - ✔ Timeliness
+    - ✔ Low Jitter
+    
+    ---
+    
+    ## What is a Computer Network?
+    
+    A **network** is a collection of interconnected devices that share resources and information.
+    
+    ### Goals
+    
+    - Resource Sharing
+    - Communication
+    - Reliability
+    - Scalability
+    - Cost Reduction
+    
+    ---
+    
+    ## Types of Networks
+    
+    | Network | Range |
+    | --- | --- |
+    | PAN | Personal (1–10 m) |
+    | LAN | Building |
+    | MAN | City |
+    | WAN | Country/World |
+    
+    Example
+    
+    ```
+    Phone → WiFi → Router → Internet
+    ```
+    
+    ---
+    
+    ## Internet
+    
+    The **Internet** is a worldwide network of interconnected networks that communicate using the **TCP/IP protocol suite**.
+    
+    Services:
+    
+    - Web
+    - Email
+    - FTP
+    - VoIP
+    - Cloud Computing
+    - Streaming
+    
+    ---
+    
+    ## Important Terminology
+    
+    | Term | Meaning |
+    | --- | --- |
+    | Node | Any connected device |
+    | Link | Connection between nodes |
+    | Packet | Small unit of transmitted data |
+    | Bandwidth | Maximum transmission capacity |
+    | Throughput | Actual achieved transmission rate |
+    | Latency | Delay in data transmission |
+    
+    ---
+    
+    # 📄 PAGE 2 – OSI & TCP/IP Models
+    
+    # OSI Model (7 Layers)
+    
+    ```
+    7 Application
+    6 Presentation
+    5 Session
+    4 Transport
+    3 Network
+    2 Data Link
+    1 Physical
+    ```
+    
+    ### Layer Functions
+    
+    | Layer | Function | Example |
+    | --- | --- | --- |
+    | Application | User services | HTTP, FTP |
+    | Presentation | Encryption, Compression | SSL/TLS |
+    | Session | Session management | NetBIOS |
+    | Transport | Reliable delivery | TCP, UDP |
+    | Network | Routing | IP |
+    | Data Link | Framing, MAC | Ethernet |
+    | Physical | Bit transmission | Cable, Fiber |
+    
+    ---
+    
+    ## Memory Trick
+    
+    ```
+    All
+    People
+    Seem
+    To
+    Need
+    Data
+    Processing
+    ```
+    
+    ---
+    
+    # TCP/IP Model
+    
+    ```
+    Application
+    Transport
+    Internet
+    Network Access
+    ```
+    
+    ### Mapping
+    
+    | TCP/IP | OSI |
+    | --- | --- |
+    | Application | Application + Presentation + Session |
+    | Transport | Transport |
+    | Internet | Network |
+    | Network Access | Data Link + Physical |
+    
+    ---
+    
+    ## OSI vs TCP/IP
+    
+    | OSI | TCP/IP |
+    | --- | --- |
+    | 7 Layers | 4 Layers |
+    | Reference Model | Practical Model |
+    | ISO Standard | Internet Standard |
+    | Theoretical | Widely Used |
+    
+    ---
+    
+    ## Standards Organizations
+    
+    | Organization | Responsibility |
+    | --- | --- |
+    | ISO | OSI Standards |
+    | IEEE | LAN/Wi-Fi Standards |
+    | ITU-T | Telecommunication Standards |
+    | IETF | Internet Protocols |
+    | ANSI | American Standards |
+    
+    ---
+    
+    ## Common Internet Protocols
+    
+    | Protocol | Purpose |
+    | --- | --- |
+    | HTTP | Web |
+    | HTTPS | Secure Web |
+    | FTP | File Transfer |
+    | SMTP | Email Sending |
+    | POP3 | Email Receiving |
+    | IMAP | Mail Synchronization |
+    | DNS | Domain Name Resolution |
+    | DHCP | Automatic IP Assignment |
+    
+    ---
+    
+    # 📄 PAGE 3 – Data Transmission
+    
+    ## Data Transmission
+    
+    Transfer of data from sender to receiver.
+    
+    ---
+    
+    ## Transmission Modes
+    
+    ### Simplex
+    
+    One-way communication.
+    
+    ```
+    Keyboard → Computer
+    ```
+    
+    ---
+    
+    ### Half Duplex
+    
+    Two-way, but one at a time.
+    
+    ```
+    Walkie-Talkie
+    ```
+    
+    ---
+    
+    ### Full Duplex
+    
+    Both directions simultaneously.
+    
+    ```
+    Phone Call
+    ```
+    
+    ---
+    
+    ## Analog Transmission
+    
+    Continuous signal.
+    
+    ```
+    ~~~~~~~
+    ```
+    
+    Examples
+    
+    - Radio
+    - Television
+    - Telephone
+    
+    Advantages
+    
+    - Simple
+    - Continuous
+    
+    Disadvantages
+    
+    - Noise sensitive
+    - Lower quality over long distances
+    
+    ---
+    
+    ## Digital Transmission
+    
+    Discrete binary signal.
+    
+    ```
+    101100101011
+    ```
+    
+    Examples
+    
+    - Ethernet
+    - Wi-Fi
+    - USB
+    
+    Advantages
+    
+    - High reliability
+    - Better error detection
+    - Easier encryption
+    
+    ---
+    
+    ## Analog vs Digital
+    
+    | Analog | Digital |
+    | --- | --- |
+    | Continuous | Discrete |
+    | Noise Sensitive | Noise Resistant |
+    | Lower Accuracy | Higher Accuracy |
+    | Hard Error Detection | Easy Error Detection |
+    
+    ---
+    
+    ## Transmission Impairments
+    
+    ### Attenuation
+    
+    Signal loses strength.
+    
+    ```
+    ██████
+    ████
+    ██
+    ```
+    
+    ---
+    
+    ### Distortion
+    
+    Signal changes shape.
+    
+    ---
+    
+    ### Noise
+    
+    Unwanted signal added.
+    
+    Types
+    
+    - Thermal
+    - Crosstalk
+    - Impulse
+    
+    ---
+    
+    ## Channel Capacity
+    
+    Maximum amount of data transmitted per second.
+    
+    Measured in
+    
+    ```
+    bps
+    kbps
+    Mbps
+    Gbps
+    Tbps
+    ```
+    
+    ### Factors Affecting Capacity
+    
+    - Bandwidth
+    - Noise
+    - Signal Power
+    
+    ---
+    
+    ## Nyquist Theorem
+    
+    For a noiseless channel:
+    
+    ```
+    Maximum Data Rate = 2 × Bandwidth × log₂(L)
+    ```
+    
+    where **L** is the number of signal levels.
+    
+    ---
+    
+    ## Shannon Capacity
+    
+    For a noisy channel:
+    
+    ```
+    Capacity = B × log₂(1 + S/N)
+    ```
+    
+    where:
+    
+    - **B** = Bandwidth (Hz)
+    - **S/N** = Signal-to-Noise Ratio
+    
+    ---
+    
+    # 📄 PAGE 4 – Internet Applications & Quick Revision
+    
+    ## Internet Applications
+    
+    | Application | Protocol |
+    | --- | --- |
+    | Web Browsing | HTTP / HTTPS |
+    | Email | SMTP, POP3, IMAP |
+    | File Transfer | FTP |
+    | Remote Login | Telnet / SSH |
+    | Domain Name Resolution | DNS |
+    | Automatic IP Allocation | DHCP |
+    
+    ---
+    
+    ## Network Topology
+    
+    | Topology | Advantage | Disadvantage |
+    | --- | --- | --- |
+    | Bus | Cheap | Single cable failure affects network |
+    | Star | Easy to manage | Hub/Switch failure stops network |
+    | Ring | Predictable | Single node failure can affect communication |
+    | Mesh | Highly reliable | Expensive |
+    | Tree | Scalable | Complex setup |
+    
+    ---
+    
+    ## Important Formulae
+    
+    ### Bandwidth
+    
+    ```
+    Data Rate ∝ Bandwidth
+    ```
+    
+    ---
+    
+    ### Nyquist
+    
+    ```
+    2B log₂L
+    ```
+    
+    ---
+    
+    ### Shannon
+    
+    ```
+    B log₂(1 + S/N)
+    ```
+    
+    ---
+    
+    ## Frequently Asked Exam Questions
+    
+    ### 2 Marks
+    
+    - Define Data Communication.
+    - What is a Protocol?
+    - What is Bandwidth?
+    - Define Throughput.
+    - What is Latency?
+    - Define Jitter.
+    - What is the Internet?
+    - Define Computer Network.
+    
+    ---
+    
+    ### 5 Marks
+    
+    - Explain the Communication Model with a diagram.
+    - Explain OSI Model.
+    - Compare OSI and TCP/IP Models.
+    - Explain Analog vs Digital Transmission.
+    - Explain Transmission Impairments.
+    
+    ---
+    
+    ### 10 Marks
+    
+    - Explain the OSI Reference Model with all seven layers.
+    - Explain TCP/IP Architecture.
+    - Explain Nyquist and Shannon Theorems.
+    - Explain Data Communication and its Components.
+    - Compare Analog and Digital Transmission.
+    
+    ---
+    
+    # 📝 One-Minute Revision
+    
+    - **Data Communication** = Exchange of data between devices.
+    - **5 Components** = Sender, Receiver, Message, Medium, Protocol.
+    - **Network Types** = PAN → LAN → MAN → WAN.
+    - **OSI** = 7 Layers.
+    - **TCP/IP** = 4 Layers.
+    - **Simplex** = One-way.
+    - **Half Duplex** = Two-way, one at a time.
+    - **Full Duplex** = Two-way, simultaneous.
+    - **Analog** = Continuous signals.
+    - **Digital** = Binary signals.
+    - **Impairments** = Attenuation, Distortion, Noise.
+    - **Channel Capacity** depends on Bandwidth and Signal-to-Noise Ratio.
+    - **Nyquist** applies to noiseless channels.
+    - **Shannon** applies to noisy channels.
+    
+    ---
+    
+    ## 🎯 Exam Tip
+    
+    If you can confidently explain:
+    
+    - The **Communication Model**,
+    - The **OSI model (all 7 layers)**,
+    - The **TCP/IP architecture**,
+    - **Analog vs Digital Transmission**,
+    - **Transmission Impairments**, and
+    - **Nyquist & Shannon theorems**,
+    
+    you will have covered the highest-weight concepts in Module I while also building a strong foundation for the rest of the networking course.
+    
+- M2
+    
+    # 📘 Data Communications & Networking – Module II Notes (4-Page Revision Notes)
+    
+    > **Module II:** Transmission Media and Signal Encoding Techniques
+    > 
+    > 
+    > Covers:
+    > 
+    > - Guided Transmission Media
+    > - Wireless Transmission & Propagation
+    > - Digital Signaling
+    > - Analog Signaling
+    > - Encoding Techniques
+    > - Modulation Techniques
+    
+    ---
+    
+    # 📄 PAGE 1 – Transmission Media
+    
+    ## What is Transmission Media?
+    
+    **Transmission media** is the physical or wireless path through which data travels from the sender to the receiver.
+    
+    It is classified into two types:
+    
+    ```
+    Transmission Media
+    │
+    ├── Guided (Wired)
+    │   ├── Twisted Pair Cable
+    │   ├── Coaxial Cable
+    │   └── Optical Fiber
+    │
+    └── Unguided (Wireless)
+        ├── Radio Waves
+        ├── Microwaves
+        ├── Infrared
+        └── Satellite
+    ```
+    
+    ---
+    
+    ## 1. Guided (Wired) Media
+    
+    Signals travel through a physical cable.
+    
+    ### (a) Twisted Pair Cable (UTP/STP)
+    
+    ```
+    ~~~~~~~~
+    ~~~~~~~~
+    ```
+    
+    **Characteristics**
+    
+    - Cheapest
+    - Easy to install
+    - Used in LANs
+    - Speed up to 10 Gbps (Cat6/Cat6a)
+    
+    **Advantages**
+    
+    - Low cost
+    - Flexible
+    - Widely available
+    
+    **Disadvantages**
+    
+    - High attenuation
+    - More noise
+    - Limited distance (~100 m)
+    
+    **Applications**
+    
+    - Telephone
+    - Ethernet LAN
+    
+    ---
+    
+    ### (b) Coaxial Cable
+    
+    ```
+    Core
+     │
+    Insulator
+     │
+    Shield
+     │
+    Outer Jacket
+    ```
+    
+    **Characteristics**
+    
+    - Better shielding than twisted pair
+    - Higher bandwidth
+    
+    **Applications**
+    
+    - Cable TV
+    - CCTV
+    - Broadband Internet
+    
+    ---
+    
+    ### (c) Optical Fiber
+    
+    ```
+    Light
+    ══════►
+    ```
+    
+    Data is transmitted using **light pulses**.
+    
+    Types
+    
+    - Single Mode Fiber (SMF)
+    - Multi Mode Fiber (MMF)
+    
+    **Advantages**
+    
+    - Very high bandwidth
+    - Long distance
+    - Immune to EMI
+    - Secure
+    
+    **Disadvantages**
+    
+    - Expensive
+    - Difficult to install
+    
+    Applications
+    
+    - Internet backbone
+    - Data centers
+    - Undersea cables
+    
+    ---
+    
+    ## Comparison
+    
+    | Feature | Twisted Pair | Coaxial | Optical Fiber |
+    | --- | --- | --- | --- |
+    | Cost | Low | Medium | High |
+    | Speed | Medium | High | Very High |
+    | Distance | Low | Medium | Very High |
+    | EMI | High | Medium | None |
+    | Medium | Electrical | Electrical | Light |
+    
+    ---
+    
+    # 📄 PAGE 2 – Wireless Transmission & Propagation
+    
+    ## Unguided (Wireless) Media
+    
+    No physical cable is used.
+    
+    ```
+    Computer ))))
+              Air
+            (((( Phone
+    ```
+    
+    ---
+    
+    ## Radio Waves
+    
+    Frequency:
+    
+    **3 kHz – 1 GHz**
+    
+    Characteristics
+    
+    - Omnidirectional
+    - Can penetrate walls
+    
+    Applications
+    
+    - FM Radio
+    - Television
+    - Bluetooth
+    
+    Advantages
+    
+    - Cheap
+    - Long range
+    
+    Disadvantages
+    
+    - Interference
+    
+    ---
+    
+    ## Microwaves
+    
+    Frequency:
+    
+    **1 GHz – 300 GHz**
+    
+    Characteristics
+    
+    - Line-of-sight communication
+    
+    Applications
+    
+    - Mobile Networks
+    - Wi-Fi
+    - Satellite Communication
+    
+    ---
+    
+    ## Infrared (IR)
+    
+    Characteristics
+    
+    - Short range
+    - Cannot pass through walls
+    
+    Applications
+    
+    - TV Remote
+    - Sensors
+    
+    ---
+    
+    ## Satellite Communication
+    
+    ```
+    Ground Station
+          ▲
+          │
+     Satellite
+          │
+          ▼
+    Receiver
+    ```
+    
+    Applications
+    
+    - GPS
+    - Television
+    - Weather
+    - Internet
+    
+    ---
+    
+    ## Wireless Propagation
+    
+    ### Ground Wave
+    
+    Travels along Earth's surface.
+    
+    Example
+    
+    AM Radio
+    
+    ---
+    
+    ### Sky Wave
+    
+    Reflected by the ionosphere.
+    
+    Example
+    
+    Shortwave Radio
+    
+    ---
+    
+    ### Line-of-Sight (LOS)
+    
+    Travels directly.
+    
+    Example
+    
+    Wi-Fi
+    
+    Microwave
+    
+    Satellite
+    
+    ---
+    
+    ## Wireless Comparison
+    
+    | Medium | Range | Uses |
+    | --- | --- | --- |
+    | Radio | Long | FM, Bluetooth |
+    | Microwave | Medium | Cellular, Wi-Fi |
+    | Infrared | Short | Remote Control |
+    | Satellite | Global | GPS, TV |
+    
+    ---
+    
+    # 📄 PAGE 3 – Signaling, Encoding & Modulation
+    
+    ## Analog Signal
+    
+    Continuous waveform.
+    
+    ```
+    ~~~~~~~
+    ```
+    
+    Examples
+    
+    - Voice
+    - Radio
+    
+    Characteristics
+    
+    - Infinite values
+    - Noise sensitive
+    
+    ---
+    
+    ## Digital Signal
+    
+    Binary values.
+    
+    ```
+    10110101010
+    ```
+    
+    Characteristics
+    
+    - 0 and 1
+    - Reliable
+    - Easier error detection
+    
+    ---
+    
+    ## Analog vs Digital
+    
+    | Analog | Digital |
+    | --- | --- |
+    | Continuous | Discrete |
+    | Noise Sensitive | Noise Resistant |
+    | Difficult Error Detection | Easy Error Detection |
+    | Less Secure | More Secure |
+    
+    ---
+    
+    # Digital Encoding Techniques
+    
+    Encoding converts binary data into signals for transmission.
+    
+    ### NRZ (Non-Return-to-Zero)
+    
+    ```
+    11100011
+    ```
+    
+    Simple but synchronization issues.
+    
+    ---
+    
+    ### Manchester Encoding
+    
+    ```
+    1 = High → Low
+    
+    0 = Low → High
+    ```
+    
+    Advantages
+    
+    - Self-synchronizing
+    
+    Used in Ethernet.
+    
+    ---
+    
+    ### Differential Manchester
+    
+    Transition always occurs at the beginning of each bit.
+    
+    Advantages
+    
+    - Better synchronization
+    - More reliable
+    
+    ---
+    
+    ## Comparison
+    
+    | Encoding | Synchronization | Used In |
+    | --- | --- | --- |
+    | NRZ | Poor | Basic Systems |
+    | Manchester | Excellent | Ethernet |
+    | Differential Manchester | Excellent | Token Ring |
+    
+    ---
+    
+    ## Modulation
+    
+    **Modulation** is the process of converting a digital signal into an analog signal for transmission over analog media.
+    
+    ---
+    
+    # 📄 PAGE 4 – Modulation Techniques & Quick Revision
+    
+    ## Why Modulation?
+    
+    Without modulation:
+    
+    ```
+    Computer
+       │
+    Binary
+    ```
+    
+    Cannot travel efficiently over long distances.
+    
+    With modulation:
+    
+    ```
+    Binary
+    ↓
+    
+    Carrier Wave
+    
+    ↓
+    
+    Long Distance Transmission
+    ```
+    
+    ---
+    
+    ## Types of Modulation
+    
+    ### 1. ASK (Amplitude Shift Keying)
+    
+    Amplitude changes.
+    
+    ```
+    High
+    Low
+    High
+    ```
+    
+    Simple but noise sensitive.
+    
+    ---
+    
+    ### 2. FSK (Frequency Shift Keying)
+    
+    Frequency changes.
+    
+    ```
+    High Frequency
+    
+    Low Frequency
+    ```
+    
+    Applications
+    
+    Bluetooth
+    
+    RFID
+    
+    ---
+    
+    ### 3. PSK (Phase Shift Keying)
+    
+    Phase changes.
+    
+    ```
+    0°
+    
+    180°
+    ```
+    
+    Highly reliable.
+    
+    Used in modern communication systems.
+    
+    ---
+    
+    ## Comparison
+    
+    | Technique | Parameter Changed | Example |
+    | --- | --- | --- |
+    | ASK | Amplitude | Low-speed Modems |
+    | FSK | Frequency | Bluetooth |
+    | PSK | Phase | Wi-Fi, LTE |
+    | QAM | Amplitude + Phase | Cable TV, Wi-Fi, 4G/5G |
+    
+    ---
+    
+    ## Internet & Mobile Technologies
+    
+    | Technology | Medium |
+    | --- | --- |
+    | Ethernet | Twisted Pair |
+    | Cable TV | Coaxial |
+    | Internet Backbone | Optical Fiber |
+    | Wi-Fi | Radio Waves |
+    | Bluetooth | Radio Waves |
+    | 4G/5G | Microwaves |
+    | Satellite TV | Satellite |
+    
+    ---
+    
+    ## Frequently Asked Exam Questions
+    
+    ### 2 Marks
+    
+    - Define transmission media.
+    - What is guided media?
+    - What is optical fiber?
+    - Define modulation.
+    - What is Manchester encoding?
+    
+    ---
+    
+    ### 5 Marks
+    
+    - Compare twisted pair, coaxial cable, and optical fiber.
+    - Explain wireless transmission media.
+    - Explain Manchester encoding.
+    - Explain analog vs digital signals.
+    
+    ---
+    
+    ### 10 Marks
+    
+    - Explain all guided transmission media with advantages and disadvantages.
+    - Explain wireless propagation methods.
+    - Explain encoding techniques.
+    - Explain modulation techniques (ASK, FSK, PSK, QAM).
+    
+    ---
+    
+    # 📝 One-Minute Revision
+    
+    - **Transmission Media** → Guided & Unguided.
+    - **Guided Media** → Twisted Pair, Coaxial, Optical Fiber.
+    - **Wireless Media** → Radio, Microwave, Infrared, Satellite.
+    - **Propagation Modes** → Ground Wave, Sky Wave, Line-of-Sight.
+    - **Signals** → Analog (continuous), Digital (binary).
+    - **Encoding** → NRZ, Manchester, Differential Manchester.
+    - **Modulation** → ASK, FSK, PSK, QAM.
+    - **Best Cable** → Optical Fiber.
+    - **Best Wireless for Long Distance** → Satellite.
+    - **Manchester Encoding** → Used in Ethernet.
+    
+    ---
+    
+    ## 🎯 Exam Tip
+    
+    For Module II, focus on:
+    
+    1. **Comparison of transmission media** (Twisted Pair vs Coaxial vs Optical Fiber)
+    2. **Wireless propagation methods**
+    3. **Analog vs Digital signals**
+    4. **Manchester encoding**
+    5. **ASK, FSK, PSK, and QAM modulation**
+    
+    These topics frequently appear in university exams and provide the foundation for later networking concepts.
+    
+- M3
+    
+    # 📘 Data Communications & Networking – Module III Notes (4-Page Revision Notes)
+    
+    > **Module III:** Error Handling, Data Link Control Protocols & Multiplexing
+    > 
+    > 
+    > Covers:
+    > 
+    > - Types of Errors
+    > - Error Detection Techniques
+    > - Error Correction Techniques
+    > - Flow Control
+    > - Error Control
+    > - High-Level Data Link Control (HDLC)
+    > - Frequency Division Multiplexing (FDM)
+    > - Time Division Multiplexing (TDM)
+    
+    ---
+    
+    # 📄 PAGE 1 – Errors in Data Communication
+    
+    ## What is an Error?
+    
+    An **error** occurs when the received data is different from the transmitted data due to noise or interference.
+    
+    Example:
+    
+    ```
+    Sent     : 10110101
+    Received : 10100101
+    ```
+    
+    ---
+    
+    ## Causes of Errors
+    
+    - Noise
+    - Attenuation
+    - Crosstalk
+    - Electromagnetic Interference (EMI)
+    - Hardware faults
+    
+    ---
+    
+    ## Types of Errors
+    
+    ### 1. Single-Bit Error
+    
+    Only **one bit** changes.
+    
+    ```
+    Sent     : 101101
+    Received : 101001
+    ```
+    
+    Simple to detect and correct.
+    
+    ---
+    
+    ### 2. Burst Error
+    
+    Two or more consecutive bits change.
+    
+    ```
+    Sent     : 1100110011
+    Received : 1111001011
+    ```
+    
+    Most common in networks.
+    
+    ---
+    
+    ## Error Control Process
+    
+    ```
+    Sender
+       │
+    Generate Error Detection Bits
+       │
+    Transmit
+       │
+    Receiver
+       │
+    Check Errors
+       │
+    Correct / Request Retransmission
+    ```
+    
+    ---
+    
+    # Error Detection Techniques
+    
+    ## 1. Parity Check
+    
+    Adds one parity bit.
+    
+    ### Even Parity
+    
+    Total number of 1s must be even.
+    
+    Example
+    
+    ```
+    1011001
+    Parity = 1
+    ```
+    
+    Advantages
+    
+    - Simple
+    - Low cost
+    
+    Disadvantages
+    
+    - Cannot detect all burst errors
+    
+    ---
+    
+    ## 2. Checksum
+    
+    Data divided into words.
+    
+    All words are added.
+    
+    Complement is transmitted.
+    
+    Receiver repeats calculation.
+    
+    Used in:
+    
+    - IP
+    - TCP
+    - UDP
+    
+    ---
+    
+    ## 3. Cyclic Redundancy Check (CRC)
+    
+    Most reliable error detection method.
+    
+    Uses **polynomial division**.
+    
+    ```
+    Data
+    ↓
+    
+    Generator Polynomial
+    
+    ↓
+    
+    CRC Bits
+    
+    ↓
+    
+    Transmit
+    ```
+    
+    Advantages
+    
+    - Detects burst errors
+    - High accuracy
+    
+    Applications
+    
+    - Ethernet
+    - USB
+    - Storage Devices
+    
+    ---
+    
+    ## Comparison
+    
+    | Technique | Detects Burst Errors | Complexity |
+    | --- | --- | --- |
+    | Parity | Poor | Very Low |
+    | Checksum | Good | Medium |
+    | CRC | Excellent | High |
+    
+    ---
+    
+    # 📄 PAGE 2 – Error Correction & Flow Control
+    
+    # Error Correction
+    
+    Corrects errors without retransmission.
+    
+    ---
+    
+    ## 1. Hamming Code
+    
+    Adds redundant bits.
+    
+    Can
+    
+    - Detect errors
+    - Correct one-bit errors
+    
+    Applications
+    
+    - RAM
+    - ECC Memory
+    
+    ---
+    
+    ## 2. Forward Error Correction (FEC)
+    
+    Extra bits are transmitted.
+    
+    Receiver corrects errors directly.
+    
+    Applications
+    
+    - Satellite Communication
+    - Deep Space Communication
+    - Video Streaming
+    
+    ---
+    
+    # Flow Control
+    
+    Prevents a fast sender from overwhelming a slow receiver.
+    
+    ```
+    Fast Sender
+          │
+     Flow Control
+          │
+    Slow Receiver
+    ```
+    
+    ---
+    
+    ## Stop-and-Wait Protocol
+    
+    Sender sends **one frame**.
+    
+    Waits for ACK.
+    
+    ```
+    Frame
+    
+    ↓
+    
+    ACK
+    
+    ↓
+    
+    Next Frame
+    ```
+    
+    Advantages
+    
+    - Very simple
+    
+    Disadvantages
+    
+    - Slow
+    
+    ---
+    
+    ## Sliding Window Protocol
+    
+    Multiple frames can be sent before ACK.
+    
+    ```
+    Frame1
+    Frame2
+    Frame3
+    ↓
+    
+    ACK
+    ```
+    
+    Advantages
+    
+    - Better bandwidth utilization
+    - Faster
+    
+    ---
+    
+    ## Comparison
+    
+    | Stop & Wait | Sliding Window |
+    | --- | --- |
+    | One frame | Multiple frames |
+    | Slow | Fast |
+    | Low efficiency | High efficiency |
+    
+    ---
+    
+    # Error Control
+    
+    Uses
+    
+    - Error Detection
+    - Error Correction
+    - Retransmission (ARQ)
+    
+    Goal
+    
+    Reliable communication.
+    
+    ---
+    
+    # 📄 PAGE 3 – HDLC Protocol
+    
+    ## What is HDLC?
+    
+    **High-Level Data Link Control (HDLC)** is a **bit-oriented Data Link Layer protocol** used for reliable communication.
+    
+    Features
+    
+    - Error Detection
+    - Flow Control
+    - Reliable Transfer
+    - Full Duplex Support
+    
+    ---
+    
+    ## HDLC Frame Format
+    
+    ```
+    Flag
+    Address
+    Control
+    Data
+    FCS
+    Flag
+    ```
+    
+    ---
+    
+    ### Fields
+    
+    | Field | Purpose |
+    | --- | --- |
+    | Flag | Start/End of frame |
+    | Address | Receiver Address |
+    | Control | Flow & Error Control |
+    | Data | User Data |
+    | FCS | CRC Error Detection |
+    
+    ---
+    
+    ## Types of Frames
+    
+    ### Information (I)
+    
+    Carries actual data.
+    
+    ---
+    
+    ### Supervisory (S)
+    
+    Flow control
+    
+    Acknowledgements
+    
+    ---
+    
+    ### Unnumbered (U)
+    
+    Connection management
+    
+    Initialization
+    
+    ---
+    
+    ## Advantages
+    
+    - Reliable
+    - Error detection
+    - High speed
+    - Efficient
+    
+    ---
+    
+    ## Applications
+    
+    - WAN
+    - PPP
+    - Routers
+    
+    ---
+    
+    # 📄 PAGE 4 – Multiplexing
+    
+    ## What is Multiplexing?
+    
+    **Multiplexing** combines multiple signals into one communication channel.
+    
+    ```
+    Input1
+    Input2
+    Input3
+       │
+    Multiplexer
+       │
+    Single Channel
+       │
+    Demultiplexer
+       │
+    Outputs
+    ```
+    
+    ---
+    
+    # Frequency Division Multiplexing (FDM)
+    
+    Bandwidth divided into frequency bands.
+    
+    ```
+    |Ch1|Ch2|Ch3|Ch4|
+    ```
+    
+    Examples
+    
+    - FM Radio
+    - Cable TV
+    
+    Advantages
+    
+    - Continuous transmission
+    
+    Disadvantages
+    
+    - Requires guard bands
+    - Bandwidth wastage
+    
+    ---
+    
+    # Time Division Multiplexing (TDM)
+    
+    Time divided into slots.
+    
+    ```
+    T1 T2 T3 T4
+    ```
+    
+    Each device gets a time slot.
+    
+    Applications
+    
+    - Digital Telephone
+    - GSM Networks
+    
+    Advantages
+    
+    - Better bandwidth utilization
+    
+    Disadvantages
+    
+    - Synchronization required
+    
+    ---
+    
+    ## FDM vs TDM
+    
+    | FDM | TDM |
+    | --- | --- |
+    | Frequency sharing | Time sharing |
+    | Analog | Digital |
+    | Guard bands required | Synchronization required |
+    | Continuous transmission | Time slots |
+    
+    ---
+    
+    ## Frequently Asked Questions
+    
+    ### 2 Marks
+    
+    - Define CRC.
+    - What is Hamming Code?
+    - What is HDLC?
+    - Define Multiplexing.
+    - What is Flow Control?
+    
+    ---
+    
+    ### 5 Marks
+    
+    - Explain CRC.
+    - Explain Stop-and-Wait Protocol.
+    - Explain Sliding Window Protocol.
+    - Explain HDLC Frame Format.
+    - Compare FDM and TDM.
+    
+    ---
+    
+    ### 10 Marks
+    
+    - Explain Error Detection Techniques.
+    - Explain Error Correction Techniques.
+    - Explain HDLC with frame structure.
+    - Explain Multiplexing and compare FDM vs TDM.
+    - Explain Flow Control and Error Control mechanisms.
+    
+    ---
+    
+    # 📝 One-Minute Revision
+    
+    - **Types of Errors** → Single-bit, Burst.
+    - **Error Detection** → Parity, Checksum, CRC.
+    - **Error Correction** → Hamming Code, FEC.
+    - **Flow Control** → Stop-and-Wait, Sliding Window.
+    - **Error Control** → Detection + Correction + Retransmission.
+    - **HDLC** → Bit-oriented Data Link Layer protocol.
+    - **HDLC Frame** → Flag, Address, Control, Data, FCS, Flag.
+    - **Multiplexing** → Multiple signals share one channel.
+    - **FDM** → Frequency-based sharing.
+    - **TDM** → Time-based sharing.
+    
+    ---
+    
+    ## 🎯 Exam Tip
+    
+    The highest-scoring topics in Module III are:
+    
+    1. **CRC (Cyclic Redundancy Check)** ⭐⭐⭐⭐⭐
+    2. **Flow Control (Stop-and-Wait vs Sliding Window)** ⭐⭐⭐⭐⭐
+    3. **HDLC Frame Structure** ⭐⭐⭐⭐☆
+    4. **FDM vs TDM Comparison** ⭐⭐⭐⭐☆
+    5. **Hamming Code & Error Detection Methods** ⭐⭐⭐⭐☆
+    
+    If you master these five topics, you'll cover the concepts that most commonly appear in university exams.
+    
+- M4
+    
+    # 📘 Data Communications & Networking – Module IV Notes (4-Page Revision Notes)
+    
+    > **Module IV:** Wide Area Networks (WAN) & Local Area Networks (LAN)
+    > 
+    > 
+    > Covers:
+    > 
+    > - Switching Networks
+    > - Circuit Switching
+    > - Circuit Switching Concepts
+    > - Packet Switching
+    > - Principles of Cellular Networks
+    > - Cellular Network Generations
+    > - Network Topologies
+    > - LAN Protocol Architecture
+    > - Virtual LANs (VLANs)
+    
+    ---
+    
+    # 📄 PAGE 1 – Switching Networks
+    
+    ## What is Switching?
+    
+    **Switching** is the process of transferring data from a source to a destination through intermediate devices (switches/routers).
+    
+    ```
+    Sender
+       │
+    Switch
+       │
+    Switch
+       │
+    Receiver
+    ```
+    
+    ### Why Switching?
+    
+    - Efficient data transfer
+    - Reduces congestion
+    - Enables communication over long distances
+    - Shares communication resources
+    
+    ---
+    
+    # Types of Switching
+    
+    ## 1. Circuit Switching
+    
+    A **dedicated communication path** is established before data transmission.
+    
+    ```
+    A ─────────────── B
+    (Dedicated Circuit)
+    ```
+    
+    ### Phases
+    
+    1. Circuit Establishment
+    2. Data Transfer
+    3. Circuit Termination
+    
+    ### Advantages
+    
+    - Guaranteed bandwidth
+    - Constant delay
+    - Reliable for voice communication
+    
+    ### Disadvantages
+    
+    - Wastes bandwidth when idle
+    - Call setup takes time
+    - Expensive
+    
+    ### Applications
+    
+    - Traditional Telephone Network (PSTN)
+    - ISDN
+    
+    ---
+    
+    ## 2. Packet Switching
+    
+    Data is divided into **small packets**.
+    
+    Each packet may follow a different route.
+    
+    ```
+    Packet 1 ──►
+    Packet 2 ─────►
+    Packet 3 ─►
+    ```
+    
+    Packets are reassembled at the destination.
+    
+    ### Advantages
+    
+    - Efficient bandwidth usage
+    - Faster resource sharing
+    - Supports multiple users
+    
+    ### Disadvantages
+    
+    - Variable delay
+    - Packets may arrive out of order
+    - Congestion possible
+    
+    ### Applications
+    
+    - Internet
+    - Email
+    - Video Streaming
+    - Cloud Computing
+    
+    ---
+    
+    ## Circuit vs Packet Switching
+    
+    | Circuit Switching | Packet Switching |
+    | --- | --- |
+    | Dedicated path | Shared path |
+    | Fixed delay | Variable delay |
+    | Better for voice | Better for data |
+    | Expensive | Cost-effective |
+    | Continuous connection | Packet-based communication |
+    
+    ---
+    
+    # 📄 PAGE 2 – Cellular Networks
+    
+    # What is a Cellular Network?
+    
+    A **cellular network** divides a geographical area into **cells**, each served by a **Base Station (BTS)**.
+    
+    ```
+    📶 Cell A   📶 Cell B
+         \       /
+          \     /
+         Mobile User
+    ```
+    
+    As the user moves, communication is transferred between cells (**handoff**).
+    
+    ---
+    
+    ## Components
+    
+    - Mobile Station (MS)
+    - Base Transceiver Station (BTS)
+    - Base Station Controller (BSC)
+    - Mobile Switching Center (MSC)
+    
+    ---
+    
+    ## Cellular Concepts
+    
+    ### Frequency Reuse
+    
+    The same frequency can be reused in different cells far enough apart.
+    
+    Advantages
+    
+    - Better spectrum utilization
+    - Supports more users
+    
+    ---
+    
+    ### Handoff (Handover)
+    
+    Transfer of an active call from one cell to another without interruption.
+    
+    Example:
+    
+    Driving while talking on a phone.
+    
+    ---
+    
+    # Cellular Generations
+    
+    | Generation | Features |
+    | --- | --- |
+    | 1G | Analog Voice |
+    | 2G | Digital Voice + SMS |
+    | 3G | Internet & Video Calling |
+    | 4G | High-Speed Internet (LTE) |
+    | 5G | Ultra-fast, IoT, AI, Smart Cities |
+    
+    ---
+    
+    ## Comparison
+    
+    | 3G | 4G | 5G |
+    | --- | --- | --- |
+    | Mbps | 100 Mbps+ | Multi-Gbps |
+    | Video Calls | HD Streaming | AR/VR, IoT |
+    | Moderate Latency | Low Latency | Ultra-Low Latency |
+    
+    ---
+    
+    # 📄 PAGE 3 – Network Topologies & LAN
+    
+    # Network Topology
+    
+    The **physical or logical arrangement** of devices in a network.
+    
+    ---
+    
+    ## 1. Bus Topology
+    
+    ```
+    PC ─ PC ─ PC ─ PC
+    ```
+    
+    Advantages
+    
+    - Cheap
+    - Easy installation
+    
+    Disadvantages
+    
+    - Backbone failure affects the entire network
+    
+    ---
+    
+    ## 2. Star Topology
+    
+    ```
+         PC
+          |
+    PC -- Switch -- PC
+          |
+         PC
+    ```
+    
+    Advantages
+    
+    - Easy troubleshooting
+    - Most common topology
+    
+    Disadvantages
+    
+    - Switch failure stops the network
+    
+    ---
+    
+    ## 3. Ring Topology
+    
+    ```
+    PC ─ PC
+    |      |
+    PC ─ PC
+    ```
+    
+    Advantages
+    
+    - Predictable performance
+    
+    Disadvantages
+    
+    - Node failure affects communication
+    
+    ---
+    
+    ## 4. Mesh Topology
+    
+    ```
+    Every device connects to every other device.
+    ```
+    
+    Advantages
+    
+    - Highly reliable
+    - Fault tolerant
+    
+    Disadvantages
+    
+    - Expensive
+    - Complex wiring
+    
+    ---
+    
+    ## 5. Tree Topology
+    
+    Combination of Star and Bus.
+    
+    Applications
+    
+    - Large organizations
+    - Universities
+    
+    ---
+    
+    # LAN (Local Area Network)
+    
+    A **LAN** connects devices within a small geographical area.
+    
+    Examples
+    
+    - Home
+    - Office
+    - School
+    
+    Characteristics
+    
+    - High speed
+    - Low latency
+    - Privately owned
+    
+    ---
+    
+    ## LAN Protocol Architecture
+    
+    LAN uses mainly the **Data Link Layer** and **Physical Layer**.
+    
+    Major Standards
+    
+    - IEEE 802.3 → Ethernet
+    - IEEE 802.11 → Wi-Fi
+    
+    ---
+    
+    # 📄 PAGE 4 – VLAN & Quick Revision
+    
+    # Virtual LAN (VLAN)
+    
+    A **VLAN** is a **logical division** of a physical LAN.
+    
+    Computers can belong to the same VLAN even if connected to different switches.
+    
+    ```
+    Switch
+     ├── VLAN 10 → HR
+     ├── VLAN 20 → Sales
+     └── VLAN 30 → Accounts
+    ```
+    
+    ---
+    
+    ## Advantages of VLAN
+    
+    - Better security
+    - Reduced broadcast traffic
+    - Easy management
+    - Better performance
+    
+    ---
+    
+    ## Applications
+    
+    - Companies
+    - Universities
+    - Data Centers
+    - Cloud Networks
+    
+    ---
+    
+    # LAN vs WAN
+    
+    | LAN | WAN |
+    | --- | --- |
+    | Small area | Large area |
+    | High speed | Lower speed |
+    | Private ownership | Public/ISP |
+    | Low latency | Higher latency |
+    | Ethernet | Internet/MPLS |
+    
+    ---
+    
+    # Important Comparison
+    
+    ## Circuit Switching vs Packet Switching
+    
+    | Circuit | Packet |
+    | --- | --- |
+    | Dedicated path | Shared path |
+    | Setup required | No setup |
+    | Fixed delay | Variable delay |
+    | Telephone | Internet |
+    
+    ---
+    
+    ## LAN vs WAN
+    
+    | LAN | WAN |
+    | --- | --- |
+    | Building | Country/World |
+    | High speed | Lower speed |
+    | Low cost | Expensive |
+    | Ethernet | Internet |
+    
+    ---
+    
+    ## Frequently Asked Questions
+    
+    ### 2 Marks
+    
+    - Define Switching.
+    - What is Circuit Switching?
+    - What is Packet Switching?
+    - Define VLAN.
+    - What is a Cellular Network?
+    
+    ---
+    
+    ### 5 Marks
+    
+    - Compare Circuit Switching and Packet Switching.
+    - Explain Cellular Network Architecture.
+    - Explain Network Topologies.
+    - Explain VLAN.
+    
+    ---
+    
+    ### 10 Marks
+    
+    - Explain Switching Techniques with diagrams.
+    - Explain Cellular Network Generations (1G–5G).
+    - Explain all Network Topologies with advantages and disadvantages.
+    - Explain LAN Architecture and VLAN.
+    
+    ---
+    
+    # 📝 One-Minute Revision
+    
+    - **Switching** → Transfers data between networks.
+    - **Circuit Switching** → Dedicated path (Telephone).
+    - **Packet Switching** → Packet-based communication (Internet).
+    - **Cellular Network** → Area divided into cells.
+    - **Frequency Reuse** → Same frequency reused in distant cells.
+    - **Handoff** → Moving between cells during an active call.
+    - **1G** → Analog.
+    - **2G** → Digital + SMS.
+    - **3G** → Internet.
+    - **4G** → LTE.
+    - **5G** → IoT, AI, Smart Cities.
+    - **Topologies** → Bus, Star, Ring, Mesh, Tree.
+    - **LAN** → Small-area, high-speed network.
+    - **VLAN** → Logical segmentation of a LAN.
+    
+    ---
+    
+    # 🎯 Exam Tip
+    
+    The most frequently tested topics in Module IV are:
+    
+    1. ⭐⭐⭐⭐⭐ **Circuit Switching vs Packet Switching**
+    2. ⭐⭐⭐⭐☆ **Network Topologies (with diagrams, advantages & disadvantages)**
+    3. ⭐⭐⭐⭐☆ **Cellular Network Architecture and 1G–5G Evolution**
+    4. ⭐⭐⭐⭐☆ **Virtual LAN (VLAN)**
+    5. ⭐⭐⭐☆☆ **LAN Protocol Architecture**
+    
+    If you master these five areas, you'll be well prepared for the majority of university questions from Module IV.
+    
+- M5
+    
+    # 📘 Data Communications & Networking – Module V Notes (4-Page Revision Notes)
+    
+    > **Module V:** Ethernet, Wireless LAN Overview & Internetworking
+    > 
+    > 
+    > Covers:
+    > 
+    > - Traditional Ethernet
+    > - High-Speed Ethernet
+    > - IEEE 802.11 (Wi-Fi)
+    > - Internet Protocol (IP)
+    > - IP Addressing
+    > - Transport Protocols
+    > - Routing in Packet Switching Networks
+    > - Distance Vector Routing
+    > - Link State Routing
+    > - Path Vector Routing
+    > - Congestion Control
+    > - Traffic Management
+    > - SMTP
+    > - DNS
+    > - HTTP
+    > - DHCP
+    
+    ---
+    
+    # 📄 PAGE 1 – Ethernet & Wireless LAN
+    
+    ## Ethernet
+    
+    **Ethernet** is the most widely used **LAN technology**, standardized by **IEEE 802.3**.
+    
+    ### Features
+    
+    - Wired LAN technology
+    - Uses MAC Addresses
+    - Fast and reliable
+    - Supports Star Topology
+    
+    ```
+    PC
+     │
+    Switch
+     │
+    PC
+    ```
+    
+    ---
+    
+    ## Traditional Ethernet
+    
+    | Standard | Speed |
+    | --- | --- |
+    | Ethernet | 10 Mbps |
+    
+    Medium
+    
+    - Twisted Pair
+    - Coaxial Cable
+    
+    Uses **CSMA/CD (Carrier Sense Multiple Access with Collision Detection)**.
+    
+    ### Working
+    
+    1. Listen to the channel.
+    2. If free, transmit.
+    3. Detect collision.
+    4. Stop transmission.
+    5. Wait randomly.
+    6. Retransmit.
+    
+    ---
+    
+    ## High-Speed Ethernet
+    
+    | Standard | Speed |
+    | --- | --- |
+    | Fast Ethernet | 100 Mbps |
+    | Gigabit Ethernet | 1 Gbps |
+    | 10 Gigabit Ethernet | 10 Gbps |
+    | 40/100 Gigabit Ethernet | Data Centers |
+    
+    Advantages
+    
+    - Higher bandwidth
+    - Low latency
+    - Better performance
+    
+    ---
+    
+    ## IEEE 802.11 (Wi-Fi)
+    
+    Wireless LAN Standard developed by **IEEE**.
+    
+    ### Versions
+    
+    | Version | Speed |
+    | --- | --- |
+    | 802.11b | 11 Mbps |
+    | 802.11a | 54 Mbps |
+    | 802.11g | 54 Mbps |
+    | 802.11n | 600 Mbps |
+    | 802.11ac | Several Gbps |
+    | 802.11ax (Wi-Fi 6) | Multi-Gbps |
+    
+    Advantages
+    
+    - Mobility
+    - Easy installation
+    - No cables
+    
+    Disadvantages
+    
+    - Lower security
+    - Interference
+    - Lower speed than wired Ethernet
+    
+    ---
+    
+    # 📄 PAGE 2 – IP Addressing & Transport Protocols
+    
+    # Internet Protocol (IP)
+    
+    **IP** is a **Network Layer protocol** responsible for addressing and routing packets.
+    
+    Functions
+    
+    - Logical Addressing
+    - Packet Delivery
+    - Routing
+    
+    ---
+    
+    ## IPv4 Address
+    
+    32-bit address
+    
+    Example
+    
+    ```
+    192.168.1.10
+    ```
+    
+    Structure
+    
+    ```
+    Network ID | Host ID
+    ```
+    
+    ---
+    
+    ## IPv6 Address
+    
+    128-bit address
+    
+    Example
+    
+    ```
+    2001:db8::1
+    ```
+    
+    Advantages
+    
+    - Huge address space
+    - Better security
+    - Improved routing
+    
+    ---
+    
+    ## IP Classes
+    
+    | Class | Range | Default Mask |
+    | --- | --- | --- |
+    | A | 1–126 | 255.0.0.0 |
+    | B | 128–191 | 255.255.0.0 |
+    | C | 192–223 | 255.255.255.0 |
+    | D | 224–239 | Multicast |
+    | E | 240–255 | Experimental |
+    
+    ---
+    
+    ## Transport Protocols
+    
+    Transport Layer provides end-to-end communication.
+    
+    ### TCP
+    
+    Transmission Control Protocol
+    
+    Features
+    
+    - Reliable
+    - Connection-oriented
+    - Error Recovery
+    - Ordered Delivery
+    
+    Applications
+    
+    - HTTP
+    - HTTPS
+    - FTP
+    - Email
+    
+    ---
+    
+    ### UDP
+    
+    User Datagram Protocol
+    
+    Features
+    
+    - Fast
+    - Connectionless
+    - No error recovery
+    
+    Applications
+    
+    - Live Streaming
+    - Gaming
+    - VoIP
+    - DNS
+    
+    ---
+    
+    ## TCP vs UDP
+    
+    | TCP | UDP |
+    | --- | --- |
+    | Reliable | Fast |
+    | Connection-Oriented | Connectionless |
+    | Ordered | Unordered |
+    | More Overhead | Less Overhead |
+    
+    ---
+    
+    # 📄 PAGE 3 – Routing & Congestion Control
+    
+    # Routing
+    
+    Routing is the process of finding the **best path** for packets.
+    
+    Performed by **Routers**.
+    
+    ```
+    A
+    │
+    Router
+    │
+    Router
+    │
+    B
+    ```
+    
+    ---
+    
+    ## Distance Vector Routing
+    
+    Examples
+    
+    - RIP
+    
+    Working
+    
+    Each router shares its routing table with neighbors.
+    
+    Uses
+    
+    **Hop Count**
+    
+    Advantages
+    
+    - Simple
+    
+    Disadvantages
+    
+    - Slow convergence
+    - Routing loops
+    
+    ---
+    
+    ## Link State Routing
+    
+    Examples
+    
+    - OSPF
+    
+    Working
+    
+    Routers know the complete network topology.
+    
+    Uses
+    
+    **Dijkstra's Algorithm**
+    
+    Advantages
+    
+    - Faster convergence
+    - More accurate
+    
+    Disadvantages
+    
+    - Higher memory usage
+    
+    ---
+    
+    ## Path Vector Routing
+    
+    Example
+    
+    - BGP (Border Gateway Protocol)
+    
+    Working
+    
+    Routers exchange entire routing paths.
+    
+    Used on
+    
+    - Internet
+    - ISPs
+    
+    Advantages
+    
+    - Highly scalable
+    - Prevents routing loops
+    
+    ---
+    
+    ## Routing Comparison
+    
+    | Protocol | Algorithm |
+    | --- | --- |
+    | RIP | Distance Vector |
+    | OSPF | Link State |
+    | BGP | Path Vector |
+    
+    ---
+    
+    ## Congestion Control
+    
+    Occurs when too many packets enter the network.
+    
+    Symptoms
+    
+    - Packet Loss
+    - Delay
+    - Retransmissions
+    
+    Methods
+    
+    - Traffic Shaping
+    - Admission Control
+    - Queue Management
+    
+    ---
+    
+    ## Traffic Management
+    
+    Controls packet flow for better network performance.
+    
+    Goals
+    
+    - Reduce delay
+    - Avoid congestion
+    - Improve Quality of Service (QoS)
+    
+    ---
+    
+    # 📄 PAGE 4 – Application Layer Protocols & Quick Revision
+    
+    ## SMTP
+    
+    Simple Mail Transfer Protocol
+    
+    Purpose
+    
+    Sending Email
+    
+    Default Port
+    
+    **25** (or **587** for authenticated submission)
+    
+    ---
+    
+    ## DNS
+    
+    Domain Name System
+    
+    Converts
+    
+    ```
+    google.com
+    ```
+    
+    ↓
+    
+    ```
+    142.250.xxx.xxx
+    ```
+    
+    Default Port
+    
+    **53**
+    
+    ---
+    
+    ## HTTP
+    
+    HyperText Transfer Protocol
+    
+    Purpose
+    
+    Web Browsing
+    
+    Methods
+    
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    
+    Default Port
+    
+    80
+    
+    HTTPS
+    
+    443
+    
+    ---
+    
+    ## DHCP
+    
+    Dynamic Host Configuration Protocol
+    
+    Automatically assigns
+    
+    - IP Address
+    - Gateway
+    - DNS Server
+    - Subnet Mask
+    
+    Ports
+    
+    67 & 68 (UDP)
+    
+    ---
+    
+    ## Important Protocol Summary
+    
+    | Protocol | Purpose | Port |
+    | --- | --- | --- |
+    | HTTP | Web | 80 |
+    | HTTPS | Secure Web | 443 |
+    | FTP | File Transfer | 21 |
+    | SMTP | Email | 25 / 587 |
+    | POP3 | Receive Email | 110 |
+    | IMAP | Mail Sync | 143 |
+    | DNS | Name Resolution | 53 |
+    | DHCP | Automatic IP | 67/68 |
+    | SSH | Secure Login | 22 |
+    
+    ---
+    
+    # Frequently Asked Questions
+    
+    ### 2 Marks
+    
+    - What is Ethernet?
+    - Define IP Address.
+    - What is TCP?
+    - What is DNS?
+    - What is DHCP?
+    
+    ---
+    
+    ### 5 Marks
+    
+    - Compare TCP and UDP.
+    - Explain IPv4 and IPv6.
+    - Explain Distance Vector and Link State Routing.
+    - Explain HTTP and DNS.
+    
+    ---
+    
+    ### 10 Marks
+    
+    - Explain Ethernet and IEEE 802.11.
+    - Explain Routing Algorithms.
+    - Explain Congestion Control.
+    - Explain SMTP, DNS, HTTP, and DHCP.
+    - Compare Routing Protocols.
+    
+    ---
+    
+    # 📝 One-Minute Revision
+    
+    - **Ethernet** → IEEE 802.3 (Wired LAN)
+    - **Wi-Fi** → IEEE 802.11 (Wireless LAN)
+    - **IPv4** → 32-bit
+    - **IPv6** → 128-bit
+    - **TCP** → Reliable, Connection-oriented
+    - **UDP** → Fast, Connectionless
+    - **Distance Vector** → RIP
+    - **Link State** → OSPF
+    - **Path Vector** → BGP
+    - **Congestion Control** → Prevents packet loss
+    - **Traffic Management** → Improves QoS
+    - **SMTP** → Sends email
+    - **DNS** → Converts domain names to IP addresses
+    - **HTTP** → Web browsing
+    - **DHCP** → Automatically assigns IP addresses
+    
+    ---
+    
+    # 🎯 Exam Tip
+    
+    The highest-weight topics in Module V are:
+    
+    1. ⭐⭐⭐⭐⭐ **TCP vs UDP**
+    2. ⭐⭐⭐⭐⭐ **IPv4 vs IPv6 and IP Addressing**
+    3. ⭐⭐⭐⭐☆ **Routing Algorithms (RIP, OSPF, BGP)**
+    4. ⭐⭐⭐⭐☆ **Ethernet vs Wi-Fi (IEEE 802.3 vs IEEE 802.11)**
+    5. ⭐⭐⭐⭐☆ **Application Layer Protocols (HTTP, DNS, SMTP, DHCP)**
+    6. ⭐⭐⭐☆☆ **Congestion Control & Traffic Management**
+    
+    Mastering these topics will cover the majority of university exam questions from Module V and provide a solid foundation for networking interviews.
+
+#### DCCN Question Bank & Comprehensive Solutions
+- M1
+    
+    # 📚 Data Communications & Networking – Module I (Long Answer Questions)
+    
+    These are **25 university-style 8–15 mark questions** covering **100% of Module I**. If you can answer these, you'll be prepared for almost any long-answer question from Module I.
+    
+    ---
+    
+    ## Part A – Fundamentals
+    
+    ### 1.
+    
+    **Explain the Data Communication System with a neat diagram. Discuss its characteristics and components in detail.**
+    
+    **Topics Covered**
+    
+    - Communications Model
+    - Data Communication
+    - Components
+    - Characteristics
+    
+    ---
+    
+    ### 2.
+    
+    **Describe the Communication Model in detail. Explain the role of sender, receiver, message, transmission medium, encoder, decoder, and protocol with suitable examples.**
+    
+    ---
+    
+    ### 3.
+    
+    **What is a computer network? Explain the different types of computer networks (PAN, LAN, MAN, WAN) with diagrams, applications, advantages, and disadvantages.**
+    
+    ---
+    
+    ### 4.
+    
+    **Explain the Internet and its architecture. Describe how communication takes place over the Internet using TCP/IP.**
+    
+    ---
+    
+    ### 5.
+    
+    **Differentiate between Data Communication, Computer Networks, and the Internet with suitable examples.**
+    
+    ---
+    
+    ## Part B – OSI & TCP/IP
+    
+    ### 6.
+    
+    **Explain the OSI Reference Model in detail. Draw the layered architecture and describe the functions of each layer.**
+    
+    ---
+    
+    ### 7.
+    
+    **Explain the TCP/IP Protocol Architecture. Describe the functions of each layer with suitable protocols.**
+    
+    ---
+    
+    ### 8.
+    
+    **Compare the OSI Model and TCP/IP Model. Explain their similarities, differences, advantages, and disadvantages.**
+    
+    ---
+    
+    ### 9.
+    
+    **Explain the protocol layering concept. Why are layers necessary in networking? Illustrate the encapsulation and decapsulation process.**
+    
+    ---
+    
+    ### 10.
+    
+    **Discuss various networking standards organizations such as ISO, IEEE, ANSI, IETF, and ITU-T. Explain their roles in computer networking.**
+    
+    ---
+    
+    ## Part C – Internet Applications
+    
+    ### 11.
+    
+    **Explain various Internet applications and the protocols associated with them (HTTP, HTTPS, FTP, SMTP, POP3, IMAP, DNS, DHCP).**
+    
+    ---
+    
+    ### 12.
+    
+    **Describe the working of web browsing, email communication, file transfer, remote login, and cloud services over the Internet.**
+    
+    ---
+    
+    ## Part D – Data Transmission
+    
+    ### 13.
+    
+    **Explain the concepts and terminology of data transmission. Discuss bandwidth, throughput, latency, jitter, bit rate, baud rate, propagation delay, and transmission delay.**
+    
+    ---
+    
+    ### 14.
+    
+    **Differentiate between Analog Transmission and Digital Transmission with neat diagrams, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 15.
+    
+    **Explain Analog Signals and Digital Signals. Compare them based on waveform, bandwidth, noise immunity, transmission quality, and applications.**
+    
+    ---
+    
+    ### 16.
+    
+    **Explain various transmission modes (Simplex, Half-Duplex, Full-Duplex) with suitable diagrams and examples.**
+    
+    ---
+    
+    ### 17.
+    
+    **Explain Serial Transmission and Parallel Transmission. Compare their advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ## Part E – Transmission Impairments
+    
+    ### 18.
+    
+    **What are Transmission Impairments? Explain Attenuation, Distortion, and Noise in detail with neat diagrams and examples.**
+    
+    ---
+    
+    ### 19.
+    
+    **Discuss different types of Noise in data communication (Thermal Noise, Crosstalk, Impulse Noise, Intermodulation Noise). Explain their causes and effects.**
+    
+    ---
+    
+    ## Part F – Channel Capacity
+    
+    ### 20.
+    
+    **What is Channel Capacity? Explain the factors affecting channel capacity. Derive and explain Nyquist's Theorem with examples.**
+    
+    ---
+    
+    ### 21.
+    
+    **Explain Shannon's Capacity Theorem. Compare Shannon's theorem with Nyquist's theorem using suitable examples.**
+    
+    ---
+    
+    ### 22.
+    
+    **Differentiate between Bandwidth, Data Rate, Bit Rate, Baud Rate, Throughput, and Channel Capacity.**
+    
+    ---
+    
+    ## Part G – Integrated Questions
+    
+    ### 23.
+    
+    **Explain the complete process of data communication from sender to receiver using the OSI Model and TCP/IP Architecture with a neat diagram.**
+    
+    ---
+    
+    ### 24.
+    
+    **A user opens a website using a browser. Explain the complete communication process from entering the URL to receiving the webpage using the Communication Model, OSI Model, TCP/IP Architecture, and Internet protocols.**
+    
+    ---
+    
+    ### 25.
+    
+    **Explain Module I of Data Communication and Networking by discussing Communication Model, OSI Model, TCP/IP Architecture, Data Transmission, Transmission Impairments, and Channel Capacity in an integrated manner.**
+    
+    ---
+    
+    # ⭐ Most Important Questions (Frequently Asked)
+    
+    These are the questions most likely to appear in exams:
+    
+    1. ⭐⭐⭐⭐⭐ Explain the OSI Reference Model with a neat diagram.
+    2. ⭐⭐⭐⭐⭐ Explain the TCP/IP Protocol Architecture.
+    3. ⭐⭐⭐⭐⭐ Compare OSI and TCP/IP Models.
+    4. ⭐⭐⭐⭐⭐ Explain the Data Communication System and its components.
+    5. ⭐⭐⭐⭐⭐ Explain Analog and Digital Transmission.
+    6. ⭐⭐⭐⭐☆ Explain Transmission Impairments.
+    7. ⭐⭐⭐⭐☆ Explain Nyquist and Shannon Capacity Theorems.
+    8. ⭐⭐⭐⭐☆ Explain Internet Applications and related protocols.
+    9. ⭐⭐⭐⭐☆ Explain Data Transmission Concepts and Terminology.
+    10. ⭐⭐⭐⭐☆ Explain Computer Networks and their types.
+    
+    Preparing detailed answers for these **25 questions** will give you comprehensive coverage of every topic in Module I and excellent readiness for university examinations.
+    
+- M2
+    
+    # 📚 Data Communications & Networking – Module II (Long Answer Questions)
+    
+    These are **25 university-style 8–15 mark questions** covering **100% of Module II**.
+    
+    > **Module II Topics**
+    > 
+    > - Guided Transmission Media
+    > - Wireless Transmission & Propagation
+    > - Digital Signaling
+    > - Analog Signaling
+    > - Encoding Techniques
+    > - Modulation Techniques
+    
+    ---
+    
+    # Part A – Transmission Media
+    
+    ### 1.
+    
+    **What is Transmission Media? Classify transmission media into Guided and Unguided media. Explain each type with suitable diagrams.**
+    
+    **Topics Covered**
+    
+    - Guided Media
+    - Wireless Media
+    - Comparison
+    
+    ---
+    
+    ### 2.
+    
+    **Explain Twisted Pair Cable, Coaxial Cable, and Optical Fiber in detail. Compare them based on structure, bandwidth, cost, speed, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 3.
+    
+    **Describe the construction, working principle, advantages, disadvantages, and applications of Optical Fiber Communication.**
+    
+    ---
+    
+    ### 4.
+    
+    **Compare Twisted Pair Cable, Coaxial Cable, and Optical Fiber using suitable diagrams and tabular comparison.**
+    
+    ---
+    
+    ### 5.
+    
+    **Explain the factors affecting the selection of transmission media. Which transmission medium is most suitable for different networking scenarios? Justify your answer.**
+    
+    ---
+    
+    # Part B – Wireless Transmission & Propagation
+    
+    ### 6.
+    
+    **Explain Wireless Transmission Media. Describe Radio Waves, Microwaves, Infrared, and Satellite Communication with neat diagrams and applications.**
+    
+    ---
+    
+    ### 7.
+    
+    **Explain the different propagation methods of wireless communication: Ground Wave, Sky Wave, and Line-of-Sight (LOS) propagation.**
+    
+    ---
+    
+    ### 8.
+    
+    **Describe Satellite Communication. Explain its architecture, working, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 9.
+    
+    **Compare Radio Wave, Microwave, Infrared, and Satellite Communication based on frequency range, coverage, applications, and limitations.**
+    
+    ---
+    
+    ### 10.
+    
+    **Explain the advantages, disadvantages, and real-world applications of wireless communication technologies.**
+    
+    ---
+    
+    # Part C – Analog & Digital Signaling
+    
+    ### 11.
+    
+    **What is a signal? Explain Analog Signal and Digital Signal with neat waveforms. Compare their characteristics and applications.**
+    
+    ---
+    
+    ### 12.
+    
+    **Differentiate between Analog Signaling and Digital Signaling with suitable examples and diagrams.**
+    
+    ---
+    
+    ### 13.
+    
+    **Explain the characteristics of Analog Signals and Digital Signals. Discuss their advantages, disadvantages, and practical applications.**
+    
+    ---
+    
+    # Part D – Encoding Techniques
+    
+    ### 14.
+    
+    **What is Line Encoding? Explain the need for encoding in data communication.**
+    
+    ---
+    
+    ### 15.
+    
+    **Explain NRZ (Non-Return-to-Zero) Encoding. Discuss its types, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 16.
+    
+    **Explain Manchester Encoding and Differential Manchester Encoding with suitable diagrams. Compare both techniques.**
+    
+    ---
+    
+    ### 17.
+    
+    **Compare NRZ, Manchester, and Differential Manchester Encoding based on synchronization, bandwidth, error detection capability, and applications.**
+    
+    ---
+    
+    ### 18.
+    
+    **Explain the importance of synchronization in digital communication. How do different encoding techniques help achieve synchronization?**
+    
+    ---
+    
+    # Part E – Modulation Techniques
+    
+    ### 19.
+    
+    **What is Modulation? Why is modulation necessary in communication systems? Explain with suitable examples.**
+    
+    ---
+    
+    ### 20.
+    
+    **Explain Amplitude Shift Keying (ASK), Frequency Shift Keying (FSK), and Phase Shift Keying (PSK) with neat diagrams and applications.**
+    
+    ---
+    
+    ### 21.
+    
+    **Explain Quadrature Amplitude Modulation (QAM). Compare it with ASK, FSK, and PSK.**
+    
+    ---
+    
+    ### 22.
+    
+    **Differentiate between Encoding and Modulation. Explain where each technique is used in communication systems.**
+    
+    ---
+    
+    ### 23.
+    
+    **Compare ASK, FSK, PSK, and QAM based on working principle, advantages, disadvantages, bandwidth efficiency, and applications.**
+    
+    ---
+    
+    # Part F – Integrated Questions
+    
+    ### 24.
+    
+    **Explain the complete process of data transmission from sender to receiver, including transmission media, signaling, encoding, and modulation techniques with neat diagrams.**
+    
+    ---
+    
+    ### 25.
+    
+    **Discuss the role of transmission media, signaling, encoding, and modulation in modern communication systems such as Ethernet, Wi-Fi, Mobile Networks, and Optical Fiber Networks.**
+    
+    ---
+    
+    # ⭐ Most Important Questions (Frequently Asked)
+    
+    1. ⭐⭐⭐⭐⭐ Explain Guided Transmission Media (Twisted Pair, Coaxial, Optical Fiber).
+    2. ⭐⭐⭐⭐⭐ Compare Guided Transmission Media.
+    3. ⭐⭐⭐⭐⭐ Explain Wireless Transmission Media and Propagation Methods.
+    4. ⭐⭐⭐⭐⭐ Explain Analog Signal vs Digital Signal.
+    5. ⭐⭐⭐⭐⭐ Explain Manchester and Differential Manchester Encoding.
+    6. ⭐⭐⭐⭐☆ Explain NRZ Encoding.
+    7. ⭐⭐⭐⭐☆ Explain Modulation Techniques (ASK, FSK, PSK).
+    8. ⭐⭐⭐⭐☆ Compare ASK, FSK, PSK, and QAM.
+    9. ⭐⭐⭐⭐☆ Explain Satellite Communication.
+    10. ⭐⭐⭐⭐☆ Explain Encoding vs Modulation.
+    
+    ---
+    
+    # 🎯 Exam Preparation Strategy
+    
+    If you're short on time, prioritize these in order:
+    
+    1. **Guided Transmission Media** (Twisted Pair, Coaxial, Optical Fiber)
+    2. **Wireless Transmission & Propagation**
+    3. **Analog vs Digital Signaling**
+    4. **Manchester & Differential Manchester Encoding**
+    5. **ASK, FSK, PSK & QAM**
+    6. **Encoding vs Modulation**
+    
+    These questions collectively cover the concepts that are most commonly tested in university exams and provide complete coverage of Module II.
+    
+- M3
+    
+    # 📚 Data Communications & Networking – Module III (Complete Long Answer Question Bank)
+    
+    These are **30 university-style 8–15 mark questions** covering **100% of Module III**.
+    
+    > **Module III Topics**
+    > 
+    > - Types of Errors
+    > - Error Detection Techniques
+    > - Error Correction Techniques
+    > - Flow Control
+    > - Error Control
+    > - High-Level Data Link Control (HDLC)
+    > - Frequency Division Multiplexing (FDM)
+    > - Time Division Multiplexing (TDM)
+    
+    ---
+    
+    # Part A – Errors in Data Communication
+    
+    ### 1.
+    
+    **What is an error in data communication? Explain the causes of errors and discuss different types of errors with suitable examples.**
+    
+    ---
+    
+    ### 2.
+    
+    **Differentiate between Single-Bit Errors and Burst Errors. Explain their causes, characteristics, and effects on data transmission.**
+    
+    ---
+    
+    ### 3.
+    
+    **Explain the complete process of error handling in a communication system from transmission to successful reception.**
+    
+    ---
+    
+    # Part B – Error Detection Techniques
+    
+    ### 4.
+    
+    **What is Error Detection? Explain the need for error detection in data communication.**
+    
+    ---
+    
+    ### 5.
+    
+    **Explain Parity Check (Even and Odd Parity) with suitable examples. Discuss its advantages and limitations.**
+    
+    ---
+    
+    ### 6.
+    
+    **Explain the Checksum method of error detection with an example. Discuss its working, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 7.
+    
+    **Explain Cyclic Redundancy Check (CRC) in detail. Describe the polynomial division process with a suitable example.**
+    
+    ---
+    
+    ### 8.
+    
+    **Compare Parity Check, Checksum, and CRC based on working principle, error detection capability, complexity, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 9.
+    
+    **Differentiate between Error Detection and Error Correction with suitable examples.**
+    
+    ---
+    
+    # Part C – Error Correction Techniques
+    
+    ### 10.
+    
+    **What is Error Correction? Explain various error correction techniques used in computer networks.**
+    
+    ---
+    
+    ### 11.
+    
+    **Explain Hamming Code in detail. Describe the generation of redundant bits, error detection, and single-bit error correction with a suitable example.**
+    
+    ---
+    
+    ### 12.
+    
+    **Explain Forward Error Correction (FEC). Discuss its working, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 13.
+    
+    **Compare Hamming Code and Forward Error Correction (FEC) with respect to working, complexity, applications, and efficiency.**
+    
+    ---
+    
+    # Part D – Flow Control & Error Control
+    
+    ### 14.
+    
+    **What is Flow Control? Why is flow control necessary in computer networks? Explain with suitable examples.**
+    
+    ---
+    
+    ### 15.
+    
+    **Explain the Stop-and-Wait Flow Control Protocol with a neat diagram. Discuss its advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 16.
+    
+    **Explain the Sliding Window Protocol with a neat diagram. Describe its working and advantages over Stop-and-Wait Protocol.**
+    
+    ---
+    
+    ### 17.
+    
+    **Compare Stop-and-Wait Protocol and Sliding Window Protocol based on efficiency, throughput, complexity, and applications.**
+    
+    ---
+    
+    ### 18.
+    
+    **What is Error Control? Explain various error control mechanisms used in reliable data communication.**
+    
+    ---
+    
+    ### 19.
+    
+    **Explain Automatic Repeat reQuest (ARQ). Describe Stop-and-Wait ARQ, Go-Back-N ARQ, and Selective Repeat ARQ with suitable diagrams.**
+    
+    ---
+    
+    ### 20.
+    
+    **Differentiate between Flow Control and Error Control with suitable examples.**
+    
+    ---
+    
+    # Part E – High-Level Data Link Control (HDLC)
+    
+    ### 21.
+    
+    **Explain High-Level Data Link Control (HDLC). Discuss its features, objectives, and applications.**
+    
+    ---
+    
+    ### 22.
+    
+    **Explain the HDLC Frame Format with a neat diagram. Describe the function of each field (Flag, Address, Control, Data, FCS).**
+    
+    ---
+    
+    ### 23.
+    
+    **Explain the different types of HDLC frames (Information Frame, Supervisory Frame, and Unnumbered Frame).**
+    
+    ---
+    
+    ### 24.
+    
+    **Describe the working of HDLC. Explain how it provides reliable communication using flow control and error control mechanisms.**
+    
+    ---
+    
+    # Part F – Multiplexing
+    
+    ### 25.
+    
+    **What is Multiplexing? Explain the need, advantages, and applications of multiplexing in communication systems.**
+    
+    ---
+    
+    ### 26.
+    
+    **Explain Frequency Division Multiplexing (FDM) with a neat diagram. Discuss its working, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 27.
+    
+    **Explain Time Division Multiplexing (TDM) with a neat diagram. Discuss its working, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 28.
+    
+    **Compare Frequency Division Multiplexing (FDM) and Time Division Multiplexing (TDM) with suitable examples.**
+    
+    ---
+    
+    # Part G – Integrated Questions
+    
+    ### 29.
+    
+    **Explain the complete process of reliable data communication including error detection, error correction, flow control, error control, HDLC, and multiplexing with neat diagrams.**
+    
+    ---
+    
+    ### 30.
+    
+    **Discuss the importance of Error Handling, HDLC, and Multiplexing in modern communication systems such as Ethernet, Telephone Networks, Mobile Networks, and the Internet.**
+    
+    ---
+    
+    # ⭐ Most Important Questions (Exam Focus)
+    
+    | Priority | Question |
+    | --- | --- |
+    | ⭐⭐⭐⭐⭐ | Explain CRC with suitable example. |
+    | ⭐⭐⭐⭐⭐ | Explain Hamming Code and Error Correction. |
+    | ⭐⭐⭐⭐⭐ | Explain Stop-and-Wait and Sliding Window Protocols. |
+    | ⭐⭐⭐⭐⭐ | Compare Stop-and-Wait and Sliding Window. |
+    | ⭐⭐⭐⭐⭐ | Explain HDLC Frame Format and its fields. |
+    | ⭐⭐⭐⭐⭐ | Explain FDM and TDM with diagrams. |
+    | ⭐⭐⭐⭐☆ | Compare Parity, Checksum, and CRC. |
+    | ⭐⭐⭐⭐☆ | Explain ARQ (Stop-and-Wait, Go-Back-N, Selective Repeat). |
+    | ⭐⭐⭐⭐☆ | Explain Types of Errors (Single-Bit vs Burst). |
+    | ⭐⭐⭐⭐☆ | Compare Flow Control and Error Control. |
+    | ⭐⭐⭐⭐☆ | Compare FDM and TDM. |
+    | ⭐⭐⭐⭐☆ | Explain the complete reliable data communication process. |
+    
+    ---
+    
+    # 🎯 Exam Preparation Strategy
+    
+    If you have limited time, study these topics in this order:
+    
+    1. **CRC (Cyclic Redundancy Check)**
+    2. **Hamming Code & Error Correction**
+    3. **Flow Control (Stop-and-Wait & Sliding Window)**
+    4. **HDLC Frame Structure and Frame Types**
+    5. **FDM vs TDM**
+    6. **Parity Check & Checksum**
+    7. **ARQ Protocols**
+    8. **Types of Errors & Error Control**
+    
+    These **30 long-answer questions** provide comprehensive coverage of Module III and align closely with the style of questions commonly asked in university examinations.
+    
+- M4
+    
+    # 📚 Data Communications & Networking – Module IV (Complete Long Answer Question Bank)
+    
+    These are **30 university-style 8–15 mark questions** covering **100% of Module IV**.
+    
+    > **Module IV Topics**
+    > 
+    > - Switching Network
+    > - Circuit-Switching Networks
+    > - Circuit-Switching Concepts
+    > - Packet-Switching Principles
+    > - Principles of Cellular Networks
+    > - Cellular Network Generations
+    > - Network Topologies
+    > - LAN Protocol Architecture
+    > - Virtual LANs (VLANs)
+    
+    ---
+    
+    # Part A – Switching Networks
+    
+    ### 1.
+    
+    **What is Switching? Explain the need for switching in computer networks. Discuss different switching techniques with suitable diagrams.**
+    
+    ---
+    
+    ### 2.
+    
+    **Explain Circuit Switching in detail. Describe its phases, working principle, advantages, disadvantages, and applications with neat diagrams.**
+    
+    ---
+    
+    ### 3.
+    
+    **Explain the concepts of Circuit Switching. Discuss circuit establishment, data transfer, and circuit termination.**
+    
+    ---
+    
+    ### 4.
+    
+    **Explain Packet Switching. Describe Datagram Packet Switching and Virtual Circuit Packet Switching with suitable diagrams.**
+    
+    ---
+    
+    ### 5.
+    
+    **Compare Circuit Switching and Packet Switching based on working, bandwidth utilization, delay, reliability, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 6.
+    
+    **Differentiate between Datagram Packet Switching and Virtual Circuit Packet Switching with suitable examples.**
+    
+    ---
+    
+    # Part B – Cellular Networks
+    
+    ### 7.
+    
+    **What is a Cellular Network? Explain the basic architecture and components of a cellular communication system with a neat diagram.**
+    
+    ---
+    
+    ### 8.
+    
+    **Explain the principles of Cellular Networks. Discuss the concepts of cells, frequency reuse, handoff (handover), and channel allocation.**
+    
+    ---
+    
+    ### 9.
+    
+    **Explain the architecture of a Cellular Network. Describe the functions of Mobile Station (MS), Base Transceiver Station (BTS), Base Station Controller (BSC), and Mobile Switching Center (MSC).**
+    
+    ---
+    
+    ### 10.
+    
+    **Explain Frequency Reuse and Handoff in Cellular Networks. Why are these concepts important in mobile communication?**
+    
+    ---
+    
+    ### 11.
+    
+    **Explain the evolution of Cellular Networks from 1G to 5G. Compare each generation based on technology, speed, services, and applications.**
+    
+    ---
+    
+    ### 12.
+    
+    **Compare 3G, 4G, and 5G based on architecture, speed, latency, bandwidth, and real-world applications.**
+    
+    ---
+    
+    # Part C – Network Topologies
+    
+    ### 13.
+    
+    **What is Network Topology? Explain the different types of network topologies with neat diagrams.**
+    
+    ---
+    
+    ### 14.
+    
+    **Explain Bus, Star, Ring, Mesh, and Tree Topologies. Discuss their advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 15.
+    
+    **Compare Bus, Star, Ring, Mesh, and Tree Topologies based on cost, reliability, scalability, fault tolerance, installation, and maintenance.**
+    
+    ---
+    
+    ### 16.
+    
+    **Which network topology is most suitable for home networks, offices, universities, and data centers? Justify your answer.**
+    
+    ---
+    
+    # Part D – LAN Protocol Architecture
+    
+    ### 17.
+    
+    **What is a Local Area Network (LAN)? Explain its characteristics, components, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 18.
+    
+    **Explain the LAN Protocol Architecture with a neat diagram. Discuss the role of the Physical Layer and Data Link Layer.**
+    
+    ---
+    
+    ### 19.
+    
+    **Explain IEEE 802 standards used in LAN. Discuss IEEE 802.3 (Ethernet) and IEEE 802.11 (Wi-Fi).**
+    
+    ---
+    
+    ### 20.
+    
+    **Describe the architecture of Ethernet-based LANs. Explain how data is transmitted in a LAN.**
+    
+    ---
+    
+    ### 21.
+    
+    **Differentiate between LAN and WAN based on architecture, speed, cost, coverage, ownership, and applications.**
+    
+    ---
+    
+    # Part E – Virtual LAN (VLAN)
+    
+    ### 22.
+    
+    **What is a Virtual LAN (VLAN)? Explain its architecture, working principle, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 23.
+    
+    **Explain VLAN implementation using switches. Describe VLAN tagging and inter-VLAN communication.**
+    
+    ---
+    
+    ### 24.
+    
+    **Discuss the advantages of VLAN over traditional LAN. Explain how VLAN improves security, performance, and network management.**
+    
+    ---
+    
+    ### 25.
+    
+    **Compare Physical LAN and Virtual LAN (VLAN) with suitable examples.**
+    
+    ---
+    
+    # Part F – Integrated Questions
+    
+    ### 26.
+    
+    **Explain the complete communication process in a Wide Area Network (WAN) using switching techniques, cellular networks, LAN architecture, and VLANs with suitable diagrams.**
+    
+    ---
+    
+    ### 27.
+    
+    **Discuss the role of Switching, Cellular Networks, Network Topologies, LAN Architecture, and VLANs in modern communication systems.**
+    
+    ---
+    
+    ### 28.
+    
+    **Explain the design of a university campus network. Justify the choice of switching technique, network topology, LAN architecture, and VLAN implementation.**
+    
+    ---
+    
+    ### 29.
+    
+    **Design a communication network for a multinational company with multiple branch offices. Explain the choice of switching methods, WAN connectivity, LAN architecture, and VLAN configuration.**
+    
+    ---
+    
+    ### 30.
+    
+    **Explain Module IV comprehensively by discussing Switching Networks, Cellular Networks, Network Topologies, LAN Protocol Architecture, and VLANs with suitable diagrams and examples.**
+    
+    ---
+    
+    # ⭐ Most Important Questions (Exam Focus)
+    
+    | Priority | Question |
+    | --- | --- |
+    | ⭐⭐⭐⭐⭐ | Explain Circuit Switching and Packet Switching. |
+    | ⭐⭐⭐⭐⭐ | Compare Circuit Switching and Packet Switching. |
+    | ⭐⭐⭐⭐⭐ | Explain Cellular Network Architecture and Principles. |
+    | ⭐⭐⭐⭐⭐ | Explain Cellular Network Generations (1G–5G). |
+    | ⭐⭐⭐⭐⭐ | Explain Network Topologies with diagrams. |
+    | ⭐⭐⭐⭐⭐ | Compare Bus, Star, Ring, Mesh, and Tree Topologies. |
+    | ⭐⭐⭐⭐☆ | Explain LAN Protocol Architecture. |
+    | ⭐⭐⭐⭐☆ | Explain IEEE 802.3 and IEEE 802.11 standards. |
+    | ⭐⭐⭐⭐☆ | Explain Virtual LAN (VLAN) and its advantages. |
+    | ⭐⭐⭐⭐☆ | Compare LAN and WAN. |
+    | ⭐⭐⭐⭐☆ | Explain Frequency Reuse and Handoff. |
+    | ⭐⭐⭐⭐☆ | Explain the design of a campus or enterprise network. |
+    
+    ---
+    
+    # 🎯 Exam Preparation Strategy
+    
+    If you're preparing in limited time, study these topics in this order:
+    
+    1. **Circuit Switching vs Packet Switching**
+    2. **Cellular Network Principles (Frequency Reuse & Handoff)**
+    3. **Cellular Generations (1G–5G)**
+    4. **Network Topologies (Bus, Star, Ring, Mesh, Tree)**
+    5. **LAN Protocol Architecture**
+    6. **Virtual LAN (VLAN)**
+    7. **IEEE 802.3 vs IEEE 802.11**
+    8. **LAN vs WAN**
+    
+    These **30 long-answer questions** comprehensively cover every topic in Module IV and reflect the types of descriptive and comparison questions commonly asked in university examinations.
+    
+- M5
+    
+    # 📚 Data Communications & Networking – Module V (Complete Long Answer Question Bank)
+    
+    These are **35 university-style 8–15 mark questions** covering **100% of Module V**.
+    
+    > **Module V Topics**
+    > 
+    > - Traditional Ethernet
+    > - High-Speed Ethernet
+    > - IEEE 802.11 (Wi-Fi)
+    > - Internet Protocol (IP)
+    > - IP Addressing
+    > - Transport Protocols
+    > - Routing in Packet Switching Networks
+    > - Distance Vector Routing
+    > - Link State Routing
+    > - Path Vector Routing
+    > - Congestion Control
+    > - Traffic Management
+    > - SMTP
+    > - DNS
+    > - HTTP
+    > - DHCP
+    
+    ---
+    
+    # Part A – Ethernet & Wireless LAN
+    
+    ### 1.
+    
+    **What is Ethernet? Explain the architecture, working principle, frame format, advantages, disadvantages, and applications of Traditional Ethernet.**
+    
+    ---
+    
+    ### 2.
+    
+    **Explain the CSMA/CD protocol used in Traditional Ethernet with a neat diagram. Discuss collision detection and collision handling.**
+    
+    ---
+    
+    ### 3.
+    
+    **Explain High-Speed Ethernet. Discuss Fast Ethernet, Gigabit Ethernet, 10 Gigabit Ethernet, and their applications.**
+    
+    ---
+    
+    ### 4.
+    
+    **Compare Traditional Ethernet and High-Speed Ethernet based on speed, architecture, media, applications, and performance.**
+    
+    ---
+    
+    ### 5.
+    
+    **Explain IEEE 802.11 (Wi-Fi). Describe its architecture, components, working principle, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 6.
+    
+    **Compare IEEE 802.3 (Ethernet) and IEEE 802.11 (Wi-Fi) based on architecture, speed, reliability, security, transmission medium, and applications.**
+    
+    ---
+    
+    ### 7.
+    
+    **Explain the evolution of Wi-Fi standards (802.11a/b/g/n/ac/ax). Compare them based on speed, frequency band, range, and applications.**
+    
+    ---
+    
+    # Part B – Internet Protocol (IP) & IP Addressing
+    
+    ### 8.
+    
+    **What is the Internet Protocol (IP)? Explain its functions, characteristics, packet structure, and role in computer networks.**
+    
+    ---
+    
+    ### 9.
+    
+    **Explain IPv4 Addressing. Describe the structure of an IPv4 address, network ID, host ID, and subnet mask with suitable examples.**
+    
+    ---
+    
+    ### 10.
+    
+    **Explain IPv6 Addressing. Discuss its structure, features, advantages, and why IPv6 was introduced.**
+    
+    ---
+    
+    ### 11.
+    
+    **Compare IPv4 and IPv6 based on address size, notation, security, configuration, routing, and applications.**
+    
+    ---
+    
+    ### 12.
+    
+    **Explain Classful IP Addressing. Discuss Class A, B, C, D, and E addresses with their ranges and default subnet masks.**
+    
+    ---
+    
+    ### 13.
+    
+    **Explain Subnetting. Solve an example showing how a network is divided into multiple subnets.**
+    
+    ---
+    
+    # Part C – Transport Protocols
+    
+    ### 14.
+    
+    **Explain the Transport Layer. Discuss its functions and services provided to applications.**
+    
+    ---
+    
+    ### 15.
+    
+    **Explain TCP (Transmission Control Protocol). Describe its features, connection establishment, reliable transmission, and applications.**
+    
+    ---
+    
+    ### 16.
+    
+    **Explain UDP (User Datagram Protocol). Discuss its working, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 17.
+    
+    **Compare TCP and UDP with respect to reliability, connection type, speed, flow control, error control, and applications.**
+    
+    ---
+    
+    ### 18.
+    
+    **Explain the TCP Three-Way Handshake and Four-Way Connection Termination with neat diagrams.**
+    
+    ---
+    
+    # Part D – Routing in Packet Switching Networks
+    
+    ### 19.
+    
+    **What is Routing? Explain the objectives and importance of routing in packet-switching networks.**
+    
+    ---
+    
+    ### 20.
+    
+    **Explain Distance Vector Routing. Describe its working, routing table updates, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 21.
+    
+    **Explain Link State Routing. Describe its working using Dijkstra's Algorithm with suitable diagrams.**
+    
+    ---
+    
+    ### 22.
+    
+    **Explain Path Vector Routing. Describe its working and explain the role of Border Gateway Protocol (BGP).**
+    
+    ---
+    
+    ### 23.
+    
+    **Compare Distance Vector Routing, Link State Routing, and Path Vector Routing based on algorithm, convergence speed, scalability, routing information, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 24.
+    
+    **Compare RIP, OSPF, and BGP routing protocols. Explain where each protocol is used in modern networks.**
+    
+    ---
+    
+    # Part E – Congestion Control & Traffic Management
+    
+    ### 25.
+    
+    **What is Congestion? Explain the causes, effects, and methods used to control congestion in computer networks.**
+    
+    ---
+    
+    ### 26.
+    
+    **Explain Congestion Control techniques such as Traffic Shaping, Admission Control, Leaky Bucket Algorithm, and Token Bucket Algorithm.**
+    
+    ---
+    
+    ### 27.
+    
+    **Explain Traffic Management. Discuss Quality of Service (QoS), queue management, scheduling, and congestion avoidance techniques.**
+    
+    ---
+    
+    ### 28.
+    
+    **Differentiate between Flow Control, Congestion Control, and Traffic Management with suitable examples.**
+    
+    ---
+    
+    # Part F – Application Layer Protocols
+    
+    ### 29.
+    
+    **Explain SMTP. Describe its architecture, working process, ports, advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 30.
+    
+    **Explain DNS. Describe the Domain Name System hierarchy, name resolution process, record types, ports, and applications.**
+    
+    ---
+    
+    ### 31.
+    
+    **Explain HTTP. Discuss its architecture, request-response model, HTTP methods (GET, POST, PUT, DELETE), status codes, and applications.**
+    
+    ---
+    
+    ### 32.
+    
+    **Explain DHCP. Describe the DHCP process (DORA: Discover, Offer, Request, Acknowledge), advantages, disadvantages, and applications.**
+    
+    ---
+    
+    ### 33.
+    
+    **Compare HTTP, SMTP, DNS, and DHCP based on purpose, layer, ports, working principle, and applications.**
+    
+    ---
+    
+    # Part G – Integrated Questions
+    
+    ### 34.
+    
+    **Explain the complete journey of a web request when a user enters a URL in a browser. Discuss the role of DNS, DHCP, IP, TCP, HTTP, routing algorithms, Ethernet/Wi-Fi, and congestion control.**
+    
+    ---
+    
+    ### 35.
+    
+    **Explain Module V comprehensively by discussing Ethernet, Wi-Fi, IP Addressing, Transport Protocols, Routing Algorithms, Congestion Control, and Application Layer Protocols with suitable diagrams and examples.**
+    
+    ---
+    
+    # ⭐ Most Important Questions (Exam Focus)
+    
+    | Priority | Question |
+    | --- | --- |
+    | ⭐⭐⭐⭐⭐ | Explain TCP and UDP. Compare TCP and UDP. |
+    | ⭐⭐⭐⭐⭐ | Explain IPv4 and IPv6. Compare IPv4 and IPv6. |
+    | ⭐⭐⭐⭐⭐ | Explain Routing Algorithms (Distance Vector, Link State, Path Vector). |
+    | ⭐⭐⭐⭐⭐ | Compare RIP, OSPF, and BGP. |
+    | ⭐⭐⭐⭐⭐ | Explain Ethernet and IEEE 802.11 (Wi-Fi). |
+    | ⭐⭐⭐⭐⭐ | Explain DNS, HTTP, SMTP, and DHCP. |
+    | ⭐⭐⭐⭐☆ | Explain TCP Three-Way Handshake. |
+    | ⭐⭐⭐⭐☆ | Explain Classful IP Addressing and Subnetting. |
+    | ⭐⭐⭐⭐☆ | Explain Congestion Control and Traffic Management. |
+    | ⭐⭐⭐⭐☆ | Compare Ethernet and Wi-Fi. |
+    | ⭐⭐⭐⭐☆ | Explain the DORA process in DHCP. |
+    | ⭐⭐⭐⭐☆ | Explain the complete web request process (URL → Webpage). |
+    
+    ---
+    
+    # 🎯 Exam Preparation Strategy
+    
+    If you have limited time, study these topics in the following order:
+    
+    1. **TCP vs UDP**
+    2. **IPv4 vs IPv6 & IP Addressing**
+    3. **Routing Algorithms (RIP, OSPF, BGP)**
+    4. **Ethernet vs Wi-Fi (IEEE 802.3 vs IEEE 802.11)**
+    5. **DNS, HTTP, SMTP, and DHCP**
+    6. **TCP Three-Way Handshake**
+    7. **Congestion Control & Traffic Management**
+    8. **Subnetting & Classful Addressing**
+    9. **Complete URL-to-Webpage Communication Process**
+    
+    These **35 long-answer questions** comprehensively cover every topic in Module V and include the conceptual, comparison, numerical, protocol-based, and integrated questions that are commonly asked in university examinations.
+    
+- FULL
+    
+    # ✅ Data Communications & Networking – Final Revision Checklist (Most Important Questions)
+    
+    > **Goal:** If you can confidently answer these **50 questions**, you'll have covered the vast majority of the syllabus and the questions most commonly asked in university exams.
+    > 
+    
+    ---
+    
+    # 📘 Module I – Data Communications & Networking Overview (10 Questions)
+    
+    - [ ]  Explain the **Communication Model** with a neat diagram.
+    - [ ]  Explain **Data Communication System** and its characteristics.
+    - [ ]  Explain **Types of Computer Networks (PAN, LAN, MAN, WAN)**.
+    - [ ]  Explain the **OSI Reference Model** with functions of each layer.
+    - [ ]  Explain the **TCP/IP Protocol Architecture**.
+    - [ ]  Compare **OSI Model vs TCP/IP Model**.
+    - [ ]  Explain **Internet Applications** and related protocols.
+    - [ ]  Compare **Analog Transmission vs Digital Transmission**.
+    - [ ]  Explain **Transmission Impairments** (Attenuation, Distortion, Noise).
+    - [ ]  Explain **Nyquist & Shannon Channel Capacity Theorems**.
+    
+    **Progress:** `0/10`
+    
+    ---
+    
+    # 📘 Module II – Transmission Media & Signal Encoding (10 Questions)
+    
+    - [ ]  Explain **Guided Transmission Media** (Twisted Pair, Coaxial, Optical Fiber).
+    - [ ]  Compare **Twisted Pair vs Coaxial vs Optical Fiber**.
+    - [ ]  Explain **Wireless Transmission Media** (Radio, Microwave, Infrared, Satellite).
+    - [ ]  Explain **Ground Wave, Sky Wave & LOS Propagation**.
+    - [ ]  Compare **Analog Signal vs Digital Signal**.
+    - [ ]  Explain **NRZ-L & NRZ-I Encoding**.
+    - [ ]  Explain **Manchester & Differential Manchester Encoding**.
+    - [ ]  Compare **Line Encoding Techniques**.
+    - [ ]  Explain **ASK, FSK, PSK & QAM**.
+    - [ ]  Differentiate **Encoding vs Modulation**.
+    
+    **Progress:** `0/10`
+    
+    ---
+    
+    # 📘 Module III – Error Handling & Multiplexing (10 Questions)
+    
+    - [ ]  Explain **Types of Errors** (Single-Bit & Burst Errors).
+    - [ ]  Explain **Parity, Checksum & CRC**.
+    - [ ]  Explain **Hamming Code & Error Correction**.
+    - [ ]  Compare **Error Detection vs Error Correction**.
+    - [ ]  Explain **Flow Control**.
+    - [ ]  Compare **Stop-and-Wait vs Sliding Window Protocol**.
+    - [ ]  Explain **HDLC Frame Structure**.
+    - [ ]  Explain **HDLC Frame Types (I, S, U)**.
+    - [ ]  Explain **Frequency Division Multiplexing (FDM)**.
+    - [ ]  Compare **FDM vs TDM**.
+    
+    **Progress:** `0/10`
+    
+    ---
+    
+    # 📘 Module IV – WAN & LAN (10 Questions)
+    
+    - [ ]  Explain **Circuit Switching**.
+    - [ ]  Explain **Packet Switching**.
+    - [ ]  Compare **Circuit Switching vs Packet Switching**.
+    - [ ]  Explain **Cellular Network Architecture**.
+    - [ ]  Explain **Frequency Reuse & Handoff**.
+    - [ ]  Explain **Cellular Network Generations (1G–5G)**.
+    - [ ]  Explain **Network Topologies** (Bus, Star, Ring, Mesh, Tree).
+    - [ ]  Compare **Network Topologies**.
+    - [ ]  Explain **LAN Protocol Architecture**.
+    - [ ]  Explain **Virtual LAN (VLAN)**.
+    
+    **Progress:** `0/10`
+    
+    ---
+    
+    # 📘 Module V – Ethernet & Internetworking (10 Questions)
+    
+    - [ ]  Explain **Traditional Ethernet & CSMA/CD**.
+    - [ ]  Compare **Traditional Ethernet vs High-Speed Ethernet**.
+    - [ ]  Compare **Ethernet (IEEE 802.3) vs Wi-Fi (IEEE 802.11)**.
+    - [ ]  Explain **IPv4 & IPv6**.
+    - [ ]  Explain **IP Addressing & Subnetting**.
+    - [ ]  Compare **TCP vs UDP**.
+    - [ ]  Compare **Distance Vector, Link State & Path Vector Routing**.
+    - [ ]  Explain **Congestion Control & Traffic Management**.
+    - [ ]  Explain **DNS, HTTP, SMTP & DHCP**.
+    - [ ]  Explain the **Complete URL → Webpage Communication Process**.
+    
+    **Progress:** `0/10`
+    
+    ---
+    
+    # ⭐ Ultra High-Priority Questions (Must Do)
+    
+    These are the **20 questions** with the highest probability of appearing in exams.
+    
+    - [ ]  OSI Model
+    - [ ]  TCP/IP Architecture
+    - [ ]  OSI vs TCP/IP
+    - [ ]  Guided Transmission Media
+    - [ ]  Analog vs Digital Signal
+    - [ ]  Manchester Encoding
+    - [ ]  ASK, FSK, PSK & QAM
+    - [ ]  CRC
+    - [ ]  Hamming Code
+    - [ ]  Stop-and-Wait vs Sliding Window
+    - [ ]  HDLC Frame Structure
+    - [ ]  FDM vs TDM
+    - [ ]  Circuit Switching vs Packet Switching
+    - [ ]  Cellular Network (1G–5G)
+    - [ ]  Network Topologies
+    - [ ]  VLAN
+    - [ ]  IPv4 vs IPv6
+    - [ ]  TCP vs UDP
+    - [ ]  Routing Algorithms (RIP, OSPF, BGP)
+    - [ ]  DNS, HTTP, SMTP & DHCP
+    
+    **Progress:** `0/20`
+    
+    ---
+    
+    # 📝 Final Exam Revision Tracker
+    
+    | Module | Questions | Status |
+    | --- | --- | --- |
+    | Module I | 10 | ⬜ 0/10 |
+    | Module II | 10 | ⬜ 0/10 |
+    | Module III | 10 | ⬜ 0/10 |
+    | Module IV | 10 | ⬜ 0/10 |
+    | Module V | 10 | ⬜ 0/10 |
+    | **Ultra High Priority** | **20** | ⬜ **0/20** |
+    
+    ### 🎯 Revision Plan
+    
+    - **Pass preparation:** Complete all **50 module questions**.
+    - **Score 80%+:** Complete all **50 questions + 20 ultra high-priority questions**.
+    - **Last-day revision:** Revise the **20 ultra high-priority questions** along with important diagrams (OSI, TCP/IP, HDLC Frame, FDM/TDM, Switching, Cellular Network, Network Topologies, Ethernet, and TCP Three-Way Handshake).
+
+---
+### 2.2 Compiler Design (CS24301)
+- SS
+    
+    ![Screenshot 2026-07-19 at 9.59.39 AM.png](5thsem/Compiler%20Design/Compiler%20Design/Screenshot_2026-07-19_at_9.59.39_AM.png)
+    
+
+### 📚 Compiler Design Todo List
+
+#### Module I – Lexical Analysis
+
+- [ ]  Introduction to Compilers and its Cousins
+- [ ]  Structure of a Compiler
+- [ ]  Lexical Analyzer
+- [ ]  Input Buffering
+- [ ]  Specification of Tokens
+- [ ]  Recognition of Tokens
+- [ ]  Construction of Deterministic Finite Automata (DFA) directly from Regular Expressions
+
+**Progress:** `0/7`
+
+---
+
+#### Module II – Syntax Analysis
+
+- [ ]  Introduction to Syntax Analysis
+- [ ]  Grammar Rewriting Transformations for Parsing Methods
+- [ ]  Recursive Top-Down Parsers
+- [ ]  Non-Recursive Top-Down Parsers
+- [ ]  Design of LL(1) Parser
+- [ ]  Bottom-Up Parsers
+- [ ]  Variants of LR Parsers
+- [ ]  Handling of Parsing Conflicts
+- [ ]  Detection of Syntax Errors
+- [ ]  Reporting of Syntax Errors
+
+**Progress:** `0/10`
+
+---
+
+#### Module III – Semantic Analysis & Intermediate Code Generation
+
+- [ ]  Introduction to Semantic Analysis
+- [ ]  Syntax-Directed Definitions (SDD)
+- [ ]  Syntax-Directed Translation Schemes (SDTS)
+- [ ]  SDTS for Declaration Processing
+- [ ]  Three Address Code (TAC)
+- [ ]  Types of Attributes for Semantic Analysis
+- [ ]  Type Checking for Expressions
+- [ ]  Intermediate Code Generation for Assignment Statements
+- [ ]  Translation of Multi-Dimensional Array References
+
+**Progress:** `0/9`
+
+---
+
+#### Module IV – Intermediate Code Generation & Runtime Environment
+
+- [ ]  Complete Evaluation of Boolean Expressions
+- [ ]  Partial Evaluation of Boolean Expressions
+- [ ]  Translation of Control Flow Constructs
+- [ ]  Resolution of Forward Jumps in Intermediate Code
+- [ ]  Resolution of Backward Jumps in Intermediate Code
+- [ ]  Translation of Function Calls
+- [ ]  Translation of Function Returns
+- [ ]  Memory Layout of Code and Data
+- [ ]  Activation Records for Function Calls
+
+**Progress:** `0/9`
+
+---
+
+#### Module V – Code Generation & Optimization
+
+- [ ]  Addresses of Code and Data in Assembly Code
+- [ ]  Correlation of Assembly Code with Source Code
+- [ ]  Construction of Basic Blocks
+- [ ]  Control Flow Graph (CFG)
+- [ ]  Machine-Independent Local Optimizations
+- [ ]  Machine-Independent Global Optimizations
+- [ ]  Unreachable Code Elimination
+- [ ]  Constant Folding
+- [ ]  Constant Propagation
+- [ ]  Loop-Invariant Code Motion
+- [ ]  Common Subexpression Elimination
+- [ ]  Dead Code Elimination
+
+**Progress:** `0/12`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (7 topics)
+- [ ]  Module II (10 topics)
+- [ ]  Module III (9 topics)
+- [ ]  Module IV (9 topics)
+- [ ]  Module V (12 topics)
+
+**Total Topics:** **47**
+
+**Completed:** `0/47` (0%)
+
+---
+### 2.3 Data Mining Concepts and Techniques (CS24303)
+- SS
+    
+    ![Screenshot 2026-07-19 at 10.02.27 AM.png](5thsem/Data%20Mining%20Concepts%20and%20Techniques/Data%20Mining%20Concepts%20and%20Techniques/Screenshot_2026-07-19_at_10.02.27_AM.png)
+    
+
+### 📚 Data Mining Concepts and Techniques Todo List
+
+#### Module I – Introduction to Data Mining
+
+- [ ]  Introduction to Data Mining
+- [ ]  Relational Databases
+- [ ]  Data Warehouses
+- [ ]  Transactional Databases
+- [ ]  Advanced Database Systems and Applications
+- [ ]  Data Mining Functionalities
+- [ ]  Classification of Data Mining Systems
+- [ ]  Major Issues in Data Mining
+- [ ]  Data
+- [ ]  Data Objects and Attribute Types
+- [ ]  Basic Statistical Descriptions of Data
+- [ ]  Data Visualization
+- [ ]  Measuring Data Similarity
+- [ ]  Measuring Data Dissimilarity
+
+**Progress:** `0/14`
+
+---
+
+#### Module II – Data Processing
+
+- [ ]  Data Cleaning
+- [ ]  Data Integration
+- [ ]  Data Transformation
+- [ ]  Data Reduction
+- [ ]  Data Discretization
+- [ ]  Concept Hierarchy Generation
+
+**Progress:** `0/6`
+
+---
+
+#### Module III – Data Warehouse
+
+- [ ]  Basic Concepts of Data Warehouse
+- [ ]  Data Warehouse Modeling
+- [ ]  Data Cube
+- [ ]  OLAP (Online Analytical Processing)
+- [ ]  Data Warehouse Design and Usage
+- [ ]  Data Warehouse Implementation
+- [ ]  Data Generalization by Attribute-Oriented Induction
+- [ ]  Data Cube Computation
+- [ ]  Preliminary Concepts
+
+**Progress:** `0/9`
+
+---
+
+#### Module IV – Frequent Pattern Mining
+
+- [ ]  Basic Concepts of Frequent Pattern Mining
+- [ ]  Associations
+- [ ]  Correlations
+- [ ]  Frequent Itemset Mining Methods
+- [ ]  Apriori Algorithm
+- [ ]  Pattern-Growth Approach (FP-Growth)
+- [ ]  Interesting Pattern Evaluation Methods
+
+**Progress:** `0/7`
+
+---
+
+#### Module V – Advanced Pattern Mining
+
+- [ ]  Pattern Mining Road Map
+- [ ]  Multilevel Pattern Mining
+- [ ]  Multidimensional Pattern Mining
+- [ ]  Constraint-Based Frequent Pattern Mining
+- [ ]  Mining High-Dimensional Data
+- [ ]  Mining Colossal Patterns
+- [ ]  Mining Compressed Patterns
+- [ ]  Mining Approximate Patterns
+- [ ]  Pattern Exploration
+- [ ]  Pattern Applications
+
+**Progress:** `0/10`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (14 topics)
+- [ ]  Module II (6 topics)
+- [ ]  Module III (9 topics)
+- [ ]  Module IV (7 topics)
+- [ ]  Module V (10 topics)
+
+**Total Topics:** **46**
+
+**Completed:** `0/46` (0%)
+
+---
+### 2.4 Artificial Intelligence (CS24307)
+- SS
+    
+    ![Screenshot 2026-07-19 at 10.04.41 AM.png](5thsem/Artificial%20Intelligence/Artificial%20Intelligence/Screenshot_2026-07-19_at_10.04.41_AM.png)
+    
+
+### 📚 Artificial Intelligence (AI) Todo List
+
+#### Module I – Preliminaries
+
+- [ ]  What is Artificial Intelligence (AI)?
+- [ ]  Evolution of AI
+- [ ]  Intelligent Agents
+- [ ]  Concept of Rationality
+- [ ]  Nature of Environments
+- [ ]  Structure of Agents
+- [ ]  Applications of AI
+
+**Progress:** `0/7`
+
+---
+
+#### Module II – Problem Solving by Search Agent
+
+- [ ]  Search-Based Problem Solving
+- [ ]  State Space Search
+- [ ]  Heuristic Search
+- [ ]  Local Search
+- [ ]  Search in Complex Environments
+- [ ]  Game Tree Search
+
+**Progress:** `0/6`
+
+---
+
+#### Module III – Knowledge Representation and Reasoning
+
+- [ ]  Knowledge-Based Agents
+- [ ]  Propositional Logic
+- [ ]  From Propositional Logic to Predicate Logic
+- [ ]  Propositional Logic-Based Agents
+- [ ]  First-Order Predicate Logic (FOPL)
+- [ ]  Knowledge Representation in First-Order Logic
+- [ ]  Forward Chaining
+- [ ]  Backward Chaining
+- [ ]  Inference by Resolution
+
+**Progress:** `0/9`
+
+---
+
+#### Module IV – Planning and Probabilistic Reasoning
+
+- [ ]  Planning in AI
+- [ ]  Components of a Planning Problem
+- [ ]  Types of Planning in AI
+- [ ]  Goal Stack Planning
+- [ ]  Reasoning Under Uncertainty
+- [ ]  Bayesian Inference
+- [ ]  Probabilistic Reasoning
+
+**Progress:** `0/7`
+
+---
+
+#### Module V – Learning
+
+- [ ]  What is Learning?
+- [ ]  Rote Learning
+- [ ]  Learning by Taking Advice
+- [ ]  Learning from Examples
+    - [ ]  Induction
+- [ ]  Formal Learning Theory
+- [ ]  Neural Net Learning
+- [ ]  Underfitting
+- [ ]  Overfitting
+
+**Progress:** `0/9`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (7 topics)
+- [ ]  Module II (6 topics)
+- [ ]  Module III (9 topics)
+- [ ]  Module IV (7 topics)
+- [ ]  Module V (9 topics)
+
+**Total Topics:** **38**
+
+**Completed:** `0/38` (0%)
+
+---
+### 2.5 Compiler Design Lab (CS24302)
+- SS
+    
+    ![Screenshot 2026-07-19 at 10.08.40 AM.png](5thsem/Compiler%20Design%20Lab/Compiler%20Design%20Lab/Screenshot_2026-07-19_at_10.08.40_AM.png)
+    
+
+### 📚 Compiler Design Lab Todo List
+
+#### Module I – Compiler Basics and Lexical Analysis
+
+- [ ]  Explore a Production-Quality Open-Source Compiler (e.g., GCC/LLVM)
+- [ ]  Study Compiler Options for Internal Pass Dumps
+- [ ]  Generate Assembly Code Without Optimization
+- [ ]  Generate Assembly Code With Optimization
+- [ ]  Compare Source Code with Intermediate Pass Outputs
+- [ ]  Compare Source Code with Generated Assembly Code
+- [ ]  Analyze Runtime Performance (Optimized vs. Non-Optimized Executables)
+- [ ]  Test Performance with Different Input Sizes
+- [ ]  Build a Lexical Analyzer for a High-Level Language (e.g., C)
+- [ ]  Identify Tokens
+- [ ]  Identify Lexemes
+- [ ]  Study the Effect of Regular Expression Ordering
+- [ ]  Understand the Role of Lexical Analyzer Action Routines
+
+**Progress:** `0/13`
+
+---
+
+#### Module II – Syntax Analysis using Lex & Yacc
+
+- [ ]  Write Grammar for Variable Declarations
+- [ ]  Write Grammar for Expressions
+- [ ]  Write Grammar for Assignment Statements
+- [ ]  Write Grammar for Scalar Variables
+- [ ]  Write Grammar for Arrays
+- [ ]  Design Ambiguous Grammars
+- [ ]  Design Unambiguous Grammars
+- [ ]  Implement Lex Specifications
+- [ ]  Implement Yacc Specifications
+- [ ]  Integrate Lex and Yacc
+- [ ]  Generate a Parser Using Yacc
+- [ ]  Evaluate Parser Performance
+- [ ]  Examine the LALR(1) Parser Generated by Yacc
+- [ ]  Compare Generated LALR(1) Parser with a Manual LALR(1) Parser
+
+**Progress:** `0/14`
+
+---
+
+#### Module III – Semantic Analysis and Intermediate Code Generation
+
+- [ ]  Design a Semantic Analyzer Using Yacc
+- [ ]  Generate Symbol Tables for Declarations
+- [ ]  Generate Three-Address Intermediate Code for Assignment Statements
+- [ ]  Complete Evaluation of Boolean Expressions
+- [ ]  Partial Evaluation of Boolean Expressions
+- [ ]  Translate Control Flow Constructs
+- [ ]  Resolve Forward Jumps in Intermediate Code
+- [ ]  Resolve Backward Jumps in Intermediate Code
+
+**Progress:** `0/8`
+
+---
+
+#### Module IV – Runtime Environment
+
+- [ ]  Translate Function Calls
+- [ ]  Translate Function Returns
+- [ ]  Study Memory Layout of Code and Data
+- [ ]  Understand Activation Records for Function Calls
+
+**Progress:** `0/4`
+
+---
+
+#### Module V – Code Optimization
+
+- [ ]  Study Machine-Independent Optimizations
+- [ ]  Implement Unreachable Code Elimination
+- [ ]  Implement Constant Folding
+- [ ]  Implement Constant Propagation
+
+**Progress:** `0/4`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (13 tasks)
+- [ ]  Module II (14 tasks)
+- [ ]  Module III (8 tasks)
+- [ ]  Module IV (4 tasks)
+- [ ]  Module V (4 tasks)
+
+**Total Tasks:** **43**
+
+**Completed:** `0/43` (0%)
+
+---
+### 2.6 Data Communication and Computer Networks Lab (CS24306)
+- SS
+    
+    ![Screenshot 2026-07-19 at 10.07.43 AM.png](5thsem/Data%20Communication%20and%20Computer%20Networks%20Lab/Data%20Communication%20and%20Computer%20Networks%20Lab/Screenshot_2026-07-19_at_10.07.43_AM.png)
+    
+
+### 📚 Data Communications & Networking Lab Todo List
+
+#### Module I – Networking Basics
+
+- [ ]  Learn Networking Commands in UNIX/Linux Environment
+- [ ]  Learn Networking Commands in Windows Environment
+- [ ]  Configure Network Connectivity
+- [ ]  Manage Network Connectivity
+- [ ]  Troubleshoot Network Connectivity
+- [ ]  Simulate ARP (Address Resolution Protocol)
+- [ ]  Simulate IP Forwarding Within a LAN
+- [ ]  Observe and Analyze ARP & IP Forwarding Results
+
+**Progress:** `0/8`
+
+---
+
+#### Module II – Data Link Layer
+
+- [ ]  Implement Data Link Layer Framing Methods
+- [ ]  Simulate Character Stuffing
+- [ ]  Simulate Bit Stuffing (HDLC Frames)
+- [ ]  Observe Character & Bit Stuffing Results
+- [ ]  Implement Hamming Code Generation
+- [ ]  Implement Checksum Method
+- [ ]  Perform Error Detection
+- [ ]  Perform Error Correction
+- [ ]  Analyze and Record Observations
+
+**Progress:** `0/9`
+
+---
+
+#### Module III – Error Detection & Network Simulation
+
+- [ ]  Implement CRC-12
+- [ ]  Implement CRC-16
+- [ ]  Implement CRC-CCITT
+- [ ]  Implement CRC-32
+- [ ]  Analyze CRC-Based Error Detection
+- [ ]  Design a Network with Subnets and Routers
+- [ ]  Simulate Network Traffic Flow
+- [ ]  Analyze Network Traffic Flow
+- [ ]  Simulate Traffic Generation Rate
+- [ ]  Simulate Service Rate
+- [ ]  Analyze the Effect of Network Parameters
+
+**Progress:** `0/11`
+
+---
+
+#### Module IV – Routing Algorithms
+
+- [ ]  Display Hostname
+- [ ]  Display IPv4 Address
+- [ ]  Identify Network Class (A, B, C, D, E)
+- [ ]  Determine Network ID
+- [ ]  Determine 32-bit IP Address Representation
+- [ ]  Determine Host ID
+- [ ]  Simulate Dijkstra's Shortest Path Algorithm
+- [ ]  Analyze Dijkstra's Algorithm with Different Network Parameters
+- [ ]  Simulate Distance Vector Routing Algorithm
+- [ ]  Analyze Distance Vector Routing
+- [ ]  Simulate Congestion Control Techniques
+- [ ]  Analyze Congestion Control Results
+
+**Progress:** `0/12`
+
+---
+
+#### Module V – Client-Server Programming
+
+- [ ]  Implement Client-Server Communication Using FIFO
+- [ ]  Implement Client-Server Communication Using Message Queues
+- [ ]  Implement Client-Server Communication Using Shared Memory
+- [ ]  Implement Connection-Oriented Client-Server Application (BSD Sockets)
+- [ ]  Implement Connectionless Client-Server Application
+- [ ]  Build a Chat Server
+- [ ]  Implement Client-Server Communication Using Raw Sockets
+- [ ]  Demonstrate IP Spoofing (Simulation/Lab Environment)
+
+**Progress:** `0/8`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (8 tasks)
+- [ ]  Module II (9 tasks)
+- [ ]  Module III (11 tasks)
+- [ ]  Module IV (12 tasks)
+- [ ]  Module V (8 tasks)
+
+**Total Tasks:** **48**
+
+**Completed:** `0/48` (0%)
+
+---
+### 2.7 Artificial Intelligence Lab (CS24308)
+- SS
+    
+    ![Screenshot 2026-07-19 at 10.08.14 AM.png](5thsem/Artificial%20Intelligence%20Lab/Artificial%20Intelligence%20Lab/Screenshot_2026-07-19_at_10.08.14_AM.png)
+    
+
+### 📚 Artificial Intelligence Lab Todo List
+
+#### Module I – Introduction to AI Tools and Python Libraries
+
+- [ ]  Implement a Reflex Agent in a Simple Environment (e.g., Vacuum Cleaner World)
+- [ ]  Create a Goal-Based Agent to Achieve Predefined Goals in a Grid World
+- [ ]  Design a Utility-Based Agent with Performance Metrics
+- [ ]  Compare Agent Behaviour in Fully Observable vs. Partially Observable Environments Using a Custom Simulation
+
+**Progress:** `0/4`
+
+---
+
+#### Module II – Search Algorithms
+
+- [ ]  Implement Uniform-Cost Search (UCS)
+- [ ]  Implement Heuristic-Based Search
+- [ ]  Implement Local Search Techniques
+- [ ]  Build a Tic-Tac-Toe Game Tree
+- [ ]  Implement the Minimax Algorithm
+- [ ]  Enhance Minimax with Alpha-Beta Pruning
+
+**Progress:** `0/6`
+
+---
+
+#### Module III – Knowledge Representation and Reasoning
+
+- [ ]  Implement Propositional Logic
+- [ ]  Implement Predicate Logic
+- [ ]  Build AI Applications Using Propositional Logic
+- [ ]  Build AI Applications Using Predicate Logic
+
+**Progress:** `0/4`
+
+---
+
+#### Module IV – Planning and Probabilistic Reasoning
+
+- [ ]  Implement a Simple Planning Algorithm (e.g., STRIPS-Based Planner)
+- [ ]  Design an Inference Engine Using Bayesian Networks
+- [ ]  Model and Reason with Uncertain Information
+    - [ ]  Weather Prediction Example
+    - [ ]  Medical Diagnosis Example
+
+**Progress:** `0/5`
+
+---
+
+#### Module V – Learning
+
+- [ ]  Implement Supervised Learning Using a Classification Model
+- [ ]  Demonstrate Underfitting Using Training/Test Accuracy Curves
+- [ ]  Demonstrate Overfitting Using Training/Test Accuracy Curves
+- [ ]  Develop a Small AI Application Incorporating Multiple Modules
+    - [ ]  Smart Assistant (Logic + Learning)
+    - [ ]  Simple AI for a Board Game
+    - [ ]  Decision Support System
+
+**Progress:** `0/7`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (4 tasks)
+- [ ]  Module II (6 tasks)
+- [ ]  Module III (4 tasks)
+- [ ]  Module IV (5 tasks)
+- [ ]  Module V (7 tasks)
+
+**Total Tasks:** **26**
+
+**Completed:** `0/26` (0%)
+
+---
+## 3. Program Electives
+### 3.1 Natural Language Processing (CS24351)
+- Syllabus
+    
+    ![Screenshot 2026-07-19 at 10.13.31 AM.png](5thsem/Natural%20Language%20Processing/Natural%20Language%20Processing/Screenshot_2026-07-19_at_10.13.31_AM.png)
+    
+- Notes
+    - Topic: Introduction to Natural Language Processing (NLP)
+        
+        ### 1. What is NLP?
+        
+        - **Definition:** A branch of Computer Science and Artificial Intelligence (AI).
+        - **Purpose:** Gives machines the ability to understand, interpret, and process human language.
+        - **Context:** While computers traditionally excel at processing numbers, NLP enables them to handle and assist with language-based tasks.
+        
+        ### 2. Real-World Applications
+        
+        - **Email Services (e.g., Gmail):** Powers sentence auto-completion and spam filtering (using keyword detection and classification models).
+        - **Language Translation:** Enables high-accuracy translations between languages (e.g., Google Translate).
+        - **Customer Service Chatbots:** Interprets user intent to answer questions automatically without human intervention.
+        - **Voice Assistants:** Allows devices like Amazon Alexa and Google Assistant to understand and act on spoken commands.
+        - **Search Engines:** Google Search uses advanced language models (like BERT) to understand queries and provide precise answers.
+        - **Automated News Generation:** AI detects market signals and automatically writes financial news stories (used by companies like Bloomberg).
+        
+        ### 3. Key Tools & Technologies (Python Ecosystem)
+        
+        - **Standard NLP Libraries:** spaCy, Gensim, NLTK
+        - **Machine Learning:** Scikit-learn
+        - **Deep Learning:** TensorFlow, PyTorch, Hugging Face
+        
+        ### 4. Career Opportunities
+        
+        - **Core Roles:** Data Scientist (NLP Specialization), NLP Engineer, NLP Researcher.
+        - **Scope:** It is a highly demanded field with lucrative global career prospects.
+        
+        *(Reference: Codebasics NLP Tutorial - Season 1, Episode 1 | Book Mention: "Practical Natural Language Processing")*
+        
+    
+- Resources
+    
+    https://www.youtube.com/playlist?list=PLeo1K3hjS3uuvuAXhYjV2lMEShq2UYSwX
+    
+
+
+
+### 📚 Natural Language Processing (NLP) Todo List
+
+#### Module I – Introduction to NLP
+
+- [ ]  Introduction to NLP
+- [ ]  Applications of NLP
+- [ ]  Natural Language Components
+    - [ ]  Morphology
+    - [ ]  Syntax
+    - [ ]  Semantics
+    - [ ]  Pragmatics
+- [ ]  Text Preprocessing
+    - [ ]  Tokenization
+    - [ ]  Lemmatization
+    - [ ]  Stop-word Removal
+    - [ ]  Normalization
+- [ ]  Regular Expressions
+- [ ]  Language Models Overview
+
+**Progress:** `0/12`
+
+---
+
+#### Module II – Syntax Analysis and Parsing
+
+- [ ]  N-gram Language Models
+- [ ]  Smoothing Techniques
+- [ ]  Part-of-Speech (POS) Tagging
+    - [ ]  Rule-based POS Tagging
+    - [ ]  HMM-based POS Tagging
+- [ ]  Syntactic Parsing
+    - [ ]  Context-Free Grammars (CFGs)
+    - [ ]  Recursive Descent Parsing
+    - [ ]  Probabilistic Parsing
+    - [ ]  Dependency Parsing
+- [ ]  Evaluation Metrics
+    - [ ]  Precision
+    - [ ]  Recall
+    - [ ]  F1-Score
+
+**Progress:** `0/12`
+
+---
+
+#### Module III – Semantics and Lexical Resources
+
+- [ ]  Lexical Semantics
+- [ ]  Word Sense Disambiguation (WSD)
+- [ ]  WordNet
+- [ ]  Lexical Database
+- [ ]  Semantic Similarity
+- [ ]  Cosine Similarity
+- [ ]  Vector Space Models
+    - [ ]  TF-IDF
+- [ ]  Word Embeddings
+    - [ ]  Word2Vec
+    - [ ]  GloVe
+    - [ ]  FastText
+
+**Progress:** `0/11`
+
+---
+
+#### Module IV – Neural Approaches
+
+- [ ]  Convolutional Neural Networks (CNNs)
+- [ ]  Sequence Modelling
+    - [ ]  Recurrent Neural Networks (RNNs)
+    - [ ]  Long Short-Term Memory (LSTMs)
+- [ ]  Transformers
+- [ ]  Encoder–Decoder Architecture
+- [ ]  Transfer Learning
+    - [ ]  BERT
+    - [ ]  GPT
+
+**Progress:** `0/8`
+
+---
+
+#### Module V – NLP Applications and Ethics
+
+- [ ]  Text Classification
+- [ ]  Sentiment Analysis
+- [ ]  Named Entity Recognition (NER)
+- [ ]  Machine Translation
+    - [ ]  Rule-based Machine Translation
+    - [ ]  Statistical Machine Translation (SMT)
+    - [ ]  Neural Machine Translation (NMT)
+- [ ]  Chatbots and Dialogue Systems
+- [ ]  Ethics in NLP
+    - [ ]  Bias
+    - [ ]  Fairness
+    - [ ]  Explainability
+
+**Progress:** `0/10`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (12 topics)
+- [ ]  Module II (12 topics)
+- [ ]  Module III (11 topics)
+- [ ]  Module IV (8 topics)
+- [ ]  Module V (10 topics)
+
+**Total Topics:** **53**
+
+**Completed:** `0/53` (0%)
+
+#### NLP Topic Notes
+##### Topic 1: Introduction to Natural Language Processing (NLP)
+####### 1. What is NLP?
+
+- **Definition:** A branch of Computer Science and Artificial Intelligence (AI).
+- **Purpose:** Gives machines the ability to understand, interpret, and process human language.
+- **Context:** While computers traditionally excel at processing numbers, NLP enables them to handle and assist with language-based tasks.
+
+####### 2. Real-World Applications
+
+- **Email Services (e.g., Gmail):** Powers sentence auto-completion and spam filtering (using keyword detection and classification models).
+- **Language Translation:** Enables high-accuracy translations between languages (e.g., Google Translate).
+- **Customer Service Chatbots:** Interprets user intent to answer questions automatically without human intervention.
+- **Voice Assistants:** Allows devices like Amazon Alexa and Google Assistant to understand and act on spoken commands.
+- **Search Engines:** Google Search uses advanced language models (like BERT) to understand queries and provide precise answers.
+- **Automated News Generation:** AI detects market signals and automatically writes financial news stories (used by companies like Bloomberg).
+
+####### 3. Key Tools & Technologies (Python Ecosystem)
+
+- **Standard NLP Libraries:** spaCy, Gensim, NLTK
+- **Machine Learning:** Scikit-learn
+- **Deep Learning:** TensorFlow, PyTorch, Hugging Face
+
+####### 4. Career Opportunities
+
+- **Core Roles:** Data Scientist (NLP Specialization), NLP Engineer, NLP Researcher.
+- **Scope:** It is a highly demanded field with lucrative global career prospects.
+
+*(Reference: Codebasics NLP Tutorial - Season 1, Episode 1 | Book Mention: "Practical Natural Language Processing")*
+
+https://www.youtube.com/watch?v=R-AG4-qZs1A&list=PLeo1K3hjS3uuvuAXhYjV2lMEShq2UYSwX
+
+##### Topic 2: Why NLP is Booming Right Now
+####### Overview
+
+Although Natural Language Processing (NLP) has existed in academia for decades, its industrial adoption has grown exponentially over the last 7–10 years.
+
+####### 5 Main Reasons for the NLP Boom
+
+######## 1. Availability of Pre-Trained Models & APIs
+
+- Training large NLP models requires enormous datasets and computational power that smaller companies cannot afford.
+- Tech giants (Google, Meta, OpenAI) train massive models using their resources and make them available to the public.
+- **Key Concept (Transfer Learning):** Developers can take these pre-trained models and fine-tune( Transfer Leaning Method ) them for specific tasks.
+- **Examples:**
+    - **BERT / Universal Sentence Encoder** (Google - TensorFlow Hub)
+    - **FastText** (Meta/Facebook)
+    - **GPT-3** (OpenAI - cost $4M+ to train initially)
+
+######## 2. Robust Open-Source Ecosystem
+
+- Previously, NLP required writing low-level code in languages like C++.
+- Today, high-level Python libraries enable complex NLP tasks in just a few lines of code.
+- **Key Libraries:** `spaCy`, `NLTK`, `Gensim`, `Hugging Face`, `Scikit-learn`.
+
+######## 3. Cheap Hardware & Cloud Resources
+
+- Previously, training models required purchasing expensive, high-end dedicated GPUs.
+- On-demand cloud infrastructure (**AWS**, **Azure**, **Google Cloud**) allows developers to rent compute resources as needed, drastically lowering upfront hardware costs.
+
+######## 4. Abundant Learning Resources & Communities
+
+- Wide accessibility of free and affordable educational content: YouTube tutorials, bootcamps, blogs ([*Towards Data Science*](https://towardsdatascience.com/)), and online courses.
+- Active global communities (**Kaggle**, **Stack Overflow**, Discord) enable rapid problem-solving and networking with industry experts.
+
+######## 5. Massive Investments by Big Tech
+
+- Tech leaders (Google, Meta, Amazon) heavily invest in NLP hardware (e.g., Google Home, Amazon Echo) and frameworks (TensorFlow, PyTorch).
+- **Industry Trend:** Tier-2 and Tier-3 organizations actively adopt NLP to keep pace with Big Tech and avoid missing out on AI capabilities.
+
+*(Reference: Codebasics NLP Tutorial - Season 1, Episode 2)*
+
+##### Topic 3: Regular Expressions (Regex) for NLP
+###### 1. Introduction to Regex in NLP
+
+- **Definition:** Regular Expressions (Regex) are specific text patterns used to match, search, and extract key information from unstructured text.
+- **Importance in NLP:**
+    - Many simple or rule-based NLP tasks can be solved entirely using Regex without complex Machine Learning models.
+    - In industry workflows, Regex is heavily used during the **preprocessing/data cleaning** stage or as part of a **hybrid approach** (Regex + Machine Learning).
+
+###### 2. Basic Regex Syntax & Tokens Reference
+
+| **Token / Symbol** | **Description** | **Example** |
+| --- | --- | --- |
+| `\d` | Matches any single digit (`0-9`) | `\d` matches `5` in `"a5"` |
+| `\d{n}` | Matches exactly `n` consecutive digits | `\d{10}` matches 10-digit phone number |
+| `+` | Matches 1 or more occurrences | `\d+` matches `"1"`, `"123"` |
+| `*` | Matches 0 or more occurrences | `[a-z]*` matches `""`, `"abc"` |
+| `[a-z]` | Matches any lowercase character | `[a-z]` matches `"a"`, `"b"` |
+| `[a-zA-Z0-9_]` | Matches letters (any case), digits, or underscore | Common for usernames/emails |
+| `[^...]` | Matches any character **NOT** inside the brackets | `[^\d]` matches non-digit characters |
+| `\` (Escape) | Treats a special character as a literal symbol | `\.` matches literal dot `.`, `\(` matches `(` |
+| `|` (Pipe) | OR operator (matches pattern A **or** pattern B) | `A|B` |
+| `( )` (Group) | **Capturing Group:** Extracts only the enclosed part of the match | `order[^\d]*(\d+)` extracts digits only |
+
+###### 3. Real-World Use Cases & Patterns
+
+####### Use Case 1: Customer Support Chatbot (Data Extraction)
+
+######## A. Phone Number Extraction
+
+- **Patterns handled:** Continuous 10 digits OR formatted with parentheses and hyphens `(123)-456-7890`.
+- **Regex:**
+    
+    $$\text{\ttfamily \textbackslash d\{10\} \textbar\ \textbackslash(\textbackslash d\{3\}\textbackslash)-\textbackslash d\{3\}-\textbackslash d\{4\}}$$
+    
+
+######## B. Email ID Extraction
+
+- **Pattern logic:** Sequence of valid characters $\rightarrow$ `@` symbol $\rightarrow$ domain name $\rightarrow$ `.` $\rightarrow$ extension.
+- **Regex:**
+    
+    $$\text{\ttfamily [a-zA-Z0-9\_]+@[a-zA-Z0-9]+\textbackslash.[a-zA-Z]+}$$
+    
+
+######## C. Order Number Extraction
+
+- **Pattern logic:** Matches the word `"order"`, skips any non-digit characters, and captures the target order ID digits.
+- **Regex:**
+    
+    $$\text{\ttfamily order[\^{}\textbackslash d]*(\textbackslash d+)}$$
+    
+
+####### Use Case 2: Information Extraction (Wikipedia Article Parsing)
+
+Extracting structured profiles (Name, Age, Birth Date, Birth Place) from unstructured text blocks:
+
+- **Age:** `age\s+(\d+)`
+- **Name:** `born\s+(.*)`
+- **Birth Date:** `born\s+.*\n(.*)\(age`
+- **Birth Place:** `\(age\s+\d+\)\n(.*)`
+
+###### 4. Python Implementation (`re` Module)
+
+Python includes a built-in module called `re` for regular expression operations.
+
+Python
+
+##### 
+
+```
+import re
+
+# 1. re.findall() returns a list of all matching patterns
+text = "My order number is #43789 and phone is 9998881234."
+
+# Extract phone number
+phone_pattern = r'\d{10}|\(\d{3}\)-\d{3}-\d{4}'
+phones = re.findall(phone_pattern, text)  # Output: ['9998881234']
+
+# Extract order number using capturing group ()
+order_pattern = r'order[^\d]*(\d+)'
+order_ids = re.findall(order_pattern, text, flags=re.IGNORECASE)  # Output: ['43789']
+```
+
+###### 5. Helpful Developer Tool
+
+- [**Regex101.com](https://regex101.com/):** Interactive web tool to write, test, and debug regular expressions with real-time explanation breakdowns before implementing in Python code.
+
+*(Reference: Codebasics NLP Tutorial - Season 1, Episode 3)*
+
+---
+### 3.2 Software Engineering (CS24353)
+- SS
+    
+    ![Screenshot 2026-07-19 at 10.09.58 AM.png](5thsem/Software%20Engineering/Software%20Engineering/Screenshot_2026-07-19_at_10.09.58_AM.png)
+    
+
+### 📚 Software Engineering Todo List
+
+#### Module I – Introduction to Software Engineering
+
+- [ ]  Introduction to Software Engineering
+- [ ]  Definitions and FAQs about Software Engineering
+- [ ]  Evolving Role of Software
+- [ ]  Software Process Models
+    - [ ]  Waterfall Model
+    - [ ]  Prototyping Model
+    - [ ]  Spiral Model
+    - [ ]  RAD (Rapid Application Development) Model
+    - [ ]  Incremental Model
+    - [ ]  Agile Models
+- [ ]  Management Activities
+- [ ]  Project Planning
+- [ ]  Project Scheduling
+- [ ]  Risk Management
+
+**Progress:** `0/13`
+
+---
+
+#### Module II – Software Requirements Engineering
+
+- [ ]  Functional Requirements
+- [ ]  Non-Functional Requirements
+- [ ]  User Requirements
+- [ ]  System Requirements
+- [ ]  Software Requirements Document (SRS)
+- [ ]  IEEE Standard for SRS
+- [ ]  Quality of a Good SRS
+- [ ]  Feasibility Study
+- [ ]  Requirements Elicitation
+- [ ]  Requirements Analysis
+- [ ]  Requirements Validation
+- [ ]  Requirement Management
+
+**Progress:** `0/12`
+
+---
+
+#### Module III – Software Design Engineering
+
+- [ ]  Design Engineering
+- [ ]  Design Process
+- [ ]  Design Quality
+- [ ]  Design Concepts
+- [ ]  Design Models
+- [ ]  Object-Oriented Design
+- [ ]  Cohesion
+- [ ]  Coupling
+- [ ]  UML Use Case Diagram
+- [ ]  UML Class Diagram
+- [ ]  UML Activity Diagram
+- [ ]  UML Sequence Diagram
+- [ ]  UML Collaboration Diagram
+
+**Progress:** `0/13`
+
+---
+
+#### Module IV – Verification, Validation & Testing
+
+- [ ]  Verification
+- [ ]  Validation
+- [ ]  Verification and Validation Planning
+- [ ]  Software Inspection
+- [ ]  Static Analysis
+- [ ]  Software Testing
+- [ ]  Testing Functions
+- [ ]  Test Case Design
+- [ ]  White Box Testing
+- [ ]  Black Box Testing
+- [ ]  Basis Path Testing
+- [ ]  Control Structure Testing
+- [ ]  Unit Testing
+- [ ]  Integration Testing
+- [ ]  System Testing
+- [ ]  Reliability
+
+**Progress:** `0/16`
+
+---
+
+#### Module V – Software Project Management & Maintenance
+
+- [ ]  Process Metrics
+- [ ]  Software Measurement
+- [ ]  Software Project Estimation
+- [ ]  Decomposition Techniques
+- [ ]  Empirical Estimation Models
+- [ ]  COCOMO Model
+- [ ]  Function Points
+- [ ]  Quality Assurance and Standards
+- [ ]  Quality Planning
+- [ ]  Quality Control
+- [ ]  Configuration Management
+- [ ]  Software Maintenance
+- [ ]  Software Re-engineering
+
+**Progress:** `0/13`
+
+---
+
+### 📊 Overall Progress
+
+- [ ]  Module I (13 topics)
+- [ ]  Module II (12 topics)
+- [ ]  Module III (13 topics)
+- [ ]  Module IV (16 topics)
+- [ ]  Module V (13 topics)
+
+**Total Topics:** **67**
+
+**Completed:** `0/67` (0%)
+
+---
+## 4. Open Elective Courses Reference
+
+Below is the full catalog of Open Elective – II options available for 5th Semester B.Tech Students:
+
+| Course Code | Subject Name | Credits | Department / Field |
+| --- | --- | --- | --- |
+| HS24405 | German – I | 3.0 | Humanities & Social Sciences |
+| MO24201 | Massive Open Online Course – I | 3.0 | NPTEL / SWAYAM |
+| SR26410 | Introduction to Aerospace Engineering | 3.0 | Space Engineering & Rocketry |
+| RG26301 | Principles of Remote Sensing | 3.0 | Remote Sensing |
+| PE24319 | Project Management | 3.0 | Production Engineering |
+| ME24343 | Elements of Hydel and Thermal Power Plants | 3.0 | Mechanical Engineering |
+| HS26253 | Psychology of Everyday Life | 3.0 | Humanities & Social Sciences |
+| HS26251 | Ethics and Philosophy of Technology | 3.0 | Humanities & Social Sciences |
+| HS24403 | French – I | 3.0 | Humanities & Social Sciences |
+| EE24355 | Linear Control Theory | 3.0 | Electrical & Electronics Engineering |
+| EC24333 | Introduction to Microcontrollers | 3.0 | Electronics & Communication Engineering |
+| EC24231 | Introduction to Communication System | 3.0 | Electronics & Communication Engineering |
+| CE24391 | Environmental Management | 3.0 | Civil & Environmental Engineering |
+| BE24354 | Biotreatment of Municipal & Industrial Wastes | 3.0 | Bio-Engineering |
+| BE24353 | Fundamentals of Bioelectronic Devices | 3.0 | Bio-Engineering |
