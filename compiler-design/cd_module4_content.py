@@ -83,7 +83,7 @@ $$x = y \ \mathbf{op} \ z$$
   </table>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 4: Multi-Dimensional Array Addressing Formulations</h2>
 
@@ -105,7 +105,7 @@ $$x = y \ \mathbf{op} \ z$$
   Where $n_1 = \text{high}_1 - \text{low}_1 + 1$ is the number of elements in each column.
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 5 & 6: Backpatching in Boolean Expressions</h2>
 
@@ -118,7 +118,7 @@ $$x = y \ \mathbf{op} \ z$$
   <li><strong>`backpatch(p, i)`:</strong> Inserts target instruction label $i$ as the jump destination into all instructions indexed in list $p$.</li>
 </ul>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topics 7 – 9: Runtime Storage Organization & Activation Records</h2>
 
@@ -150,7 +150,7 @@ $$x = y \ \mathbf{op} \ z$$
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
 

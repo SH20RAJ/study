@@ -80,7 +80,7 @@ DM_M1_EXHAUSTIVE = r"""
   <li><strong>Knowledge Presentation:</strong> Uses visual analytics, scatter matrices, parallel coordinate graphs, and interactive decision trees to present discoveries in an interpretable format for human domain experts.</li>
 </ol>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topics 2 – 5: Data Repositories & Advanced Database Architectures</h2>
 
@@ -128,7 +128,7 @@ DM_M1_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 6: Data Mining Functionalities (What Kinds of Patterns Can Be Mined?)</h2>
 
@@ -183,7 +183,7 @@ DM_M1_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 7: Classification of Data Mining Systems</h2>
 <p>Data mining systems are categorized across 4 multidimensional axes:</p>
@@ -207,7 +207,7 @@ DM_M1_EXHAUSTIVE = r"""
   </ol>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topics 9 – 10: Data Objects & 4 Fundamental Attribute Types</h2>
 
@@ -264,7 +264,7 @@ DM_M1_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 11: Basic Statistical Descriptions of Data</h2>
 
@@ -320,7 +320,7 @@ DM_M1_EXHAUSTIVE = r"""
   </ol>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 12: Data Visualization Techniques</h2>
 
@@ -434,7 +434,7 @@ DM_M1_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <div class="worked-box">
   <div class="worked-title">🏛️ Step-by-Step Solved Problem: Proximity Calculations on Vector Data</div>

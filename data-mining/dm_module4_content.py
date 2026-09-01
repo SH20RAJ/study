@@ -58,7 +58,7 @@ DM_M4_EXHAUSTIVE = r"""
   </li>
 </ul>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 5: The Apriori Algorithm (Level-Wise Search)</h2>
 
@@ -134,7 +134,7 @@ DM_M4_EXHAUSTIVE = r"""
   </ul>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 4: Vertical Data Format (ECLAT Algorithm)</h2>
 <p>
@@ -164,7 +164,7 @@ DM_M4_EXHAUSTIVE = r"""
   <li>$\text{TID}(I2, I5) = \{T100, T800\} \implies \mathbf{Count = 2 \ge 2}$</li>
 </ul>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 6: The FP-Growth Algorithm (Mining Without Candidate Generation)</h2>
 
@@ -222,7 +222,7 @@ DM_M4_EXHAUSTIVE = r"""
   </li>
 </ol>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 3 & 7: Interesting Pattern Evaluation Metrics</h2>
 
@@ -268,7 +268,7 @@ DM_M4_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
 

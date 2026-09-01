@@ -83,7 +83,7 @@ CD_M1_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 2: The 6 Phases of a Compiler (End-to-End Walkthrough)</h2>
 
@@ -142,7 +142,7 @@ STF   id1, R1      ; Store result into memory position</code></pre>
   </ol>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 4 & 5: Lexical Analysis & Input Buffering</h2>
 
@@ -163,7 +163,7 @@ STF   id1, R1      ; Store result into memory position</code></pre>
   <li><strong>Sentinels (`EOF`):</strong> Appending an `EOF` marker at the end of each buffer half avoids making two comparisons per character (one for buffer boundary and one for character matching), accelerating lexer throughput by over $200\%$.</li>
 </ul>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 7: Thompson's Construction Algorithm (RE $\rightarrow$ NFA)</h2>
 
@@ -203,7 +203,7 @@ STF   id1, R1      ; Store result into memory position</code></pre>
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 8: Subset Construction Algorithm (NFA $\rightarrow$ DFA)</h2>
 
@@ -239,7 +239,7 @@ STF   id1, R1      ; Store result into memory position</code></pre>
   </table>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 9: Hopcroft's DFA Minimization Algorithm</h2>
 
@@ -255,7 +255,7 @@ STF   id1, R1      ; Store result into memory position</code></pre>
   <li><strong>State Compression:</strong> Replace each final partition group with a single representative state in the minimal DFA.</li>
 </ol>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
 

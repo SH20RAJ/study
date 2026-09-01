@@ -64,7 +64,7 @@ CD_M5_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 2: Basic Blocks & Control Flow Graphs (CFG)</h2>
 
@@ -102,7 +102,7 @@ CD_M5_EXHAUSTIVE = r"""
   </ul>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 3: Directed Acyclic Graphs (DAG) for Basic Blocks</h2>
 
@@ -115,7 +115,7 @@ CD_M5_EXHAUSTIVE = r"""
   <li>Nodes have labels attached showing current identifier names having that computed value.</li>
 </ul>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 7 & 8: Data-Flow Analysis Frameworks</h2>
 
@@ -149,7 +149,7 @@ CD_M5_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 9 & 10: Target Code Generation & Peephole Optimization</h2>
 
@@ -173,7 +173,7 @@ MOV a, R0     ; Redundant - Eliminated!</code></pre>
   <li><strong>Algebraic Simplifications:</strong> Replacing $x + 0 \rightarrow x$, $x * 1 \rightarrow x$, $x * 0 \rightarrow 0$.</li>
 </ul>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
 

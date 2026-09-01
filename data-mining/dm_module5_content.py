@@ -29,7 +29,7 @@ DM_M5_EXHAUSTIVE = r"""
   <li><strong>High-Dimensionality & Colossal Patterns:</strong> Overcoming the $2^{100}$ search space barrier when patterns contain tens or hundreds of items.</li>
 </ol>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 2: Multilevel Pattern Mining</h2>
 <p>
@@ -70,7 +70,7 @@ DM_M5_EXHAUSTIVE = r"""
 $$\text{Expected Confidence}(r_1) \approx \text{Confidence}(r_2)$$
 <p>Such ancestor rules convey no additional novel knowledge and are automatically filtered out.</p>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 3: Multidimensional & Quantitative Association Rules</h2>
 <table class="custom-table">
@@ -106,7 +106,7 @@ $$\text{Expected Confidence}(r_1) \approx \text{Confidence}(r_2)$$
   <li><strong>Dynamic Discretization (Grid-Based Clustering):</strong> Discretizes quantitative dimensions dynamically during mining to maximize rule support and confidence (e.g., ARCS algorithm).</li>
 </ol>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 4: Constraint-Based Frequent Pattern Mining</h2>
 <p>
@@ -162,7 +162,7 @@ $$\text{Expected Confidence}(r_1) \approx \text{Confidence}(r_2)$$
   </p>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topics 5 – 7: Mining High-Dimensional, Colossal & Compressed Patterns</h2>
 
@@ -196,7 +196,7 @@ $$\text{Expected Confidence}(r_1) \approx \text{Confidence}(r_2)$$
   <strong>Pattern-Fusion</strong> jumps across the search space by fusing smaller core frequent patterns into large colossal patterns in single leaps rather than incremental 1-item extensions.
 </p>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 9: Sequential & Graph Pattern Mining (PrefixSpan & gSpan)</h2>
 
@@ -223,7 +223,7 @@ $$\text{Expected Confidence}(r_1) \approx \text{Confidence}(r_2)$$
   <li><strong>Financial Fraud Detection:</strong> Discovering synchronized multi-account transaction patterns characteristic of money laundering.</li>
 </ol>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
 

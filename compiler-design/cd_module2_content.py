@@ -40,7 +40,7 @@ $$\text{stmt} \rightarrow \mathbf{if} \ \text{expr} \ \mathbf{then} \ \text{stmt
   Resolved by disambiguating the grammar into `matched_stmt` and `unmatched_stmt`, matching each `else` with the closest unmatched `then`.
 </p>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 3 & 4: Grammar Transformations (Left Recursion & Left Factoring)</h2>
 
@@ -67,7 +67,7 @@ $$A \rightarrow \beta A', \qquad A' \rightarrow \alpha A' \mid \epsilon$$
 </p>
 $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 5: Formal Formulations of FIRST and FOLLOW</h2>
 
@@ -122,7 +122,7 @@ $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
   </table>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 6: Top-Down LL(1) Predictive Parsing</h2>
 
@@ -152,7 +152,7 @@ $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topics 7 – 9: Bottom-Up LR Parsing Landscape</h2>
 
@@ -197,7 +197,7 @@ $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
 

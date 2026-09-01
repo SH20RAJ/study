@@ -81,7 +81,7 @@ DM_REVISION_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🔥 Top 10 High-Yield BIT Mesra Exam Questions & Model Answers</h2>
 

@@ -48,7 +48,7 @@ CD_M3_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 3 & 4: S-Attributed vs. L-Attributed SDD</h2>
 
@@ -85,7 +85,7 @@ CD_M3_EXHAUSTIVE = r"""
   <p>Evaluates $(3 + 4) * 5\mathbf{n} \implies \mathbf{35}$ bottom-up in a single pass.</p>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 7 & 8: Type Checking & Type Systems</h2>
 
@@ -105,7 +105,7 @@ CD_M3_EXHAUSTIVE = r"""
   <li><strong>Explicit Casting:</strong> Programmed explicitly by the developer (e.g., `(int) x`).</li>
 </ul>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">Topic 10: Symbol Table Organization</h2>
 
@@ -134,7 +134,7 @@ CD_M3_EXHAUSTIVE = r"""
   <div class="diagram-caption">Figure 3.1: Hierarchical Block-Structured Scope Chaining</div>
 </div>
 
-<div class="page-break"></div>
+
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
 
