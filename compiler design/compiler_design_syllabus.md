@@ -62,27 +62,32 @@ flowchart LR
 ### Module I – Lexical Analysis
 *Focus: Tokenization, regular languages, finite automata, and direct DFA construction.*
 
-- [ ] **Introduction to Compilers & Language Processors:**
+- [x] **Introduction to Compilers & Language Processors:**
   - Cousins of the Compiler: Preprocessor, Compiler, Assembler, Linker, Loader
   - Structure & Phases of a Compiler (Analysis vs. Synthesis; Front-End vs. Back-End)
   - Compiler-construction tools (Lex/Flex, Yacc/Bison)
-- [ ] **Role of Lexical Analyzer:**
+- [x] **Role of Lexical Analyzer:**
   - Tokens, Patterns, and Lexemes
   - Attributes for tokens
   - Lexical errors and recovery strategies
-- [ ] **Input Buffering:**
+- [x] **Input Buffering:**
   - Buffer pairs and Sentinel characters
-- [ ] **Specification & Recognition of Tokens:**
+- [x] **Specification & Recognition of Tokens:**
   - Regular Expressions (RE) & Regular Definitions
   - Transition Diagrams and Finite Automata (NFA & DFA)
   - Thompson’s Construction (RE to NFA)
   - Subset Construction Algorithm (NFA to DFA)
   - DFA State Minimization (Hopcroft’s Algorithm)
-- [ ] **Direct DFA Construction from Regular Expressions:**
+- [x] **Direct DFA Construction from Regular Expressions:**
   - Augmented Regular Expressions $(r)\#$
   - Syntax Tree representations
   - Functions: `nullable(n)`, `firstpos(n)`, `lastpos(n)`, `followpos(i)`
   - Direct DFA state construction algorithm
+
+> 📄 **Module 1 Deliverables:**  
+> • [Module 1 Markdown Notes](file:///Users/shaswatraj/Desktop/study/compiler%20design/Module_1_Lexical_Analysis_Notes.md)  
+> • [Module 1 Web Notes (HTML)](file:///Users/shaswatraj/Desktop/study/compiler%20design/Module_1_Lexical_Analysis_Notes.html)  
+> • [Module 1 Print-Ready PDF](file:///Users/shaswatraj/Desktop/study/compiler%20design/Module_1_Lexical_Analysis_Notes.pdf)
 
 ---
 
@@ -266,7 +271,7 @@ flowchart LR
 
 | Module | Core Concept | Topics Count | Status |
 | :---: | :--- | :---: | :---: |
-| **M1** | Lexical Analysis, Tokens, Buffer Pairs, Thompson's Construction, Direct RE $\rightarrow$ DFA | 7 | ⬜ Not Started |
+| **M1** | Lexical Analysis, Tokens, Buffer Pairs, Thompson's Construction, Direct RE $\rightarrow$ DFA | 7 | ✅ Completed (Notes & PDF Generated) |
 | **M2** | CFG, Left Recursion/Factoring, LL(1) Parsing, SLR(1), CLR(1), LALR(1), Conflicts & Errors | 10 | ⬜ Not Started |
 | **M3** | SDD (S-attr vs L-attr), SDTS, Symbol Tables, Type Systems, TAC (Quadruples/Triples), Arrays | 9 | ⬜ Not Started |
 | **M4** | Boolean Expressions (Short-circuit), Control Flow Translation, Backpatching, Activation Records | 9 | ⬜ Not Started |
