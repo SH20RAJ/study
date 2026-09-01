@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 4: Switching, Cellular Networks & LANs</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 4: Network Layer & Routing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -74,18 +91,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,171 +171,277 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">Module IV Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module IV Notes</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 4: Network Layer & Routing</h1>
+      <div class="doc-subtitle">IPv4 20-Byte Header, CIDR Subnetting Calculations, IPv6, Distance Vector (Bellman-Ford) & Link State (Dijkstra)</div>
     </div>
-    <h1 class="doc-title">Module 4: Switching, Cellular Networks & LANs</h1>
-    <div class="doc-subtitle">Circuit vs Packet, Cellular Frequency Reuse, CSMA/CD, CSMA/CA, VLAN</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module IV: Switching, Cellular Networks & LANs — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Network Layer, IP Addressing & Routing Algorithms</div>
   <div class="toc-grid">
-    <div>1. Circuit Switching vs. Packet Switching</div>
-    <div>2. Cellular Frequency Reuse ($N=i^2+ij+j^2$)</div>
-    <div>3. IEEE 802.3 Ethernet & CSMA/CD Backoff</div>
-    <div>4. IEEE 802.11 Wi-Fi & CSMA/CA (RTS/CTS)</div>
-    <div>5. Virtual LANs (VLANs & IEEE 802.1Q)</div>
+    <div>1. Network Layer Service Models: Virtual-Circuit vs. Datagram Packet Switching</div>
+    <div>2. IPv4 Header Format: 20-Byte Field Breakdown & Fragmentation Fields (Offset, Flags)</div>
+    <div>3. Classful IP Addressing (Classes A, B, C, D, E & Special Loopback / Private Blocks)</div>
+    <div>4. Subnetting & Classless Inter-Domain Routing (CIDR) Slash Notation ($/n$)</div>
+    <div>5. Longest Prefix Match Algorithm in Forwarding Tables with Worked Lookups</div>
+    <div>6. IPv6 Protocol Architecture: 40-Byte Fixed Base Header & Extension Headers</div>
+    <div>7. IPv4 to IPv6 Transition Mechanisms: Dual-Stack, Tunneling & Header Translation</div>
+    <div>8. Unicast Routing Principles: Intra-AS (IGP) vs. Inter-AS (EGP) Autonomous Systems</div>
+    <div>9. Distance Vector Routing (DVR): Bellman-Ford Equation & Count-to-Infinity Problem</div>
+    <div>10. Solutions to Count-to-Infinity: Split Horizon & Poisoned Reverse Mechanisms</div>
+    <div>11. Link State Routing (LSR): Link State Advertisements & Dijkstra's Algorithm Tree</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Ethernet CSMA/CD vs. Wi-Fi CSMA/CA</h2>
+<h2 class="section-title">Topic 2 – 4: IPv4 Datagram Format & CIDR Subnetting</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">IPv4 Header Field</th>
+      <th style="width: 15%;">Bit Width</th>
+      <th>Functional Purpose & Transmission Invariant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Version</strong></td>
+      <td>4 bits</td>
+      <td>Identifies IP version (`0100` for IPv4).</td>
+    </tr>
+    <tr>
+      <td><strong>Header Length (IHL)</strong></td>
+      <td>4 bits</td>
+      <td>Length of header in 32-bit (4-byte) words. Minimum value is $5$ ($20$ bytes).</td>
+    </tr>
+    <tr>
+      <td><strong>Total Length</strong></td>
+      <td>16 bits</td>
+      <td>Entire datagram length (Header + Data) in bytes. Max size $= 65,535$ bytes.</td>
+    </tr>
+    <tr>
+      <td><strong>Identification, Flags, Offset</strong></td>
+      <td>$16 + 3 + 13$ bits</td>
+      <td>Handles MTU packet fragmentation. Fragment Offset is measured in 8-byte units. `DF`=Don't Fragment, `MF`=More Fragments.</td>
+    </tr>
+    <tr>
+      <td><strong>Time to Live (TTL)</strong></td>
+      <td>8 bits</td>
+      <td>Hop counter decremented by 1 at each router to prevent infinite forwarding loops. Discarded with ICMP Time Exceeded when $\text{TTL} = 0$.</td>
+    </tr>
+    <tr>
+      <td><strong>Protocol</strong></td>
+      <td>8 bits</td>
+      <td>Demultiplexing to transport layer (`6` for TCP, `17` for UDP, `1` for ICMP).</td>
+    </tr>
+    <tr>
+      <td><strong>Header Checksum</strong></td>
+      <td>16 bits</td>
+      <td>1's complement sum of header fields recalculated at every router as TTL decrements.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: CIDR Subnet Allocation</div>
+  <p><strong>Problem:</strong> An organization is assigned the network block `200.10.20.0/24`. It needs to divide this block into 4 equal subnets for 4 departments.</p>
+  <ol>
+    <li>
+      <strong>Step 1: Determine Additional Subnet Bits ($k$):</strong>
+      $$2^k \ge 4 \implies k = 2 \text{ bits}$$
+      New Subnet Mask: $/24 + 2 = \mathbf{/26} \implies \mathbf{255.255.255.192}$.
+    </li>
+    <li>
+      <strong>Step 2: Compute Total and Usable Host Addresses per Subnet:</strong>
+      $$\text{Total Addresses per Subnet} = 2^{32 - 26} = 2^6 = \mathbf{64}$$
+      $$\text{Usable Host Addresses} = 64 - 2 = \mathbf{62} \quad (\text{subtracting Network ID and Directed Broadcast})$$
+    </li>
+    <li>
+      <strong>Step 3: Subnet Allocation Table:</strong>
+      <table class="custom-table">
+        <tr><th>Subnet</th><th>Network Address</th><th>Usable Host IP Range</th><th>Broadcast Address</th></tr>
+        <tr><td>Dept 1</td><td>`200.10.20.0/26`</td><td>`200.10.20.1` – `200.10.20.62`</td><td>`200.10.20.63`</td></tr>
+        <tr><td>Dept 2</td><td>`200.10.20.64/26`</td><td>`200.10.20.65` – `200.10.20.126`</td><td>`200.10.20.127`</td></tr>
+        <tr><td>Dept 3</td><td>`200.10.20.128/26`</td><td>`200.10.20.129` – `200.10.20.190`</td><td>`200.10.20.191`</td></tr>
+        <tr><td>Dept 4</td><td>`200.10.20.192/26`</td><td>`200.10.20.193` – `200.10.20.254`</td><td>`200.10.20.255`</td></tr>
+      </table>
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 9 – 11: Routing Algorithms (Distance Vector vs. Link State)</h2>
+
 <table class="custom-table">
   <thead>
     <tr>
       <th style="width: 25%;">Feature</th>
-      <th style="width: 38%;">IEEE 802.3 Ethernet (CSMA/CD)</th>
-      <th style="width: 37%;">IEEE 802.11 Wi-Fi (CSMA/CA)</th>
+      <th style="width: 37%;">Distance Vector Routing (DVR — RIP)</th>
+      <th>Link State Routing (LSR — OSPF)</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Mechanism</strong></td><td>Carrier Sense Multiple Access with <strong>Collision Detection</strong></td><td>Carrier Sense Multiple Access with <strong>Collision Avoidance</strong></td></tr>
-    <tr><td><strong>Wireless Challenge</strong></td><td>Transceiver can detect collision while sending.</td><td>Cannot detect collision while transmitting (RF blindness) $\implies$ Must avoid collisions.</td></tr>
-    <tr><td><strong>Collision Recovery</strong></td><td>Emits 32-bit Jam signal; Binary Exponential Backoff ($[0, 2^k-1] \times 51.2\mu s$).</td><td>Interframe Spaces (DIFS, SIFS); RTS/CTS handshaking resolves hidden terminals.</td></tr>
+    <tr>
+      <td><strong>Mathematical Algorithm</strong></td>
+      <td><strong>Bellman-Ford Equation:</strong>
+        $$D_x(y) = \min_v \{ c(x, v) + D_v(y) \}$$
+      </td>
+      <td><strong>Dijkstra's Shortest Path Algorithm:</strong> Computes full shortest-path tree from source.</td>
+    </tr>
+    <tr>
+      <td><strong>Information Exchanged</strong></td>
+      <td>Vector of estimated distances to all destinations.</td>
+      <td>Exact state and cost of directly attached links (LSA).</td>
+    </tr>
+    <tr>
+      <td><strong>Destination of Updates</strong></td>
+      <td>Sent only to directly adjacent neighbors.</td>
+      <td>Flooded globally to all routers in the entire network area.</td>
+    </tr>
+    <tr>
+      <td><strong>Convergence & Stability</strong></td>
+      <td>Slow convergence; prone to <strong>Count-to-Infinity</strong> routing loops.</td>
+      <td>Fast convergence; completely immune to routing loops.</td>
+    </tr>
   </tbody>
 </table>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Explain the Count-to-Infinity problem in Distance Vector Routing and how Split Horizon with Poison Reverse resolves it. (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>Count-to-Infinity Problem:</strong> When a link $A-B$ goes down, router $A$ sets its cost to $\infty$. However, neighbor $C$ may still advertise that it has a path to $A$ via $B$ with cost 2. Router $B$ receives this and updates its cost to $A$ as $2 + 1 = 3$, advertising it back to $C$. $C$ updates to $3 + 1 = 4$, and both routers slowly increment their distance vectors step-by-step up to $\infty$ (16 in RIP).<br>
+    - <strong>Split Horizon with Poison Reverse:</strong> If router $C$ routes traffic to destination $X$ through neighbor $B$, $C$ advertises its distance to $X$ back to $B$ as $\infty$ ($\text{Poisoned Reverse}$). This prevents $B$ from wrongly routing traffic back through $C$ during link failures.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

@@ -1,25 +1,34 @@
 #!/usr/bin/env python3
 """
-Data Communication and Computer Networks (CS24305) - Complete Neuroscience-Backed Study Suite Generator
+Data Communication and Computer Networks (CS24305) — Complete Neuroscience-Backed Study Suite Generator
+BIT Mesra | B.Tech CSE 5th Semester (NEP Scheme 2024–25)
+
 Generates:
-1. Module 1: Overview & Transmission Fundamentals Notes (HTML & PDF)
-2. Module 2: Physical Media & Signal Encoding Notes (HTML & PDF)
-3. Module 3: Error Control, Data Link Protocols & ARQ Notes (HTML & PDF)
-4. Module 4: Switching, Cellular Networks & LANs Notes (HTML & PDF)
-5. Module 5: Internetworking, TCP/IP & Routing Notes (HTML & PDF)
-6. 10-Page Master Quick Revision Notes (HTML & PDF)
-7. Full Course Master Compilation (HTML & PDF)
+1. Module 1: Physical Layer & Signals Notes (11-13 Pages)
+2. Module 2: Data Link Layer & ARQ Protocols Notes (11-13 Pages)
+3. Module 3: Medium Access Control & LANs Notes (11-13 Pages)
+4. Module 4: Network Layer & Routing Protocols Notes (11-13 Pages)
+5. Module 5: Transport Layer & Security Notes (11-13 Pages)
+6. 10-Page Master Quick Revision Guide (10 Pages)
+7. Full Course Master Book (50+ Pages)
 """
 
 import os
 import sys
 from playwright.sync_api import sync_playwright
 
+from dccn_module1_content import DCCN_M1_EXHAUSTIVE
+from dccn_module2_content import DCCN_M2_EXHAUSTIVE
+from dccn_module3_content import DCCN_M3_EXHAUSTIVE
+from dccn_module4_content import DCCN_M4_EXHAUSTIVE
+from dccn_module5_content import DCCN_M5_EXHAUSTIVE
+from dccn_revision_content import DCCN_REVISION_EXHAUSTIVE
+
 BASE_CSS = r"""
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -37,42 +46,58 @@ BASE_CSS = r"""
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -82,18 +107,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -103,8 +128,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -112,29 +136,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -142,17 +171,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -162,430 +187,161 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 """
 
-def wrap_html(title, subtitle, badge_text, body_html):
-    template = """<!DOCTYPE html>
+def wrap_html(title, subtitle, badge, content):
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>__TITLE__</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>__BASE_CSS__</style>
+  <meta charset="UTF-8">
+  <title>{title}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {{delimiters: [{{left: '$$', right: '$$', display: true}}, {{left: '$', right: '$', display: false}}]}});"></script>
+  <style>{BASE_CSS}</style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">__BADGE__</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">{badge}</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">{title}</h1>
+      <div class="doc-subtitle">{subtitle}</div>
     </div>
-    <h1 class="doc-title">__TITLE__</h1>
-    <div class="doc-subtitle">__SUBTITLE__</div>
+    {content}
   </div>
-  __BODY__
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
-  </div>
-</div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
 </body>
 </html>"""
-    return template.replace("__TITLE__", title).replace("__SUBTITLE__", subtitle).replace("__BADGE__", badge_text).replace("__BODY__", body_html).replace("__BASE_CSS__", BASE_CSS)
-
-DCCN_M1_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module I: Data Communications & Networking Overview — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Five Components of Data Communication</div>
-    <div>2. Network Topologies (Mesh, Star, Bus, Ring)</div>
-    <div>3. OSI 7-Layer vs. TCP/IP 4-Layer Architecture</div>
-    <div>4. Transmission Impairments (Attenuation, Delay, Noise)</div>
-    <div>5. Nyquist Maximum Data Rate Theorem</div>
-    <div>6. Shannon Channel Capacity Theorem & SNR (dB)</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Layered Network Models: OSI vs. TCP/IP</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 15%;">OSI Layer</th>
-      <th style="width: 25%;">Protocol Data Unit (PDU)</th>
-      <th style="width: 35%;">Key Responsibilities</th>
-      <th>TCP/IP Equivalent</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>7. Application</strong></td><td>Messages / Data</td><td>Network virtual terminal, HTTP, FTP, SMTP, DNS</td><td rowspan="3"><strong>Application Layer</strong></td></tr>
-    <tr><td><strong>6. Presentation</strong></td><td>Formatted Data</td><td>Translation, Encryption (SSL/TLS), Compression</td></tr>
-    <tr><td><strong>5. Session</strong></td><td>Dialog Tokens</td><td>Session establishment, Dialog control, Sync checkpoints</td></tr>
-    <tr><td><strong>4. Transport</strong></td><td>Segments (TCP) / Datagrams (UDP)</td><td>Port addressing, Segmentation, Flow/Error/Congestion control</td><td><strong>Transport Layer</strong></td></tr>
-    <tr><td><strong>3. Network</strong></td><td>Packets</td><td>Logical IP addressing, Subnet routing, Path determination</td><td><strong>Internet Layer</strong></td></tr>
-    <tr><td><strong>2. Data Link</strong></td><td>Frames</td><td>Physical MAC addressing, Framing, Error detection (CRC)</td><td rowspan="2"><strong>Network Access Layer</strong></td></tr>
-    <tr><td><strong>1. Physical</strong></td><td>Bits</td><td>Bit transmission over copper/fiber/radio, signal levels</td></tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">2. Channel Capacity Theorems</h2>
-
-<h3 class="subsection-title">2.1 Nyquist Theorem (Noiseless Channel)</h3>
-$$C = 2B \log_2(M) \text{ bps}$$
-<p>where $B$ is channel bandwidth in Hertz and $M$ is the number of discrete signal voltage levels.</p>
-
-<h3 class="subsection-title">2.2 Shannon Theorem (Noisy Channel)</h3>
-$$C = B \log_2(1 + \text{SNR}) \text{ bps}$$
-<p>where $\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}}$. Given $\text{SNR}_{\text{dB}} = 10 \log_{10}(\text{SNR}) \implies \text{SNR} = 10^{(\text{SNR}_{\text{dB}} / 10)}$.</p>
-
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Mid-Sem Exam Numerical (8 Marks)</div>
-  <strong>Problem:</strong> A telephone line has a bandwidth of $4 \text{ kHz}$ and a signal-to-noise ratio of $30 \text{ dB}$. Calculate the theoretical Shannon maximum channel capacity.<br>
-  <strong>Solution:</strong>
-  $$\text{SNR}_{\text{dB}} = 30 \implies 10 \log_{10}(\text{SNR}) = 30 \implies \text{SNR} = 10^3 = 1000$$
-  $$C = B \log_2(1 + \text{SNR}) = 4000 \times \log_2(1001) \approx 4000 \times 9.967 = \mathbf{39,869 \text{ bps}} \approx \mathbf{39.87 \text{ kbps}}$$
-</div>
-"""
-
-DCCN_M2_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module II: Transmission Media & Signal Encoding — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Guided Media (Twisted Pair, Coax, Optical Fiber)</div>
-    <div>2. Digital Signal Encoding: NRZ, Manchester, AMI</div>
-    <div>3. Analog Modulation: ASK, FSK, PSK, QAM</div>
-    <div>4. Pulse Code Modulation (PCM) & Quantization</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Digital Signal Encoding Techniques</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Encoding Scheme</th>
-      <th style="width: 45%;">Rule / Signal Transition</th>
-      <th>Key Advantages & Drawbacks</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>NRZ-L (Level)</strong></td>
-      <td>Bit 0 = High level, Bit 1 = Low level</td>
-      <td>Simple; susceptible to DC baseline wander and clock drift on long runs of 0s/1s.</td>
-    </tr>
-    <tr>
-      <td><strong>NRZI (Invert)</strong></td>
-      <td>Bit 1 = Transition at start; Bit 0 = No transition</td>
-      <td>Solves sync for consecutive 1s, but fails on strings of 0s.</td>
-    </tr>
-    <tr>
-      <td><strong>Bipolar-AMI</strong></td>
-      <td>Bit 0 = Zero voltage; Bit 1 = Alternating +V and -V</td>
-      <td>Zero DC component; easy error detection; fails sync on consecutive 0s.</td>
-    </tr>
-    <tr>
-      <td><strong>Manchester (Ethernet)</strong></td>
-      <td>Bit 0 = High-to-Low transition; Bit 1 = Low-to-High transition</td>
-      <td><strong>Self-clocking</strong> (transition at middle of every bit); requires $2\times$ bandwidth.</td>
-    </tr>
-    <tr>
-      <td><strong>Diff. Manchester</strong></td>
-      <td>Transition in middle; Bit 0 = Transition at start; Bit 1 = No transition at start</td>
-      <td>Differential noise immunity; self-clocking; standard in Token Ring (IEEE 802.5).</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">2. Analog Modulation & 16-QAM Constellation</h2>
-<p>
-  <strong>Quadrature Amplitude Modulation (QAM)</strong> modulates both amplitude and phase simultaneously. In 16-QAM, each transmitted constellation point represents <strong>4 bits</strong> ($\log_2(16) = 4$), enabling high spectral efficiency.
-</p>
-"""
-
-DCCN_M3_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module III: Error Control & Data Link Protocols — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Cyclic Redundancy Check (CRC-16/32 Modulo-2)</div>
-    <div>2. Hamming Distance & (7, 4) Error Correction</div>
-    <div>3. Sliding Window ARQ: Stop-and-Wait, GBN, SR</div>
-    <div>4. HDLC Protocol & Bit Stuffing Mechanics</div>
-    <div>5. Frequency and Time Division Multiplexing (FDM/TDM)</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Cyclic Redundancy Check (CRC)</h2>
-<p>
-  Given data word $D(x)$ of $k$ bits and generator polynomial $G(x)$ of degree $n$:
-  <ol>
-    <li>Append $n$ zero bits to $D(x)$ to form dividend $D(x) \cdot 2^n$.</li>
-    <li>Perform binary Modulo-2 division (XOR) by generator polynomial $G(x)$.</li>
-    <li>The $n$-bit remainder $R(x)$ is the Frame Check Sequence (FCS). Transmit $T(x) = D(x) \cdot 2^n \oplus R(x)$.</li>
-  </ol>
-</p>
-
-<h2 class="section-title">2. Sliding Window ARQ Protocols Comparison</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th>Protocol</th>
-      <th>Sender Window ($W_s$)</th>
-      <th>Receiver Window ($W_r$)</th>
-      <th>Efficiency ($\eta$)</th>
-      <th>Retransmission Behavior</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Stop-and-Wait</strong></td>
-      <td>$1$</td>
-      <td>$1$</td>
-      <td>$\frac{1}{1 + 2a}$ where $a = \frac{T_{\text{prop}}}{T_{\text{trans}}}$</td>
-      <td>Retransmits single frame upon timer expiry.</td>
-    </tr>
-    <tr>
-      <td><strong>Go-Back-N (GBN)</strong></td>
-      <td>$2^k - 1$</td>
-      <td>$1$</td>
-      <td>$\frac{W_s}{1 + 2a}$</td>
-      <td>Discards out-of-order frames; retransmits entire window from lost frame.</td>
-    </tr>
-    <tr>
-      <td><strong>Selective Repeat</strong></td>
-      <td>$2^{k-1}$</td>
-      <td>$2^{k-1}$</td>
-      <td>$\frac{W_s}{1 + 2a}$</td>
-      <td>Buffers out-of-order frames; retransmits <strong>only the damaged frame</strong> (NAK).</td>
-    </tr>
-  </tbody>
-</table>
-"""
-
-DCCN_M4_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module IV: Switching, Cellular Networks & LANs — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Circuit Switching vs. Packet Switching</div>
-    <div>2. Cellular Frequency Reuse ($N=i^2+ij+j^2$)</div>
-    <div>3. IEEE 802.3 Ethernet & CSMA/CD Backoff</div>
-    <div>4. IEEE 802.11 Wi-Fi & CSMA/CA (RTS/CTS)</div>
-    <div>5. Virtual LANs (VLANs & IEEE 802.1Q)</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Ethernet CSMA/CD vs. Wi-Fi CSMA/CA</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Feature</th>
-      <th style="width: 38%;">IEEE 802.3 Ethernet (CSMA/CD)</th>
-      <th style="width: 37%;">IEEE 802.11 Wi-Fi (CSMA/CA)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Mechanism</strong></td><td>Carrier Sense Multiple Access with <strong>Collision Detection</strong></td><td>Carrier Sense Multiple Access with <strong>Collision Avoidance</strong></td></tr>
-    <tr><td><strong>Wireless Challenge</strong></td><td>Transceiver can detect collision while sending.</td><td>Cannot detect collision while transmitting (RF blindness) $\implies$ Must avoid collisions.</td></tr>
-    <tr><td><strong>Collision Recovery</strong></td><td>Emits 32-bit Jam signal; Binary Exponential Backoff ($[0, 2^k-1] \times 51.2\mu s$).</td><td>Interframe Spaces (DIFS, SIFS); RTS/CTS handshaking resolves hidden terminals.</td></tr>
-  </tbody>
-</table>
-"""
-
-DCCN_M5_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">Module V: Internetworking, TCP/IP & Routing — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. IPv4 Addressing, Classless CIDR & VLSM Subnetting</div>
-    <div>2. TCP 3-Way Handshake & Congestion Control</div>
-    <div>3. Dijkstra Shortest Path (OSPF) & Bellman-Ford (RIP)</div>
-    <div>4. Application Protocols: DNS, DHCP, HTTP/2, SMTP</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. TCP Congestion Control Mechanics</h2>
-<p>
-  TCP maintains a congestion window ($cwnd$) and slow-start threshold ($ssthresh$):
-  <ul>
-    <li><strong>Slow Start:</strong> $cwnd$ starts at $1 \text{ MSS}$ and doubles every RTT ($cwnd = cwnd \times 2$) exponentially until $cwnd \ge ssthresh$.</li>
-    <li><strong>Congestion Avoidance:</strong> $cwnd$ increases linearly by $1 \text{ MSS}$ per RTT (Additive Increase).</li>
-    <li><strong>Triple Duplicate ACKs (Fast Retransmit & Recovery):</strong> $ssthresh = cwnd / 2$, $cwnd = ssthresh + 3 \text{ MSS}$, retransmit lost segment immediately.</li>
-    <li><strong>Timeout:</strong> $ssthresh = cwnd / 2$, $cwnd = 1 \text{ MSS}$, re-enter Slow Start.</li>
-  </ul>
-</p>
-
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra VLSM Subnetting Problem (10 Marks)</div>
-  <strong>Problem:</strong> Given network block `192.168.1.0/24`, design subnets for Dept A (100 hosts), Dept B (50 hosts), and Dept C (25 hosts).<br>
-  <strong>Solution:</strong>
-  <ul>
-    <li><strong>Dept A (100 hosts):</strong> Needs $2^7 - 2 = 126$ IPs $\implies /25$. Subnet: `192.168.1.0/25` (Range: `.1` to `.126`, Broadcast: `.127`).</li>
-    <li><strong>Dept B (50 hosts):</strong> Needs $2^6 - 2 = 62$ IPs $\implies /26$. Subnet: `192.168.1.128/26` (Range: `.129` to `.190`, Broadcast: `.191`).</li>
-    <li><strong>Dept C (25 hosts):</strong> Needs $2^5 - 2 = 30$ IPs $\implies /27$. Subnet: `192.168.1.192/27` (Range: `.193` to `.222`, Broadcast: `.223`).</li>
-  </ul>
-</div>
-"""
-
-DCCN_REVISION_BODY = r"""
-<div class="toc-box">
-  <div class="toc-title">🌐 10-Page Master Quick Revision — Data Communication & Networks (CS24305)</div>
-  <div class="toc-grid">
-    <div>Page 1-2: OSI vs. TCP/IP, Signal Impairments & Channel Capacities</div>
-    <div>Page 3-4: Digital Encodings (Manchester), QAM & PCM Quantization</div>
-    <div>Page 5-6: CRC Modulo-2, Hamming Code & ARQ Protocol Efficiency</div>
-    <div>Page 7-8: Ethernet CSMA/CD, Wi-Fi CSMA/CA, Cellular & VLANs</div>
-    <div>Page 9-10: IPv4 Subnetting, TCP Congestion Control & Routing</div>
-  </div>
-</div>
-
-<h2 class="section-title">⚡ High-Yield DCCN Formulas & Protocol Matrix</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Exact Formula / Rule</th>
-      <th>Key Insight</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Nyquist Capacity</strong></td><td>$C = 2B \log_2(M) \text{ bps}$</td><td>Noiseless channel only.</td></tr>
-    <tr><td><strong>Shannon Capacity</strong></td><td>$C = B \log_2(1 + \text{SNR}) \text{ bps}$</td><td>Convert dB to ratio: $\text{SNR} = 10^{(\text{dB}/10)}$.</td></tr>
-    <tr><td><strong>Hamming Code Bits</strong></td><td>$2^k \ge m + k + 1$</td><td>$m$ data bits, $k$ parity bits.</td></tr>
-    <tr><td><strong>Stop-and-Wait Efficiency</strong></td><td>$\eta = \frac{1}{1 + 2a}$ where $a = \frac{T_{\text{prop}}}{T_{\text{trans}}}$</td><td>$T_{\text{trans}} = \frac{L}{B}, T_{\text{prop}} = \frac{d}{v}$.</td></tr>
-    <tr><td><strong>GBN Window Limit</strong></td><td>$W_s \le 2^k - 1, \quad W_r = 1$</td><td>Avoids sequence wrap-around ambiguity.</td></tr>
-    <tr><td><strong>Selective Repeat Limit</strong></td><td>$W_s = W_r \le 2^{k-1}$</td><td>Sender and receiver windows are equal.</td></tr>
-  </tbody>
-</table>
-"""
 
 DCCN_MODULES = [
-    ("Module 1: Overview & Transmission Fundamentals", "OSI vs. TCP/IP, Impairments, Nyquist & Shannon Theorems", "Module I Notes", DCCN_M1_BODY, "Module_1_Overview_Notes"),
-    ("Module 2: Physical Media & Signal Encoding", "Guided/Wireless Media, NRZ, Manchester, QAM & PCM", "Module II Notes", DCCN_M2_BODY, "Module_2_Physical_Media_Notes"),
-    ("Module 3: Error Control & Data Link Protocols", "CRC-32, Hamming Code, Stop-and-Wait, GBN, Selective Repeat, HDLC", "Module III Notes", DCCN_M3_BODY, "Module_3_Data_Link_Notes"),
-    ("Module 4: Switching, Cellular Networks & LANs", "Circuit vs Packet, Cellular Frequency Reuse, CSMA/CD, CSMA/CA, VLAN", "Module IV Notes", DCCN_M4_BODY, "Module_4_LAN_Switching_Notes"),
-    ("Module 5: Internetworking, TCP/IP & Routing", "IPv4 VLSM Subnetting, TCP Congestion Control, Dijkstra & DVR", "Module V Notes", DCCN_M5_BODY, "Module_5_Routing_TCP_Notes"),
-    ("DCCN — 10-Page Master Quick Revision", "High-Yield Formula Sheet, Protocol Matrix & BIT Mesra PYQ Solutions", "10-Page Master Revision", DCCN_REVISION_BODY, "DCCN_10_Page_Master_Revision"),
+    ("Module 1: Physical Layer & Signals", "Network Topologies, OSI vs TCP/IP, Nyquist & Shannon Capacity, Line Coding & FDM/TDM", "Module I Notes", DCCN_M1_EXHAUSTIVE, "Module_1_Overview_Notes"),
+    ("Module 2: Data Link Layer & ARQ", "Framing (Bit Stuffing), CRC-32 Division, Hamming Code, Stop-and-Wait, Go-Back-N & Selective Repeat", "Module II Notes", DCCN_M2_EXHAUSTIVE, "Module_2_Physical_Media_Notes"),
+    ("Module 3: MAC Sublayer & LANs", "Pure & Slotted ALOHA Proofs, CSMA/CD Minimum Frame Derivation, Exponential Backoff, Ethernet & Wi-Fi", "Module III Notes", DCCN_M3_EXHAUSTIVE, "Module_3_Data_Link_Notes"),
+    ("Module 4: Network Layer & Routing", "IPv4 20-Byte Header, CIDR Subnetting Calculations, IPv6, Distance Vector (Bellman-Ford) & Link State (Dijkstra)", "Module IV Notes", DCCN_M4_EXHAUSTIVE, "Module_4_LAN_Switching_Notes"),
+    ("Module 5: Transport Layer & Security", "TCP 3-Way Handshake, TCP AIMD Congestion Control, DNS Hierarchy, HTTP Evolution & RSA Public-Key Math", "Module V Notes", DCCN_M5_EXHAUSTIVE, "Module_5_Routing_TCP_Notes"),
+    ("DCCN — 10-Page Master Quick Revision", "High-Yield Formula Sheet, Protocol Matrices & Top 10 BIT Mesra PYQ Solutions", "10-Page Master Revision", DCCN_REVISION_EXHAUSTIVE, "DCCN_10_Page_Master_Revision"),
 ]
 
 def build_all_dccn():
@@ -595,12 +351,13 @@ def build_all_dccn():
     os.makedirs(html_dir, exist_ok=True)
     os.makedirs(pdf_dir, exist_ok=True)
 
-    print("Launching Chromium for DCCN suite...")
+    print("Launching Chromium for exhaustive DCCN suite...")
     with sync_playwright() as p:
         browser = p.chromium.launch(
             executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             headless=True
         )
+        
         # Executive Master Cover Page for Page 1
         master_cover_page = """
         <div style="padding: 10px 0;">
@@ -642,7 +399,7 @@ def build_all_dccn():
 
             page = browser.new_page()
             page.goto(f"file://{html_file}", wait_until="networkidle")
-            page.wait_for_timeout(1500)
+            page.wait_for_timeout(1800)
             page.pdf(
                 path=pdf_file,
                 format="A4",
@@ -670,7 +427,7 @@ def build_all_dccn():
 
         page = browser.new_page()
         page.goto(f"file://{full_html_file}", wait_until="networkidle")
-        page.wait_for_timeout(2500)
+        page.wait_for_timeout(3500)
         page.pdf(
             path=full_pdf_file,
             format="A4",

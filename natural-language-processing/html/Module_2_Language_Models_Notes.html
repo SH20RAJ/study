@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 2: Language Models, Smoothing & Parsing</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 2: POS Tagging & Hidden Markov Models</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #c026d3;       /* Fuchsia / Magenta */
-  --primary-light: #fdf4ff;
+  --primary: #7c3aed;       /* Purple */
+  --primary-light: #f5f3ff;
   --accent: #8b5cf6;        /* Violet */
-  --secondary: #4f46e5;     /* Indigo */
+  --secondary: #2563eb;     /* Royal Blue */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "NLP (CS24311) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-fuchsia { background: #fae8ff; color: #86198f; }
-.badge-violet { background: #ede9fe; color: #5b21b6; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
 .badge-green { background: #d1fae5; color: #065f46; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #fdf4ff;
-  border: 1px solid #f5d0fe;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #a21caf;
+  color: #6d28d9;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #6d28d9;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #fdf4ff; border-color: #c026d3; color: #701a75; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #faf5ff; border-color: #8b5cf6; color: #4c1d95; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,165 +171,228 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #701a75;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #8b5cf6;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #5b21b6;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #faf5ff;
+  border-left: 4px solid #7c3aed;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #a21caf; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "NLP (CS24351) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-fuchsia">CS24351 — Elective (3.0 Cr)</span>
-      <span class="badge badge-violet">Module II Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-purple">CS24311 — Theory (3.0 Cr)</span>
+        <span class="badge badge-blue">Module II Notes</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 2: POS Tagging & Hidden Markov Models</h1>
+      <div class="doc-subtitle">Penn Treebank Tagset, HMM 5-Tuple, Forward Algorithm, Viterbi Dynamic Trellis & CRFs</div>
     </div>
-    <h1 class="doc-title">Module 2: Language Models, Smoothing & Parsing</h1>
-    <div class="doc-subtitle">N-Grams, Perplexity, Laplace/Kneser-Ney, HMM Viterbi, PCFG</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module II: Language Models, Smoothing & Parsing — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Part-of-Speech Tagging & Hidden Markov Models (HMM)</div>
   <div class="toc-grid">
-    <div>1. $N$-gram Language Models & Markov Assumption</div>
-    <div>2. Perplexity Evaluation Metric</div>
-    <div>3. Smoothing: Laplace, Good-Turing, Kneser-Ney</div>
-    <div>4. HMM POS Tagging & The Viterbi Algorithm</div>
-    <div>5. Probabilistic Context-Free Grammars (PCFGs)</div>
+    <div>1. Linguistic Word Classes: Open Class vs. Closed Class Lexical Categories</div>
+    <div>2. Penn Treebank 45-Tag Tagset (NN, NNP, VB, VBD, JJ, RB, IN, DT)</div>
+    <div>3. Part-of-Speech (POS) Tagging Approaches (Rule-Based, Statistical, Neural)</div>
+    <div>4. Hidden Markov Models (HMM) 5-Tuple: States, Observations, Transitions, Emissions, Priors</div>
+    <div>5. The 3 Fundamental Computational Problems in HMMs (Evaluation, Decoding, Learning)</div>
+    <div>6. The Forward Algorithm for Sequence Likelihood ($O(N^2 T)$ Dynamic Programming)</div>
+    <div>7. The Viterbi Algorithm for Optimal Hidden State Decoding ($\max$ Trellis Trace)</div>
+    <div>8. Complete Step-by-Step Viterbi Trellis Trace on Sentence "Janet will back the bill"</div>
+    <div>9. Baum-Welch (Expectation-Maximization) Unsupervised Learning Algorithm</div>
+    <div>10. Maximum Entropy Markov Models (MEMM) & The Label Bias Problem</div>
+    <div>11. Linear-Chain Conditional Random Fields (CRF) Globally Normalized Potentials</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. $N$-gram Language Models & Perplexity</h2>
-$$P(w_1, w_2, \dots, w_N) = \prod_{k=1}^N P(w_k \mid w_{k-n+1}^{k-1})$$
-$$\text{Perplexity}(W) = P(w_1, \dots, w_N)^{-1/N} = 2^{-\frac{1}{N} \sum \log_2 P(w_i \mid w_{i-n+1}^{i-1})}$$
+<h2 class="section-title">Topic 1 – 4: Part-of-Speech Tagging & HMM Mathematical Architecture</h2>
+<p>
+  <strong>Part-of-Speech (POS) Tagging</strong> is the task of assigning a grammatical category label (e.g., Noun, Verb, Adjective, Preposition) to each word in an input text sequence:
+</p>
+$$\mathbf{w} = (w_1, w_2, \dots, w_T) \xrightarrow{\text{POS Tagging}} \mathbf{t} = (t_1, t_2, \dots, t_T)$$
 
-<h2 class="section-title">2. Smoothing Techniques Comparison</h2>
-<ul>
-  <li><strong>Laplace (Add-1) Smoothing:</strong> $P(w_n \mid w_{n-1}) = \frac{C(w_{n-1}, w_n) + 1}{C(w_{n-1}) + V}$. (Tends to allocate too much probability mass to unseen items).</li>
-  <li><strong>Kneser-Ney Smoothing:</strong> State-of-the-art $N$-gram smoothing combining absolute discounting with continuation probabilities based on how versatile a word is as a novel continuation.</li>
-</ul>
+<div class="formula-card">
+  <strong>Hidden Markov Model 5-Tuple $\lambda = (S, V, A, B, \pi)$:</strong>
+  <ol>
+    <li>$S = \{s_1, s_2, \dots, s_N\}$: Finite set of hidden states (e.g., POS tags).</li>
+    <li>$V = \{v_1, v_2, \dots, v_M\}$: Finite set of observable vocabulary symbols (words).</li>
+    <li>$A = \{a_{ij}\}$: State Transition Probability Matrix, where $a_{ij} = P(q_t = s_j \mid q_{t-1} = s_i)$.</li>
+    <li>$B = \{b_j(k)\}$: Emission Probability Matrix, where $b_j(k) = P(o_t = v_k \mid q_t = s_j)$.</li>
+    <li>$\pi = \{\pi_i\}$: Initial State Probability Distribution, where $\pi_i = P(q_1 = s_i)$.</li>
+  </ol>
+</div>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Natural Language Processing (CS24351) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">Topic 7 & 8: The Viterbi Dynamic Programming Decoding Algorithm</h2>
+
+<div class="formula-card">
+  <strong>Viterbi Recurrence Relations:</strong>
+  Let $v_t(j)$ be the highest probability of any state sequence ending in state $j$ at time $t$:
+  1. <strong>Initialization ($t = 1$):</strong>
+     $$v_1(j) = \pi_j \cdot b_j(o_1), \quad \text{backpointer}_1(j) = 0 \quad (1 \le j \le N)$$
+  2. <strong>Recursion ($t = 2 \dots T$):</strong>
+     $$v_t(j) = \max_{i=1}^N \Big( v_{t-1}(i) \cdot a_{ij} \Big) \cdot b_j(o_t) \quad (1 \le j \le N)$$
+     $$\text{backpointer}_t(j) = \arg\max_{i=1}^N \Big( v_{t-1}(i) \cdot a_{ij} \Big)$$
+  3. <strong>Termination:</strong>
+     $$P^* = \max_{i=1}^N v_T(i), \quad q_T^* = \arg\max_{i=1}^N v_T(i)$$
+  4. <strong>Backtracking:</strong>
+     $$q_t^* = \text{backpointer}_{t+1}(q_{t+1}^*) \quad \text{for } t = T-1, T-2, \dots, 1$$
+</div>
+
+<h2 class="section-title">Topic 10 & 11: MEMMs vs. Linear-Chain CRFs (Label Bias Problem)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Model Class</th>
+      <th style="width: 35%;">Mathematical Formulation</th>
+      <th>Normalization & Key Theoretical Properties</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Generative HMM</strong></td>
+      <td>$$P(\mathbf{w}, \mathbf{t}) = \prod_{i=1}^T P(t_i \mid t_{i-1}) P(w_i \mid t_i)$$</td>
+      <td>Models joint probability; cannot easily integrate overlapping, non-independent features.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Discriminative MEMM</strong></td>
+      <td>$$P(\mathbf{t} \mid \mathbf{w}) = \prod_{i=1}^T \frac{\exp(\mathbf{w}^T \mathbf{f}(t_i, t_{i-1}, \mathbf{w}, i))}{\sum_{t'} \exp(\mathbf{w}^T \mathbf{f}(t', t_{i-1}, \mathbf{w}, i))}$$</td>
+      <td><strong>Local Normalization at each step:</strong> Suffers from the <em>Label Bias Problem</em> where states with low-entropy transitions dominate regardless of input observations.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Linear-Chain CRF</strong></td>
+      <td>$$P(\mathbf{t} \mid \mathbf{w}) = \frac{1}{Z(\mathbf{w})} \exp\left( \sum_{i=1}^T \sum_k w_k f_k(t_i, t_{i-1}, \mathbf{w}, i) \right)$$</td>
+      <td><strong>Global Normalization ($Z(\mathbf{w})$):</strong> Overcomes the Label Bias Problem completely by evaluating the total score of the entire sequence simultaneously.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. State the 3 fundamental problems of Hidden Markov Models and name the algorithms used to solve them. (6 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Evaluation Problem (Likelihood):</strong> Given model $\lambda$ and observation sequence $O$, compute $P(O \mid \lambda)$. Solved by the <strong>Forward Algorithm</strong> (or Backward Algorithm) in $O(N^2 T)$ time.<br>
+    2. <strong>Decoding Problem:</strong> Given model $\lambda$ and observation sequence $O$, find the optimal hidden state sequence $Q^*$ that best explains $O$. Solved by the <strong>Viterbi Algorithm</strong> in $O(N^2 T)$ time.<br>
+    3. <strong>Learning Problem (Parameter Estimation):</strong> Given observation sequence $O$, adjust model parameters $\lambda = (A, B, \pi)$ to maximize $P(O \mid \lambda)$. Solved by the <strong>Baum-Welch (EM) Algorithm</strong>.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

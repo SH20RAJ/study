@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 5: Machine Learning & Neural Networks</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 5: Machine Learning Foundations</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #4f46e5;       /* Royal Purple / Indigo */
-  --primary-light: #eef2ff;
-  --accent: #06b6d4;        /* Cyan */
-  --secondary: #9333ea;     /* Purple */
+  --primary: #059669;       /* Emerald Green */
+  --primary-light: #ecfdf5;
+  --accent: #10b981;        /* Mint */
+  --secondary: #4f46e5;     /* Indigo */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Artificial Intelligence (CS24307) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-indigo { background: #e0e7ff; color: #3730a3; }
 .badge-green { background: #d1fae5; color: #065f46; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #7e22ce;
+  color: #15803d;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #047857;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #eef2ff; border-color: #4f46e5; color: #312e81; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #ecfdf5; border-color: #10b981; color: #064e3b; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,165 +171,314 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #1e1b4b;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #10b981;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #065f46;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #ecfdf5;
+  border-left: 4px solid #059669;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #4338ca; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Artificial Intelligence (CS24307) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-indigo">CS24307 — Theory (3.0 Cr)</span>
-      <span class="badge badge-purple">Module V Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-green">CS24307 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module V Notes</span>
+        <span class="badge badge-blue">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 5: Machine Learning Foundations</h1>
+      <div class="doc-subtitle">Inductive Learning, ID3 Decision Trees (Entropy/Gain), Perceptrons & Backpropagation</div>
     </div>
-    <h1 class="doc-title">Module 5: Machine Learning & Neural Networks</h1>
-    <div class="doc-subtitle">Decision Trees (ID3 Gain), Perceptron, Backpropagation & Bias-Variance</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module V: Machine Learning Foundations — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Machine Learning Foundations & Neural Networks</div>
   <div class="toc-grid">
-    <div>1. Inductive Learning & Decision Trees (ID3)</div>
-    <div>2. Entropy & Information Gain Formulations</div>
-    <div>3. Single-Layer Perceptron Learning Rule</div>
-    <div>4. Multi-Layer Perceptron & Backpropagation</div>
-    <div>5. Bias-Variance Tradeoff & Regularization</div>
+    <div>1. Machine Learning Paradigms (Supervised, Unsupervised & Reinforcement Learning)</div>
+    <div>2. Inductive Learning Hypothesis, Inductive Bias & Occam's Razor Principle</div>
+    <div>3. Decision Tree Representation & The ID3 Induction Algorithm</div>
+    <div>4. Entropy ($H(S)$) & Information Gain Mathematical Formulations</div>
+    <div>5. Step-by-Step ID3 Calculation Trace on the Benchmark PlayTennis Dataset</div>
+    <div>6. C4.5 Algorithm Extensions (Gain Ratio & Continuous Numeric Attributes)</div>
+    <div>7. Overfitting Mitigation: Pre-Pruning vs. Post-Pruning Strategies</div>
+    <div>8. Computational Learning Theory: The PAC (Probably Approximately Correct) Model</div>
+    <div>9. The Artificial Perceptron Model & The Perceptron Convergence Theorem</div>
+    <div>10. Non-Linear Activation Functions (Sigmoid, Hyperbolic Tangent, ReLU, Softmax)</div>
+    <div>11. Multi-Layer Perceptrons (MLP) & Backpropagation Error Gradient Derivations</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Decision Tree Induction: Entropy & Information Gain</h2>
-$$H(S) = - \sum_{i=1}^c p_i \log_2(p_i)$$
-$$\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$
+<h2 class="section-title">Topic 1 & 2: Machine Learning Paradigms & Inductive Bias</h2>
+<p>
+  A computer program is said to <strong>learn</strong> from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance at tasks in $T$, as measured by $P$, improves with experience $E$ (Tom Mitchell, 1997).
+</p>
 
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Exam Question (10 Marks)</div>
-  <strong>Problem:</strong> Explain Backpropagation algorithm for training a Multi-Layer Perceptron with gradient descent derivations.<br>
-  <strong>Solution:</strong> Forward pass computes net activations $z_j = \sum w_{ij} x_i$ and outputs $a_j = \sigma(z_j)$. Backward pass propagates error $\delta_k = (y_k - a_k) \sigma'(z_k)$ to hidden layers $\delta_j = \sigma'(z_j) \sum w_{jk} \delta_k$, updating weights via $w_{ij} \leftarrow w_{ij} + \eta \delta_j x_i$.
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Paradigm</th>
+      <th style="width: 35%;">Training Experience ($E$)</th>
+      <th style="width: 25%;">Target Objective ($T$)</th>
+      <th>Representative Algorithms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Supervised Learning</strong></td>
+      <td>Labeled training tuples $\langle \mathbf{x}_i, y_i \rangle$ where ground-truth target label $y_i$ is explicitly provided.</td>
+      <td>Classification (discrete labels) or Regression (continuous real values).</td>
+      <td>Decision Trees (ID3/C4.5), Support Vector Machines, Neural Networks, Linear Regression.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Unsupervised Learning</strong></td>
+      <td>Unlabeled data points $\mathbf{x}_i$ without ground-truth targets.</td>
+      <td>Discovering intrinsic clusters, manifold embeddings, and density distributions.</td>
+      <td>$k$-Means, Hierarchical Clustering, PCA, Autoencoders, Gaussian Mixture Models.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Reinforcement Learning</strong></td>
+      <td>Sequential interaction with environment receiving scalar reward/penalty feedback $r_t$.</td>
+      <td>Learning an optimal action policy $\pi^*(s)$ that maximizes expected discounted cumulative reward.</td>
+      <td>Q-Learning, SARSA, Deep Q-Networks (DQN), Policy Gradients (PPO).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <div class="callout-title">Inductive Learning Hypothesis & Occam's Razor</div>
+  <ul>
+    <li><strong>Inductive Learning Hypothesis:</strong> Any hypothesis found to approximate the target function well over a sufficiently large set of training examples will also approximate the target function well over unobserved test examples.</li>
+    <li><strong>Occam's Razor:</strong> Prefer the simplest hypothesis that fits the training data (e.g., smaller decision trees are statistically less prone to overfitting than complex deep trees).</li>
+  </ul>
 </div>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Artificial Intelligence (CS24307) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">Topic 3 – 5: Decision Tree Induction (ID3 Algorithm & Entropy)</h2>
+
+<div class="formula-card">
+  <strong>1. Information Entropy Formula (Shannon, 1948):</strong>
+  $$H(S) = - \sum_{i=1}^c p_i \log_2 (p_i)$$
+  Where $p_i$ is the proportion of examples in set $S$ belonging to target class $i$. For binary classification ($p_+$ and $p_-$):
+  $$H(S) = - p_+ \log_2 (p_+) - p_- \log_2 (p_-)$$
+</div>
+
+<div class="formula-card">
+  <strong>2. Information Gain Formula:</strong>
+  $$\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$
+  Where $S_v$ is the subset of $S$ for which attribute $A$ has value $v$. The ID3 algorithm selects the attribute that maximizes $\text{Gain}(S, A)$ at each node.
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: ID3 Split Calculation on PlayTennis Dataset</div>
+  <p><strong>Given Dataset:</strong> 14 total examples ($|S| = 14$), with 9 Positive (`Yes`) and 5 Negative (`No`).</p>
+  <p><strong>Step 1: Compute Overall Dataset Entropy $H(S)$</strong></p>
+  $$H(S) = - \frac{9}{14} \log_2\left(\frac{9}{14}\right) - \frac{5}{14} \log_2\left(\frac{5}{14}\right) = - (0.643 \times -0.637) - (0.357 \times -1.485) = \mathbf{0.940} \text{ bits}$$
+
+  <p><strong>Step 2: Evaluate Attribute `Outlook` (Values: `Sunny` [2+, 3-], `Overcast` [4+, 0-], `Rain` [3+, 2-]):</strong></p>
+  <ul>
+    <li>$H(S_{\text{Sunny}}) = - \frac{2}{5} \log_2\left(\frac{2}{5}\right) - \frac{3}{5} \log_2\left(\frac{3}{5}\right) = 0.971$</li>
+    <li>$H(S_{\text{Overcast}}) = - \frac{4}{4} \log_2(1) - 0 = \mathbf{0.000}$ (Pure leaf!)</li>
+    <li>$H(S_{\text{Rain}}) = - \frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\left(\frac{2}{5}\right) = 0.971$</li>
+  </ul>
+  <p><strong>Step 3: Compute Expected Entropy & Information Gain for `Outlook`:</strong></p>
+  $$H(S \mid \text{Outlook}) = \frac{5}{14}(0.971) + \frac{4}{14}(0.000) + \frac{5}{14}(0.971) = 0.347 + 0 + 0.347 = 0.694$$
+  $$\text{Gain}(S, \text{Outlook}) = 0.940 - 0.694 = \mathbf{0.246} \text{ bits}$$
+  <p><em>Conclusion:</em> Since `Outlook` achieves the highest Information Gain among all candidate attributes (`Gain(Wind)=0.048, Gain(Humidity)=0.151, Gain(Temperature)=0.029`), `Outlook` is selected as the root node!</p>
+</div>
+
+<h2 class="section-title">Topic 9 & 10: Artificial Neural Networks & The Perceptron</h2>
+
+<p>
+  The <strong>Perceptron (Rosenblatt, 1958)</strong> is the foundational linear binary classifier model:
+</p>
+$$y = f(\mathbf{w}^T \mathbf{x} + b) = f\left( \sum_{i=1}^n w_i x_i + b \right)$$
+
+<div class="callout callout-info">
+  <div class="callout-title">Perceptron Learning Rule & Convergence Theorem</div>
+  $$\mathbf{w} \leftarrow \mathbf{w} + \eta (y_{\text{true}} - y_{\text{pred}}) \mathbf{x}$$
+  Where $\eta \in (0, 1]$ is the learning rate.<br>
+  <strong>Convergence Theorem:</strong> If the training dataset is <strong>linearly separable</strong>, the perceptron learning rule is guaranteed to converge to a separating hyperplane in a finite number of weight update steps! If the data is not linearly separable (e.g., the XOR function), single-layer perceptrons fail completely (Minsky & Papert, 1969).
+</div>
+
+<h3 class="subsection-title">Standard Non-Linear Activation Functions:</h3>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Activation Function</th>
+      <th style="width: 35%;">Mathematical Equation</th>
+      <th style="width: 20%;">Output Range</th>
+      <th>Derivative $\sigma'(z)$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Logistic Sigmoid</strong></td>
+      <td>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</td>
+      <td>$(0, 1)$</td>
+      <td>$\sigma(z)(1 - \sigma(z))$</td>
+    </tr>
+    <tr>
+      <td><strong>2. Hyperbolic Tangent ($\tanh$)</strong></td>
+      <td>$$\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$$</td>
+      <td>$(-1, 1)$</td>
+      <td>$1 - \tanh^2(z)$</td>
+    </tr>
+    <tr>
+      <td><strong>3. Rectified Linear Unit (ReLU)</strong></td>
+      <td>$$f(z) = \max(0, z)$$</td>
+      <td>$[0, \infty)$</td>
+      <td>$1 \text{ if } z > 0 \text{ else } 0$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 11: Multi-Layer Perceptrons (MLP) & Backpropagation</h2>
+
+<div class="formula-card">
+  <strong>Backpropagation Gradient Descent Weight Update:</strong>
+  $$w_{ij} \leftarrow w_{ij} - \eta \frac{\partial E}{\partial w_{ij}}$$
+  Where total sum-of-squares error $E = \frac{1}{2} \sum_k (t_k - y_k)^2$.<br>
+  Using the Chain Rule of Calculus:
+  $$\frac{\partial E}{\partial w_{ij}} = \frac{\partial E}{\partial \text{net}_j} \frac{\partial \text{net}_j}{\partial w_{ij}} = - \delta_j \cdot x_i$$
+  - For output neuron $k$: $\delta_k = (t_k - y_k) \cdot g'(\text{net}_k)$
+  - For hidden neuron $j$: $\delta_j = g'(\text{net}_j) \cdot \sum_k w_{jk} \delta_k$
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Why can a single-layer perceptron not learn the XOR function, and how do Multi-Layer Perceptrons solve this? (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>Linear Separability Limitation:</strong> The XOR truth table has outputs `(0,0)->0, (0,1)->1, (1,0)->1, (1,1)->0`. Plotting these 4 points on a 2D plane reveals that no single straight line (hyperplane $\mathbf{w}^T\mathbf{x} + b = 0$) can separate class 1 from class 0.<br>
+    - <strong>Multi-Layer Perceptrons (MLP) Solution:</strong> By adding a hidden layer of non-linear neurons, the network transforms the input space into a higher-dimensional feature space where the points become linearly separable. Two hidden neurons represent intermediate `NAND` and `OR` hyperplanes, which are then combined by an output `AND` neuron.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Derive the Backpropagation weight update rule for a hidden-to-output weight. (10 Marks)</div>
+  <div class="qa-a">
+    Let $E = \frac{1}{2} (t_k - y_k)^2$, where $y_k = \sigma(\text{net}_k)$ and $\text{net}_k = \sum_j w_{jk} h_j$.<br>
+    Applying the Chain Rule:<br>
+    $$\frac{\partial E}{\partial w_{jk}} = \frac{\partial E}{\partial y_k} \cdot \frac{\partial y_k}{\partial \text{net}_k} \cdot \frac{\partial \text{net}_k}{\partial w_{jk}}$$
+    1. $\frac{\partial E}{\partial y_k} = -(t_k - y_k)$<br>
+    2. $\frac{\partial y_k}{\partial \text{net}_k} = y_k (1 - y_k)$ (Sigmoid derivative)<br>
+    3. $\frac{\partial \text{net}_k}{\partial w_{jk}} = h_j$<br>
+    Defining error signal $\delta_k = (t_k - y_k) y_k (1 - y_k)$, we get:<br>
+    $$\frac{\partial E}{\partial w_{jk}} = - \delta_k h_j \implies w_{jk} \leftarrow w_{jk} + \eta \delta_k h_j$$
+  </div>
+</div>
+
+  </div>
 </body>
 </html>

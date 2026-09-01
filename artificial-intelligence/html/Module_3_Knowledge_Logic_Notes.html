@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 3: Logic Knowledge Representation & Resolution</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 3: Knowledge Representation & Logic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #4f46e5;       /* Royal Purple / Indigo */
-  --primary-light: #eef2ff;
-  --accent: #06b6d4;        /* Cyan */
-  --secondary: #9333ea;     /* Purple */
+  --primary: #059669;       /* Emerald Green */
+  --primary-light: #ecfdf5;
+  --accent: #10b981;        /* Mint */
+  --secondary: #4f46e5;     /* Indigo */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Artificial Intelligence (CS24307) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-indigo { background: #e0e7ff; color: #3730a3; }
 .badge-green { background: #d1fae5; color: #065f46; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #7e22ce;
+  color: #15803d;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #047857;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #eef2ff; border-color: #4f46e5; color: #312e81; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #ecfdf5; border-color: #10b981; color: #064e3b; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,169 +171,319 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #1e1b4b;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #10b981;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #065f46;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #ecfdf5;
+  border-left: 4px solid #059669;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #4338ca; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Artificial Intelligence (CS24307) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-indigo">CS24307 — Theory (3.0 Cr)</span>
-      <span class="badge badge-purple">Module III Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-green">CS24307 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module III Notes</span>
+        <span class="badge badge-blue">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 3: Knowledge Representation & Logic</h1>
+      <div class="doc-subtitle">Propositional Logic, Entailment, CNF, First-Order Logic, Unification (MGU) & Resolution</div>
     </div>
-    <h1 class="doc-title">Module 3: Logic Knowledge Representation & Resolution</h1>
-    <div class="doc-subtitle">Propositional Logic, FOL, Unification, Skolemization & Refutation</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module III: Knowledge Representation & Logic — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Knowledge Representation & Logical Reasoning</div>
   <div class="toc-grid">
-    <div>1. Propositional Logic Syntax & Truth Tables</div>
-    <div>2. Inference Rules & Forward/Backward Chaining</div>
-    <div>3. Propositional Resolution Refutation</div>
-    <div>4. First-Order Logic (FOL) & Quantifiers</div>
-    <div>5. Unification (MGU) & Skolemization</div>
+    <div>1. Knowledge-Based Agents & The Wumpus World Environment Architecture</div>
+    <div>2. Propositional Logic (PL): Syntax, Semantics, Models & Truth Tables</div>
+    <div>3. Logical Entailment ($\alpha \models \beta$), Validity (Tautology) & Satisfiability</div>
+    <div>4. Conjunctive Normal Form (CNF) 7-Step Conversion Algorithm</div>
+    <div>5. Propositional Resolution Refutation Theorem & Proof Trees</div>
+    <div>6. Forward Chaining & Backward Chaining on Horn Clauses ($O(n)$ Linear Complexity)</div>
+    <div>7. First-Order Predicate Logic (FOL): Syntax, Quantifiers ($\forall, \exists$) & Semantics</div>
+    <div>8. Knowledge Engineering in FOL & Domain Axiomatization</div>
+    <div>9. Generalized Modus Ponens (GMP) & The Unification Algorithm (MGU)</div>
+    <div>10. Skolemization Algorithms (Skolem Constants vs. Skolem Functions)</div>
+    <div>11. First-Order Resolution Refutation with MGU Substitutions</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. First-Order Logic Resolution Refutation</h2>
+<h2 class="section-title">Topic 1: Knowledge-Based Agents & The Wumpus World</h2>
 <p>
-  To prove $\text{KB} \models \alpha$, we add $\neg \alpha$ to $\text{KB}$ and derive the empty clause ($\square$) using 7 systematic CNF transformation steps:
+  A <strong>Knowledge-Based Agent (KBA)</strong> maintains an explicit internal representation of the world in a <strong>Knowledge Base (KB)</strong> (a set of sentences in a formal language) and uses an inference engine to derive new knowledge and decide actions:
+</p>
+<pre><code>function KB-AGENT(percept) returns an action
+    TELL(KB, MAKE-PERCEPT-SENTENCE(percept, t))
+    action = ASK(KB, MAKE-ACTION-QUERY(t))
+    TELL(KB, MAKE-ACTION-SENTENCE(action, t))
+    t = t + 1
+    return action</code></pre>
+
+<h3 class="subsection-title">The Wumpus World Environment Benchmark:</h3>
+<ul>
+  <li>$4 \times 4$ grid of rooms with Agent starting at $[1, 1]$ facing right.</li>
+  <li><strong>Wumpus:</strong> Monster that eats the agent; gives off a <em>Stench</em> in directly adjacent squares.</li>
+  <li><strong>Pits:</strong> Bottomless holes that trap the agent; give off a <em>Breeze</em> in adjacent squares.</li>
+  <li><strong>Gold:</strong> Gives off a <em>Glitter</em> in its exact square.</li>
+</ul>
+
+<h2 class="section-title">Topic 2 & 3: Propositional Logic Syntax, Semantics & Entailment</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Logical Operator</th>
+      <th style="width: 25%;">Standard Notation</th>
+      <th style="width: 25%;">Meaning</th>
+      <th>Truth Condition ($T$)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Negation (NOT)</strong></td><td>$\neg P$</td><td>Not $P$</td><td>True iff $P$ is False</td></tr>
+    <tr><td><strong>Conjunction (AND)</strong></td><td>$P \land Q$</td><td>$P$ and $Q$</td><td>True iff both $P$ and $Q$ are True</td></tr>
+    <tr><td><strong>Disjunction (OR)</strong></td><td>$P \lor Q$</td><td>$P$ or $Q$</td><td>True iff at least one of $P, Q$ is True</td></tr>
+    <tr><td><strong>Implication (IF-THEN)</strong></td><td>$P \implies Q$</td><td>If $P$ then $Q$</td><td>False iff $P$ is True and $Q$ is False ($\equiv \neg P \lor Q$)</td></tr>
+    <tr><td><strong>Biconditional (IFF)</strong></td><td>$P \iff Q$</td><td>$P$ if and only if $Q$</td><td>True iff both $P, Q$ have identical truth values</td></tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <div class="callout-title">Formal Mathematical Concept: Logical Entailment ($\alpha \models \beta$)</div>
+  Sentence $\alpha$ <strong>entails</strong> sentence $\beta$ ($\alpha \models \beta$) if and only if in every model where $\alpha$ is true, $\beta$ is also true:
+  $$\alpha \models \beta \iff M(\alpha) \subseteq M(\beta)$$
+  $$\text{Deduction Theorem: } \alpha \models \beta \iff (\alpha \implies \beta) \text{ is a Tautology}$$
+  $$\text{Refutation Theorem: } \alpha \models \beta \iff (\alpha \land \neg \beta) \text{ is Unsatisfiable}$$
+</div>
+
+<h2 class="section-title">Topic 4 & 5: Conjunctive Normal Form (CNF) & Resolution Refutation</h2>
+
+<p>
+  A sentence is in <strong>Conjunctive Normal Form (CNF)</strong> if it is a conjunction of clauses (where each clause is a disjunction of literals):
+</p>
+$$\bigwedge_{i=1}^m \left( \bigvee_{j=1}^{k_i} l_{ij} \right)$$
+
+<div class="callout callout-warning">
+  <div class="callout-title">7-Step Algorithm to Convert Propositional Logic to CNF</div>
   <ol>
-    <li>Eliminate $\iff$ and $\implies$.</li>
-    <li>Push $\neg$ inward ($\neg \forall x P(x) \equiv \exists x \neg P(x)$).</li>
-    <li>Standardize variables (distinct names per quantifier).</li>
-    <li><strong>Skolemization:</strong> Replace existential quantifiers ($\exists$) with Skolem constants or functions of outer universal variables.</li>
-    <li>Drop universal quantifiers ($\forall$).</li>
-    <li>Convert to CNF using $\lor$ distribution over $\land$.</li>
-    <li>Resolve complementary literals using <strong>Most General Unifier (MGU)</strong>.</li>
+    <li><strong>Eliminate Biconditionals:</strong> Replace $\alpha \iff \beta$ with $(\alpha \implies \beta) \land (\beta \implies \alpha)$.</li>
+    <li><strong>Eliminate Implications:</strong> Replace $\alpha \implies \beta$ with $\neg \alpha \lor \beta$.</li>
+    <li><strong>Move Negations Inward (De Morgan's Laws & Double Negation):</strong>
+      $$\neg(\alpha \land \beta) \equiv \neg \alpha \lor \neg \beta, \quad \neg(\alpha \lor \beta) \equiv \neg \alpha \land \neg \beta, \quad \neg(\neg \alpha) \equiv \alpha$$
+    </li>
+    <li><strong>Distribute $\lor$ over $\land$:</strong> Replace $\alpha \lor (\beta \land \gamma)$ with $(\alpha \lor \beta) \land (\alpha \lor \gamma)$.</li>
+    <li><strong>Flatten Nested Conjunctions/Disjunctions:</strong> Group into distinct clauses separated by $\land$.</li>
   </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Resolution Refutation Proof in Propositional Logic</div>
+  <p><strong>Given Knowledge Base ($\text{KB}$):</strong></p>
+  <ol>
+    <li>$P \implies Q$ (If it rains, the ground is wet): $\neg P \lor Q$</li>
+    <li>$Q \implies R$ (If the ground is wet, it is slippery): $\neg Q \lor R$</li>
+    <li>$P$ (It rains): $P$</li>
+  </ol>
+  <p><strong>Goal: Prove $R$ (It is slippery) using Resolution Refutation.</strong></p>
+  <p><strong>Step 1: Negate the Goal and add to KB:</strong> Add Clause 4: $\neg R$.</p>
+  <p><strong>Step 2: Apply Resolution Rule to Resolve Complementary Literals:</strong></p>
+  <ul>
+    <li>Resolve Clause 1 ($\neg P \lor Q$) and Clause 3 ($P$) on literal $P \implies$ <strong>Clause 5: $Q$</strong>.</li>
+    <li>Resolve Clause 2 ($\neg Q \lor R$) and Clause 5 ($Q$) on literal $Q \implies$ <strong>Clause 6: $R$</strong>.</li>
+    <li>Resolve Clause 6 ($R$) and Clause 4 ($\neg R$) on literal $R \implies$ <strong>Empty Clause ($\square$ / False)</strong>.</li>
+  </ul>
+  <p><em>Conclusion:</em> Since deriving the empty clause proves that $\text{KB} \land \neg R$ is unsatisfiable, the original goal $R$ is validly entailed ($\text{KB} \models R$). $\blacksquare$</p>
+</div>
+
+<h2 class="section-title">Topic 7 & 8: First-Order Predicate Logic (FOL)</h2>
+<p>
+  Unlike Propositional Logic (which assumes facts in the world are either True or False), <strong>First-Order Logic (FOL)</strong> models the world in terms of <strong>Objects</strong>, <strong>Relations (Predicates)</strong>, and <strong>Functions</strong>:
 </p>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Artificial Intelligence (CS24307) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">FOL Construct</th>
+      <th style="width: 45%;">Definition & Syntax</th>
+      <th>Example Statement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Universal Quantifier ($\forall$)</strong></td>
+      <td>"For all $x$". Typically paired with implication ($\implies$).</td>
+      <td>$\forall x \ (\text{King}(x) \implies \text{Person}(x))$</td>
+    </tr>
+    <tr>
+      <td><strong>Existential Quantifier ($\exists$)</strong></td>
+      <td>"There exists some $x$". Typically paired with conjunction ($\land$).</td>
+      <td>$\exists x \ (\text{Crown}(x) \land \text{OnHead}(x, \text{John}))$</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <div class="callout-title">De Morgan's Laws for Quantifiers</div>
+  $$\forall x \ \neg P(x) \equiv \neg \exists x \ P(x)$$
+  $$\neg \forall x \ P(x) \equiv \exists x \ \neg P(x)$$
+  $$\forall x \ P(x) \equiv \neg \exists x \ \neg P(x)$$
+  $$\exists x \ P(x) \equiv \neg \forall x \ \neg P(x)$$
+</div>
+
+<h2 class="section-title">Topic 9 & 10: Unification Algorithm & Skolemization</h2>
+
+<h3 class="subsection-title">1. Unification & Most General Unifier (MGU):</h3>
+<p>
+  $\text{UNIFY}(p, q) = \theta$ finds a substitution $\theta$ such that $\text{Subst}(\theta, p) = \text{Subst}(\theta, q)$:
+</p>
+<ul>
+  <li>$\text{UNIFY}(\text{Knows}(\text{John}, x), \text{Knows}(\text{John}, \text{Jane})) = \{ x / \text{Jane} \}$</li>
+  <li>$\text{UNIFY}(\text{Knows}(\text{John}, x), \text{Knows}(y, \text{Bill})) = \{ y / \text{John}, \ x / \text{Bill} \}$</li>
+  <li><strong>Occur-Check:</strong> A variable $x$ cannot be unified with a term containing $x$ (e.g., $x$ and $f(x)$ cannot unify because substitution causes infinite recursion).</li>
+</ul>
+
+<h3 class="subsection-title">2. Skolemization:</h3>
+<ul>
+  <li><strong>Skolem Constant:</strong> Eliminates an existential quantifier not in the scope of any universal quantifier:
+    $$\exists x \ \text{Heart}(x) \implies \text{Heart}(H_1) \quad \text{where } H_1 \text{ is a new unique constant}$$
+  </li>
+  <li><strong>Skolem Function:</strong> Eliminates an existential quantifier within the scope of a universal quantifier:
+    $$\forall x \ \exists y \ \text{Mother}(y, x) \implies \forall x \ \text{Mother}(m(x), x) \quad \text{where } m(x) \text{ is a Skolem function}$$
+  </li>
+</ul>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Differentiate between Forward Chaining and Backward Chaining for Horn Clauses. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Forward Chaining (Data-Driven):</strong> Starts with known atomic facts in the KB and applies inference rules to derive new facts until the goal is generated. Complete for definite clauses and runs in linear time $O(n)$. Used in reactive expert systems and real-time monitoring.<br>
+    2. <strong>Backward Chaining (Goal-Driven):</strong> Starts with the target query/goal and works backward by finding rules whose conclusions match the goal, establishing their premises as new subgoals. Avoids exploring irrelevant facts. Used in Prolog and automated theorem provers.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Convert the English statements into FOL and prove by Resolution Refutation: "Every person who loves animals is loved by someone. Jack loves all dogs. All dogs are animals. Prove that someone loves Jack." (10 Marks)</div>
+  <div class="qa-a">
+    1. $\forall x \ [(\forall y \ \text{Animal}(y) \implies \text{Loves}(x, y)) \implies (\exists z \ \text{Loves}(z, x))]$<br>
+    2. $\forall y \ (\text{Dog}(y) \implies \text{Loves}(\text{Jack}, y))$<br>
+    3. $\forall y \ (\text{Dog}(y) \implies \text{Animal}(y))$<br>
+    4. Negated Goal: $\neg \exists z \ \text{Loves}(z, \text{Jack}) \implies \forall z \ \neg \text{Loves}(z, \text{Jack})$<br>
+    <em>Converting to CNF clauses and unifying with Skolem functions yields the empty clause ($\square$), formally proving someone loves Jack.</em>
+  </div>
+</div>
+
+  </div>
 </body>
 </html>

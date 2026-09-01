@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 1: Overview & Transmission Fundamentals</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 1: Physical Layer & Signals</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -74,18 +91,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,195 +171,301 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">Module I Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module I Notes</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 1: Physical Layer & Signals</h1>
+      <div class="doc-subtitle">Network Topologies, OSI vs TCP/IP, Nyquist & Shannon Capacity, Line Coding & FDM/TDM</div>
     </div>
-    <h1 class="doc-title">Module 1: Overview & Transmission Fundamentals</h1>
-    <div class="doc-subtitle">OSI vs. TCP/IP, Impairments, Nyquist & Shannon Theorems</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module I: Data Communications & Networking Overview — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Transmission Fundamentals & Physical Layer Architectures</div>
   <div class="toc-grid">
-    <div>1. Five Components of Data Communication</div>
-    <div>2. Network Topologies (Mesh, Star, Bus, Ring)</div>
-    <div>3. OSI 7-Layer vs. TCP/IP 4-Layer Architecture</div>
-    <div>4. Transmission Impairments (Attenuation, Delay, Noise)</div>
-    <div>5. Nyquist Maximum Data Rate Theorem</div>
-    <div>6. Shannon Channel Capacity Theorem & SNR (dB)</div>
+    <div>1. Data Communication Components & Network Topologies (Mesh, Star, Bus, Ring)</div>
+    <div>2. The OSI 7-Layer Reference Model vs. TCP/IP 5-Layer Protocol Architecture</div>
+    <div>3. Analog vs. Digital Signals, Composite Signals & Fourier Spectral Analysis</div>
+    <div>4. Transmission Impairments (Attenuation, Distortion, Thermal & Cross-Talk Noise)</div>
+    <div>5. Nyquist Maximum Bit Rate Formula for Noiseless Channels & Multi-Level Signaling</div>
+    <div>6. Shannon Channel Capacity Theorem for Noisy Channels & Decibel ($\text{dB}$) Math</div>
+    <div>7. Line Coding Schemes: NRZ-L, NRZ-I, Manchester, Differential Manchester & AMI</div>
+    <div>8. Scrambling Techniques for Synchronization: B8ZS (North America) & HDB3 (Europe)</div>
+    <div>9. Transmission Media: Guided (Twisted Pair, Coax, Fiber) vs. Unguided (Radio, Micro)</div>
+    <div>10. Optical Fiber Physics: Step-Index, Graded-Index, Single-Mode vs. Multi-Mode</div>
+    <div>11. Multiplexing Fundamentals: FDM, Synchronous TDM, Statistical TDM & WDM</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Layered Network Models: OSI vs. TCP/IP</h2>
+<h2 class="section-title">Topic 1 & 2: Network Topologies & Layered Architectures</h2>
+<p>
+  A <strong>Computer Network</strong> is an interconnected collection of autonomous computing devices capable of exchanging data frames and packets through transmission channels.
+</p>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 15%;">OSI Layer</th>
-      <th style="width: 25%;">Protocol Data Unit (PDU)</th>
-      <th style="width: 35%;">Key Responsibilities</th>
-      <th>TCP/IP Equivalent</th>
+      <th style="width: 18%;">OSI Layer</th>
+      <th style="width: 22%;">Protocol Data Unit (PDU)</th>
+      <th style="width: 35%;">Core Responsibilities & Header Additions</th>
+      <th>Standard Protocols & Hardware</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>7. Application</strong></td><td>Messages / Data</td><td>Network virtual terminal, HTTP, FTP, SMTP, DNS</td><td rowspan="3"><strong>Application Layer</strong></td></tr>
-    <tr><td><strong>6. Presentation</strong></td><td>Formatted Data</td><td>Translation, Encryption (SSL/TLS), Compression</td></tr>
-    <tr><td><strong>5. Session</strong></td><td>Dialog Tokens</td><td>Session establishment, Dialog control, Sync checkpoints</td></tr>
-    <tr><td><strong>4. Transport</strong></td><td>Segments (TCP) / Datagrams (UDP)</td><td>Port addressing, Segmentation, Flow/Error/Congestion control</td><td><strong>Transport Layer</strong></td></tr>
-    <tr><td><strong>3. Network</strong></td><td>Packets</td><td>Logical IP addressing, Subnet routing, Path determination</td><td><strong>Internet Layer</strong></td></tr>
-    <tr><td><strong>2. Data Link</strong></td><td>Frames</td><td>Physical MAC addressing, Framing, Error detection (CRC)</td><td rowspan="2"><strong>Network Access Layer</strong></td></tr>
-    <tr><td><strong>1. Physical</strong></td><td>Bits</td><td>Bit transmission over copper/fiber/radio, signal levels</td></tr>
+    <tr>
+      <td><strong>7. Application</strong></td>
+      <td>Message / Data</td>
+      <td>Network virtual terminal, file transfer, directory services, user interface.</td>
+      <td>HTTP, HTTPS, DNS, SMTP, FTP, SSH</td>
+    </tr>
+    <tr>
+      <td><strong>6. Presentation</strong></td>
+      <td>Data</td>
+      <td>Data encryption/decryption (TLS), data compression (gzip), syntax translation (ASCII, UTF-8).</td>
+      <td>TLS 1.3, JPEG, MPEG, ASN.1</td>
+    </tr>
+    <tr>
+      <td><strong>5. Session</strong></td>
+      <td>Data</td>
+      <td>Dialog control, token management, session synchronization checkpoints.</td>
+      <td>RPC, NetBIOS, PPTP, Sockets</td>
+    </tr>
+    <tr>
+      <td><strong>4. Transport</strong></td>
+      <td>Segment (TCP) / Datagram (UDP)</td>
+      <td>End-to-end process-to-process delivery, port addressing, flow control, segment reassembly.</td>
+      <td>TCP, UDP, SCTP, QUIC</td>
+    </tr>
+    <tr>
+      <td><strong>3. Network</strong></td>
+      <td>Packet / Datagram</td>
+      <td>Host-to-host logical addressing (IPv4/IPv6), packet routing, fragmentation, congestion control.</td>
+      <td>IP, ICMP, OSPF, BGP (Routers)</td>
+    </tr>
+    <tr>
+      <td><strong>2. Data Link</strong></td>
+      <td>Frame</td>
+      <td>Hop-to-hop node delivery, physical MAC addressing, framing, CRC error detection, MAC access.</td>
+      <td>Ethernet (802.3), Wi-Fi (802.11), PPP (Switches)</td>
+    </tr>
+    <tr>
+      <td><strong>1. Physical</strong></td>
+      <td>Raw Bits (`0`/`1`)</td>
+      <td>Transmission of uninterpreted bit streams over physical media, signal encoding, baud rates.</td>
+      <td>Manchester, NRZ, RS-232, RJ-45 (Hubs, Cables)</td>
+    </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">2. Channel Capacity Theorems</h2>
+<h2 class="section-title">Topic 4 – 6: Channel Capacity Theorems & Decibel Formulations</h2>
 
-<h3 class="subsection-title">2.1 Nyquist Theorem (Noiseless Channel)</h3>
-$$C = 2B \log_2(M) \text{ bps}$$
-<p>where $B$ is channel bandwidth in Hertz and $M$ is the number of discrete signal voltage levels.</p>
-
-<h3 class="subsection-title">2.2 Shannon Theorem (Noisy Channel)</h3>
-$$C = B \log_2(1 + \text{SNR}) \text{ bps}$$
-<p>where $\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}}$. Given $\text{SNR}_{\text{dB}} = 10 \log_{10}(\text{SNR}) \implies \text{SNR} = 10^{(\text{SNR}_{\text{dB}} / 10)}$.</p>
-
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Mid-Sem Exam Numerical (8 Marks)</div>
-  <strong>Problem:</strong> A telephone line has a bandwidth of $4 \text{ kHz}$ and a signal-to-noise ratio of $30 \text{ dB}$. Calculate the theoretical Shannon maximum channel capacity.<br>
-  <strong>Solution:</strong>
-  $$\text{SNR}_{\text{dB}} = 30 \implies 10 \log_{10}(\text{SNR}) = 30 \implies \text{SNR} = 10^3 = 1000$$
-  $$C = B \log_2(1 + \text{SNR}) = 4000 \times \log_2(1001) \approx 4000 \times 9.967 = \mathbf{39,869 \text{ bps}} \approx \mathbf{39.87 \text{ kbps}}$$
+<div class="formula-card">
+  <strong>1. Nyquist Bit Rate Formula (For Noiseless Channels):</strong>
+  $$\text{BitRate}_{\max} = 2 \times B \times \log_2(M) \quad \text{bps}$$
+  Where $B$ is the analog bandwidth in Hertz ($\text{Hz}$), and $M$ is the number of distinct signal voltage levels.
 </div>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<div class="formula-card">
+  <strong>2. Shannon Channel Capacity Theorem (For Noisy Gaussian Channels):</strong>
+  $$C = B \times \log_2 \left(1 + \text{SNR}\right) \quad \text{bps}$$
+  Where $B$ is the bandwidth ($\text{Hz}$), and $\text{SNR} = \frac{\text{Signal Power}}{\text{Noise Power}}$ is the linear Signal-to-Noise Ratio.<br>
+  $$\text{SNR}_{\text{dB}} = 10 \log_{10}(\text{SNR}) \implies \text{SNR} = 10^{\frac{\text{SNR}_{\text{dB}}}{10}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Shannon & Nyquist Capacity Calculation</div>
+  <p><strong>Problem:</strong> A telephone line has a bandwidth of $3000\text{ Hz}$ and an $\text{SNR}_{\text{dB}} = 30\text{ dB}$.</p>
+  <ol>
+    <li>
+      <strong>Step 1: Compute Linear $\text{SNR}$ from $\text{dB}$:</strong>
+      $$\text{SNR} = 10^{\frac{30}{10}} = 10^3 = \mathbf{1000}$$
+    </li>
+    <li>
+      <strong>Step 2: Apply Shannon's Capacity Formula:</strong>
+      $$C = 3000 \times \log_2(1 + 1000) = 3000 \times \log_2(1001) \approx 3000 \times 9.967 = \mathbf{29,901} \text{ bps} \ (\approx 30 \text{ kbps})$$
+    </li>
+    <li>
+      <strong>Step 3: Find Number of Signal Levels $M$ Required by Nyquist to achieve $C$:</strong>
+      $$29901 = 2 \times 3000 \times \log_2(M) \implies \log_2(M) = \frac{29901}{6000} \approx 4.9835 \implies M = 2^{4.9835} \approx \mathbf{32} \text{ levels}$$
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 7 & 8: Digital Signal Line Coding Schemes</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Line Coding Scheme</th>
+      <th style="width: 45%;">Voltage Transition Rule</th>
+      <th>Key Advantages & Tradeoffs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. NRZ-L (Level)</strong></td>
+      <td>Bit `0` $\rightarrow$ Positive Voltage ($+V$), Bit `1` $\rightarrow$ Negative Voltage ($-V$).</td>
+      <td>Simple; suffers from DC component and baseline wander on long strings of `0`s or `1`s.</td>
+    </tr>
+    <tr>
+      <td><strong>2. NRZ-I (Invert)</strong></td>
+      <td>Bit `1` $\rightarrow$ Transition at start of bit interval; Bit `0` $\rightarrow$ No transition.</td>
+      <td>Self-clocking for `1`s; still loses clock synchronization on continuous strings of `0`s.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Manchester (IEEE 802.3)</strong></td>
+      <td>Bit `0` $\rightarrow$ High-to-Low transition at bit center; Bit `1` $\rightarrow$ Low-to-High transition at center.</td>
+      <td>Zero DC component, 100% self-clocking; requires $2 \times$ bandwidth ($B = 2 \times \text{data rate}$).</td>
+    </tr>
+    <tr>
+      <td><strong>4. Differential Manchester</strong></td>
+      <td>Always transitions at center. Bit `0` $\rightarrow$ Transition at start; Bit `1` $\rightarrow$ No transition at start.</td>
+      <td>Highly immune to wire polarity reversal; used in Token Ring LANs (IEEE 802.5).</td>
+    </tr>
+    <tr>
+      <td><strong>5. AMI (Alternate Mark Inversion)</strong></td>
+      <td>Bit `0` $\rightarrow$ Zero Voltage ($0V$); Bit `1` $\rightarrow$ Alternating $+V$ and $-V$.</td>
+      <td>Zero DC component; long runs of `0`s lose synchronization (resolved by B8ZS/HDB3 scrambling).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. State the difference between OSI and TCP/IP reference models across 5 engineering parameters. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Layer Count:</strong> OSI has 7 layers (Session & Presentation separate); TCP/IP has 4 or 5 layers (combines Session, Presentation, Application).<br>
+    2. <strong>Model Origins:</strong> OSI is a theoretical conceptual standard developed by ISO before protocols were written; TCP/IP was designed pragmatically alongside the ARPANET implementation.<br>
+    3. <strong>Service Orientation:</strong> OSI strictly separates Service, Interface, and Protocol; TCP/IP merges services into protocols directly.<br>
+    4. <strong>Network Layer Communication:</strong> OSI supports both Connection-Oriented and Connectionless at Network layer; TCP/IP supports only Connectionless (IP) at Network layer.<br>
+    5. <strong>Transport Layer Communication:</strong> OSI supports only Connection-Oriented at Transport; TCP/IP supports both Connection-Oriented (TCP) and Connectionless (UDP).
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

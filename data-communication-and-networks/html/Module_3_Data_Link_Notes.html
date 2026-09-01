@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 3: Error Control & Data Link Protocols</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 3: MAC Sublayer & LANs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -74,18 +91,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,201 +171,236 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">Module III Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module III Notes</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 3: MAC Sublayer & LANs</h1>
+      <div class="doc-subtitle">Pure & Slotted ALOHA Proofs, CSMA/CD Minimum Frame Derivation, Exponential Backoff, Ethernet & Wi-Fi</div>
     </div>
-    <h1 class="doc-title">Module 3: Error Control & Data Link Protocols</h1>
-    <div class="doc-subtitle">CRC-32, Hamming Code, Stop-and-Wait, GBN, Selective Repeat, HDLC</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module III: Error Control & Data Link Protocols — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Medium Access Control (MAC), Local Area Networks & Wireless LANs</div>
   <div class="toc-grid">
-    <div>1. Cyclic Redundancy Check (CRC-16/32 Modulo-2)</div>
-    <div>2. Hamming Distance & (7, 4) Error Correction</div>
-    <div>3. Sliding Window ARQ: Stop-and-Wait, GBN, SR</div>
-    <div>4. HDLC Protocol & Bit Stuffing Mechanics</div>
-    <div>5. Frequency and Time Division Multiplexing (FDM/TDM)</div>
+    <div>1. Channel Allocation Problem: Static FDM/TDM vs. Dynamic Random Access</div>
+    <div>2. Pure ALOHA Protocol Mathematical Throughput Derivation ($S = G e^{-2G} \implies 18.4\%$)</div>
+    <div>3. Slotted ALOHA Protocol Mathematical Throughput Derivation ($S = G e^{-G} \implies 36.8\%$)</div>
+    <div>4. Carrier Sense Multiple Access (CSMA): 1-Persistent, Non-Persistent, $p$-Persistent</div>
+    <div>5. CSMA with Collision Detection (CSMA/CD — IEEE 802.3 Ethernet Standard)</div>
+    <div>6. Minimum Frame Size Derivation: $L_{\min} = 2 \times R \times \frac{d}{v}$ in Ethernet</div>
+    <div>7. Truncated Binary Exponential Backoff Algorithm ($0 \le k < 2^i$)</div>
+    <div>8. Standard Ethernet IEEE 802.3 Frame Structure & Physical MAC 48-Bit Addresses</div>
+    <div>9. Fast Ethernet (100 Mbps), Gigabit Ethernet (1 Gbps) & 10-Gigabit Standards</div>
+    <div>10. Wireless LANs (IEEE 802.11 Wi-Fi Architecture & CSMA/CA with RTS/CTS)</div>
+    <div>11. The Hidden Station & Exposed Station Problems with Virtual Carrier Sensing (NAV)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Cyclic Redundancy Check (CRC)</h2>
+<h2 class="section-title">Topic 2 & 3: ALOHA Protocols & Poisson Throughput Proofs</h2>
+
+<div class="formula-card">
+  <strong>1. Pure ALOHA Throughput Derivation:</strong>
+  Let $G$ be the total offered traffic load (frames per frame transmission time $T$).
+  - Vulnerable Period in Pure ALOHA $= 2 \times T$ (any frame generated in $(t - T, t + T)$ collides).
+  - Under Poisson distribution, probability of zero other frame arrivals is $P(0) = e^{-2G}$.
+  - Throughput:
+    $$S = G \cdot e^{-2G}$$
+  - Maximum Throughput occurs at $\frac{dS}{dG} = e^{-2G}(1 - 2G) = 0 \implies G = 0.5$:
+    $$S_{\max} = 0.5 \cdot e^{-1} = \frac{1}{2e} \approx \mathbf{0.184} \quad (18.4\%)$$
+</div>
+
+<div class="formula-card">
+  <strong>2. Slotted ALOHA Throughput Derivation:</strong>
+  - Frames can only be transmitted at discrete slot boundaries.
+  - Vulnerable Period $= 1 \times T$.
+  - Throughput:
+    $$S = G \cdot e^{-G}$$
+  - Maximum Throughput occurs at $G = 1.0$:
+    $$S_{\max} = 1.0 \cdot e^{-1} = \frac{1}{e} \approx \mathbf{0.368} \quad (36.8\%)$$
+</div>
+
+<h2 class="section-title">Topic 5 & 6: CSMA/CD & Minimum Frame Size Equation</h2>
+
 <p>
-  Given data word $D(x)$ of $k$ bits and generator polynomial $G(x)$ of degree $n$:
-  <ol>
-    <li>Append $n$ zero bits to $D(x)$ to form dividend $D(x) \cdot 2^n$.</li>
-    <li>Perform binary Modulo-2 division (XOR) by generator polynomial $G(x)$.</li>
-    <li>The $n$-bit remainder $R(x)$ is the Frame Check Sequence (FCS). Transmit $T(x) = D(x) \cdot 2^n \oplus R(x)$.</li>
-  </ol>
+  In <strong>CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</strong>, a transmitting station continuously listens to the physical cable while transmitting.
 </p>
 
-<h2 class="section-title">2. Sliding Window ARQ Protocols Comparison</h2>
+<div class="callout callout-warning">
+  <div class="callout-title">The Fundamental CSMA/CD Minimum Frame Size Rule</div>
+  To guarantee that a station detects a collision before it finishes transmitting its frame, the transmission time $T_t$ must be at least twice the maximum round-trip propagation delay $2 \times T_p$:
+  $$T_t \ge 2 \times T_p \implies \frac{L_{\min}}{B} \ge 2 \times \frac{d}{v} \implies L_{\min} = 2 \times B \times \frac{d}{v}$$
+  Where $L_{\min}$ is the minimum frame size in bits, $B$ is the bandwidth in bps, $d$ is the maximum network length in meters, and $v$ is the signal propagation velocity in the cable ($\approx 2 \times 10^8 \text{ m/s}$).
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Classical 10 Mbps Ethernet 64-Byte Minimum Frame Size</div>
+  <p>For standard $10\text{ Mbps}$ Ethernet with maximum collision domain distance $2500\text{ meters}$ and 4 repeaters:</p>
+  $$2 T_p \approx 51.2 \ \mu\text{s}$$
+  $$L_{\min} = 10 \times 10^6 \text{ bps} \times 51.2 \times 10^{-6} \text{ s} = 512 \text{ bits} = \mathbf{64} \text{ bytes}$$
+  <p>Frames smaller than 64 bytes are padded with zeroes up to 64 bytes (Runt Frames $< 64$ bytes are discarded as collisions).</p>
+</div>
+
+<h2 class="section-title">Topic 10 & 11: Wireless LANs (IEEE 802.11) & The Hidden Station Problem</h2>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th>Protocol</th>
-      <th>Sender Window ($W_s$)</th>
-      <th>Receiver Window ($W_r$)</th>
-      <th>Efficiency ($\eta$)</th>
-      <th>Retransmission Behavior</th>
+      <th style="width: 25%;">Wireless Phenomenon</th>
+      <th style="width: 45%;">Geometric Problem Topology</th>
+      <th>CSMA/CA RTS/CTS Solution</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Stop-and-Wait</strong></td>
-      <td>$1$</td>
-      <td>$1$</td>
-      <td>$\frac{1}{1 + 2a}$ where $a = \frac{T_{\text{prop}}}{T_{\text{trans}}}$</td>
-      <td>Retransmits single frame upon timer expiry.</td>
+      <td><strong>1. Hidden Station Problem</strong></td>
+      <td>Station $A$ and Station $C$ can both transmit to Base Station $B$, but $A$ and $C$ are out of range of each other. If both sense carrier simultaneously, they detect an idle channel and transmit, causing severe collisions at $B$.</td>
+      <td><strong>RTS/CTS Handshake:</strong> $A$ sends `RTS` (Request to Send). $B$ broadcasts `CTS` (Clear to Send). $C$ overhears $B$'s `CTS` and sets its <strong>Network Allocation Vector (NAV)</strong> to defer transmission.</td>
     </tr>
     <tr>
-      <td><strong>Go-Back-N (GBN)</strong></td>
-      <td>$2^k - 1$</td>
-      <td>$1$</td>
-      <td>$\frac{W_s}{1 + 2a}$</td>
-      <td>Discards out-of-order frames; retransmits entire window from lost frame.</td>
-    </tr>
-    <tr>
-      <td><strong>Selective Repeat</strong></td>
-      <td>$2^{k-1}$</td>
-      <td>$2^{k-1}$</td>
-      <td>$\frac{W_s}{1 + 2a}$</td>
-      <td>Buffers out-of-order frames; retransmits <strong>only the damaged frame</strong> (NAK).</td>
+      <td><strong>2. Exposed Station Problem</strong></td>
+      <td>Station $B$ is transmitting to $A$. Station $C$ wants to transmit to $D$. $C$ senses the medium, detects $B$'s transmission, and wrongly defers, even though $C \rightarrow D$ would not interfere with $B \rightarrow A$.</td>
+      <td>Resolved by spatial channel reuse and directional antennas.</td>
     </tr>
   </tbody>
 </table>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Explain the Truncated Binary Exponential Backoff Algorithm used in Ethernet. (8 Marks)</div>
+  <div class="qa-a">
+    After $i$ collisions for a frame:<br>
+    1. The station chooses a random integer $k$ from the uniform range $0 \le k < 2^c$, where $c = \min(i, 10)$.<br>
+    2. The station waits $k \times \text{SlotTime}$ ($k \times 51.2 \ \mu\text{s}$ in 10 Mbps Ethernet) before attempting retransmission.<br>
+    3. After 10 collisions, the backoff interval freezes at $2^{10} - 1 = 1023$ slots.<br>
+    4. If the frame experiences 16 consecutive collisions ($i=16$), the transmission is aborted and an error is reported to the upper layer.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Software Engineering (CS24353) — Full Course Master Book</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Software Engineering (CS24309) — Full Course Master Book</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #047857;       /* Deep Emerald Green */
-  --primary-light: #ecfdf5;
-  --accent: #2563eb;        /* Blue */
-  --secondary: #0f766e;     /* Teal */
+  --primary: #ea580c;       /* Orange */
+  --primary-light: #fff7ed;
+  --accent: #f97316;        /* Bright Orange */
+  --secondary: #d97706;     /* Amber */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Software Engineering (CS24309) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-green { background: #d1fae5; color: #065f46; }
+.badge-orange { background: #ffedd5; color: #c2410c; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-emerald { background: #a7f3d0; color: #047857; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #047857;
+  color: #c2410c;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #c2410c;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #ecfdf5; border-color: #047857; color: #064e3b; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #fff7ed; border-color: #ea580c; color: #7c2d12; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,320 +171,734 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #064e3b;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #ea580c;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #c2410c;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #fff7ed;
+  border-left: 4px solid #ea580c;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #047857; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Software Engineering (CS24353) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-emerald">CS24353 — Elective (3.0 Cr)</span>
-      <span class="badge badge-blue">Full Course Master</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-orange">CS24309 — Theory (3.0 Cr)</span>
+        <span class="badge badge-blue">Full Course Master</span>
+        <span class="badge badge-purple">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Software Engineering (CS24309) — Full Course Master Book</h1>
+      <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
     </div>
-    <h1 class="doc-title">Software Engineering (CS24353) — Full Course Master Book</h1>
-    <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
-  </div>
-  
+    
         <div style="padding: 10px 0;">
-          <div style="background: linear-gradient(135deg, #d946ef, #a21caf); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fae8ff; margin-bottom: 6px;">Executive Master Study Guide & Case Study Bank</div>
+          <div style="background: linear-gradient(135deg, #ea580c, #c2410c); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #ffedd5; margin-bottom: 6px;">Executive Master Study Guide & Project Metrics Bank</div>
             <h2 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #ffffff;">Software Engineering (CS24309)</h2>
-            <p style="font-size: 12.5px; color: #fdf4ff;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
+            <p style="font-size: 12.5px; color: #fff7ed;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
           </div>
 
-          <h3 class="subsection-title" style="margin-top: 0;">📚 Complete Course Structure & Engineering Lifecycle Matrix</h3>
+          <h3 class="subsection-title" style="margin-top: 0;">📚 Complete Course Structure & Software Engineering Matrix</h3>
           <table class="custom-table" style="margin-bottom: 20px;">
             <thead>
-              <tr><th>Module</th><th>Core Syllabus Scope</th><th>Key Methodologies & Formulations</th></tr>
+              <tr><th>Module</th><th>Core Scope</th><th>Key Metrics, Methodologies & Formulations</th></tr>
             </thead>
             <tbody>
-              <tr><td><strong>Module I</strong></td><td>Process Models & Agile</td><td>Waterfall, Evolutionary Prototyping, Boehm Spiral, Agile Scrum, Sprint Burndown, Extreme Programming, CMMI</td></tr>
-              <tr><td><strong>Module II</strong></td><td>Requirements & Modeling</td><td>Functional/Non-Functional Requirements, IEEE 830 SRS Standard, Use Case Modeling, Class Diagrams, Statecharts</td></tr>
-              <tr><td><strong>Module III</strong></td><td>Design & Architecture</td><td>High Cohesion & Low Coupling Metrics, Architectural Styles (Layered, MVC, Microservices), GoF Design Patterns</td></tr>
-              <tr><td><strong>Module IV</strong></td><td>Software Testing & QA</td><td>Black-Box (Equivalence Partitioning, BVA), White-Box (Basis Path, McCabe Cyclomatic Complexity $V(G) = E - N + 2P$), Mutation</td></tr>
-              <tr><td><strong>Module V</strong></td><td>Estimation & Management</td><td>COCOMO II Cost Estimation Equations, Function Point (FP) Analysis, CPM/PERT Critical Path, Risk Management</td></tr>
+              <tr><td><strong>Module I</strong></td><td>Process Models & Agile</td><td>Waterfall, V-Model, Prototyping, Boehm's Spiral (4 Quadrants), Agile Manifesto, Scrum Roles & Sprint Burndown</td></tr>
+              <tr><td><strong>Module II</strong></td><td>Requirements & Analysis</td><td>IEEE 830 SRS Standard, Use Case Modeling, Data Flow Diagrams (DFD Level 0/1/2), Data Dictionary & ER Diagrams</td></tr>
+              <tr><td><strong>Module III</strong></td><td>Design & Architecture</td><td>Cohesion (Functional to Coincidental), Coupling (Data to Content), SOLID Principles, GoF Design Patterns</td></tr>
+              <tr><td><strong>Module IV</strong></td><td>Metrics & Estimation</td><td>Albrecht Function Points (FP), Basic & Intermediate COCOMO Models, PERT Expected Time & CPM Critical Path</td></tr>
+              <tr><td><strong>Module V</strong></td><td>Testing & Maintenance</td><td>Black-Box (ECP, BVA), White-Box (Basis Path & McCabe's Cyclomatic Complexity), Mutation Testing, Maintenance</td></tr>
             </tbody>
           </table>
 
           <div class="callout callout-info">
             <div class="callout-title">🎯 Exam Preparation & High-Yield Strategy</div>
-            This publication-grade master book consolidates all 5 modules with formal software estimation formulas, step-by-step worked Cyclomatic Complexity & Function Point numericals, and comprehensive model answers to BIT Mesra end-semester examination questions.
+            This publication-grade master book consolidates all 5 modules with step-by-step COCOMO & PERT cost estimation calculations, Cyclomatic Complexity graph proofs, and model answers to BIT Mesra end-semester examination questions.
           </div>
         </div>
         <div class='page-break'></div>
 <div class="toc-box">
-  <div class="toc-title">Module I: Process Models & Agile Methodologies — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Software Process Models & Agile Methodologies</div>
   <div class="toc-grid">
-    <div>1. Software Crisis & Layered Technology</div>
-    <div>2. Prescriptive Lifecycle Models (Waterfall, Spiral, RAD)</div>
-    <div>3. Agile Manifesto & Scrum Framework</div>
-    <div>4. Extreme Programming (XP & TDD)</div>
-    <div>5. Project Scheduling & Risk Management (RMMM)</div>
+    <div>1. The Software Crisis, Engineering Principles & The Dual Nature of Software</div>
+    <div>2. Generic Software Process Framework (Communication, Planning, Modeling, Construction, Deployment)</div>
+    <div>3. Classical Waterfall Model: Sequential Phases, Feedback Loops & Major Inherent Flaws</div>
+    <div>4. The V-Model: Verification vs. Validation Cross-Phase Association</div>
+    <div>5. Prototyping Paradigm: Throwaway vs. Evolutionary Prototyping Mechanics</div>
+    <div>6. Boehm's Spiral Model: 4 Quadrants & Explicit Risk-Driven Iterations</div>
+    <div>7. The Agile Manifesto: 4 Core Core Values & 12 Guiding Principles</div>
+    <div>8. The Scrum Framework: Roles (PO, Scrum Master, Team) & Ceremonies</div>
+    <div>9. Scrum Artifacts: Product Backlog, Sprint Backlog & Sprint Burndown Charts</div>
+    <div>10. Extreme Programming (XP): Pair Programming, Test-Driven Development (TDD) & CI</div>
+    <div>11. Process Model Selection Decision Matrix for Diverse Engineering Constraints</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Software Process Lifecycle Models Comparison</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 20%;">Model</th>
-      <th style="width: 45%;">Core Characteristics</th>
-      <th>Ideal Project Profile</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Waterfall Model</strong></td>
-      <td>Strict linear sequential phases. High documentation discipline. No customer feedback until late testing phase.</td>
-      <td>Well-understood, stable requirements (e.g., compilers, aerospace flight control).</td>
-    </tr>
-    <tr>
-      <td><strong>Spiral Model (Boehm)</strong></td>
-      <td>Risk-driven evolutionary meta-model combining prototyping with systematic waterfall milestones across 4 quadrants.</td>
-      <td>Large, expensive, high-risk, mission-critical systems.</td>
-    </tr>
-    <tr>
-      <td><strong>Scrum (Agile)</strong></td>
-      <td>Iterative, time-boxed Sprints (2–4 weeks), daily stand-ups, self-organizing teams, shippable product increments.</td>
-      <td>Rapidly evolving requirements, web/mobile applications.</td>
-    </tr>
-  </tbody>
-</table>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module II: Requirements Engineering & IEEE 830 SRS — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Functional vs. Non-Functional Requirements</div>
-    <div>2. Requirements Elicitation (FAST, JAD, Interviews)</div>
-    <div>3. Data Flow Diagrams (DFD Level 0, 1, 2)</div>
-    <div>4. IEEE 830-1998 Standard SRS Structure</div>
-    <div>5. Requirements Traceability & Validation</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. IEEE Standard 830-1998 Structure of SRS</h2>
-<ul>
-  <li><strong>1. Introduction:</strong> Purpose, Scope, Definitions, References, Overview.</li>
-  <li><strong>2. Overall Description:</strong> Product perspective, Functions, User classes, Operating environment, Design constraints, Assumptions.</li>
-  <li><strong>3. Specific Requirements:</strong> Functional requirements, Performance criteria, Security/Safety constraints, External interface specifications (UI, Hardware, Software, Communications).</li>
-</ul>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module III: Software Architecture, Cohesion & UML — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Architectural Concepts & SOLID Principles</div>
-    <div>2. Modularity: Cohesion (7 Levels) & Coupling (6 Levels)</div>
-    <div>3. Architectural Styles (Layered, Microservices, MVC)</div>
-    <div>4. UML Structural: Use Case & Class Diagrams</div>
-    <div>5. UML Behavioral: Sequence, Activity & Statecharts</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Cohesion and Coupling Quality Spectrum</h2>
+<h2 class="section-title">Topic 1 – 4: Traditional Prescriptive Process Models</h2>
 <p>
-  <strong>Desirable Design Goal:</strong> High Cohesion within modules and Low (Loose) Coupling between modules.
+  A <strong>Software Process Model</strong> is an abstract representation of the lifecycle activities, actions, tasks, milestones, and work products required to build high-quality software.
 </p>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 50%;">Cohesion Spectrum (Low $\rightarrow$ High / Desirable)</th>
-      <th>Coupling Spectrum (High / Undesirable $\rightarrow$ Low / Desirable)</th>
+      <th style="width: 22%;">Process Model</th>
+      <th style="width: 40%;">Core Operational Philosophy</th>
+      <th>Ideal Project Characteristics</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>1. Coincidental (Worst)</td><td>1. Content Coupling (Worst - direct memory modification)</td></tr>
-    <tr><td>2. Logical</td><td>2. Common Coupling (Shared global variables)</td></tr>
-    <tr><td>3. Temporal</td><td>3. External Coupling</td></tr>
-    <tr><td>4. Procedural</td><td>4. Control Coupling</td></tr>
-    <tr><td>5. Communicational</td><td>5. Stamp Coupling (Passing composite data structure)</td></tr>
-    <tr><td>6. Sequential</td><td rowspan="2">6. <strong>Data Coupling (Best - passing scalar parameters)</strong></td></tr>
-    <tr><td>7. <strong>Functional Cohesion (Best - performs single focused task)</strong></td></tr>
+    <tr>
+      <td><strong>1. Classical Waterfall</strong></td>
+      <td>Strictly linear sequential progression. Downstream phases only begin once upstream deliverables are frozen.</td>
+      <td>Requirements are 100% clear, stable, and well-understood; safety-critical systems with rigid standards.</td>
+    </tr>
+    <tr>
+      <td><strong>2. V-Model</strong></td>
+      <td>Pairs each development phase on the left descending arm with its corresponding testing verification phase on the right ascending arm.</td>
+      <td>High-reliability systems where test plan generation occurs early in parallel with requirements.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Prototyping</strong></td>
+      <td>Builds a quick mock-up interface to elicit, clarify, and validate ambiguous user requirements.</td>
+      <td>High user interaction systems where clients cannot articulate exact requirements upfront.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Boehm's Spiral Model</strong></td>
+      <td>Risk-driven iterative model combining iterative prototyping with Waterfall systematic control. Evaluates risk in 4 quadrants per cycle.</td>
+      <td>Large-scale, expensive, high-risk enterprise systems with emerging requirements.</td>
+    </tr>
   </tbody>
 </table>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module IV: Verification, Validation & Software Testing — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Verification vs. Validation (Boehm's Criterion)</div>
-    <div>2. Black-Box Testing: Equivalence Partitioning & BVA</div>
-    <div>3. White-Box Testing: McCabe's Cyclomatic Complexity</div>
-    <div>4. Levels of Testing: Unit, Integration (Stubs/Drivers), System</div>
-    <div>5. Software Reliability: MTTF, MTBF & Availability</div>
-  </div>
-</div>
 
-<h2 class="section-title">1. McCabe's Cyclomatic Complexity $V(G)$ Formulations</h2>
-<p>
-  Given a Control Flow Graph (CFG) $G$:
+<h2 class="section-title">Topic 6: Boehm's Spiral Model (4 Quadrants of Iteration)</h2>
+
+<div class="callout callout-info">
+  <div class="callout-title">The 4 Quadrants of the Spiral Model Cycle</div>
   <ol>
-    <li>$V(G) = E - N + 2$ (where $E$ = edges, $N$ = nodes)</li>
-    <li>$V(G) = P + 1$ (where $P$ = predicate / decision nodes with multiple outgoing branches)</li>
-    <li>$V(G) = \text{Number of enclosed planar regions } R$</li>
+    <li><strong>Quadrant 1: Determine Objectives, Alternatives & Constraints:</strong> Identify specific phase goals, alternative architectural options, and operational constraints (cost, schedule).</li>
+    <li><strong>Quadrant 2: Identify & Resolve Risks (Risk Analysis):</strong> Detailed risk evaluation; create simulations, benchmarks, or prototypes to mitigate technical and project risks.</li>
+    <li><strong>Quadrant 3: Develop & Verify Next-Level Product:</strong> Engineering design, coding, and verification testing of the release increment.</li>
+    <li><strong>Quadrant 4: Review & Plan Next Phase:</strong> Customer evaluation of the increment, review progress, and plan the next spiral loop.</li>
   </ol>
-</p>
-
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Exam Question (10 Marks)</div>
-  <strong>Problem:</strong> Draw the CFG and compute Cyclomatic Complexity for finding max of 3 numbers: `if (a > b) { if (a > c) max = a; else max = c; } else { if (b > c) max = b; else max = c; }`<br>
-  <strong>Solution:</strong> The code contains 3 predicate/decision nodes ($P=3$). Thus, $V(G) = P + 1 = 3 + 1 = \mathbf{4}$. There are 4 linearly independent execution basis paths requiring at least 4 test cases for 100% branch coverage.
-</div>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module V: Project Estimation, COCOMO & CMMI — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Function Point Analysis (Albrecht UFP & VAF)</div>
-    <div>2. COCOMO I (Organic, Semidetached, Embedded Modes)</div>
-    <div>3. SEI CMMI 5-Level Maturity Framework</div>
-    <div>4. Software Configuration Management (SCM Baselines)</div>
-    <div>5. Software Maintenance: 4 Types & Lehman's Laws</div>
-  </div>
 </div>
 
-<h2 class="section-title">1. Basic COCOMO Estimation Formulas (Barry Boehm)</h2>
-$$\text{Effort (Person-Months)} = a_b \times (\text{KLOC})^{b_b}$$
-$$\text{Development Time (Months)} = c_b \times (\text{Effort})^{d_b}$$
+<h2 class="section-title">Topic 7 – 9: Agile Methodologies & The Scrum Framework</h2>
+
+<div class="formula-card">
+  <strong>The 4 Values of the Agile Manifesto (2001):</strong>
+  1. <strong>Individuals and interactions</strong> over processes and tools.
+  2. <strong>Working software</strong> over comprehensive documentation.
+  3. <strong>Customer collaboration</strong> over contract negotiation.
+  4. <strong>Responding to change</strong> over following a rigid plan.
+</div>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th>Project Mode</th>
-      <th>Team & Project Description</th>
-      <th>$a_b$</th>
-      <th>$b_b$</th>
-      <th>$c_b$</th>
-      <th>$d_b$</th>
+      <th style="width: 25%;">Scrum Component</th>
+      <th style="width: 45%;">Definition & Purpose</th>
+      <th>Key Responsibility / Invariant</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Organic</strong></td><td>Small experienced team, well-understood domain ($< 50 \text{ KLOC}$).</td><td>$2.4$</td><td>$1.05$</td><td>$2.5$</td><td>$0.38$</td></tr>
-    <tr><td><strong>Semidetached</strong></td><td>Medium team, mixed experience, medium size ($50 - 300 \text{ KLOC}$).</td><td>$3.0$</td><td>$1.12$</td><td>$2.5$</td><td>$0.35$</td></tr>
-    <tr><td><strong>Embedded</strong></td><td>Tight hardware/software constraints, mission-critical.</td><td>$3.6$</td><td>$1.20$</td><td>$2.5$</td><td>$0.32$</td></tr>
+    <tr>
+      <td><strong>Product Owner (PO)</strong></td>
+      <td>Represents business stakeholders and customers; defines vision.</td>
+      <td>Owns and prioritizes the Product Backlog.</td>
+    </tr>
+    <tr>
+      <td><strong>Scrum Master</strong></td>
+      <td>Servant-leader; removes organizational impediments and ensures adherence to Scrum.</td>
+      <td>Facilitates Daily Standups, Sprint Planning, and Retrospectives.</td>
+    </tr>
+    <tr>
+      <td><strong>Sprint Backlog</strong></td>
+      <td>Subset of Product Backlog user stories selected for delivery in current 2–4 week Sprint.</td>
+      <td>Estimated by developers using Story Points (Planning Poker).</td>
+    </tr>
+    <tr>
+      <td><strong>Burndown Chart</strong></td>
+      <td>Visual graph plotting remaining work (story points) against time (days of the sprint).</td>
+      <td>Tracks velocity and predicts whether sprint goals will be met on time.</td>
+    </tr>
   </tbody>
 </table>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Software Engineering (CS24353) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Compare the Waterfall Model and the Spiral Model across 4 engineering parameters. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Risk Management:</strong> Waterfall has zero explicit risk management mechanisms; Spiral is fundamentally driven by continuous risk analysis in every cycle.<br>
+    2. <strong>Handling Changing Requirements:</strong> Waterfall resists changes after requirements freeze; Spiral accommodates evolving requirements in subsequent spiral loops.<br>
+    3. <strong>Customer Involvement:</strong> In Waterfall, customer interaction happens only at the beginning (requirements) and end (delivery); in Spiral, customer evaluates prototypes after every loop.<br>
+    4. <strong>Project Cost & Complexity:</strong> Waterfall is suitable for small, simple projects; Spiral is designed for large-scale, complex, mission-critical systems.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Requirements Engineering, Analysis Modeling & Structured Specification</div>
+  <div class="toc-grid">
+    <div>1. Requirements Engineering Process (Elicitation, Analysis, Specification, Validation)</div>
+    <div>2. Functional Requirements vs. Non-Functional Requirements (FURPS+ Model)</div>
+    <div>3. IEEE 830 Standard Format for Software Requirements Specification (SRS)</div>
+    <div>4. Characteristics of High-Quality SRS Documents (Traceable, Unambiguous, Verifiable)</div>
+    <div>5. Use Case Modeling: Actors, Use Cases, `<<include>>` vs. `<<extend>>` Relationships</div>
+    <div>6. Structured Analysis: Data Flow Diagrams (DFD) — 4 Core Geometric Notations</div>
+    <div>7. DFD Leveling Hierarchy: Context Diagram (Level 0), Level 1 & Level 2 Explosions</div>
+    <div>8. DFD Balancing Invariants & Common Modeling Errors (Black Holes, Miracles, Gray Holes)</div>
+    <div>9. Data Dictionary Architecture: BNF Metadata Syntax & Composite Data Elements</div>
+    <div>10. Entity-Relationship (ER) Modeling: Entities, Attributes, Cardinalities & Keys</div>
+    <div>11. Decision Tables & Structured English for Complex Business Logic Modeling</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 2 – 4: Requirements Engineering & The IEEE 830 SRS Standard</h2>
+
+<p>
+  A <strong>Software Requirements Specification (SRS)</strong> is a formal contract between the client and the development organization describing the complete functional behavior and operational constraints of the system.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">SRS Section (IEEE 830)</th>
+      <th style="width: 45%;">Mandatory Content & Description</th>
+      <th>Key Invariants & Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Introduction</strong></td>
+      <td>Purpose of the system, project scope, definitions, acronyms, and references.</td>
+      <td>Sets project boundary; prevents scope creep.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Overall Description</strong></td>
+      <td>Product perspective, user classes, operating environment, design constraints, assumptions.</td>
+      <td>Provides high-level context without dictating low-level implementation details.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Specific Requirements</strong></td>
+      <td>Detailed Functional Requirements, External Interface Requirements (UI, HW, SW), Non-Functional Requirements (Performance, Security, Reliability).</td>
+      <td>Must be 100% <strong>Unambiguous, Complete, Consistent, Verifiable (Testable), and Traceable</strong>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 6 – 8: Data Flow Diagrams (DFD) & Balancing Rules</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">DFD Symbol</th>
+      <th style="width: 25%;">DeMarco & Yourdon</th>
+      <th style="width: 25%;">Gane & Sarson</th>
+      <th>Functional Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Process</strong></td><td>Circle (Bubble)</td><td>Rounded Rectangle</td><td>Transforms input data flows into output data flows.</td></tr>
+    <tr><td><strong>Data Flow</strong></td><td>Directed Arrow</td><td>Directed Arrow</td><td>Pipeline along which packets of data travel.</td></tr>
+    <tr><td><strong>Data Store</strong></td><td>Two Parallel Lines</td><td>Open Rectangle</td><td>Repository of data at rest (files, DB tables).</td></tr>
+    <tr><td><strong>External Entity</strong></td><td>Rectangle</td><td>Shaded Rectangle</td><td>Source or Sink of data outside system boundary.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout callout-warning">
+  <div class="callout-title">DFD Balancing & Consistency Invariants</div>
+  <ul>
+    <li><strong>Conservation of Data:</strong> A process cannot output data that was not present in or computable from its input data.</li>
+    <li><strong>Black Hole Error:</strong> A process that has inputs but zero outputs.</li>
+    <li><strong>Miracle Error:</strong> A process that generates outputs with zero inputs.</li>
+    <li><strong>Gray Hole Error:</strong> A process where outputs require data not supplied by its inputs.</li>
+    <li><strong>Level Balancing:</strong> All input data flows and output data flows entering/leaving a parent process bubble in DFD Level $N$ must exactly match the external data flows in its child Level $N+1$ diagram.</li>
+  </ul>
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Differentiate between `<<include>>` and `<<extend>>` relationships in Use Case Diagrams with examples. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>`<<include>>` (Mandatory Shared Behavior):</strong> The base use case unconditionally and explicitly invokes the included use case every single time it executes. Used to factor out common repeated subroutines.<br>
+       <em>Example:</em> `Withdraw Cash` $\xrightarrow{<<include>>}$ `Authenticate User PIN`.<br>
+    2. <strong>`<<extend>>` (Optional / Conditional Behavior):</strong> The extending use case executes only if a specific extension condition holds true at designated extension points in the base use case. The base use case is completely functional on its own without knowing about the extension.<br>
+       <em>Example:</em> `Calculate Premium` $\xleftarrow{<<extend>>}$ `Apply Senior Citizen Discount` (only if $\text{age} \ge 60$).
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Software Design Engineering, Modularity & Architecture</div>
+  <div class="toc-grid">
+    <div>1. The Software Design Process (Architectural Design, Interface Design, Component Design)</div>
+    <div>2. Fundamental Design Principles (Abstraction, Information Hiding, Modularity, Refactoring)</div>
+    <div>3. Module Cohesion Taxonomy: Functional (Best) to Coincidental (Worst) Complete Scale</div>
+    <div>4. Module Coupling Taxonomy: Data (Best) to Content (Worst) Complete Scale</div>
+    <div>5. Object-Oriented Design Principles (SOLID: Single Responsibility, Open-Closed, Liskov, Interface, Dependency)</div>
+    <div>6. Unified Modeling Language (UML): Structural Diagrams (Class, Object, Component)</div>
+    <div>7. UML Behavioral & Interaction Diagrams: Sequence, State Machine & Activity Diagrams</div>
+    <div>8. Software Architectural Styles: Layered, Client-Server, Pipe-and-Filter, MVC, Microservices</div>
+    <div>9. GoF Design Patterns Taxonomy: Creational, Structural & Behavioral Paradigms</div>
+    <div>10. Creational Patterns: Singleton & Factory Method Implementations & UML</div>
+    <div>11. Structural & Behavioral Patterns: Adapter, Decorator, Observer & Strategy Patterns</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 3 & 4: Modularity (Cohesion vs. Coupling)</h2>
+
+<p>
+  The primary objective of software modularization is to achieve <strong>High Cohesion (Single Responsibility within a module)</strong> and <strong>Low Coupling (Minimal Interdependence between modules)</strong>.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Cohesion Type (High to Low)</th>
+      <th style="width: 50%;">Definition & Internal Binding Characteristics</th>
+      <th>Quality Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. Functional</strong></td><td>All elements of a module contribute to executing a single, well-defined mathematical task (e.g., `computeSquareRoot()`).</td><td>⭐⭐⭐⭐⭐ (Ideal)</td></tr>
+    <tr><td><strong>2. Sequential</strong></td><td>The output data of one element serves as the direct input to the next element inside the module (e.g., `readRecordAndFormat()`).</td><td>⭐⭐⭐⭐ (High)</td></tr>
+    <tr><td><strong>3. Communicational</strong></td><td>Elements operate on the exact same input data structure or produce the same output structure (e.g., `updateAndPrintCustomerReport()`).</td><td>⭐⭐⭐ (Medium)</td></tr>
+    <tr><td><strong>4. Procedural</strong></td><td>Elements are grouped because they execute in a specific sequential algorithmic order (e.g., `readInputsThenValidate()`).</td><td>⭐⭐ (Fair)</td></tr>
+    <tr><td><strong>5. Temporal</strong></td><td>Elements are grouped simply because they are executed at the same time (e.g., system `startupInit()` or `shutdown()`).</td><td>⭐ (Poor)</td></tr>
+    <tr><td><strong>6. Logical</strong></td><td>Elements perform logically similar tasks selected by a control flag (e.g., a single function with a switch case for all math operations).</td><td>⭐ (Poor)</td></tr>
+    <tr><td><strong>7. Coincidental</strong></td><td>Elements have zero meaningful relationship; grouped purely by accident or arbitrary convenience.</td><td>❌ (Worst)</td></tr>
+  </tbody>
+</table>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Coupling Type (Low to High)</th>
+      <th style="width: 50%;">Definition & Inter-Module Communication</th>
+      <th>Quality Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. Data Coupling</strong></td><td>Modules communicate strictly by passing elementary primitive data parameters (e.g., `int`, `float`).</td><td>⭐⭐⭐⭐⭐ (Ideal)</td></tr>
+    <tr><td><strong>2. Stamp Coupling</strong></td><td>Modules pass complex composite data structures (e.g., entire `CustomerRecord`), even when the callee only needs a few fields.</td><td>⭐⭐⭐⭐ (Good)</td></tr>
+    <tr><td><strong>3. Control Coupling</strong></td><td>One module passes a control flag (`bool`, `enum`) that dictates the internal execution flow of the other module.</td><td>⭐⭐ (Poor)</td></tr>
+    <tr><td><strong>4. Common Coupling</strong></td><td>Multiple modules share and mutate global variables or shared global memory blocks.</td><td>⭐ (Very Poor)</td></tr>
+    <tr><td><strong>5. Content Coupling</strong></td><td>One module directly accesses, modifies, or branches into the internal private code/memory of another module (e.g., modifying private memory).</td><td>❌ (Worst)</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 8: Software Architectural Styles</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Architectural Style</th>
+      <th style="width: 45%;">Structural Organization & Communication</th>
+      <th>Primary Use Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Layered (N-Tier)</strong></td>
+      <td>Organized hierarchically into horizontal layers (UI $\rightarrow$ Business Logic $\rightarrow$ Data Access $\rightarrow$ Database). Upper layers invoke lower layers.</td>
+      <td>Enterprise web applications, OS architectures.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Pipe-and-Filter</strong></td>
+      <td>Data flows through a stream of discrete transformation filters connected by communication pipes.</td>
+      <td>Unix pipelines, compilers, video processing engines.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Model-View-Controller</strong></td>
+      <td>Decouples business data (Model), user interface presentation (View), and input handling (Controller).</td>
+      <td>Interactive GUI applications (React, Angular, Django).</td>
+    </tr>
+    <tr>
+      <td><strong>4. Microservices</strong></td>
+      <td>Decomposes system into small, independently deployable services communicating via lightweight REST/gRPC APIs.</td>
+      <td>Scalable cloud-native enterprise systems (Netflix, Uber).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Explain the SOLID design principles in Object-Oriented Software Engineering. (10 Marks)</div>
+  <div class="qa-a">
+    - <strong>S (Single Responsibility Principle):</strong> A class should have only one reason to change, encapsulating a single responsibility.<br>
+    - <strong>O (Open/Closed Principle):</strong> Software entities should be open for extension, but closed for modification (achieved via interfaces and polymorphism).<br>
+    - <strong>L (Liskov Substitution Principle):</strong> Subtypes must be substitutable for their base types without altering program correctness.<br>
+    - <strong>I (Interface Segregation Principle):</strong> Clients should not be forced to depend on interfaces they do not use (prefer small, client-specific interfaces over fat general ones).<br>
+    - <strong>D (Dependency Inversion Principle):</strong> High-level modules should not depend on low-level modules; both should depend on abstractions.
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Software Project Estimation, Metrics & Scheduling</div>
+  <div class="toc-grid">
+    <div>1. Software Project Management Dimensions (People, Product, Process, Project — 4 P's)</div>
+    <div>2. Size-Oriented Metrics (Lines of Code — LOC) & Inherent Productivity Pitfalls</div>
+    <div>3. Function-Oriented Metrics: Albrecht's Function Point (FP) Analysis Formulations</div>
+    <div>4. Unadjusted Function Count (UFC) across 5 Information Domain Characteristics</div>
+    <div>5. 14 General System Characteristics & Value Adjustment Factor (VAF) Math</div>
+    <div>6. Boehm's COCOMO I Model: Organic, Semi-Detached & Embedded Project Modes</div>
+    <div>7. Basic, Intermediate (Cost Drivers / EAF) & Detailed COCOMO Equations</div>
+    <div>8. Project Scheduling: Work Breakdown Structure (WBS) & Activity Networks</div>
+    <div>9. Critical Path Method (CPM): Earliest Start/Finish & Latest Start/Finish Slack Times</div>
+    <div>10. Program Evaluation and Review Technique (PERT) Expected Duration ($T_e$) & Variance</div>
+    <div>11. Risk Management Framework: Identification, Projection, Assessment & RMMM Plans</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 3 – 5: Function Point (FP) Analysis</h2>
+
+<div class="formula-card">
+  <strong>1. Function Point Formula (Albrecht, 1979):</strong>
+  $$\text{FP} = \text{UFC} \times \text{VAF} = \text{UFC} \times \left( 0.65 + 0.01 \times \sum_{i=1}^{14} F_i \right)$$
+  Where $\text{UFC}$ is Unadjusted Function Count, and $F_i \in [0, 5]$ are ratings for 14 General System Characteristics (yielding $\text{VAF} \in [0.65, 1.35]$).
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 30%;">Information Domain Element</th>
+      <th style="width: 20%;">Low Complexity</th>
+      <th style="width: 20%;">Average Complexity</th>
+      <th>High Complexity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. External Inputs (EI)</strong></td><td>3</td><td>4</td><td>6</td></tr>
+    <tr><td><strong>2. External Outputs (EO)</strong></td><td>4</td><td>5</td><td>7</td></tr>
+    <tr><td><strong>3. External Inquiries (EQ)</strong></td><td>3</td><td>4</td><td>6</td></tr>
+    <tr><td><strong>4. Internal Logical Files (ILF)</strong></td><td>7</td><td>10</td><td>15</td></tr>
+    <tr><td><strong>5. External Interface Files (EIF)</strong></td><td>5</td><td>7</td><td>10</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 6 & 7: Boehm's COCOMO (Constructive Cost Model)</h2>
+
+<div class="formula-card">
+  <strong>Basic COCOMO Effort & Schedule Equations:</strong>
+  $$\text{Effort } (E) = a \times (\text{KLOC})^b \quad \text{Person-Months (PM)}$$
+  $$\text{Development Time } (T_{\text{dev}}) = c \times (E)^d \quad \text{Months}$$
+  $$\text{Average Staffing } (\text{Staff}) = \frac{E}{T_{\text{dev}}} \quad \text{Persons}$$
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Project Mode</th>
+      <th style="width: 30%;">Characteristics</th>
+      <th style="width: 12%;">$a$</th>
+      <th style="width: 12%;">$b$</th>
+      <th style="width: 12%;">$c$</th>
+      <th>$d$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Organic</strong></td>
+      <td>Small teams, familiar in-house domain, relaxed constraints.</td>
+      <td>2.4</td>
+      <td>1.05</td>
+      <td>2.5</td>
+      <td>0.38</td>
+    </tr>
+    <tr>
+      <td><strong>2. Semi-Detached</strong></td>
+      <td>Medium teams, mixed experience levels, medium constraints.</td>
+      <td>3.0</td>
+      <td>1.12</td>
+      <td>2.5</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <td><strong>3. Embedded</strong></td>
+      <td>Tight hardware/software constraints, complex safety-critical systems.</td>
+      <td>3.6</td>
+      <td>1.20</td>
+      <td>2.5</td>
+      <td>0.32</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Basic COCOMO Estimation for a 30 KLOC Semi-Detached Project</div>
+  <ol>
+    <li>
+      <strong>Step 1: Compute Effort ($E$):</strong>
+      $$E = 3.0 \times (30)^{1.12} = 3.0 \times 44.91 = \mathbf{134.73} \text{ Person-Months}$$
+    </li>
+    <li>
+      <strong>Step 2: Compute Development Time ($T_{\text{dev}}$):</strong>
+      $$T_{\text{dev}} = 2.5 \times (134.73)^{0.35} = 2.5 \times 5.54 = \mathbf{13.85} \text{ Months}$$
+    </li>
+    <li>
+      <strong>Step 3: Compute Average Staffing Size:</strong>
+      $$\text{Staff} = \frac{E}{T_{\text{dev}}} = \frac{134.73}{13.85} \approx \mathbf{9.7} \implies \mathbf{10} \text{ Engineers}$$
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 9 & 10: Project Scheduling (CPM & PERT Calculations)</h2>
+
+<div class="formula-card">
+  <strong>PERT Three-Point Estimation Formulas:</strong>
+  - Optimistic time ($a$), Most likely time ($m$), Pessimistic time ($b$).
+  $$\text{Expected Duration } (T_e) = \frac{a + 4m + b}{6}$$
+  $$\text{Standard Deviation } (\sigma) = \frac{b - a}{6}, \quad \text{Variance } (\sigma^2) = \left( \frac{b - a}{6} \right)^2$$
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. State the components of an RMMM (Risk Mitigation, Monitoring, and Management) plan. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Risk Mitigation (Proactive Prevention):</strong> Developing actionable strategy to reduce the probability of risk occurrence.<br>
+       <em>Example:</em> High developer turnover risk $\rightarrow$ cross-training team members and establishing thorough documentation standards.<br>
+    2. <strong>Risk Monitoring (Tracking):</strong> Continuously observing warning indicators to detect when a risk is transitioning from potential threat to reality.<br>
+       <em>Example:</em> Monitoring team morale, overtime hours, and unresolved bug counts.<br>
+    3. <strong>Risk Management (Contingency Action):</strong> Executing contingency plans when mitigation fails and the risk actually occurs.<br>
+       <em>Example:</em> Activating backup external contractors if a key developer departs.
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Software Testing Strategies, Quality Assurance & Maintenance</div>
+  <div class="toc-grid">
+    <div>1. Verification vs. Validation (Boehm: "Building product right" vs. "Building right product")</div>
+    <div>2. Black-Box Testing: Equivalence Class Partitioning (ECP) & Boundary Value Analysis (BVA)</div>
+    <div>3. White-Box (Structural) Testing: Control Flow Graphs (CFG) & Logic Path Coverage</div>
+    <div>4. McCabe's Cyclomatic Complexity ($V(G) = E - N + 2P = P + 1$) & Independent Basis Paths</div>
+    <div>5. Advanced Structural Coverage: Branch, Condition, Multiple Condition & MC/DC</div>
+    <div>6. Testing Levels Hierarchy: Unit Testing (Stubs & Drivers), Integration & System Testing</div>
+    <div>7. Integration Strategies: Big-Bang, Top-Down (Depth/Breadth-First) vs. Bottom-Up Sandwich</div>
+    <div>8. Acceptance Testing (Alpha vs. Beta Testing) & Regression Testing Test-Suite Minimization</div>
+    <div>9. Mutation Testing: Generating Mutants, Killed Mutants ($D$) & Mutation Score ($\text{MS}$)</div>
+    <div>10. Software Quality Assurance: ISO 9126, McCall's Quality Factors & CMMI 5 Levels</div>
+    <div>11. Software Maintenance: 4 Classical Categories (Corrective, Adaptive, Perfective, Preventive)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 2: Black-Box (Functional) Testing Techniques</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Testing Method</th>
+      <th style="width: 45%;">Test Case Derivation Principle</th>
+      <th>Example for Input Range $[1, 100]$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Equivalence Class Partitioning (ECP)</strong></td>
+      <td>Divides input domain into valid and invalid equivalence classes. One test case is selected to represent each class.</td>
+      <td>• Valid Class: $[1, 100]$ (e.g., $50$)<br>• Invalid Class 1: $< 1$ (e.g., $-5$)<br>• Invalid Class 2: $> 100$ (e.g., $150$)</td>
+    </tr>
+    <tr>
+      <td><strong>2. Boundary Value Analysis (BVA)</strong></td>
+      <td>Selects test cases at the extreme boundaries and just inside/outside boundaries ($Min, Min+, Nom, Max-, Max$).</td>
+      <td>Test values: $1$ (Min), $2$ (Min+), $50$ (Nom), $99$ (Max-), $100$ (Max), plus invalid boundaries $0$ and $101$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 3 & 4: White-Box Testing & McCabe's Cyclomatic Complexity</h2>
+
+<div class="formula-card">
+  <strong>McCabe's Cyclomatic Complexity ($V(G)$) Formulas:</strong>
+  Let $G$ be the Control Flow Graph of a program:
+  1. <strong>Formula 1 (Edges & Nodes):</strong>
+     $$V(G) = E - N + 2P$$
+     Where $E$ is number of flow graph edges, $N$ is number of nodes, and $P$ is number of connected components ($P=1$ for single programs).
+  2. <strong>Formula 2 (Predicate Nodes):</strong>
+     $$V(G) = P + 1$$
+     Where $P$ is the number of binary decision/conditional predicate nodes (`if`, `while`, `for`).
+  3. <strong>Formula 3 (Enclosed Regions):</strong>
+     $$V(G) = \text{Number of Enclosed Planar Regions} + 1 \text{ (Outer Region)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Cyclomatic Complexity & Basis Paths Calculation</div>
+  <p><strong>Code Snippet:</strong></p>
+  <pre><code>1: if (a > 10) {
+2:     if (b < 20)
+3:         x = 1;
+4:     else
+5:         x = 2;
+6: } else {
+7:     x = 3;
+8: }
+9: return x;</code></pre>
+  <ol>
+    <li><strong>Predicate Nodes ($P$):</strong> Two conditional tests (Node 1: `a > 10`, Node 2: `b < 20`).</li>
+    <li><strong>Cyclomatic Complexity:</strong> $V(G) = P + 1 = 2 + 1 = \mathbf{3}$.</li>
+    <li><strong>3 Linearly Independent Basis Paths:</strong>
+      - <em>Path 1:</em> $1 \rightarrow 6 \rightarrow 7 \rightarrow 9$ (Condition 1 is False).
+      - <em>Path 2:</em> $1 \rightarrow 2 \rightarrow 3 \rightarrow 9$ (Condition 1 is True, Condition 2 is True).
+      - <em>Path 3:</em> $1 \rightarrow 2 \rightarrow 5 \rightarrow 9$ (Condition 1 is True, Condition 2 is False).
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 9: Mutation Testing & Quality Evaluation</h2>
+
+<div class="formula-card">
+  <strong>Mutation Score ($\text{MS}$) Formula:</strong>
+  $$\text{Mutation Score } (\text{MS}) = \frac{D}{T - E} \times 100\%$$
+  Where $T$ is total generated mutants, $D$ is number of killed (detected) mutants, and $E$ is number of equivalent mutants (mutants that have identical functional behavior to original program).
+</div>
+
+<h2 class="section-title">Topic 11: Software Maintenance Categories</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Maintenance Type</th>
+      <th style="width: 45%;">Purpose & Triggering Factor</th>
+      <th>Typical Effort Share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. Corrective</strong></td><td>Fixing residual latent software defects and bugs discovered in production.</td><td>$\approx 20\%$</td></tr>
+    <tr><td><strong>2. Adaptive</strong></td><td>Modifying software to accommodate changes in external environment (new OS, hardware upgrade, legal regulations).</td><td>$\approx 25\%$</td></tr>
+    <tr><td><strong>3. Perfective</strong></td><td>Enhancing software functionality, improving performance, and optimizing code maintainability based on user requests.</td><td>$\approx 50\%$ (Dominant)</td></tr>
+    <tr><td><strong>4. Preventive</strong></td><td>Refactoring and restructuring code to forestall future potential failures (Software Re-engineering).</td><td>$\approx 5\%$</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Compare Stubs and Drivers in Integration Testing with diagrams. (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>Driver:</strong> A dummy calling program written to invoke and pass test data to the module under test. Used extensively in <strong>Bottom-Up Integration Testing</strong> where high-level parent control modules have not yet been developed.<br>
+    - <strong>Stub:</strong> A dummy called subroutine that simulates the interface and returns dummy values for sub-modules invoked by the module under test. Used extensively in <strong>Top-Down Integration Testing</strong> where low-level worker modules have not yet been developed.
+  </div>
+</div>
+
+  </div>
 </body>
 </html>

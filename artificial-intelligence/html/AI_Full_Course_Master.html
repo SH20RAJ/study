@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artificial Intelligence (CS24307) — Full Course Master Book</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Artificial Intelligence (CS24307) — Full Course Master Book</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #4f46e5;       /* Royal Purple / Indigo */
-  --primary-light: #eef2ff;
-  --accent: #06b6d4;        /* Cyan */
-  --secondary: #9333ea;     /* Purple */
+  --primary: #059669;       /* Emerald Green */
+  --primary-light: #ecfdf5;
+  --accent: #10b981;        /* Mint */
+  --secondary: #4f46e5;     /* Indigo */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Artificial Intelligence (CS24307) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-indigo { background: #e0e7ff; color: #3730a3; }
 .badge-green { background: #d1fae5; color: #065f46; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #7e22ce;
+  color: #15803d;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #047857;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #eef2ff; border-color: #4f46e5; color: #312e81; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #ecfdf5; border-color: #10b981; color: #064e3b; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,132 +171,140 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #1e1b4b;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #10b981;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #065f46;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #ecfdf5;
+  border-left: 4px solid #059669;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #4338ca; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Artificial Intelligence (CS24307) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-indigo">CS24307 — Theory (3.0 Cr)</span>
-      <span class="badge badge-purple">Full Course Master</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-green">CS24307 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Full Course Master</span>
+        <span class="badge badge-blue">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Artificial Intelligence (CS24307) — Full Course Master Book</h1>
+      <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
     </div>
-    <h1 class="doc-title">Artificial Intelligence (CS24307) — Full Course Master Book</h1>
-    <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
-  </div>
-  
+    
         <div style="padding: 10px 0;">
           <div style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #d1fae5; margin-bottom: 6px;">Executive Master Study Guide & Problem Bank</div>
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #d1fae5; margin-bottom: 6px;">Executive Master Study Guide & Algorithmic Problem Bank</div>
             <h2 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #ffffff;">Artificial Intelligence (CS24307)</h2>
             <p style="font-size: 12.5px; color: #ecfdf5;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
           </div>
@@ -303,160 +330,1008 @@ li { margin-bottom: 3px; }
         </div>
         <div class='page-break'></div>
 <div class="toc-box">
-  <div class="toc-title">Module I: Intelligent Agents & PEAS — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Introduction to Artificial Intelligence & Intelligent Agents</div>
   <div class="toc-grid">
-    <div>1. Definitions of AI & Turing Test</div>
-    <div>2. Concept of Rationality vs. Omniscience</div>
-    <div>3. PEAS Framework (Performance, Environment, Actuators, Sensors)</div>
-    <div>4. Environment Taxonomies (7 Dimensions)</div>
-    <div>5. Agent Structures: Reflex, Goal, Utility & Learning Agents</div>
+    <div>1. Foundations & 4 Definitions of AI (Human vs. Rational, Thought vs. Behavior)</div>
+    <div>2. The Turing Test, Total Turing Test & Chinese Room Argument</div>
+    <div>3. Historical Evolution & Eras of AI (Dartmouth 1956 to Deep Learning)</div>
+    <div>4. Concept of Rationality & Mathematical Performance Measures</div>
+    <div>5. The PEAS Framework (Performance, Environment, Actuators, Sensors)</div>
+    <div>6. Comprehensive PEAS Analysis across 5 Diverse Real-World Domains</div>
+    <div>7. Environment Taxonomies (7 Orthogonal Dimensions & Classifications)</div>
+    <div>8. Simple Reflex Agents (Condition-Action Rules & Internal Architectures)</div>
+    <div>9. Model-Based Reflex Agents (Handling Partial Observability & State Updating)</div>
+    <div>10. Goal-Based Agents (Search, Planning & Future State Simulation)</div>
+    <div>11. Utility-Based Agents (Trade-Off Optimization & Expected Utility Theory)</div>
+    <div>12. Learning Agents (Critic, Learning Element, Performance Element, Generator)</div>
+    <div>13. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. PEAS Framework Formulation</h2>
+<h2 class="section-title">Topic 1: Foundations & The 4 Quadrants of AI Definitions</h2>
+<p>
+  Artificial Intelligence (AI) is the study and design of intelligent computational entities capable of perceiving their environment, reasoning about state, making optimal decisions, and acting autonomously to maximize success.
+</p>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 20%;">Agent Type</th>
-      <th style="width: 25%;">Performance Measure ($P$)</th>
-      <th style="width: 25%;">Environment ($E$)</th>
-      <th style="width: 15%;">Actuators ($A$)</th>
+      <th style="width: 25%;">Dimension</th>
+      <th style="width: 37%;">Human-Centric Approach</th>
+      <th>Rationalist (Normative Ideal) Approach</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Thought Processes & Reasoning</strong></td>
+      <td>
+        <strong>Systems that Think Like Humans:</strong><br>
+        • Focuses on Cognitive Science & Cognitive Modeling.<br>
+        • Validated by comparing internal neural activation traces and decision response times with human psychological experiments (GPS - General Problem Solver).
+      </td>
+      <td>
+        <strong>Systems that Think Rationally:</strong><br>
+        • Focuses on Formal Logic & Laws of Thought.<br>
+        • Codifies strict deductive syllogisms (e.g., Aristotle: "Socrates is a man; all men are mortal; therefore Socrates is mortal").
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Observable Behavior & Action</strong></td>
+      <td>
+        <strong>Systems that Act Like Humans:</strong><br>
+        • Operationalized by <strong>The Turing Test (1950)</strong>.<br>
+        • Requires Natural Language Processing, Knowledge Representation, Automated Reasoning, and Machine Learning.
+      </td>
+      <td>
+        <strong>Systems that Act Rationally (Modern AI Standard):</strong><br>
+        • Focuses on <strong>Intelligent Rational Agents</strong>.<br>
+        • An agent acts rationally if it selects actions that maximize the expected value of its performance measure, given its perceptual history.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 2: The Turing Test & The Chinese Room Philosophical Argument</h2>
+
+<h3 class="subsection-title">1. The Standard Turing Test (Alan Turing, 1950):</h3>
+<p>
+  A human interrogator communicates via text terminal with two hidden entities: another human and a machine. If the interrogator cannot reliably tell which is the machine after 5 minutes of open interrogation, the machine is said to have demonstrated intelligence.
+</p>
+<ul>
+  <li><strong>Total Turing Test:</strong> Augments the text test with video/physical interactions, requiring Computer Vision and Robotics.</li>
+</ul>
+
+<h3 class="subsection-title">2. John Searle's Chinese Room Argument (1980):</h3>
+<p>
+  A human who understands zero Chinese sits inside a sealed room with a rule book (program) that maps incoming Chinese character slips to output slips. To an outside observer, the room answers Chinese queries perfectly.
+</p>
+<div class="callout callout-info">
+  <div class="callout-title">Core Philosophical Takeaway: Syntax vs. Semantics</div>
+  Searle proved that <strong>syntactic symbol manipulation</strong> is fundamentally insufficient for <strong>semantic understanding and intentionality</strong> ("Strong AI"). Machines simulate understanding without truly understanding.
+</div>
+
+<h2 class="section-title">Topic 4 & 5: Concept of Rationality & The PEAS Framework</h2>
+
+<p>
+  A <strong>Rational Agent</strong> is one that does the right thing. Formally, for each possible percept sequence, a rational agent selects an action that is expected to maximize its performance measure, based on the evidence provided by the percept sequence and whatever built-in knowledge the agent has.
+</p>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Rationality $\neq$ Omniscience</div>
+  <ul>
+    <li><strong>Omniscience:</strong> An omniscient agent knows the <em>actual</em> outcome of its actions and can act accordingly (impossible in reality due to incomplete information and stochasticity).</li>
+    <li><strong>Rationality:</strong> Maximizes <em>expected</em> success based on available percepts and knowledge. Rationality encourages <strong>information gathering and exploration</strong>.</li>
+  </ul>
+</div>
+
+<h3 class="subsection-title">The PEAS Formulation Matrix across 5 Standard AI Systems:</h3>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Agent Type</th>
+      <th style="width: 22%;">Performance Measure ($P$)</th>
+      <th style="width: 22%;">Environment ($E$)</th>
+      <th style="width: 18%;">Actuators ($A$)</th>
       <th>Sensors ($S$)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Automated Taxi Driver</strong></td>
-      <td>Safety, speed, comfort, maximum profit, legal compliance</td>
-      <td>Roads, traffic, pedestrians, weather conditions</td>
-      <td>Steering wheel, accelerator, brake, horn, display</td>
-      <td>Cameras, LiDAR, radar, GPS, speedometer, engine sensors</td>
+      <td><strong>1. Autonomous Taxi Driver</strong></td>
+      <td>Safe transit, fast route, legal driving, passenger comfort, maximized profits.</td>
+      <td>Roads, traffic, pedestrians, weather, traffic lights, police.</td>
+      <td>Steering wheel, accelerator, brake, signals, horn, dashboard display.</td>
+      <td>LiDAR, RADAR, cameras, sonar, GPS, speedometer, accelerometer, engine sensors.</td>
     </tr>
     <tr>
-      <td><strong>Medical Diagnosis System</strong></td>
-      <td>Patient health recovery, minimized cost, zero misdiagnosis</td>
-      <td>Patient, hospital database, laboratory staff</td>
-      <td>Screen displays, prescription generation, referral alerts</td>
-      <td>Keyboard input of symptoms, patient test results</td>
+      <td><strong>2. Medical Diagnostic System</strong></td>
+      <td>Healthy patient, minimized healthcare costs, zero false negatives in critical diagnoses.</td>
+      <td>Patient, hospital clinical staff, insurance databases.</td>
+      <td>Display screen for diagnoses, recommended prescriptions, test orders.</td>
+      <td>Keyboard input of symptoms, lab test analyzers, vital sign monitors, patient EHR.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Automated Vacuum Cleaner</strong></td>
+      <td>Cleanliness score, minimal battery consumption, minimal operating time, zero damage to furniture.</td>
+      <td>Room floors, carpets, furniture, obstacles, pets, stairs.</td>
+      <td>Drive wheels, vacuum suction motor, rotating brush, dust ejection valve.</td>
+      <td>Bumper contact switches, infrared cliff sensors, optical floor sensor, dust detector.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Part-Picking Industrial Robot</strong></td>
+      <td>Percentage of parts correctly sorted into bins, speed (parts per minute), zero damage.</td>
+      <td>Conveyor belt, raw parts bins, assembly trays.</td>
+      <td>Jointed mechanical robotic arm, pneumatic gripper hand.</td>
+      <td>High-resolution RGB-D camera, joint angle encoders, tactile pressure sensors.</td>
+    </tr>
+    <tr>
+      <td><strong>5. High-Frequency Trading Bot</strong></td>
+      <td>Maximized portfolio return on investment (ROI), minimized Value-at-Risk (VaR), Sharpe ratio.</td>
+      <td>Global financial exchanges (NASDAQ, NYSE, crypto liquidity pools).</td>
+      <td>Automated FIX protocol buy/sell order submissions, cancellation packets.</td>
+      <td>Real-time tick-by-tick market data feed, financial news APIs, order books.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">2. Environment Dimensions Taxonomy</h2>
+<h2 class="section-title">Topic 7: Environment Taxonomies (7 Orthogonal Dimensions)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 24%;">Environment Property</th>
+      <th style="width: 38%;">Description & Characterization</th>
+      <th>Representative Domain Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Fully vs. Partially Observable</strong></td>
+      <td>Whether the agent's sensors give complete access to the full state of the environment at all times.</td>
+      <td>• <em>Fully:</em> Chess, Crossword puzzle.<br>• <em>Partially:</em> Poker (hidden cards), Automated Driving.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Single-Agent vs. Multi-Agent</strong></td>
+      <td>Whether other entities in the environment are treated as agents with their own objective functions.</td>
+      <td>• <em>Single:</em> Solitaire, Sudoku.<br>• <em>Multi:</em> Chess (Competitive), Traffic (Cooperative).</td>
+    </tr>
+    <tr>
+      <td><strong>3. Deterministic vs. Stochastic</strong></td>
+      <td>Whether the next state is completely determined by the current state and the agent's action.</td>
+      <td>• <em>Deterministic:</em> Chess.<br>• <em>Stochastic:</em> Backgammon (dice), Weather-dependent systems.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Episodic vs. Sequential</strong></td>
+      <td>In episodic environments, current decisions do not affect future episodes (no memory needed).</td>
+      <td>• <em>Episodic:</em> Defect classification on conveyor.<br>• <em>Sequential:</em> Chess, Navigation.</td>
+    </tr>
+    <tr>
+      <td><strong>5. Static vs. Dynamic vs. Semidynamic</strong></td>
+      <td>Whether the environment changes while the agent is deliberating. Semidynamic: environment stays fixed but score decreases over time.</td>
+      <td>• <em>Static:</em> Crossword.<br>• <em>Dynamic:</em> Taxi driving.<br>• <em>Semidynamic:</em> Timed Chess.</td>
+    </tr>
+    <tr>
+      <td><strong>6. Discrete vs. Continuous</strong></td>
+      <td>Whether the state space, time, percepts, and actions are finite discrete values or continuous real numbers.</td>
+      <td>• <em>Discrete:</em> Chess (64 squares).<br>• <em>Continuous:</em> Self-driving cars (speed, angle).</td>
+    </tr>
+    <tr>
+      <td><strong>7. Known vs. Unknown</strong></td>
+      <td>Whether the physics/rules of the environment are fully known to the agent in advance.</td>
+      <td>• <em>Known:</em> Solitaire.<br>• <em>Unknown:</em> Exploring a new video game or planet.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topics 8 – 12: The 5 Fundamental Agent Architectures</h2>
+
+<div class="diagram-container">
+  <svg width="100%" height="110" viewBox="0 0 740 110" xmlns="http://www.w3.org/2000/svg">
+    <rect x="15" y="15" width="125" height="80" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="77" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">Simple Reflex</text>
+    <text x="77" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#2563eb" text-anchor="middle">Condition-Action</text>
+    <text x="77" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">No History Memory</text>
+
+    <path d="M 140 55 L 160 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="165" y="15" width="125" height="80" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="227" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">Model-Based</text>
+    <text x="227" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#16a34a" text-anchor="middle">Internal State</text>
+    <text x="227" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">How world evolves</text>
+
+    <path d="M 290 55 L 310 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="315" y="15" width="125" height="80" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="377" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Goal-Based</text>
+    <text x="377" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Search & Planning</text>
+    <text x="377" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Goal achievement</text>
+
+    <path d="M 440 55 L 460 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="465" y="15" width="125" height="80" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="527" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#581c87" text-anchor="middle">Utility-Based</text>
+    <text x="527" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#9333ea" text-anchor="middle">Trade-off mapping</text>
+    <text x="527" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Utility function U(s)</text>
+
+    <path d="M 590 55 L 610 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="615" y="15" width="115" height="80" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+    <text x="672" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">Learning Agent</text>
+    <text x="672" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#14b8a6" text-anchor="middle">Critic & Generator</text>
+    <text x="672" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Improves over time</text>
+  </svg>
+  <div class="diagram-caption">Figure 1.1: Progression of Autonomous Agent Architectures from Simple Reflex to Learning Agents</div>
+</div>
+
+<h3 class="subsection-title">1. The Learning Agent Sub-Components:</h3>
 <ul>
-  <li><strong>Fully Observable vs. Partially Observable:</strong> Agent sensors give complete access to world state vs. noisy/occluded states.</li>
-  <li><strong>Deterministic vs. Stochastic:</strong> Next state is completely determined by current state and action vs. randomness.</li>
-  <li><strong>Episodic vs. Sequential:</strong> Current decision does not affect future episodes vs. current actions dictate future rewards.</li>
-  <li><strong>Static vs. Dynamic:</strong> Environment does not change while agent is deliberating vs. continuously evolving.</li>
-  <li><strong>Discrete vs. Continuous:</strong> Finite number of states/actions (Chess) vs. continuous state/time (Driving).</li>
+  <li><strong>Critic:</strong> Evaluates the agent's behavior against an external performance standard and provides reward/penalty feedback.</li>
+  <li><strong>Learning Element:</strong> Responsible for making improvements based on feedback from the critic.</li>
+  <li><strong>Performance Element:</strong> Responsible for selecting external actions (equivalent to the entire non-learning agent).</li>
+  <li><strong>Problem Generator:</strong> Suggests novel exploratory actions that lead to new and informative experiences, rather than sticking only to known suboptimal paths.</li>
 </ul>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module II: Problem Solving by Search & Game AI — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Uninformed Search: BFS, DFS, UCS, IDS</div>
-    <div>2. Heuristic Informed Search: Greedy & A*</div>
-    <div>3. Admissibility and Consistency of Heuristics</div>
-    <div>4. Local Search: Hill Climbing & Simulated Annealing</div>
-    <div>5. Adversarial Search: Minimax & Alpha-Beta Pruning</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Define an Intelligent Agent. Differentiate between Omniscience and Rationality with an example. (8 Marks)</div>
+  <div class="qa-a">
+    An <strong>Intelligent Agent</strong> is anything that perceives its environment through sensors and acts upon that environment through actuators.<br>
+    - <strong>Rationality:</strong> Evaluated based on the expected performance given the percept sequence observed so far and built-in knowledge. It represents optimal decision-making under uncertainty.<br>
+    - <strong>Omniscience:</strong> An omniscient agent knows the exact actual outcome of its actions and makes zero errors (impossible due to incomplete state visibility and random environmental events).<br>
+    <em>Example:</em> A pedestrian crosses the street after carefully looking left and right (Rational). If a meteor strikes them from the sky, the action was still rational despite the tragic outcome, whereas an omniscient agent would have known about the meteor.
   </div>
 </div>
 
-<h2 class="section-title">1. $A^*$ Search Algorithm & Heuristic Optimality</h2>
+<div class="qa-card">
+  <div class="qa-q">Q2. Provide a complete PEAS description for an Automated Medical Diagnosis System and analyze its environment across all 7 dimensions. (10 Marks)</div>
+  <div class="qa-a">
+    <strong>PEAS Description:</strong><br>
+    • <strong>P:</strong> Patient health recovery, minimal diagnostic cost, zero misdiagnoses of critical illnesses.<br>
+    • <strong>E:</strong> Patient physiology, hospital staff, clinical lab test systems, electronic health records.<br>
+    • <strong>A:</strong> Diagnostic reports, prescription medication orders, clinical test recommendations.<br>
+    • <strong>S:</strong> Symptom inputs, patient vital sign telemetry, lab test results, imaging scans.<br><br>
+    <strong>Environment Classification:</strong><br>
+    1. <em>Partially Observable:</em> Internal physiological processes cannot be fully sensed directly.<br>
+    2. <em>Multi-Agent:</em> Interacts with human doctors, nurses, and patients.<br>
+    3. <em>Stochastic:</em> Patient biological responses to medication vary probabilistically.<br>
+    4. <em>Sequential:</em> Previous treatment choices alter patient physiology and future treatment efficacy.<br>
+    5. <em>Dynamic:</em> Patient condition can deteriorate while the system deliberates.<br>
+    6. <em>Continuous:</em> Vital signs, lab values, and time are continuous variables.<br>
+    7. <em>Known:</em> Medical physics and pharmacology rules are largely established.
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Problem Solving by Search Agents & Game Playing</div>
+  <div class="toc-grid">
+    <div>1. Problem Formulation 5-Tuple (Initial State, Actions, Result, Goal, Cost)</div>
+    <div>2. State Space Graphs vs. Search Trees (Frontier & Explored Sets)</div>
+    <div>3. Uninformed Search Strategies (BFS, DFS, Uniform-Cost Search)</div>
+    <div>4. Depth-Limited Search (DLS) & Iterative Deepening Search (IDS) Proofs</div>
+    <div>5. Heuristic Search: Greedy Best-First Search & $A^*$ Search Algorithm</div>
+    <div>6. Admissibility & Consistency (Monotonicity) Formal Mathematical Proofs</div>
+    <div>7. Heuristic Dominance, Effective Branching Factor & IDA* / SMA*</div>
+    <div>8. Local Search: Hill Climbing, Plateau Escapes & Simulated Annealing ($e^{\Delta E / T}$)</div>
+    <div>9. Genetic Algorithms (Selection, Crossover, Mutation Operators)</div>
+    <div>10. Adversarial Search & Game Playing: Minimax Algorithm & Ply Traversal</div>
+    <div>11. Alpha-Beta Pruning Formulation & Step-by-Step Tree Tracing</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 1 & 2: Formulating State Space Search Problems</h2>
 <p>
-  $A^*$ evaluates nodes by: $f(n) = g(n) + h(n)$, where $g(n)$ is the true path cost from start to $n$, and $h(n)$ is estimated cost from $n$ to goal.
+  A search problem is formally specified as a <strong>5-tuple</strong> $\langle S_0, \text{Actions}(s), \text{Result}(s, a), \text{GoalTest}(s), c(s, a, s') \rangle$:
+</p>
+<ol>
+  <li><strong>Initial State ($S_0$):</strong> The world state in which the agent starts (e.g., $\text{In}(\text{Arad})$).</li>
+  <li><strong>Actions Set ($\text{Actions}(s)$):</strong> The legal moves executable from state $s$.</li>
+  <li><strong>Transition Model ($\text{Result}(s, a)$):</strong> Specifies the successor state $s'$ reached by executing action $a$ in state $s$.</li>
+  <li><strong>Goal Test ($\text{GoalTest}(s)$):</strong> A boolean predicate that determines whether state $s$ is a goal state (e.g., $s = \text{In}(\text{Bucharest})$).</li>
+  <li><strong>Path Cost Function ($c(s, a, s')$):</strong> Step cost of taking action $a$ from $s$ to reach $s'$. The path cost $g(n)$ is the sum of step costs from $S_0$ to node $n$.</li>
+</ol>
+
+<h2 class="section-title">Topic 3 & 4: Uninformed (Blind) Search Algorithms</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Algorithm</th>
+      <th style="width: 20%;">Frontier Data Structure</th>
+      <th style="width: 15%;">Time Complexity</th>
+      <th style="width: 15%;">Space Complexity</th>
+      <th style="width: 14%;">Complete?</th>
+      <th>Optimal?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Breadth-First (BFS)</strong></td>
+      <td>FIFO Queue</td>
+      <td>$O(b^d)$</td>
+      <td>$O(b^d)$</td>
+      <td>Yes (if $b < \infty$)</td>
+      <td>Yes (if step costs are equal)</td>
+    </tr>
+    <tr>
+      <td><strong>2. Uniform-Cost (UCS)</strong></td>
+      <td>Priority Queue by $g(n)$</td>
+      <td>$O(b^{1 + \lfloor C^* / \epsilon \rfloor})$</td>
+      <td>$O(b^{1 + \lfloor C^* / \epsilon \rfloor})$</td>
+      <td>Yes (if step cost $\ge \epsilon > 0$)</td>
+      <td>Yes (for general positive costs)</td>
+    </tr>
+    <tr>
+      <td><strong>3. Depth-First (DFS)</strong></td>
+      <td>LIFO Stack</td>
+      <td>$O(b^m)$</td>
+      <td>$O(b \cdot m)$</td>
+      <td>No (fails in infinite paths)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><strong>4. Depth-Limited (DLS)</strong></td>
+      <td>LIFO Stack with limit $l$</td>
+      <td>$O(b^l)$</td>
+      <td>$O(b \cdot l)$</td>
+      <td>No (if $l < d$)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><strong>5. Iterative Deepening (IDS)</strong></td>
+      <td>Iterative DLS ($l=0, 1, 2, \dots$)</td>
+      <td>$O(b^d)$</td>
+      <td>$O(b \cdot d)$</td>
+      <td>Yes (if $b < \infty$)</td>
+      <td>Yes (if unit step costs)</td>
+    </tr>
+  </tbody>
+</table>
+<p><em>Where $b$ = branching factor, $d$ = depth of shallowest goal, $m$ = maximum depth of search tree, $C^*$ = cost of optimal solution, $\epsilon$ = minimum positive step cost.</em></p>
+
+<div class="callout callout-info">
+  <div class="callout-title">Why Iterative Deepening Search (IDS) is the Preferred Uninformed Search</div>
+  IDS combines the <strong>minimal linear memory requirement of DFS ($O(bd)$)</strong> with the <strong>completeness and optimality of BFS</strong>. Although nodes at depth $k$ are re-generated multiple times, the bottom level dominates the sum:
+  $$N(\text{IDS}) = (d)b + (d-1)b^2 + \dots + (1)b^d = O(b^d)$$
+  For $b=10$ and $d=5$, BFS generates 111,111 nodes while IDS generates 123,456 nodes — an overhead of only $11\%$ for massive memory savings!
+</div>
+
+<h2 class="section-title">Topic 5 & 6: Informed Heuristic Search & The $A^*$ Algorithm</h2>
+
+<p>
+  $A^*$ search guides exploration using an evaluation function $f(n)$ that estimates the total cost of the cheapest path through node $n$ to the goal:
+</p>
+$$f(n) = g(n) + h(n)$$
+<ul>
+  <li>$g(n)$: Exact path cost from initial state $S_0$ to node $n$.</li>
+  <li>$h(n)$: Estimated cost of the cheapest path from node $n$ to a goal state (Heuristic).</li>
+</ul>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Mathematical Conditions for $A^*$ Optimality</div>
+  <ol>
+    <li>
+      <strong>Admissibility (Required for Tree Search):</strong>
+      <p>A heuristic $h(n)$ is <strong>admissible</strong> if it never overestimates the true cost to reach the goal:
+      $$\forall n, \quad 0 \le h(n) \le h^*(n)$$
+      Where $h^*(n)$ is the true optimal cost from $n$ to goal.</p>
+    </li>
+    <li>
+      <strong>Consistency / Monotonicity (Required for Graph Search):</strong>
+      <p>A heuristic $h(n)$ is <strong>consistent</strong> if for every node $n$ and every successor $n'$ generated by action $a$:
+      $$h(n) \le c(n, a, n') + h(n')$$
+      <em>Triangle Inequality Property.</em> Every consistent heuristic is strictly admissible ($Consistency \implies Admissibility$).</p>
+    </li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Mathematical Proof: $A^*$ is Optimal with an Admissible Heuristic (Tree Search)</div>
+  <p><strong>Theorem:</strong> $A^*$ tree search returns an optimal solution if $h(n)$ is admissible.</p>
+  <p><strong>Proof by Contradiction:</strong></p>
+  <ol>
+    <li>Let $G_2$ be a suboptimal goal state on the frontier, with $g(G_2) > C^*$, where $C^*$ is the cost of optimal goal $G_1$.</li>
+    <li>Since $G_2$ is a goal state, $h(G_2) = 0$, so $f(G_2) = g(G_2) + 0 > C^*$.</li>
+    <li>Let $n$ be an unexpanded node on the optimal path to $G_1$. Since $h(n)$ is admissible:
+      $$f(n) = g(n) + h(n) \le g(n) + h^*(n) = C^*$$
+    </li>
+    <li>Combining equations:
+      $$f(n) \le C^* < f(G_2)$$
+    </li>
+    <li>Since $A^*$ always selects the frontier node with minimum $f$-value, node $n$ will always be selected before $G_2$. Thus, no suboptimal goal $G_2$ can ever be expanded before an optimal solution is found. $\blacksquare$</li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 8: Local Search & Optimization (Simulated Annealing)</h2>
+
+<p>
+  <strong>Simulated Annealing</strong> escapes local optima by combining hill climbing with stochastic exploration inspired by the metallurgical cooling of metals:
+</p>
+<ul>
+  <li>If a neighboring state $s'$ improves the objective ($\Delta E = E(s') - E(s) > 0$), the move is always accepted.</li>
+  <li>If $\Delta E \le 0$ (worse move), the move is accepted with Boltzmann probability:
+    $$P(\text{Accept}) = e^{\frac{\Delta E}{T}}$$
+  </li>
+  <li>Where $T$ is the temperature parameter dictated by an annealing schedule $T = \text{Schedule}(t)$. At high $T$, the agent acts like a random walk; as $T \rightarrow 0$, it behaves purely as greedy hill climbing.</li>
+</ul>
+
+<h2 class="section-title">Topic 10 & 11: Adversarial Search (Minimax & Alpha-Beta Pruning)</h2>
+
+<div class="formula-card">
+  <strong>Minimax Value Formulation:</strong>
+  $$\text{Minimax}(s) = \begin{cases} 
+    \text{Utility}(s) & \text{if } \text{TerminalTest}(s) \\
+    \max_{a \in \text{Actions}(s)} \text{Minimax}(\text{Result}(s, a)) & \text{if } \text{Player}(s) = \text{MAX} \\
+    \min_{a \in \text{Actions}(s)} \text{Minimax}(\text{Result}(s, a)) & \text{if } \text{Player}(s) = \text{MIN}
+  \end{cases}$$
+</div>
+
+<div class="callout callout-info">
+  <div class="callout-title">Alpha-Beta ($\alpha$-$\beta$) Pruning Rules</div>
+  <ul>
+    <li><strong>$\alpha$ (Alpha):</strong> The best value (highest utility) found so far along the path to the current node for <strong>MAX</strong> (initially $-\infty$).</li>
+    <li><strong>$\beta$ (Beta):</strong> The best value (lowest utility) found so far along the path to the current node for <strong>MIN</strong> (initially $+\infty$).</li>
+    <li><strong>Pruning Condition:</strong> Prune the remaining children of the current node whenever:
+      $$\alpha \ge \beta$$
+    </li>
+    <li><strong>Time Complexity with Perfect Move Ordering:</strong> Reduces search complexity from $O(b^m)$ to $O(b^{m/2})$, effectively doubling the solvable search depth!</li>
+  </ul>
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. State the 8-Puzzle problem formulation and compare the Manhattan Distance heuristic $h_1$ with the Misplaced Tiles heuristic $h_2$. (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>State:</strong> $3 \times 3$ grid containing tiles 1 through 8 and one blank space.<br>
+    - <strong>Initial State:</strong> Any arbitrary permutation of the 9 positions.<br>
+    - <strong>Actions:</strong> Move blank space Left, Right, Up, Down.<br>
+    - <strong>Goal Test:</strong> Tiles arranged in ascending numerical order.<br>
+    - <strong>Path Cost:</strong> Each move costs 1 unit ($g(n) = \text{depth}$).<br><br>
+    <strong>Comparison of Heuristics:</strong><br>
+    1. <em>Misplaced Tiles ($h_1$):</em> Counts number of tiles not in their goal position.<br>
+    2. <em>Manhattan Distance ($h_2$):</em> Sum of vertical and horizontal grid distances of each tile from its goal position:
+       $$h_2 = \sum_{i=1}^8 (|x_i - x_i^*| + |y_i - y_i^*|)$$
+    3. <strong>Dominance:</strong> $\forall n, \ h_2(n) \ge h_1(n)$. Both are admissible, but $h_2$ strictly <strong>dominates</strong> $h_1$, expanding fewer search nodes while guaranteeing optimal solutions.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Trace Alpha-Beta Pruning on a 3-level game tree and explain why pruned nodes do not affect the root decision. (10 Marks)</div>
+  <div class="qa-a">
+    Alpha-Beta pruning computes the exact same minimax decision as standard Minimax without evaluating branches that cannot alter the final choice.<br>
+    When a MIN node evaluates a child with value $v \le \alpha$, MIN will pick a value $\le v \le \alpha$. But MAX (higher in the tree) already has a confirmed choice with value $\alpha$. Hence MAX will never choose the branch leading to this MIN node, making further exploration of its remaining children mathematically pointless.
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Knowledge Representation & Logical Reasoning</div>
+  <div class="toc-grid">
+    <div>1. Knowledge-Based Agents & The Wumpus World Environment Architecture</div>
+    <div>2. Propositional Logic (PL): Syntax, Semantics, Models & Truth Tables</div>
+    <div>3. Logical Entailment ($\alpha \models \beta$), Validity (Tautology) & Satisfiability</div>
+    <div>4. Conjunctive Normal Form (CNF) 7-Step Conversion Algorithm</div>
+    <div>5. Propositional Resolution Refutation Theorem & Proof Trees</div>
+    <div>6. Forward Chaining & Backward Chaining on Horn Clauses ($O(n)$ Linear Complexity)</div>
+    <div>7. First-Order Predicate Logic (FOL): Syntax, Quantifiers ($\forall, \exists$) & Semantics</div>
+    <div>8. Knowledge Engineering in FOL & Domain Axiomatization</div>
+    <div>9. Generalized Modus Ponens (GMP) & The Unification Algorithm (MGU)</div>
+    <div>10. Skolemization Algorithms (Skolem Constants vs. Skolem Functions)</div>
+    <div>11. First-Order Resolution Refutation with MGU Substitutions</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 1: Knowledge-Based Agents & The Wumpus World</h2>
+<p>
+  A <strong>Knowledge-Based Agent (KBA)</strong> maintains an explicit internal representation of the world in a <strong>Knowledge Base (KB)</strong> (a set of sentences in a formal language) and uses an inference engine to derive new knowledge and decide actions:
+</p>
+<pre><code>function KB-AGENT(percept) returns an action
+    TELL(KB, MAKE-PERCEPT-SENTENCE(percept, t))
+    action = ASK(KB, MAKE-ACTION-QUERY(t))
+    TELL(KB, MAKE-ACTION-SENTENCE(action, t))
+    t = t + 1
+    return action</code></pre>
+
+<h3 class="subsection-title">The Wumpus World Environment Benchmark:</h3>
+<ul>
+  <li>$4 \times 4$ grid of rooms with Agent starting at $[1, 1]$ facing right.</li>
+  <li><strong>Wumpus:</strong> Monster that eats the agent; gives off a <em>Stench</em> in directly adjacent squares.</li>
+  <li><strong>Pits:</strong> Bottomless holes that trap the agent; give off a <em>Breeze</em> in adjacent squares.</li>
+  <li><strong>Gold:</strong> Gives off a <em>Glitter</em> in its exact square.</li>
+</ul>
+
+<h2 class="section-title">Topic 2 & 3: Propositional Logic Syntax, Semantics & Entailment</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Logical Operator</th>
+      <th style="width: 25%;">Standard Notation</th>
+      <th style="width: 25%;">Meaning</th>
+      <th>Truth Condition ($T$)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Negation (NOT)</strong></td><td>$\neg P$</td><td>Not $P$</td><td>True iff $P$ is False</td></tr>
+    <tr><td><strong>Conjunction (AND)</strong></td><td>$P \land Q$</td><td>$P$ and $Q$</td><td>True iff both $P$ and $Q$ are True</td></tr>
+    <tr><td><strong>Disjunction (OR)</strong></td><td>$P \lor Q$</td><td>$P$ or $Q$</td><td>True iff at least one of $P, Q$ is True</td></tr>
+    <tr><td><strong>Implication (IF-THEN)</strong></td><td>$P \implies Q$</td><td>If $P$ then $Q$</td><td>False iff $P$ is True and $Q$ is False ($\equiv \neg P \lor Q$)</td></tr>
+    <tr><td><strong>Biconditional (IFF)</strong></td><td>$P \iff Q$</td><td>$P$ if and only if $Q$</td><td>True iff both $P, Q$ have identical truth values</td></tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <div class="callout-title">Formal Mathematical Concept: Logical Entailment ($\alpha \models \beta$)</div>
+  Sentence $\alpha$ <strong>entails</strong> sentence $\beta$ ($\alpha \models \beta$) if and only if in every model where $\alpha$ is true, $\beta$ is also true:
+  $$\alpha \models \beta \iff M(\alpha) \subseteq M(\beta)$$
+  $$\text{Deduction Theorem: } \alpha \models \beta \iff (\alpha \implies \beta) \text{ is a Tautology}$$
+  $$\text{Refutation Theorem: } \alpha \models \beta \iff (\alpha \land \neg \beta) \text{ is Unsatisfiable}$$
+</div>
+
+<h2 class="section-title">Topic 4 & 5: Conjunctive Normal Form (CNF) & Resolution Refutation</h2>
+
+<p>
+  A sentence is in <strong>Conjunctive Normal Form (CNF)</strong> if it is a conjunction of clauses (where each clause is a disjunction of literals):
+</p>
+$$\bigwedge_{i=1}^m \left( \bigvee_{j=1}^{k_i} l_{ij} \right)$$
+
+<div class="callout callout-warning">
+  <div class="callout-title">7-Step Algorithm to Convert Propositional Logic to CNF</div>
+  <ol>
+    <li><strong>Eliminate Biconditionals:</strong> Replace $\alpha \iff \beta$ with $(\alpha \implies \beta) \land (\beta \implies \alpha)$.</li>
+    <li><strong>Eliminate Implications:</strong> Replace $\alpha \implies \beta$ with $\neg \alpha \lor \beta$.</li>
+    <li><strong>Move Negations Inward (De Morgan's Laws & Double Negation):</strong>
+      $$\neg(\alpha \land \beta) \equiv \neg \alpha \lor \neg \beta, \quad \neg(\alpha \lor \beta) \equiv \neg \alpha \land \neg \beta, \quad \neg(\neg \alpha) \equiv \alpha$$
+    </li>
+    <li><strong>Distribute $\lor$ over $\land$:</strong> Replace $\alpha \lor (\beta \land \gamma)$ with $(\alpha \lor \beta) \land (\alpha \lor \gamma)$.</li>
+    <li><strong>Flatten Nested Conjunctions/Disjunctions:</strong> Group into distinct clauses separated by $\land$.</li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Resolution Refutation Proof in Propositional Logic</div>
+  <p><strong>Given Knowledge Base ($\text{KB}$):</strong></p>
+  <ol>
+    <li>$P \implies Q$ (If it rains, the ground is wet): $\neg P \lor Q$</li>
+    <li>$Q \implies R$ (If the ground is wet, it is slippery): $\neg Q \lor R$</li>
+    <li>$P$ (It rains): $P$</li>
+  </ol>
+  <p><strong>Goal: Prove $R$ (It is slippery) using Resolution Refutation.</strong></p>
+  <p><strong>Step 1: Negate the Goal and add to KB:</strong> Add Clause 4: $\neg R$.</p>
+  <p><strong>Step 2: Apply Resolution Rule to Resolve Complementary Literals:</strong></p>
+  <ul>
+    <li>Resolve Clause 1 ($\neg P \lor Q$) and Clause 3 ($P$) on literal $P \implies$ <strong>Clause 5: $Q$</strong>.</li>
+    <li>Resolve Clause 2 ($\neg Q \lor R$) and Clause 5 ($Q$) on literal $Q \implies$ <strong>Clause 6: $R$</strong>.</li>
+    <li>Resolve Clause 6 ($R$) and Clause 4 ($\neg R$) on literal $R \implies$ <strong>Empty Clause ($\square$ / False)</strong>.</li>
+  </ul>
+  <p><em>Conclusion:</em> Since deriving the empty clause proves that $\text{KB} \land \neg R$ is unsatisfiable, the original goal $R$ is validly entailed ($\text{KB} \models R$). $\blacksquare$</p>
+</div>
+
+<h2 class="section-title">Topic 7 & 8: First-Order Predicate Logic (FOL)</h2>
+<p>
+  Unlike Propositional Logic (which assumes facts in the world are either True or False), <strong>First-Order Logic (FOL)</strong> models the world in terms of <strong>Objects</strong>, <strong>Relations (Predicates)</strong>, and <strong>Functions</strong>:
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">FOL Construct</th>
+      <th style="width: 45%;">Definition & Syntax</th>
+      <th>Example Statement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Universal Quantifier ($\forall$)</strong></td>
+      <td>"For all $x$". Typically paired with implication ($\implies$).</td>
+      <td>$\forall x \ (\text{King}(x) \implies \text{Person}(x))$</td>
+    </tr>
+    <tr>
+      <td><strong>Existential Quantifier ($\exists$)</strong></td>
+      <td>"There exists some $x$". Typically paired with conjunction ($\land$).</td>
+      <td>$\exists x \ (\text{Crown}(x) \land \text{OnHead}(x, \text{John}))$</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <div class="callout-title">De Morgan's Laws for Quantifiers</div>
+  $$\forall x \ \neg P(x) \equiv \neg \exists x \ P(x)$$
+  $$\neg \forall x \ P(x) \equiv \exists x \ \neg P(x)$$
+  $$\forall x \ P(x) \equiv \neg \exists x \ \neg P(x)$$
+  $$\exists x \ P(x) \equiv \neg \forall x \ \neg P(x)$$
+</div>
+
+<h2 class="section-title">Topic 9 & 10: Unification Algorithm & Skolemization</h2>
+
+<h3 class="subsection-title">1. Unification & Most General Unifier (MGU):</h3>
+<p>
+  $\text{UNIFY}(p, q) = \theta$ finds a substitution $\theta$ such that $\text{Subst}(\theta, p) = \text{Subst}(\theta, q)$:
+</p>
+<ul>
+  <li>$\text{UNIFY}(\text{Knows}(\text{John}, x), \text{Knows}(\text{John}, \text{Jane})) = \{ x / \text{Jane} \}$</li>
+  <li>$\text{UNIFY}(\text{Knows}(\text{John}, x), \text{Knows}(y, \text{Bill})) = \{ y / \text{John}, \ x / \text{Bill} \}$</li>
+  <li><strong>Occur-Check:</strong> A variable $x$ cannot be unified with a term containing $x$ (e.g., $x$ and $f(x)$ cannot unify because substitution causes infinite recursion).</li>
+</ul>
+
+<h3 class="subsection-title">2. Skolemization:</h3>
+<ul>
+  <li><strong>Skolem Constant:</strong> Eliminates an existential quantifier not in the scope of any universal quantifier:
+    $$\exists x \ \text{Heart}(x) \implies \text{Heart}(H_1) \quad \text{where } H_1 \text{ is a new unique constant}$$
+  </li>
+  <li><strong>Skolem Function:</strong> Eliminates an existential quantifier within the scope of a universal quantifier:
+    $$\forall x \ \exists y \ \text{Mother}(y, x) \implies \forall x \ \text{Mother}(m(x), x) \quad \text{where } m(x) \text{ is a Skolem function}$$
+  </li>
+</ul>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Differentiate between Forward Chaining and Backward Chaining for Horn Clauses. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Forward Chaining (Data-Driven):</strong> Starts with known atomic facts in the KB and applies inference rules to derive new facts until the goal is generated. Complete for definite clauses and runs in linear time $O(n)$. Used in reactive expert systems and real-time monitoring.<br>
+    2. <strong>Backward Chaining (Goal-Driven):</strong> Starts with the target query/goal and works backward by finding rules whose conclusions match the goal, establishing their premises as new subgoals. Avoids exploring irrelevant facts. Used in Prolog and automated theorem provers.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Convert the English statements into FOL and prove by Resolution Refutation: "Every person who loves animals is loved by someone. Jack loves all dogs. All dogs are animals. Prove that someone loves Jack." (10 Marks)</div>
+  <div class="qa-a">
+    1. $\forall x \ [(\forall y \ \text{Animal}(y) \implies \text{Loves}(x, y)) \implies (\exists z \ \text{Loves}(z, x))]$<br>
+    2. $\forall y \ (\text{Dog}(y) \implies \text{Loves}(\text{Jack}, y))$<br>
+    3. $\forall y \ (\text{Dog}(y) \implies \text{Animal}(y))$<br>
+    4. Negated Goal: $\neg \exists z \ \text{Loves}(z, \text{Jack}) \implies \forall z \ \neg \text{Loves}(z, \text{Jack})$<br>
+    <em>Converting to CNF clauses and unifying with Skolem functions yields the empty clause ($\square$), formally proving someone loves Jack.</em>
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Planning & Probabilistic Reasoning in AI</div>
+  <div class="toc-grid">
+    <div>1. Classical Planning Formalisms (State, Goal & Action Representations)</div>
+    <div>2. The STRIPS Language: Preconditions, Add Lists & Delete Lists</div>
+    <div>3. Planning Domain Definition Language (PDDL) Action Schemas</div>
+    <div>4. Progression (Forward State Search) vs. Regression (Backward Relevant Search)</div>
+    <div>5. Goal Stack Planning & The Sussman Anomaly in Blocks World</div>
+    <div>6. Planning Graphs (Graphplan) & 3 Classes of Mutual Exclusion (Mutex) Relations</div>
+    <div>7. Reasoning Under Uncertainty: Probability Axioms & Conditional Independence</div>
+    <div>8. Bayes' Rule & Full Joint Probability Distribution Formulations</div>
+    <div>9. Bayesian Belief Networks (BBN): Directed Acyclic Graphs & CPT Matrices</div>
+    <div>10. Direction-Dependent Separation (d-separation): Serial, Diverging & Collider Links</div>
+    <div>11. Exact Inference (Variable Elimination) vs. Approximate Monte Carlo Sampling</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 1 & 2: Classical Planning & The STRIPS Representation</h2>
+<p>
+  <strong>Planning</strong> is the process of generating a sequence of actions that transforms an initial state $S_0$ into a desired goal state $G$.
 </p>
 
 <div class="callout callout-info">
-  <div class="callout-title">Theorems of $A^*$ Optimality</div>
-  <strong>Admissibility ($h(n) \le h^*(n)$):</strong> A heuristic is admissible if it never overestimates the true cost to reach the goal. Admissibility guarantees that $A^*$ tree search is optimal.<br>
-  <strong>Consistency (Monotonicity):</strong> $h(n) \le c(n, a, n') + h(n')$. Consistency guarantees that $A^*$ graph search is optimal without reopening closed nodes.
+  <div class="callout-title">The STRIPS (Stanford Research Institute Problem Solver) Language</div>
+  <ul>
+    <li><strong>State:</strong> A conjunction of positive ground function-free literals (e.g., $\text{On}(A, B) \land \text{OnTable}(B) \land \text{Clear}(A) \land \text{HandEmpty}$). Closed-world assumption applies.</li>
+    <li><strong>Goal:</strong> A conjunction of positive literals that must hold true in the final state.</li>
+    <li><strong>Action Schema $\text{Action}(a)$:</strong> Formally specified by 3 components:
+      <ol>
+        <li><strong>$\text{Preconditions}(a)$:</strong> Literals that must be satisfied before action $a$ can be legally executed.</li>
+        <li><strong>$\text{Add-List}(a)$:</strong> Literals that become True after executing action $a$.</li>
+        <li><strong>$\text{Delete-List}(a)$:</strong> Literals that become False and are removed after executing action $a$.</li>
+      </ol>
+    </li>
+  </ul>
 </div>
 
-<h2 class="section-title">2. Minimax with Alpha-Beta Pruning</h2>
+<div class="worked-box">
+  <div class="worked-title">🏛️ STRIPS Operator Schema: Stacking Block $A$ onto Block $B$</div>
+  <pre><code>Action: Stack(x, y)
+Preconditions: Clear(y) ^ Holding(x)
+Delete-List:   Clear(y), Holding(x)
+Add-List:      On(x, y), Clear(x), HandEmpty</code></pre>
+</div>
+
+<h2 class="section-title">Topic 5: Goal Stack Planning & The Sussman Anomaly</h2>
 <p>
-  $\alpha$ is the highest value found so far for MAX; $\beta$ is the lowest value found so far for MIN.
-  <strong>Pruning Rule:</strong> Whenever $\alpha \ge \beta$, prune the remaining subtrees below the current node.
+  <strong>Goal Stack Planning</strong> uses a Last-In First-Out (LIFO) stack to hold goals and subgoals. It handles multiple goals sequentially by planning for one subgoal, which may inadvertently undo previously achieved subgoals:
 </p>
+
+<div class="callout callout-warning">
+  <div class="callout-title">The Sussman Anomaly (Interleaved Non-Linear Goals)</div>
+  <p>In the Blocks World, given Initial State: $\text{On}(C, A) \land \text{OnTable}(A) \land \text{OnTable}(B)$ and Goal State: $\text{On}(A, B) \land \text{On}(B, C)$.</p>
+  <ul>
+    <li>If the planner achieves $\text{On}(A, B)$ first, it puts $A$ on $B$. But to put $B$ on $C$, it must unstack $A$, undoing its first goal!</li>
+    <li>If it achieves $\text{On}(B, C)$ first, $C$ has $A$ on top, requiring unstacking.</li>
+    <li><em>Resolution:</em> Requires <strong>Partial-Order / Non-Linear Planning</strong> that interleaves sub-plans rather than assuming linear independence of subgoals.</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 6: Planning Graphs & Mutual Exclusion (Mutex) Relations</h2>
+<p>
+  A <strong>Planning Graph</strong> is a directed leveled graph consisting of alternating proposition levels ($P_0, P_1, \dots$) and action levels ($A_0, A_1, \dots$). Mutex links between actions indicate that two actions cannot occur simultaneously:
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Mutex Class</th>
+      <th style="width: 45%;">Condition & Geometric Cause</th>
+      <th>Example in Blocks World</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Inconsistent Effects</strong></td>
+      <td>One action negates an effect added by the other action.</td>
+      <td>`Stack(A, B)` adds `On(A, B)` while `Unstack(A, B)` deletes `On(A, B)`.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Interference</strong></td>
+      <td>An effect of one action is the negation of a precondition of the other.</td>
+      <td>`Stack(A, B)` deletes `Clear(B)`, which is a precondition of `Stack(C, B)`.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Competing Needs</strong></td>
+      <td>A precondition of one action is mutually exclusive with a precondition of the other.</td>
+      <td>`Pickup(A)` requires `HandEmpty`, while `Stack(B, C)` requires `Holding(B)`.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 7 & 8: Probabilistic Reasoning & Bayes' Rule</h2>
+
+<div class="formula-card">
+  <strong>1. Conditional Probability & Product Rule:</strong>
+  $$P(A \mid B) = \frac{P(A \land B)}{P(B)} \implies P(A \land B) = P(A \mid B) P(B) = P(B \mid A) P(A)$$
+</div>
+
+<div class="formula-card">
+  <strong>2. Bayes' Rule Formula:</strong>
+  $$P(Y \mid X) = \frac{P(X \mid Y) P(Y)}{P(X)} = \frac{P(X \mid Y) P(Y)}{\sum_{y} P(X \mid y) P(y)}$$
+  Where $P(Y)$ is the <em>Prior Probability</em>, $P(X \mid Y)$ is the <em>Likelihood</em>, and $P(Y \mid X)$ is the <em>Posterior Probability</em>.
+</div>
+
+<h2 class="section-title">Topic 9 & 10: Bayesian Belief Networks (BBN) & d-separation</h2>
+
+<p>
+  A <strong>Bayesian Network</strong> is a Directed Acyclic Graph (DAG) where nodes represent random variables and directed edges represent direct causal/probabilistic dependencies, annotated with Conditional Probability Tables (CPTs).
+</p>
+
+<div class="callout callout-info">
+  <div class="callout-title">Full Joint Distribution Factorization Formula</div>
+  $$P(X_1, X_2, \dots, X_n) = \prod_{i=1}^n P(X_i \mid \text{Parents}(X_i))$$
+  Reduces the number of parameters needed to represent an $n$-variable boolean domain from $2^n - 1$ to $O(n \cdot 2^k)$, where $k$ is the maximum number of parents per node!
+</div>
+
+<h3 class="subsection-title">The 3 Structural Connections of d-separation (Direction-Dependent Separation):</h3>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Connection Topology</th>
+      <th style="width: 45%;">Graph Structure & Dependency Status</th>
+      <th>Blocking Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Serial / Causal Chain</strong></td>
+      <td>$X \rightarrow Z \rightarrow Y$</td>
+      <td>$X$ and $Y$ are conditionally independent given $Z$ ($Z$ is observed / instantiated).</td>
+    </tr>
+    <tr>
+      <td><strong>2. Diverging / Common Cause (Fork)</strong></td>
+      <td>$X \leftarrow Z \rightarrow Y$</td>
+      <td>$X$ and $Y$ are conditionally independent given $Z$ ($Z$ is observed).</td>
+    </tr>
+    <tr>
+      <td><strong>3. Converging / Collider (V-Structure)</strong></td>
+      <td>$X \rightarrow Z \leftarrow Y$</td>
+      <td>$X$ and $Y$ are independent when $Z$ is <strong>unobserved</strong>. If $Z$ or any of its descendants is observed, $X$ and $Y$ become <strong>dependent</strong> (Explaining Away effect).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Given the classic Burglar Alarm Bayesian Network (Burglary, Earthquake, Alarm, JohnCalls, MaryCalls), compute the joint probability $P(B \land \neg E \land A \land J \land \neg M)$. (8 Marks)</div>
+  <div class="qa-a">
+    Applying the Bayesian Network factorization chain rule:<br>
+    $$P(B \land \neg E \land A \land J \land \neg M) = P(B) \cdot P(\neg E) \cdot P(A \mid B, \neg E) \cdot P(J \mid A) \cdot P(\neg M \mid A)$$
+    Substituting standard CPT values ($P(B)=0.001, P(\neg E)=0.998, P(A \mid B, \neg E)=0.94, P(J \mid A)=0.90, P(\neg M \mid A)=0.30$):<br>
+    $$= 0.001 \times 0.998 \times 0.94 \times 0.90 \times 0.30 = 0.000253 \ (\approx 0.0253\%)$$
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Explain the 3 mutex conditions in Graphplan with diagrams. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Inconsistent Effects:</strong> Action 1 adds proposition $p$ while Action 2 deletes $p$. They cannot occur concurrently without contradictory states.<br>
+    2. <strong>Interference:</strong> Action 1 deletes proposition $p$ which is required as a precondition by Action 2.<br>
+    3. <strong>Competing Needs:</strong> A precondition of Action 1 and a precondition of Action 2 are mutually exclusive at the preceding proposition level.
+  </div>
+</div>
 <div class='page-break'></div>
 <div class="toc-box">
-  <div class="toc-title">Module III: Knowledge Representation & Logic — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Machine Learning Foundations & Neural Networks</div>
   <div class="toc-grid">
-    <div>1. Propositional Logic Syntax & Truth Tables</div>
-    <div>2. Inference Rules & Forward/Backward Chaining</div>
-    <div>3. Propositional Resolution Refutation</div>
-    <div>4. First-Order Logic (FOL) & Quantifiers</div>
-    <div>5. Unification (MGU) & Skolemization</div>
+    <div>1. Machine Learning Paradigms (Supervised, Unsupervised & Reinforcement Learning)</div>
+    <div>2. Inductive Learning Hypothesis, Inductive Bias & Occam's Razor Principle</div>
+    <div>3. Decision Tree Representation & The ID3 Induction Algorithm</div>
+    <div>4. Entropy ($H(S)$) & Information Gain Mathematical Formulations</div>
+    <div>5. Step-by-Step ID3 Calculation Trace on the Benchmark PlayTennis Dataset</div>
+    <div>6. C4.5 Algorithm Extensions (Gain Ratio & Continuous Numeric Attributes)</div>
+    <div>7. Overfitting Mitigation: Pre-Pruning vs. Post-Pruning Strategies</div>
+    <div>8. Computational Learning Theory: The PAC (Probably Approximately Correct) Model</div>
+    <div>9. The Artificial Perceptron Model & The Perceptron Convergence Theorem</div>
+    <div>10. Non-Linear Activation Functions (Sigmoid, Hyperbolic Tangent, ReLU, Softmax)</div>
+    <div>11. Multi-Layer Perceptrons (MLP) & Backpropagation Error Gradient Derivations</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. First-Order Logic Resolution Refutation</h2>
+<h2 class="section-title">Topic 1 & 2: Machine Learning Paradigms & Inductive Bias</h2>
 <p>
-  To prove $\text{KB} \models \alpha$, we add $\neg \alpha$ to $\text{KB}$ and derive the empty clause ($\square$) using 7 systematic CNF transformation steps:
-  <ol>
-    <li>Eliminate $\iff$ and $\implies$.</li>
-    <li>Push $\neg$ inward ($\neg \forall x P(x) \equiv \exists x \neg P(x)$).</li>
-    <li>Standardize variables (distinct names per quantifier).</li>
-    <li><strong>Skolemization:</strong> Replace existential quantifiers ($\exists$) with Skolem constants or functions of outer universal variables.</li>
-    <li>Drop universal quantifiers ($\forall$).</li>
-    <li>Convert to CNF using $\lor$ distribution over $\land$.</li>
-    <li>Resolve complementary literals using <strong>Most General Unifier (MGU)</strong>.</li>
-  </ol>
+  A computer program is said to <strong>learn</strong> from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance at tasks in $T$, as measured by $P$, improves with experience $E$ (Tom Mitchell, 1997).
 </p>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module IV: Planning & Probabilistic Reasoning — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. STRIPS Planning Representation & PDDL</div>
-    <div>2. Goal Stack Planning & Sussman Anomaly</div>
-    <div>3. Axioms of Probability & Bayes' Rule</div>
-    <div>4. Bayesian Belief Networks & Joint Factorization</div>
-    <div>5. D-Separation & Exact Probabilistic Inference</div>
-  </div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Paradigm</th>
+      <th style="width: 35%;">Training Experience ($E$)</th>
+      <th style="width: 25%;">Target Objective ($T$)</th>
+      <th>Representative Algorithms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Supervised Learning</strong></td>
+      <td>Labeled training tuples $\langle \mathbf{x}_i, y_i \rangle$ where ground-truth target label $y_i$ is explicitly provided.</td>
+      <td>Classification (discrete labels) or Regression (continuous real values).</td>
+      <td>Decision Trees (ID3/C4.5), Support Vector Machines, Neural Networks, Linear Regression.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Unsupervised Learning</strong></td>
+      <td>Unlabeled data points $\mathbf{x}_i$ without ground-truth targets.</td>
+      <td>Discovering intrinsic clusters, manifold embeddings, and density distributions.</td>
+      <td>$k$-Means, Hierarchical Clustering, PCA, Autoencoders, Gaussian Mixture Models.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Reinforcement Learning</strong></td>
+      <td>Sequential interaction with environment receiving scalar reward/penalty feedback $r_t$.</td>
+      <td>Learning an optimal action policy $\pi^*(s)$ that maximizes expected discounted cumulative reward.</td>
+      <td>Q-Learning, SARSA, Deep Q-Networks (DQN), Policy Gradients (PPO).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <div class="callout-title">Inductive Learning Hypothesis & Occam's Razor</div>
+  <ul>
+    <li><strong>Inductive Learning Hypothesis:</strong> Any hypothesis found to approximate the target function well over a sufficiently large set of training examples will also approximate the target function well over unobserved test examples.</li>
+    <li><strong>Occam's Razor:</strong> Prefer the simplest hypothesis that fits the training data (e.g., smaller decision trees are statistically less prone to overfitting than complex deep trees).</li>
+  </ul>
 </div>
 
-<h2 class="section-title">1. Bayesian Network Joint Probability Factorization</h2>
-$$P(X_1, X_2, \dots, X_n) = \prod_{i=1}^n P(X_i \mid \text{Parents}(X_i))$$
+<h2 class="section-title">Topic 3 – 5: Decision Tree Induction (ID3 Algorithm & Entropy)</h2>
+
+<div class="formula-card">
+  <strong>1. Information Entropy Formula (Shannon, 1948):</strong>
+  $$H(S) = - \sum_{i=1}^c p_i \log_2 (p_i)$$
+  Where $p_i$ is the proportion of examples in set $S$ belonging to target class $i$. For binary classification ($p_+$ and $p_-$):
+  $$H(S) = - p_+ \log_2 (p_+) - p_- \log_2 (p_-)$$
+</div>
+
+<div class="formula-card">
+  <strong>2. Information Gain Formula:</strong>
+  $$\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$
+  Where $S_v$ is the subset of $S$ for which attribute $A$ has value $v$. The ID3 algorithm selects the attribute that maximizes $\text{Gain}(S, A)$ at each node.
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: ID3 Split Calculation on PlayTennis Dataset</div>
+  <p><strong>Given Dataset:</strong> 14 total examples ($|S| = 14$), with 9 Positive (`Yes`) and 5 Negative (`No`).</p>
+  <p><strong>Step 1: Compute Overall Dataset Entropy $H(S)$</strong></p>
+  $$H(S) = - \frac{9}{14} \log_2\left(\frac{9}{14}\right) - \frac{5}{14} \log_2\left(\frac{5}{14}\right) = - (0.643 \times -0.637) - (0.357 \times -1.485) = \mathbf{0.940} \text{ bits}$$
+
+  <p><strong>Step 2: Evaluate Attribute `Outlook` (Values: `Sunny` [2+, 3-], `Overcast` [4+, 0-], `Rain` [3+, 2-]):</strong></p>
+  <ul>
+    <li>$H(S_{\text{Sunny}}) = - \frac{2}{5} \log_2\left(\frac{2}{5}\right) - \frac{3}{5} \log_2\left(\frac{3}{5}\right) = 0.971$</li>
+    <li>$H(S_{\text{Overcast}}) = - \frac{4}{4} \log_2(1) - 0 = \mathbf{0.000}$ (Pure leaf!)</li>
+    <li>$H(S_{\text{Rain}}) = - \frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\left(\frac{2}{5}\right) = 0.971$</li>
+  </ul>
+  <p><strong>Step 3: Compute Expected Entropy & Information Gain for `Outlook`:</strong></p>
+  $$H(S \mid \text{Outlook}) = \frac{5}{14}(0.971) + \frac{4}{14}(0.000) + \frac{5}{14}(0.971) = 0.347 + 0 + 0.347 = 0.694$$
+  $$\text{Gain}(S, \text{Outlook}) = 0.940 - 0.694 = \mathbf{0.246} \text{ bits}$$
+  <p><em>Conclusion:</em> Since `Outlook` achieves the highest Information Gain among all candidate attributes (`Gain(Wind)=0.048, Gain(Humidity)=0.151, Gain(Temperature)=0.029`), `Outlook` is selected as the root node!</p>
+</div>
+
+<h2 class="section-title">Topic 9 & 10: Artificial Neural Networks & The Perceptron</h2>
+
 <p>
-  A Bayesian Network is a Directed Acyclic Graph (DAG) whose nodes represent random variables and directed edges represent conditional dependencies.
+  The <strong>Perceptron (Rosenblatt, 1958)</strong> is the foundational linear binary classifier model:
 </p>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module V: Machine Learning Foundations — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Inductive Learning & Decision Trees (ID3)</div>
-    <div>2. Entropy & Information Gain Formulations</div>
-    <div>3. Single-Layer Perceptron Learning Rule</div>
-    <div>4. Multi-Layer Perceptron & Backpropagation</div>
-    <div>5. Bias-Variance Tradeoff & Regularization</div>
+$$y = f(\mathbf{w}^T \mathbf{x} + b) = f\left( \sum_{i=1}^n w_i x_i + b \right)$$
+
+<div class="callout callout-info">
+  <div class="callout-title">Perceptron Learning Rule & Convergence Theorem</div>
+  $$\mathbf{w} \leftarrow \mathbf{w} + \eta (y_{\text{true}} - y_{\text{pred}}) \mathbf{x}$$
+  Where $\eta \in (0, 1]$ is the learning rate.<br>
+  <strong>Convergence Theorem:</strong> If the training dataset is <strong>linearly separable</strong>, the perceptron learning rule is guaranteed to converge to a separating hyperplane in a finite number of weight update steps! If the data is not linearly separable (e.g., the XOR function), single-layer perceptrons fail completely (Minsky & Papert, 1969).
+</div>
+
+<h3 class="subsection-title">Standard Non-Linear Activation Functions:</h3>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Activation Function</th>
+      <th style="width: 35%;">Mathematical Equation</th>
+      <th style="width: 20%;">Output Range</th>
+      <th>Derivative $\sigma'(z)$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Logistic Sigmoid</strong></td>
+      <td>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</td>
+      <td>$(0, 1)$</td>
+      <td>$\sigma(z)(1 - \sigma(z))$</td>
+    </tr>
+    <tr>
+      <td><strong>2. Hyperbolic Tangent ($\tanh$)</strong></td>
+      <td>$$\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$$</td>
+      <td>$(-1, 1)$</td>
+      <td>$1 - \tanh^2(z)$</td>
+    </tr>
+    <tr>
+      <td><strong>3. Rectified Linear Unit (ReLU)</strong></td>
+      <td>$$f(z) = \max(0, z)$$</td>
+      <td>$[0, \infty)$</td>
+      <td>$1 \text{ if } z > 0 \text{ else } 0$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 11: Multi-Layer Perceptrons (MLP) & Backpropagation</h2>
+
+<div class="formula-card">
+  <strong>Backpropagation Gradient Descent Weight Update:</strong>
+  $$w_{ij} \leftarrow w_{ij} - \eta \frac{\partial E}{\partial w_{ij}}$$
+  Where total sum-of-squares error $E = \frac{1}{2} \sum_k (t_k - y_k)^2$.<br>
+  Using the Chain Rule of Calculus:
+  $$\frac{\partial E}{\partial w_{ij}} = \frac{\partial E}{\partial \text{net}_j} \frac{\partial \text{net}_j}{\partial w_{ij}} = - \delta_j \cdot x_i$$
+  - For output neuron $k$: $\delta_k = (t_k - y_k) \cdot g'(\text{net}_k)$
+  - For hidden neuron $j$: $\delta_j = g'(\text{net}_j) \cdot \sum_k w_{jk} \delta_k$
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Why can a single-layer perceptron not learn the XOR function, and how do Multi-Layer Perceptrons solve this? (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>Linear Separability Limitation:</strong> The XOR truth table has outputs `(0,0)->0, (0,1)->1, (1,0)->1, (1,1)->0`. Plotting these 4 points on a 2D plane reveals that no single straight line (hyperplane $\mathbf{w}^T\mathbf{x} + b = 0$) can separate class 1 from class 0.<br>
+    - <strong>Multi-Layer Perceptrons (MLP) Solution:</strong> By adding a hidden layer of non-linear neurons, the network transforms the input space into a higher-dimensional feature space where the points become linearly separable. Two hidden neurons represent intermediate `NAND` and `OR` hyperplanes, which are then combined by an output `AND` neuron.
   </div>
 </div>
 
-<h2 class="section-title">1. Decision Tree Induction: Entropy & Information Gain</h2>
-$$H(S) = - \sum_{i=1}^c p_i \log_2(p_i)$$
-$$\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$
-
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Exam Question (10 Marks)</div>
-  <strong>Problem:</strong> Explain Backpropagation algorithm for training a Multi-Layer Perceptron with gradient descent derivations.<br>
-  <strong>Solution:</strong> Forward pass computes net activations $z_j = \sum w_{ij} x_i$ and outputs $a_j = \sigma(z_j)$. Backward pass propagates error $\delta_k = (y_k - a_k) \sigma'(z_k)$ to hidden layers $\delta_j = \sigma'(z_j) \sum w_{jk} \delta_k$, updating weights via $w_{ij} \leftarrow w_{ij} + \eta \delta_j x_i$.
-</div>
-
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Artificial Intelligence (CS24307) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<div class="qa-card">
+  <div class="qa-q">Q2. Derive the Backpropagation weight update rule for a hidden-to-output weight. (10 Marks)</div>
+  <div class="qa-a">
+    Let $E = \frac{1}{2} (t_k - y_k)^2$, where $y_k = \sigma(\text{net}_k)$ and $\text{net}_k = \sum_j w_{jk} h_j$.<br>
+    Applying the Chain Rule:<br>
+    $$\frac{\partial E}{\partial w_{jk}} = \frac{\partial E}{\partial y_k} \cdot \frac{\partial y_k}{\partial \text{net}_k} \cdot \frac{\partial \text{net}_k}{\partial w_{jk}}$$
+    1. $\frac{\partial E}{\partial y_k} = -(t_k - y_k)$<br>
+    2. $\frac{\partial y_k}{\partial \text{net}_k} = y_k (1 - y_k)$ (Sigmoid derivative)<br>
+    3. $\frac{\partial \text{net}_k}{\partial w_{jk}} = h_j$<br>
+    Defining error signal $\delta_k = (t_k - y_k) y_k (1 - y_k)$, we get:<br>
+    $$\frac{\partial E}{\partial w_{jk}} = - \delta_k h_j \implies w_{jk} \leftarrow w_{jk} + \eta \delta_k h_j$$
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

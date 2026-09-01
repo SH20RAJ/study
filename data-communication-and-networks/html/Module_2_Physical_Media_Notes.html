@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 2: Physical Media & Signal Encoding</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 2: Data Link Layer & ARQ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -74,18 +91,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,197 +171,263 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">Module II Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module II Notes</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 2: Data Link Layer & ARQ</h1>
+      <div class="doc-subtitle">Framing (Bit Stuffing), CRC-32 Division, Hamming Code, Stop-and-Wait, Go-Back-N & Selective Repeat</div>
     </div>
-    <h1 class="doc-title">Module 2: Physical Media & Signal Encoding</h1>
-    <div class="doc-subtitle">Guided/Wireless Media, NRZ, Manchester, QAM & PCM</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module II: Transmission Media & Signal Encoding — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Data Link Layer, Error Control & Flow Control ARQs</div>
   <div class="toc-grid">
-    <div>1. Guided Media (Twisted Pair, Coax, Optical Fiber)</div>
-    <div>2. Digital Signal Encoding: NRZ, Manchester, AMI</div>
-    <div>3. Analog Modulation: ASK, FSK, PSK, QAM</div>
-    <div>4. Pulse Code Modulation (PCM) & Quantization</div>
+    <div>1. Data Link Layer Design Issues & Service Models to Network Layer</div>
+    <div>2. Framing Mechanisms: Byte Count, Byte Stuffing & Bit Stuffing with Flag `01111110`</div>
+    <div>3. Error Detection: Simple Parity, 2D Parity & Internet Checksum Algorithm</div>
+    <div>4. Cyclic Redundancy Check (CRC-32): Polynomial Division & Full Worked Traces</div>
+    <div>5. Error Correction: Hamming Code $(n, k)$ Derivations & Parity Check Matrices</div>
+    <div>6. Flow Control Mechanics: Stop-and-Wait Protocol & Channel Efficiency ($\eta$)</div>
+    <div>7. Sliding Window Concepts: Bandwidth-Delay Product & Piggybacking</div>
+    <div>8. Go-Back-N (GBN) ARQ Protocol: Sender/Receiver Windows ($W_s \le 2^m - 1$)</div>
+    <div>9. Selective Repeat (SR) ARQ Protocol: Independent ACKs & Windows ($W_s \le 2^{m-1}$)</div>
+    <div>10. Channel Utilization & Efficiency Proofs: $\eta = \frac{W}{1 + 2a}$ where $a = \frac{T_p}{T_t}$</div>
+    <div>11. High-Level Data Link Control (HDLC) Frame Formats & PPP Architecture</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Digital Signal Encoding Techniques</h2>
+<h2 class="section-title">Topic 1 & 2: Data Link Framing Mechanisms</h2>
+<p>
+  The Data Link Layer converts the raw bit stream delivered by the Physical Layer into discrete, manageable packets called <strong>Frames</strong>:
+</p>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Encoding Scheme</th>
-      <th style="width: 45%;">Rule / Signal Transition</th>
-      <th>Key Advantages & Drawbacks</th>
+      <th style="width: 25%;">Framing Method</th>
+      <th style="width: 45%;">Delimiting Mechanism & Bit/Byte Manipulation</th>
+      <th>Key Failure Modes & Mitigations</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>NRZ-L (Level)</strong></td>
-      <td>Bit 0 = High level, Bit 1 = Low level</td>
-      <td>Simple; susceptible to DC baseline wander and clock drift on long runs of 0s/1s.</td>
+      <td><strong>1. Character / Byte Count</strong></td>
+      <td>Header field contains an integer specifying total number of bytes in frame.</td>
+      <td>Fatal synchronization loss: if a transmission error alters the count byte, all subsequent frames are misframed.</td>
     </tr>
     <tr>
-      <td><strong>NRZI (Invert)</strong></td>
-      <td>Bit 1 = Transition at start; Bit 0 = No transition</td>
-      <td>Solves sync for consecutive 1s, but fails on strings of 0s.</td>
+      <td><strong>2. Byte Stuffing (Character-Oriented)</strong></td>
+      <td>Frames bounded by `FLAG` bytes (`0x7E`). Any occurrence of `FLAG` or escape byte `ESC` (`0x7D`) in payload is prefixed with an `ESC` byte.</td>
+      <td>Tied to specific 8-bit character encodings (ASCII).</td>
     </tr>
     <tr>
-      <td><strong>Bipolar-AMI</strong></td>
-      <td>Bit 0 = Zero voltage; Bit 1 = Alternating +V and -V</td>
-      <td>Zero DC component; easy error detection; fails sync on consecutive 0s.</td>
-    </tr>
-    <tr>
-      <td><strong>Manchester (Ethernet)</strong></td>
-      <td>Bit 0 = High-to-Low transition; Bit 1 = Low-to-High transition</td>
-      <td><strong>Self-clocking</strong> (transition at middle of every bit); requires $2\times$ bandwidth.</td>
-    </tr>
-    <tr>
-      <td><strong>Diff. Manchester</strong></td>
-      <td>Transition in middle; Bit 0 = Transition at start; Bit 1 = No transition at start</td>
-      <td>Differential noise immunity; self-clocking; standard in Token Ring (IEEE 802.5).</td>
+      <td><strong>3. Bit Stuffing (Bit-Oriented — HDLC)</strong></td>
+      <td>Frames delimited by flag pattern `01111110` ($6$ consecutive `1`s). Whenever sender observes $5$ consecutive `1`s in data payload, it unconditionally stuffs a `0` bit.</td>
+      <td>Completely code-transparent; handles arbitrary arbitrary binary streams.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">2. Analog Modulation & 16-QAM Constellation</h2>
-<p>
-  <strong>Quadrature Amplitude Modulation (QAM)</strong> modulates both amplitude and phase simultaneously. In 16-QAM, each transmitted constellation point represents <strong>4 bits</strong> ($\log_2(16) = 4$), enabling high spectral efficiency.
-</p>
+<h2 class="section-title">Topic 4: Cyclic Redundancy Check (CRC) Polynomial Division</h2>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<div class="formula-card">
+  <strong>CRC Transmission Invariants:</strong>
+  Let data bit sequence be represented by polynomial $D(x)$ of length $k$, and Generator Polynomial be $G(x)$ of degree $r$.
+  1. Append $r$ zero bits to $D(x) \implies D(x) \cdot x^r$.
+  2. Divide $D(x) \cdot x^r$ by $G(x)$ using modulo-2 arithmetic (XOR binary division).
+  3. The remainder $R(x)$ of length $r$ is the CRC Checksum. Transmitted codeword $T(x) = D(x) \cdot x^r \oplus R(x)$.
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: CRC-4 Calculation on Data `1101011011` with Generator $G(x) = x^4 + x + 1$</div>
+  <p><strong>Step 1: Convert Generator to Binary String:</strong> $G(x) = 1 \cdot x^4 + 0 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 1 \cdot x^0 \implies \mathbf{10011}$ (Degree $r=4$).</p>
+  <p><strong>Step 2: Append $r=4$ zeros to Data ($D = 1101011011$):</strong> Augmented Dividend: $\mathbf{11010110110000}$.</p>
+  <p><strong>Step 3: Modulo-2 Polynomial XOR Division:</strong></p>
+  <pre><code>            1100001010  (Quotient)
+10011 ) 11010110110000
+        10011
+        -----
+         10011
+         10011
+         -----
+          000010110
+              10011
+              -----
+               010100
+                10011
+                -----
+                 01110  <-- Remainder R = 1110</code></pre>
+  <p><strong>Step 4: Transmitted Codeword:</strong> $11010110110000 \oplus 1110 = \mathbf{11010110111110}$.</p>
+</div>
+
+<h2 class="section-title">Topic 6 – 10: Sliding Window Flow Control ARQ Protocols</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Protocol</th>
+      <th style="width: 25%;">Sender Window ($W_s$)</th>
+      <th style="width: 25%;">Receiver Window ($W_r$)</th>
+      <th>Channel Efficiency ($\eta$)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Stop-and-Wait</strong></td>
+      <td>$W_s = 1$</td>
+      <td>$W_r = 1$</td>
+      <td>$$\eta = \frac{T_t}{T_t + 2T_p} = \frac{1}{1 + 2a}$$</td>
+    </tr>
+    <tr>
+      <td><strong>2. Go-Back-N (GBN)</strong></td>
+      <td>$W_s = 2^m - 1$</td>
+      <td>$W_r = 1$ (Cumulative ACK)</td>
+      <td>$$\eta = \frac{W_s}{1 + 2a} \quad (\text{if } W_s < 1 + 2a, \text{ else } 100\%)$$</td>
+    </tr>
+    <tr>
+      <td><strong>3. Selective Repeat (SR)</strong></td>
+      <td>$W_s = 2^{m-1}$</td>
+      <td>$W_r = 2^{m-1}$ (Independent ACK)</td>
+      <td>$$\eta = \frac{W_s}{1 + 2a}$$</td>
+    </tr>
+  </tbody>
+</table>
+<p><em>Where $m$ = number of sequence number bits, $T_t = \frac{L}{B}$ = transmission time, $T_p = \frac{d}{v}$ = propagation delay, $a = \frac{T_p}{T_t}$.</em></p>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Why must the maximum sender window size in Selective Repeat ARQ satisfy $W_s \le 2^{m-1}$? (8 Marks)</div>
+  <div class="qa-a">
+    If $W_s + W_r > 2^m$, an ambiguous overlap occurs between the old sequence number window and the new sequence number window.<br>
+    <em>Proof:</em> Suppose $m=2$ (sequence numbers $0, 1, 2, 3$) and $W_s = W_r = 3$. Sender transmits frames $0, 1, 2$. Receiver receives all 3 and shifts window to $[3, 0, 1]$, sending ACKs $0, 1, 2$. If all ACKs are lost in transit, sender times out and retransmits frame $0$. The receiver, expecting new frame $0$ in its current window $[3, 0, 1]$, will accept the duplicate old frame $0$ as new data, causing undetected duplicate data corruption! To prevent window overlap, $W_s + W_r \le 2^m \implies W_s \le 2^{m-1}$.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

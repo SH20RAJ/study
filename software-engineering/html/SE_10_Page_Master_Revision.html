@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Software Engineering — 10-Page Master Quick Revision</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Software Engineering — 10-Page Master Quick Revision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #047857;       /* Deep Emerald Green */
-  --primary-light: #ecfdf5;
-  --accent: #2563eb;        /* Blue */
-  --secondary: #0f766e;     /* Teal */
+  --primary: #ea580c;       /* Orange */
+  --primary-light: #fff7ed;
+  --accent: #f97316;        /* Bright Orange */
+  --secondary: #d97706;     /* Amber */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Software Engineering (CS24309) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-green { background: #d1fae5; color: #065f46; }
+.badge-orange { background: #ffedd5; color: #c2410c; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-emerald { background: #a7f3d0; color: #047857; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #047857;
+  color: #c2410c;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #c2410c;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #ecfdf5; border-color: #047857; color: #064e3b; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #fff7ed; border-color: #ea580c; color: #7c2d12; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,172 +171,202 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #064e3b;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #ea580c;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #c2410c;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #fff7ed;
+  border-left: 4px solid #ea580c;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #047857; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Software Engineering (CS24353) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-emerald">CS24353 — Elective (3.0 Cr)</span>
-      <span class="badge badge-blue">10-Page Master Revision</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-orange">CS24309 — Theory (3.0 Cr)</span>
+        <span class="badge badge-blue">10-Page Master Revision</span>
+        <span class="badge badge-purple">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Software Engineering — 10-Page Master Quick Revision</h1>
+      <div class="doc-subtitle">High-Yield Formula Sheet, Metric Tables & Top 10 BIT Mesra PYQ Solutions</div>
     </div>
-    <h1 class="doc-title">Software Engineering — 10-Page Master Quick Revision</h1>
-    <div class="doc-subtitle">High-Yield Formula Sheet, COCOMO Matrices & BIT Mesra PYQ Solutions</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">⚙️ 10-Page Master Quick Revision — Software Engineering (CS24353)</div>
+  <div class="toc-title">⚡ 10-Page Master Quick Revision — Software Engineering (CS24309)</div>
   <div class="toc-grid">
-    <div>Page 1-2: Process Models (Waterfall vs. Spiral vs. Scrum), RMMM</div>
-    <div>Page 3-4: Functional/Non-Functional Requirements & IEEE 830 SRS</div>
-    <div>Page 5-6: Cohesion Spectrum, Coupling Spectrum & UML Architecture</div>
-    <div>Page 7-8: ECP/BVA Black-Box & McCabe Cyclomatic Complexity V(G)</div>
-    <div>Page 9-10: Function Points, COCOMO Formulas, CMMI 5-Levels & SCM</div>
+    <div>Page 1: Process Models: Waterfall, V-Model, Prototyping & Spiral 4 Quadrants</div>
+    <div>Page 2: Agile & Scrum: Roles, Ceremonies, Artifacts & Burndown Metrics</div>
+    <div>Page 3: Requirements Engineering: IEEE 830 SRS Standard & DFD Leveling Rules</div>
+    <div>Page 4: Software Design: Cohesion & Coupling Hierarchies (Best to Worst)</div>
+    <div>Page 5: Object-Oriented Principles: SOLID Architecture & GoF Design Patterns</div>
+    <div>Page 6: Software Metrics: Albrecht Function Points (FP) Domain Weights</div>
+    <div>Page 7: Boehm's COCOMO I: Organic, Semi-Detached & Embedded Cost Equations</div>
+    <div>Page 8: Project Scheduling: PERT 3-Point Estimate ($T_e$) & CPM Float Calculation</div>
+    <div>Page 9: Software Testing: Equivalence Partitioning, BVA & Cyclomatic Complexity ($V(G)$)</div>
+    <div>Page 10: Integration Testing: Stubs vs. Drivers, Mutation Score & 4 Maintenance Types</div>
   </div>
 </div>
 
-<h2 class="section-title">⚡ High-Yield Software Engineering Master Formulas</h2>
+<h2 class="section-title">⚡ Master Formula, Estimation & Metric Cheat Sheet</h2>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th>Metric / Concept</th>
-      <th>Exact Formula / Rule</th>
-      <th>Key Exam Insight</th>
+      <th style="width: 25%;">Metric / Model</th>
+      <th style="width: 45%;">Core Mathematical Formulation / Rule</th>
+      <th>Key Exam Takeaway</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Cyclomatic Complexity</strong></td><td>$V(G) = E - N + 2 = P + 1 = \text{Regions}$</td><td>Equals number of linearly independent paths.</td></tr>
-    <tr><td><strong>Function Points (FP)</strong></td><td>$\text{FP} = \text{UFP} \times [0.65 + 0.01 \times \sum F_i]$</td><td>$\sum F_i$ is sum of 14 general system characteristics.</td></tr>
-    <tr><td><strong>COCOMO Effort</strong></td><td>$E = a_b \times (\text{KLOC})^{b_b} \text{ PM}$</td><td>Organic: $a_b=2.4, b_b=1.05$.</td></tr>
-    <tr><td><strong>Availability</strong></td><td>$A = \frac{\text{MTTF}}{\text{MTTF} + \text{MTTR}} \times 100\%$</td><td>$\text{MTBF} = \text{MTTF} + \text{MTTR}$.</td></tr>
+    <tr>
+      <td><strong>Function Point (FP)</strong></td>
+      <td>$$\text{FP} = \text{UFC} \times \left(0.65 + 0.01 \times \sum_{i=1}^{14} F_i\right)$$</td>
+      <td>Independent of programming language; measures functionality from user perspective.</td>
+    </tr>
+    <tr>
+      <td><strong>Basic COCOMO Effort</strong></td>
+      <td>$$E = a \cdot (\text{KLOC})^b, \quad T_{\text{dev}} = c \cdot (E)^d$$</td>
+      <td>Organic ($a=2.4, b=1.05$), Semi-Detached ($a=3.0, b=1.12$), Embedded ($a=3.6, b=1.20$).</td>
+    </tr>
+    <tr>
+      <td><strong>PERT Expected Duration</strong></td>
+      <td>$$T_e = \frac{a + 4m + b}{6}, \quad \sigma^2 = \left(\frac{b - a}{6}\right)^2$$</td>
+      <td>Weights most likely estimate ($m$) 4 times higher than optimistic ($a$) and pessimistic ($b$).</td>
+    </tr>
+    <tr>
+      <td><strong>Cyclomatic Complexity</strong></td>
+      <td>$$V(G) = E - N + 2P = P + 1 = \text{Enclosed Regions} + 1$$</td>
+      <td>Specifies upper bound on number of test cases needed for branch coverage.</td>
+    </tr>
+    <tr>
+      <td><strong>Mutation Score ($\text{MS}$)</strong></td>
+      <td>$$\text{MS} = \frac{D}{T - E} \times 100\%$$</td>
+      <td>Measures test suite adequacy; $D$ is killed mutants, $E$ is equivalent mutants.</td>
+    </tr>
   </tbody>
 </table>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Software Engineering (CS24353) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">🔥 Top 10 High-Yield BIT Mesra Exam Questions & Solutions</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Given a program with 14 edges and 10 nodes, compute its McCabe's Cyclomatic Complexity and state its significance. (6 Marks)</div>
+  <div class="qa-a">
+    $$V(G) = E - N + 2P = 14 - 10 + 2(1) = \mathbf{6}$$
+    <strong>Significance:</strong> The program contains exactly 6 linearly independent execution paths. A minimum of 6 distinct test cases is mathematically necessary and sufficient to guarantee 100% basis path (branch) test coverage.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 4: Neural Sequence Models & Transformers</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 4: Lexical Semantics & Embeddings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #c026d3;       /* Fuchsia / Magenta */
-  --primary-light: #fdf4ff;
+  --primary: #7c3aed;       /* Purple */
+  --primary-light: #f5f3ff;
   --accent: #8b5cf6;        /* Violet */
-  --secondary: #4f46e5;     /* Indigo */
+  --secondary: #2563eb;     /* Royal Blue */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "NLP (CS24311) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-fuchsia { background: #fae8ff; color: #86198f; }
-.badge-violet { background: #ede9fe; color: #5b21b6; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
 .badge-green { background: #d1fae5; color: #065f46; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #fdf4ff;
-  border: 1px solid #f5d0fe;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #a21caf;
+  color: #6d28d9;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #6d28d9;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #fdf4ff; border-color: #c026d3; color: #701a75; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #faf5ff; border-color: #8b5cf6; color: #4c1d95; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,169 +171,202 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #701a75;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #8b5cf6;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #5b21b6;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #faf5ff;
+  border-left: 4px solid #7c3aed;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #a21caf; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "NLP (CS24351) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-fuchsia">CS24351 — Elective (3.0 Cr)</span>
-      <span class="badge badge-violet">Module IV Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-purple">CS24311 — Theory (3.0 Cr)</span>
+        <span class="badge badge-blue">Module IV Notes</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 4: Lexical Semantics & Embeddings</h1>
+      <div class="doc-subtitle">WordNet Synsets, TF-IDF, Positive PMI, Word2Vec (Skip-Gram SGNS) & GloVe Log-Bilinear Model</div>
     </div>
-    <h1 class="doc-title">Module 4: Neural Sequence Models & Transformers</h1>
-    <div class="doc-subtitle">RNN, LSTM, Seq2Seq Attention, Transformer Architecture, BERT, GPT</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module IV: Neural Sequence Models & Transformers — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Lexical Semantics, Vector Space Models & Distributed Word Embeddings</div>
   <div class="toc-grid">
-    <div>1. Recurrent Neural Networks (RNN) & BPTT</div>
-    <div>2. Long Short-Term Memory (LSTM) & GRU Gating</div>
-    <div>3. Seq2Seq Architecture & Attention Mechanisms</div>
-    <div>4. The Transformer: Scaled Dot-Product & Multi-Head</div>
-    <div>5. Pretrained Models: BERT (MLM) vs. GPT (Autoregressive)</div>
+    <div>1. Lexical Semantics: Word Senses, Synonyms, Antonyms, Hypernyms & Hyponyms</div>
+    <div>2. WordNet Ontology Architecture: Synsets, Taxonomic Distance & Similarity Metrics</div>
+    <div>3. Distributional Hypothesis: "You shall know a word by the company it keeps"</div>
+    <div>4. Term-Document Matrix & Term Frequency-Inverse Document Frequency (TF-IDF)</div>
+    <div>5. Term-Context Matrices & Pointwise Mutual Information (PMI / Positive PMI)</div>
+    <div>6. Dimensionality Reduction in Semantics: Latent Semantic Analysis (LSA / SVD)</div>
+    <div>7. Word2Vec Architecture (Mikolov et al., 2013): Continuous Bag-of-Words (CBOW)</div>
+    <div>8. Word2Vec Skip-Gram Model with Negative Sampling (SGNS) Mathematical Objective</div>
+    <div>9. Vector Arithmetic & Analogical Reasoning ($\mathbf{v}_{\text{King}} - \mathbf{v}_{\text{Man}} + \mathbf{v}_{\text{Woman}} \approx \mathbf{v}_{\text{Queen}}$)</div>
+    <div>10. GloVe (Global Vectors for Word Representation): Log-Bilinear Matrix Factorization</div>
+    <div>11. FastText: Subword N-Gram Embeddings for Morphology & Out-of-Vocabulary (OOV)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. The Transformer Attention Formulation (Vaswani et al., 2017)</h2>
-$$\text{Attention}(Q, K, V) = \text{softmax}\left( \frac{Q K^T}{\sqrt{d_k}} \right) V$$
-$$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O \quad \text{where } \text{head}_i = \text{Attention}(Q W_i^Q, K W_i^K, V W_i^V)$$
+<h2 class="section-title">Topic 4 & 5: Vector Space Models (TF-IDF & Positive PMI)</h2>
 
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Exam Question (10 Marks)</div>
-  <strong>Problem:</strong> Compare BERT and GPT architectures in terms of attention directionality, pre-training objectives, and downstream fine-tuning.<br>
-  <strong>Solution:</strong>
-  <ul>
-    <li><strong>BERT:</strong> Bidirectional Transformer Encoder. Pretrained on Masked Language Modeling (MLM 15% tokens) + Next Sentence Prediction (NSP). Ideal for classification, NER, QA extraction.</li>
-    <li><strong>GPT:</strong> Unidirectional Autoregressive Decoder (Causal attention mask). Pretrained on Next-Token Prediction. Ideal for text generation, creative writing, and in-context few-shot prompting.</li>
-  </ul>
+<div class="formula-card">
+  <strong>1. Term Frequency-Inverse Document Frequency ($\text{TF-IDF}$):</strong>
+  $$\text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)$$
+  $$\text{TF}(t, d) = \frac{f_{t, d}}{\sum_{t' \in d} f_{t', d}}, \quad \text{IDF}(t, D) = \log_{10}\left( \frac{|D|}{|\{d \in D : t \in d\}|} \right)$$
 </div>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Natural Language Processing (CS24351) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<div class="formula-card">
+  <strong>2. Positive Pointwise Mutual Information ($\text{PPMI}$):</strong>
+  $$\text{PMI}(w, c) = \log_2\left( \frac{P(w, c)}{P(w) P(c)} \right) = \log_2\left( \frac{C(w, c) \cdot N}{C(w) \cdot C(c)} \right)$$
+  $$\text{PPMI}(w, c) = \max(\text{PMI}(w, c), 0)$$
+</div>
+
+<h2 class="section-title">Topic 7 & 8: Word2Vec (Skip-Gram with Negative Sampling - SGNS)</h2>
+
+<p>
+  <strong>Word2Vec</strong> learns dense low-dimensional continuous vector embeddings ($d \approx 300$) where semantically similar words are mapped to proximate points in vector space.
+</p>
+
+<div class="callout callout-info">
+  <div class="callout-title">Skip-Gram with Negative Sampling (SGNS) Loss Function</div>
+  For a target word $w$ with true context word $c_{\text{pos}}$ and $k$ randomly drawn negative words $c_{\text{neg}, 1 \dots k}$ from noise distribution $P_n(w) \propto f(w)^{3/4}$:
+  $$\mathcal{L}_{\text{SGNS}} = \log \sigma(\mathbf{v}_{c_{\text{pos}}}^T \mathbf{v}_w) + \sum_{i=1}^k \mathbb{E}_{c_{\text{neg}, i} \sim P_n} \Big[ \log \sigma(-\mathbf{v}_{c_{\text{neg}, i}}^T \mathbf{v}_w) \Big]$$
+  Where $\sigma(z) = \frac{1}{1 + e^{-z}}$ is the logistic sigmoid function. Maximizes dot product with actual context words while pushing away negative noise samples!
+</div>
+
+<h2 class="section-title">Topic 10: GloVe (Global Vectors for Word Representation)</h2>
+
+<div class="formula-card">
+  <strong>GloVe Log-Bilinear Objective Function (Pennington, Socher, Manning, 2014):</strong>
+  $$J = \sum_{i, j=1}^V f(X_{ij}) \Big( \mathbf{w}_i^T \tilde{\mathbf{w}}_j + b_i + \tilde{b}_j - \log X_{ij} \Big)^2$$
+  Where $X_{ij}$ is the co-occurrence count of word $i$ with context word $j$, and $f(X_{ij}) = \min(1, (X_{ij} / x_{\max})^\alpha)$ is a weighting function that caps the influence of extremely frequent stop words (with $\alpha = 0.75, x_{\max} = 100$).
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Compare CBOW and Skip-Gram models in Word2Vec across 4 architectural parameters. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Prediction Task:</strong> CBOW predicts the target center word given a window of surrounding context words; Skip-Gram predicts the surrounding context words given the center word.<br>
+    2. <strong>Training Speed:</strong> CBOW trains several times faster than Skip-Gram because context word vectors are averaged in a single forward pass.<br>
+    3. <strong>Performance on Rare Words:</strong> Skip-Gram is substantially superior for rare words and small datasets because each target-context pair is treated as a separate training sample.<br>
+    4. <strong>Vector Representations:</strong> CBOW smooths over context distribution; Skip-Gram preserves multi-sense representations.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 4: Project Estimation & Scheduling</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #ea580c;       /* Orange */
+  --primary-light: #fff7ed;
+  --accent: #f97316;        /* Bright Orange */
+  --secondary: #d97706;     /* Amber */
+  --success: #059669;
+  --success-bg: #ecfdf5;
+  --warning: #d97706;
+  --warning-bg: #fffbeb;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --dark: #0f172a;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #cbd5e1;
+  --bg-card: #ffffff;
+  --bg-page: #f8fafc;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Software Engineering (CS24309) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 0;
+}
+
+.doc-header {
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.badge-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.badge-orange { background: #ffedd5; color: #c2410c; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-amber { background: #fef3c7; color: #92400e; }
+
+h1.doc-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.doc-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.toc-box {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+}
+
+.toc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c2410c;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 20px;
+  font-size: 11.2px;
+}
+
+h2.section-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--dark);
+  border-left: 4px solid var(--primary);
+  padding-left: 10px;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
+}
+
+h3.subsection-title {
+  font-size: 13.2px;
+  font-weight: 700;
+  color: #c2410c;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+
+.callout {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.5px;
+  border-left: 4px solid;
+  page-break-inside: avoid;
+}
+.callout-info { background: #fff7ed; border-color: #ea580c; color: #7c2d12; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 11px;
+  page-break-inside: avoid;
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
+  text-align: left;
+}
+
+.custom-table th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
+  overflow-x: auto;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #ea580c;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #c2410c;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #fff7ed;
+  border-left: 4px solid #ea580c;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
+
+.diagram-container {
+  margin: 14px auto;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  page-break-inside: avoid;
+}
+
+.diagram-caption {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.page-break {
+  page-break-before: always;
+  break-before: page;
+}
+</style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-orange">CS24309 — Theory (3.0 Cr)</span>
+        <span class="badge badge-blue">Module IV Notes</span>
+        <span class="badge badge-purple">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 4: Project Estimation & Scheduling</h1>
+      <div class="doc-subtitle">Albrecht Function Points (FP), Boehm's COCOMO I Equations & PERT / CPM Calculations</div>
+    </div>
+    
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Software Project Estimation, Metrics & Scheduling</div>
+  <div class="toc-grid">
+    <div>1. Software Project Management Dimensions (People, Product, Process, Project — 4 P's)</div>
+    <div>2. Size-Oriented Metrics (Lines of Code — LOC) & Inherent Productivity Pitfalls</div>
+    <div>3. Function-Oriented Metrics: Albrecht's Function Point (FP) Analysis Formulations</div>
+    <div>4. Unadjusted Function Count (UFC) across 5 Information Domain Characteristics</div>
+    <div>5. 14 General System Characteristics & Value Adjustment Factor (VAF) Math</div>
+    <div>6. Boehm's COCOMO I Model: Organic, Semi-Detached & Embedded Project Modes</div>
+    <div>7. Basic, Intermediate (Cost Drivers / EAF) & Detailed COCOMO Equations</div>
+    <div>8. Project Scheduling: Work Breakdown Structure (WBS) & Activity Networks</div>
+    <div>9. Critical Path Method (CPM): Earliest Start/Finish & Latest Start/Finish Slack Times</div>
+    <div>10. Program Evaluation and Review Technique (PERT) Expected Duration ($T_e$) & Variance</div>
+    <div>11. Risk Management Framework: Identification, Projection, Assessment & RMMM Plans</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 3 – 5: Function Point (FP) Analysis</h2>
+
+<div class="formula-card">
+  <strong>1. Function Point Formula (Albrecht, 1979):</strong>
+  $$\text{FP} = \text{UFC} \times \text{VAF} = \text{UFC} \times \left( 0.65 + 0.01 \times \sum_{i=1}^{14} F_i \right)$$
+  Where $\text{UFC}$ is Unadjusted Function Count, and $F_i \in [0, 5]$ are ratings for 14 General System Characteristics (yielding $\text{VAF} \in [0.65, 1.35]$).
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 30%;">Information Domain Element</th>
+      <th style="width: 20%;">Low Complexity</th>
+      <th style="width: 20%;">Average Complexity</th>
+      <th>High Complexity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. External Inputs (EI)</strong></td><td>3</td><td>4</td><td>6</td></tr>
+    <tr><td><strong>2. External Outputs (EO)</strong></td><td>4</td><td>5</td><td>7</td></tr>
+    <tr><td><strong>3. External Inquiries (EQ)</strong></td><td>3</td><td>4</td><td>6</td></tr>
+    <tr><td><strong>4. Internal Logical Files (ILF)</strong></td><td>7</td><td>10</td><td>15</td></tr>
+    <tr><td><strong>5. External Interface Files (EIF)</strong></td><td>5</td><td>7</td><td>10</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 6 & 7: Boehm's COCOMO (Constructive Cost Model)</h2>
+
+<div class="formula-card">
+  <strong>Basic COCOMO Effort & Schedule Equations:</strong>
+  $$\text{Effort } (E) = a \times (\text{KLOC})^b \quad \text{Person-Months (PM)}$$
+  $$\text{Development Time } (T_{\text{dev}}) = c \times (E)^d \quad \text{Months}$$
+  $$\text{Average Staffing } (\text{Staff}) = \frac{E}{T_{\text{dev}}} \quad \text{Persons}$$
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Project Mode</th>
+      <th style="width: 30%;">Characteristics</th>
+      <th style="width: 12%;">$a$</th>
+      <th style="width: 12%;">$b$</th>
+      <th style="width: 12%;">$c$</th>
+      <th>$d$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Organic</strong></td>
+      <td>Small teams, familiar in-house domain, relaxed constraints.</td>
+      <td>2.4</td>
+      <td>1.05</td>
+      <td>2.5</td>
+      <td>0.38</td>
+    </tr>
+    <tr>
+      <td><strong>2. Semi-Detached</strong></td>
+      <td>Medium teams, mixed experience levels, medium constraints.</td>
+      <td>3.0</td>
+      <td>1.12</td>
+      <td>2.5</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <td><strong>3. Embedded</strong></td>
+      <td>Tight hardware/software constraints, complex safety-critical systems.</td>
+      <td>3.6</td>
+      <td>1.20</td>
+      <td>2.5</td>
+      <td>0.32</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Basic COCOMO Estimation for a 30 KLOC Semi-Detached Project</div>
+  <ol>
+    <li>
+      <strong>Step 1: Compute Effort ($E$):</strong>
+      $$E = 3.0 \times (30)^{1.12} = 3.0 \times 44.91 = \mathbf{134.73} \text{ Person-Months}$$
+    </li>
+    <li>
+      <strong>Step 2: Compute Development Time ($T_{\text{dev}}$):</strong>
+      $$T_{\text{dev}} = 2.5 \times (134.73)^{0.35} = 2.5 \times 5.54 = \mathbf{13.85} \text{ Months}$$
+    </li>
+    <li>
+      <strong>Step 3: Compute Average Staffing Size:</strong>
+      $$\text{Staff} = \frac{E}{T_{\text{dev}}} = \frac{134.73}{13.85} \approx \mathbf{9.7} \implies \mathbf{10} \text{ Engineers}$$
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 9 & 10: Project Scheduling (CPM & PERT Calculations)</h2>
+
+<div class="formula-card">
+  <strong>PERT Three-Point Estimation Formulas:</strong>
+  - Optimistic time ($a$), Most likely time ($m$), Pessimistic time ($b$).
+  $$\text{Expected Duration } (T_e) = \frac{a + 4m + b}{6}$$
+  $$\text{Standard Deviation } (\sigma) = \frac{b - a}{6}, \quad \text{Variance } (\sigma^2) = \left( \frac{b - a}{6} \right)^2$$
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. State the components of an RMMM (Risk Mitigation, Monitoring, and Management) plan. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Risk Mitigation (Proactive Prevention):</strong> Developing actionable strategy to reduce the probability of risk occurrence.<br>
+       <em>Example:</em> High developer turnover risk $\rightarrow$ cross-training team members and establishing thorough documentation standards.<br>
+    2. <strong>Risk Monitoring (Tracking):</strong> Continuously observing warning indicators to detect when a risk is transitioning from potential threat to reality.<br>
+       <em>Example:</em> Monitoring team morale, overtime hours, and unresolved bug counts.<br>
+    3. <strong>Risk Management (Contingency Action):</strong> Executing contingency plans when mitigation fails and the risk actually occurs.<br>
+       <em>Example:</em> Activating backup external contractors if a key developer departs.
+  </div>
+</div>
+
+  </div>
+</body>
+</html>

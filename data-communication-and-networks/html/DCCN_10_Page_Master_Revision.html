@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DCCN — 10-Page Master Quick Revision</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>DCCN — 10-Page Master Quick Revision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -74,18 +91,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,174 +171,207 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">10-Page Master Revision</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">10-Page Master Revision</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">DCCN — 10-Page Master Quick Revision</h1>
+      <div class="doc-subtitle">High-Yield Formula Sheet, Protocol Matrices & Top 10 BIT Mesra PYQ Solutions</div>
     </div>
-    <h1 class="doc-title">DCCN — 10-Page Master Quick Revision</h1>
-    <div class="doc-subtitle">High-Yield Formula Sheet, Protocol Matrix & BIT Mesra PYQ Solutions</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">🌐 10-Page Master Quick Revision — Data Communication & Networks (CS24305)</div>
+  <div class="toc-title">⚡ 10-Page Master Quick Revision — Data Communication & Computer Networks (CS24305)</div>
   <div class="toc-grid">
-    <div>Page 1-2: OSI vs. TCP/IP, Signal Impairments & Channel Capacities</div>
-    <div>Page 3-4: Digital Encodings (Manchester), QAM & PCM Quantization</div>
-    <div>Page 5-6: CRC Modulo-2, Hamming Code & ARQ Protocol Efficiency</div>
-    <div>Page 7-8: Ethernet CSMA/CD, Wi-Fi CSMA/CA, Cellular & VLANs</div>
-    <div>Page 9-10: IPv4 Subnetting, TCP Congestion Control & Routing</div>
+    <div>Page 1: OSI 7-Layer Model vs. TCP/IP Architecture & Encapsulation</div>
+    <div>Page 2: Physical Layer: Nyquist Rate, Shannon Capacity & Manchester Encodings</div>
+    <div>Page 3: Data Link Layer: Bit Stuffing, CRC Modulo-2 Division & Hamming Code</div>
+    <div>Page 4: Sliding Window ARQs: Stop-and-Wait, Go-Back-N, Selective Repeat Math</div>
+    <div>Page 5: Medium Access Control: Pure/Slotted ALOHA, CSMA/CD Minimum Frame Size</div>
+    <div>Page 6: Network Layer: IPv4 Header Anatomy, Subnetting Masks & CIDR Lookup</div>
+    <div>Page 7: Routing Protocols: Distance Vector (Bellman-Ford) & Link State (Dijkstra)</div>
+    <div>Page 8: Transport Layer: TCP 3-Way Handshake & AIMD Congestion Control Rules</div>
+    <div>Page 9: Application Layer: DNS Hierarchy, HTTP Evolution & Email (SMTP/IMAP)</div>
+    <div>Page 10: Network Security: RSA Public-Key Cryptography Derivations & Solutions</div>
   </div>
 </div>
 
-<h2 class="section-title">⚡ High-Yield DCCN Formulas & Protocol Matrix</h2>
+<h2 class="section-title">⚡ Master Formula, Protocol & Channel Capacity Cheat Sheet</h2>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th>Concept</th>
-      <th>Exact Formula / Rule</th>
-      <th>Key Insight</th>
+      <th style="width: 25%;">Topic / Concept</th>
+      <th style="width: 45%;">Core Mathematical Formulation / Rule</th>
+      <th>Key Exam Takeaway</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Nyquist Capacity</strong></td><td>$C = 2B \log_2(M) \text{ bps}$</td><td>Noiseless channel only.</td></tr>
-    <tr><td><strong>Shannon Capacity</strong></td><td>$C = B \log_2(1 + \text{SNR}) \text{ bps}$</td><td>Convert dB to ratio: $\text{SNR} = 10^{(\text{dB}/10)}$.</td></tr>
-    <tr><td><strong>Hamming Code Bits</strong></td><td>$2^k \ge m + k + 1$</td><td>$m$ data bits, $k$ parity bits.</td></tr>
-    <tr><td><strong>Stop-and-Wait Efficiency</strong></td><td>$\eta = \frac{1}{1 + 2a}$ where $a = \frac{T_{\text{prop}}}{T_{\text{trans}}}$</td><td>$T_{\text{trans}} = \frac{L}{B}, T_{\text{prop}} = \frac{d}{v}$.</td></tr>
-    <tr><td><strong>GBN Window Limit</strong></td><td>$W_s \le 2^k - 1, \quad W_r = 1$</td><td>Avoids sequence wrap-around ambiguity.</td></tr>
-    <tr><td><strong>Selective Repeat Limit</strong></td><td>$W_s = W_r \le 2^{k-1}$</td><td>Sender and receiver windows are equal.</td></tr>
+    <tr>
+      <td><strong>Nyquist Bit Rate</strong></td>
+      <td>$$\text{BitRate}_{\max} = 2 B \log_2(M)$$</td>
+      <td>Applies strictly to noiseless channels with $M$ signal levels.</td>
+    </tr>
+    <tr>
+      <td><strong>Shannon Channel Capacity</strong></td>
+      <td>$$C = B \log_2(1 + \text{SNR}), \quad \text{SNR} = 10^{\frac{\text{SNR}_{\text{dB}}}{10}}$$</td>
+      <td>Theoretical upper bound for noisy thermal Gaussian channels.</td>
+    </tr>
+    <tr>
+      <td><strong>CSMA/CD Minimum Frame</strong></td>
+      <td>$$L_{\min} = 2 \times B \times \frac{d}{v}$$</td>
+      <td>Guarantees collision detection before frame transmission ends (64 bytes in Ethernet).</td>
+    </tr>
+    <tr>
+      <td><strong>Stop-and-Wait Efficiency</strong></td>
+      <td>$$\eta = \frac{1}{1 + 2a}, \quad a = \frac{T_p}{T_t} = \frac{d / v}{L / B}$$</td>
+      <td>Becomes very low over high-latency satellite channels ($a \gg 1$).</td>
+    </tr>
+    <tr>
+      <td><strong>GBN vs SR Window Sizes</strong></td>
+      <td>$$\text{GBN: } W_s \le 2^m - 1, \quad \text{SR: } W_s \le 2^{m-1}$$</td>
+      <td>Prevents sequence number window overlap on lost ACKs.</td>
+    </tr>
+    <tr>
+      <td><strong>RSA Decryption Key</strong></td>
+      <td>$$(d \times e) \equiv 1 \pmod{\phi(n)}, \quad \phi(n) = (p-1)(q-1)$$</td>
+      <td>Security relies on computational difficulty of factoring $n = pq$.</td>
+    </tr>
   </tbody>
 </table>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">🔥 Top 10 High-Yield BIT Mesra Exam Questions & Solutions</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. A 100 km long cable has a data rate of 100 Mbps. If propagation speed is $2 \times 10^8 \text{ m/s}$, find the minimum frame size for CSMA/CD. (6 Marks)</div>
+  <div class="qa-a">
+    1. $T_p = \frac{d}{v} = \frac{100 \times 10^3 \text{ m}}{2 \times 10^8 \text{ m/s}} = 5 \times 10^{-4} \text{ s} = 0.5 \text{ ms}$.<br>
+    2. $L_{\min} = 2 \times B \times T_p = 2 \times (100 \times 10^6 \text{ bps}) \times (5 \times 10^{-4} \text{ s}) = \mathbf{100,000} \text{ bits} = \mathbf{12,500} \text{ bytes}$.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

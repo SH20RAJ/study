@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 5: Testing, Quality & Maintenance</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #ea580c;       /* Orange */
+  --primary-light: #fff7ed;
+  --accent: #f97316;        /* Bright Orange */
+  --secondary: #d97706;     /* Amber */
+  --success: #059669;
+  --success-bg: #ecfdf5;
+  --warning: #d97706;
+  --warning-bg: #fffbeb;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --dark: #0f172a;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #cbd5e1;
+  --bg-card: #ffffff;
+  --bg-page: #f8fafc;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Software Engineering (CS24309) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 0;
+}
+
+.doc-header {
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.badge-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.badge-orange { background: #ffedd5; color: #c2410c; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-amber { background: #fef3c7; color: #92400e; }
+
+h1.doc-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.doc-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.toc-box {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+}
+
+.toc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c2410c;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 20px;
+  font-size: 11.2px;
+}
+
+h2.section-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--dark);
+  border-left: 4px solid var(--primary);
+  padding-left: 10px;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
+}
+
+h3.subsection-title {
+  font-size: 13.2px;
+  font-weight: 700;
+  color: #c2410c;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+
+.callout {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.5px;
+  border-left: 4px solid;
+  page-break-inside: avoid;
+}
+.callout-info { background: #fff7ed; border-color: #ea580c; color: #7c2d12; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 11px;
+  page-break-inside: avoid;
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
+  text-align: left;
+}
+
+.custom-table th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
+  overflow-x: auto;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #ea580c;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #c2410c;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #fff7ed;
+  border-left: 4px solid #ea580c;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
+
+.diagram-container {
+  margin: 14px auto;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  page-break-inside: avoid;
+}
+
+.diagram-caption {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.page-break {
+  page-break-before: always;
+  break-before: page;
+}
+</style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-orange">CS24309 — Theory (3.0 Cr)</span>
+        <span class="badge badge-blue">Module V Notes</span>
+        <span class="badge badge-purple">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 5: Testing, Quality & Maintenance</h1>
+      <div class="doc-subtitle">Black-Box (ECP/BVA), White-Box (Basis Path & Cyclomatic Complexity), Mutation & 4 Maintenance Types</div>
+    </div>
+    
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Software Testing Strategies, Quality Assurance & Maintenance</div>
+  <div class="toc-grid">
+    <div>1. Verification vs. Validation (Boehm: "Building product right" vs. "Building right product")</div>
+    <div>2. Black-Box Testing: Equivalence Class Partitioning (ECP) & Boundary Value Analysis (BVA)</div>
+    <div>3. White-Box (Structural) Testing: Control Flow Graphs (CFG) & Logic Path Coverage</div>
+    <div>4. McCabe's Cyclomatic Complexity ($V(G) = E - N + 2P = P + 1$) & Independent Basis Paths</div>
+    <div>5. Advanced Structural Coverage: Branch, Condition, Multiple Condition & MC/DC</div>
+    <div>6. Testing Levels Hierarchy: Unit Testing (Stubs & Drivers), Integration & System Testing</div>
+    <div>7. Integration Strategies: Big-Bang, Top-Down (Depth/Breadth-First) vs. Bottom-Up Sandwich</div>
+    <div>8. Acceptance Testing (Alpha vs. Beta Testing) & Regression Testing Test-Suite Minimization</div>
+    <div>9. Mutation Testing: Generating Mutants, Killed Mutants ($D$) & Mutation Score ($\text{MS}$)</div>
+    <div>10. Software Quality Assurance: ISO 9126, McCall's Quality Factors & CMMI 5 Levels</div>
+    <div>11. Software Maintenance: 4 Classical Categories (Corrective, Adaptive, Perfective, Preventive)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 2: Black-Box (Functional) Testing Techniques</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Testing Method</th>
+      <th style="width: 45%;">Test Case Derivation Principle</th>
+      <th>Example for Input Range $[1, 100]$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Equivalence Class Partitioning (ECP)</strong></td>
+      <td>Divides input domain into valid and invalid equivalence classes. One test case is selected to represent each class.</td>
+      <td>• Valid Class: $[1, 100]$ (e.g., $50$)<br>• Invalid Class 1: $< 1$ (e.g., $-5$)<br>• Invalid Class 2: $> 100$ (e.g., $150$)</td>
+    </tr>
+    <tr>
+      <td><strong>2. Boundary Value Analysis (BVA)</strong></td>
+      <td>Selects test cases at the extreme boundaries and just inside/outside boundaries ($Min, Min+, Nom, Max-, Max$).</td>
+      <td>Test values: $1$ (Min), $2$ (Min+), $50$ (Nom), $99$ (Max-), $100$ (Max), plus invalid boundaries $0$ and $101$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 3 & 4: White-Box Testing & McCabe's Cyclomatic Complexity</h2>
+
+<div class="formula-card">
+  <strong>McCabe's Cyclomatic Complexity ($V(G)$) Formulas:</strong>
+  Let $G$ be the Control Flow Graph of a program:
+  1. <strong>Formula 1 (Edges & Nodes):</strong>
+     $$V(G) = E - N + 2P$$
+     Where $E$ is number of flow graph edges, $N$ is number of nodes, and $P$ is number of connected components ($P=1$ for single programs).
+  2. <strong>Formula 2 (Predicate Nodes):</strong>
+     $$V(G) = P + 1$$
+     Where $P$ is the number of binary decision/conditional predicate nodes (`if`, `while`, `for`).
+  3. <strong>Formula 3 (Enclosed Regions):</strong>
+     $$V(G) = \text{Number of Enclosed Planar Regions} + 1 \text{ (Outer Region)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Cyclomatic Complexity & Basis Paths Calculation</div>
+  <p><strong>Code Snippet:</strong></p>
+  <pre><code>1: if (a > 10) {
+2:     if (b < 20)
+3:         x = 1;
+4:     else
+5:         x = 2;
+6: } else {
+7:     x = 3;
+8: }
+9: return x;</code></pre>
+  <ol>
+    <li><strong>Predicate Nodes ($P$):</strong> Two conditional tests (Node 1: `a > 10`, Node 2: `b < 20`).</li>
+    <li><strong>Cyclomatic Complexity:</strong> $V(G) = P + 1 = 2 + 1 = \mathbf{3}$.</li>
+    <li><strong>3 Linearly Independent Basis Paths:</strong>
+      - <em>Path 1:</em> $1 \rightarrow 6 \rightarrow 7 \rightarrow 9$ (Condition 1 is False).
+      - <em>Path 2:</em> $1 \rightarrow 2 \rightarrow 3 \rightarrow 9$ (Condition 1 is True, Condition 2 is True).
+      - <em>Path 3:</em> $1 \rightarrow 2 \rightarrow 5 \rightarrow 9$ (Condition 1 is True, Condition 2 is False).
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 9: Mutation Testing & Quality Evaluation</h2>
+
+<div class="formula-card">
+  <strong>Mutation Score ($\text{MS}$) Formula:</strong>
+  $$\text{Mutation Score } (\text{MS}) = \frac{D}{T - E} \times 100\%$$
+  Where $T$ is total generated mutants, $D$ is number of killed (detected) mutants, and $E$ is number of equivalent mutants (mutants that have identical functional behavior to original program).
+</div>
+
+<h2 class="section-title">Topic 11: Software Maintenance Categories</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Maintenance Type</th>
+      <th style="width: 45%;">Purpose & Triggering Factor</th>
+      <th>Typical Effort Share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. Corrective</strong></td><td>Fixing residual latent software defects and bugs discovered in production.</td><td>$\approx 20\%$</td></tr>
+    <tr><td><strong>2. Adaptive</strong></td><td>Modifying software to accommodate changes in external environment (new OS, hardware upgrade, legal regulations).</td><td>$\approx 25\%$</td></tr>
+    <tr><td><strong>3. Perfective</strong></td><td>Enhancing software functionality, improving performance, and optimizing code maintainability based on user requests.</td><td>$\approx 50\%$ (Dominant)</td></tr>
+    <tr><td><strong>4. Preventive</strong></td><td>Refactoring and restructuring code to forestall future potential failures (Software Re-engineering).</td><td>$\approx 5\%$</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Compare Stubs and Drivers in Integration Testing with diagrams. (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>Driver:</strong> A dummy calling program written to invoke and pass test data to the module under test. Used extensively in <strong>Bottom-Up Integration Testing</strong> where high-level parent control modules have not yet been developed.<br>
+    - <strong>Stub:</strong> A dummy called subroutine that simulates the interface and returns dummy values for sub-modules invoked by the module under test. Used extensively in <strong>Top-Down Integration Testing</strong> where low-level worker modules have not yet been developed.
+  </div>
+</div>
+
+  </div>
+</body>
+</html>

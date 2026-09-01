@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 5: Internetworking, TCP/IP & Routing</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 5: Transport Layer & Security</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -74,18 +91,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,176 +171,252 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">Module V Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module V Notes</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 5: Transport Layer & Security</h1>
+      <div class="doc-subtitle">TCP 3-Way Handshake, TCP AIMD Congestion Control, DNS Hierarchy, HTTP Evolution & RSA Public-Key Math</div>
     </div>
-    <h1 class="doc-title">Module 5: Internetworking, TCP/IP & Routing</h1>
-    <div class="doc-subtitle">IPv4 VLSM Subnetting, TCP Congestion Control, Dijkstra & DVR</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module V: Internetworking, TCP/IP & Routing — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Transport Layer, Application Services & Network Security</div>
   <div class="toc-grid">
-    <div>1. IPv4 Addressing, Classless CIDR & VLSM Subnetting</div>
-    <div>2. TCP 3-Way Handshake & Congestion Control</div>
-    <div>3. Dijkstra Shortest Path (OSPF) & Bellman-Ford (RIP)</div>
-    <div>4. Application Protocols: DNS, DHCP, HTTP/2, SMTP</div>
+    <div>1. Transport Layer Port Multiplexing & Sockets Interface (TCP vs. UDP)</div>
+    <div>2. TCP Segment Anatomy: Sequence Numbers, Acknowledgments & Control Flags</div>
+    <div>3. TCP 3-Way Handshake Connection Establishment & 4-Way FIN Teardown</div>
+    <div>4. TCP Flow Control (Receiver Window `rwnd` & Nagle's Algorithm)</div>
+    <div>5. TCP Congestion Control: Slow Start, Congestion Avoidance (AIMD), Fast Retransmit</div>
+    <div>6. TCP Fast Recovery & Cubic / BBR Modern Congestion Mechanisms</div>
+    <div>7. Domain Name System (DNS): Hierarchical Namespace, Root Servers & Records (A, AAAA, MX)</div>
+    <div>8. Hypertext Transfer Protocol Evolution: HTTP/1.1 vs. HTTP/2 vs. HTTP/3 (QUIC)</div>
+    <div>9. Email Architecture: SMTP, POP3, IMAP & MIME Extensions</div>
+    <div>10. Cryptographic Fundamentals: Symmetric (AES) vs. Asymmetric (RSA) Cryptography</div>
+    <div>11. RSA Public-Key Algorithm Mathematical Derivation & Worked Encryption Traces</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. TCP Congestion Control Mechanics</h2>
-<p>
-  TCP maintains a congestion window ($cwnd$) and slow-start threshold ($ssthresh$):
-  <ul>
-    <li><strong>Slow Start:</strong> $cwnd$ starts at $1 \text{ MSS}$ and doubles every RTT ($cwnd = cwnd \times 2$) exponentially until $cwnd \ge ssthresh$.</li>
-    <li><strong>Congestion Avoidance:</strong> $cwnd$ increases linearly by $1 \text{ MSS}$ per RTT (Additive Increase).</li>
-    <li><strong>Triple Duplicate ACKs (Fast Retransmit & Recovery):</strong> $ssthresh = cwnd / 2$, $cwnd = ssthresh + 3 \text{ MSS}$, retransmit lost segment immediately.</li>
-    <li><strong>Timeout:</strong> $ssthresh = cwnd / 2$, $cwnd = 1 \text{ MSS}$, re-enter Slow Start.</li>
-  </ul>
-</p>
+<h2 class="section-title">Topic 1 – 3: TCP Protocol Architecture & 3-Way Handshake</h2>
 
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra VLSM Subnetting Problem (10 Marks)</div>
-  <strong>Problem:</strong> Given network block `192.168.1.0/24`, design subnets for Dept A (100 hosts), Dept B (50 hosts), and Dept C (25 hosts).<br>
-  <strong>Solution:</strong>
-  <ul>
-    <li><strong>Dept A (100 hosts):</strong> Needs $2^7 - 2 = 126$ IPs $\implies /25$. Subnet: `192.168.1.0/25` (Range: `.1` to `.126`, Broadcast: `.127`).</li>
-    <li><strong>Dept B (50 hosts):</strong> Needs $2^6 - 2 = 62$ IPs $\implies /26$. Subnet: `192.168.1.128/26` (Range: `.129` to `.190`, Broadcast: `.191`).</li>
-    <li><strong>Dept C (25 hosts):</strong> Needs $2^5 - 2 = 30$ IPs $\implies /27$. Subnet: `192.168.1.192/27` (Range: `.193` to `.222`, Broadcast: `.223`).</li>
-  </ul>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">TCP Control Flag</th>
+      <th style="width: 15%;">Bit Position</th>
+      <th>Operational Role in Connection State Machine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>SYN</strong></td><td>Synchronize</td><td>Initiates a connection; synchronizes initial sequence numbers (ISN). Consumes 1 sequence number.</td></tr>
+    <tr><td><strong>ACK</strong></td><td>Acknowledgment</td><td>Validates the 32-bit Acknowledgment Number field indicating next expected byte.</td></tr>
+    <tr><td><strong>FIN</strong></td><td>Finish</td><td>Sender has finished sending data and requests connection termination. Consumes 1 sequence number.</td></tr>
+    <tr><td><strong>RST</strong></td><td>Reset</td><td>Abruptly terminates an invalid or unauthorized connection request.</td></tr>
+    <tr><td><strong>PSH</strong></td><td>Push</td><td>Instructs receiver to deliver buffered data to application immediately without waiting for buffer to fill.</td></tr>
+    <tr><td><strong>URG</strong></td><td>Urgent</td><td>Validates the Urgent Pointer field for out-of-band high-priority data (e.g., `Ctrl+C`).</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: TCP 3-Way Handshake Connection Sequence</div>
+  <ol>
+    <li><strong>Client $\rightarrow$ Server (SYN):</strong> Client chooses random initial sequence number $x$:
+      $$\text{Segment 1: } [\mathbf{SYN}=1, \ \mathbf{Seq}=x]$$
+    </li>
+    <li><strong>Server $\rightarrow$ Client (SYN-ACK):</strong> Server acknowledges client's ISN ($x+1$) and chooses its own ISN $y$:
+      $$\text{Segment 2: } [\mathbf{SYN}=1, \ \mathbf{ACK}=1, \ \mathbf{Seq}=y, \ \mathbf{Ack}=x+1]$$
+    </li>
+    <li><strong>Client $\rightarrow$ Server (ACK):</strong> Client acknowledges server's ISN ($y+1$):
+      $$\text{Segment 3: } [\mathbf{ACK}=1, \ \mathbf{Seq}=x+1, \ \mathbf{Ack}=y+1]$$
+      <em>Connection established in ESTABLISHED state.</em>
+    </li>
+  </ol>
 </div>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">Topic 5 & 6: TCP Congestion Control Mechanisms (AIMD)</h2>
+
+<div class="formula-card">
+  <strong>The 4 Standard Phases of TCP Congestion Control (Tahoe / Reno):</strong>
+  <ol>
+    <li><strong>Slow Start:</strong> Initial congestion window $\text{cwnd} = 1 \text{ MSS}$. Doubles every Round-Trip Time ($\text{cwnd} \leftarrow \text{cwnd} \times 2$) exponentially until $\text{cwnd} \ge \text{ssthresh}$ (Slow Start Threshold).</li>
+    <li><strong>Congestion Avoidance (Additive Increase):</strong> Increases linearly by $1 \text{ MSS}$ per RTT ($\text{cwnd} \leftarrow \text{cwnd} + 1$).</li>
+    <li><strong>Triple Duplicate ACK Event (Fast Retransmit & Recovery):</strong>
+      - $\text{ssthresh} \leftarrow \frac{\text{cwnd}}{2}$
+      - $\text{cwnd} \leftarrow \text{ssthresh} + 3 \text{ MSS}$ (TCP Reno skips Slow Start and continues linearly).
+    </li>
+    <li><strong>Timeout Event (Severe Congestion):</strong>
+      - $\text{ssthresh} \leftarrow \frac{\text{cwnd}}{2}$
+      - $\text{cwnd} \leftarrow 1 \text{ MSS}$ (Drops back to Slow Start).
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 10 & 11: Network Security & RSA Public-Key Cryptography</h2>
+
+<div class="formula-card">
+  <strong>RSA Algorithm Mathematical Formulations (Rivest, Shamir, Adleman, 1977):</strong>
+  <ol>
+    <li>Select two distinct large prime numbers $p$ and $q$.</li>
+    <li>Compute modulus $n = p \times q$.</li>
+    <li>Compute Euler's Totient $\phi(n) = (p - 1)(q - 1)$.</li>
+    <li>Choose public exponent $e$ such that $1 < e < \phi(n)$ and $\gcd(e, \phi(n)) = 1$.</li>
+    <li>Compute private decryption exponent $d$ using Extended Euclidean Algorithm:
+      $$d \equiv e^{-1} \pmod{\phi(n)} \implies (d \times e) \pmod{\phi(n)} = 1$$
+    </li>
+    <li><strong>Public Key:</strong> $KU = \{e, n\}$, <strong>Private Key:</strong> $KR = \{d, n\}$.</li>
+    <li><strong>Encryption:</strong> Ciphertext $C = M^e \pmod n$.</li>
+    <li><strong>Decryption:</strong> Plaintext $M = C^d \pmod n$.</li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Complete RSA Encryption & Decryption Trace</div>
+  <p>Let primes $p = 3, q = 11$, and Plaintext message $M = 7$.</p>
+  <ol>
+    <li>$n = 3 \times 11 = \mathbf{33}$.</li>
+    <li>$\phi(n) = (3 - 1)(11 - 1) = 2 \times 10 = \mathbf{20}$.</li>
+    <li>Choose $e = 7$ ($\gcd(7, 20) = 1$).</li>
+    <li>Find $d$: $(d \times 7) \pmod{20} = 1 \implies 7d = 21 \implies \mathbf{d = 3}$.</li>
+    <li><strong>Encryption:</strong> $C = 7^7 \pmod{33} = 823543 \pmod{33} = \mathbf{4}$.</li>
+    <li><strong>Decryption:</strong> $M = 4^3 \pmod{33} = 64 \pmod{33} = \mathbf{7}$. (Original plaintext recovered!).</li>
+  </ol>
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Compare HTTP/1.1, HTTP/2, and HTTP/3 across 4 architectural parameters. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Transport Layer:</strong> HTTP/1.1 and HTTP/2 run over standard TCP; HTTP/3 runs over QUIC (UDP-based).<br>
+    2. <strong>Multiplexing:</strong> HTTP/1.1 uses sequential request-response pipelining (suffers from Head-of-Line blocking); HTTP/2 uses binary frame multiplexing over a single TCP connection; HTTP/3 achieves stream-level multiplexing without TCP Head-of-Line blocking.<br>
+    3. <strong>Header Compression:</strong> HTTP/1.1 uses plain text headers without compression; HTTP/2 uses HPACK; HTTP/3 uses QPACK.<br>
+    4. <strong>Handshake Latency:</strong> HTTP/1.1 & HTTP/2 require 2–3 RTTs (TCP + TLS); HTTP/3 achieves 0-RTT connection resumption.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

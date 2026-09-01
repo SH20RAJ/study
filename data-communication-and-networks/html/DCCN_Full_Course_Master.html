@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Communication & Computer Networks (CS24305) — Full Course Master Book</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Data Communication & Computer Networks (CS24305) — Full Course Master Book</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #0284c7;       /* Sky/Ocean Blue */
+  --primary: #0284c7;       /* Sky Blue */
   --primary-light: #f0f9ff;
   --accent: #0d9488;        /* Teal */
   --secondary: #2563eb;     /* Royal Blue */
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "DCCN (CS24305) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -74,18 +91,18 @@ body {
 .badge-blue { background: #e0f2fe; color: #0369a1; }
 .badge-purple { background: #ede9fe; color: #5b21b6; }
 .badge-green { background: #d1fae5; color: #065f46; }
-.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,129 +171,137 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #0369a1; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "DCCN (CS24305) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-      <span class="badge badge-teal">Full Course Master</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Full Course Master</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Data Communication & Computer Networks (CS24305) — Full Course Master Book</h1>
+      <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
     </div>
-    <h1 class="doc-title">Data Communication & Computer Networks (CS24305) — Full Course Master Book</h1>
-    <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
-  </div>
-  
+    
         <div style="padding: 10px 0;">
           <div style="background: linear-gradient(135deg, #0284c7, #0d9488); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
             <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #ccfbf1; margin-bottom: 6px;">Executive Master Study Guide & Protocol Bank</div>
@@ -305,240 +330,649 @@ li { margin-bottom: 3px; }
         </div>
         <div class='page-break'></div>
 <div class="toc-box">
-  <div class="toc-title">Module I: Data Communications & Networking Overview — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Transmission Fundamentals & Physical Layer Architectures</div>
   <div class="toc-grid">
-    <div>1. Five Components of Data Communication</div>
-    <div>2. Network Topologies (Mesh, Star, Bus, Ring)</div>
-    <div>3. OSI 7-Layer vs. TCP/IP 4-Layer Architecture</div>
-    <div>4. Transmission Impairments (Attenuation, Delay, Noise)</div>
-    <div>5. Nyquist Maximum Data Rate Theorem</div>
-    <div>6. Shannon Channel Capacity Theorem & SNR (dB)</div>
+    <div>1. Data Communication Components & Network Topologies (Mesh, Star, Bus, Ring)</div>
+    <div>2. The OSI 7-Layer Reference Model vs. TCP/IP 5-Layer Protocol Architecture</div>
+    <div>3. Analog vs. Digital Signals, Composite Signals & Fourier Spectral Analysis</div>
+    <div>4. Transmission Impairments (Attenuation, Distortion, Thermal & Cross-Talk Noise)</div>
+    <div>5. Nyquist Maximum Bit Rate Formula for Noiseless Channels & Multi-Level Signaling</div>
+    <div>6. Shannon Channel Capacity Theorem for Noisy Channels & Decibel ($\text{dB}$) Math</div>
+    <div>7. Line Coding Schemes: NRZ-L, NRZ-I, Manchester, Differential Manchester & AMI</div>
+    <div>8. Scrambling Techniques for Synchronization: B8ZS (North America) & HDB3 (Europe)</div>
+    <div>9. Transmission Media: Guided (Twisted Pair, Coax, Fiber) vs. Unguided (Radio, Micro)</div>
+    <div>10. Optical Fiber Physics: Step-Index, Graded-Index, Single-Mode vs. Multi-Mode</div>
+    <div>11. Multiplexing Fundamentals: FDM, Synchronous TDM, Statistical TDM & WDM</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Layered Network Models: OSI vs. TCP/IP</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 15%;">OSI Layer</th>
-      <th style="width: 25%;">Protocol Data Unit (PDU)</th>
-      <th style="width: 35%;">Key Responsibilities</th>
-      <th>TCP/IP Equivalent</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>7. Application</strong></td><td>Messages / Data</td><td>Network virtual terminal, HTTP, FTP, SMTP, DNS</td><td rowspan="3"><strong>Application Layer</strong></td></tr>
-    <tr><td><strong>6. Presentation</strong></td><td>Formatted Data</td><td>Translation, Encryption (SSL/TLS), Compression</td></tr>
-    <tr><td><strong>5. Session</strong></td><td>Dialog Tokens</td><td>Session establishment, Dialog control, Sync checkpoints</td></tr>
-    <tr><td><strong>4. Transport</strong></td><td>Segments (TCP) / Datagrams (UDP)</td><td>Port addressing, Segmentation, Flow/Error/Congestion control</td><td><strong>Transport Layer</strong></td></tr>
-    <tr><td><strong>3. Network</strong></td><td>Packets</td><td>Logical IP addressing, Subnet routing, Path determination</td><td><strong>Internet Layer</strong></td></tr>
-    <tr><td><strong>2. Data Link</strong></td><td>Frames</td><td>Physical MAC addressing, Framing, Error detection (CRC)</td><td rowspan="2"><strong>Network Access Layer</strong></td></tr>
-    <tr><td><strong>1. Physical</strong></td><td>Bits</td><td>Bit transmission over copper/fiber/radio, signal levels</td></tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">2. Channel Capacity Theorems</h2>
-
-<h3 class="subsection-title">2.1 Nyquist Theorem (Noiseless Channel)</h3>
-$$C = 2B \log_2(M) \text{ bps}$$
-<p>where $B$ is channel bandwidth in Hertz and $M$ is the number of discrete signal voltage levels.</p>
-
-<h3 class="subsection-title">2.2 Shannon Theorem (Noisy Channel)</h3>
-$$C = B \log_2(1 + \text{SNR}) \text{ bps}$$
-<p>where $\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}}$. Given $\text{SNR}_{\text{dB}} = 10 \log_{10}(\text{SNR}) \implies \text{SNR} = 10^{(\text{SNR}_{\text{dB}} / 10)}$.</p>
-
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Mid-Sem Exam Numerical (8 Marks)</div>
-  <strong>Problem:</strong> A telephone line has a bandwidth of $4 \text{ kHz}$ and a signal-to-noise ratio of $30 \text{ dB}$. Calculate the theoretical Shannon maximum channel capacity.<br>
-  <strong>Solution:</strong>
-  $$\text{SNR}_{\text{dB}} = 30 \implies 10 \log_{10}(\text{SNR}) = 30 \implies \text{SNR} = 10^3 = 1000$$
-  $$C = B \log_2(1 + \text{SNR}) = 4000 \times \log_2(1001) \approx 4000 \times 9.967 = \mathbf{39,869 \text{ bps}} \approx \mathbf{39.87 \text{ kbps}}$$
-</div>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module II: Transmission Media & Signal Encoding — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Guided Media (Twisted Pair, Coax, Optical Fiber)</div>
-    <div>2. Digital Signal Encoding: NRZ, Manchester, AMI</div>
-    <div>3. Analog Modulation: ASK, FSK, PSK, QAM</div>
-    <div>4. Pulse Code Modulation (PCM) & Quantization</div>
-  </div>
-</div>
-
-<h2 class="section-title">1. Digital Signal Encoding Techniques</h2>
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Encoding Scheme</th>
-      <th style="width: 45%;">Rule / Signal Transition</th>
-      <th>Key Advantages & Drawbacks</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>NRZ-L (Level)</strong></td>
-      <td>Bit 0 = High level, Bit 1 = Low level</td>
-      <td>Simple; susceptible to DC baseline wander and clock drift on long runs of 0s/1s.</td>
-    </tr>
-    <tr>
-      <td><strong>NRZI (Invert)</strong></td>
-      <td>Bit 1 = Transition at start; Bit 0 = No transition</td>
-      <td>Solves sync for consecutive 1s, but fails on strings of 0s.</td>
-    </tr>
-    <tr>
-      <td><strong>Bipolar-AMI</strong></td>
-      <td>Bit 0 = Zero voltage; Bit 1 = Alternating +V and -V</td>
-      <td>Zero DC component; easy error detection; fails sync on consecutive 0s.</td>
-    </tr>
-    <tr>
-      <td><strong>Manchester (Ethernet)</strong></td>
-      <td>Bit 0 = High-to-Low transition; Bit 1 = Low-to-High transition</td>
-      <td><strong>Self-clocking</strong> (transition at middle of every bit); requires $2\times$ bandwidth.</td>
-    </tr>
-    <tr>
-      <td><strong>Diff. Manchester</strong></td>
-      <td>Transition in middle; Bit 0 = Transition at start; Bit 1 = No transition at start</td>
-      <td>Differential noise immunity; self-clocking; standard in Token Ring (IEEE 802.5).</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">2. Analog Modulation & 16-QAM Constellation</h2>
+<h2 class="section-title">Topic 1 & 2: Network Topologies & Layered Architectures</h2>
 <p>
-  <strong>Quadrature Amplitude Modulation (QAM)</strong> modulates both amplitude and phase simultaneously. In 16-QAM, each transmitted constellation point represents <strong>4 bits</strong> ($\log_2(16) = 4$), enabling high spectral efficiency.
+  A <strong>Computer Network</strong> is an interconnected collection of autonomous computing devices capable of exchanging data frames and packets through transmission channels.
 </p>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title">Module III: Error Control & Data Link Protocols — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Cyclic Redundancy Check (CRC-16/32 Modulo-2)</div>
-    <div>2. Hamming Distance & (7, 4) Error Correction</div>
-    <div>3. Sliding Window ARQ: Stop-and-Wait, GBN, SR</div>
-    <div>4. HDLC Protocol & Bit Stuffing Mechanics</div>
-    <div>5. Frequency and Time Division Multiplexing (FDM/TDM)</div>
-  </div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">OSI Layer</th>
+      <th style="width: 22%;">Protocol Data Unit (PDU)</th>
+      <th style="width: 35%;">Core Responsibilities & Header Additions</th>
+      <th>Standard Protocols & Hardware</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>7. Application</strong></td>
+      <td>Message / Data</td>
+      <td>Network virtual terminal, file transfer, directory services, user interface.</td>
+      <td>HTTP, HTTPS, DNS, SMTP, FTP, SSH</td>
+    </tr>
+    <tr>
+      <td><strong>6. Presentation</strong></td>
+      <td>Data</td>
+      <td>Data encryption/decryption (TLS), data compression (gzip), syntax translation (ASCII, UTF-8).</td>
+      <td>TLS 1.3, JPEG, MPEG, ASN.1</td>
+    </tr>
+    <tr>
+      <td><strong>5. Session</strong></td>
+      <td>Data</td>
+      <td>Dialog control, token management, session synchronization checkpoints.</td>
+      <td>RPC, NetBIOS, PPTP, Sockets</td>
+    </tr>
+    <tr>
+      <td><strong>4. Transport</strong></td>
+      <td>Segment (TCP) / Datagram (UDP)</td>
+      <td>End-to-end process-to-process delivery, port addressing, flow control, segment reassembly.</td>
+      <td>TCP, UDP, SCTP, QUIC</td>
+    </tr>
+    <tr>
+      <td><strong>3. Network</strong></td>
+      <td>Packet / Datagram</td>
+      <td>Host-to-host logical addressing (IPv4/IPv6), packet routing, fragmentation, congestion control.</td>
+      <td>IP, ICMP, OSPF, BGP (Routers)</td>
+    </tr>
+    <tr>
+      <td><strong>2. Data Link</strong></td>
+      <td>Frame</td>
+      <td>Hop-to-hop node delivery, physical MAC addressing, framing, CRC error detection, MAC access.</td>
+      <td>Ethernet (802.3), Wi-Fi (802.11), PPP (Switches)</td>
+    </tr>
+    <tr>
+      <td><strong>1. Physical</strong></td>
+      <td>Raw Bits (`0`/`1`)</td>
+      <td>Transmission of uninterpreted bit streams over physical media, signal encoding, baud rates.</td>
+      <td>Manchester, NRZ, RS-232, RJ-45 (Hubs, Cables)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 4 – 6: Channel Capacity Theorems & Decibel Formulations</h2>
+
+<div class="formula-card">
+  <strong>1. Nyquist Bit Rate Formula (For Noiseless Channels):</strong>
+  $$\text{BitRate}_{\max} = 2 \times B \times \log_2(M) \quad \text{bps}$$
+  Where $B$ is the analog bandwidth in Hertz ($\text{Hz}$), and $M$ is the number of distinct signal voltage levels.
 </div>
 
-<h2 class="section-title">1. Cyclic Redundancy Check (CRC)</h2>
-<p>
-  Given data word $D(x)$ of $k$ bits and generator polynomial $G(x)$ of degree $n$:
+<div class="formula-card">
+  <strong>2. Shannon Channel Capacity Theorem (For Noisy Gaussian Channels):</strong>
+  $$C = B \times \log_2 \left(1 + \text{SNR}\right) \quad \text{bps}$$
+  Where $B$ is the bandwidth ($\text{Hz}$), and $\text{SNR} = \frac{\text{Signal Power}}{\text{Noise Power}}$ is the linear Signal-to-Noise Ratio.<br>
+  $$\text{SNR}_{\text{dB}} = 10 \log_{10}(\text{SNR}) \implies \text{SNR} = 10^{\frac{\text{SNR}_{\text{dB}}}{10}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Shannon & Nyquist Capacity Calculation</div>
+  <p><strong>Problem:</strong> A telephone line has a bandwidth of $3000\text{ Hz}$ and an $\text{SNR}_{\text{dB}} = 30\text{ dB}$.</p>
   <ol>
-    <li>Append $n$ zero bits to $D(x)$ to form dividend $D(x) \cdot 2^n$.</li>
-    <li>Perform binary Modulo-2 division (XOR) by generator polynomial $G(x)$.</li>
-    <li>The $n$-bit remainder $R(x)$ is the Frame Check Sequence (FCS). Transmit $T(x) = D(x) \cdot 2^n \oplus R(x)$.</li>
+    <li>
+      <strong>Step 1: Compute Linear $\text{SNR}$ from $\text{dB}$:</strong>
+      $$\text{SNR} = 10^{\frac{30}{10}} = 10^3 = \mathbf{1000}$$
+    </li>
+    <li>
+      <strong>Step 2: Apply Shannon's Capacity Formula:</strong>
+      $$C = 3000 \times \log_2(1 + 1000) = 3000 \times \log_2(1001) \approx 3000 \times 9.967 = \mathbf{29,901} \text{ bps} \ (\approx 30 \text{ kbps})$$
+    </li>
+    <li>
+      <strong>Step 3: Find Number of Signal Levels $M$ Required by Nyquist to achieve $C$:</strong>
+      $$29901 = 2 \times 3000 \times \log_2(M) \implies \log_2(M) = \frac{29901}{6000} \approx 4.9835 \implies M = 2^{4.9835} \approx \mathbf{32} \text{ levels}$$
+    </li>
   </ol>
-</p>
+</div>
 
-<h2 class="section-title">2. Sliding Window ARQ Protocols Comparison</h2>
+<h2 class="section-title">Topic 7 & 8: Digital Signal Line Coding Schemes</h2>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th>Protocol</th>
-      <th>Sender Window ($W_s$)</th>
-      <th>Receiver Window ($W_r$)</th>
-      <th>Efficiency ($\eta$)</th>
-      <th>Retransmission Behavior</th>
+      <th style="width: 25%;">Line Coding Scheme</th>
+      <th style="width: 45%;">Voltage Transition Rule</th>
+      <th>Key Advantages & Tradeoffs</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Stop-and-Wait</strong></td>
-      <td>$1$</td>
-      <td>$1$</td>
-      <td>$\frac{1}{1 + 2a}$ where $a = \frac{T_{\text{prop}}}{T_{\text{trans}}}$</td>
-      <td>Retransmits single frame upon timer expiry.</td>
+      <td><strong>1. NRZ-L (Level)</strong></td>
+      <td>Bit `0` $\rightarrow$ Positive Voltage ($+V$), Bit `1` $\rightarrow$ Negative Voltage ($-V$).</td>
+      <td>Simple; suffers from DC component and baseline wander on long strings of `0`s or `1`s.</td>
     </tr>
     <tr>
-      <td><strong>Go-Back-N (GBN)</strong></td>
-      <td>$2^k - 1$</td>
-      <td>$1$</td>
-      <td>$\frac{W_s}{1 + 2a}$</td>
-      <td>Discards out-of-order frames; retransmits entire window from lost frame.</td>
+      <td><strong>2. NRZ-I (Invert)</strong></td>
+      <td>Bit `1` $\rightarrow$ Transition at start of bit interval; Bit `0` $\rightarrow$ No transition.</td>
+      <td>Self-clocking for `1`s; still loses clock synchronization on continuous strings of `0`s.</td>
     </tr>
     <tr>
-      <td><strong>Selective Repeat</strong></td>
-      <td>$2^{k-1}$</td>
-      <td>$2^{k-1}$</td>
-      <td>$\frac{W_s}{1 + 2a}$</td>
-      <td>Buffers out-of-order frames; retransmits <strong>only the damaged frame</strong> (NAK).</td>
+      <td><strong>3. Manchester (IEEE 802.3)</strong></td>
+      <td>Bit `0` $\rightarrow$ High-to-Low transition at bit center; Bit `1` $\rightarrow$ Low-to-High transition at center.</td>
+      <td>Zero DC component, 100% self-clocking; requires $2 \times$ bandwidth ($B = 2 \times \text{data rate}$).</td>
+    </tr>
+    <tr>
+      <td><strong>4. Differential Manchester</strong></td>
+      <td>Always transitions at center. Bit `0` $\rightarrow$ Transition at start; Bit `1` $\rightarrow$ No transition at start.</td>
+      <td>Highly immune to wire polarity reversal; used in Token Ring LANs (IEEE 802.5).</td>
+    </tr>
+    <tr>
+      <td><strong>5. AMI (Alternate Mark Inversion)</strong></td>
+      <td>Bit `0` $\rightarrow$ Zero Voltage ($0V$); Bit `1` $\rightarrow$ Alternating $+V$ and $-V$.</td>
+      <td>Zero DC component; long runs of `0`s lose synchronization (resolved by B8ZS/HDB3 scrambling).</td>
     </tr>
   </tbody>
 </table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. State the difference between OSI and TCP/IP reference models across 5 engineering parameters. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Layer Count:</strong> OSI has 7 layers (Session & Presentation separate); TCP/IP has 4 or 5 layers (combines Session, Presentation, Application).<br>
+    2. <strong>Model Origins:</strong> OSI is a theoretical conceptual standard developed by ISO before protocols were written; TCP/IP was designed pragmatically alongside the ARPANET implementation.<br>
+    3. <strong>Service Orientation:</strong> OSI strictly separates Service, Interface, and Protocol; TCP/IP merges services into protocols directly.<br>
+    4. <strong>Network Layer Communication:</strong> OSI supports both Connection-Oriented and Connectionless at Network layer; TCP/IP supports only Connectionless (IP) at Network layer.<br>
+    5. <strong>Transport Layer Communication:</strong> OSI supports only Connection-Oriented at Transport; TCP/IP supports both Connection-Oriented (TCP) and Connectionless (UDP).
+  </div>
+</div>
 <div class='page-break'></div>
 <div class="toc-box">
-  <div class="toc-title">Module IV: Switching, Cellular Networks & LANs — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Data Link Layer, Error Control & Flow Control ARQs</div>
   <div class="toc-grid">
-    <div>1. Circuit Switching vs. Packet Switching</div>
-    <div>2. Cellular Frequency Reuse ($N=i^2+ij+j^2$)</div>
-    <div>3. IEEE 802.3 Ethernet & CSMA/CD Backoff</div>
-    <div>4. IEEE 802.11 Wi-Fi & CSMA/CA (RTS/CTS)</div>
-    <div>5. Virtual LANs (VLANs & IEEE 802.1Q)</div>
+    <div>1. Data Link Layer Design Issues & Service Models to Network Layer</div>
+    <div>2. Framing Mechanisms: Byte Count, Byte Stuffing & Bit Stuffing with Flag `01111110`</div>
+    <div>3. Error Detection: Simple Parity, 2D Parity & Internet Checksum Algorithm</div>
+    <div>4. Cyclic Redundancy Check (CRC-32): Polynomial Division & Full Worked Traces</div>
+    <div>5. Error Correction: Hamming Code $(n, k)$ Derivations & Parity Check Matrices</div>
+    <div>6. Flow Control Mechanics: Stop-and-Wait Protocol & Channel Efficiency ($\eta$)</div>
+    <div>7. Sliding Window Concepts: Bandwidth-Delay Product & Piggybacking</div>
+    <div>8. Go-Back-N (GBN) ARQ Protocol: Sender/Receiver Windows ($W_s \le 2^m - 1$)</div>
+    <div>9. Selective Repeat (SR) ARQ Protocol: Independent ACKs & Windows ($W_s \le 2^{m-1}$)</div>
+    <div>10. Channel Utilization & Efficiency Proofs: $\eta = \frac{W}{1 + 2a}$ where $a = \frac{T_p}{T_t}$</div>
+    <div>11. High-Level Data Link Control (HDLC) Frame Formats & PPP Architecture</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. Ethernet CSMA/CD vs. Wi-Fi CSMA/CA</h2>
+<h2 class="section-title">Topic 1 & 2: Data Link Framing Mechanisms</h2>
+<p>
+  The Data Link Layer converts the raw bit stream delivered by the Physical Layer into discrete, manageable packets called <strong>Frames</strong>:
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Framing Method</th>
+      <th style="width: 45%;">Delimiting Mechanism & Bit/Byte Manipulation</th>
+      <th>Key Failure Modes & Mitigations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Character / Byte Count</strong></td>
+      <td>Header field contains an integer specifying total number of bytes in frame.</td>
+      <td>Fatal synchronization loss: if a transmission error alters the count byte, all subsequent frames are misframed.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Byte Stuffing (Character-Oriented)</strong></td>
+      <td>Frames bounded by `FLAG` bytes (`0x7E`). Any occurrence of `FLAG` or escape byte `ESC` (`0x7D`) in payload is prefixed with an `ESC` byte.</td>
+      <td>Tied to specific 8-bit character encodings (ASCII).</td>
+    </tr>
+    <tr>
+      <td><strong>3. Bit Stuffing (Bit-Oriented — HDLC)</strong></td>
+      <td>Frames delimited by flag pattern `01111110` ($6$ consecutive `1`s). Whenever sender observes $5$ consecutive `1`s in data payload, it unconditionally stuffs a `0` bit.</td>
+      <td>Completely code-transparent; handles arbitrary arbitrary binary streams.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 4: Cyclic Redundancy Check (CRC) Polynomial Division</h2>
+
+<div class="formula-card">
+  <strong>CRC Transmission Invariants:</strong>
+  Let data bit sequence be represented by polynomial $D(x)$ of length $k$, and Generator Polynomial be $G(x)$ of degree $r$.
+  1. Append $r$ zero bits to $D(x) \implies D(x) \cdot x^r$.
+  2. Divide $D(x) \cdot x^r$ by $G(x)$ using modulo-2 arithmetic (XOR binary division).
+  3. The remainder $R(x)$ of length $r$ is the CRC Checksum. Transmitted codeword $T(x) = D(x) \cdot x^r \oplus R(x)$.
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: CRC-4 Calculation on Data `1101011011` with Generator $G(x) = x^4 + x + 1$</div>
+  <p><strong>Step 1: Convert Generator to Binary String:</strong> $G(x) = 1 \cdot x^4 + 0 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 1 \cdot x^0 \implies \mathbf{10011}$ (Degree $r=4$).</p>
+  <p><strong>Step 2: Append $r=4$ zeros to Data ($D = 1101011011$):</strong> Augmented Dividend: $\mathbf{11010110110000}$.</p>
+  <p><strong>Step 3: Modulo-2 Polynomial XOR Division:</strong></p>
+  <pre><code>            1100001010  (Quotient)
+10011 ) 11010110110000
+        10011
+        -----
+         10011
+         10011
+         -----
+          000010110
+              10011
+              -----
+               010100
+                10011
+                -----
+                 01110  <-- Remainder R = 1110</code></pre>
+  <p><strong>Step 4: Transmitted Codeword:</strong> $11010110110000 \oplus 1110 = \mathbf{11010110111110}$.</p>
+</div>
+
+<h2 class="section-title">Topic 6 – 10: Sliding Window Flow Control ARQ Protocols</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Protocol</th>
+      <th style="width: 25%;">Sender Window ($W_s$)</th>
+      <th style="width: 25%;">Receiver Window ($W_r$)</th>
+      <th>Channel Efficiency ($\eta$)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Stop-and-Wait</strong></td>
+      <td>$W_s = 1$</td>
+      <td>$W_r = 1$</td>
+      <td>$$\eta = \frac{T_t}{T_t + 2T_p} = \frac{1}{1 + 2a}$$</td>
+    </tr>
+    <tr>
+      <td><strong>2. Go-Back-N (GBN)</strong></td>
+      <td>$W_s = 2^m - 1$</td>
+      <td>$W_r = 1$ (Cumulative ACK)</td>
+      <td>$$\eta = \frac{W_s}{1 + 2a} \quad (\text{if } W_s < 1 + 2a, \text{ else } 100\%)$$</td>
+    </tr>
+    <tr>
+      <td><strong>3. Selective Repeat (SR)</strong></td>
+      <td>$W_s = 2^{m-1}$</td>
+      <td>$W_r = 2^{m-1}$ (Independent ACK)</td>
+      <td>$$\eta = \frac{W_s}{1 + 2a}$$</td>
+    </tr>
+  </tbody>
+</table>
+<p><em>Where $m$ = number of sequence number bits, $T_t = \frac{L}{B}$ = transmission time, $T_p = \frac{d}{v}$ = propagation delay, $a = \frac{T_p}{T_t}$.</em></p>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Why must the maximum sender window size in Selective Repeat ARQ satisfy $W_s \le 2^{m-1}$? (8 Marks)</div>
+  <div class="qa-a">
+    If $W_s + W_r > 2^m$, an ambiguous overlap occurs between the old sequence number window and the new sequence number window.<br>
+    <em>Proof:</em> Suppose $m=2$ (sequence numbers $0, 1, 2, 3$) and $W_s = W_r = 3$. Sender transmits frames $0, 1, 2$. Receiver receives all 3 and shifts window to $[3, 0, 1]$, sending ACKs $0, 1, 2$. If all ACKs are lost in transit, sender times out and retransmits frame $0$. The receiver, expecting new frame $0$ in its current window $[3, 0, 1]$, will accept the duplicate old frame $0$ as new data, causing undetected duplicate data corruption! To prevent window overlap, $W_s + W_r \le 2^m \implies W_s \le 2^{m-1}$.
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Medium Access Control (MAC), Local Area Networks & Wireless LANs</div>
+  <div class="toc-grid">
+    <div>1. Channel Allocation Problem: Static FDM/TDM vs. Dynamic Random Access</div>
+    <div>2. Pure ALOHA Protocol Mathematical Throughput Derivation ($S = G e^{-2G} \implies 18.4\%$)</div>
+    <div>3. Slotted ALOHA Protocol Mathematical Throughput Derivation ($S = G e^{-G} \implies 36.8\%$)</div>
+    <div>4. Carrier Sense Multiple Access (CSMA): 1-Persistent, Non-Persistent, $p$-Persistent</div>
+    <div>5. CSMA with Collision Detection (CSMA/CD — IEEE 802.3 Ethernet Standard)</div>
+    <div>6. Minimum Frame Size Derivation: $L_{\min} = 2 \times R \times \frac{d}{v}$ in Ethernet</div>
+    <div>7. Truncated Binary Exponential Backoff Algorithm ($0 \le k < 2^i$)</div>
+    <div>8. Standard Ethernet IEEE 802.3 Frame Structure & Physical MAC 48-Bit Addresses</div>
+    <div>9. Fast Ethernet (100 Mbps), Gigabit Ethernet (1 Gbps) & 10-Gigabit Standards</div>
+    <div>10. Wireless LANs (IEEE 802.11 Wi-Fi Architecture & CSMA/CA with RTS/CTS)</div>
+    <div>11. The Hidden Station & Exposed Station Problems with Virtual Carrier Sensing (NAV)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 2 & 3: ALOHA Protocols & Poisson Throughput Proofs</h2>
+
+<div class="formula-card">
+  <strong>1. Pure ALOHA Throughput Derivation:</strong>
+  Let $G$ be the total offered traffic load (frames per frame transmission time $T$).
+  - Vulnerable Period in Pure ALOHA $= 2 \times T$ (any frame generated in $(t - T, t + T)$ collides).
+  - Under Poisson distribution, probability of zero other frame arrivals is $P(0) = e^{-2G}$.
+  - Throughput:
+    $$S = G \cdot e^{-2G}$$
+  - Maximum Throughput occurs at $\frac{dS}{dG} = e^{-2G}(1 - 2G) = 0 \implies G = 0.5$:
+    $$S_{\max} = 0.5 \cdot e^{-1} = \frac{1}{2e} \approx \mathbf{0.184} \quad (18.4\%)$$
+</div>
+
+<div class="formula-card">
+  <strong>2. Slotted ALOHA Throughput Derivation:</strong>
+  - Frames can only be transmitted at discrete slot boundaries.
+  - Vulnerable Period $= 1 \times T$.
+  - Throughput:
+    $$S = G \cdot e^{-G}$$
+  - Maximum Throughput occurs at $G = 1.0$:
+    $$S_{\max} = 1.0 \cdot e^{-1} = \frac{1}{e} \approx \mathbf{0.368} \quad (36.8\%)$$
+</div>
+
+<h2 class="section-title">Topic 5 & 6: CSMA/CD & Minimum Frame Size Equation</h2>
+
+<p>
+  In <strong>CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</strong>, a transmitting station continuously listens to the physical cable while transmitting.
+</p>
+
+<div class="callout callout-warning">
+  <div class="callout-title">The Fundamental CSMA/CD Minimum Frame Size Rule</div>
+  To guarantee that a station detects a collision before it finishes transmitting its frame, the transmission time $T_t$ must be at least twice the maximum round-trip propagation delay $2 \times T_p$:
+  $$T_t \ge 2 \times T_p \implies \frac{L_{\min}}{B} \ge 2 \times \frac{d}{v} \implies L_{\min} = 2 \times B \times \frac{d}{v}$$
+  Where $L_{\min}$ is the minimum frame size in bits, $B$ is the bandwidth in bps, $d$ is the maximum network length in meters, and $v$ is the signal propagation velocity in the cable ($\approx 2 \times 10^8 \text{ m/s}$).
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Classical 10 Mbps Ethernet 64-Byte Minimum Frame Size</div>
+  <p>For standard $10\text{ Mbps}$ Ethernet with maximum collision domain distance $2500\text{ meters}$ and 4 repeaters:</p>
+  $$2 T_p \approx 51.2 \ \mu\text{s}$$
+  $$L_{\min} = 10 \times 10^6 \text{ bps} \times 51.2 \times 10^{-6} \text{ s} = 512 \text{ bits} = \mathbf{64} \text{ bytes}$$
+  <p>Frames smaller than 64 bytes are padded with zeroes up to 64 bytes (Runt Frames $< 64$ bytes are discarded as collisions).</p>
+</div>
+
+<h2 class="section-title">Topic 10 & 11: Wireless LANs (IEEE 802.11) & The Hidden Station Problem</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Wireless Phenomenon</th>
+      <th style="width: 45%;">Geometric Problem Topology</th>
+      <th>CSMA/CA RTS/CTS Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Hidden Station Problem</strong></td>
+      <td>Station $A$ and Station $C$ can both transmit to Base Station $B$, but $A$ and $C$ are out of range of each other. If both sense carrier simultaneously, they detect an idle channel and transmit, causing severe collisions at $B$.</td>
+      <td><strong>RTS/CTS Handshake:</strong> $A$ sends `RTS` (Request to Send). $B$ broadcasts `CTS` (Clear to Send). $C$ overhears $B$'s `CTS` and sets its <strong>Network Allocation Vector (NAV)</strong> to defer transmission.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Exposed Station Problem</strong></td>
+      <td>Station $B$ is transmitting to $A$. Station $C$ wants to transmit to $D$. $C$ senses the medium, detects $B$'s transmission, and wrongly defers, even though $C \rightarrow D$ would not interfere with $B \rightarrow A$.</td>
+      <td>Resolved by spatial channel reuse and directional antennas.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Explain the Truncated Binary Exponential Backoff Algorithm used in Ethernet. (8 Marks)</div>
+  <div class="qa-a">
+    After $i$ collisions for a frame:<br>
+    1. The station chooses a random integer $k$ from the uniform range $0 \le k < 2^c$, where $c = \min(i, 10)$.<br>
+    2. The station waits $k \times \text{SlotTime}$ ($k \times 51.2 \ \mu\text{s}$ in 10 Mbps Ethernet) before attempting retransmission.<br>
+    3. After 10 collisions, the backoff interval freezes at $2^{10} - 1 = 1023$ slots.<br>
+    4. If the frame experiences 16 consecutive collisions ($i=16$), the transmission is aborted and an error is reported to the upper layer.
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Network Layer, IP Addressing & Routing Algorithms</div>
+  <div class="toc-grid">
+    <div>1. Network Layer Service Models: Virtual-Circuit vs. Datagram Packet Switching</div>
+    <div>2. IPv4 Header Format: 20-Byte Field Breakdown & Fragmentation Fields (Offset, Flags)</div>
+    <div>3. Classful IP Addressing (Classes A, B, C, D, E & Special Loopback / Private Blocks)</div>
+    <div>4. Subnetting & Classless Inter-Domain Routing (CIDR) Slash Notation ($/n$)</div>
+    <div>5. Longest Prefix Match Algorithm in Forwarding Tables with Worked Lookups</div>
+    <div>6. IPv6 Protocol Architecture: 40-Byte Fixed Base Header & Extension Headers</div>
+    <div>7. IPv4 to IPv6 Transition Mechanisms: Dual-Stack, Tunneling & Header Translation</div>
+    <div>8. Unicast Routing Principles: Intra-AS (IGP) vs. Inter-AS (EGP) Autonomous Systems</div>
+    <div>9. Distance Vector Routing (DVR): Bellman-Ford Equation & Count-to-Infinity Problem</div>
+    <div>10. Solutions to Count-to-Infinity: Split Horizon & Poisoned Reverse Mechanisms</div>
+    <div>11. Link State Routing (LSR): Link State Advertisements & Dijkstra's Algorithm Tree</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 2 – 4: IPv4 Datagram Format & CIDR Subnetting</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">IPv4 Header Field</th>
+      <th style="width: 15%;">Bit Width</th>
+      <th>Functional Purpose & Transmission Invariant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Version</strong></td>
+      <td>4 bits</td>
+      <td>Identifies IP version (`0100` for IPv4).</td>
+    </tr>
+    <tr>
+      <td><strong>Header Length (IHL)</strong></td>
+      <td>4 bits</td>
+      <td>Length of header in 32-bit (4-byte) words. Minimum value is $5$ ($20$ bytes).</td>
+    </tr>
+    <tr>
+      <td><strong>Total Length</strong></td>
+      <td>16 bits</td>
+      <td>Entire datagram length (Header + Data) in bytes. Max size $= 65,535$ bytes.</td>
+    </tr>
+    <tr>
+      <td><strong>Identification, Flags, Offset</strong></td>
+      <td>$16 + 3 + 13$ bits</td>
+      <td>Handles MTU packet fragmentation. Fragment Offset is measured in 8-byte units. `DF`=Don't Fragment, `MF`=More Fragments.</td>
+    </tr>
+    <tr>
+      <td><strong>Time to Live (TTL)</strong></td>
+      <td>8 bits</td>
+      <td>Hop counter decremented by 1 at each router to prevent infinite forwarding loops. Discarded with ICMP Time Exceeded when $\text{TTL} = 0$.</td>
+    </tr>
+    <tr>
+      <td><strong>Protocol</strong></td>
+      <td>8 bits</td>
+      <td>Demultiplexing to transport layer (`6` for TCP, `17` for UDP, `1` for ICMP).</td>
+    </tr>
+    <tr>
+      <td><strong>Header Checksum</strong></td>
+      <td>16 bits</td>
+      <td>1's complement sum of header fields recalculated at every router as TTL decrements.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: CIDR Subnet Allocation</div>
+  <p><strong>Problem:</strong> An organization is assigned the network block `200.10.20.0/24`. It needs to divide this block into 4 equal subnets for 4 departments.</p>
+  <ol>
+    <li>
+      <strong>Step 1: Determine Additional Subnet Bits ($k$):</strong>
+      $$2^k \ge 4 \implies k = 2 \text{ bits}$$
+      New Subnet Mask: $/24 + 2 = \mathbf{/26} \implies \mathbf{255.255.255.192}$.
+    </li>
+    <li>
+      <strong>Step 2: Compute Total and Usable Host Addresses per Subnet:</strong>
+      $$\text{Total Addresses per Subnet} = 2^{32 - 26} = 2^6 = \mathbf{64}$$
+      $$\text{Usable Host Addresses} = 64 - 2 = \mathbf{62} \quad (\text{subtracting Network ID and Directed Broadcast})$$
+    </li>
+    <li>
+      <strong>Step 3: Subnet Allocation Table:</strong>
+      <table class="custom-table">
+        <tr><th>Subnet</th><th>Network Address</th><th>Usable Host IP Range</th><th>Broadcast Address</th></tr>
+        <tr><td>Dept 1</td><td>`200.10.20.0/26`</td><td>`200.10.20.1` – `200.10.20.62`</td><td>`200.10.20.63`</td></tr>
+        <tr><td>Dept 2</td><td>`200.10.20.64/26`</td><td>`200.10.20.65` – `200.10.20.126`</td><td>`200.10.20.127`</td></tr>
+        <tr><td>Dept 3</td><td>`200.10.20.128/26`</td><td>`200.10.20.129` – `200.10.20.190`</td><td>`200.10.20.191`</td></tr>
+        <tr><td>Dept 4</td><td>`200.10.20.192/26`</td><td>`200.10.20.193` – `200.10.20.254`</td><td>`200.10.20.255`</td></tr>
+      </table>
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 9 – 11: Routing Algorithms (Distance Vector vs. Link State)</h2>
+
 <table class="custom-table">
   <thead>
     <tr>
       <th style="width: 25%;">Feature</th>
-      <th style="width: 38%;">IEEE 802.3 Ethernet (CSMA/CD)</th>
-      <th style="width: 37%;">IEEE 802.11 Wi-Fi (CSMA/CA)</th>
+      <th style="width: 37%;">Distance Vector Routing (DVR — RIP)</th>
+      <th>Link State Routing (LSR — OSPF)</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Mechanism</strong></td><td>Carrier Sense Multiple Access with <strong>Collision Detection</strong></td><td>Carrier Sense Multiple Access with <strong>Collision Avoidance</strong></td></tr>
-    <tr><td><strong>Wireless Challenge</strong></td><td>Transceiver can detect collision while sending.</td><td>Cannot detect collision while transmitting (RF blindness) $\implies$ Must avoid collisions.</td></tr>
-    <tr><td><strong>Collision Recovery</strong></td><td>Emits 32-bit Jam signal; Binary Exponential Backoff ($[0, 2^k-1] \times 51.2\mu s$).</td><td>Interframe Spaces (DIFS, SIFS); RTS/CTS handshaking resolves hidden terminals.</td></tr>
+    <tr>
+      <td><strong>Mathematical Algorithm</strong></td>
+      <td><strong>Bellman-Ford Equation:</strong>
+        $$D_x(y) = \min_v \{ c(x, v) + D_v(y) \}$$
+      </td>
+      <td><strong>Dijkstra's Shortest Path Algorithm:</strong> Computes full shortest-path tree from source.</td>
+    </tr>
+    <tr>
+      <td><strong>Information Exchanged</strong></td>
+      <td>Vector of estimated distances to all destinations.</td>
+      <td>Exact state and cost of directly attached links (LSA).</td>
+    </tr>
+    <tr>
+      <td><strong>Destination of Updates</strong></td>
+      <td>Sent only to directly adjacent neighbors.</td>
+      <td>Flooded globally to all routers in the entire network area.</td>
+    </tr>
+    <tr>
+      <td><strong>Convergence & Stability</strong></td>
+      <td>Slow convergence; prone to <strong>Count-to-Infinity</strong> routing loops.</td>
+      <td>Fast convergence; completely immune to routing loops.</td>
+    </tr>
   </tbody>
 </table>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Explain the Count-to-Infinity problem in Distance Vector Routing and how Split Horizon with Poison Reverse resolves it. (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>Count-to-Infinity Problem:</strong> When a link $A-B$ goes down, router $A$ sets its cost to $\infty$. However, neighbor $C$ may still advertise that it has a path to $A$ via $B$ with cost 2. Router $B$ receives this and updates its cost to $A$ as $2 + 1 = 3$, advertising it back to $C$. $C$ updates to $3 + 1 = 4$, and both routers slowly increment their distance vectors step-by-step up to $\infty$ (16 in RIP).<br>
+    - <strong>Split Horizon with Poison Reverse:</strong> If router $C$ routes traffic to destination $X$ through neighbor $B$, $C$ advertises its distance to $X$ back to $B$ as $\infty$ ($\text{Poisoned Reverse}$). This prevents $B$ from wrongly routing traffic back through $C$ during link failures.
+  </div>
+</div>
 <div class='page-break'></div>
 <div class="toc-box">
-  <div class="toc-title">Module V: Internetworking, TCP/IP & Routing — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Transport Layer, Application Services & Network Security</div>
   <div class="toc-grid">
-    <div>1. IPv4 Addressing, Classless CIDR & VLSM Subnetting</div>
-    <div>2. TCP 3-Way Handshake & Congestion Control</div>
-    <div>3. Dijkstra Shortest Path (OSPF) & Bellman-Ford (RIP)</div>
-    <div>4. Application Protocols: DNS, DHCP, HTTP/2, SMTP</div>
+    <div>1. Transport Layer Port Multiplexing & Sockets Interface (TCP vs. UDP)</div>
+    <div>2. TCP Segment Anatomy: Sequence Numbers, Acknowledgments & Control Flags</div>
+    <div>3. TCP 3-Way Handshake Connection Establishment & 4-Way FIN Teardown</div>
+    <div>4. TCP Flow Control (Receiver Window `rwnd` & Nagle's Algorithm)</div>
+    <div>5. TCP Congestion Control: Slow Start, Congestion Avoidance (AIMD), Fast Retransmit</div>
+    <div>6. TCP Fast Recovery & Cubic / BBR Modern Congestion Mechanisms</div>
+    <div>7. Domain Name System (DNS): Hierarchical Namespace, Root Servers & Records (A, AAAA, MX)</div>
+    <div>8. Hypertext Transfer Protocol Evolution: HTTP/1.1 vs. HTTP/2 vs. HTTP/3 (QUIC)</div>
+    <div>9. Email Architecture: SMTP, POP3, IMAP & MIME Extensions</div>
+    <div>10. Cryptographic Fundamentals: Symmetric (AES) vs. Asymmetric (RSA) Cryptography</div>
+    <div>11. RSA Public-Key Algorithm Mathematical Derivation & Worked Encryption Traces</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. TCP Congestion Control Mechanics</h2>
-<p>
-  TCP maintains a congestion window ($cwnd$) and slow-start threshold ($ssthresh$):
-  <ul>
-    <li><strong>Slow Start:</strong> $cwnd$ starts at $1 \text{ MSS}$ and doubles every RTT ($cwnd = cwnd \times 2$) exponentially until $cwnd \ge ssthresh$.</li>
-    <li><strong>Congestion Avoidance:</strong> $cwnd$ increases linearly by $1 \text{ MSS}$ per RTT (Additive Increase).</li>
-    <li><strong>Triple Duplicate ACKs (Fast Retransmit & Recovery):</strong> $ssthresh = cwnd / 2$, $cwnd = ssthresh + 3 \text{ MSS}$, retransmit lost segment immediately.</li>
-    <li><strong>Timeout:</strong> $ssthresh = cwnd / 2$, $cwnd = 1 \text{ MSS}$, re-enter Slow Start.</li>
-  </ul>
-</p>
+<h2 class="section-title">Topic 1 – 3: TCP Protocol Architecture & 3-Way Handshake</h2>
 
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra VLSM Subnetting Problem (10 Marks)</div>
-  <strong>Problem:</strong> Given network block `192.168.1.0/24`, design subnets for Dept A (100 hosts), Dept B (50 hosts), and Dept C (25 hosts).<br>
-  <strong>Solution:</strong>
-  <ul>
-    <li><strong>Dept A (100 hosts):</strong> Needs $2^7 - 2 = 126$ IPs $\implies /25$. Subnet: `192.168.1.0/25` (Range: `.1` to `.126`, Broadcast: `.127`).</li>
-    <li><strong>Dept B (50 hosts):</strong> Needs $2^6 - 2 = 62$ IPs $\implies /26$. Subnet: `192.168.1.128/26` (Range: `.129` to `.190`, Broadcast: `.191`).</li>
-    <li><strong>Dept C (25 hosts):</strong> Needs $2^5 - 2 = 30$ IPs $\implies /27$. Subnet: `192.168.1.192/27` (Range: `.193` to `.222`, Broadcast: `.223`).</li>
-  </ul>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">TCP Control Flag</th>
+      <th style="width: 15%;">Bit Position</th>
+      <th>Operational Role in Connection State Machine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>SYN</strong></td><td>Synchronize</td><td>Initiates a connection; synchronizes initial sequence numbers (ISN). Consumes 1 sequence number.</td></tr>
+    <tr><td><strong>ACK</strong></td><td>Acknowledgment</td><td>Validates the 32-bit Acknowledgment Number field indicating next expected byte.</td></tr>
+    <tr><td><strong>FIN</strong></td><td>Finish</td><td>Sender has finished sending data and requests connection termination. Consumes 1 sequence number.</td></tr>
+    <tr><td><strong>RST</strong></td><td>Reset</td><td>Abruptly terminates an invalid or unauthorized connection request.</td></tr>
+    <tr><td><strong>PSH</strong></td><td>Push</td><td>Instructs receiver to deliver buffered data to application immediately without waiting for buffer to fill.</td></tr>
+    <tr><td><strong>URG</strong></td><td>Urgent</td><td>Validates the Urgent Pointer field for out-of-band high-priority data (e.g., `Ctrl+C`).</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: TCP 3-Way Handshake Connection Sequence</div>
+  <ol>
+    <li><strong>Client $\rightarrow$ Server (SYN):</strong> Client chooses random initial sequence number $x$:
+      $$\text{Segment 1: } [\mathbf{SYN}=1, \ \mathbf{Seq}=x]$$
+    </li>
+    <li><strong>Server $\rightarrow$ Client (SYN-ACK):</strong> Server acknowledges client's ISN ($x+1$) and chooses its own ISN $y$:
+      $$\text{Segment 2: } [\mathbf{SYN}=1, \ \mathbf{ACK}=1, \ \mathbf{Seq}=y, \ \mathbf{Ack}=x+1]$$
+    </li>
+    <li><strong>Client $\rightarrow$ Server (ACK):</strong> Client acknowledges server's ISN ($y+1$):
+      $$\text{Segment 3: } [\mathbf{ACK}=1, \ \mathbf{Seq}=x+1, \ \mathbf{Ack}=y+1]$$
+      <em>Connection established in ESTABLISHED state.</em>
+    </li>
+  </ol>
 </div>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Data Communication & Computer Networks (CS24305) — Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">Topic 5 & 6: TCP Congestion Control Mechanisms (AIMD)</h2>
+
+<div class="formula-card">
+  <strong>The 4 Standard Phases of TCP Congestion Control (Tahoe / Reno):</strong>
+  <ol>
+    <li><strong>Slow Start:</strong> Initial congestion window $\text{cwnd} = 1 \text{ MSS}$. Doubles every Round-Trip Time ($\text{cwnd} \leftarrow \text{cwnd} \times 2$) exponentially until $\text{cwnd} \ge \text{ssthresh}$ (Slow Start Threshold).</li>
+    <li><strong>Congestion Avoidance (Additive Increase):</strong> Increases linearly by $1 \text{ MSS}$ per RTT ($\text{cwnd} \leftarrow \text{cwnd} + 1$).</li>
+    <li><strong>Triple Duplicate ACK Event (Fast Retransmit & Recovery):</strong>
+      - $\text{ssthresh} \leftarrow \frac{\text{cwnd}}{2}$
+      - $\text{cwnd} \leftarrow \text{ssthresh} + 3 \text{ MSS}$ (TCP Reno skips Slow Start and continues linearly).
+    </li>
+    <li><strong>Timeout Event (Severe Congestion):</strong>
+      - $\text{ssthresh} \leftarrow \frac{\text{cwnd}}{2}$
+      - $\text{cwnd} \leftarrow 1 \text{ MSS}$ (Drops back to Slow Start).
+    </li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 10 & 11: Network Security & RSA Public-Key Cryptography</h2>
+
+<div class="formula-card">
+  <strong>RSA Algorithm Mathematical Formulations (Rivest, Shamir, Adleman, 1977):</strong>
+  <ol>
+    <li>Select two distinct large prime numbers $p$ and $q$.</li>
+    <li>Compute modulus $n = p \times q$.</li>
+    <li>Compute Euler's Totient $\phi(n) = (p - 1)(q - 1)$.</li>
+    <li>Choose public exponent $e$ such that $1 < e < \phi(n)$ and $\gcd(e, \phi(n)) = 1$.</li>
+    <li>Compute private decryption exponent $d$ using Extended Euclidean Algorithm:
+      $$d \equiv e^{-1} \pmod{\phi(n)} \implies (d \times e) \pmod{\phi(n)} = 1$$
+    </li>
+    <li><strong>Public Key:</strong> $KU = \{e, n\}$, <strong>Private Key:</strong> $KR = \{d, n\}$.</li>
+    <li><strong>Encryption:</strong> Ciphertext $C = M^e \pmod n$.</li>
+    <li><strong>Decryption:</strong> Plaintext $M = C^d \pmod n$.</li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Complete RSA Encryption & Decryption Trace</div>
+  <p>Let primes $p = 3, q = 11$, and Plaintext message $M = 7$.</p>
+  <ol>
+    <li>$n = 3 \times 11 = \mathbf{33}$.</li>
+    <li>$\phi(n) = (3 - 1)(11 - 1) = 2 \times 10 = \mathbf{20}$.</li>
+    <li>Choose $e = 7$ ($\gcd(7, 20) = 1$).</li>
+    <li>Find $d$: $(d \times 7) \pmod{20} = 1 \implies 7d = 21 \implies \mathbf{d = 3}$.</li>
+    <li><strong>Encryption:</strong> $C = 7^7 \pmod{33} = 823543 \pmod{33} = \mathbf{4}$.</li>
+    <li><strong>Decryption:</strong> $M = 4^3 \pmod{33} = 64 \pmod{33} = \mathbf{7}$. (Original plaintext recovered!).</li>
+  </ol>
+</div>
+
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Compare HTTP/1.1, HTTP/2, and HTTP/3 across 4 architectural parameters. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Transport Layer:</strong> HTTP/1.1 and HTTP/2 run over standard TCP; HTTP/3 runs over QUIC (UDP-based).<br>
+    2. <strong>Multiplexing:</strong> HTTP/1.1 uses sequential request-response pipelining (suffers from Head-of-Line blocking); HTTP/2 uses binary frame multiplexing over a single TCP connection; HTTP/3 achieves stream-level multiplexing without TCP Head-of-Line blocking.<br>
+    3. <strong>Header Compression:</strong> HTTP/1.1 uses plain text headers without compression; HTTP/2 uses HPACK; HTTP/3 uses QPACK.<br>
+    4. <strong>Handshake Latency:</strong> HTTP/1.1 & HTTP/2 require 2–3 RTTs (TCP + TLS); HTTP/3 achieves 0-RTT connection resumption.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+  </div>
 </body>
 </html>

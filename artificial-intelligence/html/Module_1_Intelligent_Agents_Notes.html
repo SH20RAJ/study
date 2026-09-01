@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 1: Intelligent Agents & PEAS</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Module 1: Intelligent Agents & PEAS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --primary: #4f46e5;       /* Royal Purple / Indigo */
-  --primary-light: #eef2ff;
-  --accent: #06b6d4;        /* Cyan */
-  --secondary: #9333ea;     /* Purple */
+  --primary: #059669;       /* Emerald Green */
+  --primary-light: #ecfdf5;
+  --accent: #10b981;        /* Mint */
+  --secondary: #4f46e5;     /* Indigo */
   --success: #059669;
   --success-bg: #ecfdf5;
   --warning: #d97706;
@@ -29,103 +30,124 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Artificial Intelligence (CS24307) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
 }
 
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-indigo { background: #e0e7ff; color: #3730a3; }
 .badge-green { background: #d1fae5; color: #065f46; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
 .toc-box {
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
   font-size: 13px;
   font-weight: 700;
-  color: #7e22ce;
+  color: #15803d;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
   border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #047857;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -133,16 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #eef2ff; border-color: #4f46e5; color: #312e81; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #ecfdf5; border-color: #10b981; color: #064e3b; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -152,193 +171,411 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #1e1b4b;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #10b981;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #065f46;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #ecfdf5;
+  border-left: 4px solid #059669;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #4338ca; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Artificial Intelligence (CS24307) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-indigo">CS24307 — Theory (3.0 Cr)</span>
-      <span class="badge badge-purple">Module I Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-green">CS24307 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">Module I Notes</span>
+        <span class="badge badge-blue">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Module 1: Intelligent Agents & PEAS</h1>
+      <div class="doc-subtitle">Definitions of AI, Turing Test, Rationality, PEAS Framework & 5 Agent Types</div>
     </div>
-    <h1 class="doc-title">Module 1: Intelligent Agents & PEAS</h1>
-    <div class="doc-subtitle">Foundations of AI, Rationality, PEAS & Environment Dimensions</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">Module I: Intelligent Agents & PEAS — Topics Covered</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Introduction to Artificial Intelligence & Intelligent Agents</div>
   <div class="toc-grid">
-    <div>1. Definitions of AI & Turing Test</div>
-    <div>2. Concept of Rationality vs. Omniscience</div>
-    <div>3. PEAS Framework (Performance, Environment, Actuators, Sensors)</div>
-    <div>4. Environment Taxonomies (7 Dimensions)</div>
-    <div>5. Agent Structures: Reflex, Goal, Utility & Learning Agents</div>
+    <div>1. Foundations & 4 Definitions of AI (Human vs. Rational, Thought vs. Behavior)</div>
+    <div>2. The Turing Test, Total Turing Test & Chinese Room Argument</div>
+    <div>3. Historical Evolution & Eras of AI (Dartmouth 1956 to Deep Learning)</div>
+    <div>4. Concept of Rationality & Mathematical Performance Measures</div>
+    <div>5. The PEAS Framework (Performance, Environment, Actuators, Sensors)</div>
+    <div>6. Comprehensive PEAS Analysis across 5 Diverse Real-World Domains</div>
+    <div>7. Environment Taxonomies (7 Orthogonal Dimensions & Classifications)</div>
+    <div>8. Simple Reflex Agents (Condition-Action Rules & Internal Architectures)</div>
+    <div>9. Model-Based Reflex Agents (Handling Partial Observability & State Updating)</div>
+    <div>10. Goal-Based Agents (Search, Planning & Future State Simulation)</div>
+    <div>11. Utility-Based Agents (Trade-Off Optimization & Expected Utility Theory)</div>
+    <div>12. Learning Agents (Critic, Learning Element, Performance Element, Generator)</div>
+    <div>13. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
   </div>
 </div>
 
-<h2 class="section-title">1. PEAS Framework Formulation</h2>
+<h2 class="section-title">Topic 1: Foundations & The 4 Quadrants of AI Definitions</h2>
+<p>
+  Artificial Intelligence (AI) is the study and design of intelligent computational entities capable of perceiving their environment, reasoning about state, making optimal decisions, and acting autonomously to maximize success.
+</p>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 20%;">Agent Type</th>
-      <th style="width: 25%;">Performance Measure ($P$)</th>
-      <th style="width: 25%;">Environment ($E$)</th>
-      <th style="width: 15%;">Actuators ($A$)</th>
+      <th style="width: 25%;">Dimension</th>
+      <th style="width: 37%;">Human-Centric Approach</th>
+      <th>Rationalist (Normative Ideal) Approach</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Thought Processes & Reasoning</strong></td>
+      <td>
+        <strong>Systems that Think Like Humans:</strong><br>
+        • Focuses on Cognitive Science & Cognitive Modeling.<br>
+        • Validated by comparing internal neural activation traces and decision response times with human psychological experiments (GPS - General Problem Solver).
+      </td>
+      <td>
+        <strong>Systems that Think Rationally:</strong><br>
+        • Focuses on Formal Logic & Laws of Thought.<br>
+        • Codifies strict deductive syllogisms (e.g., Aristotle: "Socrates is a man; all men are mortal; therefore Socrates is mortal").
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Observable Behavior & Action</strong></td>
+      <td>
+        <strong>Systems that Act Like Humans:</strong><br>
+        • Operationalized by <strong>The Turing Test (1950)</strong>.<br>
+        • Requires Natural Language Processing, Knowledge Representation, Automated Reasoning, and Machine Learning.
+      </td>
+      <td>
+        <strong>Systems that Act Rationally (Modern AI Standard):</strong><br>
+        • Focuses on <strong>Intelligent Rational Agents</strong>.<br>
+        • An agent acts rationally if it selects actions that maximize the expected value of its performance measure, given its perceptual history.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 2: The Turing Test & The Chinese Room Philosophical Argument</h2>
+
+<h3 class="subsection-title">1. The Standard Turing Test (Alan Turing, 1950):</h3>
+<p>
+  A human interrogator communicates via text terminal with two hidden entities: another human and a machine. If the interrogator cannot reliably tell which is the machine after 5 minutes of open interrogation, the machine is said to have demonstrated intelligence.
+</p>
+<ul>
+  <li><strong>Total Turing Test:</strong> Augments the text test with video/physical interactions, requiring Computer Vision and Robotics.</li>
+</ul>
+
+<h3 class="subsection-title">2. John Searle's Chinese Room Argument (1980):</h3>
+<p>
+  A human who understands zero Chinese sits inside a sealed room with a rule book (program) that maps incoming Chinese character slips to output slips. To an outside observer, the room answers Chinese queries perfectly.
+</p>
+<div class="callout callout-info">
+  <div class="callout-title">Core Philosophical Takeaway: Syntax vs. Semantics</div>
+  Searle proved that <strong>syntactic symbol manipulation</strong> is fundamentally insufficient for <strong>semantic understanding and intentionality</strong> ("Strong AI"). Machines simulate understanding without truly understanding.
+</div>
+
+<h2 class="section-title">Topic 4 & 5: Concept of Rationality & The PEAS Framework</h2>
+
+<p>
+  A <strong>Rational Agent</strong> is one that does the right thing. Formally, for each possible percept sequence, a rational agent selects an action that is expected to maximize its performance measure, based on the evidence provided by the percept sequence and whatever built-in knowledge the agent has.
+</p>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Rationality $\neq$ Omniscience</div>
+  <ul>
+    <li><strong>Omniscience:</strong> An omniscient agent knows the <em>actual</em> outcome of its actions and can act accordingly (impossible in reality due to incomplete information and stochasticity).</li>
+    <li><strong>Rationality:</strong> Maximizes <em>expected</em> success based on available percepts and knowledge. Rationality encourages <strong>information gathering and exploration</strong>.</li>
+  </ul>
+</div>
+
+<h3 class="subsection-title">The PEAS Formulation Matrix across 5 Standard AI Systems:</h3>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Agent Type</th>
+      <th style="width: 22%;">Performance Measure ($P$)</th>
+      <th style="width: 22%;">Environment ($E$)</th>
+      <th style="width: 18%;">Actuators ($A$)</th>
       <th>Sensors ($S$)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Automated Taxi Driver</strong></td>
-      <td>Safety, speed, comfort, maximum profit, legal compliance</td>
-      <td>Roads, traffic, pedestrians, weather conditions</td>
-      <td>Steering wheel, accelerator, brake, horn, display</td>
-      <td>Cameras, LiDAR, radar, GPS, speedometer, engine sensors</td>
+      <td><strong>1. Autonomous Taxi Driver</strong></td>
+      <td>Safe transit, fast route, legal driving, passenger comfort, maximized profits.</td>
+      <td>Roads, traffic, pedestrians, weather, traffic lights, police.</td>
+      <td>Steering wheel, accelerator, brake, signals, horn, dashboard display.</td>
+      <td>LiDAR, RADAR, cameras, sonar, GPS, speedometer, accelerometer, engine sensors.</td>
     </tr>
     <tr>
-      <td><strong>Medical Diagnosis System</strong></td>
-      <td>Patient health recovery, minimized cost, zero misdiagnosis</td>
-      <td>Patient, hospital database, laboratory staff</td>
-      <td>Screen displays, prescription generation, referral alerts</td>
-      <td>Keyboard input of symptoms, patient test results</td>
+      <td><strong>2. Medical Diagnostic System</strong></td>
+      <td>Healthy patient, minimized healthcare costs, zero false negatives in critical diagnoses.</td>
+      <td>Patient, hospital clinical staff, insurance databases.</td>
+      <td>Display screen for diagnoses, recommended prescriptions, test orders.</td>
+      <td>Keyboard input of symptoms, lab test analyzers, vital sign monitors, patient EHR.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Automated Vacuum Cleaner</strong></td>
+      <td>Cleanliness score, minimal battery consumption, minimal operating time, zero damage to furniture.</td>
+      <td>Room floors, carpets, furniture, obstacles, pets, stairs.</td>
+      <td>Drive wheels, vacuum suction motor, rotating brush, dust ejection valve.</td>
+      <td>Bumper contact switches, infrared cliff sensors, optical floor sensor, dust detector.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Part-Picking Industrial Robot</strong></td>
+      <td>Percentage of parts correctly sorted into bins, speed (parts per minute), zero damage.</td>
+      <td>Conveyor belt, raw parts bins, assembly trays.</td>
+      <td>Jointed mechanical robotic arm, pneumatic gripper hand.</td>
+      <td>High-resolution RGB-D camera, joint angle encoders, tactile pressure sensors.</td>
+    </tr>
+    <tr>
+      <td><strong>5. High-Frequency Trading Bot</strong></td>
+      <td>Maximized portfolio return on investment (ROI), minimized Value-at-Risk (VaR), Sharpe ratio.</td>
+      <td>Global financial exchanges (NASDAQ, NYSE, crypto liquidity pools).</td>
+      <td>Automated FIX protocol buy/sell order submissions, cancellation packets.</td>
+      <td>Real-time tick-by-tick market data feed, financial news APIs, order books.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">2. Environment Dimensions Taxonomy</h2>
+<h2 class="section-title">Topic 7: Environment Taxonomies (7 Orthogonal Dimensions)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 24%;">Environment Property</th>
+      <th style="width: 38%;">Description & Characterization</th>
+      <th>Representative Domain Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Fully vs. Partially Observable</strong></td>
+      <td>Whether the agent's sensors give complete access to the full state of the environment at all times.</td>
+      <td>• <em>Fully:</em> Chess, Crossword puzzle.<br>• <em>Partially:</em> Poker (hidden cards), Automated Driving.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Single-Agent vs. Multi-Agent</strong></td>
+      <td>Whether other entities in the environment are treated as agents with their own objective functions.</td>
+      <td>• <em>Single:</em> Solitaire, Sudoku.<br>• <em>Multi:</em> Chess (Competitive), Traffic (Cooperative).</td>
+    </tr>
+    <tr>
+      <td><strong>3. Deterministic vs. Stochastic</strong></td>
+      <td>Whether the next state is completely determined by the current state and the agent's action.</td>
+      <td>• <em>Deterministic:</em> Chess.<br>• <em>Stochastic:</em> Backgammon (dice), Weather-dependent systems.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Episodic vs. Sequential</strong></td>
+      <td>In episodic environments, current decisions do not affect future episodes (no memory needed).</td>
+      <td>• <em>Episodic:</em> Defect classification on conveyor.<br>• <em>Sequential:</em> Chess, Navigation.</td>
+    </tr>
+    <tr>
+      <td><strong>5. Static vs. Dynamic vs. Semidynamic</strong></td>
+      <td>Whether the environment changes while the agent is deliberating. Semidynamic: environment stays fixed but score decreases over time.</td>
+      <td>• <em>Static:</em> Crossword.<br>• <em>Dynamic:</em> Taxi driving.<br>• <em>Semidynamic:</em> Timed Chess.</td>
+    </tr>
+    <tr>
+      <td><strong>6. Discrete vs. Continuous</strong></td>
+      <td>Whether the state space, time, percepts, and actions are finite discrete values or continuous real numbers.</td>
+      <td>• <em>Discrete:</em> Chess (64 squares).<br>• <em>Continuous:</em> Self-driving cars (speed, angle).</td>
+    </tr>
+    <tr>
+      <td><strong>7. Known vs. Unknown</strong></td>
+      <td>Whether the physics/rules of the environment are fully known to the agent in advance.</td>
+      <td>• <em>Known:</em> Solitaire.<br>• <em>Unknown:</em> Exploring a new video game or planet.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topics 8 – 12: The 5 Fundamental Agent Architectures</h2>
+
+<div class="diagram-container">
+  <svg width="100%" height="110" viewBox="0 0 740 110" xmlns="http://www.w3.org/2000/svg">
+    <rect x="15" y="15" width="125" height="80" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="77" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">Simple Reflex</text>
+    <text x="77" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#2563eb" text-anchor="middle">Condition-Action</text>
+    <text x="77" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">No History Memory</text>
+
+    <path d="M 140 55 L 160 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="165" y="15" width="125" height="80" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="227" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">Model-Based</text>
+    <text x="227" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#16a34a" text-anchor="middle">Internal State</text>
+    <text x="227" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">How world evolves</text>
+
+    <path d="M 290 55 L 310 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="315" y="15" width="125" height="80" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="377" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Goal-Based</text>
+    <text x="377" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Search & Planning</text>
+    <text x="377" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Goal achievement</text>
+
+    <path d="M 440 55 L 460 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="465" y="15" width="125" height="80" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="527" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#581c87" text-anchor="middle">Utility-Based</text>
+    <text x="527" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#9333ea" text-anchor="middle">Trade-off mapping</text>
+    <text x="527" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Utility function U(s)</text>
+
+    <path d="M 590 55 L 610 55" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="615" y="15" width="115" height="80" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+    <text x="672" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">Learning Agent</text>
+    <text x="672" y="55" font-family="Plus Jakarta Sans" font-size="9" fill="#14b8a6" text-anchor="middle">Critic & Generator</text>
+    <text x="672" y="70" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Improves over time</text>
+  </svg>
+  <div class="diagram-caption">Figure 1.1: Progression of Autonomous Agent Architectures from Simple Reflex to Learning Agents</div>
+</div>
+
+<h3 class="subsection-title">1. The Learning Agent Sub-Components:</h3>
 <ul>
-  <li><strong>Fully Observable vs. Partially Observable:</strong> Agent sensors give complete access to world state vs. noisy/occluded states.</li>
-  <li><strong>Deterministic vs. Stochastic:</strong> Next state is completely determined by current state and action vs. randomness.</li>
-  <li><strong>Episodic vs. Sequential:</strong> Current decision does not affect future episodes vs. current actions dictate future rewards.</li>
-  <li><strong>Static vs. Dynamic:</strong> Environment does not change while agent is deliberating vs. continuously evolving.</li>
-  <li><strong>Discrete vs. Continuous:</strong> Finite number of states/actions (Chess) vs. continuous state/time (Driving).</li>
+  <li><strong>Critic:</strong> Evaluates the agent's behavior against an external performance standard and provides reward/penalty feedback.</li>
+  <li><strong>Learning Element:</strong> Responsible for making improvements based on feedback from the critic.</li>
+  <li><strong>Performance Element:</strong> Responsible for selecting external actions (equivalent to the entire non-learning agent).</li>
+  <li><strong>Problem Generator:</strong> Suggests novel exploratory actions that lead to new and informative experiences, rather than sticking only to known suboptimal paths.</li>
 </ul>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Artificial Intelligence (CS24307) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Define an Intelligent Agent. Differentiate between Omniscience and Rationality with an example. (8 Marks)</div>
+  <div class="qa-a">
+    An <strong>Intelligent Agent</strong> is anything that perceives its environment through sensors and acts upon that environment through actuators.<br>
+    - <strong>Rationality:</strong> Evaluated based on the expected performance given the percept sequence observed so far and built-in knowledge. It represents optimal decision-making under uncertainty.<br>
+    - <strong>Omniscience:</strong> An omniscient agent knows the exact actual outcome of its actions and makes zero errors (impossible due to incomplete state visibility and random environmental events).<br>
+    <em>Example:</em> A pedestrian crosses the street after carefully looking left and right (Rational). If a meteor strikes them from the sky, the action was still rational despite the tragic outcome, whereas an omniscient agent would have known about the meteor.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Provide a complete PEAS description for an Automated Medical Diagnosis System and analyze its environment across all 7 dimensions. (10 Marks)</div>
+  <div class="qa-a">
+    <strong>PEAS Description:</strong><br>
+    • <strong>P:</strong> Patient health recovery, minimal diagnostic cost, zero misdiagnoses of critical illnesses.<br>
+    • <strong>E:</strong> Patient physiology, hospital staff, clinical lab test systems, electronic health records.<br>
+    • <strong>A:</strong> Diagnostic reports, prescription medication orders, clinical test recommendations.<br>
+    • <strong>S:</strong> Symptom inputs, patient vital sign telemetry, lab test results, imaging scans.<br><br>
+    <strong>Environment Classification:</strong><br>
+    1. <em>Partially Observable:</em> Internal physiological processes cannot be fully sensed directly.<br>
+    2. <em>Multi-Agent:</em> Interacts with human doctors, nurses, and patients.<br>
+    3. <em>Stochastic:</em> Patient biological responses to medication vary probabilistically.<br>
+    4. <em>Sequential:</em> Previous treatment choices alter patient physiology and future treatment efficacy.<br>
+    5. <em>Dynamic:</em> Patient condition can deteriorate while the system deliberates.<br>
+    6. <em>Continuous:</em> Vital signs, lab values, and time are continuous variables.<br>
+    7. <em>Known:</em> Medical physics and pharmacology rules are largely established.
+  </div>
+</div>
+
+  </div>
 </body>
 </html>
