@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3: Lexical Semantics & Word Embeddings</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #c026d3;       /* Fuchsia / Magenta */
+  --primary-light: #fdf4ff;
+  --accent: #8b5cf6;        /* Violet */
+  --secondary: #4f46e5;     /* Indigo */
+  --success: #059669;
+  --success-bg: #ecfdf5;
+  --warning: #d97706;
+  --warning-bg: #fffbeb;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --dark: #0f172a;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #cbd5e1;
+  --bg-card: #ffffff;
+  --bg-page: #f8fafc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background-color: var(--bg-page);
+  line-height: 1.6;
+  font-size: 12.6px;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 35px 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.doc-header {
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+}
+
+.badge-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.badge-fuchsia { background: #fae8ff; color: #86198f; }
+.badge-violet { background: #ede9fe; color: #5b21b6; }
+.badge-green { background: #d1fae5; color: #065f46; }
+
+h1.doc-title {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.doc-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.toc-box {
+  background: #fdf4ff;
+  border: 1px solid #f5d0fe;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 25px;
+  page-break-inside: avoid;
+}
+
+.toc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #a21caf;
+  margin-bottom: 8px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 20px;
+  font-size: 11.5px;
+}
+
+h2.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  border-left: 4px solid var(--primary);
+  padding-left: 10px;
+  margin: 24px 0 12px 0;
+}
+
+h3.subsection-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 15px 0 7px 0;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+
+.callout {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 11px 0;
+  font-size: 11.8px;
+  border-left: 4px solid;
+  page-break-inside: avoid;
+}
+
+.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
+.callout-blue { background: #fdf4ff; border-color: #c026d3; color: #701a75; }
+.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
+.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 11px 0;
+  font-size: 11.5px;
+  background: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+table.custom-table th {
+  background: #701a75;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+table.custom-table td {
+  padding: 5.5px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 1.5px 4px;
+  border-radius: 3px;
+  border: 1px solid #e2e8f0;
+}
+
+pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-x: auto;
+  margin: 9px 0;
+  page-break-inside: avoid;
+}
+
+ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
+li { margin-bottom: 3px; }
+
+.diagram-container {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.diagram-caption {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qa-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 11px 0;
+  page-break-inside: avoid;
+}
+
+.qa-q { font-weight: 700; color: #a21caf; font-size: 12.2px; margin-bottom: 5px; }
+.qa-a { font-size: 11.8px; color: var(--text); }
+
+@media print {
+  body { background: #ffffff; font-size: 11.8px; }
+  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
+  @page {
+    size: A4 portrait;
+    margin: 14mm 11mm 14mm 11mm;
+    @bottom-right {
+      content: "Page " counter(page);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+    @bottom-left {
+      content: "NLP (CS24351) Study Notes | BIT Mesra";
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+  }
+  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page-container">
+  <div class="doc-header">
+    <div class="badge-container">
+      <span class="badge badge-fuchsia">CS24351 — Elective (3.0 Cr)</span>
+      <span class="badge badge-violet">Module III Notes</span>
+      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+    </div>
+    <h1 class="doc-title">Module 3: Lexical Semantics & Word Embeddings</h1>
+    <div class="doc-subtitle">WordNet, Lesk WSD, TF-IDF, Word2Vec (CBOW/SGNS), GloVe, FastText</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title">Module III: Lexical Semantics & Word Embeddings — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. WordNet Synsets & Lesk Disambiguation</div>
+    <div>2. TF-IDF Vector Space & Cosine Similarity</div>
+    <div>3. Word2Vec: Continuous Bag of Words (CBOW)</div>
+    <div>4. Word2Vec: Skip-Gram with Negative Sampling</div>
+    <div>5. GloVe Global Vectors & FastText Subwords</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Word2Vec Architectures</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Architecture</th>
+      <th style="width: 45%;">Objective Formulation</th>
+      <th>Key Strength</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Continuous Bag-of-Words (CBOW)</strong></td>
+      <td>Predicts target center word $w_t$ given sum of surrounding context words $w_{t-c}, \dots, w_{t+c}$.</td>
+      <td>Faster to train; better representation for frequent words.</td>
+    </tr>
+    <tr>
+      <td><strong>Skip-Gram with Negative Sampling (SGNS)</strong></td>
+      <td>Predicts surrounding context words given target center word $w_t$: $\max \sum \log \sigma(v'_c \cdot v_w) + \sum \mathbb{E}[\log \sigma(-v'_k \cdot v_w)]$.</td>
+      <td>Superior performance on rare words and fine-grained analogies.</td>
+    </tr>
+  </tbody>
+</table>
+
+  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
+    <span>Natural Language Processing (CS24351) — Comprehensive Study Suite</span>
+    <span>BIT Mesra | B.Tech CSE</span>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+</body>
+</html>
