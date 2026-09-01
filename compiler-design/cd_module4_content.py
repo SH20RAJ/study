@@ -1,4 +1,5 @@
-# Compiler Design Module 4 Exhaustive Content (12-14 Pages Target)
+# Compiler Design Module 4 Exhaustive Content (12-15 Pages Target)
+# Neuroscience-backed formatting: High visual chunking, KaTeX equations, worked trace boxes, exam cards
 
 CD_M4_EXHAUSTIVE = r"""
 <div class="toc-box">
@@ -6,20 +7,22 @@ CD_M4_EXHAUSTIVE = r"""
   <div class="toc-grid">
     <div>1. Intermediate Representations (Syntax Trees, DAG, Postfix, TAC)</div>
     <div>2. Three-Address Code (TAC) Representations: Quadruples, Triples, Indirect Triples</div>
-    <div>3. Translation of Expressions & Type Coercion TAC</div>
-    <div>4. Multi-Dimensional Array Addressing (Row-Major vs Column-Major Proofs)</div>
-    <div>5. Boolean Expressions Translation & Short-Circuit Evaluation</div>
-    <div>6. Backpatching Techniques (`makelist`, `merge`, `backpatch`)</div>
-    <div>7. Runtime Storage Organization & Activation Records (Stack Frames)</div>
-    <div>8. Storage Allocation Strategies (Static, Stack, Heap)</div>
-    <div>9. Access Links & Displays for Nested Block Scopes</div>
-    <div>10. Parameter Passing Mechanisms & Garbage Collection</div>
+    <div>3. Translation of Arithmetic Expressions & Type Coercion TAC</div>
+    <div>4. Multi-Dimensional Array Addressing (Row-Major vs. Column-Major Proofs)</div>
+    <div>5. Boolean Expressions Translation & Flow-of-Control Short-Circuiting</div>
+    <div>6. Backpatching Techniques (`makelist`, `merge`, `backpatch` Algorithms)</div>
+    <div>7. Procedure Translation (`param`, `call`, `return` Instruction Sequences)</div>
+    <div>8. Runtime Storage Organization (Text, Static, Stack & Heap Segments)</div>
+    <div>9. Activation Records (Stack Frame Anatomy & Dynamic Links)</div>
+    <div>10. Access Links & Displays for Lexically Nested Scopes</div>
+    <div>11. Parameter Passing Mechanisms (Value, Reference, Copy-Restore, Name)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
 <h2 class="section-title">Topic 1 & 2: Three-Address Code (TAC) Representations</h2>
 <p>
-  <strong>Three-Address Code (TAC)</strong> is a linear intermediate representation where each instruction has at most one operator on the right-hand side:
+  <strong>Three-Address Code (TAC)</strong> is a linear intermediate representation where each instruction contains at most one operator on the right-hand side:
 </p>
 $$x = y \ \mathbf{op} \ z$$
 
@@ -62,55 +65,54 @@ $$x = y \ \mathbf{op} \ z$$
 
   <p><strong>Step 2: Quadruple Representation:</strong></p>
   <table class="custom-table">
-    <tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th><th>result</th></tr>
-    <tr><td>0</td><td>uminus</td><td>c</td><td>-</td><td>t1</td></tr>
-    <tr><td>1</td><td>*</td><td>b</td><td>t1</td><td>t2</td></tr>
-    <tr><td>2</td><td>uminus</td><td>c</td><td>-</td><td>t3</td></tr>
-    <tr><td>3</td><td>*</td><td>b</td><td>t3</td><td>t4</td></tr>
-    <tr><td>4</td><td>+</td><td>t2</td><td>t4</td><td>t5</td></tr>
-    <tr><td>5</td><td>=</td><td>t5</td><td>-</td><td>a</td></tr>
+    <thead><tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th><th>result</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>uminus</td><td>c</td><td>-</td><td>t1</td></tr>
+      <tr><td>1</td><td>*</td><td>b</td><td>t1</td><td>t2</td></tr>
+      <tr><td>2</td><td>uminus</td><td>c</td><td>-</td><td>t3</td></tr>
+      <tr><td>3</td><td>*</td><td>b</td><td>t3</td><td>t4</td></tr>
+      <tr><td>4</td><td>+</td><td>t2</td><td>t4</td><td>t5</td></tr>
+      <tr><td>5</td><td>=</td><td>t5</td><td>-</td><td>a</td></tr>
+    </tbody>
   </table>
 
   <p><strong>Step 3: Triple Representation:</strong></p>
   <table class="custom-table">
-    <tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th></tr>
-    <tr><td>(0)</td><td>uminus</td><td>c</td><td>-</td></tr>
-    <tr><td>(1)</td><td>*</td><td>b</td><td>(0)</td></tr>
-    <tr><td>(2)</td><td>uminus</td><td>c</td><td>-</td></tr>
-    <tr><td>(3)</td><td>*</td><td>b</td><td>(2)</td></tr>
-    <tr><td>(4)</td><td>+</td><td>(1)</td><td>(3)</td></tr>
-    <tr><td>(5)</td><td>assign</td><td>a</td><td>(4)</td></tr>
+    <thead><tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th></tr></thead>
+    <tbody>
+      <tr><td>(0)</td><td>uminus</td><td>c</td><td>-</td></tr>
+      <tr><td>(1)</td><td>*</td><td>b</td><td>(0)</td></tr>
+      <tr><td>(2)</td><td>uminus</td><td>c</td><td>-</td></tr>
+      <tr><td>(3)</td><td>*</td><td>b</td><td>(2)</td></tr>
+      <tr><td>(4)</td><td>+</td><td>(1)</td><td>(3)</td></tr>
+      <tr><td>(5)</td><td>assign</td><td>a</td><td>(4)</td></tr>
+    </tbody>
   </table>
 </div>
-
-
 
 <h2 class="section-title">Topic 4: Multi-Dimensional Array Addressing Formulations</h2>
 
 <div class="formula-card">
   <strong>1. 1D Array Address Formula:</strong>
   $$\text{Address}(A[i]) = \text{base} + (i - \text{low}) \times w$$
-  Where $\text{base}$ is the start memory address, $\text{low}$ is lower index bound (typically 0 or 1), and $w$ is byte width per element.
+  Where $\text{base}$ is the start memory address, $\text{low}$ is lower index bound, and $w$ is byte width per element.
 </div>
 
 <div class="formula-card">
   <strong>2. 2D Array Address Formula (Row-Major Order — C / C++ / Java):</strong>
   $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_1 - \text{low}_1) \times n_2 + (i_2 - \text{low}_2) \Big) \times w$$
-  Where $n_2 = \text{high}_2 - \text{low}_2 + 1$ is the number of elements in each row.
+  Where $n_2 = \text{high}_2 - \text{low}_2 + 1$ is the number of columns.
 </div>
 
 <div class="formula-card">
   <strong>3. 2D Array Address Formula (Column-Major Order — FORTRAN / MATLAB):</strong>
   $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_2 - \text{low}_2) \times n_1 + (i_1 - \text{low}_1) \Big) \times w$$
-  Where $n_1 = \text{high}_1 - \text{low}_1 + 1$ is the number of elements in each column.
+  Where $n_1 = \text{high}_1 - \text{low}_1 + 1$ is the number of rows.
 </div>
 
-
-
-<h2 class="section-title">Topic 5 & 6: Backpatching in Boolean Expressions</h2>
-
+<h2 class="section-title">Topic 5 & 6: Backpatching in Boolean Expressions & Control Flow</h2>
 <p>
-  <strong>Backpatching</strong> is a single-pass technique for generating intermediate code for control flow and boolean expressions without leaving unresolved forward jump target addresses.
+  <strong>Backpatching</strong> is a single-pass technique for generating intermediate code for control flow and boolean expressions without leaving unresolved forward jump target addresses:
 </p>
 <ul>
   <li><strong>`makelist(i)`:</strong> Creates a new list containing only jump instruction index $i$.</li>
@@ -118,12 +120,9 @@ $$x = y \ \mathbf{op} \ z$$
   <li><strong>`backpatch(p, i)`:</strong> Inserts target instruction label $i$ as the jump destination into all instructions indexed in list $p$.</li>
 </ul>
 
-
-
-<h2 class="section-title">Topics 7 – 9: Runtime Storage Organization & Activation Records</h2>
-
+<h2 class="section-title">Topics 8 – 10: Runtime Storage Organization & Activation Records</h2>
 <p>
-  During program execution, the operating system allocates a contiguous block of memory divided into 4 major logical segments:
+  During program execution, the operating system allocates a contiguous block of virtual memory partitioned into 4 logical segments:
 </p>
 <ol>
   <li><strong>Code Segment (Text):</strong> Read-only region holding compiled target machine instructions.</li>
@@ -149,8 +148,6 @@ $$x = y \ \mathbf{op} \ z$$
     <tr><td><strong>Temporaries</strong></td><td>Temporary values generated during expression evaluation.</td></tr>
   </tbody>
 </table>
-
-
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
 

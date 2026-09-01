@@ -1,275 +1,486 @@
-# Compiler Design Module 1 Exhaustive Content (12-14 Pages Target)
+# Compiler Design Module 1 Exhaustive Content (12-15 Pages Target)
+# Neuroscience-backed formatting: High visual chunking, KaTeX equations, worked trace boxes, exam cards
 
 CD_M1_EXHAUSTIVE = r"""
 <div class="toc-box">
   <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Lexical Analysis & Automata Theory — Complete Syllabus Topics</div>
   <div class="toc-grid">
-    <div>1. Language Processors (Compiler, Interpreter, Assembler, Preprocessor)</div>
-    <div>2. 6 Phases of Compiler Architecture with End-to-End Running Example</div>
-    <div>3. Compiler Front-End vs Back-End & Pass Structures</div>
-    <div>4. Lexical Analysis Role, Tokens, Patterns & Lexemes</div>
-    <div>5. Input Buffering (Two-Buffer Scheme & Sentinels)</div>
-    <div>6. Regular Expressions & Regular Definitions for Programming Tokens</div>
-    <div>7. Thompson's Construction Algorithm (RE to NFA Step-by-Step)</div>
-    <div>8. Subset Construction Algorithm (NFA to DFA Transition Table)</div>
-    <div>9. Hopcroft's DFA State Minimization Algorithm (Equivalence Partitioning)</div>
-    <div>10. Lex & Flex Lexical Analyzer Generator Specifications</div>
+    <div>1. Language Processors (Compiler, Interpreter, Assembler, Preprocessor, Linker, Loader)</div>
+    <div>2. 6 Phases of Compiler Architecture with Full Running Translation Traces</div>
+    <div>3. Compiler Front-End vs. Back-End & Pass Structures (1-Pass vs. Multi-Pass)</div>
+    <div>4. Lexical Analysis Role, Tokens, Patterns, Lexemes & Token Attributes</div>
+    <div>5. Input Buffering Mechanics (Two-Buffer Scheme & Sentinel Verification)</div>
+    <div>6. Regular Expressions & Regular Definitions for Programming Language Tokens</div>
+    <div>7. Thompson's Construction Algorithm (RE to $\epsilon$-NFA with Structural Rules)</div>
+    <div>8. Subset Construction Algorithm (NFA to DFA Transition Table Derivations)</div>
+    <div>9. Direct DFA Construction from RE (Nullable, Firstpos, Lastpos, Followpos)</div>
+    <div>10. Hopcroft's DFA State Minimization Algorithm (Equivalence Partitioning Trace)</div>
+    <div>11. Lex & Flex Lexical Analyzer Generator Architecture & Ambiguity Rules</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 & 3: Language Processing Systems & Compiler Architecture</h2>
+<h2 class="section-title">Topic 1: Language Processing Systems & Execution Pipeline</h2>
 <p>
-  A <strong>Compiler</strong> is a sophisticated system software that translates a computer program written in a high-level source language (e.g., C, C++, Java) into an equivalent target program in low-level machine code or assembly language, while detecting and reporting diagnostic errors.
+  A <strong>Compiler</strong> is a sophisticated system software program that accepts a source program written in a high-level, human-readable programming language (such as C, C++, Rust, or Java) and translates it into an equivalent semantic representation in a low-level target language (machine code or assembly), while detecting and reporting all syntax and static semantic violations.
 </p>
 
 <div class="diagram-container">
-  <svg width="100%" height="80" viewBox="0 0 740 80" xmlns="http://www.w3.org/2000/svg">
-    <rect x="10" y="20" width="100" height="40" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
-    <text x="60" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#1e40af" text-anchor="middle">Preprocessor</text>
+  <svg width="100%" height="90" viewBox="0 0 740 90" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="25" width="105" height="42" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="57" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#1e40af" text-anchor="middle">Preprocessor</text>
+    <text x="57" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#3b82f6" text-anchor="middle">#include, #define</text>
 
-    <path d="M 110 40 L 135 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 110 46 L 135 46" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow)"/>
 
-    <rect x="140" y="15" width="115" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-    <text x="197" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#92400e" text-anchor="middle">Compiler</text>
-    <text x="197" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Front + Back End</text>
+    <rect x="140" y="15" width="125" height="60" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="202" y="38" font-family="Plus Jakarta Sans" font-size="12" font-weight="800" fill="#92400e" text-anchor="middle">Compiler</text>
+    <text x="202" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Front-End + Back-End</text>
+    <text x="202" y="64" font-family="Plus Jakarta Sans" font-size="8.5" fill="#d97706" text-anchor="middle">Analysis & Synthesis</text>
 
-    <path d="M 260 40 L 285 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 265 46 L 290 46" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="290" y="20" width="100" height="40" rx="6" fill="#f0fdf4" stroke="#22c55e"/>
-    <text x="340" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#14532d" text-anchor="middle">Assembler</text>
+    <rect x="295" y="25" width="105" height="42" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="347" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#14532d" text-anchor="middle">Assembler</text>
+    <text x="347" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" text-anchor="middle">Assembly -> Object</text>
 
-    <path d="M 395 40 L 420 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 400 46 L 425 46" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="425" y="20" width="135" height="40" rx="6" fill="#faf5ff" stroke="#a855f7"/>
-    <text x="492" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#581c87" text-anchor="middle">Linker / Loader</text>
+    <rect x="430" y="25" width="130" height="42" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="495" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#581c87" text-anchor="middle">Linker / Loader</text>
+    <text x="495" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#9333ea" text-anchor="middle">Symbol Resolution</text>
 
-    <path d="M 565 40 L 590 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 560 46 L 585 46" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="595" y="20" width="135" height="40" rx="6" fill="#ccfbf1" stroke="#0f766e"/>
+    <rect x="590" y="25" width="145" height="42" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
     <text x="662" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#0f766e" text-anchor="middle">Target Machine Code</text>
+    <text x="662" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#14b8a6" text-anchor="middle">Binary ELF / EXE</text>
   </svg>
-  <div class="diagram-caption">Figure 1.1: Context of a Compiler in Language Processing Pipeline</div>
+  <div class="diagram-caption">Figure 1.1: Complete End-to-End Language Processing Pipeline & System Tools</div>
 </div>
+
+<h3 class="subsection-title">Detailed Analysis of System Components (The Cousins of the Compiler):</h3>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 22%;">System Tool</th>
+      <th style="width: 20%;">Tool</th>
       <th style="width: 25%;">Input $\rightarrow$ Output</th>
-      <th>Primary Responsibilities & Core Functions</th>
+      <th>Primary Technical Responsibilities & Runtime Execution</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>1. Preprocessor</strong></td>
-      <td>Raw Source Code $\rightarrow$ Pure Source Code</td>
-      <td>Macro expansion (`#define`), file inclusion (`#include`), conditional compilation (`#ifdef`), stripping comments.</td>
+      <td>Raw High-Level Code $\rightarrow$ Pure High-Level Code</td>
+      <td>
+        <ul>
+          <li><strong>Macro Expansion:</strong> Replaces macro identifiers with their replacement text (e.g., `#define PI 3.14159`).</li>
+          <li><strong>File Inclusion:</strong> Injects verbatim contents of standard or user header files (e.g., `#include <stdio.h>`).</li>
+          <li><strong>Conditional Compilation:</strong> Evaluates compile-time conditionals (e.g., `#ifdef DEBUG ... #endif`) to strip unwanted source lines.</li>
+          <li><strong>Comment Stripping:</strong> Removes all single-line `//` and block `/* ... */` comments from the source stream.</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><strong>2. Compiler</strong></td>
-      <td>Pure Source Code $\rightarrow$ Target Assembly</td>
-      <td>Translates high-level syntax into assembly language, performs type checking, syntax validation, intermediate code generation, and optimization.</td>
+      <td>Pure Source Code $\rightarrow$ Target Assembly Code</td>
+      <td>
+        Performs full syntactic, semantic, and intermediate translation passes. Emits symbolic target assembly mnemonics (e.g., x86-64, ARM, RISC-V) rather than raw machine opcodes, allowing the assembler to handle platform-specific bit encodings.
+      </td>
     </tr>
     <tr>
       <td><strong>3. Assembler</strong></td>
-      <td>Assembly Code $\rightarrow$ Relocatable Object Code</td>
-      <td>Translates mnemonic assembly instructions into binary machine opcodes and resolves memory offsets.</td>
+      <td>Assembly Mnemonics $\rightarrow$ Relocatable Object Code</td>
+      <td>
+        Translates assembly instructions into raw binary machine opcodes. Constructs the initial <strong>Relocatable Object File</strong> (`.o` or `.obj`) containing machine instructions, initialized data tables, and an internal <strong>Relocation Table</strong> for external labels.
+      </td>
     </tr>
     <tr>
-      <td><strong>4. Linker / Loader</strong></td>
-      <td>Object Files + Libs $\rightarrow$ Absolute Executable</td>
-      <td><strong>Linker:</strong> Resolves external cross-file symbol references and library routines.<br><strong>Loader:</strong> Loads executable binary into primary RAM, sets up stack/heap memory spaces, and initializes CPU instruction pointer.</td>
+      <td><strong>4. Linker</strong></td>
+      <td>Relocatable Object Files + Static Libraries $\rightarrow$ Absolute Executable</td>
+      <td>
+        <ul>
+          <li><strong>Symbol Resolution:</strong> Matches external function and variable references across separately compiled compilation units (e.g., linking `printf` calls to `libc.a`).</li>
+          <li><strong>Relocation:</strong> Merges separate data and text sections into unified virtual address spaces, recalculating all relative memory offsets.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>5. Loader</strong></td>
+      <td>Absolute Executable on Disk $\rightarrow$ Running Process in RAM</td>
+      <td>
+        Allocates primary memory space (Stack, Heap, Data, Text), loads machine instructions into RAM, sets up dynamic library linkages (`.so` / `.dll`), initializes hardware CPU registers (Instruction Pointer `RIP`, Stack Pointer `RSP`), and triggers execution.
+      </td>
     </tr>
   </tbody>
 </table>
 
-
-
-<h2 class="section-title">Topic 2: The 6 Phases of a Compiler (End-to-End Walkthrough)</h2>
-
+<h2 class="section-title">Topic 2: The 6 Phases of Compiler Architecture</h2>
 <p>
-  A compiler operates as a sequence of distinct analytical and synthesis phases. Every phase transforms the source program from one intermediate representation to another, interacting continuously with the <strong>Symbol Table</strong> and <strong>Error Handler</strong>.
+  A modern compiler operates as a strict sequence of analytical (Front-End) and synthetic (Back-End) phases. Every phase transforms the program representation while maintaining bidirectional communication with the central <strong>Symbol Table</strong> and <strong>Error Handler</strong>.
 </p>
 
 <div class="worked-box">
-  <div class="worked-title">🏛️ Complete Running Example: Step-by-Step Translation of Statement `position = initial + rate * 60`</div>
+  <div class="worked-title">🏛️ Complete End-to-End Tracing: Statement `position = initial + rate * 60`</div>
+  <p>To understand the continuous transformations, follow how the statement `position = initial + rate * 60` is processed across all 6 phases:</p>
+
   <ol>
-    <li><strong>Phase 1: Lexical Analysis (Scanning):</strong>
-      <p>Reads raw input character stream and converts into a stream of tokens:</p>
+    <li>
+      <strong>Phase 1: Lexical Analysis (Scanning):</strong>
+      <p>Reads raw character stream from left to right, partitions characters into valid lexemes, and emits a linear token sequence:</p>
       $$\langle \mathbf{id}, 1 \rangle \ \langle \mathbf{=} \rangle \ \langle \mathbf{id}, 2 \rangle \ \langle \mathbf{+} \rangle \ \langle \mathbf{id}, 3 \rangle \ \langle \mathbf{*} \rangle \ \langle \mathbf{num}, 60 \rangle$$
-      <p>Symbol table stores: `1: position (float)`, `2: initial (float)`, `3: rate (float)`.</p>
+      <p><em>Symbol Table Entries:</em> `1: position (float)`, `2: initial (float)`, `3: rate (float)`.</p>
     </li>
-    <li><strong>Phase 2: Syntax Analysis (Parsing):</strong>
-      <p>Constructs a hierarchical Syntax Tree enforcing operator precedence ($*$ over $+$):</p>
-      <pre><code>      =
-     / \
-  id1   +
+    <li>
+      <strong>Phase 2: Syntax Analysis (Parsing):</strong>
+      <p>Verifies grammatical structure using Context-Free Grammars (CFG) and constructs a hierarchical <strong>Abstract Syntax Tree (AST)</strong> that inherently enforces operator precedence ($*$ binds tighter than $+$):</p>
+      <pre><code>        =
        / \
-    id2   *
-         / \
-      id3  60</code></pre>
+   id(1)   +
+          / \
+      id(2)   *
+             / \
+         id(3)  60</code></pre>
     </li>
-    <li><strong>Phase 3: Semantic Analysis (Type Checking):</strong>
-      <p>Checks static semantic rules, ensuring operand type compatibility. Inserts implicit type conversion node $\text{inttofloat}(60)$:</p>
-      <pre><code>      =
-     / \
-  id1   +
+    <li>
+      <strong>Phase 3: Semantic Analysis (Type Checking & Coercion):</strong>
+      <p>Checks language semantic constraints (variable declarations, scope, operand type compatibility). Since `rate` is a `float` and `60` is an `integer`, it inserts an implicit type conversion operator node $\text{inttofloat}$:</p>
+      <pre><code>        =
        / \
-    id2   *
-         / \
-      id3  inttofloat(60)</code></pre>
+   id(1)   +
+          / \
+      id(2)   *
+             / \
+         id(3)  inttofloat
+                   |
+                  60</code></pre>
     </li>
-    <li><strong>Phase 4: Intermediate Code Generation (ICG):</strong>
-      <p>Generates machine-independent Three-Address Code (TAC) with at most one operator per instruction:</p>
+    <li>
+      <strong>Phase 4: Intermediate Code Generation (ICG):</strong>
+      <p>Translates the decorated AST into machine-independent, linear <strong>Three-Address Code (TAC)</strong> where each instruction contains at most one operator:</p>
       <pre><code>t1 = inttofloat(60)
 t2 = id3 * t1
 t3 = id2 + t2
 id1 = t3</code></pre>
     </li>
-    <li><strong>Phase 5: Code Optimization:</strong>
-      <p>Performs compile-time constant folding and eliminates temporary variables:</p>
-      <pre><code>t1 = id3 * 60.0    -- Constant folded: inttofloat(60) -> 60.0
-id1 = id2 + t1</code></pre>
+    <li>
+      <strong>Phase 5: Machine-Independent Code Optimization:</strong>
+      <p>Analyzes the TAC to eliminate redundant computations, evaluate constants at compile-time (Constant Folding), and reduce temporary register pressure:</p>
+      <pre><code>t1 = id3 * 60.0        ; Constant folded inttofloat(60) -> 60.0 at compile-time
+id1 = id2 + t1         ; Eliminated unnecessary temporary t3</code></pre>
     </li>
-    <li><strong>Phase 6: Code Generation (Target Assembly):</strong>
-      <p>Emits target machine instructions using hardware CPU registers (`R1`, `R2`):</p>
-      <pre><code>LDF   R2, id3      ; Load float rate into R2
-MULF  R2, #60.0    ; Multiply R2 by float literal 60.0
-LDF   R1, id2      ; Load float initial into R1
-ADDF  R1, R2       ; Add R2 to R1
-STF   id1, R1      ; Store result into memory position</code></pre>
+    <li>
+      <strong>Phase 6: Code Generation (Target Machine Assembly):</strong>
+      <p>Maps intermediate variables to hardware CPU registers (`R1`, `R2`) and emits optimized target assembly instructions:</p>
+      <pre><code>LDF    R2, id3          ; Load floating-point rate into register R2
+MULF   R2, #60.0        ; Multiply R2 by constant literal 60.0
+LDF    R1, id2          ; Load floating-point initial into register R1
+ADDF   R1, R2           ; Add R2 into R1 (R1 = initial + rate * 60.0)
+STF    id1, R1          ; Store result from R1 into memory location position</code></pre>
     </li>
   </ol>
 </div>
 
+<h2 class="section-title">Topic 3: Compiler Passes & Architecture Organization</h2>
 
+<div class="callout callout-info">
+  <div class="callout-title">Front-End vs. Back-End Separation ($N \times M$ Retargetability Principle)</div>
+  <ul>
+    <li><strong>Front-End (Analysis):</strong> Depends strictly on the source programming language (Lexical, Syntax, Semantic, and ICG). It produces a clean, machine-independent Intermediate Representation (IR).</li>
+    <li><strong>Back-End (Synthesis):</strong> Depends strictly on the target hardware architecture (Optimization, Register Allocation, Instruction Scheduling, Machine Code Generation).</li>
+    <li><strong>Engineering Significance:</strong> To build compilers for $N$ high-level languages targeting $M$ distinct CPU architectures, modular separation requires only $N$ front-ends and $M$ back-ends ($N + M$ modules), rather than $N \times M$ separate monolithic compilers!</li>
+  </ul>
+</div>
 
-<h2 class="section-title">Topic 4 & 5: Lexical Analysis & Input Buffering</h2>
-
-<h3 class="subsection-title">1. Fundamental Terminology:</h3>
+<h3 class="subsection-title">Single-Pass vs. Multi-Pass Compilers:</h3>
 <ul>
-  <li><strong>Token:</strong> An abstract terminal category returned to the parser (e.g., `id`, `num`, `if`, `while`, `assign_op`).</li>
-  <li><strong>Pattern:</strong> A formal grammatical specification (regular expression) describing the set of strings representing a token (e.g., `[a-zA-Z_][a-zA-Z0-9_]*`).</li>
-  <li><strong>Lexeme:</strong> The concrete sequence of source characters matching the pattern (e.g., `counter_variable`, `1024`, `==`).</li>
+  <li><strong>Single-Pass Compiler:</strong> Reads source code once and generates target code directly without creating intermediate files. Highly memory efficient (used in early Pascal compilers), but cannot perform global optimizations or forward-referencing declarations without backpatching.</li>
+  <li><strong>Multi-Pass Compiler:</strong> Traverses intermediate representations multiple times. Enables deep interprocedural optimizations, global register coloring, and dead code elimination at the cost of higher compilation latency and memory consumption.</li>
 </ul>
 
-<h3 class="subsection-title">2. Input Buffering (Two-Buffer Scheme with Sentinels):</h3>
+<h2 class="section-title">Topic 4 & 5: Lexical Analysis Role, Token Definitions & Input Buffering</h2>
+
+<h3 class="subsection-title">1. Essential Lexical Terminology:</h3>
+<ul>
+  <li><strong>Token:</strong> An abstract terminal category recognized by the compiler front-end (e.g., `KEYWORD`, `IDENTIFIER`, `NUMBER`, `RELOP`, `ASSIGN`).</li>
+  <li><strong>Pattern:</strong> The formal grammatical specification (usually a Regular Expression) that character sequences must satisfy to match a token (e.g., `[a-zA-Z_][a-zA-Z0-9_]*`).</li>
+  <li><strong>Lexeme:</strong> The concrete sequence of source characters that matches a token's pattern (e.g., `total_sum`, `3.14159`, `==`, `while`).</li>
+  <li><strong>Token Attribute:</strong> Additional metadata stored alongside the token in the Symbol Table (e.g., type, memory offset, line number, scope depth).</li>
+</ul>
+
+<h3 class="subsection-title">2. Input Buffering Architecture (Two-Buffer Scheme with Sentinels):</h3>
 <p>
-  Reading one character at a time using direct system calls incurs massive operating system overhead. A <strong>Two-Buffer Scheme</strong> uses two $N$-byte blocks (typically $N=4096$ bytes matching disk blocks) managed by two pointers:
+  Reading source files character-by-character via direct OS system calls incurs massive I/O overhead. A <strong>Two-Buffer Scheme</strong> allocates two contiguous $N$-byte blocks (typically $N=4096$ bytes, matching the physical disk block size):
 </p>
-<ul>
-  <li><strong>`lexemeBegin` Pointer:</strong> Marks the beginning of the current token being recognized.</li>
-  <li><strong>`forward` Pointer:</strong> Advances ahead character by character until a token pattern boundary is identified.</li>
-  <li><strong>Sentinels (`EOF`):</strong> Appending an `EOF` marker at the end of each buffer half avoids making two comparisons per character (one for buffer boundary and one for character matching), accelerating lexer throughput by over $200\%$.</li>
-</ul>
 
+<div class="diagram-container">
+  <svg width="100%" height="90" viewBox="0 0 740 90" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="15" width="330" height="40" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+    <text x="185" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">Buffer Half 1 (N = 4096 bytes)</text>
+    <rect x="325" y="15" width="25" height="40" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="337" y="39" font-family="Fira Code" font-size="10" font-weight="700" fill="#991b1b" text-anchor="middle">EOF</text>
 
+    <rect x="370" y="15" width="330" height="40" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+    <text x="535" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">Buffer Half 2 (N = 4096 bytes)</text>
+    <rect x="675" y="15" width="25" height="40" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="687" y="39" font-family="Fira Code" font-size="10" font-weight="700" fill="#991b1b" text-anchor="middle">EOF</text>
 
-<h2 class="section-title">Topic 7: Thompson's Construction Algorithm (RE $\rightarrow$ NFA)</h2>
+    <path d="M 120 75 L 120 57" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="120" y="86" font-family="Fira Code" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">lexemeBegin</text>
 
+    <path d="M 230 75 L 230 57" stroke="#dc2626" stroke-width="2"/>
+    <text x="230" y="86" font-family="Fira Code" font-size="9" font-weight="700" fill="#b91c1c" text-anchor="middle">forward pointer</text>
+  </svg>
+  <div class="diagram-caption">Figure 1.2: Two-Buffer Input Structure with Boundary Sentinel EOFs</div>
+</div>
+
+<div class="formula-card">
+  <strong>Input Scanning Algorithm with Sentinel Checking:</strong>
+  <pre><code>switch (*forward++) {
+    case EOF:
+        if (forward is at end of first buffer half) {
+            reload second buffer half;
+            forward = beginning of second half;
+        } else if (forward is at end of second buffer half) {
+            reload first buffer half;
+            forward = beginning of first half;
+        } else {
+            /* EOF is actual end of source file */
+            terminate scanning;
+        }
+        break;
+    /* Process regular characters without secondary boundary checks */
+}</code></pre>
+</div>
+
+<h2 class="section-title">Topic 7: Thompson's Construction Algorithm (RE $\rightarrow \epsilon$-NFA)</h2>
 <p>
-  <strong>Thompson's Construction</strong> converts any Regular Expression $r$ into an equivalent Non-Deterministic Finite Automaton ($N(r)$) with $\epsilon$-transitions in linear time $O(|r|)$:
+  <strong>Thompson's Construction</strong> converts any Regular Expression $r$ over alphabet $\Sigma$ into an equivalent Non-Deterministic Finite Automaton with $\epsilon$-transitions ($N(r)$) in linear time $O(|r|)$.
 </p>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">RE Operation</th>
-      <th style="width: 45%;">Thompson's Structural Composition</th>
-      <th>Key Structural Invariants</th>
+      <th style="width: 22%;">RE Expression</th>
+      <th style="width: 48%;">Automaton Topology & Transitions</th>
+      <th>Structural Invariant Properties</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Basic Symbol ($a$)</strong></td>
-      <td>$\text{Start} \xrightarrow{a} \text{Accept}$ (2 states, 1 transition)</td>
-      <td>Exactly 1 start state and 1 accept state.</td>
+      <td><strong>1. Basic Symbol ($a \in \Sigma$)</strong></td>
+      <td>State $i \xrightarrow{a} \text{State } f$</td>
+      <td>Exactly 1 start state, 1 accept state, no outgoing transitions from accept state.</td>
     </tr>
     <tr>
       <td><strong>2. Concatenation ($r_1 r_2$)</strong></td>
-      <td>Accept state of $N(r_1)$ merged with start state of $N(r_2)$.</td>
-      <td>Flows directly from $N(r_1)$ into $N(r_2)$.</td>
+      <td>Accept state of $N(r_1)$ is merged with the start state of $N(r_2)$.</td>
+      <td>Initial start of $N(r_1)$ becomes overall start; accept of $N(r_2)$ becomes overall accept.</td>
     </tr>
     <tr>
-      <td><strong>3. Union / Alternation ($r_1 \mid r_2$)</strong></td>
-      <td>New start state branching via $\epsilon$ to $N(r_1)$ and $N(r_2)$; both accept states transition via $\epsilon$ to a new single accept state.</td>
-      <td>4 new $\epsilon$-transitions introduced.</td>
+      <td><strong>3. Alternation ($r_1 \mid r_2$)</strong></td>
+      <td>New start state $s_0$ branches via $\epsilon$ to start of $N(r_1)$ and start of $N(r_2)$. Both accept states transition via $\epsilon$ to a new single accept state $f_0$.</td>
+      <td>Introduces 2 new states and 4 new $\epsilon$-transitions.</td>
     </tr>
     <tr>
       <td><strong>4. Kleene Closure ($r^*$)</strong></td>
-      <td>New start state branches via $\epsilon$ to $N(r)$ and bypasses $N(r)$ to accept state; accept state loops back via $\epsilon$ to start of $N(r)$.</td>
-      <td>Handles zero or multiple repetitions.</td>
+      <td>New start state $s_0$ branches via $\epsilon$ to start of $N(r)$ and directly to new accept state $f_0$ (for zero repetitions). Accept of $N(r)$ transitions via $\epsilon$ back to start of $N(r)$ and to $f_0$.</td>
+      <td>Introduces 2 new states and 4 new $\epsilon$-transitions.</td>
     </tr>
   </tbody>
 </table>
 
-
-
 <h2 class="section-title">Topic 8: Subset Construction Algorithm (NFA $\rightarrow$ DFA)</h2>
-
 <p>
-  A Deterministic Finite Automaton (DFA) contains no $\epsilon$-transitions and has at most one outgoing transition per input symbol from any state.
+  A Deterministic Finite Automaton (DFA) has no $\epsilon$-transitions and has at most one outgoing edge per symbol from any state.
 </p>
 
 <div class="callout callout-info">
-  <div class="callout-title">Core Operations in Subset Construction</div>
+  <div class="callout-title">Formal Mathematical Operations in Subset Construction</div>
   <ul>
-    <li><strong>$\epsilon\text{-closure}(s)$:</strong> Set of all NFA states reachable from state $s$ taking only $\epsilon$-transitions.</li>
+    <li><strong>$\epsilon\text{-closure}(s)$:</strong> The set of all NFA states reachable from state $s$ taking only $\epsilon$-transitions:
+      $$\epsilon\text{-closure}(s) = \{ s \} \cup \{ t \mid \exists u \in \epsilon\text{-closure}(s) \text{ such that } u \xrightarrow{\epsilon} t \}$$
+    </li>
     <li><strong>$\epsilon\text{-closure}(T)$:</strong> $\bigcup_{s \in T} \epsilon\text{-closure}(s)$ for a set of states $T$.</li>
-    <li><strong>$\text{move}(T, a)$:</strong> Set of all NFA states reachable from any state in $T$ on input symbol $a$.</li>
+    <li><strong>$\text{move}(T, a)$:</strong> Set of all NFA states reachable from any state in $T$ on input symbol $a$:
+      $$\text{move}(T, a) = \{ t \mid \exists s \in T \text{ such that } s \xrightarrow{a} t \}$$
+    </li>
   </ul>
 </div>
 
 <div class="worked-box">
   <div class="worked-title">🏛️ Step-by-Step Solved Problem: Convert $(a \mid b)^*abb$ to DFA via Subset Construction</div>
-  <p><strong>NFA States:</strong> $\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$. Accept state: $\{10\}$.</p>
+  <p><strong>Given NFA State Graph:</strong> Start state $0$, accept state $10$.</p>
   <p><strong>Step 1: Compute Initial DFA State $A = \epsilon\text{-closure}(0) = \{0, 1, 2, 4, 7\}$.</strong></p>
-  <p><strong>Step 2: Compute Transitions for DFA States ($D\text{-Tran}$ Table):</strong></p>
+  <p><strong>Step 2: Iteratively Compute Transitions for All Unmarked DFA States:</strong></p>
+
   <table class="custom-table">
     <thead>
-      <tr><th>DFA State</th><th>NFA State Subset</th><th>Input 'a'</th><th>Input 'b'</th></tr>
+      <tr>
+        <th style="width: 15%;">DFA State</th>
+        <th style="width: 35%;">NFA State Subset</th>
+        <th style="width: 25%;">Input 'a'</th>
+        <th style="width: 25%;">Input 'b'</th>
+      </tr>
     </thead>
     <tbody>
-      <tr><td><strong>A</strong> (Start)</td><td>{0, 1, 2, 4, 7}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>C = {1, 2, 4, 5, 6, 7}</td></tr>
-      <tr><td><strong>B</strong></td><td>{1, 2, 3, 4, 6, 7, 8}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>D = {1, 2, 4, 5, 6, 7, 9}</td></tr>
-      <tr><td><strong>C</strong></td><td>{1, 2, 4, 5, 6, 7}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>C = {1, 2, 4, 5, 6, 7}</td></tr>
-      <tr><td><strong>D</strong></td><td>{1, 2, 4, 5, 6, 7, 9}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>E = {1, 2, 4, 5, 6, 7, 10}</td></tr>
-      <tr><td><strong>E*</strong> (Accept)</td><td>{1, 2, 4, 5, 6, 7, 10}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>C = {1, 2, 4, 5, 6, 7}</td></tr>
+      <tr>
+        <td><strong>A</strong> (Start)</td>
+        <td>$\{0, 1, 2, 4, 7\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{C} = \{1, 2, 4, 5, 6, 7\}$</td>
+      </tr>
+      <tr>
+        <td><strong>B</strong></td>
+        <td>$\{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{D} = \{1, 2, 4, 5, 6, 7, 9\}$</td>
+      </tr>
+      <tr>
+        <td><strong>C</strong></td>
+        <td>$\{1, 2, 4, 5, 6, 7\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{C} = \{1, 2, 4, 5, 6, 7\}$</td>
+      </tr>
+      <tr>
+        <td><strong>D</strong></td>
+        <td>$\{1, 2, 4, 5, 6, 7, 9\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{E}^* = \{1, 2, 4, 5, 6, 7, 10\}$</td>
+      </tr>
+      <tr>
+        <td><strong>E*</strong> (Accept)</td>
+        <td>$\{1, 2, 4, 5, 6, 7, 10\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{C} = \{1, 2, 4, 5, 6, 7\}$</td>
+      </tr>
     </tbody>
   </table>
+  <p><em>Conclusion:</em> The resulting DFA has 5 states $\{A, B, C, D, E\}$ with $E$ as the unique accepting state.</p>
 </div>
 
-
-
-<h2 class="section-title">Topic 9: Hopcroft's DFA Minimization Algorithm</h2>
-
+<h2 class="section-title">Topic 9: Direct DFA Construction from Regular Expressions</h2>
 <p>
-  <strong>Hopcroft's Algorithm</strong> finds the unique minimal DFA by iteratively partitioning the set of all DFA states $S$ into disjoint equivalence classes based on behavioral distinguishability:
+  Direct DFA construction bypasses NFA intermediate generation by decorating the <strong>Augmented Syntax Tree</strong> $(r)\#$ with structural position functions:
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Node Type $n$</th>
+      <th style="width: 25%;">$\text{nullable}(n)$</th>
+      <th style="width: 25%;">$\text{firstpos}(n)$</th>
+      <th>$\text{lastpos}(n)$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$\epsilon\text{-leaf}$</td>
+      <td>$\text{true}$</td>
+      <td>$\emptyset$</td>
+      <td>$\emptyset$</td>
+    </tr>
+    <tr>
+      <td>Leaf position $i$</td>
+      <td>$\text{false}$</td>
+      <td>$\{i\}$</td>
+      <td>$\{i\}$</td>
+    </tr>
+    <tr>
+      <td>$c_1 \mid c_2$ (Or)</td>
+      <td>$\text{nullable}(c_1) \lor \text{nullable}(c_2)$</td>
+      <td>$\text{firstpos}(c_1) \cup \text{firstpos}(c_2)$</td>
+      <td>$\text{lastpos}(c_1) \cup \text{lastpos}(c_2)$</td>
+    </tr>
+    <tr>
+      <td>$c_1 \cdot c_2$ (Cat)</td>
+      <td>$\text{nullable}(c_1) \land \text{nullable}(c_2)$</td>
+      <td>$\text{if } \text{nullable}(c_1) \text{ then } \text{firstpos}(c_1) \cup \text{firstpos}(c_2) \text{ else } \text{firstpos}(c_1)$</td>
+      <td>$\text{if } \text{nullable}(c_2) \text{ then } \text{lastpos}(c_1) \cup \text{lastpos}(c_2) \text{ else } \text{lastpos}(c_2)$</td>
+    </tr>
+    <tr>
+      <td>$c_1^*$ (Star)</td>
+      <td>$\text{true}$</td>
+      <td>$\text{firstpos}(c_1)$</td>
+      <td>$\text{lastpos}(c_1)$</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="formula-card">
+  <strong>Rules for Computing $\text{followpos}(i)$:</strong>
+  <ol>
+    <li>If $n$ is a Cat-node with left child $c_1$ and right child $c_2$, for every position $i \in \text{lastpos}(c_1)$, all positions in $\text{firstpos}(c_2)$ are in $\text{followpos}(i)$.</li>
+    <li>If $n$ is a Star-node with child $c_1$, for every position $i \in \text{lastpos}(c_1)$, all positions in $\text{firstpos}(c_1)$ are in $\text{followpos}(i)$.</li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 10: Hopcroft's DFA Minimization Algorithm</h2>
+<p>
+  <strong>Hopcroft's Algorithm</strong> computes the unique minimal-state DFA in $O(k \cdot n \log n)$ time by iteratively partitioning states into behavioral equivalence classes:
 </p>
 <ol>
-  <li><strong>Initial Partition ($P_0$):</strong> Divide states into two groups: Accept states ($F$) and Non-Accept states ($S \setminus F$).
+  <li><strong>Initial Partition ($P_0$):</strong> Split all states into Accept ($F$) and Non-Accept ($S \setminus F$) states:
     $$P_0 = \{ F, \ S \setminus F \}$$
   </li>
-  <li><strong>Refinement Step:</strong> For each group $G \in P$ and each input symbol $a \in \Sigma$, if $\text{move}(s, a)$ for states in $G$ leads into different partitions, split $G$ into sub-partitions.</li>
-  <li><strong>Termination:</strong> Repeat refinement until no partition can be further split ($P_{k+1} = P_k$).</li>
-  <li><strong>State Compression:</strong> Replace each final partition group with a single representative state in the minimal DFA.</li>
+  <li><strong>Refinement:</strong> For each group $G \in P$ and symbol $a \in \Sigma$, if $\text{move}(s, a)$ leads states of $G$ into different partition groups, split $G$ into separate sub-groups.</li>
+  <li><strong>Fixed-Point Convergence:</strong> Terminate when $P_{k+1} = P_k$. Collapse each partition group into a single state in the minimal DFA.</li>
 </ol>
 
+<h2 class="section-title">Topic 11: Lex & Flex Lexical Analyzer Generator Specifications</h2>
 
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Lex Section</th>
+      <th style="width: 45%;">Syntax & Contents</th>
+      <th>Key Lex Variables & Routines</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Definitions</strong></td>
+      <td>C headers, `#include`, `%option noyywrap`, regular definitions (`digit [0-9]`).</td>
+      <td>`yyin` (input file stream pointer), `yyout` (output stream pointer).</td>
+    </tr>
+    <tr>
+      <td><strong>2. Translation Rules</strong></td>
+      <td>Pairs of Regular Expressions and C action blocks:
+        <pre><code>{digit}+ { yylval = atoi(yytext); return NUM; }</code></pre>
+      </td>
+      <td>`yytext` (pointer to matched lexeme string), `yyleng` (length of matched lexeme), `yylval` (semantic attribute value).</td>
+    </tr>
+    <tr>
+      <td><strong>3. User Subroutines</strong></td>
+      <td>Auxiliary C functions, `main()` driver, `yywrap()` handler.</td>
+      <td>`yylex()` (main DFA scanning function returning integer token codes).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Lex Ambiguity Resolution Rules</div>
+  <ol>
+    <li><strong>Longest Match (Maximal Munch):</strong> The lexer always picks the rule that matches the longest possible sequence of characters (e.g., `<=` is matched as `LE` rather than `<` followed by `=`).</li>
+    <li><strong>First Match Rule:</strong> If multiple regular expressions match the exact same longest prefix, Lex selects the rule that appears earliest in the `.l` specification file (e.g., `if` keyword listed before generic identifier `[a-z]+`).</li>
+  </ol>
+</div>
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Explain the role of Lexical Analyzer and why it is separated from the Parser. (8 Marks)</div>
+  <div class="qa-q">Q1. Explain the role of Lexical Analyzer and state 4 reasons why it is separated from the Parser. (8 Marks)</div>
   <div class="qa-a">
-    1. <strong>Simplicity of Compiler Design:</strong> Separating lexical scanning from grammatical parsing simplifies both phases. The parser deals with clean token streams rather than raw character-level whitespace, newlines, and comments.<br>
-    2. <strong>Compiler Efficiency:</strong> Specialized high-speed buffering techniques can be applied to the lexical scanner. Over 70% of compilation time is spent reading source characters.<br>
-    3. <strong>Portability:</strong> Character-set idiosyncrasies (ASCII, UTF-8, Unicode) are isolated strictly inside the lexical phase, making the parser platform-independent.
+    1. <strong>Simplicity of Compiler Architecture:</strong> Separating character-level lexical processing from grammatical phrase parsing simplifies both stages. The parser processes abstract token streams without handling whitespace, tabs, and comments.<br>
+    2. <strong>Compiler Efficiency:</strong> Specialized high-performance input buffering techniques can be applied to the lexical scanner. Over 70% of compilation CPU cycles are spent scanning characters.<br>
+    3. <strong>Compiler Portability:</strong> Character-set dependencies (ASCII, UTF-8, Unicode) are isolated strictly inside the lexical phase, making the parser independent of source encoding.<br>
+    4. <strong>Modular Grammar Design:</strong> Language syntax rules can focus purely on grammar hierarchies rather than token spelling.
   </div>
 </div>
 
 <div class="qa-card">
-  <div class="qa-q">Q2. State the difference between Compiler and Interpreter across 5 engineering parameters. (6 Marks)</div>
+  <div class="qa-q">Q2. Differentiate between Compiler and Interpreter across 5 core engineering parameters. (6 Marks)</div>
   <div class="qa-a">
     1. <strong>Translation Mechanism:</strong> Compiler translates entire source code into native machine code before execution; Interpreter translates and executes line-by-line at runtime.<br>
     2. <strong>Execution Speed:</strong> Compiled machine code executes 10–50x faster than interpreted bytecode.<br>
@@ -280,13 +491,17 @@ STF   id1, R1      ; Store result into memory position</code></pre>
 </div>
 
 <div class="qa-card">
-  <div class="qa-q">Q3. Describe the structure and working of Lex/Flex tool. (6 Marks)</div>
+  <div class="qa-q">Q3. Trace the Direct DFA construction for regular expression $(a \mid b)^*abb\#$. (10 Marks)</div>
   <div class="qa-a">
-    A Lex program consists of 3 distinct sections separated by `%%` delimiters:<br>
-    1. <strong>Definitions Section:</strong> Header includes, declarations, and regular definitions (e.g., `digit [0-9]`).<br>
-    2. <strong>Rules Section:</strong> Pairs of regular expressions and corresponding C action code (e.g., `{digit}+ { return NUM; }`).<br>
-    3. <strong>User Subroutines Section:</strong> Auxiliary C functions including `main()` and `yywrap()`.<br>
-    Lex compiles the specification into a fast transition table-driven DFA scanner named `yylex()`.
+    1. <strong>Augmented Syntax Tree:</strong> Leaf positions: $1: a, 2: b, 3: a, 4: b, 5: b, 6: \#$.<br>
+    2. <strong>Firstpos / Lastpos:</strong> $\text{firstpos}(\text{root}) = \{1, 2, 3\}$.<br>
+    3. <strong>Followpos Table:</strong>
+       - $\text{followpos}(1) = \{1, 2, 3\}$
+       - $\text{followpos}(2) = \{1, 2, 3\}$
+       - $\text{followpos}(3) = \{4\}$
+       - $\text{followpos}(4) = \{5\}$
+       - $\text{followpos}(5) = \{6\}$
+    4. <strong>DFA States:</strong> State $A = \{1, 2, 3\}$; State $B = \{1, 2, 3, 4\}$; State $C = \{1, 2, 3, 5\}$; State $D^* = \{1, 2, 3, 6\}$ (Accept).
   </div>
 </div>
 """

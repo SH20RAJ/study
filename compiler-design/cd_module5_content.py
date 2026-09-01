@@ -1,19 +1,22 @@
-# Compiler Design Module 5 Exhaustive Content (12-14 Pages Target)
+# Compiler Design Module 5 Exhaustive Content (12-15 Pages Target)
+# Neuroscience-backed formatting: High visual chunking, KaTeX equations, worked trace boxes, exam cards
 
 CD_M5_EXHAUSTIVE = r"""
 <div class="toc-box">
   <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Code Optimization & Target Code Generation — Complete Syllabus Topics</div>
   <div class="toc-grid">
-    <div>1. Principal Sources of Optimization (Machine-Independent)</div>
-    <div>2. Basic Blocks Partitioning Algorithm & Control Flow Graphs (CFG)</div>
-    <div>3. Directed Acyclic Graphs (DAG) Representation for Basic Blocks</div>
-    <div>4. Local vs. Global Code Optimization Techniques</div>
+    <div>1. Principal Sources of Optimization (Machine-Independent Transformations)</div>
+    <div>2. Basic Blocks Partitioning Algorithm & Control Flow Graphs (CFG) Construction</div>
+    <div>3. Directed Acyclic Graphs (DAG) Representation for Basic Blocks & Transformations</div>
+    <div>4. Local vs. Global Optimization Strategies & Common Subexpression Elimination</div>
     <div>5. Loop Optimizations (Loop Invariant Code Motion, Strength Reduction, Unrolling)</div>
-    <div>6. Dominators, Natural Loops & Reducible Flow Graphs</div>
-    <div>7. Data-Flow Analysis Equations (Reaching Definitions & Available Expressions)</div>
-    <div>8. Live Variable Analysis & Dead Code Elimination</div>
+    <div>6. Dominator Trees, Natural Loops & Reducible Flow Graph Properties</div>
+    <div>7. Data-Flow Analysis Frameworks (Reaching Definitions & Available Expressions)</div>
+    <div>8. Live Variable Analysis Equations & Dead Code Elimination Passes</div>
     <div>9. Target Code Generation Issues & Register Allocation by Graph Coloring</div>
-    <div>10. Peephole Optimization Techniques (Redundant Load/Store, Algebraic Identities)</div>
+    <div>10. Simple Code Generator Algorithm using Register & Address Descriptors</div>
+    <div>11. Peephole Optimization Techniques (Redundant Load/Store & Algebraic Identities)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
@@ -64,8 +67,6 @@ CD_M5_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-
-
 <h2 class="section-title">Topic 2: Basic Blocks & Control Flow Graphs (CFG)</h2>
 
 <div class="callout callout-info">
@@ -85,7 +86,7 @@ CD_M5_EXHAUSTIVE = r"""
   <p><strong>Three-Address Code:</strong></p>
   <pre><code>(1)  prod = 0          <-- Leader (Rule 1: First instruction)
 (2)  i = 1
-(3)  t1 = 4 * i        <-- Leader (Rule 2: Target of goto (3) in line 9)
+(3)  t1 = 4 * i        <-- Leader (Rule 2: Target of goto (3) in line 10)
 (4)  t2 = a[t1]
 (5)  t3 = 4 * i
 (6)  t4 = b[t3]
@@ -102,10 +103,7 @@ CD_M5_EXHAUSTIVE = r"""
   </ul>
 </div>
 
-
-
 <h2 class="section-title">Topic 3: Directed Acyclic Graphs (DAG) for Basic Blocks</h2>
-
 <p>
   A <strong>DAG (Directed Acyclic Graph)</strong> is an efficient representation for basic blocks that makes local common subexpression elimination, dead code elimination, and array dependency tracking straightforward:
 </p>
@@ -114,8 +112,6 @@ CD_M5_EXHAUSTIVE = r"""
   <li>Interior nodes correspond to operators.</li>
   <li>Nodes have labels attached showing current identifier names having that computed value.</li>
 </ul>
-
-
 
 <h2 class="section-title">Topic 7 & 8: Data-Flow Analysis Frameworks</h2>
 
@@ -149,9 +145,7 @@ CD_M5_EXHAUSTIVE = r"""
   </tbody>
 </table>
 
-
-
-<h2 class="section-title">Topic 9 & 10: Target Code Generation & Peephole Optimization</h2>
+<h2 class="section-title">Topic 9 & 11: Target Code Generation & Peephole Optimization</h2>
 
 <h3 class="subsection-title">1. Register Allocation by Graph Coloring (Chaitin's Algorithm):</h3>
 <ol>
@@ -172,8 +166,6 @@ MOV a, R0     ; Redundant - Eliminated!</code></pre>
   <li><strong>Eliminating Unreachable Code:</strong> Instructions immediately following an unconditional jump without a label are deleted.</li>
   <li><strong>Algebraic Simplifications:</strong> Replacing $x + 0 \rightarrow x$, $x * 1 \rightarrow x$, $x * 0 \rightarrow 0$.</li>
 </ul>
-
-
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
 

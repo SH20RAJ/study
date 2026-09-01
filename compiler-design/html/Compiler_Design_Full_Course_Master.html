@@ -332,272 +332,482 @@ pre code {
 <div class="toc-box">
   <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Lexical Analysis & Automata Theory — Complete Syllabus Topics</div>
   <div class="toc-grid">
-    <div>1. Language Processors (Compiler, Interpreter, Assembler, Preprocessor)</div>
-    <div>2. 6 Phases of Compiler Architecture with End-to-End Running Example</div>
-    <div>3. Compiler Front-End vs Back-End & Pass Structures</div>
-    <div>4. Lexical Analysis Role, Tokens, Patterns & Lexemes</div>
-    <div>5. Input Buffering (Two-Buffer Scheme & Sentinels)</div>
-    <div>6. Regular Expressions & Regular Definitions for Programming Tokens</div>
-    <div>7. Thompson's Construction Algorithm (RE to NFA Step-by-Step)</div>
-    <div>8. Subset Construction Algorithm (NFA to DFA Transition Table)</div>
-    <div>9. Hopcroft's DFA State Minimization Algorithm (Equivalence Partitioning)</div>
-    <div>10. Lex & Flex Lexical Analyzer Generator Specifications</div>
+    <div>1. Language Processors (Compiler, Interpreter, Assembler, Preprocessor, Linker, Loader)</div>
+    <div>2. 6 Phases of Compiler Architecture with Full Running Translation Traces</div>
+    <div>3. Compiler Front-End vs. Back-End & Pass Structures (1-Pass vs. Multi-Pass)</div>
+    <div>4. Lexical Analysis Role, Tokens, Patterns, Lexemes & Token Attributes</div>
+    <div>5. Input Buffering Mechanics (Two-Buffer Scheme & Sentinel Verification)</div>
+    <div>6. Regular Expressions & Regular Definitions for Programming Language Tokens</div>
+    <div>7. Thompson's Construction Algorithm (RE to $\epsilon$-NFA with Structural Rules)</div>
+    <div>8. Subset Construction Algorithm (NFA to DFA Transition Table Derivations)</div>
+    <div>9. Direct DFA Construction from RE (Nullable, Firstpos, Lastpos, Followpos)</div>
+    <div>10. Hopcroft's DFA State Minimization Algorithm (Equivalence Partitioning Trace)</div>
+    <div>11. Lex & Flex Lexical Analyzer Generator Architecture & Ambiguity Rules</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 & 3: Language Processing Systems & Compiler Architecture</h2>
+<h2 class="section-title">Topic 1: Language Processing Systems & Execution Pipeline</h2>
 <p>
-  A <strong>Compiler</strong> is a sophisticated system software that translates a computer program written in a high-level source language (e.g., C, C++, Java) into an equivalent target program in low-level machine code or assembly language, while detecting and reporting diagnostic errors.
+  A <strong>Compiler</strong> is a sophisticated system software program that accepts a source program written in a high-level, human-readable programming language (such as C, C++, Rust, or Java) and translates it into an equivalent semantic representation in a low-level target language (machine code or assembly), while detecting and reporting all syntax and static semantic violations.
 </p>
 
 <div class="diagram-container">
-  <svg width="100%" height="80" viewBox="0 0 740 80" xmlns="http://www.w3.org/2000/svg">
-    <rect x="10" y="20" width="100" height="40" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
-    <text x="60" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#1e40af" text-anchor="middle">Preprocessor</text>
+  <svg width="100%" height="90" viewBox="0 0 740 90" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="25" width="105" height="42" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="57" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#1e40af" text-anchor="middle">Preprocessor</text>
+    <text x="57" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#3b82f6" text-anchor="middle">#include, #define</text>
 
-    <path d="M 110 40 L 135 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 110 46 L 135 46" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow)"/>
 
-    <rect x="140" y="15" width="115" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-    <text x="197" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#92400e" text-anchor="middle">Compiler</text>
-    <text x="197" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Front + Back End</text>
+    <rect x="140" y="15" width="125" height="60" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="202" y="38" font-family="Plus Jakarta Sans" font-size="12" font-weight="800" fill="#92400e" text-anchor="middle">Compiler</text>
+    <text x="202" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Front-End + Back-End</text>
+    <text x="202" y="64" font-family="Plus Jakarta Sans" font-size="8.5" fill="#d97706" text-anchor="middle">Analysis & Synthesis</text>
 
-    <path d="M 260 40 L 285 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 265 46 L 290 46" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="290" y="20" width="100" height="40" rx="6" fill="#f0fdf4" stroke="#22c55e"/>
-    <text x="340" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#14532d" text-anchor="middle">Assembler</text>
+    <rect x="295" y="25" width="105" height="42" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="347" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#14532d" text-anchor="middle">Assembler</text>
+    <text x="347" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" text-anchor="middle">Assembly -> Object</text>
 
-    <path d="M 395 40 L 420 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 400 46 L 425 46" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="425" y="20" width="135" height="40" rx="6" fill="#faf5ff" stroke="#a855f7"/>
-    <text x="492" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#581c87" text-anchor="middle">Linker / Loader</text>
+    <rect x="430" y="25" width="130" height="42" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="495" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#581c87" text-anchor="middle">Linker / Loader</text>
+    <text x="495" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#9333ea" text-anchor="middle">Symbol Resolution</text>
 
-    <path d="M 565 40 L 590 40" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 560 46 L 585 46" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="595" y="20" width="135" height="40" rx="6" fill="#ccfbf1" stroke="#0f766e"/>
+    <rect x="590" y="25" width="145" height="42" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
     <text x="662" y="44" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#0f766e" text-anchor="middle">Target Machine Code</text>
+    <text x="662" y="57" font-family="Plus Jakarta Sans" font-size="8.5" fill="#14b8a6" text-anchor="middle">Binary ELF / EXE</text>
   </svg>
-  <div class="diagram-caption">Figure 1.1: Context of a Compiler in Language Processing Pipeline</div>
+  <div class="diagram-caption">Figure 1.1: Complete End-to-End Language Processing Pipeline & System Tools</div>
 </div>
+
+<h3 class="subsection-title">Detailed Analysis of System Components (The Cousins of the Compiler):</h3>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 22%;">System Tool</th>
+      <th style="width: 20%;">Tool</th>
       <th style="width: 25%;">Input $\rightarrow$ Output</th>
-      <th>Primary Responsibilities & Core Functions</th>
+      <th>Primary Technical Responsibilities & Runtime Execution</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>1. Preprocessor</strong></td>
-      <td>Raw Source Code $\rightarrow$ Pure Source Code</td>
-      <td>Macro expansion (`#define`), file inclusion (`#include`), conditional compilation (`#ifdef`), stripping comments.</td>
+      <td>Raw High-Level Code $\rightarrow$ Pure High-Level Code</td>
+      <td>
+        <ul>
+          <li><strong>Macro Expansion:</strong> Replaces macro identifiers with their replacement text (e.g., `#define PI 3.14159`).</li>
+          <li><strong>File Inclusion:</strong> Injects verbatim contents of standard or user header files (e.g., `#include <stdio.h>`).</li>
+          <li><strong>Conditional Compilation:</strong> Evaluates compile-time conditionals (e.g., `#ifdef DEBUG ... #endif`) to strip unwanted source lines.</li>
+          <li><strong>Comment Stripping:</strong> Removes all single-line `//` and block `/* ... */` comments from the source stream.</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><strong>2. Compiler</strong></td>
-      <td>Pure Source Code $\rightarrow$ Target Assembly</td>
-      <td>Translates high-level syntax into assembly language, performs type checking, syntax validation, intermediate code generation, and optimization.</td>
+      <td>Pure Source Code $\rightarrow$ Target Assembly Code</td>
+      <td>
+        Performs full syntactic, semantic, and intermediate translation passes. Emits symbolic target assembly mnemonics (e.g., x86-64, ARM, RISC-V) rather than raw machine opcodes, allowing the assembler to handle platform-specific bit encodings.
+      </td>
     </tr>
     <tr>
       <td><strong>3. Assembler</strong></td>
-      <td>Assembly Code $\rightarrow$ Relocatable Object Code</td>
-      <td>Translates mnemonic assembly instructions into binary machine opcodes and resolves memory offsets.</td>
+      <td>Assembly Mnemonics $\rightarrow$ Relocatable Object Code</td>
+      <td>
+        Translates assembly instructions into raw binary machine opcodes. Constructs the initial <strong>Relocatable Object File</strong> (`.o` or `.obj`) containing machine instructions, initialized data tables, and an internal <strong>Relocation Table</strong> for external labels.
+      </td>
     </tr>
     <tr>
-      <td><strong>4. Linker / Loader</strong></td>
-      <td>Object Files + Libs $\rightarrow$ Absolute Executable</td>
-      <td><strong>Linker:</strong> Resolves external cross-file symbol references and library routines.<br><strong>Loader:</strong> Loads executable binary into primary RAM, sets up stack/heap memory spaces, and initializes CPU instruction pointer.</td>
+      <td><strong>4. Linker</strong></td>
+      <td>Relocatable Object Files + Static Libraries $\rightarrow$ Absolute Executable</td>
+      <td>
+        <ul>
+          <li><strong>Symbol Resolution:</strong> Matches external function and variable references across separately compiled compilation units (e.g., linking `printf` calls to `libc.a`).</li>
+          <li><strong>Relocation:</strong> Merges separate data and text sections into unified virtual address spaces, recalculating all relative memory offsets.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>5. Loader</strong></td>
+      <td>Absolute Executable on Disk $\rightarrow$ Running Process in RAM</td>
+      <td>
+        Allocates primary memory space (Stack, Heap, Data, Text), loads machine instructions into RAM, sets up dynamic library linkages (`.so` / `.dll`), initializes hardware CPU registers (Instruction Pointer `RIP`, Stack Pointer `RSP`), and triggers execution.
+      </td>
     </tr>
   </tbody>
 </table>
 
-
-
-<h2 class="section-title">Topic 2: The 6 Phases of a Compiler (End-to-End Walkthrough)</h2>
-
+<h2 class="section-title">Topic 2: The 6 Phases of Compiler Architecture</h2>
 <p>
-  A compiler operates as a sequence of distinct analytical and synthesis phases. Every phase transforms the source program from one intermediate representation to another, interacting continuously with the <strong>Symbol Table</strong> and <strong>Error Handler</strong>.
+  A modern compiler operates as a strict sequence of analytical (Front-End) and synthetic (Back-End) phases. Every phase transforms the program representation while maintaining bidirectional communication with the central <strong>Symbol Table</strong> and <strong>Error Handler</strong>.
 </p>
 
 <div class="worked-box">
-  <div class="worked-title">🏛️ Complete Running Example: Step-by-Step Translation of Statement `position = initial + rate * 60`</div>
+  <div class="worked-title">🏛️ Complete End-to-End Tracing: Statement `position = initial + rate * 60`</div>
+  <p>To understand the continuous transformations, follow how the statement `position = initial + rate * 60` is processed across all 6 phases:</p>
+
   <ol>
-    <li><strong>Phase 1: Lexical Analysis (Scanning):</strong>
-      <p>Reads raw input character stream and converts into a stream of tokens:</p>
+    <li>
+      <strong>Phase 1: Lexical Analysis (Scanning):</strong>
+      <p>Reads raw character stream from left to right, partitions characters into valid lexemes, and emits a linear token sequence:</p>
       $$\langle \mathbf{id}, 1 \rangle \ \langle \mathbf{=} \rangle \ \langle \mathbf{id}, 2 \rangle \ \langle \mathbf{+} \rangle \ \langle \mathbf{id}, 3 \rangle \ \langle \mathbf{*} \rangle \ \langle \mathbf{num}, 60 \rangle$$
-      <p>Symbol table stores: `1: position (float)`, `2: initial (float)`, `3: rate (float)`.</p>
+      <p><em>Symbol Table Entries:</em> `1: position (float)`, `2: initial (float)`, `3: rate (float)`.</p>
     </li>
-    <li><strong>Phase 2: Syntax Analysis (Parsing):</strong>
-      <p>Constructs a hierarchical Syntax Tree enforcing operator precedence ($*$ over $+$):</p>
-      <pre><code>      =
-     / \
-  id1   +
+    <li>
+      <strong>Phase 2: Syntax Analysis (Parsing):</strong>
+      <p>Verifies grammatical structure using Context-Free Grammars (CFG) and constructs a hierarchical <strong>Abstract Syntax Tree (AST)</strong> that inherently enforces operator precedence ($*$ binds tighter than $+$):</p>
+      <pre><code>        =
        / \
-    id2   *
-         / \
-      id3  60</code></pre>
+   id(1)   +
+          / \
+      id(2)   *
+             / \
+         id(3)  60</code></pre>
     </li>
-    <li><strong>Phase 3: Semantic Analysis (Type Checking):</strong>
-      <p>Checks static semantic rules, ensuring operand type compatibility. Inserts implicit type conversion node $\text{inttofloat}(60)$:</p>
-      <pre><code>      =
-     / \
-  id1   +
+    <li>
+      <strong>Phase 3: Semantic Analysis (Type Checking & Coercion):</strong>
+      <p>Checks language semantic constraints (variable declarations, scope, operand type compatibility). Since `rate` is a `float` and `60` is an `integer`, it inserts an implicit type conversion operator node $\text{inttofloat}$:</p>
+      <pre><code>        =
        / \
-    id2   *
-         / \
-      id3  inttofloat(60)</code></pre>
+   id(1)   +
+          / \
+      id(2)   *
+             / \
+         id(3)  inttofloat
+                   |
+                  60</code></pre>
     </li>
-    <li><strong>Phase 4: Intermediate Code Generation (ICG):</strong>
-      <p>Generates machine-independent Three-Address Code (TAC) with at most one operator per instruction:</p>
+    <li>
+      <strong>Phase 4: Intermediate Code Generation (ICG):</strong>
+      <p>Translates the decorated AST into machine-independent, linear <strong>Three-Address Code (TAC)</strong> where each instruction contains at most one operator:</p>
       <pre><code>t1 = inttofloat(60)
 t2 = id3 * t1
 t3 = id2 + t2
 id1 = t3</code></pre>
     </li>
-    <li><strong>Phase 5: Code Optimization:</strong>
-      <p>Performs compile-time constant folding and eliminates temporary variables:</p>
-      <pre><code>t1 = id3 * 60.0    -- Constant folded: inttofloat(60) -> 60.0
-id1 = id2 + t1</code></pre>
+    <li>
+      <strong>Phase 5: Machine-Independent Code Optimization:</strong>
+      <p>Analyzes the TAC to eliminate redundant computations, evaluate constants at compile-time (Constant Folding), and reduce temporary register pressure:</p>
+      <pre><code>t1 = id3 * 60.0        ; Constant folded inttofloat(60) -> 60.0 at compile-time
+id1 = id2 + t1         ; Eliminated unnecessary temporary t3</code></pre>
     </li>
-    <li><strong>Phase 6: Code Generation (Target Assembly):</strong>
-      <p>Emits target machine instructions using hardware CPU registers (`R1`, `R2`):</p>
-      <pre><code>LDF   R2, id3      ; Load float rate into R2
-MULF  R2, #60.0    ; Multiply R2 by float literal 60.0
-LDF   R1, id2      ; Load float initial into R1
-ADDF  R1, R2       ; Add R2 to R1
-STF   id1, R1      ; Store result into memory position</code></pre>
+    <li>
+      <strong>Phase 6: Code Generation (Target Machine Assembly):</strong>
+      <p>Maps intermediate variables to hardware CPU registers (`R1`, `R2`) and emits optimized target assembly instructions:</p>
+      <pre><code>LDF    R2, id3          ; Load floating-point rate into register R2
+MULF   R2, #60.0        ; Multiply R2 by constant literal 60.0
+LDF    R1, id2          ; Load floating-point initial into register R1
+ADDF   R1, R2           ; Add R2 into R1 (R1 = initial + rate * 60.0)
+STF    id1, R1          ; Store result from R1 into memory location position</code></pre>
     </li>
   </ol>
 </div>
 
+<h2 class="section-title">Topic 3: Compiler Passes & Architecture Organization</h2>
 
+<div class="callout callout-info">
+  <div class="callout-title">Front-End vs. Back-End Separation ($N \times M$ Retargetability Principle)</div>
+  <ul>
+    <li><strong>Front-End (Analysis):</strong> Depends strictly on the source programming language (Lexical, Syntax, Semantic, and ICG). It produces a clean, machine-independent Intermediate Representation (IR).</li>
+    <li><strong>Back-End (Synthesis):</strong> Depends strictly on the target hardware architecture (Optimization, Register Allocation, Instruction Scheduling, Machine Code Generation).</li>
+    <li><strong>Engineering Significance:</strong> To build compilers for $N$ high-level languages targeting $M$ distinct CPU architectures, modular separation requires only $N$ front-ends and $M$ back-ends ($N + M$ modules), rather than $N \times M$ separate monolithic compilers!</li>
+  </ul>
+</div>
 
-<h2 class="section-title">Topic 4 & 5: Lexical Analysis & Input Buffering</h2>
-
-<h3 class="subsection-title">1. Fundamental Terminology:</h3>
+<h3 class="subsection-title">Single-Pass vs. Multi-Pass Compilers:</h3>
 <ul>
-  <li><strong>Token:</strong> An abstract terminal category returned to the parser (e.g., `id`, `num`, `if`, `while`, `assign_op`).</li>
-  <li><strong>Pattern:</strong> A formal grammatical specification (regular expression) describing the set of strings representing a token (e.g., `[a-zA-Z_][a-zA-Z0-9_]*`).</li>
-  <li><strong>Lexeme:</strong> The concrete sequence of source characters matching the pattern (e.g., `counter_variable`, `1024`, `==`).</li>
+  <li><strong>Single-Pass Compiler:</strong> Reads source code once and generates target code directly without creating intermediate files. Highly memory efficient (used in early Pascal compilers), but cannot perform global optimizations or forward-referencing declarations without backpatching.</li>
+  <li><strong>Multi-Pass Compiler:</strong> Traverses intermediate representations multiple times. Enables deep interprocedural optimizations, global register coloring, and dead code elimination at the cost of higher compilation latency and memory consumption.</li>
 </ul>
 
-<h3 class="subsection-title">2. Input Buffering (Two-Buffer Scheme with Sentinels):</h3>
+<h2 class="section-title">Topic 4 & 5: Lexical Analysis Role, Token Definitions & Input Buffering</h2>
+
+<h3 class="subsection-title">1. Essential Lexical Terminology:</h3>
+<ul>
+  <li><strong>Token:</strong> An abstract terminal category recognized by the compiler front-end (e.g., `KEYWORD`, `IDENTIFIER`, `NUMBER`, `RELOP`, `ASSIGN`).</li>
+  <li><strong>Pattern:</strong> The formal grammatical specification (usually a Regular Expression) that character sequences must satisfy to match a token (e.g., `[a-zA-Z_][a-zA-Z0-9_]*`).</li>
+  <li><strong>Lexeme:</strong> The concrete sequence of source characters that matches a token's pattern (e.g., `total_sum`, `3.14159`, `==`, `while`).</li>
+  <li><strong>Token Attribute:</strong> Additional metadata stored alongside the token in the Symbol Table (e.g., type, memory offset, line number, scope depth).</li>
+</ul>
+
+<h3 class="subsection-title">2. Input Buffering Architecture (Two-Buffer Scheme with Sentinels):</h3>
 <p>
-  Reading one character at a time using direct system calls incurs massive operating system overhead. A <strong>Two-Buffer Scheme</strong> uses two $N$-byte blocks (typically $N=4096$ bytes matching disk blocks) managed by two pointers:
+  Reading source files character-by-character via direct OS system calls incurs massive I/O overhead. A <strong>Two-Buffer Scheme</strong> allocates two contiguous $N$-byte blocks (typically $N=4096$ bytes, matching the physical disk block size):
 </p>
-<ul>
-  <li><strong>`lexemeBegin` Pointer:</strong> Marks the beginning of the current token being recognized.</li>
-  <li><strong>`forward` Pointer:</strong> Advances ahead character by character until a token pattern boundary is identified.</li>
-  <li><strong>Sentinels (`EOF`):</strong> Appending an `EOF` marker at the end of each buffer half avoids making two comparisons per character (one for buffer boundary and one for character matching), accelerating lexer throughput by over $200\%$.</li>
-</ul>
 
+<div class="diagram-container">
+  <svg width="100%" height="90" viewBox="0 0 740 90" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="15" width="330" height="40" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+    <text x="185" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">Buffer Half 1 (N = 4096 bytes)</text>
+    <rect x="325" y="15" width="25" height="40" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="337" y="39" font-family="Fira Code" font-size="10" font-weight="700" fill="#991b1b" text-anchor="middle">EOF</text>
 
+    <rect x="370" y="15" width="330" height="40" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+    <text x="535" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">Buffer Half 2 (N = 4096 bytes)</text>
+    <rect x="675" y="15" width="25" height="40" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="687" y="39" font-family="Fira Code" font-size="10" font-weight="700" fill="#991b1b" text-anchor="middle">EOF</text>
 
-<h2 class="section-title">Topic 7: Thompson's Construction Algorithm (RE $\rightarrow$ NFA)</h2>
+    <path d="M 120 75 L 120 57" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="120" y="86" font-family="Fira Code" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">lexemeBegin</text>
 
+    <path d="M 230 75 L 230 57" stroke="#dc2626" stroke-width="2"/>
+    <text x="230" y="86" font-family="Fira Code" font-size="9" font-weight="700" fill="#b91c1c" text-anchor="middle">forward pointer</text>
+  </svg>
+  <div class="diagram-caption">Figure 1.2: Two-Buffer Input Structure with Boundary Sentinel EOFs</div>
+</div>
+
+<div class="formula-card">
+  <strong>Input Scanning Algorithm with Sentinel Checking:</strong>
+  <pre><code>switch (*forward++) {
+    case EOF:
+        if (forward is at end of first buffer half) {
+            reload second buffer half;
+            forward = beginning of second half;
+        } else if (forward is at end of second buffer half) {
+            reload first buffer half;
+            forward = beginning of first half;
+        } else {
+            /* EOF is actual end of source file */
+            terminate scanning;
+        }
+        break;
+    /* Process regular characters without secondary boundary checks */
+}</code></pre>
+</div>
+
+<h2 class="section-title">Topic 7: Thompson's Construction Algorithm (RE $\rightarrow \epsilon$-NFA)</h2>
 <p>
-  <strong>Thompson's Construction</strong> converts any Regular Expression $r$ into an equivalent Non-Deterministic Finite Automaton ($N(r)$) with $\epsilon$-transitions in linear time $O(|r|)$:
+  <strong>Thompson's Construction</strong> converts any Regular Expression $r$ over alphabet $\Sigma$ into an equivalent Non-Deterministic Finite Automaton with $\epsilon$-transitions ($N(r)$) in linear time $O(|r|)$.
 </p>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">RE Operation</th>
-      <th style="width: 45%;">Thompson's Structural Composition</th>
-      <th>Key Structural Invariants</th>
+      <th style="width: 22%;">RE Expression</th>
+      <th style="width: 48%;">Automaton Topology & Transitions</th>
+      <th>Structural Invariant Properties</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Basic Symbol ($a$)</strong></td>
-      <td>$\text{Start} \xrightarrow{a} \text{Accept}$ (2 states, 1 transition)</td>
-      <td>Exactly 1 start state and 1 accept state.</td>
+      <td><strong>1. Basic Symbol ($a \in \Sigma$)</strong></td>
+      <td>State $i \xrightarrow{a} \text{State } f$</td>
+      <td>Exactly 1 start state, 1 accept state, no outgoing transitions from accept state.</td>
     </tr>
     <tr>
       <td><strong>2. Concatenation ($r_1 r_2$)</strong></td>
-      <td>Accept state of $N(r_1)$ merged with start state of $N(r_2)$.</td>
-      <td>Flows directly from $N(r_1)$ into $N(r_2)$.</td>
+      <td>Accept state of $N(r_1)$ is merged with the start state of $N(r_2)$.</td>
+      <td>Initial start of $N(r_1)$ becomes overall start; accept of $N(r_2)$ becomes overall accept.</td>
     </tr>
     <tr>
-      <td><strong>3. Union / Alternation ($r_1 \mid r_2$)</strong></td>
-      <td>New start state branching via $\epsilon$ to $N(r_1)$ and $N(r_2)$; both accept states transition via $\epsilon$ to a new single accept state.</td>
-      <td>4 new $\epsilon$-transitions introduced.</td>
+      <td><strong>3. Alternation ($r_1 \mid r_2$)</strong></td>
+      <td>New start state $s_0$ branches via $\epsilon$ to start of $N(r_1)$ and start of $N(r_2)$. Both accept states transition via $\epsilon$ to a new single accept state $f_0$.</td>
+      <td>Introduces 2 new states and 4 new $\epsilon$-transitions.</td>
     </tr>
     <tr>
       <td><strong>4. Kleene Closure ($r^*$)</strong></td>
-      <td>New start state branches via $\epsilon$ to $N(r)$ and bypasses $N(r)$ to accept state; accept state loops back via $\epsilon$ to start of $N(r)$.</td>
-      <td>Handles zero or multiple repetitions.</td>
+      <td>New start state $s_0$ branches via $\epsilon$ to start of $N(r)$ and directly to new accept state $f_0$ (for zero repetitions). Accept of $N(r)$ transitions via $\epsilon$ back to start of $N(r)$ and to $f_0$.</td>
+      <td>Introduces 2 new states and 4 new $\epsilon$-transitions.</td>
     </tr>
   </tbody>
 </table>
 
-
-
 <h2 class="section-title">Topic 8: Subset Construction Algorithm (NFA $\rightarrow$ DFA)</h2>
-
 <p>
-  A Deterministic Finite Automaton (DFA) contains no $\epsilon$-transitions and has at most one outgoing transition per input symbol from any state.
+  A Deterministic Finite Automaton (DFA) has no $\epsilon$-transitions and has at most one outgoing edge per symbol from any state.
 </p>
 
 <div class="callout callout-info">
-  <div class="callout-title">Core Operations in Subset Construction</div>
+  <div class="callout-title">Formal Mathematical Operations in Subset Construction</div>
   <ul>
-    <li><strong>$\epsilon\text{-closure}(s)$:</strong> Set of all NFA states reachable from state $s$ taking only $\epsilon$-transitions.</li>
+    <li><strong>$\epsilon\text{-closure}(s)$:</strong> The set of all NFA states reachable from state $s$ taking only $\epsilon$-transitions:
+      $$\epsilon\text{-closure}(s) = \{ s \} \cup \{ t \mid \exists u \in \epsilon\text{-closure}(s) \text{ such that } u \xrightarrow{\epsilon} t \}$$
+    </li>
     <li><strong>$\epsilon\text{-closure}(T)$:</strong> $\bigcup_{s \in T} \epsilon\text{-closure}(s)$ for a set of states $T$.</li>
-    <li><strong>$\text{move}(T, a)$:</strong> Set of all NFA states reachable from any state in $T$ on input symbol $a$.</li>
+    <li><strong>$\text{move}(T, a)$:</strong> Set of all NFA states reachable from any state in $T$ on input symbol $a$:
+      $$\text{move}(T, a) = \{ t \mid \exists s \in T \text{ such that } s \xrightarrow{a} t \}$$
+    </li>
   </ul>
 </div>
 
 <div class="worked-box">
   <div class="worked-title">🏛️ Step-by-Step Solved Problem: Convert $(a \mid b)^*abb$ to DFA via Subset Construction</div>
-  <p><strong>NFA States:</strong> $\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$. Accept state: $\{10\}$.</p>
+  <p><strong>Given NFA State Graph:</strong> Start state $0$, accept state $10$.</p>
   <p><strong>Step 1: Compute Initial DFA State $A = \epsilon\text{-closure}(0) = \{0, 1, 2, 4, 7\}$.</strong></p>
-  <p><strong>Step 2: Compute Transitions for DFA States ($D\text{-Tran}$ Table):</strong></p>
+  <p><strong>Step 2: Iteratively Compute Transitions for All Unmarked DFA States:</strong></p>
+
   <table class="custom-table">
     <thead>
-      <tr><th>DFA State</th><th>NFA State Subset</th><th>Input 'a'</th><th>Input 'b'</th></tr>
+      <tr>
+        <th style="width: 15%;">DFA State</th>
+        <th style="width: 35%;">NFA State Subset</th>
+        <th style="width: 25%;">Input 'a'</th>
+        <th style="width: 25%;">Input 'b'</th>
+      </tr>
     </thead>
     <tbody>
-      <tr><td><strong>A</strong> (Start)</td><td>{0, 1, 2, 4, 7}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>C = {1, 2, 4, 5, 6, 7}</td></tr>
-      <tr><td><strong>B</strong></td><td>{1, 2, 3, 4, 6, 7, 8}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>D = {1, 2, 4, 5, 6, 7, 9}</td></tr>
-      <tr><td><strong>C</strong></td><td>{1, 2, 4, 5, 6, 7}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>C = {1, 2, 4, 5, 6, 7}</td></tr>
-      <tr><td><strong>D</strong></td><td>{1, 2, 4, 5, 6, 7, 9}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>E = {1, 2, 4, 5, 6, 7, 10}</td></tr>
-      <tr><td><strong>E*</strong> (Accept)</td><td>{1, 2, 4, 5, 6, 7, 10}</td><td>B = {1, 2, 3, 4, 6, 7, 8}</td><td>C = {1, 2, 4, 5, 6, 7}</td></tr>
+      <tr>
+        <td><strong>A</strong> (Start)</td>
+        <td>$\{0, 1, 2, 4, 7\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{C} = \{1, 2, 4, 5, 6, 7\}$</td>
+      </tr>
+      <tr>
+        <td><strong>B</strong></td>
+        <td>$\{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{D} = \{1, 2, 4, 5, 6, 7, 9\}$</td>
+      </tr>
+      <tr>
+        <td><strong>C</strong></td>
+        <td>$\{1, 2, 4, 5, 6, 7\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{C} = \{1, 2, 4, 5, 6, 7\}$</td>
+      </tr>
+      <tr>
+        <td><strong>D</strong></td>
+        <td>$\{1, 2, 4, 5, 6, 7, 9\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{E}^* = \{1, 2, 4, 5, 6, 7, 10\}$</td>
+      </tr>
+      <tr>
+        <td><strong>E*</strong> (Accept)</td>
+        <td>$\{1, 2, 4, 5, 6, 7, 10\}$</td>
+        <td>$\mathbf{B} = \{1, 2, 3, 4, 6, 7, 8\}$</td>
+        <td>$\mathbf{C} = \{1, 2, 4, 5, 6, 7\}$</td>
+      </tr>
     </tbody>
   </table>
+  <p><em>Conclusion:</em> The resulting DFA has 5 states $\{A, B, C, D, E\}$ with $E$ as the unique accepting state.</p>
 </div>
 
-
-
-<h2 class="section-title">Topic 9: Hopcroft's DFA Minimization Algorithm</h2>
-
+<h2 class="section-title">Topic 9: Direct DFA Construction from Regular Expressions</h2>
 <p>
-  <strong>Hopcroft's Algorithm</strong> finds the unique minimal DFA by iteratively partitioning the set of all DFA states $S$ into disjoint equivalence classes based on behavioral distinguishability:
+  Direct DFA construction bypasses NFA intermediate generation by decorating the <strong>Augmented Syntax Tree</strong> $(r)\#$ with structural position functions:
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Node Type $n$</th>
+      <th style="width: 25%;">$\text{nullable}(n)$</th>
+      <th style="width: 25%;">$\text{firstpos}(n)$</th>
+      <th>$\text{lastpos}(n)$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$\epsilon\text{-leaf}$</td>
+      <td>$\text{true}$</td>
+      <td>$\emptyset$</td>
+      <td>$\emptyset$</td>
+    </tr>
+    <tr>
+      <td>Leaf position $i$</td>
+      <td>$\text{false}$</td>
+      <td>$\{i\}$</td>
+      <td>$\{i\}$</td>
+    </tr>
+    <tr>
+      <td>$c_1 \mid c_2$ (Or)</td>
+      <td>$\text{nullable}(c_1) \lor \text{nullable}(c_2)$</td>
+      <td>$\text{firstpos}(c_1) \cup \text{firstpos}(c_2)$</td>
+      <td>$\text{lastpos}(c_1) \cup \text{lastpos}(c_2)$</td>
+    </tr>
+    <tr>
+      <td>$c_1 \cdot c_2$ (Cat)</td>
+      <td>$\text{nullable}(c_1) \land \text{nullable}(c_2)$</td>
+      <td>$\text{if } \text{nullable}(c_1) \text{ then } \text{firstpos}(c_1) \cup \text{firstpos}(c_2) \text{ else } \text{firstpos}(c_1)$</td>
+      <td>$\text{if } \text{nullable}(c_2) \text{ then } \text{lastpos}(c_1) \cup \text{lastpos}(c_2) \text{ else } \text{lastpos}(c_2)$</td>
+    </tr>
+    <tr>
+      <td>$c_1^*$ (Star)</td>
+      <td>$\text{true}$</td>
+      <td>$\text{firstpos}(c_1)$</td>
+      <td>$\text{lastpos}(c_1)$</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="formula-card">
+  <strong>Rules for Computing $\text{followpos}(i)$:</strong>
+  <ol>
+    <li>If $n$ is a Cat-node with left child $c_1$ and right child $c_2$, for every position $i \in \text{lastpos}(c_1)$, all positions in $\text{firstpos}(c_2)$ are in $\text{followpos}(i)$.</li>
+    <li>If $n$ is a Star-node with child $c_1$, for every position $i \in \text{lastpos}(c_1)$, all positions in $\text{firstpos}(c_1)$ are in $\text{followpos}(i)$.</li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 10: Hopcroft's DFA Minimization Algorithm</h2>
+<p>
+  <strong>Hopcroft's Algorithm</strong> computes the unique minimal-state DFA in $O(k \cdot n \log n)$ time by iteratively partitioning states into behavioral equivalence classes:
 </p>
 <ol>
-  <li><strong>Initial Partition ($P_0$):</strong> Divide states into two groups: Accept states ($F$) and Non-Accept states ($S \setminus F$).
+  <li><strong>Initial Partition ($P_0$):</strong> Split all states into Accept ($F$) and Non-Accept ($S \setminus F$) states:
     $$P_0 = \{ F, \ S \setminus F \}$$
   </li>
-  <li><strong>Refinement Step:</strong> For each group $G \in P$ and each input symbol $a \in \Sigma$, if $\text{move}(s, a)$ for states in $G$ leads into different partitions, split $G$ into sub-partitions.</li>
-  <li><strong>Termination:</strong> Repeat refinement until no partition can be further split ($P_{k+1} = P_k$).</li>
-  <li><strong>State Compression:</strong> Replace each final partition group with a single representative state in the minimal DFA.</li>
+  <li><strong>Refinement:</strong> For each group $G \in P$ and symbol $a \in \Sigma$, if $\text{move}(s, a)$ leads states of $G$ into different partition groups, split $G$ into separate sub-groups.</li>
+  <li><strong>Fixed-Point Convergence:</strong> Terminate when $P_{k+1} = P_k$. Collapse each partition group into a single state in the minimal DFA.</li>
 </ol>
 
+<h2 class="section-title">Topic 11: Lex & Flex Lexical Analyzer Generator Specifications</h2>
 
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Lex Section</th>
+      <th style="width: 45%;">Syntax & Contents</th>
+      <th>Key Lex Variables & Routines</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Definitions</strong></td>
+      <td>C headers, `#include`, `%option noyywrap`, regular definitions (`digit [0-9]`).</td>
+      <td>`yyin` (input file stream pointer), `yyout` (output stream pointer).</td>
+    </tr>
+    <tr>
+      <td><strong>2. Translation Rules</strong></td>
+      <td>Pairs of Regular Expressions and C action blocks:
+        <pre><code>{digit}+ { yylval = atoi(yytext); return NUM; }</code></pre>
+      </td>
+      <td>`yytext` (pointer to matched lexeme string), `yyleng` (length of matched lexeme), `yylval` (semantic attribute value).</td>
+    </tr>
+    <tr>
+      <td><strong>3. User Subroutines</strong></td>
+      <td>Auxiliary C functions, `main()` driver, `yywrap()` handler.</td>
+      <td>`yylex()` (main DFA scanning function returning integer token codes).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Lex Ambiguity Resolution Rules</div>
+  <ol>
+    <li><strong>Longest Match (Maximal Munch):</strong> The lexer always picks the rule that matches the longest possible sequence of characters (e.g., `<=` is matched as `LE` rather than `<` followed by `=`).</li>
+    <li><strong>First Match Rule:</strong> If multiple regular expressions match the exact same longest prefix, Lex selects the rule that appears earliest in the `.l` specification file (e.g., `if` keyword listed before generic identifier `[a-z]+`).</li>
+  </ol>
+</div>
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Explain the role of Lexical Analyzer and why it is separated from the Parser. (8 Marks)</div>
+  <div class="qa-q">Q1. Explain the role of Lexical Analyzer and state 4 reasons why it is separated from the Parser. (8 Marks)</div>
   <div class="qa-a">
-    1. <strong>Simplicity of Compiler Design:</strong> Separating lexical scanning from grammatical parsing simplifies both phases. The parser deals with clean token streams rather than raw character-level whitespace, newlines, and comments.<br>
-    2. <strong>Compiler Efficiency:</strong> Specialized high-speed buffering techniques can be applied to the lexical scanner. Over 70% of compilation time is spent reading source characters.<br>
-    3. <strong>Portability:</strong> Character-set idiosyncrasies (ASCII, UTF-8, Unicode) are isolated strictly inside the lexical phase, making the parser platform-independent.
+    1. <strong>Simplicity of Compiler Architecture:</strong> Separating character-level lexical processing from grammatical phrase parsing simplifies both stages. The parser processes abstract token streams without handling whitespace, tabs, and comments.<br>
+    2. <strong>Compiler Efficiency:</strong> Specialized high-performance input buffering techniques can be applied to the lexical scanner. Over 70% of compilation CPU cycles are spent scanning characters.<br>
+    3. <strong>Compiler Portability:</strong> Character-set dependencies (ASCII, UTF-8, Unicode) are isolated strictly inside the lexical phase, making the parser independent of source encoding.<br>
+    4. <strong>Modular Grammar Design:</strong> Language syntax rules can focus purely on grammar hierarchies rather than token spelling.
   </div>
 </div>
 
 <div class="qa-card">
-  <div class="qa-q">Q2. State the difference between Compiler and Interpreter across 5 engineering parameters. (6 Marks)</div>
+  <div class="qa-q">Q2. Differentiate between Compiler and Interpreter across 5 core engineering parameters. (6 Marks)</div>
   <div class="qa-a">
     1. <strong>Translation Mechanism:</strong> Compiler translates entire source code into native machine code before execution; Interpreter translates and executes line-by-line at runtime.<br>
     2. <strong>Execution Speed:</strong> Compiled machine code executes 10–50x faster than interpreted bytecode.<br>
@@ -608,71 +818,88 @@ STF   id1, R1      ; Store result into memory position</code></pre>
 </div>
 
 <div class="qa-card">
-  <div class="qa-q">Q3. Describe the structure and working of Lex/Flex tool. (6 Marks)</div>
+  <div class="qa-q">Q3. Trace the Direct DFA construction for regular expression $(a \mid b)^*abb\#$. (10 Marks)</div>
   <div class="qa-a">
-    A Lex program consists of 3 distinct sections separated by `%%` delimiters:<br>
-    1. <strong>Definitions Section:</strong> Header includes, declarations, and regular definitions (e.g., `digit [0-9]`).<br>
-    2. <strong>Rules Section:</strong> Pairs of regular expressions and corresponding C action code (e.g., `{digit}+ { return NUM; }`).<br>
-    3. <strong>User Subroutines Section:</strong> Auxiliary C functions including `main()` and `yywrap()`.<br>
-    Lex compiles the specification into a fast transition table-driven DFA scanner named `yylex()`.
+    1. <strong>Augmented Syntax Tree:</strong> Leaf positions: $1: a, 2: b, 3: a, 4: b, 5: b, 6: \#$.<br>
+    2. <strong>Firstpos / Lastpos:</strong> $\text{firstpos}(\text{root}) = \{1, 2, 3\}$.<br>
+    3. <strong>Followpos Table:</strong>
+       - $\text{followpos}(1) = \{1, 2, 3\}$
+       - $\text{followpos}(2) = \{1, 2, 3\}$
+       - $\text{followpos}(3) = \{4\}$
+       - $\text{followpos}(4) = \{5\}$
+       - $\text{followpos}(5) = \{6\}$
+    4. <strong>DFA States:</strong> State $A = \{1, 2, 3\}$; State $B = \{1, 2, 3, 4\}$; State $C = \{1, 2, 3, 5\}$; State $D^* = \{1, 2, 3, 6\}$ (Accept).
   </div>
 </div>
 <div class='page-break'></div>
 <div class="toc-box">
   <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Syntax Analysis & Parsing Algorithms — Complete Syllabus Topics</div>
   <div class="toc-grid">
-    <div>1. Role of the Parser & Context-Free Grammars (CFG)</div>
-    <div>2. Ambiguity Elimination & Grammar Transformations</div>
-    <div>3. Left Recursion Elimination (Immediate & Indirect Algorithms)</div>
+    <div>1. Role of Parser & Context-Free Grammars (CFG) Mathematical Formulations</div>
+    <div>2. Parse Trees, Derivations (Leftmost & Rightmost) & Ambiguity Proofs</div>
+    <div>3. Left Recursion Elimination (Immediate & Indirect Grammatical Algorithms)</div>
     <div>4. Left Factoring Algorithm for Common Prefixes</div>
-    <div>5. FIRST and FOLLOW Sets Formal Formulations & Step-by-Step Traces</div>
-    <div>6. LL(1) Top-Down Predictive Parser Table & Stack Parsing Walkthrough</div>
-    <div>7. Bottom-Up Shift-Reduce Parsing & Handle Pruning</div>
-    <div>8. LR(0) Canonical Collection of Items & SLR(1) Parsing Tables</div>
-    <div>9. Canonical LR (CLR(1)) with Lookahead & LALR(1) State Merging</div>
-    <div>10. Parsing Conflicts (Shift/Reduce, Reduce/Reduce) & Error Recovery</div>
+    <div>5. FIRST and FOLLOW Sets Formal Inductive Formulations & Traces</div>
+    <div>6. LL(1) Top-Down Predictive Parsing Table Construction & Stack Simulations</div>
+    <div>7. Bottom-Up Shift-Reduce Parsing Principles & Handle Pruning Theorems</div>
+    <div>8. LR(0) Canonical Collection of Items & SLR(1) Parsing Table Formulations</div>
+    <div>9. Canonical LR (CLR(1)) Items with Lookaheads & LALR(1) State Merging</div>
+    <div>10. Parsing Conflicts (Shift/Reduce, Reduce/Reduce) & Ambiguity Resolutions</div>
+    <div>11. Syntax Error Detection & Recovery Strategies (Panic Mode & Phrase Level)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 & 2: Context-Free Grammars & Ambiguity</h2>
+<h2 class="section-title">Topic 1 & 2: Context-Free Grammars, Derivations & Ambiguity</h2>
 <p>
   A <strong>Context-Free Grammar (CFG)</strong> is formally defined as a 4-tuple $G = (V, T, P, S)$:
 </p>
 <ul>
-  <li>$V$: Finite set of Non-Terminal characters (variables representing syntactic categories).</li>
-  <li>$T$: Finite set of Terminal characters (tokens returned by lexical analyzer).</li>
+  <li>$V$: Finite set of Non-Terminal characters (syntactic variables).</li>
+  <li>$T$: Finite set of Terminal characters (token types returned by lexical analyzer).</li>
   <li>$P$: Finite set of Production rules of the form $A \rightarrow \alpha$, where $A \in V$ and $\alpha \in (V \cup T)^*$.</li>
   <li>$S \in V$: The designated Start Symbol.</li>
 </ul>
 
-<h3 class="subsection-title">Grammar Ambiguity:</h3>
-<p>
-  A grammar $G$ is <strong>ambiguous</strong> if there exists at least one string $w \in L(G)$ that has two or more distinct parse trees (or equivalently, two distinct leftmost derivations).
-</p>
-<p>
-  Classic example: The Dangling-Else Grammar:
-</p>
-$$\text{stmt} \rightarrow \mathbf{if} \ \text{expr} \ \mathbf{then} \ \text{stmt} \mid \mathbf{if} \ \text{expr} \ \mathbf{then} \ \text{stmt} \ \mathbf{else} \ \text{stmt} \mid \mathbf{other}$$
-<p>
-  Resolved by disambiguating the grammar into `matched_stmt` and `unmatched_stmt`, matching each `else` with the closest unmatched `then`.
-</p>
+<h3 class="subsection-title">1. Derivations & Parse Trees:</h3>
+<ul>
+  <li><strong>Leftmost Derivation (LMD):</strong> At each derivation step, the leftmost non-terminal is replaced by the body of one of its productions ($\alpha \xRightarrow[lm]{} \beta$).</li>
+  <li><strong>Rightmost Derivation (RMD / Canonical Derivation):</strong> At each step, the rightmost non-terminal is replaced ($\alpha \xRightarrow[rm]{} \beta$). Bottom-up parsers reconstruct the reverse of a rightmost derivation ($RMD^R$).</li>
+  <li><strong>Parse Tree:</strong> A graphical representation of a derivation where the root is start symbol $S$, interior nodes are non-terminals, and leaves are terminals or $\epsilon$, read left-to-right to yield the input sentence.</li>
+</ul>
 
+<div class="callout callout-warning">
+  <div class="callout-title">Formal Definition of Grammar Ambiguity</div>
+  A grammar $G$ is <strong>ambiguous</strong> if there exists at least one string $w \in L(G)$ that has <strong>two or more distinct parse trees</strong> (or equivalently, two distinct leftmost derivations). Ambiguity makes deterministic parsing impossible unless resolved by disambiguating rules.
+</div>
 
+<div class="worked-box">
+  <div class="worked-title">🏛️ Classic Problem: Disambiguating the Dangling-Else Grammar</div>
+  <p><strong>Ambiguous Grammar:</strong></p>
+  $$\text{stmt} \rightarrow \mathbf{if} \ \text{expr} \ \mathbf{then} \ \text{stmt} \mid \mathbf{if} \ \text{expr} \ \mathbf{then} \ \text{stmt} \ \mathbf{else} \ \text{stmt} \mid \mathbf{other}$$
+  <p>For input `if E1 then if E2 then S1 else S2`, the `else` clause can be attached to the first or second `if`.</p>
+  <p><strong>Unambiguous Disambiguated Grammar:</strong></p>
+  <pre><code>stmt          -> matched_stmt | open_stmt
+matched_stmt  -> if expr then matched_stmt else matched_stmt | other
+open_stmt     -> if expr then stmt
+               | if expr then matched_stmt else open_stmt</code></pre>
+  <p>Enforces that every `else` matches the closest preceding unmatched `then`.</p>
+</div>
 
 <h2 class="section-title">Topic 3 & 4: Grammar Transformations (Left Recursion & Left Factoring)</h2>
 
 <h3 class="subsection-title">1. Immediate Left Recursion Elimination:</h3>
 <p>
-  A production $A \rightarrow A\alpha \mid \beta$ (where $\beta$ does not start with $A$) causes top-down parsers to loop infinitely. It is eliminated by introducing a new non-terminal $A'$:
+  A production of the form $A \rightarrow A\alpha \mid \beta$ causes top-down predictive parsers to loop infinitely. It is eliminated by introducing a new non-terminal $A'$:
 </p>
 $$A \rightarrow \beta A', \qquad A' \rightarrow \alpha A' \mid \epsilon$$
 
-<h3 class="subsection-title">2. General Left Recursion Elimination Algorithm:</h3>
+<h3 class="subsection-title">2. General Left Recursion Elimination Algorithm (Handling Indirect Recursion):</h3>
 <ol>
-  <li>Arrange non-terminals in some arbitrary ordering: $A_1, A_2, \dots, A_n$.</li>
+  <li>Order non-terminals in an arbitrary sequence: $A_1, A_2, \dots, A_n$.</li>
   <li>For $i = 1$ to $n$:
     <ul>
-      <li>For $j = 1$ to $i-1$: Replace each production $A_i \rightarrow A_j \gamma$ with $A_i \rightarrow \delta_1 \gamma \mid \delta_2 \gamma \mid \dots \mid \delta_k \gamma$, where $A_j \rightarrow \delta_1 \mid \delta_2 \mid \dots \mid \delta_k$ are the current $A_j$ productions.</li>
+      <li>For $j = 1$ to $i-1$: Replace each production of the form $A_i \rightarrow A_j \gamma$ by $A_i \rightarrow \delta_1 \gamma \mid \delta_2 \gamma \mid \dots \mid \delta_k \gamma$, where $A_j \rightarrow \delta_1 \mid \delta_2 \mid \dots \mid \delta_k$ are the current $A_j$ rules.</li>
       <li>Eliminate immediate left recursion among the $A_i$ productions.</li>
     </ul>
   </li>
@@ -680,43 +907,43 @@ $$A \rightarrow \beta A', \qquad A' \rightarrow \alpha A' \mid \epsilon$$
 
 <h3 class="subsection-title">3. Left Factoring Algorithm (Removing Common Prefixes):</h3>
 <p>
-  When two productions for $A$ share a common prefix ($A \rightarrow \alpha\beta_1 \mid \alpha\beta_2$), the parser cannot determine which branch to choose based on one lookahead token. Left factoring extracts the common prefix:
+  When two productions for $A$ share a common prefix ($A \rightarrow \alpha\beta_1 \mid \alpha\beta_2$), the parser cannot determine which rule to apply with 1 lookahead token. Left factoring delays the decision:
 </p>
 $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
 
-
-
-<h2 class="section-title">Topic 5: Formal Formulations of FIRST and FOLLOW</h2>
+<h2 class="section-title">Topic 5: Formal Formulations of FIRST and FOLLOW Sets</h2>
 
 <div class="callout callout-info">
-  <div class="callout-title">Formal Mathematical Definitions</div>
-  <strong>$\text{FIRST}(\alpha)$:</strong> Set of all terminals that begin strings derived from $\alpha$. If $\alpha \xrightarrow{*} \epsilon$, then $\epsilon \in \text{FIRST}(\alpha)$.<br>
-  <strong>$\text{FOLLOW}(A)$:</strong> Set of all terminals $a$ that can appear immediately to the right of non-terminal $A$ in some sentential form ($S \xrightarrow{*} \alpha A a \beta$). If $A$ is the rightmost symbol in a derivation, the input end-marker $\$$ is in $\text{FOLLOW}(A)$.
+  <div class="callout-title">Mathematical Definitions</div>
+  <ul>
+    <li><strong>$\text{FIRST}(\alpha)$:</strong> Set of all terminals that appear as the first symbol in strings derived from $\alpha$. If $\alpha \xrightarrow{*} \epsilon$, then $\epsilon \in \text{FIRST}(\alpha)$.</li>
+    <li><strong>$\text{FOLLOW}(A)$:</strong> Set of all terminals $a$ that can appear immediately to the right of non-terminal $A$ in some sentential form ($S \xrightarrow{*} \alpha A a \beta$). If $A$ is the rightmost symbol in a derivation, the input end-marker $\$$ is in $\text{FOLLOW}(A)$.</li>
+  </ul>
 </div>
 
-<h3 class="subsection-title">Rules for Computing FIRST:</h3>
+<h3 class="subsection-title">Formal Rules for Computing FIRST:</h3>
 <ol>
   <li>If $X$ is a terminal, $\text{FIRST}(X) = \{X\}$.</li>
   <li>If $X \rightarrow \epsilon$ is a production, add $\epsilon$ to $\text{FIRST}(X)$.</li>
   <li>If $X \rightarrow Y_1 Y_2 \dots Y_k$ is a production:
     <ul>
-      <li>Add all non-$\epsilon$ symbols from $\text{FIRST}(Y_1)$ to $\text{FIRST}(X)$.</li>
-      <li>If $\epsilon \in \text{FIRST}(Y_1)$, add all non-$\epsilon$ symbols from $\text{FIRST}(Y_2)$ to $\text{FIRST}(X)$, and so forth, until some $Y_i$ does not contain $\epsilon$.</li>
+      <li>Add all non-$\epsilon$ symbols of $\text{FIRST}(Y_1)$ to $\text{FIRST}(X)$.</li>
+      <li>If $\epsilon \in \text{FIRST}(Y_1)$, add non-$\epsilon$ symbols of $\text{FIRST}(Y_2)$, continuing until some $Y_i$ does not contain $\epsilon$.</li>
       <li>If all $Y_1, \dots, Y_k$ contain $\epsilon$, add $\epsilon$ to $\text{FIRST}(X)$.</li>
     </ul>
   </li>
 </ol>
 
-<h3 class="subsection-title">Rules for Computing FOLLOW:</h3>
+<h3 class="subsection-title">Formal Rules for Computing FOLLOW:</h3>
 <ol>
-  <li>Place $\$$ in $\text{FOLLOW}(S)$, where $S$ is the start symbol.</li>
+  <li>Place $\$$ in $\text{FOLLOW}(S)$, where $S$ is the grammar start symbol.</li>
   <li>If there is a production $A \rightarrow \alpha B \beta$, everything in $\text{FIRST}(\beta)$ except $\epsilon$ is in $\text{FOLLOW}(B)$.</li>
   <li>If there is a production $A \rightarrow \alpha B$, or $A \rightarrow \alpha B \beta$ where $\text{FIRST}(\beta)$ contains $\epsilon$, everything in $\text{FOLLOW}(A)$ is in $\text{FOLLOW}(B)$.</li>
 </ol>
 
 <div class="worked-box">
   <div class="worked-title">🏛️ Step-by-Step Solved Problem: Arithmetic Grammar FIRST & FOLLOW</div>
-  <p><strong>Grammar ($G$):</strong></p>
+  <p><strong>Transformed Arithmetic Grammar ($G$):</strong></p>
   <ul>
     <li>$E \rightarrow T E'$</li>
     <li>$E' \rightarrow + T E' \mid \epsilon$</li>
@@ -724,173 +951,279 @@ $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
     <li>$T' \rightarrow * F T' \mid \epsilon$</li>
     <li>$F \rightarrow ( E ) \mid \mathbf{id}$</li>
   </ul>
-  <p><strong>Computed Sets:</strong></p>
+
   <table class="custom-table">
     <thead>
-      <tr><th>Non-Terminal</th><th>$\text{FIRST}$ Set</th><th>$\text{FOLLOW}$ Set</th></tr>
+      <tr>
+        <th style="width: 20%;">Non-Terminal</th>
+        <th style="width: 35%;">$\text{FIRST}$ Set</th>
+        <th>$\text{FOLLOW}$ Set</th>
+      </tr>
     </thead>
     <tbody>
-      <tr><td><strong>E</strong></td><td>$\{(, \mathbf{id}\}$</td><td>$\{), \$\}$</td></tr>
-      <tr><td><strong>E'</strong></td><td>$\{+, \epsilon\}$</td><td>$\{), \$\}$</td></tr>
-      <tr><td><strong>T</strong></td><td>$\{(, \mathbf{id}\}$</td><td>$\{+, ), \$\}$</td></tr>
-      <tr><td><strong>T'</strong></td><td>$\{*, \epsilon\}$</td><td>$\{+, ), \$\}$</td></tr>
-      <tr><td><strong>F</strong></td><td>$\{(, \mathbf{id}\}$</td><td>$\{*, +, ), \$\}$</td></tr>
+      <tr>
+        <td><strong>E</strong></td>
+        <td>$\{(, \ \mathbf{id}\}$</td>
+        <td>$\{), \ \$\}$</td>
+      </tr>
+      <tr>
+        <td><strong>E'</strong></td>
+        <td>$\{+, \ \epsilon\}$</td>
+        <td>$\{), \ \$\}$</td>
+      </tr>
+      <tr>
+        <td><strong>T</strong></td>
+        <td>$\{(, \ \mathbf{id}\}$</td>
+        <td>$\{+, \ ), \ \$\}$</td>
+      </tr>
+      <tr>
+        <td><strong>T'</strong></td>
+        <td>$\{*, \ \epsilon\}$</td>
+        <td>$\{+, \ ), \ \$\}$</td>
+      </tr>
+      <tr>
+        <td><strong>F</strong></td>
+        <td>$\{(, \ \mathbf{id}\}$</td>
+        <td>$\{*, \ +, \ ), \ \$\}$</td>
+      </tr>
     </tbody>
   </table>
 </div>
 
-
-
 <h2 class="section-title">Topic 6: Top-Down LL(1) Predictive Parsing</h2>
 
 <p>
-  An <strong>LL(1) Parser</strong> scans input from Left-to-right, produces a Leftmost derivation, using 1 lookahead token.
+  An <strong>LL(1) Parser</strong> scans input from <strong>L</strong>eft-to-right, produces a <strong>L</strong>eftmost derivation, using <strong>1</strong> token of lookahead without backtracking.
 </p>
+
 <div class="callout callout-info">
-  <div class="callout-title">LL(1) Grammatical Condition</div>
-  A grammar $G$ is $LL(1)$ if and only if for every pair of productions $A \rightarrow \alpha \mid \beta$:
+  <div class="callout-title">Formal Condition for an LL(1) Grammar</div>
+  A context-free grammar $G$ is $LL(1)$ if and only if for every pair of productions $A \rightarrow \alpha \mid \beta$:
   <ol>
     <li>$\text{FIRST}(\alpha) \cap \text{FIRST}(\beta) = \emptyset$.</li>
     <li>If $\epsilon \in \text{FIRST}(\alpha)$, then $\text{FIRST}(\beta) \cap \text{FOLLOW}(A) = \emptyset$.</li>
   </ol>
 </div>
 
-<h3 class="subsection-title">Complete LL(1) Parsing Table:</h3>
+<h3 class="subsection-title">Complete LL(1) Parsing Table $M[A, a]$:</h3>
 <table class="custom-table">
   <thead>
-    <tr><th>Non-Terminal</th><th>$\mathbf{id}$</th><th>$+$</th><th>$*$</th><th>$($</th><th>$)$</th><th>$\$$</th></tr>
+    <tr>
+      <th>Non-Terminal</th>
+      <th>$\mathbf{id}$</th>
+      <th>$+$</th>
+      <th>$*$</th>
+      <th>$($</th>
+      <th>$)$</th>
+      <th>$\$$</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><strong>E</strong></td><td>$E \rightarrow T E'$</td><td></td><td></td><td>$E \rightarrow T E'$</td><td></td><td></td></tr>
-    <tr><td><strong>E'</strong></td><td></td><td>$E' \rightarrow + T E'$</td><td></td><td></td><td>$E' \rightarrow \epsilon$</td><td>$E' \rightarrow \epsilon$</td></tr>
-    <tr><td><strong>T</strong></td><td>$T \rightarrow F T'$</td><td></td><td></td><td>$T \rightarrow F T'$</td><td></td><td></td></tr>
-    <tr><td><strong>T'</strong></td><td></td><td>$T' \rightarrow \epsilon$</td><td>$T' \rightarrow * F T'$</td><td></td><td>$T' \rightarrow \epsilon$</td><td>$T' \rightarrow \epsilon$</td></tr>
-    <tr><td><strong>F</strong></td><td>$F \rightarrow \mathbf{id}$</td><td></td><td></td><td>$F \rightarrow ( E )$</td><td></td><td></td></tr>
+    <tr>
+      <td><strong>E</strong></td>
+      <td>$E \rightarrow T E'$</td>
+      <td></td>
+      <td></td>
+      <td>$E \rightarrow T E'$</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>E'</strong></td>
+      <td></td>
+      <td>$E' \rightarrow + T E'$</td>
+      <td></td>
+      <td></td>
+      <td>$E' \rightarrow \epsilon$</td>
+      <td>$E' \rightarrow \epsilon$</td>
+    </tr>
+    <tr>
+      <td><strong>T</strong></td>
+      <td>$T \rightarrow F T'$</td>
+      <td></td>
+      <td></td>
+      <td>$T \rightarrow F T'$</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>T'</strong></td>
+      <td></td>
+      <td>$T' \rightarrow \epsilon$</td>
+      <td>$T' \rightarrow * F T'$</td>
+      <td></td>
+      <td>$T' \rightarrow \epsilon$</td>
+      <td>$T' \rightarrow \epsilon$</td>
+    </tr>
+    <tr>
+      <td><strong>F</strong></td>
+      <td>$F \rightarrow \mathbf{id}$</td>
+      <td></td>
+      <td></td>
+      <td>$F \rightarrow ( E )$</td>
+      <td></td>
+      <td></td>
+    </tr>
   </tbody>
 </table>
+<p><em>Since no cell contains multiple production rules, the grammar is strictly $LL(1)$.</em></p>
 
-
-
-<h2 class="section-title">Topics 7 – 9: Bottom-Up LR Parsing Landscape</h2>
+<h2 class="section-title">Topics 7 – 9: Bottom-Up LR Parsing Hierarchy</h2>
 
 <p>
-  <strong>LR Parsers</strong> (Left-to-right scan, Rightmost derivation in reverse) are the most powerful deterministic shift-reduce parsing engines.
+  <strong>LR Parsers</strong> (Left-to-right scan, Rightmost derivation in reverse) are the most general deterministic shift-reduce parsing engines.
 </p>
+
+<div class="diagram-container">
+  <svg width="100%" height="75" viewBox="0 0 740 75" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="18" width="130" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="85" y="42" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#475569" text-anchor="middle">LR(0) Parser</text>
+
+    <text x="175" y="43" font-family="Plus Jakarta Sans" font-size="14" font-weight="800" fill="#0284c7" text-anchor="middle">⊂</text>
+
+    <rect x="200" y="18" width="130" height="40" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="265" y="42" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1d4ed8" text-anchor="middle">SLR(1) Parser</text>
+
+    <text x="355" y="43" font-family="Plus Jakarta Sans" font-size="14" font-weight="800" fill="#0284c7" text-anchor="middle">⊂</text>
+
+    <rect x="380" y="18" width="140" height="40" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="450" y="42" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#92400e" text-anchor="middle">LALR(1) Parser</text>
+
+    <text x="545" y="43" font-family="Plus Jakarta Sans" font-size="14" font-weight="800" fill="#0284c7" text-anchor="middle">⊂</text>
+
+    <rect x="570" y="18" width="150" height="40" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="645" y="42" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#14532d" text-anchor="middle">Canonical LR(1)</text>
+  </svg>
+  <div class="diagram-caption">Figure 2.1: Relative Grammatical Expressive Power of LR Parser Classes</div>
+</div>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 18%;">Parser Class</th>
-      <th style="width: 25%;">Item Structure</th>
-      <th style="width: 25%;">Reduce Action Decision</th>
-      <th>State Complexity & Power</th>
+      <th style="width: 15%;">Parser Class</th>
+      <th style="width: 25%;">Item Representation</th>
+      <th style="width: 35%;">Reduce Action Decision Logic</th>
+      <th>State Complexity & Practical Use</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>1. LR(0)</strong></td>
       <td>$[A \rightarrow \alpha \cdot \beta]$</td>
-      <td>Reduce across all columns unconditionally.</td>
-      <td>Fewest states; weak; fails on almost all programming grammars.</td>
+      <td>Reduce $A \rightarrow \alpha$ across all columns in row unconditionally.</td>
+      <td>Fewest states; very weak; fails on almost all programming grammars.</td>
     </tr>
     <tr>
       <td><strong>2. SLR(1)</strong></td>
       <td>$[A \rightarrow \alpha \cdot \beta]$</td>
-      <td>Reduce $A \rightarrow \alpha$ only on input symbols $a \in \text{FOLLOW}(A)$.</td>
-      <td>Same number of states as LR(0); resolves many Shift/Reduce conflicts.</td>
+      <td>Reduce $A \rightarrow \alpha$ only on input terminal $a \in \text{FOLLOW}(A)$.</td>
+      <td>Same states as LR(0); resolves many simple shift/reduce conflicts.</td>
     </tr>
     <tr>
       <td><strong>3. CLR(1)</strong></td>
-      <td>$[A \rightarrow \alpha \cdot \beta, \ a]$ (with Lookahead $a$)</td>
-      <td>Reduce $A \rightarrow \alpha$ only on exact lookahead symbol $a$.</td>
-      <td>Most powerful deterministic class; massive number of states (thousands).</td>
+      <td>$[A \rightarrow \alpha \cdot \beta, \ a]$ (with explicit lookahead $a$)</td>
+      <td>Reduce $A \rightarrow \alpha$ only on exact lookahead terminal $a$.</td>
+      <td>Most powerful deterministic class; massive state explosion (thousands of states).</td>
     </tr>
     <tr>
       <td><strong>4. LALR(1)</strong></td>
-      <td>Merged LR(1) items with identical core $LR(0)$ components.</td>
-      <td>Reduce on merged lookahead sets.</td>
-      <td>Same number of states as SLR(1); nearly the parsing power of CLR(1); used in Yacc/Bison.</td>
+      <td>Merged LR(1) items having identical LR(0) core items.</td>
+      <td>Reduce on merged lookahead terminal sets.</td>
+      <td>Same number of states as SLR(1); nearly CLR(1) parsing power; standard in Yacc/Bison.</td>
     </tr>
   </tbody>
 </table>
 
+<h2 class="section-title">Topic 10 & 11: Parsing Conflicts & Error Recovery</h2>
 
+<h3 class="subsection-title">1. Bottom-Up Parsing Conflicts:</h3>
+<ul>
+  <li><strong>Shift/Reduce (S/R) Conflict:</strong> The parser state cannot decide whether to shift the next input symbol onto the stack or reduce the current top-of-stack handle by a production rule.</li>
+  <li><strong>Reduce/Reduce (R/R) Conflict:</strong> The parser state recognizes two or more distinct completed handles simultaneously and cannot decide which production to reduce by (indicates severe grammatical ambiguity).</li>
+</ul>
+
+<h3 class="subsection-title">2. Error Recovery Modes:</h3>
+<ul>
+  <li><strong>Panic-Mode Recovery:</strong> The parser discards incoming tokens until a designated synchronizing token (e.g., `;`, `}`) is encountered, then pops stack symbols until parsing can safely resume. Simple and guaranteed to avoid infinite loops.</li>
+  <li><strong>Phrase-Level Recovery:</strong> Replaces an erroneous prefix with a valid correction (e.g., replacing comma with semicolon).</li>
+  <li><strong>Error Productions:</strong> Language designers augment the grammar with common anticipated developer errors to emit detailed diagnostic messages.</li>
+</ul>
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
 
 <div class="qa-card">
   <div class="qa-q">Q1. Prove why an ambiguous grammar can never be LL(1) or LR(1). (8 Marks)</div>
   <div class="qa-a">
-    <strong>Proof:</strong> An ambiguous grammar generates at least two distinct parse trees for some string $w$.<br>
+    <strong>Proof:</strong> An ambiguous grammar generates at least two distinct parse trees for some valid string $w$.<br>
     1. In an <strong>LL(1) parser</strong>, this ambiguity manifests as multiple production entries in the same parsing table cell $M[A, a]$, violating the single-entry requirement of deterministic LL(1) tables.<br>
     2. In an <strong>LR(1) parser</strong>, the two distinct derivations create either a <strong>Shift/Reduce conflict</strong> (where the parser cannot decide whether to shift or reduce) or a <strong>Reduce/Reduce conflict</strong> (where the parser cannot decide which of two distinct productions to reduce by). Thus, ambiguous grammars can never be parsed deterministically by LL(1) or LR(1).
   </div>
 </div>
 
 <div class="qa-card">
-  <div class="qa-q">Q2. Explain the difference between SLR(1) and LALR(1) parsers. (6 Marks)</div>
+  <div class="qa-q">Q2. Explain the difference between SLR(1) and LALR(1) parsers. Can merging states introduce Shift/Reduce conflicts in LALR(1)? (10 Marks)</div>
   <div class="qa-a">
-    Both SLR(1) and LALR(1) parsers have the exact same number of states (identical to the LR(0) state machine). However, they differ in how they decide reduction actions:<br>
-    - <strong>SLR(1):</strong> Places reduce actions for $A \rightarrow \alpha$ in all columns corresponding to $\text{FOLLOW}(A)$. $\text{FOLLOW}(A)$ is a global set that includes symbols that may never legally follow $A$ in that specific context.<br>
-    - <strong>LALR(1):</strong> Computes specific context-sensitive lookahead sets during item propagation, placing reduce actions only on valid lookaheads. As a result, LALR(1) eliminates many false Shift/Reduce and Reduce/Reduce conflicts present in SLR(1).
+    - <strong>SLR(1):</strong> Uses LR(0) items and makes reduction decisions based on the global $\text{FOLLOW}(A)$ set, which often includes symbols that cannot legally appear in that specific context.<br>
+    - <strong>LALR(1):</strong> Merges CLR(1) states having identical LR(0) cores while unioning their lookahead sets. Reduction is guided by exact propagated lookaheads.<br>
+    - <strong>Theorem on Conflicts:</strong> Merging LR(1) states with identical cores <strong>CANNOT introduce new Shift/Reduce conflicts</strong> (because shift decisions depend solely on the core item's symbol after the dot). However, merging <strong>CAN introduce new Reduce/Reduce conflicts</strong> if two distinct productions have overlapping lookaheads after merging.
   </div>
 </div>
 <div class='page-break'></div>
 <div class="toc-box">
   <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Semantic Analysis & Type Checking — Complete Syllabus Topics</div>
   <div class="toc-grid">
-    <div>1. Syntax-Directed Definitions (SDD) & Semantic Rules</div>
-    <div>2. Synthesized Attributes vs. Inherited Attributes</div>
-    <div>3. S-Attributed Definitions & Bottom-Up Evaluation</div>
-    <div>4. L-Attributed Definitions & Top-Down Evaluation Orders</div>
-    <div>5. Dependency Graphs & Topological Sorting for Attribute Evaluation</div>
-    <div>6. Syntax-Directed Translation Schemes (SDTS) & Action Placement</div>
-    <div>7. Static Type Checking & Type Systems</div>
-    <div>8. Type Expressions, Type Equivalence (Structural vs Name)</div>
-    <div>9. Type Conversions (Implicit Coercion vs Explicit Casting)</div>
-    <div>10. Symbol Table Organizations (Hash Tables with Scope Chaining)</div>
+    <div>1. Role of Semantic Analysis & Static vs. Dynamic Checking</div>
+    <div>2. Syntax-Directed Definitions (SDD) & Semantic Rule Formulations</div>
+    <div>3. Synthesized Attributes vs. Inherited Attributes Formal Properties</div>
+    <div>4. S-Attributed Definitions & Bottom-Up LR Parsing Implementations</div>
+    <div>5. L-Attributed Definitions & Depth-First Left-to-Right Traversal Orders</div>
+    <div>6. Dependency Graphs & Topological Sorting for Attribute Evaluation</div>
+    <div>7. Syntax-Directed Translation Schemes (SDTS) & Action Placement Rules</div>
+    <div>8. Type Systems, Type Expressions & Static Type Checker Architecture</div>
+    <div>9. Type Equivalence (Structural vs. Name Equivalence Algorithms)</div>
+    <div>10. Type Conversions (Implicit Coercions vs. Explicit Casting Mechanics)</div>
+    <div>11. Symbol Table Organizations (Block Scoping with Chained Hash Tables)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 & 2: Syntax-Directed Definitions (SDD) & Attributes</h2>
+<h2 class="section-title">Topic 1 & 2: Syntax-Directed Definitions (SDD) & Attribute Types</h2>
 <p>
-  A <strong>Syntax-Directed Definition (SDD)</strong> is a context-free grammar together with attributes and semantic rules. Attributes are associated with grammar symbols, and rules are associated with productions.
+  A <strong>Syntax-Directed Definition (SDD)</strong> is a context-free grammar augmented with attributes and semantic rules. Attributes are associated with grammar symbols, and semantic rules are associated with production rules.
 </p>
 
 <table class="custom-table">
   <thead>
     <tr>
       <th style="width: 25%;">Attribute Class</th>
-      <th style="width: 45%;">Definition & Value Flow Direction</th>
-      <th>Key Evaluation Properties</th>
+      <th style="width: 45%;">Formal Mathematical Formulation & Value Flow</th>
+      <th>Parsing & Evaluation Invariants</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>1. Synthesized Attribute</strong></td>
-      <td>Computed from the attribute values of the node's children in the parse tree (or lexical values).
-        $$A.s = f(Y_1.a_1, Y_2.a_2, \dots, Y_k.a_k)$$
+      <td>Computed strictly from the attribute values of the node's children in the parse tree (or lexical values):
+        $$A.s = f(Y_1.a_1, Y_2.a_2, \dots, Y_k.a_k) \quad \text{for production } A \rightarrow Y_1 Y_2 \dots Y_k$$
       </td>
-      <td>Flows strictly <strong>Bottom-Up</strong>; naturally evaluated during LR parsing.</td>
+      <td>Flows strictly <strong>Bottom-Up</strong>; naturally evaluated during shift-reduce / LR parsing using an attribute stack.</td>
     </tr>
     <tr>
       <td><strong>2. Inherited Attribute</strong></td>
-      <td>Computed from the attribute values of the node's parent and/or siblings.
-        $$Y_j.i = f(A.a, Y_1.a_1, \dots, Y_{j-1}.a_{j-1})$$
+      <td>Computed from the attribute values of the node's parent and/or left siblings:
+        $$Y_j.i = f(A.a, Y_1.a_1, \dots, Y_{j-1}.a_{j-1}) \quad \text{for symbol } Y_j \text{ in } A \rightarrow Y_1 \dots Y_k$$
       </td>
-      <td>Flows <strong>Top-Down</strong> and <strong>Left-to-Right</strong>; passes context (e.g., data type declarations) downward.</td>
+      <td>Flows <strong>Top-Down</strong> and <strong>Left-to-Right</strong>; passes context (e.g., base data types) down into declarations.</td>
     </tr>
   </tbody>
 </table>
-
-
 
 <h2 class="section-title">Topic 3 & 4: S-Attributed vs. L-Attributed SDD</h2>
 
 <div class="callout callout-info">
   <div class="callout-title">Structural Classifications</div>
   <ul>
-    <li><strong>S-Attributed SDD:</strong> An SDD that uses <strong>only synthesized attributes</strong>. Can be evaluated during bottom-up parsing (e.g., LR parser) by maintaining an attribute stack in parallel with the parse stack.</li>
+    <li><strong>S-Attributed SDD:</strong> An SDD that uses <strong>only synthesized attributes</strong>. Can be evaluated during bottom-up parsing (e.g., LR parser) by maintaining an attribute value stack in parallel with the parser state stack.</li>
     <li><strong>L-Attributed SDD:</strong> An SDD where every attribute is either synthesized, or inherited with the restriction that for production $A \rightarrow X_1 X_2 \dots X_n$, an inherited attribute of $X_j$ depends only on:
       <ol>
         <li>Attributes of the parent $A$.</li>
@@ -905,7 +1238,10 @@ $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
   <div class="worked-title">🏛️ Step-by-Step Solved Problem: Desktop Calculator S-Attributed SDD</div>
   <table class="custom-table">
     <thead>
-      <tr><th>Production</th><th>Semantic Rule</th></tr>
+      <tr>
+        <th style="width: 35%;">Grammar Production</th>
+        <th>Semantic Evaluation Rule</th>
+      </tr>
     </thead>
     <tbody>
       <tr><td>$L \rightarrow E \ \mathbf{n}$</td><td>$\text{print}(E.\text{val})$</td></tr>
@@ -917,74 +1253,89 @@ $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
       <tr><td>$F \rightarrow \mathbf{digit}$</td><td>$F.\text{val} = \mathbf{digit}.\text{lexval}$</td></tr>
     </tbody>
   </table>
-  <p>Evaluates $(3 + 4) * 5\mathbf{n} \implies \mathbf{35}$ bottom-up in a single pass.</p>
+  <p>Evaluates expression `(3 + 4) * 5\n` bottom-up in a single LR parsing pass to yield `35`.</p>
 </div>
 
-
-
-<h2 class="section-title">Topic 7 & 8: Type Checking & Type Systems</h2>
-
+<h2 class="section-title">Topic 6: Dependency Graphs & Topological Evaluation Orders</h2>
 <p>
-  A <strong>Type Checker</strong> verifies that the type of a construct matches that expected by its context (e.g., the modulo operator `%` requires integer operands in C).
+  A <strong>Dependency Graph</strong> represents the data-flow constraints between attribute instances in a parse tree:
 </p>
+<ul>
+  <li>For each node attribute $X.a$, there is a corresponding graph vertex.</li>
+  <li>A directed edge $X.a \rightarrow Y.b$ indicates that the semantic rule for $Y.b$ requires the value of $X.a$.</li>
+  <li>If the dependency graph contains <strong>no directed cycles</strong>, a valid evaluation order is given by any <strong>Topological Sort</strong> of the graph.</li>
+</ul>
+
+<h2 class="section-title">Topic 8 & 9: Type Systems & Type Equivalence</h2>
 
 <h3 class="subsection-title">1. Structural vs. Name Equivalence:</h3>
 <ul>
-  <li><strong>Name Equivalence:</strong> Two types are equivalent if and only if they share the exact same type name identifier (Strict, fast to check).</li>
-  <li><strong>Structural Equivalence:</strong> Two types are equivalent if they have identical internal structures (e.g., record fields with identical names and types in the same order).</li>
+  <li><strong>Name Equivalence:</strong> Two types are equivalent if and only if they share the exact same named type identifier.
+    <pre><code>typedef struct { int x, y; } PointA;
+typedef struct { int x, y; } PointB;
+// Under Name Equivalence: PointA != PointB (Strict)</code></pre>
+  </li>
+  <li><strong>Structural Equivalence:</strong> Two types are equivalent if they have identical internal constituent structures.
+    <pre><code>// Under Structural Equivalence: PointA == PointB (Both contain two integer fields)</code></pre>
+  </li>
 </ul>
 
-<h3 class="subsection-title">2. Type Conversions:</h3>
+<h3 class="subsection-title">2. Type Conversions & Coercion Rules:</h3>
 <ul>
-  <li><strong>Implicit Coercion:</strong> Automatically performed by compiler (e.g., widening an `int` to `float` during addition `2 + 3.5`).</li>
-  <li><strong>Explicit Casting:</strong> Programmed explicitly by the developer (e.g., `(int) x`).</li>
+  <li><strong>Widening Conversions (Implicit):</strong> Preserve numeric precision (e.g., `char` $\rightarrow$ `int` $\rightarrow$ `float` $\rightarrow$ `double`). Automatically inserted by compiler.</li>
+  <li><strong>Narrowing Conversions (Explicit):</strong> May lose precision or overflow (e.g., `double` $\rightarrow$ `int`). Require explicit type cast syntax.</li>
 </ul>
 
-
-
-<h2 class="section-title">Topic 10: Symbol Table Organization</h2>
-
-<p>
-  The <strong>Symbol Table</strong> is a critical data structure containing record entries for every user-defined identifier in the source program, storing name, type, memory offset, scope level, and parameter signatures.
-</p>
+<h2 class="section-title">Topic 11: Symbol Table Organizations (Block Scoping with Hash Tables)</h2>
 
 <div class="diagram-container">
-  <svg width="100%" height="90" viewBox="0 0 740 90" xmlns="http://www.w3.org/2000/svg">
-    <rect x="20" y="15" width="160" height="60" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
-    <text x="100" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">Global Scope Table</text>
-    <text x="100" y="55" font-family="Fira Code" font-size="9.5" fill="#2563eb" text-anchor="middle">int x, float y</text>
+  <svg width="100%" height="95" viewBox="0 0 740 95" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="15" width="180" height="65" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="110" y="36" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">Global Scope Table</text>
+    <text x="110" y="52" font-family="Fira Code" font-size="9.5" fill="#2563eb" text-anchor="middle">int global_x; float g_y;</text>
+    <text x="110" y="66" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Parent: NULL</text>
 
-    <path d="M 180 45 L 250 45" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 200 47 L 260 47" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="260" y="15" width="180" height="60" rx="6" fill="#f0fdf4" stroke="#22c55e"/>
-    <text x="350" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">Function Scope Table</text>
-    <text x="350" y="55" font-family="Fira Code" font-size="9.5" fill="#16a34a" text-anchor="middle">int a, int b, parent -> Global</text>
+    <rect x="270" y="15" width="190" height="65" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="365" y="36" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">Function Scope Table</text>
+    <text x="365" y="52" font-family="Fira Code" font-size="9.5" fill="#16a34a" text-anchor="middle">int param_a; char local_b;</text>
+    <text x="365" y="66" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" text-anchor="middle">Parent: Global Scope</text>
 
-    <path d="M 440 45 L 510 45" stroke="#0284c7" stroke-width="2"/>
+    <path d="M 460 47 L 520 47" stroke="#0284c7" stroke-width="2"/>
 
-    <rect x="520" y="15" width="180" height="60" rx="6" fill="#fef3c7" stroke="#d97706"/>
-    <text x="610" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Block Scope Table</text>
-    <text x="610" y="55" font-family="Fira Code" font-size="9.5" fill="#b45309" text-anchor="middle">int i, parent -> Func</text>
+    <rect x="530" y="15" width="190" height="65" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="625" y="36" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Nested Block Scope Table</text>
+    <text x="625" y="52" font-family="Fira Code" font-size="9.5" fill="#b45309" text-anchor="middle">int loop_i; int temp;</text>
+    <text x="625" y="66" font-family="Plus Jakarta Sans" font-size="8.5" fill="#b45309" text-anchor="middle">Parent: Function Scope</text>
   </svg>
-  <div class="diagram-caption">Figure 3.1: Hierarchical Block-Structured Scope Chaining</div>
+  <div class="diagram-caption">Figure 3.1: Hierarchical Chained Hash Tables for Nested Lexical Block Scoping</div>
 </div>
-
-
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Differentiate between S-Attributed and L-Attributed SDD with syntax-directed rules. (8 Marks)</div>
+  <div class="qa-q">Q1. Differentiate between S-Attributed and L-Attributed SDD with examples and evaluation strategies. (8 Marks)</div>
   <div class="qa-a">
-    1. <strong>S-Attributed SDD:</strong> Uses only synthesized attributes. Can be evaluated during bottom-up parsing using an attribute stack without creating an explicit parse tree.<br>
-    2. <strong>L-Attributed SDD:</strong> Allows both synthesized and inherited attributes, but inherited attributes of symbol $X_j$ in $A \rightarrow X_1 X_2 \dots X_n$ are restricted to depend only on attributes of parent $A$ and left siblings $X_1, \dots, X_{j-1}$. Can be evaluated in a single depth-first, left-to-right parse tree traversal.
+    1. <strong>S-Attributed SDD:</strong> Uses only synthesized attributes. Evaluated strictly bottom-up during LR parsing using an attribute value stack without needing an explicit syntax tree.<br>
+    2. <strong>L-Attributed SDD:</strong> Allows synthesized and inherited attributes with the restriction that inherited attributes of $X_j$ in $A \rightarrow X_1 X_2 \dots X_n$ depend only on attributes of parent $A$ and left siblings $X_1, \dots, X_{j-1}$. Evaluated in a single depth-first, left-to-right tree traversal.
   </div>
 </div>
 
 <div class="qa-card">
-  <div class="qa-q">Q2. How is dynamic block scoping implemented in a symbol table? (6 Marks)</div>
+  <div class="qa-q">Q2. Write an SDD to translate type declarations like `int a, b, c;` into symbol table entries. (8 Marks)</div>
   <div class="qa-a">
-    Block scoping is implemented using a <strong>Stack of Hash Tables</strong> or a chained tree of symbol tables. When entering a new block `{`, a new empty hash table is created and pushed onto the scope stack, with a pointer pointing to its enclosing parent scope table. Symbol lookups search from the current top-of-stack table upwards along parent pointers. When exiting a block `}`, its table is popped and deallocated.
+    <table class="custom-table">
+      <thead><tr><th>Production</th><th>Semantic Rule</th></tr></thead>
+      <tbody>
+        <tr><td>$D \rightarrow T \ L$</td><td>$L.\text{in} = T.\text{type}$</td></tr>
+        <tr><td>$T \rightarrow \mathbf{int}$</td><td>$T.\text{type} = \text{integer}$</td></tr>
+        <tr><td>$T \rightarrow \mathbf{float}$</td><td>$T.\text{type} = \text{real}$</td></tr>
+        <tr><td>$L \rightarrow L_1, \ \mathbf{id}$</td><td>$L_1.\text{in} = L.\text{in}; \ \text{addType}(\mathbf{id}.\text{entry}, L.\text{in})$</td></tr>
+        <tr><td>$L \rightarrow \mathbf{id}$</td><td>$\text{addType}(\mathbf{id}.\text{entry}, L.\text{in})$</td></tr>
+      </tbody>
+    </table>
+    <em>Uses inherited attribute $L.\text{in}$ to propagate base type downward to all identifier instances.</em>
   </div>
 </div>
 <div class='page-break'></div>
@@ -993,20 +1344,22 @@ $$A \rightarrow \alpha A', \qquad A' \rightarrow \beta_1 \mid \beta_2$$
   <div class="toc-grid">
     <div>1. Intermediate Representations (Syntax Trees, DAG, Postfix, TAC)</div>
     <div>2. Three-Address Code (TAC) Representations: Quadruples, Triples, Indirect Triples</div>
-    <div>3. Translation of Expressions & Type Coercion TAC</div>
-    <div>4. Multi-Dimensional Array Addressing (Row-Major vs Column-Major Proofs)</div>
-    <div>5. Boolean Expressions Translation & Short-Circuit Evaluation</div>
-    <div>6. Backpatching Techniques (`makelist`, `merge`, `backpatch`)</div>
-    <div>7. Runtime Storage Organization & Activation Records (Stack Frames)</div>
-    <div>8. Storage Allocation Strategies (Static, Stack, Heap)</div>
-    <div>9. Access Links & Displays for Nested Block Scopes</div>
-    <div>10. Parameter Passing Mechanisms & Garbage Collection</div>
+    <div>3. Translation of Arithmetic Expressions & Type Coercion TAC</div>
+    <div>4. Multi-Dimensional Array Addressing (Row-Major vs. Column-Major Proofs)</div>
+    <div>5. Boolean Expressions Translation & Flow-of-Control Short-Circuiting</div>
+    <div>6. Backpatching Techniques (`makelist`, `merge`, `backpatch` Algorithms)</div>
+    <div>7. Procedure Translation (`param`, `call`, `return` Instruction Sequences)</div>
+    <div>8. Runtime Storage Organization (Text, Static, Stack & Heap Segments)</div>
+    <div>9. Activation Records (Stack Frame Anatomy & Dynamic Links)</div>
+    <div>10. Access Links & Displays for Lexically Nested Scopes</div>
+    <div>11. Parameter Passing Mechanisms (Value, Reference, Copy-Restore, Name)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
 <h2 class="section-title">Topic 1 & 2: Three-Address Code (TAC) Representations</h2>
 <p>
-  <strong>Three-Address Code (TAC)</strong> is a linear intermediate representation where each instruction has at most one operator on the right-hand side:
+  <strong>Three-Address Code (TAC)</strong> is a linear intermediate representation where each instruction contains at most one operator on the right-hand side:
 </p>
 $$x = y \ \mathbf{op} \ z$$
 
@@ -1049,55 +1402,54 @@ $$x = y \ \mathbf{op} \ z$$
 
   <p><strong>Step 2: Quadruple Representation:</strong></p>
   <table class="custom-table">
-    <tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th><th>result</th></tr>
-    <tr><td>0</td><td>uminus</td><td>c</td><td>-</td><td>t1</td></tr>
-    <tr><td>1</td><td>*</td><td>b</td><td>t1</td><td>t2</td></tr>
-    <tr><td>2</td><td>uminus</td><td>c</td><td>-</td><td>t3</td></tr>
-    <tr><td>3</td><td>*</td><td>b</td><td>t3</td><td>t4</td></tr>
-    <tr><td>4</td><td>+</td><td>t2</td><td>t4</td><td>t5</td></tr>
-    <tr><td>5</td><td>=</td><td>t5</td><td>-</td><td>a</td></tr>
+    <thead><tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th><th>result</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>uminus</td><td>c</td><td>-</td><td>t1</td></tr>
+      <tr><td>1</td><td>*</td><td>b</td><td>t1</td><td>t2</td></tr>
+      <tr><td>2</td><td>uminus</td><td>c</td><td>-</td><td>t3</td></tr>
+      <tr><td>3</td><td>*</td><td>b</td><td>t3</td><td>t4</td></tr>
+      <tr><td>4</td><td>+</td><td>t2</td><td>t4</td><td>t5</td></tr>
+      <tr><td>5</td><td>=</td><td>t5</td><td>-</td><td>a</td></tr>
+    </tbody>
   </table>
 
   <p><strong>Step 3: Triple Representation:</strong></p>
   <table class="custom-table">
-    <tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th></tr>
-    <tr><td>(0)</td><td>uminus</td><td>c</td><td>-</td></tr>
-    <tr><td>(1)</td><td>*</td><td>b</td><td>(0)</td></tr>
-    <tr><td>(2)</td><td>uminus</td><td>c</td><td>-</td></tr>
-    <tr><td>(3)</td><td>*</td><td>b</td><td>(2)</td></tr>
-    <tr><td>(4)</td><td>+</td><td>(1)</td><td>(3)</td></tr>
-    <tr><td>(5)</td><td>assign</td><td>a</td><td>(4)</td></tr>
+    <thead><tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th></tr></thead>
+    <tbody>
+      <tr><td>(0)</td><td>uminus</td><td>c</td><td>-</td></tr>
+      <tr><td>(1)</td><td>*</td><td>b</td><td>(0)</td></tr>
+      <tr><td>(2)</td><td>uminus</td><td>c</td><td>-</td></tr>
+      <tr><td>(3)</td><td>*</td><td>b</td><td>(2)</td></tr>
+      <tr><td>(4)</td><td>+</td><td>(1)</td><td>(3)</td></tr>
+      <tr><td>(5)</td><td>assign</td><td>a</td><td>(4)</td></tr>
+    </tbody>
   </table>
 </div>
-
-
 
 <h2 class="section-title">Topic 4: Multi-Dimensional Array Addressing Formulations</h2>
 
 <div class="formula-card">
   <strong>1. 1D Array Address Formula:</strong>
   $$\text{Address}(A[i]) = \text{base} + (i - \text{low}) \times w$$
-  Where $\text{base}$ is the start memory address, $\text{low}$ is lower index bound (typically 0 or 1), and $w$ is byte width per element.
+  Where $\text{base}$ is the start memory address, $\text{low}$ is lower index bound, and $w$ is byte width per element.
 </div>
 
 <div class="formula-card">
   <strong>2. 2D Array Address Formula (Row-Major Order — C / C++ / Java):</strong>
   $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_1 - \text{low}_1) \times n_2 + (i_2 - \text{low}_2) \Big) \times w$$
-  Where $n_2 = \text{high}_2 - \text{low}_2 + 1$ is the number of elements in each row.
+  Where $n_2 = \text{high}_2 - \text{low}_2 + 1$ is the number of columns.
 </div>
 
 <div class="formula-card">
   <strong>3. 2D Array Address Formula (Column-Major Order — FORTRAN / MATLAB):</strong>
   $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_2 - \text{low}_2) \times n_1 + (i_1 - \text{low}_1) \Big) \times w$$
-  Where $n_1 = \text{high}_1 - \text{low}_1 + 1$ is the number of elements in each column.
+  Where $n_1 = \text{high}_1 - \text{low}_1 + 1$ is the number of rows.
 </div>
 
-
-
-<h2 class="section-title">Topic 5 & 6: Backpatching in Boolean Expressions</h2>
-
+<h2 class="section-title">Topic 5 & 6: Backpatching in Boolean Expressions & Control Flow</h2>
 <p>
-  <strong>Backpatching</strong> is a single-pass technique for generating intermediate code for control flow and boolean expressions without leaving unresolved forward jump target addresses.
+  <strong>Backpatching</strong> is a single-pass technique for generating intermediate code for control flow and boolean expressions without leaving unresolved forward jump target addresses:
 </p>
 <ul>
   <li><strong>`makelist(i)`:</strong> Creates a new list containing only jump instruction index $i$.</li>
@@ -1105,12 +1457,9 @@ $$x = y \ \mathbf{op} \ z$$
   <li><strong>`backpatch(p, i)`:</strong> Inserts target instruction label $i$ as the jump destination into all instructions indexed in list $p$.</li>
 </ul>
 
-
-
-<h2 class="section-title">Topics 7 – 9: Runtime Storage Organization & Activation Records</h2>
-
+<h2 class="section-title">Topics 8 – 10: Runtime Storage Organization & Activation Records</h2>
 <p>
-  During program execution, the operating system allocates a contiguous block of memory divided into 4 major logical segments:
+  During program execution, the operating system allocates a contiguous block of virtual memory partitioned into 4 logical segments:
 </p>
 <ol>
   <li><strong>Code Segment (Text):</strong> Read-only region holding compiled target machine instructions.</li>
@@ -1137,8 +1486,6 @@ $$x = y \ \mathbf{op} \ z$$
   </tbody>
 </table>
 
-
-
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
 
 <div class="qa-card">
@@ -1162,16 +1509,18 @@ $$x = y \ \mathbf{op} \ z$$
 <div class="toc-box">
   <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Code Optimization & Target Code Generation — Complete Syllabus Topics</div>
   <div class="toc-grid">
-    <div>1. Principal Sources of Optimization (Machine-Independent)</div>
-    <div>2. Basic Blocks Partitioning Algorithm & Control Flow Graphs (CFG)</div>
-    <div>3. Directed Acyclic Graphs (DAG) Representation for Basic Blocks</div>
-    <div>4. Local vs. Global Code Optimization Techniques</div>
+    <div>1. Principal Sources of Optimization (Machine-Independent Transformations)</div>
+    <div>2. Basic Blocks Partitioning Algorithm & Control Flow Graphs (CFG) Construction</div>
+    <div>3. Directed Acyclic Graphs (DAG) Representation for Basic Blocks & Transformations</div>
+    <div>4. Local vs. Global Optimization Strategies & Common Subexpression Elimination</div>
     <div>5. Loop Optimizations (Loop Invariant Code Motion, Strength Reduction, Unrolling)</div>
-    <div>6. Dominators, Natural Loops & Reducible Flow Graphs</div>
-    <div>7. Data-Flow Analysis Equations (Reaching Definitions & Available Expressions)</div>
-    <div>8. Live Variable Analysis & Dead Code Elimination</div>
+    <div>6. Dominator Trees, Natural Loops & Reducible Flow Graph Properties</div>
+    <div>7. Data-Flow Analysis Frameworks (Reaching Definitions & Available Expressions)</div>
+    <div>8. Live Variable Analysis Equations & Dead Code Elimination Passes</div>
     <div>9. Target Code Generation Issues & Register Allocation by Graph Coloring</div>
-    <div>10. Peephole Optimization Techniques (Redundant Load/Store, Algebraic Identities)</div>
+    <div>10. Simple Code Generator Algorithm using Register & Address Descriptors</div>
+    <div>11. Peephole Optimization Techniques (Redundant Load/Store & Algebraic Identities)</div>
+    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
   </div>
 </div>
 
@@ -1222,8 +1571,6 @@ $$x = y \ \mathbf{op} \ z$$
   </tbody>
 </table>
 
-
-
 <h2 class="section-title">Topic 2: Basic Blocks & Control Flow Graphs (CFG)</h2>
 
 <div class="callout callout-info">
@@ -1243,7 +1590,7 @@ $$x = y \ \mathbf{op} \ z$$
   <p><strong>Three-Address Code:</strong></p>
   <pre><code>(1)  prod = 0          <-- Leader (Rule 1: First instruction)
 (2)  i = 1
-(3)  t1 = 4 * i        <-- Leader (Rule 2: Target of goto (3) in line 9)
+(3)  t1 = 4 * i        <-- Leader (Rule 2: Target of goto (3) in line 10)
 (4)  t2 = a[t1]
 (5)  t3 = 4 * i
 (6)  t4 = b[t3]
@@ -1260,10 +1607,7 @@ $$x = y \ \mathbf{op} \ z$$
   </ul>
 </div>
 
-
-
 <h2 class="section-title">Topic 3: Directed Acyclic Graphs (DAG) for Basic Blocks</h2>
-
 <p>
   A <strong>DAG (Directed Acyclic Graph)</strong> is an efficient representation for basic blocks that makes local common subexpression elimination, dead code elimination, and array dependency tracking straightforward:
 </p>
@@ -1272,8 +1616,6 @@ $$x = y \ \mathbf{op} \ z$$
   <li>Interior nodes correspond to operators.</li>
   <li>Nodes have labels attached showing current identifier names having that computed value.</li>
 </ul>
-
-
 
 <h2 class="section-title">Topic 7 & 8: Data-Flow Analysis Frameworks</h2>
 
@@ -1307,9 +1649,7 @@ $$x = y \ \mathbf{op} \ z$$
   </tbody>
 </table>
 
-
-
-<h2 class="section-title">Topic 9 & 10: Target Code Generation & Peephole Optimization</h2>
+<h2 class="section-title">Topic 9 & 11: Target Code Generation & Peephole Optimization</h2>
 
 <h3 class="subsection-title">1. Register Allocation by Graph Coloring (Chaitin's Algorithm):</h3>
 <ol>
@@ -1330,8 +1670,6 @@ MOV a, R0     ; Redundant - Eliminated!</code></pre>
   <li><strong>Eliminating Unreachable Code:</strong> Instructions immediately following an unconditional jump without a label are deleted.</li>
   <li><strong>Algebraic Simplifications:</strong> Replacing $x + 0 \rightarrow x$, $x * 1 \rightarrow x$, $x * 0 \rightarrow 0$.</li>
 </ul>
-
-
 
 <h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
 
