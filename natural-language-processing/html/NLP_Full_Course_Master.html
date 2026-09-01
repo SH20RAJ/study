@@ -274,7 +274,34 @@ li { margin-bottom: 3px; }
     <h1 class="doc-title">Natural Language Processing (CS24351) — Full Course Master Book</h1>
     <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
   </div>
-  <div style='page-break-before: always;'>
+  
+        <div style="padding: 10px 0;">
+          <div style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #ede9fe; margin-bottom: 6px;">Executive Master Study Guide & Language Models Bank</div>
+            <h2 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #ffffff;">Natural Language Processing (CS24311)</h2>
+            <p style="font-size: 12.5px; color: #f5f3ff;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
+          </div>
+
+          <h3 class="subsection-title" style="margin-top: 0;">📚 Complete Course Structure & NLP Architecture Matrix</h3>
+          <table class="custom-table" style="margin-bottom: 20px;">
+            <thead>
+              <tr><th>Module</th><th>Core Syllabus Scope</th><th>Key Algorithms & Formulations</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Module I</strong></td><td>Morphology & Language Modeling</td><td>Regular Expressions, Porter Stemmer, Byte-Pair Encoding (BPE), N-grams, Perplexity, Laplace, Good-Turing & Kneser-Ney Smoothing</td></tr>
+              <tr><td><strong>Module II</strong></td><td>Part-of-Speech Tagging & HMM</td><td>Penn Treebank Tagset, Hidden Markov Models (HMM), Forward Algorithm, Viterbi Dynamic Programming Decoding</td></tr>
+              <tr><td><strong>Module III</strong></td><td>Syntactic Parsing & Grammars</td><td>Context-Free Grammars (CFG), Chomsky Normal Form (CNF), CYK Parsing Algorithm, Treebanks & Probabilistic CFG (PCFG)</td></tr>
+              <tr><td><strong>Module IV</strong></td><td>Semantics & Word Embeddings</td><td>WordNet Synsets, TF-IDF Vectorization, Pointwise Mutual Information (PMI), Word2Vec (Skip-Gram & CBOW), GloVe</td></tr>
+              <tr><td><strong>Module V</strong></td><td>Transformers, LLMs & Generation</td><td>Scaled Dot-Product Attention, Multi-Head Attention, Positional Encodings, BERT (Masked LM), GPT, BLEU Score & ROUGE</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout callout-info">
+            <div class="callout-title">🎯 Exam Preparation & High-Yield Strategy</div>
+            This publication-grade master book consolidates all 5 modules with formal mathematical derivations, KaTeX-rendered language model smoothing formulas, Viterbi trellis dynamic programming traces, and model answers to BIT Mesra end-semester examination questions.
+          </div>
+        </div>
+        <div class='page-break'></div>
 <div class="toc-box">
   <div class="toc-title">Module I: Linguistic Foundations & Preprocessing — Topics Covered</div>
   <div class="toc-grid">
@@ -303,7 +330,7 @@ li { margin-bottom: 3px; }
     <tr><td><strong>5. Pragmatics / Discourse</strong></td><td>Contextual meaning, speaker intent, coreference, and sarcasm.</td><td>Anaphora resolution (`Mary saw the car. She bought it.`).</td></tr>
   </tbody>
 </table>
-</div><div style='page-break-before: always;'>
+<div class='page-break'></div>
 <div class="toc-box">
   <div class="toc-title">Module II: Language Models, Smoothing & Parsing — Topics Covered</div>
   <div class="toc-grid">
@@ -324,7 +351,7 @@ $$\text{Perplexity}(W) = P(w_1, \dots, w_N)^{-1/N} = 2^{-\frac{1}{N} \sum \log_2
   <li><strong>Laplace (Add-1) Smoothing:</strong> $P(w_n \mid w_{n-1}) = \frac{C(w_{n-1}, w_n) + 1}{C(w_{n-1}) + V}$. (Tends to allocate too much probability mass to unseen items).</li>
   <li><strong>Kneser-Ney Smoothing:</strong> State-of-the-art $N$-gram smoothing combining absolute discounting with continuation probabilities based on how versatile a word is as a novel continuation.</li>
 </ul>
-</div><div style='page-break-before: always;'>
+<div class='page-break'></div>
 <div class="toc-box">
   <div class="toc-title">Module III: Lexical Semantics & Word Embeddings — Topics Covered</div>
   <div class="toc-grid">
@@ -358,7 +385,7 @@ $$\text{Perplexity}(W) = P(w_1, \dots, w_N)^{-1/N} = 2^{-\frac{1}{N} \sum \log_2
     </tr>
   </tbody>
 </table>
-</div><div style='page-break-before: always;'>
+<div class='page-break'></div>
 <div class="toc-box">
   <div class="toc-title">Module IV: Neural Sequence Models & Transformers — Topics Covered</div>
   <div class="toc-grid">
@@ -383,7 +410,7 @@ $$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)
     <li><strong>GPT:</strong> Unidirectional Autoregressive Decoder (Causal attention mask). Pretrained on Next-Token Prediction. Ideal for text generation, creative writing, and in-context few-shot prompting.</li>
   </ul>
 </div>
-</div><div style='page-break-before: always;'>
+<div class='page-break'></div>
 <div class="toc-box">
   <div class="toc-title">Module V: NLP Applications & Responsible AI — Topics Covered</div>
   <div class="toc-grid">
@@ -402,7 +429,7 @@ $$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)
   $$\text{BP} = \begin{cases} 1 & \text{if } c > r \\ e^{1 - r/c} & \text{if } c \le r \end{cases}$$
   where $c$ is candidate translation length and $r$ is reference corpus length.
 </p>
-</div>
+
   <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
     <span>Natural Language Processing (CS24351) — Comprehensive Study Suite</span>
     <span>BIT Mesra | B.Tech CSE</span>

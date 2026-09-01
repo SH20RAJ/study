@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compiler Design (CS24301) | BIT Mesra 5th Sem Study Suite</title>
+  <meta name="description" content="Complete Study Notes, 10-15 Page Module Guides, and High-Yield Question Banks for Compiler Design (CS24301).">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-surface: #111827;
+      --bg-card: #1f2937;
+      --border: #374151;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --accent: #2563eb;
+      --radius: 12px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+    .brand-title { font-size: 17px; font-weight: 800; }
+    .brand-subtitle { font-size: 11.5px; color: var(--text-muted); }
+    .nav-links { display: flex; align-items: center; gap: 12px; }
+    .nav-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .nav-btn:hover { border-color: var(--primary); color: var(--primary); }
+    
+    .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; flex: 1; width: 100%; }
+    
+    .hero {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+      margin-bottom: 12px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .hero-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+    .hero-desc { color: var(--text-muted); font-size: 15px; max-width: 800px; margin-bottom: 20px; }
+    
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+    .card:hover { border-color: var(--primary); transform: translateY(-4px); }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .card-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.12);
+      color: var(--primary);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .card-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+    
+    .card-topics {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 18px;
+      font-size: 12.5px;
+    }
+    .card-topics ul { padding-left: 18px; margin-top: 6px; }
+    .card-topics li { margin-bottom: 4px; color: var(--text-muted); }
+    
+    .card-actions { display: flex; gap: 10px; margin-top: auto; }
+    .btn-download {
+      flex: 1;
+      padding: 10px 16px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+    .btn-download:hover { background: var(--primary-hover); }
+    
+    .btn-view {
+      padding: 10px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-view:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Topic Checklist */
+    .checklist-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 40px;
+    }
+    .checklist-title { font-size: 22px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13.5px;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+    }
+    .check-item:hover { border-color: var(--primary); }
+    .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
+
+    footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-code"></i></div>
+        <div>
+          <div class="brand-title">Study Portal</div>
+          <div class="brand-subtitle">BIT Mesra CSE 5th Sem</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn"><i class="fa-solid fa-house"></i> All Courses</a>
+        <a href="data-mining.html" class="nav-btn"><i class="fa-solid fa-database"></i> Data Mining</a>
+        <button id="themeToggle" class="nav-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <div class="badge"><i class="fa-solid fa-microchip"></i> CS24301 — THEORY (3.0 CREDITS)</div>
+      <h1 class="hero-title">Compiler Design</h1>
+      <p class="hero-desc">
+        Complete study notes covering the 6 phases of compilers, Lexical Analysis (Thompson NFA, Hopcroft DFA), Syntax Analysis (LL(1), LR(0), SLR(1), CLR(1), LALR(1)), SDD/SDT Semantic Translation, Intermediate Code Generation (Three-Address Code), Runtime Environments, and Code Optimization.
+      </p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="compiler-design/pdf/Compiler_Design_Full_Course_Master.pdf" class="btn-download" target="_blank" style="max-width: 260px;">
+          <i class="fa-solid fa-book-open"></i> Full Course Master PDF
+        </a>
+        <a href="compiler-design/pdf/Compiler_Design_10_Page_Master_Revision.pdf" class="btn-view" target="_blank">
+          <i class="fa-solid fa-bolt"></i> 10-Page Master Revision PDF
+        </a>
+      </div>
+    </div>
+
+    <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;"><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Modular Study Notes & Guides</h2>
+
+    <div class="downloads-grid">
+      <!-- Module 1 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module I</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Lexical Analysis</span>
+          </div>
+          <h3 class="card-title">Lexical Analysis & Automata</h3>
+          <p class="card-desc">Language processors, 6 phases of compiler with running example, input buffering, regular expressions, Thompson's construction, and Hopcroft's DFA minimization.</p>
+        </div>
+        <div class="card-actions">
+          <a href="compiler-design/pdf/Module_1_Lexical_Analysis_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="compiler-design/html/Module_1_Lexical_Analysis_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module II</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Syntax Analysis</span>
+          </div>
+          <h3 class="card-title">Syntax Analysis & Parsing Algorithms</h3>
+          <p class="card-desc">Context-free grammars, ambiguity elimination, FIRST & FOLLOW computation, recursive descent, LL(1) parsing, and bottom-up LR parsers (LR(0), SLR(1), CLR(1), LALR(1)).</p>
+        </div>
+        <div class="card-actions">
+          <a href="compiler-design/pdf/Module_2_Syntax_Analysis_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="compiler-design/html/Module_2_Syntax_Analysis_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module III</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Semantic Analysis</span>
+          </div>
+          <h3 class="card-title">Syntax-Directed Translation & Type Checking</h3>
+          <p class="card-desc">Syntax-Directed Definitions (SDD), Synthesized vs. Inherited attributes, S-Attributed & L-Attributed SDD, dependency graphs, and static type systems.</p>
+        </div>
+        <div class="card-actions">
+          <a href="compiler-design/pdf/Module_3_Semantic_Analysis_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="compiler-design/html/Module_3_Semantic_Analysis_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module IV</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Intermediate Code</span>
+          </div>
+          <h3 class="card-title">Intermediate Code Generation & Runtime</h3>
+          <p class="card-desc">Three-Address Code (Quadruples, Triples, Indirect Triples), syntax trees, DAG generation, boolean expressions backpatching, and runtime activation records.</p>
+        </div>
+        <div class="card-actions">
+          <a href="compiler-design/pdf/Module_4_Runtime_Environment_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="compiler-design/html/Module_4_Runtime_Environment_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 5 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module V</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Optimization & Code Gen</span>
+          </div>
+          <h3 class="card-title">Code Optimization & Code Generation</h3>
+          <p class="card-desc">Basic blocks, Flow graphs, Peephole optimizations, Loop optimizations, Data-flow analysis (Reaching definitions, Available expressions), and Register allocation.</p>
+        </div>
+        <div class="card-actions">
+          <a href="compiler-design/pdf/Module_5_Code_Optimization_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="compiler-design/html/Module_5_Code_Optimization_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🎓 BIT Mesra B.Tech CSE 5th Semester • Compiler Design (`CS24301`)</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const body = document.documentElement;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
+</body>
+</html>

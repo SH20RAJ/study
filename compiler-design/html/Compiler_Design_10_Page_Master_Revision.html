@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Compiler Design — 10-Page Master Quick Revision</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<style>
+  <meta charset="UTF-8">
+  <title>Compiler Design — 10-Page Master Quick Revision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
@@ -29,42 +30,58 @@
   --bg-page: #f8fafc;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 11mm 14mm 11mm;
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+  @bottom-left {
+    content: "Compiler Design (CS24301) | BIT Mesra CSE";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8pt;
+    color: #64748b;
+  }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  background-color: #ffffff;
+  line-height: 1.58;
+  font-size: 12.2px;
   padding: 0;
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 0;
 }
 
 .doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  border-bottom: 2.5px solid var(--primary);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .badge-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
+  padding: 3px 9px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -77,15 +94,15 @@ body {
 .badge-amber { background: #fef3c7; color: #92400e; }
 
 h1.doc-title {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.25;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .doc-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -95,8 +112,7 @@ h1.doc-title {
   border: 1px solid #bae6fd;
   border-radius: 8px;
   padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
+  margin-bottom: 22px;
 }
 
 .toc-title {
@@ -104,29 +120,34 @@ h1.doc-title {
   font-weight: 700;
   color: #0369a1;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 20px;
-  font-size: 11.5px;
+  font-size: 11.2px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   color: var(--dark);
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--primary);
   padding-left: 10px;
-  margin: 24px 0 12px 0;
+  margin: 22px 0 10px 0;
+  page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.5px;
+  font-size: 13.2px;
   font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
+  color: #0369a1;
+  margin: 16px 0 6px 0;
+  page-break-after: avoid;
 }
 
 p { margin-bottom: 8px; text-align: justify; }
@@ -134,17 +155,13 @@ p { margin-bottom: 8px; text-align: justify; }
 .callout {
   border-radius: 6px;
   padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
+  margin: 10px 0;
+  font-size: 11.5px;
   border-left: 4px solid;
   page-break-inside: avoid;
 }
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
 
 .callout-title {
   font-weight: 700;
@@ -154,216 +171,228 @@ p { margin-bottom: 8px; text-align: justify; }
   gap: 6px;
 }
 
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 11px;
   page-break-inside: avoid;
 }
 
-table.custom-table th {
-  background: #1e293b;
-  color: #ffffff;
-  font-weight: 600;
+.custom-table th, .custom-table td {
+  border: 1px solid #cbd5e1;
+  padding: 7px 10px;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
 }
 
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
+.custom-table th {
   background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
-  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 9px 13px;
+  padding: 11px 14px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10.8px;
+  margin: 10px 0;
+  page-break-inside: avoid;
   overflow-x: auto;
-  margin: 9px 0;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.qa-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 12px 0;
   page-break-inside: avoid;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
+.qa-q {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  font-size: 12.2px;
+}
+
+.qa-a {
+  color: #334155;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.worked-box {
+  background: #ffffff;
+  border: 1.5px solid #3b82f6;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-size: 12.8px;
+  font-weight: 800;
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+
+.formula-card {
+  background: #eff6ff;
+  border-left: 4px solid #2563eb;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 11.8px;
+  page-break-inside: avoid;
+}
 
 .diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  margin: 14px auto;
   text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
   page-break-inside: avoid;
 }
 
 .diagram-caption {
   font-size: 10px;
-  font-weight: 600;
   color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 6px;
 }
 
-.qa-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q { font-weight: 700; color: #1e3a8a; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Compiler Design (CS24301) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+.page-break {
+  page-break-before: always;
+  break-before: page;
 }
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-blue">CS24301 — Theory (3.0 Cr)</span>
-      <span class="badge badge-purple">10-Page Master Revision</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+  <div class="page-container">
+    <div class="doc-header">
+      <div class="badge-container">
+        <span class="badge badge-blue">CS24301 — Theory (3.0 Cr)</span>
+        <span class="badge badge-purple">10-Page Master Revision</span>
+        <span class="badge badge-green">BIT Mesra</span>
+        <span class="badge badge-amber">NEP Scheme</span>
+      </div>
+      <h1 class="doc-title">Compiler Design — 10-Page Master Quick Revision</h1>
+      <div class="doc-subtitle">High-Yield Formula Sheet, Decision Trees & Top 10 BIT Mesra PYQ Solutions</div>
     </div>
-    <h1 class="doc-title">Compiler Design — 10-Page Master Quick Revision</h1>
-    <div class="doc-subtitle">High-Yield Formula Sheet, Decision Trees & Top 10 BIT Mesra PYQ Solutions</div>
-  </div>
-  
+    
 <div class="toc-box">
-  <div class="toc-title">🏛️ 10-Page Master Quick Revision — Compiler Design (CS24301)</div>
+  <div class="toc-title">⚡ 10-Page Master Quick Revision — Compiler Design (CS24301)</div>
   <div class="toc-grid">
-    <div>Page 1-2: Lexical Analysis, Tokens, Buffer Sentinels & Direct DFA</div>
-    <div>Page 3-4: Context-Free Grammars, LL(1), FIRST/FOLLOW & Parsing Tables</div>
-    <div>Page 5-6: LR Family Parsers (LR(0), SLR(1), CLR(1), LALR(1)) & Conflicts</div>
-    <div>Page 7-8: SDD, SDTS, Three-Address Code, Arrays & Backpatching</div>
-    <div>Page 9-10: Activation Records, Basic Blocks, DAG, Optimizations & PYQs</div>
+    <div>Page 1: 6 Compiler Phases & Running Translation Trace</div>
+    <div>Page 2: Lexical Analysis, Thompson RE to NFA & Subset Construction</div>
+    <div>Page 3: Hopcroft's DFA Minimization & Input Buffering Sentinels</div>
+    <div>Page 4: CFG Transformations: Left Recursion & Left Factoring</div>
+    <div>Page 5: FIRST & FOLLOW Formal Sets & LL(1) Table Construction</div>
+    <div>Page 6: LR Parser Hierarchy: LR(0), SLR(1), CLR(1), LALR(1)</div>
+    <div>Page 7: S-Attributed vs L-Attributed SDD & Dependency Graphs</div>
+    <div>Page 8: Three-Address Code (Quadruples/Triples) & Array Addressing</div>
+    <div>Page 9: Runtime Activation Records, Stack Frames & Scoping Links</div>
+    <div>Page 10: Basic Blocks, CFG, DAG, Data-Flow Equations & BIT Mesra PYQs</div>
   </div>
 </div>
 
-<h2 class="section-title">⚡ High-Yield Formula & Rule Master Matrix</h2>
+<h2 class="section-title">⚡ Master Formula, Algorithm & Grammar Cheat Sheet</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Core Concept</th>
-      <th style="width: 45%;">Crucial Formula / Rule</th>
-      <th>Exam Trap / Memory Key</th>
+      <th style="width: 25%;">Topic / Concept</th>
+      <th style="width: 45%;">Core Mathematical Formulation / Rule</th>
+      <th>Key Exam Insight</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Direct DFA: Followpos</strong></td>
-      <td>Cat-node $c_1 \cdot c_2$: $\text{followpos}(i) \cup= \text{firstpos}(c_2)$ for $i \in \text{lastpos}(c_1)$.<br>Star-node $c_1^*$: $\text{followpos}(i) \cup= \text{firstpos}(c_1)$ for $i \in \text{lastpos}(c_1)$.</td>
-      <td>Must augment $(r)\#$; accepting states contain $\#$.</td>
+      <td><strong>Immediate Left Recursion</strong></td>
+      <td>$$A \rightarrow A\alpha \mid \beta \implies A \rightarrow \beta A', \quad A' \rightarrow \alpha A' \mid \epsilon$$</td>
+      <td>Eliminates infinite loops in top-down parsers.</td>
     </tr>
     <tr>
-      <td><strong>LL(1) Table Rule</strong></td>
-      <td>For $A \rightarrow \alpha$: add to $M[A, a]$ for $a \in \text{FIRST}(\alpha)$. If $\epsilon \in \text{FIRST}(\alpha)$, add to $M[A, b]$ for $b \in \text{FOLLOW}(A)$.</td>
-      <td>No duplicate entries permitted in any cell.</td>
+      <td><strong>Left Factoring</strong></td>
+      <td>$$A \rightarrow \alpha \beta_1 \mid \alpha \beta_2 \implies A \rightarrow \alpha A', \quad A' \rightarrow \beta_1 \mid \beta_2$$</td>
+      <td>Defers decision until lookahead is clear.</td>
     </tr>
     <tr>
-      <td><strong>LR Parser Hierarchy</strong></td>
-      <td>$\text{LL}(1) < \text{SLR}(1) < \text{LALR}(1) < \text{CLR}(1)$</td>
-      <td>$\text{LALR}(1)$ merges core states of $\text{CLR}(1)$, reducing tables to $\text{SLR}(1)$ size.</td>
+      <td><strong>2D Array (Row-Major)</strong></td>
+      <td>$$\text{Addr}(A[i_1, i_2]) = \text{base} + \Big( (i_1 - l_1)n_2 + (i_2 - l_2) \Big) \times w$$</td>
+      <td>Standard in C / C++ / Java.</td>
     </tr>
     <tr>
-      <td><strong>2D Array Row-Major</strong></td>
-      <td>$\text{Base} + ((i - low_1) \times n_2 + (j - low_2)) \times w$</td>
-      <td>Multiply by $n_2$ (number of columns) for row-major.</td>
+      <td><strong>2D Array (Column-Major)</strong></td>
+      <td>$$\text{Addr}(A[i_1, i_2]) = \text{base} + \Big( (i_2 - l_2)n_1 + (i_1 - l_1) \Big) \times w$$</td>
+      <td>Standard in FORTRAN / MATLAB.</td>
     </tr>
     <tr>
-      <td><strong>2D Array Col-Major</strong></td>
-      <td>$\text{Base} + ((j - low_2) \times n_1 + (i - low_1)) \times w$</td>
-      <td>Multiply by $n_1$ (number of rows) for col-major.</td>
+      <td><strong>Reaching Definitions</strong></td>
+      <td>$$\text{OUT}[B] = \text{GEN}[B] \cup (\text{IN}[B] \setminus \text{KILL}[B])$$</td>
+      <td>Forward data-flow; confluence by $\cup$.</td>
     </tr>
     <tr>
-      <td><strong>Cyclomatic Complexity</strong></td>
-      <td>$V(G) = E - N + 2 = P + 1 = \text{Regions}$</td>
-      <td>Count decision/predicate nodes $P$.</td>
+      <td><strong>Available Expressions</strong></td>
+      <td>$$\text{OUT}[B] = e\_\text{GEN}[B] \cup (\text{IN}[B] \setminus e\_\text{KILL}[B])$$</td>
+      <td>Forward data-flow; confluence by $\cap$.</td>
+    </tr>
+    <tr>
+      <td><strong>Live Variables</strong></td>
+      <td>$$\text{IN}[B] = \text{USE}[B] \cup (\text{OUT}[B] \setminus \text{DEF}[B])$$</td>
+      <td>Backward data-flow; confluence by $\cup$.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">🔥 Top 10 High-Probability BIT Mesra Exam Questions</h2>
+<div class="page-break"></div>
+
+<h2 class="section-title">🔥 Top 10 High-Yield BIT Mesra Exam Questions & Answers</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Explain the 6 phases of compilation with the translation of position = initial + rate * 60.</div>
-  <div class="qa-a">1. Lexer: Token stream with symbol table pointers. 2. Parser: Hierarchical syntax tree. 3. Semantic: Type checks and inttofloat coercion. 4. ICG: Three-address code with temporaries. 5. Optimizer: Constant folding (60.0) and temporary reduction. 6. Code Gen: Target register assembly instructions (LDF, MULF, ADDF, STF).</div>
-</div>
-
-<div class="qa-card">
-  <div class="qa-q">Q2. State the difference between S-Attributed and L-Attributed SDDs.</div>
-  <div class="qa-a"><strong>S-Attributed:</strong> Exclusively synthesized attributes; evaluated bottom-up during post-order traversal.<br><strong>L-Attributed:</strong> Inherited attributes allowed only if they depend on parent or left-siblings; evaluated in a single top-down left-to-right DFS pass.</div>
-</div>
-
-<div class="qa-card">
-  <div class="qa-q">Q3. Detail the contents of an Activation Record and explain static vs. dynamic links.</div>
-  <div class="qa-a">Contents: Parameters, Return Value, Return Address (PC), Dynamic Link (caller AR pointer), Static Link (lexical parent AR pointer), Saved Machine Registers, Local Variables, Temporaries.</div>
-</div>
-
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Compiler Design (CS24301) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
+  <div class="qa-q">Q1. Trace the 6 phases of a compiler for the statement `a = b + c * 50`. (10 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Lexical:</strong> `id1 = id2 + id3 * 50`<br>
+    2. <strong>Syntax:</strong> Parse tree with `*` subtree evaluated before `+`<br>
+    3. <strong>Semantic:</strong> Type conversion `inttofloat(50)` injected<br>
+    4. <strong>ICG (TAC):</strong> `t1 = inttofloat(50); t2 = id3 * t1; t3 = id2 + t2; id1 = t3`<br>
+    5. <strong>Optimization:</strong> `t1 = id3 * 50.0; id1 = id2 + t1`<br>
+    6. <strong>Code Gen:</strong> Emits target machine assembly with CPU registers.
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Compare LL(1), SLR(1), CLR(1), and LALR(1) parsers. (8 Marks)</div>
+  <div class="qa-a">
+    - <strong>LL(1):</strong> Top-down predictive parser using 1 lookahead; cannot handle left recursive grammars.<br>
+    - <strong>SLR(1):</strong> Simple LR bottom-up parser using LR(0) items; places reduce actions in $\text{FOLLOW}(A)$.<br>
+    - <strong>CLR(1):</strong> Canonical LR parser using LR(1) items with specific lookaheads; largest number of states.<br>
+    - <strong>LALR(1):</strong> Merges CLR(1) states having identical LR(0) cores; same number of states as SLR(1) with near CLR(1) power.
+  </div>
+</div>
+
+  </div>
 </body>
 </html>

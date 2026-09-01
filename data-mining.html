@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Mining Concepts & Techniques (CS24303) | BIT Mesra 5th Sem</title>
+  <meta name="description" content="Complete 46-Topic Study Notes, 10-15 Page Module Guides, and High-Yield Revision for Data Mining (CS24303).">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-surface: #111827;
+      --bg-card: #1f2937;
+      --border: #374151;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --primary: #f59e0b;
+      --primary-hover: #fbbf24;
+      --accent: #d97706;
+      --success: #10b981;
+      --radius: 12px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #d97706;
+      --primary-hover: #b45309;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+    .brand-title { font-size: 17px; font-weight: 800; }
+    .brand-subtitle { font-size: 11.5px; color: var(--text-muted); }
+    .nav-links { display: flex; align-items: center; gap: 12px; }
+    .nav-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .nav-btn:hover { border-color: var(--primary); color: var(--primary); }
+    
+    .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; flex: 1; width: 100%; }
+    
+    .hero {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      margin-bottom: 12px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .hero-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+    .hero-desc { color: var(--text-muted); font-size: 15px; max-width: 800px; margin-bottom: 20px; }
+    
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      text-align: center;
+    }
+    .stat-val { font-size: 24px; font-weight: 800; color: var(--primary); }
+    .stat-lbl { font-size: 12.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+    
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .card-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--primary);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .card-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+    
+    .card-topics {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 18px;
+      font-size: 12.5px;
+    }
+    .card-topics ul { padding-left: 18px; margin-top: 6px; }
+    .card-topics li { margin-bottom: 4px; color: var(--text-muted); }
+    
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .btn-download {
+      flex: 1;
+      padding: 10px 16px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+    .btn-download:hover { background: var(--primary-hover); }
+    
+    .btn-view {
+      padding: 10px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-view:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Topic Checklist */
+    .checklist-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 40px;
+    }
+    .checklist-title { font-size: 22px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13.5px;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+    }
+    .check-item:hover { border-color: var(--primary); }
+    .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
+
+    footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>
+          <div class="brand-title">Study Portal</div>
+          <div class="brand-subtitle">BIT Mesra CSE 5th Sem</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn"><i class="fa-solid fa-house"></i> All Courses</a>
+        <a href="compiler-design.html" class="nav-btn"><i class="fa-solid fa-code"></i> Compiler Design</a>
+        <button id="themeToggle" class="nav-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <div class="badge"><i class="fa-solid fa-database"></i> CS24303 — THEORY (3.0 CREDITS)</div>
+      <h1 class="hero-title">Data Mining Concepts & Techniques</h1>
+      <p class="hero-desc">
+        Complete 46-Topic comprehensive study notes spanning the KDD pipeline, data preprocessing, multidimensional OLAP warehousing, Apriori & FP-Growth pattern mining, and advanced colossal pattern analytics.
+      </p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="data-mining/pdf/Data_Mining_Full_Course_Master.pdf" class="btn-download" target="_blank" style="max-width: 260px;">
+          <i class="fa-solid fa-book-open"></i> Full Course Master PDF (40 Pages)
+        </a>
+        <a href="data-mining/pdf/Data_Mining_10_Page_Master_Revision.pdf" class="btn-view" target="_blank">
+          <i class="fa-solid fa-bolt"></i> 10-Page Master Revision PDF
+        </a>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-val">46 / 46</div>
+        <div class="stat-lbl">Syllabus Topics Covered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">BIT Mesra NEP Compliance</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">40+</div>
+        <div class="stat-lbl">Total Printable PDF Pages</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">15+</div>
+        <div class="stat-lbl">Worked Numericals & Derivations</div>
+      </div>
+    </div>
+
+    <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;"><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Modular Study Notes & Guides</h2>
+
+    <div class="downloads-grid">
+      <!-- Module 1 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module I • 11 Pages</span>
+            <span style="font-size: 12px; color: var(--text-muted);">14 Topics</span>
+          </div>
+          <h3 class="card-title">Introduction to Data Mining & Data Attributes</h3>
+          <p class="card-desc">KDD pipeline, relational vs transactional vs warehouse repositories, nominal/ordinal/numeric attribute types, 5-number summary, and proximity measures.</p>
+          <div class="card-topics">
+            <strong>Key Highlights:</strong>
+            <ul>
+              <li>7-Step Knowledge Discovery (KDD) Pipeline</li>
+              <li>Euclidean, Manhattan, Minkowski & Supremum metrics</li>
+              <li>Jaccard Coefficient & Cosine Similarity worked numericals</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="data-mining/pdf/Module_1_Data_Attributes_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="data-mining/html/Module_1_Data_Attributes_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module II • 9 Pages</span>
+            <span style="font-size: 12px; color: var(--text-muted);">6 Topics</span>
+          </div>
+          <h3 class="card-title">Data Preprocessing & Reduction</h3>
+          <p class="card-desc">Handling missing values (MICE, KNN), binning noise smoothing, Chi-Square test, Min-Max/Z-Score scaling, full PCA eigenvalue derivation, and ChiMerge.</p>
+          <div class="card-topics">
+            <strong>Key Highlights:</strong>
+            <ul>
+              <li>Step-by-step PCA Covariance & Eigenvalue derivation</li>
+              <li>Chi-Square ($\chi^2$) Contingency Table independence test</li>
+              <li>ChiMerge bottom-up discretization & 3-4-5 rule</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="data-mining/pdf/Module_2_Preprocessing_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="data-mining/html/Module_2_Preprocessing_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module III • 8 Pages</span>
+            <span style="font-size: 12px; color: var(--text-muted);">9 Topics</span>
+          </div>
+          <h3 class="card-title">Data Warehousing & OLAP Technology</h3>
+          <p class="card-desc">Inmon's 4 pillars, OLTP vs OLAP 10-point comparison, Star/Snowflake SQL schemas, 3D Data Cube lattice, 5 OLAP operations, BUC, and AOI trace.</p>
+          <div class="card-topics">
+            <strong>Key Highlights:</strong>
+            <ul>
+              <li>Star vs Snowflake vs Galaxy Schema SQL DDL</li>
+              <li>Roll-up, Drill-down, Slice, Dice, and Pivot movements</li>
+              <li>Attribute-Oriented Induction (AOI) worked algorithm</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="data-mining/pdf/Module_3_Data_Warehouse_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="data-mining/html/Module_3_Data_Warehouse_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module IV • 8 Pages</span>
+            <span style="font-size: 12px; color: var(--text-muted);">7 Topics</span>
+          </div>
+          <h3 class="card-title">Frequent Pattern Mining & Association Rules</h3>
+          <p class="card-desc">Market basket analysis, Apriori downward closure proof & full 9-transaction trace, ECLAT vertical format, FP-Growth recursive tree mining, and Lift/Kulc analysis.</p>
+          <div class="card-topics">
+            <strong>Key Highlights:</strong>
+            <ul>
+              <li>Formal Proof of Apriori Downward Closure Property</li>
+              <li>Complete 9-Transaction Apriori candidate generation & pruning</li>
+              <li>Full FP-Tree construction & recursive mining for all items</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="data-mining/pdf/Module_4_Pattern_Mining_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="data-mining/html/Module_4_Pattern_Mining_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Module 5 -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <span class="card-tag">Module V • 7 Pages</span>
+            <span style="font-size: 12px; color: var(--text-muted);">10 Topics</span>
+          </div>
+          <h3 class="card-title">Advanced Pattern Mining & Applications</h3>
+          <p class="card-desc">Multilevel rules, multidimensional predicates, constraint-based mining proofs (antimonotonic/monotonic/succinct/convertible), colossal patterns, and applications.</p>
+          <div class="card-topics">
+            <strong>Key Highlights:</strong>
+            <ul>
+              <li>Formal proofs for 8 constraint types</li>
+              <li>Pattern-Fusion colossal pattern jumping strategy</li>
+              <li>Closed Frequent Itemsets vs Maximal Itemsets derivation</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="data-mining/pdf/Module_5_Advanced_Mining_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
+          <a href="data-mining/html/Module_5_Advanced_Mining_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        </div>
+      </div>
+
+      <!-- Master Revision -->
+      <div class="card" style="border-color: var(--primary);">
+        <div>
+          <div class="card-header">
+            <span class="card-tag" style="background: var(--primary); color: #fff;">Master Book • 40 Pages</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Complete Course</span>
+          </div>
+          <h3 class="card-title">Full Course Master Book & PYQ Bank</h3>
+          <p class="card-desc">All 5 modules compiled into an exhaustive publication-grade study book with complete KaTeX math formulas, worked numericals, and BIT Mesra exam questions.</p>
+          <div class="card-topics">
+            <strong>Includes:</strong>
+            <ul>
+              <li>All 46 Syllabus Topics in high theoretical depth</li>
+              <li>15+ BIT Mesra Long-form Question Model Answers</li>
+              <li>10-Page Quick Revision Cheat Matrix</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="data-mining/pdf/Data_Mining_Full_Course_Master.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> Master Book PDF</a>
+          <a href="data-mining/html/Data_Mining_Full_Course_Master.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Full Web Book</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Checklist -->
+    <div class="checklist-section">
+      <div class="checklist-title">
+        <i class="fa-solid fa-list-check" style="color: var(--primary);"></i>
+        Interactive 46-Topic Syllabus Checklist
+      </div>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">
+        Track your study progress across all 46 topics. Progress is saved locally in your browser.
+      </p>
+      <div class="checklist-grid" id="checklistContainer"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🎓 BIT Mesra B.Tech CSE 5th Semester • Data Mining Concepts & Techniques (`CS24303`)</p>
+    <p style="margin-top: 6px; font-size: 12px; color: var(--text-muted);">Published via GitHub Actions & Pages</p>
+  </footer>
+
+  <script>
+    const topics = [
+      "1. Introduction to Data Mining & KDD",
+      "2. Relational Databases & Data Warehouses",
+      "3. Transactional & Advanced Databases",
+      "4. Data Mining Functionalities",
+      "5. Classification of Data Mining Systems",
+      "6. Major Issues in Data Mining",
+      "7. Data Objects & Attribute Types",
+      "8. Nominal, Binary, Ordinal, Numeric Attributes",
+      "9. Basic Statistical Descriptions of Data",
+      "10. Dispersion: IQR, Variance, Boxplots",
+      "11. Data Visualization Displays",
+      "12. Measuring Data Similarity (L1, L2, Lp, Linf)",
+      "13. Proximity: Jaccard & SMC Coefficients",
+      "14. Cosine Similarity for Document Vectors",
+      "15. Data Cleaning: Missing Value Strategies",
+      "16. Noise Smoothing: Binning Means & Boundaries",
+      "17. Data Integration & Entity Identification",
+      "18. Chi-Square Test for Nominal Correlation",
+      "19. Pearson & Spearman Correlation Analysis",
+      "20. Data Normalization: Min-Max, Z-Score, Decimal",
+      "21. Data Reduction: PCA Full Derivation",
+      "22. Wavelets, Sampling & Numerosity Reduction",
+      "23. Discretization: ChiMerge Algorithm",
+      "24. Concept Hierarchy Generation (3-4-5 Rule)",
+      "25. Data Warehouse Fundamentals (Inmon 4 Pillars)",
+      "26. 10-Point Comparison: OLTP vs OLAP",
+      "27. Multidimensional Modeling: Facts & Measures",
+      "28. Warehouse Schemas: Star, Snowflake, Galaxy",
+      "29. Data Cube & Lattice of Cuboids (2^n)",
+      "30. 5 OLAP Operations (Roll-up, Drill-down, Slice, Dice, Pivot)",
+      "31. Warehouse Server Architectures (ROLAP, MOLAP, HOLAP)",
+      "32. Data Cube Computation (BUC & Star-Cubing)",
+      "33. Attribute-Oriented Induction (AOI)",
+      "34. Frequent Pattern Mining Concepts",
+      "35. Market Basket Analysis Formulation",
+      "36. Apriori Downward Closure Property & Proof",
+      "37. Complete 9-Transaction Apriori Trace",
+      "38. Vertical Data Format (ECLAT Algorithm)",
+      "39. FP-Tree Construction & Recursive Mining",
+      "40. Correlation Evaluation: Lift & Kulczynski",
+      "41. Pattern Mining Road Map & Complex Types",
+      "42. Multilevel Pattern Mining & Redundancy",
+      "43. Multidimensional & Quantitative Rules",
+      "44. Constraint-Based Mining (Antimonotonic, Monotonic)",
+      "45. Colossal Patterns via Pattern-Fusion",
+      "46. Real-World Applications across 5 Industries"
+    ];
+
+    function renderChecklist() {
+      const container = document.getElementById('checklistContainer');
+      const saved = JSON.parse(localStorage.getItem('dm_checklist') || '{}');
+      
+      container.innerHTML = topics.map((t, idx) => `
+        <label class="check-item">
+          <input type="checkbox" ${saved[idx] ? 'checked' : ''} onchange="toggleCheck(${idx})">
+          <span>${t}</span>
+        </label>
+      `).join('');
+    }
+
+    function toggleCheck(idx) {
+      const saved = JSON.parse(localStorage.getItem('dm_checklist') || '{}');
+      saved[idx] = !saved[idx];
+      localStorage.setItem('dm_checklist', JSON.stringify(saved));
+    }
+
+    function toggleTheme() {
+      const body = document.documentElement;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    renderChecklist();
+  </script>
+</body>
+</html>

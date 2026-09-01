@@ -601,7 +601,37 @@ def build_all_dccn():
             executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             headless=True
         )
-        full_course_body = ""
+        # Executive Master Cover Page for Page 1
+        master_cover_page = """
+        <div style="padding: 10px 0;">
+          <div style="background: linear-gradient(135deg, #0284c7, #0d9488); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #ccfbf1; margin-bottom: 6px;">Executive Master Study Guide & Protocol Bank</div>
+            <h2 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #ffffff;">Data Communication & Computer Networks (CS24305)</h2>
+            <p style="font-size: 12.5px; color: #e0f2fe;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
+          </div>
+
+          <h3 class="subsection-title" style="margin-top: 0;">📚 Complete Course Structure & Protocol Matrix</h3>
+          <table class="custom-table" style="margin-bottom: 20px;">
+            <thead>
+              <tr><th>Module</th><th>Layer & Focus</th><th>Key Formulations, RFCs & Protocols</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Module I</strong></td><td>Physical Layer & Signals</td><td>Nyquist & Shannon Capacity, Transmission Impairments, Line Coding (Manchester, AMI), Multiplexing (FDM, TDM, WDM)</td></tr>
+              <tr><td><strong>Module II</strong></td><td>Data Link Layer & MAC</td><td>Framing, CRC-32 Polynomial Derivations, Sliding Window ARQs (Go-Back-N, Selective Repeat), CSMA/CD & CSMA/CA</td></tr>
+              <tr><td><strong>Module III</strong></td><td>Network Layer & Routing</td><td>IPv4/IPv6 Header Analysis, CIDR Subnetting Calculations, Dijkstra Shortest Path, Bellman-Ford, OSPF, BGP-4</td></tr>
+              <tr><td><strong>Module IV</strong></td><td>Transport Layer Protocols</td><td>TCP 3-Way Handshake, TCP State Machine, AIMD Congestion Control, Slow Start, Fast Retransmit, UDP Sockets</td></tr>
+              <tr><td><strong>Module V</strong></td><td>Application Layer & Security</td><td>DNS Hierarchical Resolution, HTTP/1.1 vs HTTP/2/3, TLS 1.3 Handshake, RSA Asymmetric Encryption, AES</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout callout-info">
+            <div class="callout-title">🎯 Exam Preparation & High-Yield Strategy</div>
+            This publication-grade master book consolidates all 5 modules with formal mathematical channel capacity proofs, step-by-step worked subnetting & CRC numericals, packet header diagrams, and model answers to BIT Mesra end-semester examination questions.
+          </div>
+        </div>
+        """
+
+        full_course_body = master_cover_page
         for title, subtitle, badge, body, filename in DCCN_MODULES:
             html_content = wrap_html(title, subtitle, badge, body)
             html_file = os.path.join(html_dir, f"{filename}.html")
@@ -624,7 +654,7 @@ def build_all_dccn():
             print(f"✅ Generated {pdf_file} ({os.path.getsize(pdf_file)} bytes)")
             
             if "10-Page" not in title:
-                full_course_body += f"<div style='page-break-before: always;'>{body}</div>"
+                full_course_body += f"<div class='page-break'></div>{body}"
 
         # Full Course Master
         full_master_html = wrap_html(

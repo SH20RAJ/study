@@ -517,7 +517,37 @@ def build_all_ai():
             executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             headless=True
         )
-        full_course_body = ""
+        # Executive Master Cover Page for Page 1
+        master_cover_page = """
+        <div style="padding: 10px 0;">
+          <div style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #d1fae5; margin-bottom: 6px;">Executive Master Study Guide & Problem Bank</div>
+            <h2 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #ffffff;">Artificial Intelligence (CS24307)</h2>
+            <p style="font-size: 12.5px; color: #ecfdf5;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
+          </div>
+
+          <h3 class="subsection-title" style="margin-top: 0;">📚 Complete Course Structure & Algorithmic Matrix</h3>
+          <table class="custom-table" style="margin-bottom: 20px;">
+            <thead>
+              <tr><th>Module</th><th>Core Syllabus Scope</th><th>Key Algorithms & Formulations</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Module I</strong></td><td>Intelligent Agents & Problem Solving</td><td>PEAS Description, Environment Types, State Space Formulation, Uninformed Search (BFS, DFS, DLS, IDDFS, UCS)</td></tr>
+              <tr><td><strong>Module II</strong></td><td>Informed Search & Game AI</td><td>Greedy Best-First, A* Search (Admissibility & Consistency Proofs), IDA*, Hill Climbing, Simulated Annealing, Minimax, Alpha-Beta Pruning, CSP</td></tr>
+              <tr><td><strong>Module III</strong></td><td>Knowledge & Logic Resolution</td><td>Propositional Logic (PL), First-Order Logic (FOL), CNF Conversion, Forward & Backward Chaining, Resolution Refutation</td></tr>
+              <tr><td><strong>Module IV</strong></td><td>Planning & Probabilistic Reasoning</td><td>STRIPS, PDDL Action Schemas, Planning Graphs, Bayesian Belief Networks (BBN), Conditional Independence, d-separation</td></tr>
+              <tr><td><strong>Module V</strong></td><td>Learning & Neural Networks</td><td>Inductive Learning, Decision Tree (ID3 Information Gain), Perceptrons, Multi-Layer Perceptrons (MLP), Backpropagation</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout callout-info">
+            <div class="callout-title">🎯 Exam Preparation & High-Yield Strategy</div>
+            This publication-grade master book consolidates all 5 modules with formal search completeness & optimality proofs, KaTeX-rendered logic formulations, game tree pruning traces, and model answers to BIT Mesra end-semester examination questions.
+          </div>
+        </div>
+        """
+
+        full_course_body = master_cover_page
         for title, subtitle, badge, body, filename in AI_MODULES:
             html_content = wrap_html(title, subtitle, badge, body)
             html_file = os.path.join(html_dir, f"{filename}.html")
@@ -540,7 +570,7 @@ def build_all_ai():
             print(f"✅ Generated {pdf_file} ({os.path.getsize(pdf_file)} bytes)")
             
             if "10-Page" not in title:
-                full_course_body += f"<div style='page-break-before: always;'>{body}</div>"
+                full_course_body += f"<div class='page-break'></div>{body}"
 
         # Full Course Master
         full_master_html = wrap_html(

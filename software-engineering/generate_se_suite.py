@@ -526,7 +526,37 @@ def build_all_se():
             executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             headless=True
         )
-        full_course_body = ""
+        # Executive Master Cover Page for Page 1
+        master_cover_page = """
+        <div style="padding: 10px 0;">
+          <div style="background: linear-gradient(135deg, #d946ef, #a21caf); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fae8ff; margin-bottom: 6px;">Executive Master Study Guide & Case Study Bank</div>
+            <h2 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #ffffff;">Software Engineering (CS24309)</h2>
+            <p style="font-size: 12.5px; color: #fdf4ff;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
+          </div>
+
+          <h3 class="subsection-title" style="margin-top: 0;">📚 Complete Course Structure & Engineering Lifecycle Matrix</h3>
+          <table class="custom-table" style="margin-bottom: 20px;">
+            <thead>
+              <tr><th>Module</th><th>Core Syllabus Scope</th><th>Key Methodologies & Formulations</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Module I</strong></td><td>Process Models & Agile</td><td>Waterfall, Evolutionary Prototyping, Boehm Spiral, Agile Scrum, Sprint Burndown, Extreme Programming, CMMI</td></tr>
+              <tr><td><strong>Module II</strong></td><td>Requirements & Modeling</td><td>Functional/Non-Functional Requirements, IEEE 830 SRS Standard, Use Case Modeling, Class Diagrams, Statecharts</td></tr>
+              <tr><td><strong>Module III</strong></td><td>Design & Architecture</td><td>High Cohesion & Low Coupling Metrics, Architectural Styles (Layered, MVC, Microservices), GoF Design Patterns</td></tr>
+              <tr><td><strong>Module IV</strong></td><td>Software Testing & QA</td><td>Black-Box (Equivalence Partitioning, BVA), White-Box (Basis Path, McCabe Cyclomatic Complexity $V(G) = E - N + 2P$), Mutation</td></tr>
+              <tr><td><strong>Module V</strong></td><td>Estimation & Management</td><td>COCOMO II Cost Estimation Equations, Function Point (FP) Analysis, CPM/PERT Critical Path, Risk Management</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout callout-info">
+            <div class="callout-title">🎯 Exam Preparation & High-Yield Strategy</div>
+            This publication-grade master book consolidates all 5 modules with formal software estimation formulas, step-by-step worked Cyclomatic Complexity & Function Point numericals, and comprehensive model answers to BIT Mesra end-semester examination questions.
+          </div>
+        </div>
+        """
+
+        full_course_body = master_cover_page
         for title, subtitle, badge, body, filename in SE_MODULES:
             html_content = wrap_html(title, subtitle, badge, body)
             html_file = os.path.join(html_dir, f"{filename}.html")
@@ -549,7 +579,7 @@ def build_all_se():
             print(f"✅ Generated {pdf_file} ({os.path.getsize(pdf_file)} bytes)")
             
             if "10-Page" not in title:
-                full_course_body += f"<div style='page-break-before: always;'>{body}</div>"
+                full_course_body += f"<div class='page-break'></div>{body}"
 
         # Full Course Master
         full_master_html = wrap_html(

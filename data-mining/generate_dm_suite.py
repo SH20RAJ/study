@@ -398,7 +398,37 @@ def build_all_dm():
             executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             headless=True
         )
-        full_course_body = ""
+        # Executive Master Cover Page for Page 1
+        master_cover_page = """
+        <div style="padding: 10px 0;">
+          <div style="background: linear-gradient(135deg, #0f766e, #0d9488); color: #ffffff; padding: 24px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #ccfbf1; margin-bottom: 6px;">Executive Master Study Guide & 46-Topic Question Bank</div>
+            <h2 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #ffffff;">Data Mining Concepts & Techniques (CS24303)</h2>
+            <p style="font-size: 12.5px; color: #f0fdfa;">Birla Institute of Technology, Mesra | B.Tech CSE 5th Semester (NEP 2024–25 Scheme)</p>
+          </div>
+
+          <h3 class="subsection-title" style="margin-top: 0;">📚 Complete 46-Topic Course Structure & Syllabus Matrix</h3>
+          <table class="custom-table" style="margin-bottom: 20px;">
+            <thead>
+              <tr><th>Module</th><th>Topics</th><th>Core Syllabus Scope & Key Algorithms</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Module I</strong></td><td>14 Topics</td><td>KDD Pipeline, 4 Attribute Types, 5-Number Summaries, Proximity Metrics (L1, L2, Minkowski, Cosine, Jaccard)</td></tr>
+              <tr><td><strong>Module II</strong></td><td>6 Topics</td><td>Data Cleaning (KNN/MICE/EM), Chi-Square Contingency Test, Normalization, PCA Full Derivation, ChiMerge, 3-4-5 Rule</td></tr>
+              <tr><td><strong>Module III</strong></td><td>9 Topics</td><td>Inmon 4 Pillars, OLTP vs OLAP, Star/Snowflake Schemas, 3D Data Cube Lattice, 5 OLAP Operations, BUC, Star-Cubing, AOI</td></tr>
+              <tr><td><strong>Module IV</strong></td><td>7 Topics</td><td>Market Basket Analysis, Apriori Downward Closure Proof & 9-Transaction Trace, ECLAT Vertical Format, FP-Growth Recursive Mining, Lift/Kulc</td></tr>
+              <tr><td><strong>Module V</strong></td><td>10 Topics</td><td>Multilevel/Multidimensional Rules, 4 Constraint Classes & Proofs, Pattern-Fusion Colossal Mining, Closed vs Maximal Itemsets</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout callout-info">
+            <div class="callout-title">🎯 Exam Preparation & High-Yield Strategy</div>
+            This publication-grade master book consolidates all 46 topics with formal KaTeX-rendered mathematical proofs, step-by-step worked traces on standard datasets, full SQL DDL warehouse schemas, and comprehensive model answers to BIT Mesra end-semester examination questions.
+          </div>
+        </div>
+        """
+
+        full_course_body = master_cover_page
         for title, subtitle, badge, body, filename in MODULES:
             html_content = wrap_html(title, subtitle, badge, body)
             html_file = os.path.join(html_dir, f"{filename}.html")
@@ -421,7 +451,7 @@ def build_all_dm():
             print(f"✅ Generated {pdf_file} ({os.path.getsize(pdf_file)} bytes)")
             
             if "10-Page" not in title:
-                full_course_body += f"<div style='page-break-before: always;'>{body}</div>"
+                full_course_body += f"<div class='page-break'></div>{body}"
 
         # Full Course Master
         full_master_html = wrap_html(
