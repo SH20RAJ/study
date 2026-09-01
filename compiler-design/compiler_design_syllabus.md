@@ -85,9 +85,9 @@ flowchart LR
   - Direct DFA state construction algorithm
 
 > 📄 **Module 1 Deliverables:**  
-> • [Module 1 Markdown Notes](file:///Users/shaswatraj/Desktop/study/compiler%20design/Module_1_Lexical_Analysis_Notes.md)  
-> • [Module 1 Web Notes (HTML)](file:///Users/shaswatraj/Desktop/study/compiler%20design/Module_1_Lexical_Analysis_Notes.html)  
-> • [Module 1 Print-Ready PDF](file:///Users/shaswatraj/Desktop/study/compiler%20design/Module_1_Lexical_Analysis_Notes.pdf)
+> • [Module 1 Markdown Notes](study/compiler%20design/Module_1_Lexical_Analysis_Notes.md)  
+> • [Module 1 Web Notes (HTML)](study/compiler%20design/Module_1_Lexical_Analysis_Notes.html)  
+> • [Module 1 Print-Ready PDF](study/compiler%20design/Module_1_Lexical_Analysis_Notes.pdf)
 
 ---
 

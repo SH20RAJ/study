@@ -25,23 +25,23 @@
 ### 💎 Core Theory Courses (12.0 Credits)
 | Course Code | Subject Title | Credits | Workspace Directory | Syllabus & Notes |
 | :--- | :--- | :---: | :--- | :---: |
-| **CS24301** | [Compiler Design](file:///Users/shaswatraj/Desktop/study/compiler-design/) | 3.0 | [`compiler-design/`](file:///Users/shaswatraj/Desktop/study/compiler-design/) | [View Syllabus](file:///Users/shaswatraj/Desktop/study/compiler-design/compiler_design_syllabus.md) |
-| **CS24305** | [Data Communication and Computer Networks](file:///Users/shaswatraj/Desktop/study/data-communication-and-networks/) | 3.0 | [`data-communication-and-networks/`](file:///Users/shaswatraj/Desktop/study/data-communication-and-networks/) | [View Syllabus](file:///Users/shaswatraj/Desktop/study/data-communication-and-networks/dccn_syllabus.md) |
-| **CS24303** | [Data Mining Concepts and Techniques](file:///Users/shaswatraj/Desktop/study/data-mining/) | 3.0 | [`data-mining/`](file:///Users/shaswatraj/Desktop/study/data-mining/) | [View Syllabus](file:///Users/shaswatraj/Desktop/study/data-mining/data_mining_syllabus.md) |
-| **CS24307** | [Artificial Intelligence](file:///Users/shaswatraj/Desktop/study/artificial-intelligence/) | 3.0 | [`artificial-intelligence/`](file:///Users/shaswatraj/Desktop/study/artificial-intelligence/) | [View Syllabus](file:///Users/shaswatraj/Desktop/study/artificial-intelligence/ai_syllabus.md) |
+| **CS24301** | [Compiler Design](study/compiler-design/) | 3.0 | [`compiler-design/`](study/compiler-design/) | [View Syllabus](study/compiler-design/compiler_design_syllabus.md) |
+| **CS24305** | [Data Communication and Computer Networks](study/data-communication-and-networks/) | 3.0 | [`data-communication-and-networks/`](study/data-communication-and-networks/) | [View Syllabus](study/data-communication-and-networks/dccn_syllabus.md) |
+| **CS24303** | [Data Mining Concepts and Techniques](study/data-mining/) | 3.0 | [`data-mining/`](study/data-mining/) | [View Syllabus](study/data-mining/data_mining_syllabus.md) |
+| **CS24307** | [Artificial Intelligence](study/artificial-intelligence/) | 3.0 | [`artificial-intelligence/`](study/artificial-intelligence/) | [View Syllabus](study/artificial-intelligence/ai_syllabus.md) |
 
 ### 🏷️ Practical / Laboratory Courses (4.5 Credits)
 | Course Code | Lab Title | Credits | Workspace Directory | Syllabus & Practical Tasks |
 | :--- | :--- | :---: | :--- | :---: |
-| **CS24302** | [Compiler Design Lab](file:///Users/shaswatraj/Desktop/study/compiler-design/lab/) | 1.5 | [`compiler-design/lab/`](file:///Users/shaswatraj/Desktop/study/compiler-design/lab/) | [Lab Tasks](file:///Users/shaswatraj/Desktop/study/compiler-design/compiler_design_syllabus.md#-compiler-design-lab-cs24302) |
-| **CS24306** | [Data Communication & Networks Lab](file:///Users/shaswatraj/Desktop/study/data-communication-and-networks/lab/) | 1.5 | [`data-communication-and-networks/lab/`](file:///Users/shaswatraj/Desktop/study/data-communication-and-networks/lab/) | [Lab Tasks](file:///Users/shaswatraj/Desktop/study/data-communication-and-networks/dccn_lab_syllabus.md) |
-| **CS24308** | [Artificial Intelligence Lab](file:///Users/shaswatraj/Desktop/study/artificial-intelligence/lab/) | 1.5 | [`artificial-intelligence/lab/`](file:///Users/shaswatraj/Desktop/study/artificial-intelligence/lab/) | [Lab Tasks](file:///Users/shaswatraj/Desktop/study/artificial-intelligence/ai_lab_syllabus.md) |
+| **CS24302** | [Compiler Design Lab](study/compiler-design/lab/) | 1.5 | [`compiler-design/lab/`](study/compiler-design/lab/) | [Lab Tasks](study/compiler-design/compiler_design_syllabus.md#-compiler-design-lab-cs24302) |
+| **CS24306** | [Data Communication & Networks Lab](study/data-communication-and-networks/lab/) | 1.5 | [`data-communication-and-networks/lab/`](study/data-communication-and-networks/lab/) | [Lab Tasks](study/data-communication-and-networks/dccn_lab_syllabus.md) |
+| **CS24308** | [Artificial Intelligence Lab](study/artificial-intelligence/lab/) | 1.5 | [`artificial-intelligence/lab/`](study/artificial-intelligence/lab/) | [Lab Tasks](study/artificial-intelligence/ai_lab_syllabus.md) |
 
 ### ❤️ Program Electives (3.0 Credits)
 | Course Code | Elective Subject | Credits | Workspace Directory | Syllabus & Notes |
 | :--- | :--- | :---: | :--- | :---: |
-| **CS24351** | [Natural Language Processing](file:///Users/shaswatraj/Desktop/study/natural-language-processing/) | 3.0 | [`natural-language-processing/`](file:///Users/shaswatraj/Desktop/study/natural-language-processing/) | [View Syllabus](file:///Users/shaswatraj/Desktop/study/natural-language-processing/nlp_syllabus.md) |
-| **CS24353** | [Software Engineering](file:///Users/shaswatraj/Desktop/study/software-engineering/) | 3.0 | [`software-engineering/`](file:///Users/shaswatraj/Desktop/study/software-engineering/) | [View Syllabus](file:///Users/shaswatraj/Desktop/study/software-engineering/software_engineering_syllabus.md) |
+| **CS24351** | [Natural Language Processing](study/natural-language-processing/) | 3.0 | [`natural-language-processing/`](study/natural-language-processing/) | [View Syllabus](study/natural-language-processing/nlp_syllabus.md) |
+| **CS24353** | [Software Engineering](study/software-engineering/) | 3.0 | [`software-engineering/`](study/software-engineering/) | [View Syllabus](study/software-engineering/software_engineering_syllabus.md) |
 
 ---
 
