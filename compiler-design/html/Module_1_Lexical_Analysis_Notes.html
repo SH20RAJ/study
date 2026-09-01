@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1: Lexical Analysis</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #1e3a8a;       /* Deep Navy */
+  --primary-light: #eff6ff; /* Soft Blue */
+  --accent: #0284c7;        /* Sky Blue */
+  --secondary: #4f46e5;     /* Indigo */
+  --success: #059669;       /* Emerald */
+  --success-bg: #ecfdf5;
+  --warning: #d97706;       /* Amber */
+  --warning-bg: #fffbeb;
+  --danger: #dc2626;        /* Rose */
+  --danger-bg: #fef2f2;
+  --dark: #0f172a;          /* Slate 900 */
+  --text: #1e293b;          /* Slate 800 */
+  --text-muted: #64748b;    /* Slate 500 */
+  --border: #cbd5e1;        /* Slate 300 */
+  --bg-card: #ffffff;
+  --bg-page: #f8fafc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background-color: var(--bg-page);
+  line-height: 1.6;
+  font-size: 12.6px;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 35px 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.doc-header {
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+}
+
+.badge-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-green { background: #d1fae5; color: #065f46; }
+.badge-amber { background: #fef3c7; color: #92400e; }
+
+h1.doc-title {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.doc-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.toc-box {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 25px;
+  page-break-inside: avoid;
+}
+
+.toc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0369a1;
+  margin-bottom: 8px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 20px;
+  font-size: 11.5px;
+}
+
+h2.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  border-left: 4px solid var(--accent);
+  padding-left: 10px;
+  margin: 24px 0 12px 0;
+}
+
+h3.subsection-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 15px 0 7px 0;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+
+.callout {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 11px 0;
+  font-size: 11.8px;
+  border-left: 4px solid;
+  page-break-inside: avoid;
+}
+
+.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
+.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
+.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 11px 0;
+  font-size: 11.5px;
+  background: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+table.custom-table th {
+  background: #1e293b;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+table.custom-table td {
+  padding: 5.5px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 1.5px 4px;
+  border-radius: 3px;
+  border: 1px solid #e2e8f0;
+}
+
+pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-x: auto;
+  margin: 9px 0;
+  page-break-inside: avoid;
+}
+
+ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
+li { margin-bottom: 3px; }
+
+.diagram-container {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.diagram-caption {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qa-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 11px 0;
+  page-break-inside: avoid;
+}
+
+.qa-q { font-weight: 700; color: #1e3a8a; font-size: 12.2px; margin-bottom: 5px; }
+.qa-a { font-size: 11.8px; color: var(--text); }
+
+@media print {
+  body { background: #ffffff; font-size: 11.8px; }
+  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
+  @page {
+    size: A4 portrait;
+    margin: 14mm 11mm 14mm 11mm;
+    @bottom-right {
+      content: "Page " counter(page);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+    @bottom-left {
+      content: "Compiler Design (CS24301) Study Notes | BIT Mesra";
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+  }
+  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page-container">
+  <div class="doc-header">
+    <div class="badge-container">
+      <span class="badge badge-blue">CS24301 — Theory (3.0 Cr)</span>
+      <span class="badge badge-purple">Module I Notes</span>
+      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+    </div>
+    <h1 class="doc-title">Module 1: Lexical Analysis</h1>
+    <div class="doc-subtitle">Language Processors, Buffering, Thompson NFA & Direct DFA</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title">Module I: Lexical Analysis — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. Language Processing Systems & Cousins of Compiler</div>
+    <div>2. 6 Phases of Compiler with Running Example</div>
+    <div>3. Token, Pattern, Lexeme & Token Attributes</div>
+    <div>4. Input Buffering (Buffer Pairs & Sentinels)</div>
+    <div>5. Thompson's Construction (RE → NFA)</div>
+    <div>6. Subset Construction (NFA → DFA)</div>
+    <div>7. Hopcroft's DFA State Minimization</div>
+    <div>8. Direct DFA Construction (Syntax Tree Method)</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Language Processors & 6 Phases of Compiler</h2>
+<p>
+  A <strong>compiler</strong> translates high-level source code into target machine language while reporting errors.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Tool</th>
+      <th style="width: 25%;">Input $\rightarrow$ Output</th>
+      <th>Core Responsibilities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Preprocessor</strong></td><td><code>.c</code> $\rightarrow$ <code>.i</code> (Pure Source)</td><td>Macro expansion (<code>#define</code>), header inclusion (<code>#include</code>), stripping comments.</td></tr>
+    <tr><td><strong>Compiler</strong></td><td><code>.i</code> $\rightarrow$ <code>.s</code> (Assembly)</td><td>Front-end analysis & back-end code synthesis.</td></tr>
+    <tr><td><strong>Assembler</strong></td><td><code>.s</code> $\rightarrow$ <code>.o</code> (Relocatable Object)</td><td>Translates mnemonics to machine code and symbol offsets.</td></tr>
+    <tr><td><strong>Linker</strong></td><td><code>.o</code> + Libs $\rightarrow$ <code>.exe</code></td><td>Resolves external symbol references across modules.</td></tr>
+    <tr><td><strong>Loader</strong></td><td>Binary $\rightarrow$ RAM</td><td>Allocates memory segments, sets up stack/heap, jumps to <code>main</code>.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">2. Input Buffering & Sentinels</h2>
+<p>
+  Using <strong>Buffer Pairs</strong> ($2 \times N$ characters) with <strong>Sentinel (`EOF`)</strong> characters placed at buffer ends eliminates one conditional check per character, reducing inner scanning loop overhead by 50%.
+</p>
+
+<h2 class="section-title">3. Direct DFA Construction (Syntax Tree Method)</h2>
+<p>
+  Constructs DFA directly from augmented regular expression $(r)\#$:
+  <ul>
+    <li><code>nullable(n)</code>: True iff subtree generates $\epsilon$.</li>
+    <li><code>firstpos(n)</code>: Set of positions matching the first character of subtree strings.</li>
+    <li><code>lastpos(n)</code>: Set of positions matching the last character of subtree strings.</li>
+    <li><code>followpos(i)</code>: Positions immediately following position $i$.
+      <ul>
+        <li>For cat-node $c_1 \cdot c_2$: add $\text{firstpos}(c_2)$ to $\text{followpos}(i)$ for all $i \in \text{lastpos}(c_1)$.</li>
+        <li>For star-node $c_1^*$: add $\text{firstpos}(c_1)$ to $\text{followpos}(i)$ for all $i \in \text{lastpos}(c_1)$.</li>
+      </ul>
+    </li>
+  </ul>
+</p>
+
+<div class="callout callout-pyq">
+  <div class="callout-title">🏛️ BIT Mesra Exam Solved Problem: $(a|b)^*abb\#$</div>
+  Leaves: $a(1), b(2), a(3), b(4), b(5), \#(6)$.<br>
+  $\text{followpos}(1) = \{1, 2, 3\}, \text{followpos}(2) = \{1, 2, 3\}, \text{followpos}(3) = \{4\}, \text{followpos}(4) = \{5\}, \text{followpos}(5) = \{6\}, \text{followpos}(6) = \emptyset$.<br>
+  DFA States: $A=\{1, 2, 3\} \xrightarrow{a} B=\{1, 2, 3, 4\} \xrightarrow{b} C=\{1, 2, 3, 5\} \xrightarrow{b} D^*=\{1, 2, 3, 6\}$.
+</div>
+
+  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
+    <span>Compiler Design (CS24301) — Comprehensive Study Suite</span>
+    <span>BIT Mesra | B.Tech CSE</span>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+</body>
+</html>

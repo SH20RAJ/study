@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4: Advanced ICG & Runtime Environment</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #1e3a8a;       /* Deep Navy */
+  --primary-light: #eff6ff; /* Soft Blue */
+  --accent: #0284c7;        /* Sky Blue */
+  --secondary: #4f46e5;     /* Indigo */
+  --success: #059669;       /* Emerald */
+  --success-bg: #ecfdf5;
+  --warning: #d97706;       /* Amber */
+  --warning-bg: #fffbeb;
+  --danger: #dc2626;        /* Rose */
+  --danger-bg: #fef2f2;
+  --dark: #0f172a;          /* Slate 900 */
+  --text: #1e293b;          /* Slate 800 */
+  --text-muted: #64748b;    /* Slate 500 */
+  --border: #cbd5e1;        /* Slate 300 */
+  --bg-card: #ffffff;
+  --bg-page: #f8fafc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background-color: var(--bg-page);
+  line-height: 1.6;
+  font-size: 12.6px;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 35px 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.doc-header {
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+}
+
+.badge-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-purple { background: #ede9fe; color: #5b21b6; }
+.badge-green { background: #d1fae5; color: #065f46; }
+.badge-amber { background: #fef3c7; color: #92400e; }
+
+h1.doc-title {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.doc-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.toc-box {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 25px;
+  page-break-inside: avoid;
+}
+
+.toc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0369a1;
+  margin-bottom: 8px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 20px;
+  font-size: 11.5px;
+}
+
+h2.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  border-left: 4px solid var(--accent);
+  padding-left: 10px;
+  margin: 24px 0 12px 0;
+}
+
+h3.subsection-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 15px 0 7px 0;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+
+.callout {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 11px 0;
+  font-size: 11.8px;
+  border-left: 4px solid;
+  page-break-inside: avoid;
+}
+
+.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
+.callout-blue { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
+.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
+.callout-danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 11px 0;
+  font-size: 11.5px;
+  background: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+table.custom-table th {
+  background: #1e293b;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+table.custom-table td {
+  padding: 5.5px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 1.5px 4px;
+  border-radius: 3px;
+  border: 1px solid #e2e8f0;
+}
+
+pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-x: auto;
+  margin: 9px 0;
+  page-break-inside: avoid;
+}
+
+ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
+li { margin-bottom: 3px; }
+
+.diagram-container {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.diagram-caption {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qa-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 11px 0;
+  page-break-inside: avoid;
+}
+
+.qa-q { font-weight: 700; color: #1e3a8a; font-size: 12.2px; margin-bottom: 5px; }
+.qa-a { font-size: 11.8px; color: var(--text); }
+
+@media print {
+  body { background: #ffffff; font-size: 11.8px; }
+  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
+  @page {
+    size: A4 portrait;
+    margin: 14mm 11mm 14mm 11mm;
+    @bottom-right {
+      content: "Page " counter(page);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+    @bottom-left {
+      content: "Compiler Design (CS24301) Study Notes | BIT Mesra";
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+  }
+  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page-container">
+  <div class="doc-header">
+    <div class="badge-container">
+      <span class="badge badge-blue">CS24301 — Theory (3.0 Cr)</span>
+      <span class="badge badge-purple">Module IV Notes</span>
+      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+    </div>
+    <h1 class="doc-title">Module 4: Advanced ICG & Runtime Environment</h1>
+    <div class="doc-subtitle">Short-Circuit Booleans, Backpatching, Activation Records & Parameter Passing</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title">Module IV: Advanced ICG & Runtime Environment — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. Short-Circuit vs. Numerical Boolean Evaluation</div>
+    <div>2. Control Flow Translation (if-else, while, for)</div>
+    <div>3. Backpatching: makelist, merge, backpatch</div>
+    <div>4. Procedure Calls & Return Mechanisms</div>
+    <div>5. Runtime Memory Organization (Text, Data, Heap, Stack)</div>
+    <div>6. Activation Records (Stack Frames) & Parameter Passing</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Translation of Boolean Expressions (Short-Circuit Evaluation)</h2>
+<p>
+  In programming languages like C and Java, boolean operators `&&` and `||` evaluate conditionally:
+  <ul>
+    <li>In $B_1 \text{ || } B_2$: If $B_1$ is true, $B_2$ is skipped entirely.</li>
+    <li>In $B_1 \text{ \&\& } B_2$: If $B_1$ is false, $B_2$ is skipped entirely.</li>
+  </ul>
+</p>
+
+<h2 class="section-title">2. Backpatching Technique</h2>
+<p>
+  In a single-pass compiler, forward jump targets are not known when the jump instruction is emitted. **Backpatching** leaves target addresses blank and fills them once the target label is generated.
+</p>
+<ul>
+  <li><code>makelist(i)</code>: Creates a new list containing just the jump instruction index $i$.</li>
+  <li><code>merge(p1, p2)</code>: Concatenates two lists of jump instructions $p1$ and $p2$.</li>
+  <li><code>backpatch(p, i)</code>: Inserts label $i$ as the target for each instruction on list $p$.</li>
+</ul>
+
+<h2 class="section-title">3. Runtime Storage Organization & Activation Records</h2>
+
+<div class="diagram-container">
+  <svg width="100%" height="150" viewBox="0 0 740 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- Memory Layout -->
+    <g transform="translate(40, 10)">
+      <text x="75" y="15" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e3a8a" text-anchor="middle">Runtime Memory Layout</text>
+      <rect x="10" y="25" width="130" height="25" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="75" y="42" font-family="Plus Jakarta Sans" font-size="10" text-anchor="middle">Code / Text Segment</text>
+      <rect x="10" y="50" width="130" height="25" fill="#f8fafc" stroke="#64748b"/>
+      <text x="75" y="67" font-family="Plus Jakarta Sans" font-size="10" text-anchor="middle">Static / Global Data</text>
+      <rect x="10" y="75" width="130" height="25" fill="#ecfdf5" stroke="#059669"/>
+      <text x="75" y="92" font-family="Plus Jakarta Sans" font-size="10" font-weight="600" fill="#065f46" text-anchor="middle">Heap (grows downward ↓)</text>
+      <rect x="10" y="100" width="130" height="30" fill="#dbeafe" stroke="#1e40af"/>
+      <text x="75" y="118" font-family="Plus Jakarta Sans" font-size="10" font-weight="600" fill="#1e3a8a" text-anchor="middle">Stack (grows upward ↑)</text>
+    </g>
+
+    <!-- Activation Record -->
+    <g transform="translate(280, 10)">
+      <text x="210" y="15" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e3a8a" text-anchor="middle">Structure of an Activation Record (Stack Frame)</text>
+      <rect x="30" y="25" width="360" height="105" rx="5" fill="#ffffff" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="30" y1="42" x2="390" y2="42" stroke="#cbd5e1"/>
+      <line x1="30" y1="59" x2="390" y2="59" stroke="#cbd5e1"/>
+      <line x1="30" y1="76" x2="390" y2="76" stroke="#cbd5e1"/>
+      <line x1="30" y1="93" x2="390" y2="93" stroke="#cbd5e1"/>
+      <line x1="30" y1="110" x2="390" y2="110" stroke="#cbd5e1"/>
+
+      <text x="210" y="38" font-family="Plus Jakarta Sans" font-size="10" text-anchor="middle">Actual Parameters (Arguments passed by caller)</text>
+      <text x="210" y="55" font-family="Plus Jakarta Sans" font-size="10" font-weight="600" fill="#dc2626" text-anchor="middle">Return Value & Return Address (Program Counter PC)</text>
+      <text x="210" y="72" font-family="Plus Jakarta Sans" font-size="10" font-weight="600" fill="#0284c7" text-anchor="middle">Control Link (Dynamic Link) -> Points to caller's frame</text>
+      <text x="210" y="89" font-family="Plus Jakarta Sans" font-size="10" text-anchor="middle">Access Link (Static Link) -> Points to lexical parent frame</text>
+      <text x="210" y="106" font-family="Plus Jakarta Sans" font-size="10" text-anchor="middle">Saved Machine Status (Registers, Status Flags)</text>
+      <text x="210" y="124" font-family="Plus Jakarta Sans" font-size="10" text-anchor="middle">Local Variables & Temporaries</text>
+    </g>
+  </svg>
+  <div class="diagram-caption">Figure 4.1: Memory Layout & Activation Record Architecture</div>
+</div>
+
+<h2 class="section-title">4. Parameter Passing Mechanisms</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th>Mechanism</th>
+      <th>How Arguments are Passed</th>
+      <th>Effect of Changes on Actual Arguments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Call by Value</strong></td>
+      <td>Evaluates r-value and passes a copy to local parameter.</td>
+      <td>Changes to formal parameter have <strong>zero effect</strong> on caller.</td>
+    </tr>
+    <tr>
+      <td><strong>Call by Reference</strong></td>
+      <td>Passes l-value (memory address / pointer) of actual argument.</td>
+      <td>Changes directly <strong>mutate caller's variable</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>Call by Name</strong></td>
+      <td>Textual macro substitution (evaluated lazily via Thunk).</td>
+      <td>Re-evaluated each time parameter is referenced.</td>
+    </tr>
+  </tbody>
+</table>
+
+  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
+    <span>Compiler Design (CS24301) — Comprehensive Study Suite</span>
+    <span>BIT Mesra | B.Tech CSE</span>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+</body>
+</html>
