@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Mining Concepts and Techniques (CS24303) — Full Course Master Book</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #0f766e;       /* Dark Teal */
+  --primary-light: #f0fdfa;
+  --accent: #0284c7;        /* Blue */
+  --secondary: #d97706;     /* Amber */
+  --success: #059669;
+  --success-bg: #ecfdf5;
+  --warning: #d97706;
+  --warning-bg: #fffbeb;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --dark: #0f172a;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #cbd5e1;
+  --bg-card: #ffffff;
+  --bg-page: #f8fafc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background-color: var(--bg-page);
+  line-height: 1.6;
+  font-size: 12.6px;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 35px 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.doc-header {
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+}
+
+.badge-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.badge-teal { background: #ccfbf1; color: #0f766e; }
+.badge-amber { background: #fef3c7; color: #92400e; }
+.badge-green { background: #d1fae5; color: #065f46; }
+
+h1.doc-title {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.doc-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.toc-box {
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 25px;
+  page-break-inside: avoid;
+}
+
+.toc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f766e;
+  margin-bottom: 8px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 20px;
+  font-size: 11.5px;
+}
+
+h2.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  border-left: 4px solid var(--primary);
+  padding-left: 10px;
+  margin: 24px 0 12px 0;
+}
+
+h3.subsection-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 15px 0 7px 0;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+
+.callout {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 11px 0;
+  font-size: 11.8px;
+  border-left: 4px solid;
+  page-break-inside: avoid;
+}
+
+.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
+.callout-blue { background: #f0fdfa; border-color: #0f766e; color: #134e4a; }
+.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
+.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 11px 0;
+  font-size: 11.5px;
+  background: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+table.custom-table th {
+  background: #134e4a;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+table.custom-table td {
+  padding: 5.5px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 1.5px 4px;
+  border-radius: 3px;
+  border: 1px solid #e2e8f0;
+}
+
+pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-x: auto;
+  margin: 9px 0;
+  page-break-inside: avoid;
+}
+
+ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
+li { margin-bottom: 3px; }
+
+.diagram-container {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.diagram-caption {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qa-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 11px 15px;
+  margin: 11px 0;
+  page-break-inside: avoid;
+}
+
+.qa-q { font-weight: 700; color: #0f766e; font-size: 12.2px; margin-bottom: 5px; }
+.qa-a { font-size: 11.8px; color: var(--text); }
+
+@media print {
+  body { background: #ffffff; font-size: 11.8px; }
+  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
+  @page {
+    size: A4 portrait;
+    margin: 14mm 11mm 14mm 11mm;
+    @bottom-right {
+      content: "Page " counter(page);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+    @bottom-left {
+      content: "Data Mining (CS24303) Study Notes | BIT Mesra";
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      color: #94a3b8;
+    }
+  }
+  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page-container">
+  <div class="doc-header">
+    <div class="badge-container">
+      <span class="badge badge-teal">CS24303 — Theory (3.0 Cr)</span>
+      <span class="badge badge-amber">Full Course Master</span>
+      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
+    </div>
+    <h1 class="doc-title">Data Mining Concepts and Techniques (CS24303) — Full Course Master Book</h1>
+    <div class="doc-subtitle">Complete End-to-End B.Tech CSE 5th Semester Study Book & PYQ Bank</div>
+  </div>
+  <div style='page-break-before: always;'>
+<div class="toc-box">
+  <div class="toc-title">Module I: Data Attributes & Proximity Metrics — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. KDD Process & Data Mining Functionalities</div>
+    <div>2. Data Object Types & Attribute Categories</div>
+    <div>3. Five-Number Summary, Boxplots & Dispersion</div>
+    <div>4. Proximity Metrics: Euclidean, Manhattan, Minkowski</div>
+    <div>5. Cosine Similarity & Jaccard Coefficient</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Proximity and Distance Metrics Formulations</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Metric Name</th>
+      <th style="width: 45%;">Mathematical Formulation</th>
+      <th>Application Domain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Euclidean Distance ($L_2$)</strong></td>
+      <td>$$d(x, y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$$</td>
+      <td>Standard spatial coordinate distance for continuous numeric features.</td>
+    </tr>
+    <tr>
+      <td><strong>Manhattan Distance ($L_1$)</strong></td>
+      <td>$$d(x, y) = \sum_{i=1}^n |x_i - y_i|$$</td>
+      <td>Grid-like city block routing; robust against extreme outliers.</td>
+    </tr>
+    <tr>
+      <td><strong>Cosine Similarity</strong></td>
+      <td>$$\text{sim}(x, y) = \frac{x \cdot y}{\|x\| \|y\|} = \frac{\sum x_i y_i}{\sqrt{\sum x_i^2}\sqrt{\sum y_i^2}}$$</td>
+      <td>Document text mining, TF-IDF vector comparisons (invariant to document length).</td>
+    </tr>
+    <tr>
+      <td><strong>Jaccard Coefficient</strong></td>
+      <td>$$J(A, B) = \frac{|A \cap B|}{|A \cup B|} = \frac{q}{q + r + s}$$</td>
+      <td>Asymmetric binary attributes (e.g., market basket item presence).</td>
+    </tr>
+  </tbody>
+</table>
+</div><div style='page-break-before: always;'>
+<div class="toc-box">
+  <div class="toc-title">Module II: Data Preprocessing & Normalization — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. Data Cleaning & Smoothing by Binning</div>
+    <div>2. Correlation Analysis: Chi-Square ($\chi^2$) & Pearson $r$</div>
+    <div>3. Min-Max Normalization & Z-Score Scaling</div>
+    <div>4. Dimensionality Reduction via PCA</div>
+    <div>5. Discretization & Concept Hierarchies</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Data Transformation: Normalization Formulations</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Normalization Method</th>
+      <th style="width: 45%;">Formula</th>
+      <th>Key Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Min-Max Normalization</strong></td>
+      <td>$$v' = \frac{v - \min_A}{\max_A - \min_A} (new\_\max_A - new\_\min_A) + new\_\min_A$$</td>
+      <td>Maps values linearly into predetermined interval $[0, 1]$.</td>
+    </tr>
+    <tr>
+      <td><strong>Z-Score (Zero-Mean)</strong></td>
+      <td>$$v' = \frac{v - \mu_A}{\sigma_A}$$</td>
+      <td>Useful when min and max are unknown or outliers dominate.</td>
+    </tr>
+  </tbody>
+</table>
+</div><div style='page-break-before: always;'>
+<div class="toc-box">
+  <div class="toc-title">Module III: Data Warehousing & OLAP Cubes — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. OLTP vs. OLAP Multidimensional Modeling</div>
+    <div>2. Schemas: Star, Snowflake & Fact Constellation</div>
+    <div>3. Lattice of Cuboids & Data Cube Computation</div>
+    <div>4. OLAP Operations: Roll-up, Drill-down, Slice, Dice, Pivot</div>
+    <div>5. Attribute-Oriented Induction (AOI)</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Core OLAP Operations</h2>
+<ul>
+  <li><strong>Roll-Up (Drill-Up):</strong> Summarizes data by climbing up concept hierarchies (e.g., Day $\rightarrow$ Month $\rightarrow$ Quarter $\rightarrow$ Year).</li>
+  <li><strong>Drill-Down (Roll-Down):</strong> Navigates from higher-level summary to detailed granular data.</li>
+  <li><strong>Slice:</strong> Performs a selection on one dimension (e.g., `Time = "Q1"`).</li>
+  <li><strong>Dice:</strong> Defines a sub-cube by selecting on two or more dimensions (e.g., `Time = "Q1"` and `Location = "India"`).</li>
+  <li><strong>Pivot (Rotate):</strong> Rotates multidimensional axes to provide an alternative perspective.</li>
+</ul>
+</div><div style='page-break-before: always;'>
+<div class="toc-box">
+  <div class="toc-title">Module IV: Apriori & FP-Growth Pattern Mining — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. Market Basket Analysis: Support & Confidence</div>
+    <div>2. The Apriori Downward Closure Property</div>
+    <div>3. Apriori Candidate Generation: Join & Prune</div>
+    <div>4. FP-Tree Construction & Recursive Mining</div>
+    <div>5. Pattern Correlation: Lift & Kulczynski</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Support, Confidence & Lift Formulations</h2>
+$$\text{Support}(A \implies B) = P(A \cup B) = \frac{\text{count}(A \cup B)}{|D|}$$
+$$\text{Confidence}(A \implies B) = P(B \mid A) = \frac{\text{Support}(A \cup B)}{\text{Support}(A)}$$
+$$\text{Lift}(A, B) = \frac{P(A \cup B)}{P(A) P(B)}$$
+
+<div class="callout callout-pyq">
+  <div class="callout-title">🏛️ BIT Mesra Exam Question (10 Marks)</div>
+  <strong>Problem:</strong> Explain the Apriori property and demonstrate how the prune step eliminates candidate itemsets without scanning the database.<br>
+  <strong>Solution:</strong> <em>Apriori Property:</em> All non-empty subsets of a frequent itemset must also be frequent. If any $(k-1)$-subset of candidate $C_k$ is not present in frequent list $L_{k-1}$, $C_k$ cannot be frequent and is immediately pruned without costly database I/O.
+</div>
+</div><div style='page-break-before: always;'>
+<div class="toc-box">
+  <div class="toc-title">Module V: Advanced Pattern Mining & Applications — Topics Covered</div>
+  <div class="toc-grid">
+    <div>1. Multilevel & Multidimensional Association Rules</div>
+    <div>2. Quantitative Association Rule Mining</div>
+    <div>3. Constraint-Based Mining (Antimonotonic, Monotonic, Succinct)</div>
+    <div>4. Mining Colossal & Compressed Patterns</div>
+    <div>5. Real-World Applications (Retail Basket, Fraud Detection)</div>
+  </div>
+</div>
+
+<h2 class="section-title">1. Constraint Properties in Frequent Itemset Mining</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Constraint Type</th>
+      <th style="width: 45%;">Formal Property Definition</th>
+      <th>Pushing Strategy in Mining</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Antimonotonic</strong></td>
+      <td>If itemset $S$ violates constraint $C$, all supersets $S' \supset S$ also violate $C$. (e.g., $\text{sum}(S.\text{price}) \le 100$).</td>
+      <td>Prunes itemset search branch immediately (like Apriori support).</td>
+    </tr>
+    <tr>
+      <td><strong>Monotonic</strong></td>
+      <td>If itemset $S$ satisfies constraint $C$, all supersets $S' \supset S$ also satisfy $C$. (e.g., $\text{sum}(S.\text{price}) \ge 500$).</td>
+      <td>Once satisfied, all descendant supersets need not be tested against $C$.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
+    <span>Data Mining Concepts & Techniques (CS24303) — Study Suite</span>
+    <span>BIT Mesra | B.Tech CSE</span>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+</body>
+</html>
