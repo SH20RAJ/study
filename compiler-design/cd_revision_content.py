@@ -1,94 +1,99 @@
 # Compiler Design 10-Page Master Revision Exhaustive Content (CS24301)
+# Contains the full 47-Topic Checklist, Master Differences Cards & Spaced Repetition Protocol
 
 CD_REVISION_EXHAUSTIVE = r"""
 <div class="toc-box">
   <div class="toc-title">⚡ 10-Page Master Quick Revision — Compiler Design (CS24301)</div>
   <div class="toc-grid">
-    <div>Page 1: 6 Compiler Phases & Running Translation Trace</div>
-    <div>Page 2: Lexical Analysis, Thompson RE to NFA & Subset Construction</div>
-    <div>Page 3: Hopcroft's DFA Minimization & Input Buffering Sentinels</div>
-    <div>Page 4: CFG Transformations: Left Recursion & Left Factoring</div>
-    <div>Page 5: FIRST & FOLLOW Formal Sets & LL(1) Table Construction</div>
-    <div>Page 6: LR Parser Hierarchy: LR(0), SLR(1), CLR(1), LALR(1)</div>
-    <div>Page 7: S-Attributed vs L-Attributed SDD & Dependency Graphs</div>
-    <div>Page 8: Three-Address Code (Quadruples/Triples) & Array Addressing</div>
-    <div>Page 9: Runtime Activation Records, Stack Frames & Scoping Links</div>
-    <div>Page 10: Basic Blocks, CFG, DAG, Data-Flow Equations & BIT Mesra PYQs</div>
+    <div>Page 1: 47-Topic Master Syllabus Progress Checklist (Modules I – V)</div>
+    <div>Page 2: The 6 Classical Compiler Phases & P-I-C-A-L Translation Pipeline</div>
+    <div>Page 3: Lexical Analysis: Token/Lexeme/Pattern & Direct DFA $(r)\#$ Math</div>
+    <div>Page 4: Syntax Analysis: Left Recursion, Left Factoring & LL(1) Table Rules</div>
+    <div>Page 5: LR Parsing Family Hierarchy: LR(0), SLR(1), CLR(1) & LALR(1)</div>
+    <div>Page 6: Semantic Analysis: SDD vs. SDTS, Synthesized vs. Inherited Types</div>
+    <div>Page 7: Intermediate Code: Quadruples, Triples & Multidimensional Array Math</div>
+    <div>Page 8: Runtime Storage: Memory Segments & Activation Record (P-R-C-A-S-L-T)</div>
+    <div>Page 9: Code Optimization: 3 Leader Rules, CFG & 6 Principal Machine-Independent Passes</div>
+    <div>Page 10: Top 10 High-Frequency Exam-Important Conceptual Differences & Solutions</div>
   </div>
 </div>
 
-<h2 class="section-title">⚡ Master Formula, Algorithm & Grammar Cheat Sheet</h2>
+<h2 class="section-title">📋 The Complete 47-Topic Syllabus Master Checklist</h2>
+
+<div class="callout callout-info">
+  <div class="callout-title">47 / 47 Syllabus Topics Complete</div>
+  <table class="custom-table" style="font-size: 10px;">
+    <thead><tr><th>Module</th><th>Topic #</th><th>Topic Name</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="7"><strong>M1: Lexical Analysis (7)</strong></td><td>1</td><td>Introduction to Compilers and its Cousins (P-I-C-A-L)</td><td>✅ Complete</td></tr>
+      <tr><td>2</td><td>Structure of a Compiler (Front End vs. Back End, 6 Phases)</td><td>✅ Complete</td></tr>
+      <tr><td>3</td><td>Lexical Analyzer (Token, Lexeme, Pattern)</td><td>✅ Complete</td></tr>
+      <tr><td>4</td><td>Input Buffering (Two-Buffer Scheme, Sentinels)</td><td>✅ Complete</td></tr>
+      <tr><td>5</td><td>Specification of Tokens (Regular Expressions & Operators)</td><td>✅ Complete</td></tr>
+      <tr><td>6</td><td>Recognition of Tokens (Transition Diagrams & DFAs)</td><td>✅ Complete</td></tr>
+      <tr><td>7</td><td>DFA Directly from Regular Expressions (FLF Rules)</td><td>✅ Complete</td></tr>
+
+      <tr><td rowspan="10"><strong>M2: Syntax Analysis (10)</strong></td><td>8</td><td>Introduction to Syntax Analysis & CFG Grammars</td><td>✅ Complete</td></tr>
+      <tr><td>9</td><td>Grammar Rewriting (Left Recursion & Left Factoring)</td><td>✅ Complete</td></tr>
+      <tr><td>10</td><td>Recursive Top-Down Parsers (Recursive Descent)</td><td>✅ Complete</td></tr>
+      <tr><td>11</td><td>Non-Recursive Top-Down Parsers (Predictive Parsing)</td><td>✅ Complete</td></tr>
+      <tr><td>12</td><td>Design of LL(1) Parser (FIRST & FOLLOW Inductive Rules)</td><td>✅ Complete</td></tr>
+      <tr><td>13</td><td>Bottom-Up Parsers (Shift-Reduce Parsing & Handle Pruning)</td><td>✅ Complete</td></tr>
+      <tr><td>14</td><td>Variants of LR Parsers (LR(0), SLR(1), CLR(1), LALR(1))</td><td>✅ Complete</td></tr>
+      <tr><td>15</td><td>Handling Parsing Conflicts (Shift-Reduce & Reduce-Reduce)</td><td>✅ Complete</td></tr>
+      <tr><td>16</td><td>Detection of Syntax Errors (Panic-Mode & Phrase-Level)</td><td>✅ Complete</td></tr>
+      <tr><td>17</td><td>Reporting of Syntax Errors & Diagnostics</td><td>✅ Complete</td></tr>
+
+      <tr><td rowspan="9"><strong>M3: Semantic Analysis (9)</strong></td><td>18</td><td>Introduction to Semantic Analysis & Static Checks</td><td>✅ Complete</td></tr>
+      <tr><td>19</td><td>Syntax-Directed Definitions (SDD Semantic Rules)</td><td>✅ Complete</td></tr>
+      <tr><td>20</td><td>Syntax-Directed Translation Schemes (SDTS Actions)</td><td>✅ Complete</td></tr>
+      <tr><td>21</td><td>SDTS for Declaration Processing & Symbol Tables</td><td>✅ Complete</td></tr>
+      <tr><td>22</td><td>Three Address Code (Quadruples, Triples, Indirect Triples)</td><td>✅ Complete</td></tr>
+      <tr><td>23</td><td>Types of Attributes (Synthesized vs. Inherited)</td><td>✅ Complete</td></tr>
+      <tr><td>24</td><td>Type Checking for Expressions (Equivalence & Coercion)</td><td>✅ Complete</td></tr>
+      <tr><td>25</td><td>Intermediate Code Generation for Assignment Statements</td><td>✅ Complete</td></tr>
+      <tr><td>26</td><td>Translation of Multi-Dimensional Array References</td><td>✅ Complete</td></tr>
+
+      <tr><td rowspan="9"><strong>M4: Intermediate & Runtime (9)</strong></td><td>27</td><td>Complete Evaluation of Boolean Expressions</td><td>✅ Complete</td></tr>
+      <tr><td>28</td><td>Partial Evaluation (Short-Circuit) of Boolean Expressions</td><td>✅ Complete</td></tr>
+      <tr><td>29</td><td>Translation of Control Flow Constructs (`if-else`, `while`)</td><td>✅ Complete</td></tr>
+      <tr><td>30</td><td>Resolution of Forward Jumps & Backpatching</td><td>✅ Complete</td></tr>
+      <tr><td>31</td><td>Resolution of Backward Jumps in Loops</td><td>✅ Complete</td></tr>
+      <tr><td>32</td><td>Translation of Function Calls (`param`, `call`)</td><td>✅ Complete</td></tr>
+      <tr><td>33</td><td>Translation of Function Returns & Caller Restoration</td><td>✅ Complete</td></tr>
+      <tr><td>34</td><td>Memory Layout of Code and Data (Text, Static, Heap, Stack)</td><td>✅ Complete</td></tr>
+      <tr><td>35</td><td>Activation Records (Stack Frame Anatomy: P-R-C-A-S-L-T)</td><td>✅ Complete</td></tr>
+
+      <tr><td rowspan="12"><strong>M5: Optimization & Code Gen (12)</strong></td><td>36</td><td>Addresses of Code and Data in Assembly Code</td><td>✅ Complete</td></tr>
+      <tr><td>37</td><td>Correlation of Assembly Code with Source Code</td><td>✅ Complete</td></tr>
+      <tr><td>38</td><td>Construction of Basic Blocks (3 Leader Rules)</td><td>✅ Complete</td></tr>
+      <tr><td>39</td><td>Control Flow Graph (CFG Nodes & Edges)</td><td>✅ Complete</td></tr>
+      <tr><td>40</td><td>Machine-Independent Local Optimizations</td><td>✅ Complete</td></tr>
+      <tr><td>41</td><td>Machine-Independent Global Optimizations</td><td>✅ Complete</td></tr>
+      <tr><td>42</td><td>Unreachable Code Elimination</td><td>✅ Complete</td></tr>
+      <tr><td>43</td><td>Constant Folding Optimization</td><td>✅ Complete</td></tr>
+      <tr><td>44</td><td>Constant Propagation Optimization</td><td>✅ Complete</td></tr>
+      <tr><td>45</td><td>Loop-Invariant Code Motion (Hoisting)</td><td>✅ Complete</td></tr>
+      <tr><td>46</td><td>Common Subexpression Elimination (CSE)</td><td>✅ Complete</td></tr>
+      <tr><td>47</td><td>Dead Code Elimination</td><td>✅ Complete</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-title">🧠 Master Conceptual Differences Flashcards</h2>
 
 <table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Topic / Concept</th>
-      <th style="width: 45%;">Core Mathematical Formulation / Rule</th>
-      <th>Key Exam Insight</th>
-    </tr>
-  </thead>
+  <thead><tr><th>Concept Pair</th><th>Core Distinction & Memory Cue</th></tr></thead>
   <tbody>
-    <tr>
-      <td><strong>Immediate Left Recursion</strong></td>
-      <td>$$A \rightarrow A\alpha \mid \beta \implies A \rightarrow \beta A', \quad A' \rightarrow \alpha A' \mid \epsilon$$</td>
-      <td>Eliminates infinite loops in top-down parsers.</td>
-    </tr>
-    <tr>
-      <td><strong>Left Factoring</strong></td>
-      <td>$$A \rightarrow \alpha \beta_1 \mid \alpha \beta_2 \implies A \rightarrow \alpha A', \quad A' \rightarrow \beta_1 \mid \beta_2$$</td>
-      <td>Defers decision until lookahead is clear.</td>
-    </tr>
-    <tr>
-      <td><strong>2D Array (Row-Major)</strong></td>
-      <td>$$\text{Addr}(A[i_1, i_2]) = \text{base} + \Big( (i_1 - l_1)n_2 + (i_2 - l_2) \Big) \times w$$</td>
-      <td>Standard in C / C++ / Java.</td>
-    </tr>
-    <tr>
-      <td><strong>2D Array (Column-Major)</strong></td>
-      <td>$$\text{Addr}(A[i_1, i_2]) = \text{base} + \Big( (i_2 - l_2)n_1 + (i_1 - l_1) \Big) \times w$$</td>
-      <td>Standard in FORTRAN / MATLAB.</td>
-    </tr>
-    <tr>
-      <td><strong>Reaching Definitions</strong></td>
-      <td>$$\text{OUT}[B] = \text{GEN}[B] \cup (\text{IN}[B] \setminus \text{KILL}[B])$$</td>
-      <td>Forward data-flow; confluence by $\cup$.</td>
-    </tr>
-    <tr>
-      <td><strong>Available Expressions</strong></td>
-      <td>$$\text{OUT}[B] = e\_\text{GEN}[B] \cup (\text{IN}[B] \setminus e\_\text{KILL}[B])$$</td>
-      <td>Forward data-flow; confluence by $\cap$.</td>
-    </tr>
-    <tr>
-      <td><strong>Live Variables</strong></td>
-      <td>$$\text{IN}[B] = \text{USE}[B] \cup (\text{OUT}[B] \setminus \text{DEF}[B])$$</td>
-      <td>Backward data-flow; confluence by $\cup$.</td>
-    </tr>
+    <tr><td><strong>Token vs. Lexeme vs. Pattern</strong></td><td>`Token` = Abstract Category; `Lexeme` = Concrete characters in code; `Pattern` = Regex rule.</td></tr>
+    <tr><td><strong>Compiler vs. Interpreter</strong></td><td>`Compiler` = Translates entire program to binary upfront; `Interpreter` = Translates & executes line-by-line.</td></tr>
+    <tr><td><strong>Syntax vs. Semantics</strong></td><td>`Syntax` = Grammatical structure (Parse tree); `Semantics` = Logical meaning & type consistency.</td></tr>
+    <tr><td><strong>SDD vs. SDTS</strong></td><td>`SDD` = High-level attribute grammar + semantic rules; `SDTS` = Grammar with explicit action code `{...}` embedded.</td></tr>
+    <tr><td><strong>Synthesized vs. Inherited</strong></td><td>`Synthesized` = Computed from children (Bottom-up); `Inherited` = Passed from parent/siblings (Top-down).</td></tr>
+    <tr><td><strong>Quadruple vs. Triple</strong></td><td>`Quadruple` = Explicit `(op, arg1, arg2, result)`; `Triple` = Implicit index reference `(op, arg1, arg2)`.</td></tr>
+    <tr><td><strong>Control Link vs. Access Link</strong></td><td>`Control Link` = Points to dynamic caller frame; `Access Link` = Points to static lexical enclosing scope.</td></tr>
+    <tr><td><strong>Constant Folding vs. Propagation</strong></td><td>`Folding` = Evaluates `3 + 4 -> 7`; `Propagation` = Substitutes variable `x=7; y=x+2 -> y=7+2`.</td></tr>
+    <tr><td><strong>Unreachable vs. Dead Code</strong></td><td>`Unreachable` = Can never execute (no path); `Dead` = Executes, but result is never used.</td></tr>
   </tbody>
 </table>
-
-
-
-<h2 class="section-title">🔥 Top 10 High-Yield BIT Mesra Exam Questions & Answers</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. Trace the 6 phases of a compiler for the statement `a = b + c * 50`. (10 Marks)</div>
-  <div class="qa-a">
-    1. <strong>Lexical:</strong> `id1 = id2 + id3 * 50`<br>
-    2. <strong>Syntax:</strong> Parse tree with `*` subtree evaluated before `+`<br>
-    3. <strong>Semantic:</strong> Type conversion `inttofloat(50)` injected<br>
-    4. <strong>ICG (TAC):</strong> `t1 = inttofloat(50); t2 = id3 * t1; t3 = id2 + t2; id1 = t3`<br>
-    5. <strong>Optimization:</strong> `t1 = id3 * 50.0; id1 = id2 + t1`<br>
-    6. <strong>Code Gen:</strong> Emits target machine assembly with CPU registers.
-  </div>
-</div>
-
-<div class="qa-card">
-  <div class="qa-q">Q2. Compare LL(1), SLR(1), CLR(1), and LALR(1) parsers. (8 Marks)</div>
-  <div class="qa-a">
-    - <strong>LL(1):</strong> Top-down predictive parser using 1 lookahead; cannot handle left recursive grammars.<br>
-    - <strong>SLR(1):</strong> Simple LR bottom-up parser using LR(0) items; places reduce actions in $\text{FOLLOW}(A)$.<br>
-    - <strong>CLR(1):</strong> Canonical LR parser using LR(1) items with specific lookaheads; largest number of states.<br>
-    - <strong>LALR(1):</strong> Merges CLR(1) states having identical LR(0) cores; same number of states as SLR(1) with near CLR(1) power.
-  </div>
-</div>
 """

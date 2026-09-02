@@ -303,172 +303,146 @@ pre code {
     </div>
     
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Semantic Analysis & Type Checking — Complete Syllabus Topics</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Semantic Analysis & Intermediate Code — Complete 9-Topic Syllabus Tracker</div>
   <div class="toc-grid">
-    <div>1. Role of Semantic Analysis & Static vs. Dynamic Checking</div>
-    <div>2. Syntax-Directed Definitions (SDD) & Semantic Rule Formulations</div>
-    <div>3. Synthesized Attributes vs. Inherited Attributes Formal Properties</div>
-    <div>4. S-Attributed Definitions & Bottom-Up LR Parsing Implementations</div>
-    <div>5. L-Attributed Definitions & Depth-First Left-to-Right Traversal Orders</div>
-    <div>6. Dependency Graphs & Topological Sorting for Attribute Evaluation</div>
-    <div>7. Syntax-Directed Translation Schemes (SDTS) & Action Placement Rules</div>
-    <div>8. Type Systems, Type Expressions & Static Type Checker Architecture</div>
-    <div>9. Type Equivalence (Structural vs. Name Equivalence Algorithms)</div>
-    <div>10. Type Conversions (Implicit Coercions vs. Explicit Casting Mechanics)</div>
-    <div>11. Symbol Table Organizations (Block Scoping with Chained Hash Tables)</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
+    <div><strong>Topic 1:</strong> Introduction to Semantic Analysis (Static vs Dynamic Checks)</div>
+    <div><strong>Topic 2:</strong> Syntax-Directed Definitions (SDD Semantic Rules)</div>
+    <div><strong>Topic 3:</strong> Syntax-Directed Translation Schemes (SDTS Actions)</div>
+    <div><strong>Topic 4:</strong> SDTS for Declaration Processing & Symbol Tables</div>
+    <div><strong>Topic 5:</strong> Three Address Code (Quadruples, Triples, Indirect Triples)</div>
+    <div><strong>Topic 6:</strong> Types of Attributes (Synthesized vs. Inherited)</div>
+    <div><strong>Topic 7:</strong> Type Checking for Expressions (Equivalence & Coercion)</div>
+    <div><strong>Topic 8:</strong> Intermediate Code Generation for Assignment Statements</div>
+    <div><strong>Topic 9:</strong> Translation of Multi-Dimensional Array References</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 & 2: Syntax-Directed Definitions (SDD) & Attribute Types</h2>
+<h2 class="section-title">Topic 1: Introduction to Semantic Analysis</h2>
 <p>
-  A <strong>Syntax-Directed Definition (SDD)</strong> is a context-free grammar augmented with attributes and semantic rules. Attributes are associated with grammar symbols, and semantic rules are associated with production rules.
+  <strong>Semantic Analysis</strong> verifies that the syntax tree conforms to the semantic rules of the language. While syntax ensures correct grammatical structure, semantics verifies logical validity:
 </p>
+<ul>
+  <li><strong>Static Semantic Checks (Compile-Time):</strong> Type consistency, variable declared before use, scope resolution, identifier uniqueness.</li>
+  <li><strong>Dynamic Semantic Checks (Run-Time):</strong> Division by zero, array out-of-bounds, null pointer dereferencing.</li>
+</ul>
+
+<h2 class="section-title">Topic 2 – 4: SDD, SDTS & Declaration Processing</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Attribute Class</th>
-      <th style="width: 45%;">Formal Mathematical Formulation & Value Flow</th>
-      <th>Parsing & Evaluation Invariants</th>
+      <th style="width: 25%;">Feature</th>
+      <th style="width: 37%;">Syntax-Directed Definition (SDD)</th>
+      <th>Syntax-Directed Translation Scheme (SDTS)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Synthesized Attribute</strong></td>
-      <td>Computed strictly from the attribute values of the node's children in the parse tree (or lexical values):
-        $$A.s = f(Y_1.a_1, Y_2.a_2, \dots, Y_k.a_k) \quad \text{for production } A \rightarrow Y_1 Y_2 \dots Y_k$$
-      </td>
-      <td>Flows strictly <strong>Bottom-Up</strong>; naturally evaluated during shift-reduce / LR parsing using an attribute stack.</td>
+      <td><strong>Representation</strong></td>
+      <td>Context-Free Grammar + Semantic Rules associated with productions.</td>
+      <td>Context-Free Grammar with semantic action code embedded inside productions `{ ... }`.</td>
     </tr>
     <tr>
-      <td><strong>2. Inherited Attribute</strong></td>
-      <td>Computed from the attribute values of the node's parent and/or left siblings:
-        $$Y_j.i = f(A.a, Y_1.a_1, \dots, Y_{j-1}.a_{j-1}) \quad \text{for symbol } Y_j \text{ in } A \rightarrow Y_1 \dots Y_k$$
-      </td>
-      <td>Flows <strong>Top-Down</strong> and <strong>Left-to-Right</strong>; passes context (e.g., base data types) down into declarations.</td>
+      <td><strong>Execution Timing</strong></td>
+      <td>Specifies <em>what</em> value to compute (order determined by Dependency Graph topological sort).</td>
+      <td>Specifies <em>when</em> and in what exact sequence actions execute during parsing.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 3 & 4: S-Attributed vs. L-Attributed SDD</h2>
-
-<div class="callout callout-info">
-  <div class="callout-title">Structural Classifications</div>
-  <ul>
-    <li><strong>S-Attributed SDD:</strong> An SDD that uses <strong>only synthesized attributes</strong>. Can be evaluated during bottom-up parsing (e.g., LR parser) by maintaining an attribute value stack in parallel with the parser state stack.</li>
-    <li><strong>L-Attributed SDD:</strong> An SDD where every attribute is either synthesized, or inherited with the restriction that for production $A \rightarrow X_1 X_2 \dots X_n$, an inherited attribute of $X_j$ depends only on:
-      <ol>
-        <li>Attributes of the parent $A$.</li>
-        <li>Attributes of symbols to the left of $X_j$ ($X_1, X_2, \dots, X_{j-1}$).</li>
-      </ol>
-      Every S-Attributed SDD is strictly an L-Attributed SDD ($S\text{-Attributed} \subset L\text{-Attributed}$).
-    </li>
-  </ul>
-</div>
-
 <div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Desktop Calculator S-Attributed SDD</div>
-  <table class="custom-table">
-    <thead>
-      <tr>
-        <th style="width: 35%;">Grammar Production</th>
-        <th>Semantic Evaluation Rule</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>$L \rightarrow E \ \mathbf{n}$</td><td>$\text{print}(E.\text{val})$</td></tr>
-      <tr><td>$E \rightarrow E_1 + T$</td><td>$E.\text{val} = E_1.\text{val} + T.\text{val}$</td></tr>
-      <tr><td>$E \rightarrow T$</td><td>$E.\text{val} = T.\text{val}$</td></tr>
-      <tr><td>$T \rightarrow T_1 * F$</td><td>$T.\text{val} = T_1.\text{val} * F.\text{val}$</td></tr>
-      <tr><td>$T \rightarrow F$</td><td>$T.\text{val} = F.\text{val}$</td></tr>
-      <tr><td>$F \rightarrow ( E )$</td><td>$F.\text{val} = E.\text{val}$</td></tr>
-      <tr><td>$F \rightarrow \mathbf{digit}$</td><td>$F.\text{val} = \mathbf{digit}.\text{lexval}$</td></tr>
-    </tbody>
-  </table>
-  <p>Evaluates expression `(3 + 4) * 5\n` bottom-up in a single LR parsing pass to yield `35`.</p>
+  <div class="worked-title">🏛️ Step-by-Step SDTS: Processing Declarations `int a, b, c;`</div>
+  <pre><code>D -> T { L.in = T.type } L
+T -> int { T.type = integer }
+T -> float { T.type = real }
+L -> { L1.in = L.in } L1, id { enter(id.name, L.in) }
+L -> id { enter(id.name, L.in) }</code></pre>
+  <p><em>Uses inherited attribute $L.\text{in}$ to propagate base type down to all declared identifier names.</em></p>
 </div>
 
-<h2 class="section-title">Topic 6: Dependency Graphs & Topological Evaluation Orders</h2>
-<p>
-  A <strong>Dependency Graph</strong> represents the data-flow constraints between attribute instances in a parse tree:
-</p>
+<h2 class="section-title">Topic 5: Three Address Code (TAC) Representations</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">TAC Form</th>
+      <th style="width: 45%;">Internal Data Fields</th>
+      <th>Key Advantages & Tradeoffs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Quadruples</strong></td>
+      <td>`(op, arg1, arg2, result)` with explicit temporary names (`t1`, `t2`).</td>
+      <td>Easy to reorder and optimize; consumes extra memory for names.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Triples</strong></td>
+      <td>`(op, arg1, arg2)` where intermediate results are referenced by index `(0)`.</td>
+      <td>Space-efficient; moving instructions requires updating all dependent indices.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Indirect Triples</strong></td>
+      <td>Array of pointers to separate triple structures.</td>
+      <td>Optimizers reorder instructions by swapping array pointers without modifying triples.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 6 & 7: Types of Attributes & Type Checking</h2>
+
+<h3 class="subsection-title">1. Synthesized vs. Inherited Attributes:</h3>
 <ul>
-  <li>For each node attribute $X.a$, there is a corresponding graph vertex.</li>
-  <li>A directed edge $X.a \rightarrow Y.b$ indicates that the semantic rule for $Y.b$ requires the value of $X.a$.</li>
-  <li>If the dependency graph contains <strong>no directed cycles</strong>, a valid evaluation order is given by any <strong>Topological Sort</strong> of the graph.</li>
+  <li><strong>Synthesized Attributes:</strong> Computed strictly from children nodes in parse tree ($A.s = f(Y_1.a, \dots, Y_k.a)$). Evaluated bottom-up in LR parsing.</li>
+  <li><strong>Inherited Attributes:</strong> Computed from parent and/or left sibling nodes ($Y_j.i = f(A.a, Y_1.a, \dots, Y_{j-1}.a)$). Evaluated top-down.</li>
 </ul>
 
-<h2 class="section-title">Topic 8 & 9: Type Systems & Type Equivalence</h2>
-
-<h3 class="subsection-title">1. Structural vs. Name Equivalence:</h3>
+<h3 class="subsection-title">2. Type Conversions & Equivalence:</h3>
 <ul>
-  <li><strong>Name Equivalence:</strong> Two types are equivalent if and only if they share the exact same named type identifier.
-    <pre><code>typedef struct { int x, y; } PointA;
-typedef struct { int x, y; } PointB;
-// Under Name Equivalence: PointA != PointB (Strict)</code></pre>
-  </li>
-  <li><strong>Structural Equivalence:</strong> Two types are equivalent if they have identical internal constituent structures.
-    <pre><code>// Under Structural Equivalence: PointA == PointB (Both contain two integer fields)</code></pre>
-  </li>
+  <li><strong>Name Equivalence:</strong> Two types are equal if and only if they share the exact same named identifier.</li>
+  <li><strong>Structural Equivalence:</strong> Two types are equal if they have identical internal field layouts and primitive types.</li>
+  <li><strong>Widening (Coercion):</strong> `int` $\rightarrow$ `float` (implicit precision preservation).</li>
+  <li><strong>Narrowing (Casting):</strong> `float` $\rightarrow$ `int` (explicit potential precision loss).</li>
 </ul>
 
-<h3 class="subsection-title">2. Type Conversions & Coercion Rules:</h3>
-<ul>
-  <li><strong>Widening Conversions (Implicit):</strong> Preserve numeric precision (e.g., `char` $\rightarrow$ `int` $\rightarrow$ `float` $\rightarrow$ `double`). Automatically inserted by compiler.</li>
-  <li><strong>Narrowing Conversions (Explicit):</strong> May lose precision or overflow (e.g., `double` $\rightarrow$ `int`). Require explicit type cast syntax.</li>
-</ul>
+<h2 class="section-title">Topic 8 & 9: Intermediate Code Generation for Arrays & Assignments</h2>
 
-<h2 class="section-title">Topic 11: Symbol Table Organizations (Block Scoping with Hash Tables)</h2>
-
-<div class="diagram-container">
-  <svg width="100%" height="95" viewBox="0 0 740 95" xmlns="http://www.w3.org/2000/svg">
-    <rect x="20" y="15" width="180" height="65" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="110" y="36" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">Global Scope Table</text>
-    <text x="110" y="52" font-family="Fira Code" font-size="9.5" fill="#2563eb" text-anchor="middle">int global_x; float g_y;</text>
-    <text x="110" y="66" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Parent: NULL</text>
-
-    <path d="M 200 47 L 260 47" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="270" y="15" width="190" height="65" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
-    <text x="365" y="36" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">Function Scope Table</text>
-    <text x="365" y="52" font-family="Fira Code" font-size="9.5" fill="#16a34a" text-anchor="middle">int param_a; char local_b;</text>
-    <text x="365" y="66" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" text-anchor="middle">Parent: Global Scope</text>
-
-    <path d="M 460 47 L 520 47" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="530" y="15" width="190" height="65" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-    <text x="625" y="36" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Nested Block Scope Table</text>
-    <text x="625" y="52" font-family="Fira Code" font-size="9.5" fill="#b45309" text-anchor="middle">int loop_i; int temp;</text>
-    <text x="625" y="66" font-family="Plus Jakarta Sans" font-size="8.5" fill="#b45309" text-anchor="middle">Parent: Function Scope</text>
-  </svg>
-  <div class="diagram-caption">Figure 3.1: Hierarchical Chained Hash Tables for Nested Lexical Block Scoping</div>
+<div class="formula-card">
+  <strong>1. 1D Array Reference Address Formula:</strong>
+  $$\text{Address}(A[i]) = \text{base} + (i - \text{low}) \times w$$
 </div>
 
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
+<div class="formula-card">
+  <strong>2. 2D Array Reference Address Formula (Row-Major Order):</strong>
+  $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_1 - \text{low}_1) \times n_2 + (i_2 - \text{low}_2) \Big) \times w$$
+  Where $n_2 = \text{high}_2 - \text{low}_2 + 1$ is the number of columns, and $w$ is element byte width.
+</div>
+
+<div class="formula-card">
+  <strong>3. General $N$-Dimensional Row-Major Linear Offset:</strong>
+  $$\text{Offset} = \Big( \dots \big( (i_1 \cdot d_2 + i_2) \cdot d_3 + i_3 \big) \dots \Big) \cdot d_k + i_k$$
+  $$\text{Address} = \text{base} + \text{Offset} \times w$$
+</div>
+
+<h2 class="section-title">🧠 M3 Active Recall & Exam-Important Question Bank</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Differentiate between S-Attributed and L-Attributed SDD with examples and evaluation strategies. (8 Marks)</div>
+  <div class="qa-q">Q1. Write Quadruples and Triples for statement `a = b * - c + b * - c`. (8 Marks)</div>
   <div class="qa-a">
-    1. <strong>S-Attributed SDD:</strong> Uses only synthesized attributes. Evaluated strictly bottom-up during LR parsing using an attribute value stack without needing an explicit syntax tree.<br>
-    2. <strong>L-Attributed SDD:</strong> Allows synthesized and inherited attributes with the restriction that inherited attributes of $X_j$ in $A \rightarrow X_1 X_2 \dots X_n$ depend only on attributes of parent $A$ and left siblings $X_1, \dots, X_{j-1}$. Evaluated in a single depth-first, left-to-right tree traversal.
-  </div>
-</div>
-
-<div class="qa-card">
-  <div class="qa-q">Q2. Write an SDD to translate type declarations like `int a, b, c;` into symbol table entries. (8 Marks)</div>
-  <div class="qa-a">
-    <table class="custom-table">
-      <thead><tr><th>Production</th><th>Semantic Rule</th></tr></thead>
-      <tbody>
-        <tr><td>$D \rightarrow T \ L$</td><td>$L.\text{in} = T.\text{type}$</td></tr>
-        <tr><td>$T \rightarrow \mathbf{int}$</td><td>$T.\text{type} = \text{integer}$</td></tr>
-        <tr><td>$T \rightarrow \mathbf{float}$</td><td>$T.\text{type} = \text{real}$</td></tr>
-        <tr><td>$L \rightarrow L_1, \ \mathbf{id}$</td><td>$L_1.\text{in} = L.\text{in}; \ \text{addType}(\mathbf{id}.\text{entry}, L.\text{in})$</td></tr>
-        <tr><td>$L \rightarrow \mathbf{id}$</td><td>$\text{addType}(\mathbf{id}.\text{entry}, L.\text{in})$</td></tr>
-      </tbody>
-    </table>
-    <em>Uses inherited attribute $L.\text{in}$ to propagate base type downward to all identifier instances.</em>
+    <strong>Quadruples:</strong><br>
+    (0) `uminus, c, -, t1`<br>
+    (1) `*, b, t1, t2`<br>
+    (2) `uminus, c, -, t3`<br>
+    (3) `*, b, t3, t4`<br>
+    (4) `+, t2, t4, t5`<br>
+    (5) `=, t5, -, a`<br><br>
+    <strong>Triples:</strong><br>
+    (0) `uminus, c, -`<br>
+    (1) `*, b, (0)`<br>
+    (2) `uminus, c, -`<br>
+    (3) `*, b, (2)`<br>
+    (4) `+, (1), (3)`<br>
+    (5) `assign, a, (4)`
   </div>
 </div>
 

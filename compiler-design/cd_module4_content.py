@@ -1,171 +1,130 @@
-# Compiler Design Module 4 Exhaustive Content (12-15 Pages Target)
-# Neuroscience-backed formatting: High visual chunking, KaTeX equations, worked trace boxes, exam cards
+# Compiler Design Module 4 Exhaustive Content (9 Topics Complete)
+# Neuroscience framework: Understand -> Visualize -> Connect -> Recall -> Apply -> Exam-Important Questions
 
 CD_M4_EXHAUSTIVE = r"""
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Intermediate Code Generation & Runtime Environments — Complete Topics</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Intermediate Code & Runtime Environment — Complete 9-Topic Syllabus Tracker</div>
   <div class="toc-grid">
-    <div>1. Intermediate Representations (Syntax Trees, DAG, Postfix, TAC)</div>
-    <div>2. Three-Address Code (TAC) Representations: Quadruples, Triples, Indirect Triples</div>
-    <div>3. Translation of Arithmetic Expressions & Type Coercion TAC</div>
-    <div>4. Multi-Dimensional Array Addressing (Row-Major vs. Column-Major Proofs)</div>
-    <div>5. Boolean Expressions Translation & Flow-of-Control Short-Circuiting</div>
-    <div>6. Backpatching Techniques (`makelist`, `merge`, `backpatch` Algorithms)</div>
-    <div>7. Procedure Translation (`param`, `call`, `return` Instruction Sequences)</div>
-    <div>8. Runtime Storage Organization (Text, Static, Stack & Heap Segments)</div>
-    <div>9. Activation Records (Stack Frame Anatomy & Dynamic Links)</div>
-    <div>10. Access Links & Displays for Lexically Nested Scopes</div>
-    <div>11. Parameter Passing Mechanisms (Value, Reference, Copy-Restore, Name)</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Question Bank (8 Solved Problems)</div>
+    <div><strong>Topic 1:</strong> Complete Evaluation of Boolean Expressions</div>
+    <div><strong>Topic 2:</strong> Partial Evaluation (Short-Circuit) of Boolean Expressions</div>
+    <div><strong>Topic 3:</strong> Translation of Control Flow Constructs (`if-else`, `while`)</div>
+    <div><strong>Topic 4:</strong> Resolution of Forward Jumps & Backpatching Algorithms</div>
+    <div><strong>Topic 5:</strong> Resolution of Backward Jumps in Loop Constructs</div>
+    <div><strong>Topic 6:</strong> Translation of Function Calls (`param`, `call`, `return_val`)</div>
+    <div><strong>Topic 7:</strong> Translation of Function Returns & Caller Restoration</div>
+    <div><strong>Topic 8:</strong> Memory Layout of Code and Data (Text, Static, Heap, Stack)</div>
+    <div><strong>Topic 9:</strong> Activation Records (Stack Frame Anatomy: P-R-C-A-S-L-T)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 & 2: Three-Address Code (TAC) Representations</h2>
-<p>
-  <strong>Three-Address Code (TAC)</strong> is a linear intermediate representation where each instruction contains at most one operator on the right-hand side:
-</p>
-$$x = y \ \mathbf{op} \ z$$
+<h2 class="section-title">Topic 1 & 2: Boolean Expressions (Complete vs. Short-Circuit Evaluation)</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 22%;">Representation</th>
-      <th style="width: 45%;">Internal Data Structure & Fields</th>
+      <th style="width: 25%;">Evaluation Strategy</th>
+      <th style="width: 45%;">Operational Semantics</th>
       <th>Key Advantages & Tradeoffs</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Quadruples</strong></td>
-      <td>Four fields: `(op, arg1, arg2, result)`. Explicit temporary names (e.g., `t1`, `t2`) are stored in `result`.</td>
-      <td>Easy to reorder during code optimization; requires extra memory for temporary names.</td>
+      <td><strong>1. Complete Evaluation</strong></td>
+      <td>Evaluates all sub-expressions unconditionally before applying logical operators (e.g., bitwise `&` and `|`).</td>
+      <td>Evaluates side-effects in all operands; can cause runtime crashes on null-pointer guards (e.g., `p != NULL && p->val == 5`).</td>
     </tr>
     <tr>
-      <td><strong>2. Triples</strong></td>
-      <td>Three fields: `(op, arg1, arg2)`. Results of operations are referred to by their instruction index position (e.g., `(0)`, `(1)`).</td>
-      <td>Space efficient; moving or inserting instructions requires updating all index references.</td>
-    </tr>
-    <tr>
-      <td><strong>3. Indirect Triples</strong></td>
-      <td>Uses an array of pointers to separate triple structures.</td>
-      <td>Optimizers can reorder instructions by simply swapping pointers in the array without touching the underlying triples.</td>
+      <td><strong>2. Partial Evaluation (Short-Circuit)</strong></td>
+      <td>Stops evaluating as soon as the final truth value is guaranteed:<br>
+          • In `A && B`: If $A$ is false, $B$ is never evaluated.<br>
+          • In `A || B`: If $A$ is true, $B$ is never evaluated.
+      </td>
+      <td>Highly optimized execution speed; safely handles null-pointer guards and range checks.</td>
     </tr>
   </tbody>
 </table>
+
+<h2 class="section-title">Topic 3 – 5: Control Flow Translation & Jump Resolutions</h2>
 
 <div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Quadruples, Triples & Indirect Triples for `a = b * - c + b * - c`</div>
-  <p><strong>Step 1: Generate Three-Address Code:</strong></p>
-  <pre><code>(0) t1 = uminus c
-(1) t2 = b * t1
-(2) t3 = uminus c
-(3) t4 = b * t3
-(4) t5 = t2 + t4
-(5) a = t5</code></pre>
-
-  <p><strong>Step 2: Quadruple Representation:</strong></p>
-  <table class="custom-table">
-    <thead><tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th><th>result</th></tr></thead>
-    <tbody>
-      <tr><td>0</td><td>uminus</td><td>c</td><td>-</td><td>t1</td></tr>
-      <tr><td>1</td><td>*</td><td>b</td><td>t1</td><td>t2</td></tr>
-      <tr><td>2</td><td>uminus</td><td>c</td><td>-</td><td>t3</td></tr>
-      <tr><td>3</td><td>*</td><td>b</td><td>t3</td><td>t4</td></tr>
-      <tr><td>4</td><td>+</td><td>t2</td><td>t4</td><td>t5</td></tr>
-      <tr><td>5</td><td>=</td><td>t5</td><td>-</td><td>a</td></tr>
-    </tbody>
-  </table>
-
-  <p><strong>Step 3: Triple Representation:</strong></p>
-  <table class="custom-table">
-    <thead><tr><th>#</th><th>op</th><th>arg1</th><th>arg2</th></tr></thead>
-    <tbody>
-      <tr><td>(0)</td><td>uminus</td><td>c</td><td>-</td></tr>
-      <tr><td>(1)</td><td>*</td><td>b</td><td>(0)</td></tr>
-      <tr><td>(2)</td><td>uminus</td><td>c</td><td>-</td></tr>
-      <tr><td>(3)</td><td>*</td><td>b</td><td>(2)</td></tr>
-      <tr><td>(4)</td><td>+</td><td>(1)</td><td>(3)</td></tr>
-      <tr><td>(5)</td><td>assign</td><td>a</td><td>(4)</td></tr>
-    </tbody>
-  </table>
+  <div class="worked-title">🏛️ Three-Address Code for `if (a < b) x = 1; else x = 2;`</div>
+  <pre><code>    if a < b goto L1
+    goto L2
+L1: x = 1
+    goto L3
+L2: x = 2
+L3: /* End of If-Else */</code></pre>
 </div>
 
-<h2 class="section-title">Topic 4: Multi-Dimensional Array Addressing Formulations</h2>
-
-<div class="formula-card">
-  <strong>1. 1D Array Address Formula:</strong>
-  $$\text{Address}(A[i]) = \text{base} + (i - \text{low}) \times w$$
-  Where $\text{base}$ is the start memory address, $\text{low}$ is lower index bound, and $w$ is byte width per element.
-</div>
-
-<div class="formula-card">
-  <strong>2. 2D Array Address Formula (Row-Major Order — C / C++ / Java):</strong>
-  $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_1 - \text{low}_1) \times n_2 + (i_2 - \text{low}_2) \Big) \times w$$
-  Where $n_2 = \text{high}_2 - \text{low}_2 + 1$ is the number of columns.
-</div>
-
-<div class="formula-card">
-  <strong>3. 2D Array Address Formula (Column-Major Order — FORTRAN / MATLAB):</strong>
-  $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_2 - \text{low}_2) \times n_1 + (i_1 - \text{low}_1) \Big) \times w$$
-  Where $n_1 = \text{high}_1 - \text{low}_1 + 1$ is the number of rows.
-</div>
-
-<h2 class="section-title">Topic 5 & 6: Backpatching in Boolean Expressions & Control Flow</h2>
-<p>
-  <strong>Backpatching</strong> is a single-pass technique for generating intermediate code for control flow and boolean expressions without leaving unresolved forward jump target addresses:
-</p>
+<h3 class="subsection-title">Backpatching Mechanics (`makelist`, `merge`, `backpatch`):</h3>
 <ul>
-  <li><strong>`makelist(i)`:</strong> Creates a new list containing only jump instruction index $i$.</li>
-  <li><strong>`merge(p1, p2)`:</strong> Concatenates two jump target lists $p_1$ and $p_2$.</li>
-  <li><strong>`backpatch(p, i)`:</strong> Inserts target instruction label $i$ as the jump destination into all instructions indexed in list $p$.</li>
+  <li><strong>Forward Jumps:</strong> Jump targets point to instructions not yet generated. The compiler emits placeholder jumps (`goto ?`) and maintains lists of pending jump instructions.</li>
+  <li><strong>Backward Jumps:</strong> Jump targets point to previously emitted labeled instructions (common in loop repeat steps). Target address is immediately known.</li>
+  <li><strong>`makelist(i)`:</strong> Creates a new list containing index $i$.</li>
+  <li><strong>`merge(p1, p2)`:</strong> Combines two jump lists $p_1$ and $p_2$.</li>
+  <li><strong>`backpatch(p, target_label)`:</strong> Fills $target\_label$ as the destination for all jump instructions indexed in list $p$.</li>
 </ul>
 
-<h2 class="section-title">Topics 8 – 10: Runtime Storage Organization & Activation Records</h2>
-<p>
-  During program execution, the operating system allocates a contiguous block of virtual memory partitioned into 4 logical segments:
-</p>
-<ol>
-  <li><strong>Code Segment (Text):</strong> Read-only region holding compiled target machine instructions.</li>
-  <li><strong>Static / Global Segment:</strong> Holds global variables, static constants, and compiler metadata fixed at compile time.</li>
-  <li><strong>Call Stack:</strong> Grows downward dynamically; stores <strong>Activation Records (Stack Frames)</strong> for function invocations.</li>
-  <li><strong>Heap:</strong> Grows upward dynamically; handles explicit dynamic memory allocation (`malloc`, `free`, `new`).</li>
-</ol>
+<h2 class="section-title">Topic 6 & 7: Translation of Function Calls & Returns</h2>
 
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Activation Record Field</th>
-      <th>Functional Purpose in Procedure Call / Return</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Actual Parameters</strong></td><td>Arguments passed by the caller to the callee.</td></tr>
-    <tr><td><strong>Returned Values</strong></td><td>Space for return data passed back to caller.</td></tr>
-    <tr><td><strong>Control Link (Dynamic Link)</strong></td><td>Points to caller's activation record; used to restore caller's stack frame on return.</td></tr>
-    <tr><td><strong>Access Link (Static Link)</strong></td><td>Points to activation record of the statically enclosing lexical scope; used to access non-local variables.</td></tr>
-    <tr><td><strong>Saved Machine Status</strong></td><td>Program counter (PC), CPU registers, and status flags saved before function call.</td></tr>
-    <tr><td><strong>Local Data</strong></td><td>Local automatic variables allocated within the function.</td></tr>
-    <tr><td><strong>Temporaries</strong></td><td>Temporary values generated during expression evaluation.</td></tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. Compare Quadruples, Triples, and Indirect Triples with examples. (8 Marks)</div>
-  <div class="qa-a">
-    1. <strong>Quadruples:</strong> Explicit 4-field structures `(op, arg1, arg2, res)` where temporary names (`t1`) are explicitly stated. Highly flexible for compiler optimization reordering, but uses more memory.<br>
-    2. <strong>Triples:</strong> 3-field structures `(op, arg1, arg2)` where intermediate results are referenced by instruction array indices `(0)`. Memory compact, but relocating code requires patching all dependent instruction references.<br>
-    3. <strong>Indirect Triples:</strong> Stores pointers to triple structures in an array. Allows optimizers to reorder and eliminate code simply by modifying pointer positions without touching underlying triple records.
-  </div>
+<div class="formula-card">
+  <strong>Standard Calling Sequence Three-Address Instructions:</strong>
+  For high-level call `x = f(a, b);`:
+  <pre><code>param a
+param b
+call f, 2
+t1 = return_value
+x = t1</code></pre>
+  For function return `return y;`:
+  <pre><code>return y</code></pre>
 </div>
 
+<h2 class="section-title">Topic 8 & 9: Memory Layout & Activation Records</h2>
+
+<div class="diagram-container">
+  <svg width="100%" height="100" viewBox="0 0 740 100" xmlns="http://www.w3.org/2000/svg">
+    <rect x="50" y="20" width="130" height="60" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="115" y="45" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">Code (Text)</text>
+    <text x="115" y="60" font-family="Plus Jakarta Sans" font-size="9" fill="#2563eb" text-anchor="middle">Read-Only Instructions</text>
+
+    <rect x="200" y="20" width="130" height="60" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="265" y="45" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">Static / Global</text>
+    <text x="265" y="60" font-family="Plus Jakarta Sans" font-size="9" fill="#16a34a" text-anchor="middle">Global Variables</text>
+
+    <rect x="350" y="20" width="160" height="60" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="430" y="45" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Heap Segment (▲)</text>
+    <text x="430" y="60" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Grows Upward (malloc/new)</text>
+
+    <rect x="530" y="20" width="160" height="60" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="610" y="45" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#581c87" text-anchor="middle">Call Stack (▼)</text>
+    <text x="610" y="60" font-family="Plus Jakarta Sans" font-size="9" fill="#9333ea" text-anchor="middle">Grows Downward (Frames)</text>
+  </svg>
+  <div class="diagram-caption">Figure 4.1: Runtime Memory Address Space Layout</div>
+</div>
+
+<div class="callout callout-info">
+  <div class="callout-title">🧠 Memory Hook: Activation Record Anatomy (P-R-C-A-S-L-T)</div>
+  <table class="custom-table">
+    <thead><tr><th>Field</th><th>Functional Role in Stack Frame</th></tr></thead>
+    <tbody>
+      <tr><td><strong>P — Parameters</strong></td><td>Actual argument values passed by the caller.</td></tr>
+      <tr><td><strong>R — Return Value</strong></td><td>Space allocated to return computation result to caller.</td></tr>
+      <tr><td><strong>C — Control Link</strong></td><td>Dynamic link pointing to caller's activation record (restores stack frame on return).</td></tr>
+      <tr><td><strong>A — Access Link</strong></td><td>Static link pointing to enclosing lexical scope for resolving non-local variables.</td></tr>
+      <tr><td><strong>S — Saved Status</strong></td><td>Saved machine state (Program Counter PC, CPU registers).</td></tr>
+      <tr><td><strong>L — Local Variables</strong></td><td>Automatic local variables declared within procedure body.</td></tr>
+      <tr><td><strong>T — Temporaries</strong></td><td>Temporary intermediate expression evaluation registers/values.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-title">🧠 M4 Active Recall & Exam-Important Question Bank</h2>
+
 <div class="qa-card">
-  <div class="qa-q">Q2. Explain Call-by-Value, Call-by-Reference, and Call-by-Name parameter passing. (6 Marks)</div>
+  <div class="qa-q">Q1. Explain the difference between Control Link (Dynamic Link) and Access Link (Static Link) in Activation Records. (8 Marks)</div>
   <div class="qa-a">
-    - <strong>Call-by-Value:</strong> Actual parameter expression is evaluated and a local copy of the value is passed to the callee. Changes inside the function do not affect the caller's variable.<br>
-    - <strong>Call-by-Reference:</strong> Memory address (pointer) of the actual parameter is passed. Any modification inside the function directly modifies caller's variable.<br>
-    - <strong>Call-by-Name (Algol 60):</strong> The parameter is not evaluated upfront; instead, the parameter text is literally substituted into the function body (evaluated lazily via thunks every time it is referenced).
+    - <strong>Control Link (Dynamic Link):</strong> Points to the activation record of the <em>calling procedure</em> (who called me). It is determined strictly at runtime based on the dynamic execution call stack and is used to restore the caller's stack frame upon return.<br>
+    - <strong>Access Link (Static Link):</strong> Points to the activation record of the <em>statically enclosing procedure</em> in the source code text (where was I lexically defined). It is determined at compile time based on lexical block nesting and is used by nested functions to access non-local variables.
   </div>
 </div>
 """
