@@ -1,119 +1,192 @@
-# DCCN Module 5 Exhaustive Content (12-15 Pages Target)
-# Neuroscience-backed formatting: High visual chunking, KaTeX equations, worked trace boxes, exam cards
+# DCCN Module 5 Exhaustive Content (16 Topics Complete)
+# Neuroscience framework: Understand -> Visualize -> Connect -> Recall -> Apply -> Exam-Important Questions & [UPLOADED PYQ]
 
 DCCN_M5_EXHAUSTIVE = r"""
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Transport Layer, Application Services & Network Security</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Ethernet, IP, Routing & Applications — Complete 16-Topic Tracker</div>
   <div class="toc-grid">
-    <div>1. Transport Layer Port Multiplexing & Sockets Interface (TCP vs. UDP)</div>
-    <div>2. TCP Segment Anatomy: Sequence Numbers, Acknowledgments & Control Flags</div>
-    <div>3. TCP 3-Way Handshake Connection Establishment & 4-Way FIN Teardown</div>
-    <div>4. TCP Flow Control (Receiver Window `rwnd` & Nagle's Algorithm)</div>
-    <div>5. TCP Congestion Control: Slow Start, Congestion Avoidance (AIMD), Fast Retransmit</div>
-    <div>6. TCP Fast Recovery & Cubic / BBR Modern Congestion Mechanisms</div>
-    <div>7. Domain Name System (DNS): Hierarchical Namespace, Root Servers & Records (A, AAAA, MX)</div>
-    <div>8. Hypertext Transfer Protocol Evolution: HTTP/1.1 vs. HTTP/2 vs. HTTP/3 (QUIC)</div>
-    <div>9. Email Architecture: SMTP, POP3, IMAP & MIME Extensions</div>
-    <div>10. Cryptographic Fundamentals: Symmetric (AES) vs. Asymmetric (RSA) Cryptography</div>
-    <div>11. RSA Public-Key Algorithm Mathematical Derivation & Worked Encryption Traces</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+    <div><strong>Topic 39:</strong> Traditional Ethernet (IEEE 802.3 CSMA/CD at 10 Mbps)</div>
+    <div><strong>Topic 40:</strong> High-Speed Ethernet (Fast 100M, Gigabit 1G, 10-Gigabit)</div>
+    <div><strong>Topic 41:</strong> IEEE 802.11 Wi-Fi (CSMA/CA with RTS/CTS, Ethernet vs. Wi-Fi)</div>
+    <div><strong>Topic 42:</strong> Internet Protocol (IPv4 20-Byte Header vs. IPv6 128-Bit)</div>
+    <div><strong>Topic 43:</strong> IP Addressing & Subnetting ($2^{\text{borrowed}}$ & $2^{\text{host}}-2$)</div>
+    <div><strong>Topic 44:</strong> Transport Protocols (TCP 3-Way Handshake vs. UDP Sockets)</div>
+    <div><strong>Topic 45:</strong> Routing in Packet Networks (Hop Count, Cost, Bandwidth)</div>
+    <div><strong>Topic 46:</strong> Distance Vector Routing (Bellman-Ford & RIP Count-to-Infinity)</div>
+    <div><strong>Topic 47:</strong> Link State Routing (Dijkstra's Algorithm & OSPF Flooding)</div>
+    <div><strong>Topic 48:</strong> Path Vector Routing (Border Gateway Protocol BGP-4)</div>
+    <div><strong>Topic 49:</strong> Congestion Control (Leaky Bucket vs. Token Bucket Shaping)</div>
+    <div><strong>Topic 50:</strong> Traffic Management & Quality of Service (QoS Dimensions)</div>
+    <div><strong>Topic 51:</strong> Simple Mail Transfer Protocol (SMTP, POP3, IMAP)</div>
+    <div><strong>Topic 52:</strong> Domain Name System (DNS Hierarchy & Records A, MX)</div>
+    <div><strong>Topic 53:</strong> Hypertext Transfer Protocol (HTTP/1.1 vs. HTTP/2 & Statuses)</div>
+    <div><strong>Topic 54:</strong> Dynamic Host Configuration Protocol (DHCP DORA Sequence)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 – 3: TCP Protocol Architecture & 3-Way Handshake</h2>
+<h2 class="section-title">Topic 39 – 41: Ethernet Evolution & Wireless LAN (IEEE 802.11)</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 20%;">TCP Control Flag</th>
-      <th style="width: 15%;">Bit Position</th>
-      <th>Operational Role in Connection State Machine</th>
+      <th style="width: 25%;">Standard</th>
+      <th style="width: 25%;">Data Rate</th>
+      <th style="width: 25%;">Physical Media</th>
+      <th>Medium Access Control (MAC)</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>SYN</strong></td><td>Synchronize</td><td>Initiates a connection; synchronizes initial sequence numbers (ISN). Consumes 1 sequence number.</td></tr>
-    <tr><td><strong>ACK</strong></td><td>Acknowledgment</td><td>Validates the 32-bit Acknowledgment Number field indicating next expected byte.</td></tr>
-    <tr><td><strong>FIN</strong></td><td>Finish</td><td>Sender has finished sending data and requests connection termination. Consumes 1 sequence number.</td></tr>
-    <tr><td><strong>RST</strong></td><td>Reset</td><td>Abruptly terminates an invalid or unauthorized connection request.</td></tr>
-    <tr><td><strong>PSH</strong></td><td>Push</td><td>Instructs receiver to deliver buffered data to application immediately without waiting for buffer to fill.</td></tr>
-    <tr><td><strong>URG</strong></td><td>Urgent</td><td>Validates the Urgent Pointer field for out-of-band high-priority data (e.g., `Ctrl+C`).</td></tr>
+    <tr><td><strong>Traditional Ethernet</strong></td><td>$10 \text{ Mbps}$</td><td>10Base5 (Thick coax), 10BaseT (UTP)</td><td>CSMA/CD (Half-Duplex)</td></tr>
+    <tr><td><strong>Fast Ethernet</strong></td><td>$100 \text{ Mbps}$</td><td>100BaseTX (Cat 5 UTP), 100BaseFX</td><td>CSMA/CD / Switched Full-Duplex</td></tr>
+    <tr><td><strong>Gigabit Ethernet</strong></td><td>$1 \text{ Gbps}$</td><td>1000BaseT (Cat 5e UTP), 1000BaseLX</td><td>Switched Full-Duplex</td></tr>
+    <tr><td><strong>IEEE 802.11 (Wi-Fi)</strong></td><td>Up to $9.6 \text{ Gbps}$ (Wi-Fi 6)</td><td>$2.4 \text{ GHz} / 5 \text{ GHz} / 6 \text{ GHz}$ Radio</td><td>CSMA/CA with RTS/CTS Handshake</td></tr>
   </tbody>
 </table>
 
-<div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: TCP 3-Way Handshake Connection Sequence</div>
-  <ol>
-    <li><strong>Client $\rightarrow$ Server (SYN):</strong> Client chooses random initial sequence number $x$:
-      $$\text{Segment 1: } [\mathbf{SYN}=1, \ \mathbf{Seq}=x]$$
-    </li>
-    <li><strong>Server $\rightarrow$ Client (SYN-ACK):</strong> Server acknowledges client's ISN ($x+1$) and chooses its own ISN $y$:
-      $$\text{Segment 2: } [\mathbf{SYN}=1, \ \mathbf{ACK}=1, \ \mathbf{Seq}=y, \ \mathbf{Ack}=x+1]$$
-    </li>
-    <li><strong>Client $\rightarrow$ Server (ACK):</strong> Client acknowledges server's ISN ($y+1$):
-      $$\text{Segment 3: } [\mathbf{ACK}=1, \ \mathbf{Seq}=x+1, \ \mathbf{Ack}=y+1]$$
-      <em>Connection established in ESTABLISHED state.</em>
-    </li>
-  </ol>
-</div>
+<h2 class="section-title">Topic 42 & 43: Internet Protocol (IPv4 Header & Subnetting) [UPLOADED PYQ]</h2>
 
-<h2 class="section-title">Topic 5 & 6: TCP Congestion Control Mechanisms (AIMD)</h2>
-
-<div class="formula-card">
-  <strong>The 4 Standard Phases of TCP Congestion Control (Tahoe / Reno):</strong>
-  <ol>
-    <li><strong>Slow Start:</strong> Initial congestion window $\text{cwnd} = 1 \text{ MSS}$. Doubles every Round-Trip Time ($\text{cwnd} \leftarrow \text{cwnd} \times 2$) exponentially until $\text{cwnd} \ge \text{ssthresh}$ (Slow Start Threshold).</li>
-    <li><strong>Congestion Avoidance (Additive Increase):</strong> Increases linearly by $1 \text{ MSS}$ per RTT ($\text{cwnd} \leftarrow \text{cwnd} + 1$).</li>
-    <li><strong>Triple Duplicate ACK Event (Fast Retransmit & Recovery):</strong>
-      - $\text{ssthresh} \leftarrow \frac{\text{cwnd}}{2}$
-      - $\text{cwnd} \leftarrow \text{ssthresh} + 3 \text{ MSS}$ (TCP Reno skips Slow Start and continues linearly).
-    </li>
-    <li><strong>Timeout Event (Severe Congestion):</strong>
-      - $\text{ssthresh} \leftarrow \frac{\text{cwnd}}{2}$
-      - $\text{cwnd} \leftarrow 1 \text{ MSS}$ (Drops back to Slow Start).
-    </li>
-  </ol>
-</div>
-
-<h2 class="section-title">Topic 10 & 11: Network Security & RSA Public-Key Cryptography</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">IPv4 Header Field [UPLOADED PYQ]</th>
+      <th style="width: 15%;">Bit Width</th>
+      <th>Functional Operational Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Version</strong></td><td>4 bits</td><td>Identifies IP version (`0100` for IPv4).</td></tr>
+    <tr><td><strong>Header Length (IHL)</strong></td><td>4 bits</td><td>Header length in 32-bit words (Minimum value $= 5 \implies 20 \text{ bytes}$).</td></tr>
+    <tr><td><strong>Total Length</strong></td><td>16 bits</td><td>Total datagram length (Header + Payload) in bytes (Max $= 65,535 \text{ bytes}$).</td></tr>
+    <tr><td><strong>Identification, Flags, Offset</strong></td><td>$16+3+13$ bits</td><td>Handles IP fragmentation. `DF`=Don't Fragment, `MF`=More Fragments. Offset in 8-byte units.</td></tr>
+    <tr><td><strong>Time to Live (TTL)</strong></td><td>8 bits</td><td>Decremented at each router hop. When $\text{TTL}=0$, packet is dropped (prevents infinite loops).</td></tr>
+    <tr><td><strong>Protocol</strong></td><td>8 bits</td><td>Demultiplexes to Transport layer (`6` for TCP, `17` for UDP, `1` for ICMP).</td></tr>
+    <tr><td><strong>Header Checksum</strong></td><td>16 bits</td><td>1's complement sum of header fields recalculated at each router hop.</td></tr>
+  </tbody>
+</table>
 
 <div class="formula-card">
-  <strong>RSA Algorithm Mathematical Formulations (Rivest, Shamir, Adleman, 1977):</strong>
-  <ol>
-    <li>Select two distinct large prime numbers $p$ and $q$.</li>
-    <li>Compute modulus $n = p \times q$.</li>
-    <li>Compute Euler's Totient $\phi(n) = (p - 1)(q - 1)$.</li>
-    <li>Choose public exponent $e$ such that $1 < e < \phi(n)$ and $\gcd(e, \phi(n)) = 1$.</li>
-    <li>Compute private decryption exponent $d$ using Extended Euclidean Algorithm:
-      $$d \equiv e^{-1} \pmod{\phi(n)} \implies (d \times e) \pmod{\phi(n)} = 1$$
-    </li>
-    <li><strong>Public Key:</strong> $KU = \{e, n\}$, <strong>Private Key:</strong> $KR = \{d, n\}$.</li>
-    <li><strong>Encryption:</strong> Ciphertext $C = M^e \pmod n$.</li>
-    <li><strong>Decryption:</strong> Plaintext $M = C^d \pmod n$.</li>
-  </ol>
+  <strong>Subnetting Formulations:</strong>
+  - Number of Created Subnets $= 2^{\text{borrowed bits}}$
+  - Total IP Addresses per Subnet $= 2^{\text{host bits}}$
+  - Usable Host Addresses per Subnet $= 2^{\text{host bits}} - 2$ (subtracting Subnet Network ID and Directed Broadcast Address).
+</div>
+
+<h2 class="section-title">Topic 44: Transport Protocols (TCP vs. UDP) [UPLOADED PYQ]</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Feature</th>
+      <th style="width: 37%;">TCP (Transmission Control Protocol)</th>
+      <th>UDP (User Datagram Protocol)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Connection Model</strong></td><td>Connection-Oriented (3-Way Handshake: SYN $\rightarrow$ SYN-ACK $\rightarrow$ ACK).</td><td>Connectionless (no handshake; sends datagrams immediately).</td></tr>
+    <tr><td><strong>Reliability</strong></td><td>100% Reliable (Sequence numbers, ACKs, retransmissions on loss).</td><td>Unreliable Best-Effort (no ACKs, lost packets are not retransmitted).</td></tr>
+    <tr><td><strong>Ordering & Streaming</strong></td><td>Guaranteed strictly in-order byte stream reassembly.</td><td>No ordering guarantee; datagram boundary preserved.</td></tr>
+    <tr><td><strong>Flow & Congestion Control</strong></td><td>Full sliding window flow control + AIMD Congestion Control.</td><td>Zero flow control, zero congestion control.</td></tr>
+    <tr><td><strong>Typical Applications</strong></td><td>Web (HTTP/HTTPS), Email (SMTP), File Transfer (FTP), SSH.</td><td>DNS queries, Video streaming (RTP), VoIP, DHCP, Online Gaming.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 45 – 48: Routing Protocols (Distance Vector vs. Link State vs. Path Vector)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Routing Protocol</th>
+      <th style="width: 30%;">Mathematical Algorithm</th>
+      <th style="width: 25%;">Scope & Protocol</th>
+      <th>Key Characteristics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Distance Vector</strong></td>
+      <td>Bellman-Ford: $D_x(y) = \min_v \{ c(x, v) + D_v(y) \}$</td>
+      <td>Intra-AS (RIP)</td>
+      <td>Exchanges vector with neighbors; susceptible to Count-to-Infinity.</td>
+    </tr>
+    <tr>
+      <td><strong>Link State</strong></td>
+      <td>Dijkstra's Shortest Path Tree Algorithm</td>
+      <td>Intra-AS (OSPF)</td>
+      <td>Floods Link State Advertisements (LSA) globally; builds complete topological map.</td>
+    </tr>
+    <tr>
+      <td><strong>Path Vector</strong></td>
+      <td>Policy-based sequence of Autonomous System (AS) hops</td>
+      <td>Inter-AS (BGP-4)</td>
+      <td>Prevents loops by checking if local AS number is present in path vector.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 49 & 50: Congestion Control & Traffic Shaping (Leaky vs. Token Bucket)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Traffic Shaper</th>
+      <th style="width: 45%;">Operating Mechanism</th>
+      <th>Burst Handling Capability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Leaky Bucket</strong></td>
+      <td>Input packet bursts fill a buffer with fixed capacity. Water (packets) leaks out at a <strong>strictly constant uniform output rate</strong>. Excess bursts overflow and are discarded.</td>
+      <td>Completely eliminates bursts; outputs strictly smoothed constant bit-rate traffic.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Token Bucket</strong></td>
+      <td>Tokens generate into the bucket at a constant rate $r$ up to capacity $b$. A packet can only transmit if it captures tokens.</td>
+      <td>Allows controlled, regulated bursts up to bucket capacity $b$ while capping average rate at $r$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 51 – 54: Application Layer Services (SMTP, DNS, HTTP, DHCP)</h2>
+
+<div class="callout callout-info">
+  <div class="callout-title">🧠 Summary of Core Application Protocols & Ports</div>
+  <ul>
+    <li><strong>SMTP (Port 25/587):</strong> Simple Mail Transfer Protocol; pushes email between client and server and between mail relays.</li>
+    <li><strong>DNS (Port 53 - UDP/TCP):</strong> Hierarchical Domain Name System resolving domain names to IP addresses (Records: `A` for IPv4, `AAAA` for IPv6, `MX` for Mail Exchange, `CNAME` for Canonical Alias).</li>
+    <li><strong>HTTP/HTTPS (Port 80/443):</strong> Stateless request-response web protocol. Status codes: `200 OK`, `301 Moved Permanently`, `404 Not Found`, `500 Internal Server Error`.</li>
+    <li><strong>DHCP (Port 67/68 - UDP):</strong> Dynamic Host Configuration Protocol assigning IP addresses dynamically via the <strong>D-O-R-A</strong> sequence (<strong>D</strong>iscover $\rightarrow$ <strong>O</strong>ffer $\rightarrow$ <strong>R</strong>equest $\rightarrow$ <strong>A</strong>cknowledge).</li>
+  </ul>
 </div>
 
 <div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Complete RSA Encryption & Decryption Trace</div>
-  <p>Let primes $p = 3, q = 11$, and Plaintext message $M = 7$.</p>
+  <div class="worked-title">🌐 [UPLOADED PYQ] Complete Life Cycle: What Happens When You Type `https://example.com`?</div>
   <ol>
-    <li>$n = 3 \times 11 = \mathbf{33}$.</li>
-    <li>$\phi(n) = (3 - 1)(11 - 1) = 2 \times 10 = \mathbf{20}$.</li>
-    <li>Choose $e = 7$ ($\gcd(7, 20) = 1$).</li>
-    <li>Find $d$: $(d \times 7) \pmod{20} = 1 \implies 7d = 21 \implies \mathbf{d = 3}$.</li>
-    <li><strong>Encryption:</strong> $C = 7^7 \pmod{33} = 823543 \pmod{33} = \mathbf{4}$.</li>
-    <li><strong>Decryption:</strong> $M = 4^3 \pmod{33} = 64 \pmod{33} = \mathbf{7}$. (Original plaintext recovered!).</li>
+    <li><strong>Host IP Configuration (DHCP):</strong> Client uses DHCP DORA sequence to acquire local IP, Subnet Mask, Default Gateway, and DNS Server.</li>
+    <li><strong>DNS Resolution:</strong> Browser queries local DNS cache, then queries Recursive Resolver $\rightarrow$ Root Server $\rightarrow$ TLD Server (`.com`) $\rightarrow$ Authoritative Server to obtain target IP for `example.com`.</li>
+    <li><strong>ARP Translation:</strong> Host uses Address Resolution Protocol (ARP) to map Default Gateway IP to its physical 48-bit MAC address.</li>
+    <li><strong>TCP 3-Way Handshake:</strong> Client sends `SYN` (Port 443) $\rightarrow$ Server replies `SYN-ACK` $\rightarrow$ Client confirms `ACK` (Connection Established).</li>
+    <li><strong>TLS 1.3 Handshake:</strong> Client and server negotiate cipher suites, authenticate server X.509 certificate, and exchange ephemeral Diffie-Hellman keys to establish encrypted session.</li>
+    <li><strong>HTTP GET Request & IP Routing:</strong> Browser transmits encrypted `GET / HTTP/2` request. Packet is encapsulated with IP header and routed across intermediate Autonomous Systems via OSPF and BGP-4.</li>
+    <li><strong>Server Processing & Response:</strong> Web server processes request and returns HTTP `200 OK` response with HTML/CSS payload.</li>
+    <li><strong>Browser Rendering:</strong> Browser parses HTML DOM tree, fetches CSS/JS, and renders the visual webpage!</li>
   </ol>
 </div>
 
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+<h2 class="section-title">🧠 M5 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Compare HTTP/1.1, HTTP/2, and HTTP/3 across 4 architectural parameters. (8 Marks)</div>
+  <div class="qa-q">Q1. [UPLOADED PYQ] Explain the structure and working of the IPv4 Header with the purpose of all major fields. (10 Marks)</div>
   <div class="qa-a">
-    1. <strong>Transport Layer:</strong> HTTP/1.1 and HTTP/2 run over standard TCP; HTTP/3 runs over QUIC (UDP-based).<br>
-    2. <strong>Multiplexing:</strong> HTTP/1.1 uses sequential request-response pipelining (suffers from Head-of-Line blocking); HTTP/2 uses binary frame multiplexing over a single TCP connection; HTTP/3 achieves stream-level multiplexing without TCP Head-of-Line blocking.<br>
-    3. <strong>Header Compression:</strong> HTTP/1.1 uses plain text headers without compression; HTTP/2 uses HPACK; HTTP/3 uses QPACK.<br>
-    4. <strong>Handshake Latency:</strong> HTTP/1.1 & HTTP/2 require 2–3 RTTs (TCP + TLS); HTTP/3 achieves 0-RTT connection resumption.
+    The IPv4 header has a minimum size of 20 bytes (up to 60 bytes with options):<br>
+    1. <em>Version (4b):</em> `4` for IPv4.<br>
+    2. <em>IHL (4b):</em> Header length in 32-bit words (min 5).<br>
+    3. <em>Total Length (16b):</em> Header + Data in bytes.<br>
+    4. <em>Identification (16b), Flags (3b), Fragment Offset (13b):</em> Fragmentation management for MTU limits.<br>
+    5. <em>TTL (8b):</em> Hop limit decremented at each router to prevent packet looping.<br>
+    6. <em>Protocol (8b):</em> Transport demultiplexing (`6`=TCP, `17`=UDP).<br>
+    7. <em>Header Checksum (16b):</em> Error detection across header fields.<br>
+    8. <em>Source IP (32b) & Destination IP (32b):</em> Logical sender and receiver addresses.
   </div>
 </div>
 """

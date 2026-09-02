@@ -303,142 +303,130 @@ pre code {
     </div>
     
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Network Layer, IP Addressing & Routing Algorithms</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Wide Area Networks (WAN) & Local Area Networks (LAN) — Complete Tracker</div>
   <div class="toc-grid">
-    <div>1. Network Layer Service Models: Virtual-Circuit vs. Datagram Packet Switching</div>
-    <div>2. IPv4 Header Format: 20-Byte Field Breakdown & Fragmentation Fields (Offset, Flags)</div>
-    <div>3. Classful IP Addressing (Classes A, B, C, D, E & Special Loopback / Private Blocks)</div>
-    <div>4. Subnetting & Classless Inter-Domain Routing (CIDR) Slash Notation ($/n$)</div>
-    <div>5. Longest Prefix Match Algorithm in Forwarding Tables with Worked Lookups</div>
-    <div>6. IPv6 Protocol Architecture: 40-Byte Fixed Base Header & Extension Headers</div>
-    <div>7. IPv4 to IPv6 Transition Mechanisms: Dual-Stack, Tunneling & Header Translation</div>
-    <div>8. Unicast Routing Principles: Intra-AS (IGP) vs. Inter-AS (EGP) Autonomous Systems</div>
-    <div>9. Distance Vector Routing (DVR): Bellman-Ford Equation & Count-to-Infinity Problem</div>
-    <div>10. Solutions to Count-to-Infinity: Split Horizon & Poisoned Reverse Mechanisms</div>
-    <div>11. Link State Routing (LSR): Link State Advertisements & Dijkstra's Algorithm Tree</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+    <div><strong>Topic 30:</strong> Switching Networks (Circuit vs. Packet Switching Paradigms)</div>
+    <div><strong>Topic 31:</strong> Circuit-Switching Networks (3 Phases: Setup, Transfer, Teardown)</div>
+    <div><strong>Topic 32:</strong> Circuit-Switching Concepts (Blocking, Dedicated Resources)</div>
+    <div><strong>Topic 33:</strong> Packet-Switching Principles (Datagram vs. Virtual-Circuit)</div>
+    <div><strong>Topic 34:</strong> Cellular Network Principles (Cell Geometry, Frequency Reuse, Handoff)</div>
+    <div><strong>Topic 35:</strong> Cellular Generations Evolution (1G Voice to 5G Ultra-Low Latency)</div>
+    <div><strong>Topic 36:</strong> Network Topologies (Bus, Star, Ring, Mesh, Tree Analysis)</div>
+    <div><strong>Topic 37:</strong> LAN Protocol Architecture (IEEE 802: LLC vs. MAC Sublayers)</div>
+    <div><strong>Topic 38:</strong> Virtual Local Area Networks (VLAN Security & Broadcast Domains)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 2 – 4: IPv4 Datagram Format & CIDR Subnetting</h2>
+<h2 class="section-title">Topic 30 – 33: Switching Paradigms (Circuit vs. Packet Switching) [UPLOADED PYQ]</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">IPv4 Header Field</th>
-      <th style="width: 15%;">Bit Width</th>
-      <th>Functional Purpose & Transmission Invariant</th>
+      <th style="width: 25%;">Parameter</th>
+      <th style="width: 37%;">Circuit Switching</th>
+      <th>Packet Switching [UPLOADED PYQ]</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Version</strong></td>
-      <td>4 bits</td>
-      <td>Identifies IP version (`0100` for IPv4).</td>
+      <td><strong>Path Establishment</strong></td>
+      <td>Dedicated physical path established before data transfer (Setup $\rightarrow$ Transfer $\rightarrow$ Teardown).</td>
+      <td>No dedicated end-to-end path; data divided into independent packets routed dynamically.</td>
     </tr>
     <tr>
-      <td><strong>Header Length (IHL)</strong></td>
-      <td>4 bits</td>
-      <td>Length of header in 32-bit (4-byte) words. Minimum value is $5$ ($20$ bytes).</td>
+      <td><strong>Resource Reservation</strong></td>
+      <td>Dedicated channel bandwidth reserved 100% (resources wasted if line is idle).</td>
+      <td>Statistical multiplexing: bandwidth shared on-demand among all active users.</td>
     </tr>
     <tr>
-      <td><strong>Total Length</strong></td>
-      <td>16 bits</td>
-      <td>Entire datagram length (Header + Data) in bytes. Max size $= 65,535$ bytes.</td>
+      <td><strong>Traffic Suitability</strong></td>
+      <td>Ideal for continuous, real-time audio/voice communication.</td>
+      <td>Ideal for bursty, asynchronous computer data traffic (Internet).</td>
     </tr>
     <tr>
-      <td><strong>Identification, Flags, Offset</strong></td>
-      <td>$16 + 3 + 13$ bits</td>
-      <td>Handles MTU packet fragmentation. Fragment Offset is measured in 8-byte units. `DF`=Don't Fragment, `MF`=More Fragments.</td>
-    </tr>
-    <tr>
-      <td><strong>Time to Live (TTL)</strong></td>
-      <td>8 bits</td>
-      <td>Hop counter decremented by 1 at each router to prevent infinite forwarding loops. Discarded with ICMP Time Exceeded when $\text{TTL} = 0$.</td>
-    </tr>
-    <tr>
-      <td><strong>Protocol</strong></td>
-      <td>8 bits</td>
-      <td>Demultiplexing to transport layer (`6` for TCP, `17` for UDP, `1` for ICMP).</td>
-    </tr>
-    <tr>
-      <td><strong>Header Checksum</strong></td>
-      <td>16 bits</td>
-      <td>1's complement sum of header fields recalculated at every router as TTL decrements.</td>
+      <td><strong>Delay Characteristics</strong></td>
+      <td>Initial connection setup delay; zero queuing delay during active transfer.</td>
+      <td>Zero setup delay (in datagram); packets experience variable queuing delay at routers.</td>
     </tr>
   </tbody>
 </table>
 
-<div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: CIDR Subnet Allocation</div>
-  <p><strong>Problem:</strong> An organization is assigned the network block `200.10.20.0/24`. It needs to divide this block into 4 equal subnets for 4 departments.</p>
-  <ol>
-    <li>
-      <strong>Step 1: Determine Additional Subnet Bits ($k$):</strong>
-      $$2^k \ge 4 \implies k = 2 \text{ bits}$$
-      New Subnet Mask: $/24 + 2 = \mathbf{/26} \implies \mathbf{255.255.255.192}$.
-    </li>
-    <li>
-      <strong>Step 2: Compute Total and Usable Host Addresses per Subnet:</strong>
-      $$\text{Total Addresses per Subnet} = 2^{32 - 26} = 2^6 = \mathbf{64}$$
-      $$\text{Usable Host Addresses} = 64 - 2 = \mathbf{62} \quad (\text{subtracting Network ID and Directed Broadcast})$$
-    </li>
-    <li>
-      <strong>Step 3: Subnet Allocation Table:</strong>
-      <table class="custom-table">
-        <tr><th>Subnet</th><th>Network Address</th><th>Usable Host IP Range</th><th>Broadcast Address</th></tr>
-        <tr><td>Dept 1</td><td>`200.10.20.0/26`</td><td>`200.10.20.1` – `200.10.20.62`</td><td>`200.10.20.63`</td></tr>
-        <tr><td>Dept 2</td><td>`200.10.20.64/26`</td><td>`200.10.20.65` – `200.10.20.126`</td><td>`200.10.20.127`</td></tr>
-        <tr><td>Dept 3</td><td>`200.10.20.128/26`</td><td>`200.10.20.129` – `200.10.20.190`</td><td>`200.10.20.191`</td></tr>
-        <tr><td>Dept 4</td><td>`200.10.20.192/26`</td><td>`200.10.20.193` – `200.10.20.254`</td><td>`200.10.20.255`</td></tr>
-      </table>
-    </li>
-  </ol>
+<h3 class="subsection-title">Datagram vs. Virtual-Circuit Packet Switching [UPLOADED PYQ]:</h3>
+<ul>
+  <li><strong>Datagram Network (Connectionless — IP):</strong> Each packet contains full source and destination IP addresses and is treated as an independent entity. Intermediate routers make routing decisions per packet; packets may arrive out of order.</li>
+  <li><strong>Virtual-Circuit Network (Connection-Oriented — ATM / X.25):</strong> A logical circuit is established upfront. Packets carry a short Virtual Circuit Identifier (VCI) rather than full global addresses. All packets follow the exact same route in sequence.</li>
+</ul>
+
+<h2 class="section-title">Topic 34 & 35: Cellular Network Principles & Generations (1G – 5G)</h2>
+
+<div class="callout callout-info">
+  <div class="callout-title">Core Cellular Principles: Frequency Reuse & Handoff</div>
+  <ul>
+    <li><strong>Frequency Reuse:</strong> Geographical service area is divided into regular hexagonal <strong>cells</strong>. Adjacent cells use different frequency sets, but non-adjacent cells separated by minimum reuse distance $D = R \sqrt{3N}$ reuse the same frequencies, dramatically multiplying network capacity!</li>
+    <li><strong>Handoff / Handover:</strong> The automatic transition of an active ongoing call/data session from one base station channel to another as the mobile user moves across cell boundaries (Hard Handoff: "Break before make"; Soft Handoff: "Make before break").</li>
+  </ul>
 </div>
 
-<h2 class="section-title">Topic 9 – 11: Routing Algorithms (Distance Vector vs. Link State)</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 15%;">Generation</th>
+      <th style="width: 35%;">Key Technological Milestone</th>
+      <th style="width: 25%;">Core Services & Data Rate</th>
+      <th>Multiple Access Tech</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1G (1980s)</strong></td><td>Analog cellular technology.</td><td>Voice only ($\approx 2.4 \text{ kbps}$).</td><td>FDMA</td></tr>
+    <tr><td><strong>2G (1990s)</strong></td><td>Digital cellular, encryption, roaming.</td><td>Voice, SMS text ($\approx 64 \text{ kbps}$).</td><td>TDMA / CDMA (GSM)</td></tr>
+    <tr><td><strong>3G (2000s)</strong></td><td>Mobile broadband Internet (UMTS).</td><td>Video calling, mobile web ($\approx 2 \text{ Mbps}$).</td><td>WCDMA</td></tr>
+    <tr><td><strong>4G (2010s)</strong></td><td>All-IP network, LTE standard.</td><td>HD video streaming, gaming ($\approx 100 \text{ Mbps}$).</td><td>OFDMA</td></tr>
+    <tr><td><strong>5G (2020s)</strong></td><td>Millimeter wave, network slicing, massive IoT.</td><td>eMBB, URLLC, mMTC ($1\text{–}10 \text{ Gbps}, < 1 \text{ ms}$).</td><td>Scalable OFDMA</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 36: Physical Network Topologies</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Feature</th>
-      <th style="width: 37%;">Distance Vector Routing (DVR — RIP)</th>
-      <th>Link State Routing (LSR — OSPF)</th>
+      <th style="width: 20%;">Topology</th>
+      <th style="width: 45%;">Structural Layout & Communication</th>
+      <th>Key Advantages & Vulnerabilities</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><strong>Mathematical Algorithm</strong></td>
-      <td><strong>Bellman-Ford Equation:</strong>
-        $$D_x(y) = \min_v \{ c(x, v) + D_v(y) \}$$
-      </td>
-      <td><strong>Dijkstra's Shortest Path Algorithm:</strong> Computes full shortest-path tree from source.</td>
-    </tr>
-    <tr>
-      <td><strong>Information Exchanged</strong></td>
-      <td>Vector of estimated distances to all destinations.</td>
-      <td>Exact state and cost of directly attached links (LSA).</td>
-    </tr>
-    <tr>
-      <td><strong>Destination of Updates</strong></td>
-      <td>Sent only to directly adjacent neighbors.</td>
-      <td>Flooded globally to all routers in the entire network area.</td>
-    </tr>
-    <tr>
-      <td><strong>Convergence & Stability</strong></td>
-      <td>Slow convergence; prone to <strong>Count-to-Infinity</strong> routing loops.</td>
-      <td>Fast convergence; completely immune to routing loops.</td>
-    </tr>
+    <tr><td><strong>1. Mesh</strong></td><td>Every node has dedicated point-to-point links to all other $N-1$ nodes (Total links $= \frac{N(N-1)}{2}$).</td><td>Ultimate fault tolerance and privacy. High cable cost and complex installation.</td></tr>
+    <tr><td><strong>2. Star</strong></td><td>Each node connected to a central controller / switch via dedicated point-to-point link.</td><td>Easy to install, isolate faults. Central switch failure halts entire network.</td></tr>
+    <tr><td><strong>3. Bus</strong></td><td>All devices share a single long central backbone cable terminated at both ends.</td><td>Low cabling cost. Backbone cable break disables entire network.</td></tr>
+    <tr><td><strong>4. Ring</strong></td><td>Each device has dedicated point-to-point connection to exactly two neighboring nodes in a loop.</td><td>Predictable token traffic. Break in ring disables network (unless dual-ring).</td></tr>
   </tbody>
 </table>
 
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+<h2 class="section-title">Topic 37 & 38: LAN Architecture & Virtual LANs (VLAN)</h2>
+
+<p>
+  IEEE 802 LAN Architecture divides the OSI Data Link Layer into two distinct sublayers:
+</p>
+<ol>
+  <li><strong>Logical Link Control (LLC — IEEE 802.2):</strong> Independent of physical medium; handles flow control, error control, and upper-layer protocol multiplexing.</li>
+  <li><strong>Medium Access Control (MAC):</strong> Dependent on physical topology; governs shared-channel access rules (CSMA/CD in 802.3, CSMA/CA in 802.11) and framing.</li>
+</ol>
+
+<div class="callout callout-warning">
+  <div class="callout-title">VLAN (Virtual Local Area Network — IEEE 802.1Q)</div>
+  A <strong>VLAN</strong> is a logical broadcast domain created by software configuration on switches regardless of physical cable connections. It isolates network broadcast storms, enhances department security, and reduces routing costs!
+</div>
+
+<h2 class="section-title">🧠 M4 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Explain the Count-to-Infinity problem in Distance Vector Routing and how Split Horizon with Poison Reverse resolves it. (8 Marks)</div>
+  <div class="qa-q">Q1. [UPLOADED PYQ] Compare Circuit Switching and Packet Switching across 4 architectural parameters. (8 Marks)</div>
   <div class="qa-a">
-    - <strong>Count-to-Infinity Problem:</strong> When a link $A-B$ goes down, router $A$ sets its cost to $\infty$. However, neighbor $C$ may still advertise that it has a path to $A$ via $B$ with cost 2. Router $B$ receives this and updates its cost to $A$ as $2 + 1 = 3$, advertising it back to $C$. $C$ updates to $3 + 1 = 4$, and both routers slowly increment their distance vectors step-by-step up to $\infty$ (16 in RIP).<br>
-    - <strong>Split Horizon with Poison Reverse:</strong> If router $C$ routes traffic to destination $X$ through neighbor $B$, $C$ advertises its distance to $X$ back to $B$ as $\infty$ ($\text{Poisoned Reverse}$). This prevents $B$ from wrongly routing traffic back through $C$ during link failures.
+    1. <strong>Connection Setup:</strong> Circuit switching requires explicit 3-phase connection setup; Packet switching (datagram) sends packets immediately with zero setup.<br>
+    2. <strong>Resource Utilization:</strong> Circuit switching reserves 100% dedicated channel capacity; Packet switching uses statistical multiplexing to maximize bandwidth utilization.<br>
+    3. <strong>Congestion & Delays:</strong> Circuit switching has fixed transmission delay once connected; Packet switching suffers from variable queuing and router processing delays.<br>
+    4. <strong>Failure Resilience:</strong> Circuit switching loses the call if any link on the dedicated path breaks; Packet switching automatically reroutes individual packets around failed links.
   </div>
 </div>
 
