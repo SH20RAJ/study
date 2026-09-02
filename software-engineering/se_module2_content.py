@@ -1,97 +1,107 @@
-# Software Engineering Module 2 Exhaustive Content (12-15 Pages Target)
-# Neuroscience-backed formatting: High visual chunking, KaTeX equations, worked trace boxes, exam cards
+# Software Engineering Module 2 Exhaustive Content (12 Topics Complete)
+# Neuroscience framework: Understand -> Visualize -> Connect -> Recall -> Apply -> Exam Questions
 
 SE_M2_EXHAUSTIVE = r"""
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Requirements Engineering, Analysis Modeling & Structured Specification</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Software Requirements Engineering — Complete 12-Topic Syllabus Tracker</div>
   <div class="toc-grid">
-    <div>1. Requirements Engineering Process (Elicitation, Analysis, Specification, Validation)</div>
-    <div>2. Functional Requirements vs. Non-Functional Requirements (FURPS+ Model)</div>
-    <div>3. IEEE 830 Standard Format for Software Requirements Specification (SRS)</div>
-    <div>4. Characteristics of High-Quality SRS Documents (Traceable, Unambiguous, Verifiable)</div>
-    <div>5. Use Case Modeling: Actors, Use Cases, `<<include>>` vs. `<<extend>>` Relationships</div>
-    <div>6. Structured Analysis: Data Flow Diagrams (DFD) — 4 Core Geometric Notations</div>
-    <div>7. DFD Leveling Hierarchy: Context Diagram (Level 0), Level 1 & Level 2 Explosions</div>
-    <div>8. DFD Balancing Invariants & Common Modeling Errors (Black Holes, Miracles, Gray Holes)</div>
-    <div>9. Data Dictionary Architecture: BNF Metadata Syntax & Composite Data Elements</div>
-    <div>10. Entity-Relationship (ER) Modeling: Entities, Attributes, Cardinalities & Keys</div>
-    <div>11. Decision Tables & Structured English for Complex Business Logic Modeling</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+    <div><strong>Topic 15:</strong> Functional Requirements (Core Behavioral Capabilities)</div>
+    <div><strong>Topic 16:</strong> Non-Functional Requirements (Quality Constraints & Performance)</div>
+    <div><strong>Topic 17:</strong> User Requirements (High-Level Natural Language Statements)</div>
+    <div><strong>Topic 18:</strong> System Requirements (Detailed Technical Specifications)</div>
+    <div><strong>Topic 19:</strong> The Software Requirements Specification (SRS) Document</div>
+    <div><strong>Topic 20:</strong> IEEE 830 Standard Format for SRS Organization</div>
+    <div><strong>Topic 21:</strong> 9 Characteristics of a Good SRS (C-U-C-C-V-F-T-P-M)</div>
+    <div><strong>Topic 22:</strong> Feasibility Study (The TELOS Analytical Framework)</div>
+    <div><strong>Topic 23:</strong> Requirements Elicitation Techniques (Interviews, JAD, Prototyping)</div>
+    <div><strong>Topic 24:</strong> Requirements Analysis & Conflict Negotiation</div>
+    <div><strong>Topic 25:</strong> Requirements Validation & Formal Inspection Reviews</div>
+    <div><strong>Topic 26:</strong> Requirements Management & Traceability Matrices (RTM)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 2 – 4: Requirements Engineering & The IEEE 830 SRS Standard</h2>
-
-<p>
-  A <strong>Software Requirements Specification (SRS)</strong> is a formal contract between the client and the development organization describing the complete functional behavior and operational constraints of the system.
-</p>
+<h2 class="section-title">Topic 15 – 18: Functional vs. Non-Functional & User vs. System Requirements</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">SRS Section (IEEE 830)</th>
-      <th style="width: 45%;">Mandatory Content & Description</th>
-      <th>Key Invariants & Purpose</th>
+      <th style="width: 22%;">Requirement Class</th>
+      <th style="width: 45%;">Formal Definition & Scope</th>
+      <th>Concrete Illustrative Example</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Introduction</strong></td>
-      <td>Purpose of the system, project scope, definitions, acronyms, and references.</td>
-      <td>Sets project boundary; prevents scope creep.</td>
+      <td><strong>1. Functional</strong></td>
+      <td>Specifies <strong>WHAT</strong> services, computations, and transformations the software must perform in response to specific inputs.</td>
+      <td>"The banking system shall transfer funds between accounts and send SMS confirmation within 5 seconds."</td>
     </tr>
     <tr>
-      <td><strong>2. Overall Description</strong></td>
-      <td>Product perspective, user classes, operating environment, design constraints, assumptions.</td>
-      <td>Provides high-level context without dictating low-level implementation details.</td>
+      <td><strong>2. Non-Functional</strong></td>
+      <td>Specifies <strong>HOW WELL</strong> the system operates, defining constraints on quality attributes: Performance, Security, Availability, Usability.</td>
+      <td>"The system shall maintain $99.99\%$ annual availability and encrypt database records using AES-256."</td>
     </tr>
     <tr>
-      <td><strong>3. Specific Requirements</strong></td>
-      <td>Detailed Functional Requirements, External Interface Requirements (UI, HW, SW), Non-Functional Requirements (Performance, Security, Reliability).</td>
-      <td>Must be 100% <strong>Unambiguous, Complete, Consistent, Verifiable (Testable), and Traceable</strong>.</td>
+      <td><strong>3. User Requirements</strong></td>
+      <td>High-level natural language statements + informal diagrams intended for non-technical clients and executive sponsors.</td>
+      <td>"Patients should be able to book doctor consultations online."</td>
+    </tr>
+    <tr>
+      <td><strong>4. System Requirements</strong></td>
+      <td>Structured, unambiguous technical contracts detailing software services, inputs, outputs, exceptions, and DB schemas for developers.</td>
+      <td>"The API endpoint `POST /api/v1/appointments` shall validate doctor availability locks via Redis mutexes."</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 6 – 8: Data Flow Diagrams (DFD) & Balancing Rules</h2>
+<h2 class="section-title">Topic 19 – 21: The SRS Document & IEEE 830 Standard</h2>
 
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 20%;">DFD Symbol</th>
-      <th style="width: 25%;">DeMarco & Yourdon</th>
-      <th style="width: 25%;">Gane & Sarson</th>
-      <th>Functional Meaning</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Process</strong></td><td>Circle (Bubble)</td><td>Rounded Rectangle</td><td>Transforms input data flows into output data flows.</td></tr>
-    <tr><td><strong>Data Flow</strong></td><td>Directed Arrow</td><td>Directed Arrow</td><td>Pipeline along which packets of data travel.</td></tr>
-    <tr><td><strong>Data Store</strong></td><td>Two Parallel Lines</td><td>Open Rectangle</td><td>Repository of data at rest (files, DB tables).</td></tr>
-    <tr><td><strong>External Entity</strong></td><td>Rectangle</td><td>Shaded Rectangle</td><td>Source or Sink of data outside system boundary.</td></tr>
-  </tbody>
-</table>
-
-<div class="callout callout-warning">
-  <div class="callout-title">DFD Balancing & Consistency Invariants</div>
-  <ul>
-    <li><strong>Conservation of Data:</strong> A process cannot output data that was not present in or computable from its input data.</li>
-    <li><strong>Black Hole Error:</strong> A process that has inputs but zero outputs.</li>
-    <li><strong>Miracle Error:</strong> A process that generates outputs with zero inputs.</li>
-    <li><strong>Gray Hole Error:</strong> A process where outputs require data not supplied by its inputs.</li>
-    <li><strong>Level Balancing:</strong> All input data flows and output data flows entering/leaving a parent process bubble in DFD Level $N$ must exactly match the external data flows in its child Level $N+1$ diagram.</li>
-  </ul>
+<div class="callout callout-info">
+  <div class="callout-title">🧠 The 9 Characteristics of a High-Quality SRS (C-U-C-C-V-F-T-P-M)</div>
+  <ol>
+    <li><strong>Correct:</strong> Every requirement accurately reflects actual customer needs.</li>
+    <li><strong>Unambiguous:</strong> Every requirement has exactly ONE possible interpretation by developers and testers.</li>
+    <li><strong>Complete:</strong> All critical functional capabilities, responses to errors, and constraints are specified.</li>
+    <li><strong>Consistent:</strong> Zero contradictions between individual requirements or interface definitions.</li>
+    <li><strong>Verifiable (Testable):</strong> A finite, cost-effective test case can prove whether the software satisfies the requirement.</li>
+    <li><strong>Feasible:</strong> The requirement is achievable within project budget, timeline, and technology constraints.</li>
+    <li><strong>Traceable:</strong> Each requirement has a unique identifier linked backward to user needs and forward to code/tests.</li>
+    <li><strong>Prioritized:</strong> Requirements are ranked by business importance (Essential, Desirable, Optional).</li>
+    <li><strong>Modifiable:</strong> Organized with a clear table of contents and cross-references for easy updates.</li>
+  </ol>
 </div>
 
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
+<h2 class="section-title">Topic 22 – 26: Requirements Engineering Process (TELOS to Traceability)</h2>
+
+<div class="formula-card">
+  <strong>The TELOS Feasibility Analysis Framework:</strong>
+  - <strong>T — Technical:</strong> Do we have the hardware, software tools, and developer expertise?
+  - <strong>E — Economic:</strong> Is the Return on Investment (ROI) and Cost-Benefit Analysis positive?
+  - <strong>L — Legal:</strong> Does the product comply with GDPR, HIPAA, copyright, and regional labor laws?
+  - <strong>O — Operational:</strong> Will end-users and the organizational structure accept the system?
+  - <strong>S — Schedule:</strong> Can the product be delivered before the critical market deadline?
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">Requirements Traceability Matrix (RTM) Sample Architecture</div>
+  <table class="custom-table">
+    <thead><tr><th>Req ID</th><th>Requirement Description</th><th>Source</th><th>Design Module</th><th>Code File</th><th>Test Case ID</th></tr></thead>
+    <tbody>
+      <tr><td>`REQ-01`</td><td>User OTP Authentication</td><td>Client Specs §2.1</td><td>`AuthModule`</td><td>`auth_service.py`</td><td>`TC-AUTH-001`</td></tr>
+      <tr><td>`REQ-02`</td><td>Payment Gateway Checkout</td><td>Client Specs §3.4</td><td>`PaymentEngine`</td><td>`payment_gateway.py`</td><td>`TC-PAY-014`</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-title">🧠 M2 Active Recall & Exam Questions</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Differentiate between `<<include>>` and `<<extend>>` relationships in Use Case Diagrams with examples. (8 Marks)</div>
+  <div class="qa-q">Q1. Explain the IEEE 830 standard structure for a Software Requirements Specification (SRS). (8 Marks)</div>
   <div class="qa-a">
-    1. <strong>`<<include>>` (Mandatory Shared Behavior):</strong> The base use case unconditionally and explicitly invokes the included use case every single time it executes. Used to factor out common repeated subroutines.<br>
-       <em>Example:</em> `Withdraw Cash` $\xrightarrow{<<include>>}$ `Authenticate User PIN`.<br>
-    2. <strong>`<<extend>>` (Optional / Conditional Behavior):</strong> The extending use case executes only if a specific extension condition holds true at designated extension points in the base use case. The base use case is completely functional on its own without knowing about the extension.<br>
-       <em>Example:</em> `Calculate Premium` $\xleftarrow{<<extend>>}$ `Apply Senior Citizen Discount` (only if $\text{age} \ge 60$).
+    The IEEE 830 standard organizes an SRS into 3 primary sections:<br>
+    1. <strong>Section 1: Introduction:</strong> Purpose, Scope, Definitions, Acronyms, References, and Document Overview.<br>
+    2. <strong>Section 2: Overall Description:</strong> Product Perspective, Product Functions, User Classes & Characteristics, Operating Environment, Design Constraints, Assumptions & Dependencies.<br>
+    3. <strong>Section 3: Specific Requirements:</strong> Detailed Functional Requirements, External Interface Requirements (User, Hardware, Software, Comm), Performance Requirements, Security & Safety Attributes, and Verification Criteria.
   </div>
 </div>
 """

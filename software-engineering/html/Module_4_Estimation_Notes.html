@@ -303,135 +303,106 @@ pre code {
     </div>
     
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Software Project Estimation, Metrics & Scheduling</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Verification, Validation & Testing — Complete 16-Topic Syllabus Tracker</div>
   <div class="toc-grid">
-    <div>1. Software Project Management Dimensions (People, Product, Process, Project — 4 P's)</div>
-    <div>2. Size-Oriented Metrics (Lines of Code — LOC) & Inherent Productivity Pitfalls</div>
-    <div>3. Function-Oriented Metrics: Albrecht's Function Point (FP) Analysis Formulations</div>
-    <div>4. Unadjusted Function Count (UFC) across 5 Information Domain Characteristics</div>
-    <div>5. 14 General System Characteristics & Value Adjustment Factor (VAF) Math</div>
-    <div>6. Boehm's COCOMO I Model: Organic, Semi-Detached & Embedded Project Modes</div>
-    <div>7. Basic, Intermediate (Cost Drivers / EAF) & Detailed COCOMO Equations</div>
-    <div>8. Project Scheduling: Work Breakdown Structure (WBS) & Activity Networks</div>
-    <div>9. Critical Path Method (CPM): Earliest Start/Finish & Latest Start/Finish Slack Times</div>
-    <div>10. Program Evaluation and Review Technique (PERT) Expected Duration ($T_e$) & Variance</div>
-    <div>11. Risk Management Framework: Identification, Projection, Assessment & RMMM Plans</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+    <div><strong>Topic 40:</strong> Verification ("Are We Building the Product Right?")</div>
+    <div><strong>Topic 41:</strong> Validation ("Are We Building the Right Product?")</div>
+    <div><strong>Topic 42:</strong> V&V Planning & Test Strategy Life Cycle</div>
+    <div><strong>Topic 43:</strong> Software Inspection (Fagan Formal Defect Reviews)</div>
+    <div><strong>Topic 44:</strong> Static Analysis (Control Flow, Data Flow & Linters)</div>
+    <div><strong>Topic 45:</strong> Software Testing Foundations & Defect Taxonomies</div>
+    <div><strong>Topic 46:</strong> Testing Functions & Test Harness Design</div>
+    <div><strong>Topic 47:</strong> Test Case Design (Formal Test Case Artifact Structure)</div>
+    <div><strong>Topic 48:</strong> White-Box Testing (Statement & Branch Coverage)</div>
+    <div><strong>Topic 49:</strong> Black-Box Testing (Equivalence Partitioning & BVA)</div>
+    <div><strong>Topic 50:</strong> Basis Path Testing & McCabe's Cyclomatic Complexity</div>
+    <div><strong>Topic 51:</strong> Control Structure Testing (Condition & Loop Testing)</div>
+    <div><strong>Topic 52:</strong> Unit Testing (Stubs, Drivers & Test Doubles)</div>
+    <div><strong>Topic 53:</strong> Integration Testing (Top-Down, Bottom-Up, Sandwich)</div>
+    <div><strong>Topic 54:</strong> System Testing (Stress, Load, Recovery & Acceptance)</div>
+    <div><strong>Topic 55:</strong> Software Reliability & Availability (MTBF, MTTF, MTTR)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 3 – 5: Function Point (FP) Analysis</h2>
-
-<div class="formula-card">
-  <strong>1. Function Point Formula (Albrecht, 1979):</strong>
-  $$\text{FP} = \text{UFC} \times \text{VAF} = \text{UFC} \times \left( 0.65 + 0.01 \times \sum_{i=1}^{14} F_i \right)$$
-  Where $\text{UFC}$ is Unadjusted Function Count, and $F_i \in [0, 5]$ are ratings for 14 General System Characteristics (yielding $\text{VAF} \in [0.65, 1.35]$).
-</div>
+<h2 class="section-title">Topic 40 – 44: Verification vs. Validation & Static Quality Techniques</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 30%;">Information Domain Element</th>
-      <th style="width: 20%;">Low Complexity</th>
-      <th style="width: 20%;">Average Complexity</th>
-      <th>High Complexity</th>
+      <th style="width: 25%;">Parameter</th>
+      <th style="width: 37%;">Verification (Static Quality Assurance)</th>
+      <th>Validation (Dynamic Quality Control)</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>1. External Inputs (EI)</strong></td><td>3</td><td>4</td><td>6</td></tr>
-    <tr><td><strong>2. External Outputs (EO)</strong></td><td>4</td><td>5</td><td>7</td></tr>
-    <tr><td><strong>3. External Inquiries (EQ)</strong></td><td>3</td><td>4</td><td>6</td></tr>
-    <tr><td><strong>4. Internal Logical Files (ILF)</strong></td><td>7</td><td>10</td><td>15</td></tr>
-    <tr><td><strong>5. External Interface Files (EIF)</strong></td><td>5</td><td>7</td><td>10</td></tr>
+    <tr><td><strong>Boehm's Question</strong></td><td><strong>"Are we building the product right?"</strong></td><td><strong>"Are we building the right product?"</strong></td></tr>
+    <tr><td><strong>Execution</strong></td><td>Static evaluation <em>without executing code</em> (Inspections, Walkthroughs, Linters).</td><td>Dynamic execution of software using actual test cases.</td></tr>
+    <tr><td><strong>Target Evaluation</strong></td><td>Verifies whether design/code conforms to SRS specifications.</td><td>Validates whether the operational system satisfies actual user needs.</td></tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 6 & 7: Boehm's COCOMO (Constructive Cost Model)</h2>
-
-<div class="formula-card">
-  <strong>Basic COCOMO Effort & Schedule Equations:</strong>
-  $$\text{Effort } (E) = a \times (\text{KLOC})^b \quad \text{Person-Months (PM)}$$
-  $$\text{Development Time } (T_{\text{dev}}) = c \times (E)^d \quad \text{Months}$$
-  $$\text{Average Staffing } (\text{Staff}) = \frac{E}{T_{\text{dev}}} \quad \text{Persons}$$
-</div>
+<h2 class="section-title">Topic 48 & 49: White-Box vs. Black-Box Testing Methodologies</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 22%;">Project Mode</th>
-      <th style="width: 30%;">Characteristics</th>
-      <th style="width: 12%;">$a$</th>
-      <th style="width: 12%;">$b$</th>
-      <th style="width: 12%;">$c$</th>
-      <th>$d$</th>
+      <th style="width: 25%;">Feature</th>
+      <th style="width: 37%;">Black-Box Testing (Functional)</th>
+      <th>White-Box Testing (Structural / Glass-Box)</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><strong>1. Organic</strong></td>
-      <td>Small teams, familiar in-house domain, relaxed constraints.</td>
-      <td>2.4</td>
-      <td>1.05</td>
-      <td>2.5</td>
-      <td>0.38</td>
-    </tr>
-    <tr>
-      <td><strong>2. Semi-Detached</strong></td>
-      <td>Medium teams, mixed experience levels, medium constraints.</td>
-      <td>3.0</td>
-      <td>1.12</td>
-      <td>2.5</td>
-      <td>0.35</td>
-    </tr>
-    <tr>
-      <td><strong>3. Embedded</strong></td>
-      <td>Tight hardware/software constraints, complex safety-critical systems.</td>
-      <td>3.6</td>
-      <td>1.20</td>
-      <td>2.5</td>
-      <td>0.32</td>
-    </tr>
+    <tr><td><strong>Knowledge Needed</strong></td><td>Zero internal code knowledge; tests external inputs vs. expected outputs.</td><td>Full knowledge of source code logic, branches, loops, and data structures.</td></tr>
+    <tr><td><strong>Primary Techniques</strong></td><td>• <strong>Equivalence Partitioning (EP):</strong> Divides inputs into valid/invalid equivalence classes.<br>• <strong>Boundary Value Analysis (BVA):</strong> Tests boundaries ($\text{min}, \text{min}+1, \text{nominal}, \text{max}-1, \text{max}$).</td><td>• Statement Coverage, Branch Coverage, Condition Coverage.<br>• <strong>Basis Path Testing</strong> via Control Flow Graphs (CFG).</td></tr>
   </tbody>
 </table>
+
+<h2 class="section-title">Topic 50: Basis Path Testing & McCabe's Cyclomatic Complexity</h2>
+
+<div class="formula-card">
+  <strong>McCabe's Cyclomatic Complexity $V(G)$ Formulations (McCabe, 1976):</strong>
+  1. From Edges ($E$) and Nodes ($N$): $\mathbf{V(G) = E - N + 2}$
+  2. From Predicate / Decision Nodes ($P$): $\mathbf{V(G) = P + 1}$
+  3. From Enclosed Regions ($R$): $\mathbf{V(G) = R}$
+  <em>Significance:</em> $V(G)$ defines the exact number of linearly independent execution paths required to achieve $100\%$ branch coverage!
+</div>
 
 <div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Basic COCOMO Estimation for a 30 KLOC Semi-Detached Project</div>
-  <ol>
-    <li>
-      <strong>Step 1: Compute Effort ($E$):</strong>
-      $$E = 3.0 \times (30)^{1.12} = 3.0 \times 44.91 = \mathbf{134.73} \text{ Person-Months}$$
-    </li>
-    <li>
-      <strong>Step 2: Compute Development Time ($T_{\text{dev}}$):</strong>
-      $$T_{\text{dev}} = 2.5 \times (134.73)^{0.35} = 2.5 \times 5.54 = \mathbf{13.85} \text{ Months}$$
-    </li>
-    <li>
-      <strong>Step 3: Compute Average Staffing Size:</strong>
-      $$\text{Staff} = \frac{E}{T_{\text{dev}}} = \frac{134.73}{13.85} \approx \mathbf{9.7} \implies \mathbf{10} \text{ Engineers}$$
-    </li>
-  </ol>
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Cyclomatic Complexity & Independent Paths</div>
+  <pre><code>int find_max(int a, int b, int c) {
+    int max = a;            // Node 1
+    if (b > max)            // Node 2 (Predicate)
+        max = b;            // Node 3
+    if (c > max)            // Node 4 (Predicate)
+        max = c;            // Node 5
+    return max;             // Node 6
+}</code></pre>
+  <p><strong>Graph Analysis:</strong> Nodes $N = 6$, Edges $E = 7$, Predicates $P = 2$ (Nodes 2 and 4).</p>
+  <p>$$V(G) = E - N + 2 = 7 - 6 + 2 = \mathbf{3} \quad (\text{or } P + 1 = 2 + 1 = \mathbf{3})$$</p>
+  <p><strong>Set of 3 Linearly Independent Paths:</strong></p>
+  <ul>
+    <li><strong>Path 1:</strong> $1 \rightarrow 2 \rightarrow 4 \rightarrow 6$ (Test: $a=10, b=5, c=2$)</li>
+    <li><strong>Path 2:</strong> $1 \rightarrow 2 \rightarrow 3 \rightarrow 4 \rightarrow 6$ (Test: $a=5, b=10, c=2$)</li>
+    <li><strong>Path 3:</strong> $1 \rightarrow 2 \rightarrow 4 \rightarrow 5 \rightarrow 6$ (Test: $a=5, b=2, c=10$)</li>
+  </ul>
 </div>
 
-<h2 class="section-title">Topic 9 & 10: Project Scheduling (CPM & PERT Calculations)</h2>
+<h2 class="section-title">Topic 52 – 55: Levels of Testing & Software Reliability</h2>
 
 <div class="formula-card">
-  <strong>PERT Three-Point Estimation Formulas:</strong>
-  - Optimistic time ($a$), Most likely time ($m$), Pessimistic time ($b$).
-  $$\text{Expected Duration } (T_e) = \frac{a + 4m + b}{6}$$
-  $$\text{Standard Deviation } (\sigma) = \frac{b - a}{6}, \quad \text{Variance } (\sigma^2) = \left( \frac{b - a}{6} \right)^2$$
+  <strong>Software Reliability & Availability Formulas:</strong>
+  $$\text{Mean Time Between Failures (MTBF)} = \text{Mean Time To Failure (MTTF)} + \text{Mean Time To Repair (MTTR)}$$
+  $$\mathbf{\text{Availability } (A) = \frac{\text{MTBF}}{\text{MTBF} + \text{MTTR}} = \frac{\text{MTTF}}{\text{MTTF} + \text{MTTR}}}$$
 </div>
 
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
+<h2 class="section-title">🧠 M4 Active Recall & Exam Questions</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. State the components of an RMMM (Risk Mitigation, Monitoring, and Management) plan. (8 Marks)</div>
+  <div class="qa-q">Q1. Explain Top-Down vs. Bottom-Up Integration Testing. Define Stubs and Drivers with diagrams. (10 Marks)</div>
   <div class="qa-a">
-    1. <strong>Risk Mitigation (Proactive Prevention):</strong> Developing actionable strategy to reduce the probability of risk occurrence.<br>
-       <em>Example:</em> High developer turnover risk $\rightarrow$ cross-training team members and establishing thorough documentation standards.<br>
-    2. <strong>Risk Monitoring (Tracking):</strong> Continuously observing warning indicators to detect when a risk is transitioning from potential threat to reality.<br>
-       <em>Example:</em> Monitoring team morale, overtime hours, and unresolved bug counts.<br>
-    3. <strong>Risk Management (Contingency Action):</strong> Executing contingency plans when mitigation fails and the risk actually occurs.<br>
-       <em>Example:</em> Activating backup external contractors if a key developer departs.
+    - <strong>Top-Down Integration:</strong> Modules are integrated from top to bottom of the control hierarchy. Subordinate modules not yet developed are simulated using <strong>Stubs</strong> (dummy subroutines called by the tested module).<br>
+    - <strong>Bottom-Up Integration:</strong> Low-level worker modules are tested first. Superordinate modules not yet developed are simulated using <strong>Drivers</strong> (test harnesses that invoke the module and display results).<br>
+    - <strong>Sandwich (Hybrid) Integration:</strong> Combines top-down for top layers and bottom-up for low-level utility libraries, minimizing stub/driver development overhead.
   </div>
 </div>
 
