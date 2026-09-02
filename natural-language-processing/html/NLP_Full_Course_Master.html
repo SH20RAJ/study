@@ -330,443 +330,587 @@ pre code {
         </div>
         <div class='page-break'></div>
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Morphology, Tokenization & Statistical Language Modeling</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Introduction to NLP & Preprocessing — Complete 12-Topic Tracker</div>
   <div class="toc-grid">
-    <div>1. NLP Pipeline Hierarchy (Phonetics, Morphology, Syntax, Semantics, Pragmatics)</div>
-    <div>2. Regular Expressions & Finite-State Transducers (FST) for Morphological Parsing</div>
-    <div>3. Tokenization Challenges, Minimum Edit Distance (Levenshtein) Dynamic Programming</div>
-    <div>4. Subword Tokenization Algorithms: Byte-Pair Encoding (BPE), WordPiece & Unigram</div>
-    <div>5. Word Stemming (Porter Stemmer Rules) vs. Morphological Lemmatization</div>
-    <div>6. Statistical Language Modeling & The Chain Rule of Probability</div>
-    <div>7. $N$-gram Language Models (Unigram, Bigram, Trigram) & Markov Assumptions</div>
-    <div>8. Language Model Evaluation: Perplexity ($\text{PPL}$) Mathematical Formulation</div>
-    <div>9. Smoothing Techniques: Laplace (Add-1), Add-$k$, Lidstone & Absolute Discounting</div>
-    <div>10. Advanced Smoothing: Good-Turing Frequency Estimation ($r^* = (r+1)\frac{N_{r+1}}{N_r}$)</div>
-    <div>11. Modified Kneser-Ney Smoothing (Interpolation & Continuation Probability $P_{\text{cont}}$)</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+    <div><strong>Topic 1:</strong> Introduction to NLP (Scientific vs. Engineering Goals & Ambiguity)</div>
+    <div><strong>Topic 2:</strong> Real-World NLP Applications (Search, Healthcare, Finance, Chatbots)</div>
+    <div><strong>Topic 3:</strong> Morphology (Morphemes, Free/Bound, Inflectional vs. Derivational)</div>
+    <div><strong>Topic 4:</strong> Syntax (Grammatical Phrase Structures & Parse Trees)</div>
+    <div><strong>Topic 5:</strong> Semantics (Literal Meaning & Semantic Role Labeling)</div>
+    <div><strong>Topic 6:</strong> Pragmatics (Contextual Meaning: S-S-P Paradigm)</div>
+    <div><strong>Topic 7:</strong> Tokenization (Word, Sentence, Subword BPE & Character)</div>
+    <div><strong>Topic 8:</strong> Lemmatization (Base Lemma vs. Porter Stemming)</div>
+    <div><strong>Topic 9:</strong> Stop-Word Removal (Tradeoffs & Sentiment Preservations)</div>
+    <div><strong>Topic 10:</strong> Normalization (Case Folding, Unicode & Contractions) [UPLOADED PYQ]</div>
+    <div><strong>Topic 11:</strong> Regular Expressions (Pattern Matching & Information Extraction)</div>
+    <div><strong>Topic 12:</strong> Language Models Overview (Sequence Probability Distributions)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 & 2: Natural Language Hierarchy & Morphology</h2>
+<h2 class="section-title">Topic 1 & 2: Introduction to NLP & The Fundamental Ambiguity Challenge [UPLOADED PYQ]</h2>
 <p>
-  <strong>Natural Language Processing (NLP)</strong> is a multidisciplinary field at the intersection of Computer Science, Artificial Intelligence, and Computational Linguistics concerned with the automated understanding, generation, and processing of human language.
+  <strong>Natural Language Processing (NLP)</strong> sits at the intersection of Artificial Intelligence and Computational Linguistics, pursuing two fundamental objectives:
 </p>
+<ul>
+  <li><strong>Scientific Goal:</strong> Formulating computational models of human cognitive language understanding and production.</li>
+  <li><strong>Engineering Goal:</strong> Developing robust, scalable software systems capable of processing human text and speech for practical real-world utility.</li>
+</ul>
 
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 22%;">Linguistic Level</th>
-      <th style="width: 38%;">Core Linguistic Phenomenon</th>
-      <th>Key Computational Tasks</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>1. Phonetics & Phonology</strong></td><td>Physical sounds and linguistic acoustic patterns.</td><td>Speech-to-Text (ASR), Text-to-Speech (TTS).</td></tr>
-    <tr><td><strong>2. Morphology</strong></td><td>Structure and formation of words from root morphemes.</td><td>Stemming, Lemmatization, Tokenization, BPE.</td></tr>
-    <tr><td><strong>3. Syntax</strong></td><td>Grammatical rules governing sentence and phrase structure.</td><td>POS Tagging, Context-Free Parsing, Dependency Parsing.</td></tr>
-    <tr><td><strong>4. Semantics</strong></td><td>Literal meaning of words, phrases, and compositions.</td><td>WordNet, Word2Vec, BERT, Semantic Role Labeling.</td></tr>
-    <tr><td><strong>5. Pragmatics & Discourse</strong></td><td>Contextual meaning, intent, coreference, and conversational tone.</td><td>Anaphora Resolution, Dialogue Systems, Sarcasm Detection.</td></tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">Topic 3 & 4: Subword Tokenization (Byte-Pair Encoding - BPE)</h2>
-
-<div class="callout callout-info">
-  <div class="callout-title">The Byte-Pair Encoding (BPE) Algorithm (Sennrich et al., 2016)</div>
+<div class="callout callout-warning">
+  <div class="callout-title">[UPLOADED PYQ — CS633] Why is Ambiguity the Core Challenge of NLP?</div>
+  Natural language is inherently ambiguous across all linguistic tiers:
   <ol>
-    <li>Initialize vocabulary with all individual characters in the training corpus plus an end-of-word symbol `</w>`.</li>
-    <li>Count the frequency of all adjacent symbol pairs in the tokenized corpus.</li>
-    <li>Identify the most frequent symbol pair $(c_1, c_2)$ and merge it into a single new vocabulary token $c_1 c_2$.</li>
-    <li>Repeat steps 2 and 3 for a fixed number of merge operations $k$ (e.g., $32,000$ merges in GPT-2).</li>
-    <li><em>Significance:</em> Solves the Out-of-Vocabulary (OOV) problem by representing rare and unseen words as sequences of subword units (e.g., `unaffordability` $\rightarrow$ `un` + `afford` + `ability`).</li>
+    <li><strong>Lexical Ambiguity:</strong> A single word possesses multiple distinct meanings (e.g., `"bank"` $\rightarrow$ financial institution vs. river slope).</li>
+    <li><strong>Syntactic (Structural) Ambiguity:</strong> A sentence can generate multiple valid parse trees (e.g., <em>"I saw the man with the telescope"</em> $\rightarrow$ who holds the telescope?).</li>
+    <li><strong>Semantic Ambiguity:</strong> A sentence has multiple literal interpretations (e.g., <em>"The chicken is ready to eat"</em> $\rightarrow$ is the chicken hungry or cooked?).</li>
+    <li><strong>Pragmatic Ambiguity:</strong> Meaning depends strictly on conversational context and real-world intent (e.g., <em>"Can you pass the salt?"</em> $\rightarrow$ an action request, not an inquiry about physical ability).</li>
   </ol>
 </div>
 
-<h2 class="section-title">Topic 6 & 7: $N$-gram Language Modeling & The Chain Rule</h2>
-
-<div class="formula-card">
-  <strong>1. Exact Chain Rule of Probability for Sentence $W = (w_1, w_2, \dots, w_n)$:</strong>
-  $$P(w_1, w_2, \dots, w_n) = \prod_{k=1}^n P(w_k \mid w_1, w_2, \dots, w_{k-1})$$
-</div>
-
-<div class="formula-card">
-  <strong>2. Bigram Language Model (1st-Order Markov Assumption):</strong>
-  $$P(w_1, w_2, \dots, w_n) \approx \prod_{k=1}^n P(w_k \mid w_{k-1}) \quad \text{where } P(w_k \mid w_{k-1}) = \frac{C(w_{k-1}, w_k)}{C(w_{k-1})}$$
-</div>
-
-<div class="formula-card">
-  <strong>3. Language Model Perplexity ($\text{PPL}$):</strong>
-  $$\text{PPL}(W) = P(w_1, w_2, \dots, w_n)^{-\frac{1}{n}} = \sqrt[n]{\frac{1}{P(w_1, w_2, \dots, w_n)}} = 2^{-\frac{1}{n} \sum_{i=1}^n \log_2 P(w_i \mid w_{i-1})}$$
-  <em>Lower Perplexity indicates a superior language model that is less surprised by the test corpus!</em>
-</div>
-
-<h2 class="section-title">Topic 9 – 11: Smoothing Techniques for Statistical Language Models</h2>
+<h2 class="section-title">Topic 3 – 6: The 4 Core Levels of Linguistic Analysis</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Smoothing Method</th>
-      <th style="width: 45%;">Probability Estimation Formula</th>
-      <th>Key Mechanics & Intuition</th>
+      <th style="width: 20%;">Linguistic Level</th>
+      <th style="width: 45%;">Core Scope & Analysis Mechanism</th>
+      <th>Representative Example</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Laplace (Add-1)</strong></td>
-      <td>$$P_{\text{Laplace}}(w_i \mid w_{i-1}) = \frac{C(w_{i-1}, w_i) + 1}{C(w_{i-1}) + V}$$</td>
-      <td>Adds 1 to every count; shifts far too much probability mass to unseen $N$-grams in large vocabularies $V$.</td>
+      <td><strong>1. Morphology</strong></td>
+      <td>Study of the internal structure of words and their minimal meaning-bearing units (<strong>Morphemes</strong>).<br>• <em>Free:</em> Can stand alone (`"happy"`).<br>• <em>Bound:</em> Prefixes/Suffixes (`"un-"`, `"-ness"`).<br>• <em>Inflectional:</em> Changes grammar form (`"walk"` $\rightarrow$ `"walked"`).<br>• <em>Derivational:</em> Creates new words/parts of speech (`"happy"` $\rightarrow$ `"unhappiness"`).</td>
+      <td>`unhappiness` = `un-` (prefix) + `happy` (root) + `-ness` (suffix).</td>
     </tr>
     <tr>
-      <td><strong>2. Add-$k$ (Lidstone)</strong></td>
-      <td>$$P_{\text{Add-}k}(w_i \mid w_{i-1}) = \frac{C(w_{i-1}, w_i) + k}{C(w_{i-1}) + k V} \quad (0 < k < 1)$$</td>
-      <td>Reduces probability mass distortion compared to Add-1.</td>
+      <td><strong>2. Syntax</strong></td>
+      <td>Formal grammatical rules governing how words combine into phrases and sentences (Context-Free Grammars).</td>
+      <td>$\text{S} \rightarrow \text{NP} \ \text{VP}$ (e.g., <em>"The student [NP] solved the problem [VP]"</em>).</td>
     </tr>
     <tr>
-      <td><strong>3. Absolute Discounting</strong></td>
-      <td>$$P(w_i \mid w_{i-1}) = \frac{\max(C(w_{i-1}, w_i) - d, 0)}{C(w_{i-1})} + \frac{d \cdot |\{w : C(w_{i-1}, w) > 0\}|}{C(w_{i-1})} P(w_i)$$</td>
-      <td>Subtracts a fixed discount $d \in (0, 1)$ from non-zero counts and redistributes mass to unigrams.</td>
+      <td><strong>3. Semantics</strong></td>
+      <td>The study of literal, context-independent linguistic meaning and predicate-argument relationships (Semantic Roles: Agent, Action, Patient).</td>
+      <td><em>"The dog chased the cat"</em> $\rightarrow \text{Agent}=\text{dog}, \text{Action}=\text{chase}, \text{Patient}=\text{cat}$.</td>
     </tr>
     <tr>
-      <td><strong>4. Kneser-Ney (Interpolated)</strong></td>
-      <td>$$P_{\text{KN}}(w_i \mid w_{i-1}) = \frac{\max(C(w_{i-1}, w_i) - d, 0)}{C(w_{i-1})} + \lambda(w_{i-1}) P_{\text{continuation}}(w_i)$$
-          $$P_{\text{continuation}}(w_i) = \frac{|\{w' : C(w', w_i) > 0\}|}{\sum_{w} |\{w' : C(w', w) > 0\}|}$$
-      </td>
-      <td>Considers how versatile word $w_i$ is as a continuation across diverse preceding contexts (e.g., `San Francisco`). State-of-the-art $N$-gram smoothing.</td>
+      <td><strong>4. Pragmatics</strong></td>
+      <td>Meaning in real-world communicative context, discourse intent, and speaker implicature.</td>
+      <td><em>"It is freezing in here!"</em> $\implies$ Pragmatic command to close the window.</td>
     </tr>
   </tbody>
 </table>
-
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. Define Perplexity. Given a test sentence with probability $10^{-6}$ and length 6 words, compute its Perplexity. (6 Marks)</div>
-  <div class="qa-a">
-    <strong>Perplexity ($\text{PPL}$):</strong> The reciprocal geometric mean of the probability assigned to the test sentence by the language model:<br>
-    $$\text{PPL}(W) = (P(W))^{-1/N} = (10^{-6})^{-1/6} = 10^1 = \mathbf{10}$$
-    A perplexity of 10 means the model is as confused as if it had to choose uniformly among 10 words at each step.
-  </div>
-</div>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Part-of-Speech Tagging & Hidden Markov Models (HMM)</div>
-  <div class="toc-grid">
-    <div>1. Linguistic Word Classes: Open Class vs. Closed Class Lexical Categories</div>
-    <div>2. Penn Treebank 45-Tag Tagset (NN, NNP, VB, VBD, JJ, RB, IN, DT)</div>
-    <div>3. Part-of-Speech (POS) Tagging Approaches (Rule-Based, Statistical, Neural)</div>
-    <div>4. Hidden Markov Models (HMM) 5-Tuple: States, Observations, Transitions, Emissions, Priors</div>
-    <div>5. The 3 Fundamental Computational Problems in HMMs (Evaluation, Decoding, Learning)</div>
-    <div>6. The Forward Algorithm for Sequence Likelihood ($O(N^2 T)$ Dynamic Programming)</div>
-    <div>7. The Viterbi Algorithm for Optimal Hidden State Decoding ($\max$ Trellis Trace)</div>
-    <div>8. Complete Step-by-Step Viterbi Trellis Trace on Sentence "Janet will back the bill"</div>
-    <div>9. Baum-Welch (Expectation-Maximization) Unsupervised Learning Algorithm</div>
-    <div>10. Maximum Entropy Markov Models (MEMM) & The Label Bias Problem</div>
-    <div>11. Linear-Chain Conditional Random Fields (CRF) Globally Normalized Potentials</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
-  </div>
-</div>
-
-<h2 class="section-title">Topic 1 – 4: Part-of-Speech Tagging & HMM Mathematical Architecture</h2>
-<p>
-  <strong>Part-of-Speech (POS) Tagging</strong> is the task of assigning a grammatical category label (e.g., Noun, Verb, Adjective, Preposition) to each word in an input text sequence:
-</p>
-$$\mathbf{w} = (w_1, w_2, \dots, w_T) \xrightarrow{\text{POS Tagging}} \mathbf{t} = (t_1, t_2, \dots, t_T)$$
-
-<div class="formula-card">
-  <strong>Hidden Markov Model 5-Tuple $\lambda = (S, V, A, B, \pi)$:</strong>
-  <ol>
-    <li>$S = \{s_1, s_2, \dots, s_N\}$: Finite set of hidden states (e.g., POS tags).</li>
-    <li>$V = \{v_1, v_2, \dots, v_M\}$: Finite set of observable vocabulary symbols (words).</li>
-    <li>$A = \{a_{ij}\}$: State Transition Probability Matrix, where $a_{ij} = P(q_t = s_j \mid q_{t-1} = s_i)$.</li>
-    <li>$B = \{b_j(k)\}$: Emission Probability Matrix, where $b_j(k) = P(o_t = v_k \mid q_t = s_j)$.</li>
-    <li>$\pi = \{\pi_i\}$: Initial State Probability Distribution, where $\pi_i = P(q_1 = s_i)$.</li>
-  </ol>
-</div>
-
-<h2 class="section-title">Topic 7 & 8: The Viterbi Dynamic Programming Decoding Algorithm</h2>
-
-<div class="formula-card">
-  <strong>Viterbi Recurrence Relations:</strong>
-  Let $v_t(j)$ be the highest probability of any state sequence ending in state $j$ at time $t$:
-  1. <strong>Initialization ($t = 1$):</strong>
-     $$v_1(j) = \pi_j \cdot b_j(o_1), \quad \text{backpointer}_1(j) = 0 \quad (1 \le j \le N)$$
-  2. <strong>Recursion ($t = 2 \dots T$):</strong>
-     $$v_t(j) = \max_{i=1}^N \Big( v_{t-1}(i) \cdot a_{ij} \Big) \cdot b_j(o_t) \quad (1 \le j \le N)$$
-     $$\text{backpointer}_t(j) = \arg\max_{i=1}^N \Big( v_{t-1}(i) \cdot a_{ij} \Big)$$
-  3. <strong>Termination:</strong>
-     $$P^* = \max_{i=1}^N v_T(i), \quad q_T^* = \arg\max_{i=1}^N v_T(i)$$
-  4. <strong>Backtracking:</strong>
-     $$q_t^* = \text{backpointer}_{t+1}(q_{t+1}^*) \quad \text{for } t = T-1, T-2, \dots, 1$$
-</div>
-
-<h2 class="section-title">Topic 10 & 11: MEMMs vs. Linear-Chain CRFs (Label Bias Problem)</h2>
-
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Model Class</th>
-      <th style="width: 35%;">Mathematical Formulation</th>
-      <th>Normalization & Key Theoretical Properties</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>1. Generative HMM</strong></td>
-      <td>$$P(\mathbf{w}, \mathbf{t}) = \prod_{i=1}^T P(t_i \mid t_{i-1}) P(w_i \mid t_i)$$</td>
-      <td>Models joint probability; cannot easily integrate overlapping, non-independent features.</td>
-    </tr>
-    <tr>
-      <td><strong>2. Discriminative MEMM</strong></td>
-      <td>$$P(\mathbf{t} \mid \mathbf{w}) = \prod_{i=1}^T \frac{\exp(\mathbf{w}^T \mathbf{f}(t_i, t_{i-1}, \mathbf{w}, i))}{\sum_{t'} \exp(\mathbf{w}^T \mathbf{f}(t', t_{i-1}, \mathbf{w}, i))}$$</td>
-      <td><strong>Local Normalization at each step:</strong> Suffers from the <em>Label Bias Problem</em> where states with low-entropy transitions dominate regardless of input observations.</td>
-    </tr>
-    <tr>
-      <td><strong>3. Linear-Chain CRF</strong></td>
-      <td>$$P(\mathbf{t} \mid \mathbf{w}) = \frac{1}{Z(\mathbf{w})} \exp\left( \sum_{i=1}^T \sum_k w_k f_k(t_i, t_{i-1}, \mathbf{w}, i) \right)$$</td>
-      <td><strong>Global Normalization ($Z(\mathbf{w})$):</strong> Overcomes the Label Bias Problem completely by evaluating the total score of the entire sequence simultaneously.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module II)</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. State the 3 fundamental problems of Hidden Markov Models and name the algorithms used to solve them. (6 Marks)</div>
-  <div class="qa-a">
-    1. <strong>Evaluation Problem (Likelihood):</strong> Given model $\lambda$ and observation sequence $O$, compute $P(O \mid \lambda)$. Solved by the <strong>Forward Algorithm</strong> (or Backward Algorithm) in $O(N^2 T)$ time.<br>
-    2. <strong>Decoding Problem:</strong> Given model $\lambda$ and observation sequence $O$, find the optimal hidden state sequence $Q^*$ that best explains $O$. Solved by the <strong>Viterbi Algorithm</strong> in $O(N^2 T)$ time.<br>
-    3. <strong>Learning Problem (Parameter Estimation):</strong> Given observation sequence $O$, adjust model parameters $\lambda = (A, B, \pi)$ to maximize $P(O \mid \lambda)$. Solved by the <strong>Baum-Welch (EM) Algorithm</strong>.
-  </div>
-</div>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Syntactic Parsing, Context-Free Grammars & Dependency Structures</div>
-  <div class="toc-grid">
-    <div>1. Phrase Structure Grammars & Constituency vs. Dependency Syntax Trees</div>
-    <div>2. Context-Free Grammars (CFG) for Natural Language Syntax ($G = (V, T, P, S)$)</div>
-    <div>3. Structural Ambiguity in Natural Language (Prepositional Phrase & Coordination)</div>
-    <div>4. Chomsky Normal Form (CNF) Formal Conversion Rules ($A \rightarrow BC \mid a$)</div>
-    <div>5. The CYK (Cocke-Younger-Kasami) Dynamic Programming Parsing Algorithm</div>
-    <div>6. Complete Step-by-Step CYK Triangular Table Parsing Trace for "Book the flight"</div>
-    <div>7. Probabilistic Context-Free Grammars (PCFG) & Maximum Likelihood Estimation</div>
-    <div>8. The Probabilistic CYK (Inside-Outside) Parsing Algorithm for Disambiguation</div>
-    <div>9. Dependency Grammar Foundations: Heads, Dependents & Universal Dependencies (UD)</div>
-    <div>10. Transition-Based Dependency Parsing (Shift-Reduce, ARC-STANDARD & ARC-EAGER)</div>
-    <div>11. Graph-Based Dependency Parsing (Chu-Liu-Edmonds Maximum Spanning Tree)</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
-  </div>
-</div>
-
-<h2 class="section-title">Topic 4 & 5: Chomsky Normal Form (CNF) & The CYK Algorithm</h2>
-
-<p>
-  A Context-Free Grammar is in <strong>Chomsky Normal Form (CNF)</strong> if every production rule has one of two forms:
-</p>
-$$A \rightarrow B \ C \quad \text{or} \quad A \rightarrow a$$
-<p>Where $A, B, C$ are non-terminals ($B, C \neq S$) and $a$ is a single terminal symbol.</p>
-
-<div class="formula-card">
-  <strong>CYK Dynamic Programming Recurrence:</strong>
-  Let table entry $P[i, j, A]$ be true if non-terminal $A$ derives substring $w_i \dots w_j$ of length $l = j - i + 1$:
-  1. <strong>Base Case (Length $l = 1$):</strong>
-     $$P[i, i, A] = \text{true} \quad \text{for all } A \rightarrow w_i \in P$$
-  2. <strong>Inductive Step (Length $l = 2 \dots n$):</strong>
-     $$P[i, j, A] = \text{true} \iff \exists k \in [i, j-1] \text{ and } A \rightarrow B \ C \in P \text{ such that } P[i, k, B] = \text{true} \land P[k+1, j, C] = \text{true}$$
-  <em>Time Complexity: $O(n^3 \cdot |P|)$ where $n$ is sentence length and $|P|$ is number of CNF grammar rules.</em>
-</div>
-
-<h2 class="section-title">Topic 9 & 10: Dependency Parsing & Transition Systems</h2>
-
-<p>
-  <strong>Dependency Syntax</strong> describes grammatical structure by establishing direct binary asymmetric grammatical relations between words (Heads $\rightarrow$ Dependents), without intermediate phrase nodes:
-</p>
-
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Transition Action</th>
-      <th style="width: 45%;">Stack & Buffer Manipulation</th>
-      <th>Dependency Arc Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>1. SHIFT</strong></td>
-      <td>Remove first word $w$ from Buffer and push onto Stack.</td>
-      <td>None.</td>
-    </tr>
-    <tr>
-      <td><strong>2. LEFT-ARC ($r$)</strong></td>
-      <td>Creates dependency arc $s_1 \xleftarrow{r} s_2$ from top of stack $s_1$ to second item $s_2$. Pops $s_2$ from stack.</td>
-      <td>$s_1 \rightarrow s_2$ ($s_1$ is Head).</td>
-    </tr>
-    <tr>
-      <td><strong>3. RIGHT-ARC ($r$)</strong></td>
-      <td>Creates dependency arc $s_1 \xrightarrow{r} s_2$ from second item $s_1$ to top of stack $s_2$. Pops $s_2$ from stack.</td>
-      <td>$s_1 \rightarrow s_2$ ($s_1$ is Head).</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. State the Chomsky Normal Form (CNF) restrictions and explain why CNF is mandatory for the CYK algorithm. (8 Marks)</div>
-  <div class="qa-a">
-    - <strong>CNF Restrictions:</strong> All productions must strictly be of the form $A \rightarrow BC$ (exactly 2 non-terminals) or $A \rightarrow a$ (exactly 1 terminal). No unit productions ($A \rightarrow B$) or $\epsilon$-productions ($A \rightarrow \epsilon$) are allowed.<br>
-    - <strong>Why Mandatory for CYK:</strong> CYK relies on dynamic programming by splitting a substring into exactly two parts ($w[i \dots k]$ and $w[k+1 \dots j]$). Binary branching ($A \rightarrow BC$) guarantees that any subphrase is formed by joining exactly two adjacent subphrases, creating the $O(n^3)$ tabular recurrence.
-  </div>
-</div>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Lexical Semantics, Vector Space Models & Distributed Word Embeddings</div>
-  <div class="toc-grid">
-    <div>1. Lexical Semantics: Word Senses, Synonyms, Antonyms, Hypernyms & Hyponyms</div>
-    <div>2. WordNet Ontology Architecture: Synsets, Taxonomic Distance & Similarity Metrics</div>
-    <div>3. Distributional Hypothesis: "You shall know a word by the company it keeps"</div>
-    <div>4. Term-Document Matrix & Term Frequency-Inverse Document Frequency (TF-IDF)</div>
-    <div>5. Term-Context Matrices & Pointwise Mutual Information (PMI / Positive PMI)</div>
-    <div>6. Dimensionality Reduction in Semantics: Latent Semantic Analysis (LSA / SVD)</div>
-    <div>7. Word2Vec Architecture (Mikolov et al., 2013): Continuous Bag-of-Words (CBOW)</div>
-    <div>8. Word2Vec Skip-Gram Model with Negative Sampling (SGNS) Mathematical Objective</div>
-    <div>9. Vector Arithmetic & Analogical Reasoning ($\mathbf{v}_{\text{King}} - \mathbf{v}_{\text{Man}} + \mathbf{v}_{\text{Woman}} \approx \mathbf{v}_{\text{Queen}}$)</div>
-    <div>10. GloVe (Global Vectors for Word Representation): Log-Bilinear Matrix Factorization</div>
-    <div>11. FastText: Subword N-Gram Embeddings for Morphology & Out-of-Vocabulary (OOV)</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
-  </div>
-</div>
-
-<h2 class="section-title">Topic 4 & 5: Vector Space Models (TF-IDF & Positive PMI)</h2>
-
-<div class="formula-card">
-  <strong>1. Term Frequency-Inverse Document Frequency ($\text{TF-IDF}$):</strong>
-  $$\text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)$$
-  $$\text{TF}(t, d) = \frac{f_{t, d}}{\sum_{t' \in d} f_{t', d}}, \quad \text{IDF}(t, D) = \log_{10}\left( \frac{|D|}{|\{d \in D : t \in d\}|} \right)$$
-</div>
-
-<div class="formula-card">
-  <strong>2. Positive Pointwise Mutual Information ($\text{PPMI}$):</strong>
-  $$\text{PMI}(w, c) = \log_2\left( \frac{P(w, c)}{P(w) P(c)} \right) = \log_2\left( \frac{C(w, c) \cdot N}{C(w) \cdot C(c)} \right)$$
-  $$\text{PPMI}(w, c) = \max(\text{PMI}(w, c), 0)$$
-</div>
-
-<h2 class="section-title">Topic 7 & 8: Word2Vec (Skip-Gram with Negative Sampling - SGNS)</h2>
-
-<p>
-  <strong>Word2Vec</strong> learns dense low-dimensional continuous vector embeddings ($d \approx 300$) where semantically similar words are mapped to proximate points in vector space.
-</p>
 
 <div class="callout callout-info">
-  <div class="callout-title">Skip-Gram with Negative Sampling (SGNS) Loss Function</div>
-  For a target word $w$ with true context word $c_{\text{pos}}$ and $k$ randomly drawn negative words $c_{\text{neg}, 1 \dots k}$ from noise distribution $P_n(w) \propto f(w)^{3/4}$:
-  $$\mathcal{L}_{\text{SGNS}} = \log \sigma(\mathbf{v}_{c_{\text{pos}}}^T \mathbf{v}_w) + \sum_{i=1}^k \mathbb{E}_{c_{\text{neg}, i} \sim P_n} \Big[ \log \sigma(-\mathbf{v}_{c_{\text{neg}, i}}^T \mathbf{v}_w) \Big]$$
-  Where $\sigma(z) = \frac{1}{1 + e^{-z}}$ is the logistic sigmoid function. Maximizes dot product with actual context words while pushing away negative noise samples!
+  <div class="callout-title">🧠 Memory Hook: S-S-P Paradigm</div>
+  <strong>S</strong>yntax (Structure) $\longrightarrow$ <strong>S</strong>emantics (Sense / Meaning) $\longrightarrow$ <strong>P</strong>ragmatics (Situation / Context)
 </div>
 
-<h2 class="section-title">Topic 10: GloVe (Global Vectors for Word Representation)</h2>
+<h2 class="section-title">Topic 7 – 10: Text Preprocessing & Normalization Pipeline [UPLOADED PYQ]</h2>
 
-<div class="formula-card">
-  <strong>GloVe Log-Bilinear Objective Function (Pennington, Socher, Manning, 2014):</strong>
-  $$J = \sum_{i, j=1}^V f(X_{ij}) \Big( \mathbf{w}_i^T \tilde{\mathbf{w}}_j + b_i + \tilde{b}_j - \log X_{ij} \Big)^2$$
-  Where $X_{ij}$ is the co-occurrence count of word $i$ with context word $j$, and $f(X_{ij}) = \min(1, (X_{ij} / x_{\max})^\alpha)$ is a weighting function that caps the influence of extremely frequent stop words (with $\alpha = 0.75, x_{\max} = 100$).
+<div class="diagram-container">
+  <svg width="100%" height="75" viewBox="0 0 740 75" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="15" width="110" height="45" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="75" y="36" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#1e40af" text-anchor="middle">Raw Text</text>
+    <text x="75" y="49" font-family="Plus Jakarta Sans" font-size="8.5" fill="#2563eb" text-anchor="middle">Unstructured string</text>
+
+    <path d="M 130 37 L 165 37" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="170" y="15" width="115" height="45" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="227" y="36" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#14532d" text-anchor="middle">Tokenization</text>
+    <text x="227" y="49" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" text-anchor="middle">Word / BPE Subwords</text>
+
+    <path d="M 285 37 L 320 37" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="325" y="15" width="125" height="45" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="387" y="36" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#92400e" text-anchor="middle">Normalization</text>
+    <text x="387" y="49" font-family="Plus Jakarta Sans" font-size="8.5" fill="#b45309" text-anchor="middle">Case fold / Contractions</text>
+
+    <path d="M 450 37 L 485 37" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="490" y="15" width="115" height="45" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="547" y="36" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#581c87" text-anchor="middle">Lemmatization</text>
+    <text x="547" y="49" font-family="Plus Jakarta Sans" font-size="8.5" fill="#9333ea" text-anchor="middle">Dictionary root lemma</text>
+
+    <path d="M 605 37 L 635 37" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="640" y="15" width="80" height="45" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="680" y="36" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="700" fill="#1e40af" text-anchor="middle">Model</text>
+    <text x="680" y="49" font-family="Plus Jakarta Sans" font-size="8.5" fill="#2563eb" text-anchor="middle">Clean Tokens</text>
+  </svg>
+  <div class="diagram-caption">Figure 1.1: Standard Text Preprocessing Pipeline in NLP Systems</div>
 </div>
-
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module IV)</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. Compare CBOW and Skip-Gram models in Word2Vec across 4 architectural parameters. (8 Marks)</div>
-  <div class="qa-a">
-    1. <strong>Prediction Task:</strong> CBOW predicts the target center word given a window of surrounding context words; Skip-Gram predicts the surrounding context words given the center word.<br>
-    2. <strong>Training Speed:</strong> CBOW trains several times faster than Skip-Gram because context word vectors are averaged in a single forward pass.<br>
-    3. <strong>Performance on Rare Words:</strong> Skip-Gram is substantially superior for rare words and small datasets because each target-context pair is treated as a separate training sample.<br>
-    4. <strong>Vector Representations:</strong> CBOW smooths over context distribution; Skip-Gram preserves multi-sense representations.
-  </div>
-</div>
-<div class='page-break'></div>
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Transformers, Large Language Models & Generation Evaluation</div>
-  <div class="toc-grid">
-    <div>1. Limitations of Recurrent Architectures (RNN, LSTM, GRU) & Sequential Bottleneck</div>
-    <div>2. The Transformer Architecture (Vaswani et al., 2017: "Attention Is All You Need")</div>
-    <div>3. Scaled Dot-Product Self-Attention Mechanism & Softmax Normalization ($\sqrt{d_k}$)</div>
-    <div>4. Multi-Head Attention Formulations ($\text{Concat}(\text{head}_1 \dots \text{head}_h)W^O$)</div>
-    <div>5. Positional Encoding Schemes: Fixed Sinusoidal Waves vs. Rotary Embeddings (RoPE)</div>
-    <div>6. Transformer Encoder Blocks (LayerNorm, Residual Additions & Multi-Layer Feedforward)</div>
-    <div>7. Transformer Decoder Blocks (Masked Causal Self-Attention & Cross-Attention)</div>
-    <div>8. BERT Architecture: Bidirectional Transformer Encoders (Masked LM & NSP Tasks)</div>
-    <div>9. GPT Family: Autoregressive Decoder Models, In-Context Learning & Prompting</div>
-    <div>10. Text Generation Decoding: Greedy, Beam Search, Top-$k$ & Top-$p$ (Nucleus) Sampling</div>
-    <div>11. NLP Evaluation Metrics: BLEU Score (with Brevity Penalty) & ROUGE-1/2/L Math</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
-  </div>
-</div>
-
-<h2 class="section-title">Topic 2 – 4: The Transformer & Scaled Dot-Product Attention</h2>
-
-<div class="formula-card">
-  <strong>1. Scaled Dot-Product Attention:</strong>
-  $$\text{Attention}(Q, K, V) = \text{softmax}\left( \frac{Q K^T}{\sqrt{d_k}} \right) V$$
-  Where $Q \in \mathbb{R}^{n \times d_k}$ is the Query matrix, $K \in \mathbb{R}^{m \times d_k}$ is the Key matrix, and $V \in \mathbb{R}^{m \times d_v}$ is the Value matrix.<br>
-  <em>Why Scale by $\frac{1}{\sqrt{d_k}}$?</em> For large values of $d_k$, dot products grow large in magnitude, pushing the softmax function into regions with extremely small gradients. Dividing by $\sqrt{d_k}$ stabilizes gradient backpropagation!
-</div>
-
-<div class="formula-card">
-  <strong>2. Multi-Head Attention:</strong>
-  $$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \dots, \text{head}_h) W^O$$
-  $$\text{head}_i = \text{Attention}(Q W_i^Q, K W_i^K, V W_i^V)$$
-  Where projection parameter matrices $W_i^Q \in \mathbb{R}^{d_{\text{model}} \times d_k}, W_i^K \in \mathbb{R}^{d_{\text{model}} \times d_k}, W_i^V \in \mathbb{R}^{d_{\text{model}} \times d_v}$, and $W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}$.
-</div>
-
-<h2 class="section-title">Topic 8 & 9: BERT vs. GPT Architectural Comparison</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
       <th style="width: 25%;">Feature</th>
-      <th style="width: 37%;">BERT (Devlin et al., 2018)</th>
-      <th>GPT (Radford et al., OpenAI)</th>
+      <th style="width: 37%;">Stemming (e.g., Porter Stemmer)</th>
+      <th>Lemmatization (WordNet Lemmatizer) [UPLOADED PYQ]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Core Technique</strong></td><td>Crude heuristic rule-based chopping of prefixes and suffixes.</td><td>Full morphological vocabulary and dictionary lookup analysis.</td></tr>
+    <tr><td><strong>Output Validity</strong></td><td>Often produces non-words (e.g., `"running"` $\rightarrow$ `"run"`, `"studies"` $\rightarrow$ `"studi"`).</td><td>Guaranteed valid dictionary base form (e.g., `"better"` $\rightarrow$ `"good"`, `"mice"` $\rightarrow$ `"mouse"`).</td></tr>
+    <tr><td><strong>Context Awareness</strong></td><td>Zero Part-of-Speech context awareness.</td><td>Uses POS tags to resolve ambiguity (`"meeting"` as Verb $\rightarrow$ `"meet"`, as Noun $\rightarrow$ `"meeting"`).</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 11 & 12: Regular Expressions & Language Models Overview</h2>
+
+<div class="formula-card">
+  <strong>Language Model Formal Definition:</strong>
+  A <strong>Language Model (LM)</strong> computes the joint probability distribution over any arbitrary sequence of $n$ words $W = \langle w_1, w_2, \dots, w_n \rangle$:
+  $$P(w_1, w_2, \dots, w_n) = \prod_{i=1}^n P(w_i \mid w_1, w_2, \dots, w_{i-1})$$
+</div>
+
+<h2 class="section-title">🧠 M1 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. [UPLOADED PYQ — CS633] Explain the 5 sequential phases of NLP with an end-to-end example. (10 Marks)</div>
+  <div class="qa-a">
+    Given sentence: <em>"The intelligent student solved the complex problem."</em><br>
+    1. <strong>Morphological Analysis:</strong> Breaks tokens into morphemes (`"solve"` + `"-ed"`, `"complex"`).<br>
+    2. <strong>Syntactic Analysis (Parsing):</strong> Builds hierarchical phrase parse tree ($S \rightarrow NP \ VP$).<br>
+    3. <strong>Semantic Analysis:</strong> Assigns literal meaning ($Agent=\text{student}, Action=\text{solve}, Object=\text{problem}$).<br>
+    4. <strong>Discourse Integration:</strong> Links pronouns and entities across surrounding sentences.<br>
+    5. <strong>Pragmatic Analysis:</strong> Interprets the speaker's true intent within conversational context.
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Language Models, POS Tagging & Parsing — Complete 12-Topic Tracker</div>
+  <div class="toc-grid">
+    <div><strong>Topic 13:</strong> N-Gram Language Models (Unigram, Bigram & Trigram Probabilities)</div>
+    <div><strong>Topic 14:</strong> Smoothing & Perplexity (Laplace Add-1 & Kneser-Ney Backoff)</div>
+    <div><strong>Topic 15:</strong> Rule-Based Part-of-Speech Tagging (Morphological Rules)</div>
+    <div><strong>Topic 16:</strong> HMM POS Tagging & The Viterbi Algorithm [UPLOADED PYQ]</div>
+    <div><strong>Topic 17:</strong> Context-Free Grammars (CFG Formal Definition & Parse Trees)</div>
+    <div><strong>Topic 18:</strong> Recursive Descent Parsing (Top-Down Backtracking Search)</div>
+    <div><strong>Topic 19:</strong> Probabilistic Parsing (PCFG, CNF & CKY Algorithm) [UPLOADED PYQ]</div>
+    <div><strong>Topic 20:</strong> Dependency Parsing (Typed Dependency Trees & Arc-Standard)</div>
+    <div><strong>Topic 21:</strong> Precision Metric Formulation in NLP Evaluation</div>
+    <div><strong>Topic 22:</strong> Recall Metric Formulation in Information Extraction</div>
+    <div><strong>Topic 23:</strong> F1-Score Harmonic Mean Formulation</div>
+    <div><strong>Topic 24:</strong> Parsing Evaluation Metrics (UAS & LAS Attachment Scores)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 13 & 14: N-Gram Models, Laplace Smoothing & Perplexity [UPLOADED PYQ]</h2>
+
+<div class="formula-card">
+  <strong>1. Bigram Maximum Likelihood Estimation (MLE):</strong>
+  $$P(w_i \mid w_{i-1}) = \frac{\text{Count}(w_{i-1}, w_i)}{\text{Count}(w_{i-1})}$$
+</div>
+
+<div class="formula-card">
+  <strong>2. Laplace (Add-1) Smoothing Formula [UPLOADED PYQ]:</strong>
+  $$P_{\text{Laplace}}(w_i \mid w_{i-1}) = \frac{\text{Count}(w_{i-1}, w_i) + 1}{\text{Count}(w_{i-1}) + |V|}$$
+  Where $|V|$ is the total vocabulary size. Guarantees zero-probability events never crash sentence likelihoods!
+</div>
+
+<div class="formula-card">
+  <strong>3. Model Perplexity Metric ($PP$):</strong>
+  $$PP(W) = P(w_1, w_2, \dots, w_N)^{-\frac{1}{N}} = \sqrt[N]{\frac{1}{P(w_1, w_2, \dots, w_N)}}$$
+  <em>Interpretation:</em> The average branching factor of the language model (Lower Perplexity $\implies$ Higher Predictive Accuracy).
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ [UPLOADED PYQ] Solved Problem: Bigram Probability with Laplace Smoothing</div>
+  <p>Given corpus counts: $\text{Count}(\text{"want", "to"}) = 600$, $\text{Count}(\text{"want"}) = 1200$, Vocabulary $|V| = 5000$.</p>
+  <ol>
+    <li>MLE Probability: $P_{\text{MLE}}(\text{"to"} \mid \text{"want"}) = \frac{600}{1200} = \mathbf{0.500}$.</li>
+    <li>Laplace Smoothed Probability: $P_{\text{Laplace}}(\text{"to"} \mid \text{"want"}) = \frac{600 + 1}{1200 + 5000} = \frac{601}{6200} \approx \mathbf{0.0969}$.</li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 15 & 16: HMM POS Tagging & The Viterbi Algorithm [UPLOADED PYQ]</h2>
+
+<p>
+  A <strong>Hidden Markov Model (HMM)</strong> models Part-of-Speech tagging as finding the most probable hidden sequence of POS tags $T = \langle t_1, \dots, t_n \rangle$ given observed words $W = \langle w_1, \dots, w_n \rangle$:
+</p>
+$$\hat{T} = \arg\max_T P(T \mid W) = \arg\max_T \prod_{i=1}^n P(t_i \mid t_{i-1}) \cdot P(w_i \mid t_i)$$
+
+<div class="callout callout-info">
+  <div class="callout-title">The Viterbi Dynamic Programming Algorithm [UPLOADED PYQ]</div>
+  $$\mathbf{V_t(j) = \max_{i=1}^N \Big[ V_{t-1}(i) \cdot a_{ij} \Big] \cdot b_j(o_t)}$$
+  $$\mathbf{\text{Backpointer: } B_t(j) = \arg\max_{i=1}^N \Big[ V_{t-1}(i) \cdot a_{ij} \Big]}$$
+  Where $a_{ij} = P(t_j \mid t_i)$ is Tag Transition probability, and $b_j(o_t) = P(w_t \mid t_j)$ is Word Emission probability.
+</div>
+
+<h2 class="section-title">Topic 17 – 20: Syntactic Parsing (CFG, PCFG, CKY & Dependency Parsing) [UPLOADED PYQ]</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Parsing Paradigm</th>
+      <th style="width: 45%;">Grammar & Structural Formulation</th>
+      <th>Key Advantages & Tradeoffs</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Core Architecture</strong></td>
-      <td>Transformer <strong>Encoder-Only</strong> (Bidirectional attention).</td>
-      <td>Transformer <strong>Decoder-Only</strong> (Causal left-to-right masked attention).</td>
+      <td><strong>1. Context-Free Grammar (CFG)</strong></td>
+      <td>$G = (V, \Sigma, R, S)$ where productions have form $A \rightarrow \alpha$ ($A \in V$). Recursive descent expands rules top-down.</td>
+      <td>Precise; vulnerable to left-recursion infinite loops and combinatorial ambiguity explosions.</td>
     </tr>
     <tr>
-      <td><strong>Pre-Training Objectives</strong></td>
-      <td>1. <strong>Masked Language Model (MLM):</strong> Predict 15% masked tokens.<br>2. <strong>Next Sentence Prediction (NSP):</strong> Binary classification.</td>
-      <td><strong>Autoregressive Language Modeling:</strong> Predict next token $P(w_t \mid w_{<t})$ given past context.</td>
+      <td><strong>2. Probabilistic CFG (PCFG) [UPLOADED PYQ]</strong></td>
+      <td>Assigns probability to each rule: $P(A \rightarrow \alpha)$, where $\sum_\alpha P(A \rightarrow \alpha) = 1$. Parse probability is product of rule probabilities.</td>
+      <td>Ranks multiple ambiguous parse trees and selects the mathematically most probable syntactic structure!</td>
     </tr>
     <tr>
-      <td><strong>Context Flow</strong></td>
-      <td>Full bidirectional visibility across future and past tokens.</td>
-      <td>Strictly unidirectional past context (future tokens masked out).</td>
+      <td><strong>3. CKY Dynamic Programming [UPLOADED PYQ]</strong></td>
+      <td>Requires grammar in <strong>Chomsky Normal Form (CNF)</strong>: $A \rightarrow B C$ or $A \rightarrow a$. Fills triangular table $O(n^3 \cdot |R|)$.</td>
+      <td>Guaranteed polynomial $O(n^3)$ parsing time for all ambiguous sentences!</td>
     </tr>
     <tr>
-      <td><strong>Primary Strength</strong></td>
-      <td>NLU (Classification, Named Entity Recognition, Extractive QA).</td>
-      <td>NLG (Text Generation, Summarization, Code Synthesis, Chatbots).</td>
+      <td><strong>4. Dependency Parsing</strong></td>
+      <td>Connects words directly with labeled binary grammatical dependency links (e.g., $\text{nsubj}$, $\text{dobj}$, $\text{amod}$).</td>
+      <td>Directly captures predicate-argument relationships; excellent for free-word-order languages.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 11: Text Generation Evaluation Metrics (BLEU & ROUGE)</h2>
+<h2 class="section-title">Topic 21 – 24: Parsing & Classification Evaluation Metrics</h2>
 
 <div class="formula-card">
-  <strong>1. Bilingual Evaluation Understudy ($\text{BLEU}$) Metric:</strong>
-  $$\text{BLEU} = \text{BP} \times \exp\left( \sum_{n=1}^N w_n \log p_n \right)$$
-  Where $p_n$ is the modified $n$-gram precision, and $\text{BP}$ is the <strong>Brevity Penalty</strong> to penalize artificially short candidate outputs:
-  $$\text{BP} = \begin{cases} 1 & \text{if } c > r \\ e^{1 - r/c} & \text{if } c \le r \end{cases}$$
-  Where $c$ is candidate length and $r$ is reference length.
+  <strong>1. Classification / Parsing Core Metrics:</strong>
+  $$\text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN}, \quad F_1\text{-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
+  - <strong>Unlabeled Attachment Score (UAS):</strong> Percentage of words assigned the correct syntactic head governor.
+  - <strong>Labeled Attachment Score (LAS):</strong> Percentage of words assigned both the correct head governor AND the correct dependency relation label.
 </div>
 
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module V)</h2>
+<h2 class="section-title">🧠 M2 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Explain why Self-Attention overcomes the fundamental sequential bottleneck of RNNs and LSTMs. (8 Marks)</div>
+  <div class="qa-q">Q1. [UPLOADED PYQ] Explain the working of HMM-based POS Tagging. Define Transition and Emission Probabilities. (10 Marks)</div>
   <div class="qa-a">
-    1. <strong>Massive Parallelization:</strong> RNNs compute hidden state $h_t = f(h_{t-1}, x_t)$ sequentially, requiring $O(n)$ sequential time steps that cannot be parallelized across GPU cores. Self-Attention computes all pairwise token interactions simultaneously via matrix multiplications ($QK^T$) in $O(1)$ sequential operations.<br>
-    2. <strong>Direct Long-Range Paths:</strong> In RNNs, information must travel step-by-step through $n$ recurrent transitions, causing vanishing gradients for distant words. Self-Attention connects any two positions in the sequence with a direct $O(1)$ path length, enabling instantaneous long-range context resolution.
+    HMM treats POS tags as hidden Markov states generating observable surface words:<br>
+    1. <strong>Transition Probability $P(t_i \mid t_{i-1})$:</strong> The probability of transitioning from tag $t_{i-1}$ to tag $t_i$: $P(t_i \mid t_{i-1}) = \frac{C(t_{i-1}, t_i)}{C(t_{i-1})}$.<br>
+    2. <strong>Emission Probability $P(w_i \mid t_i)$:</strong> The probability that hidden tag $t_i$ emits the observable word $w_i$: $P(w_i \mid t_i) = \frac{C(t_i, w_i)}{C(t_i)}$.<br>
+    3. <strong>Viterbi Algorithm:</strong> Computes the global optimal sequence of tags in $O(T \cdot N^2)$ time using dynamic programming lattice trellis!
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Semantics & Lexical Vector Resources — Complete 11-Topic Tracker</div>
+  <div class="toc-grid">
+    <div><strong>Topic 25:</strong> Lexical Semantics (Synonymy, Antonymy, Hyponymy, Meronymy)</div>
+    <div><strong>Topic 26:</strong> Word Sense Disambiguation (Simplified Lesk & Supervised WSD)</div>
+    <div><strong>Topic 27 & 28:</strong> WordNet Lexical Database (Synsets & Hypernym Hierarchies)</div>
+    <div><strong>Topic 29:</strong> Semantic Similarity (Shortest Path Length in WordNet)</div>
+    <div><strong>Topic 30:</strong> Cosine Similarity Formulation in Vector Spaces</div>
+    <div><strong>Topic 31:</strong> Vector Space Models (Term-Document & Term-Term Matrices)</div>
+    <div><strong>Topic 32:</strong> TF-IDF Weighting Formulation & Numerical Analysis [UPLOADED PYQ]</div>
+    <div><strong>Topic 33:</strong> Word2Vec Embeddings (CBOW vs. Skip-Gram Architectures) [UPLOADED PYQ]</div>
+    <div><strong>Topic 34:</strong> GloVe (Global Vectors from Word-Word Co-Occurrence Counts)</div>
+    <div><strong>Topic 35:</strong> FastText (Subword Character N-Gram Vector Representations)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 25 – 29: Lexical Semantics, WordNet & WSD Algorithms</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Lexical Relation</th>
+      <th style="width: 45%;">Formal Definition</th>
+      <th>Representative Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. Synonymy</strong></td><td>Different words expressing the identical or near-identical concept ($A \approx B$).</td><td>`"large"` $\leftrightarrow$ `"big"`, `"automobile"` $\leftrightarrow$ `"car"`.</td></tr>
+    <tr><td><strong>2. Antonymy</strong></td><td>Words expressing opposite semantic meanings along a spectrum ($A \leftrightarrow -A$).</td><td>`"hot"` $\leftrightarrow$ `"cold"`, `"increase"` $\leftrightarrow$ `"decrease"`.</td></tr>
+    <tr><td><strong>3. Hyponymy / Hypernymy</strong></td><td>$\text{IS-A}$ class-subclass hierarchical relationship ($A$ is a subtype of $B$).</td><td>`"sparrow"` is a hyponym of `"bird"`; `"animal"` is a hypernym of `"dog"`.</td></tr>
+    <tr><td><strong>4. Meronymy / Holonymy</strong></td><td>$\text{PART-OF}$ compositional relationship ($A$ is a physical component of $B$).</td><td>`"wheel"` is a meronym of `"car"`; `"car"` is a holonym of `"wheel"`.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <div class="callout-title">The Simplified Lesk WSD Algorithm (Lesk, 1986)</div>
+  Given target ambiguous word $w$ in context sentence $C$:
+  <ol>
+    <li>Retrieve all dictionary definitions (glosses) and usage examples for each synset sense $S_i$ of $w$ in WordNet.</li>
+    <li>Compute the word token overlap score between the context sentence $C$ and the gloss/examples of sense $S_i$: $\text{Overlap}(S_i, C) = | \text{Words}(S_i.\text{gloss}) \cap \text{Words}(C) |$.</li>
+    <li>Select the sense $\hat{S} = \arg\max_{S_i} \text{Overlap}(S_i, C)$ with the highest word overlap count.</li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 30 – 32: Vector Space Models & TF-IDF Weighting [UPLOADED PYQ]</h2>
+
+<div class="formula-card">
+  <strong>1. Term Frequency-Inverse Document Frequency (TF-IDF) [UPLOADED PYQ]:</strong>
+  $$\text{TF}(t, d) = \frac{\text{Count}(t, d)}{\sum_{t' \in d} \text{Count}(t', d)}$$
+  $$\text{IDF}(t, D) = \log_{10} \left( \frac{N}{\text{DF}(t)} \right)$$
+  $$\mathbf{\text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)}$$
+  Where $N$ is total documents in corpus, and $\text{DF}(t)$ is number of documents containing term $t$.
+</div>
+
+<div class="formula-card">
+  <strong>2. Vector Cosine Similarity Metric:</strong>
+  $$\cos(\theta) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2} = \frac{\sum_{i=1}^d u_i v_i}{\sqrt{\sum_{i=1}^d u_i^2} \sqrt{\sum_{i=1}^d v_i^2}}$$
+</div>
+
+<h2 class="section-title">Topic 33 – 35: Neural Word Embeddings (Word2Vec, GloVe, FastText) [UPLOADED PYQ]</h2>
+
+<div class="callout callout-info">
+  <div class="callout-title">The Distributional Hypothesis (J.R. Firth, 1957)</div>
+  <em>"You shall know a word by the company it keeps!"</em> Words appearing in similar contextual distributions acquire geometrically close spatial representations in $d$-dimensional embedding space.
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Embedding Model</th>
+      <th style="width: 45%;">Training Objective & Operational Mechanism</th>
+      <th>Key Advantages & Tradeoffs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Word2Vec: CBOW [UPLOADED PYQ]</strong></td>
+      <td><strong>Continuous Bag-of-Words:</strong> Predicts current center target word $w_t$ given surrounding context window words: $\arg\max \log P(w_t \mid w_{t-c}, \dots, w_{t+c})$.</td>
+      <td>Fast to train; higher accuracy for frequent words; smooths over distributional noise.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Word2Vec: Skip-Gram [UPLOADED PYQ]</strong></td>
+      <td>Predicts surrounding context words given center word $w_t$: $\arg\max \sum \log P(w_{t+j} \mid w_t)$ using Negative Sampling.</td>
+      <td>Superb for capturing subtle semantic nuances of rare words; slower to train.</td>
+    </tr>
+    <tr>
+      <td><strong>3. GloVe</strong></td>
+      <td><strong>Global Vectors (Stanford):</strong> Factorizes global log-co-occurrence matrix: $J = \sum f(X_{ij}) (w_i^T \tilde{w}_j + b_i + \tilde{b}_j - \log X_{ij})^2$.</td>
+      <td>Combines global matrix factorization statistics with local context window advantages.</td>
+    </tr>
+    <tr>
+      <td><strong>4. FastText (Meta AI)</strong></td>
+      <td>Represents each word as a bag of <strong>Character $n$-Grams</strong> (e.g., `"<wh"`, `"whe"`, `"hee"`, `"eel>"`, `"<wheel>"`).</td>
+      <td>Seamlessly computes embeddings for <strong>Out-of-Vocabulary (OOV)</strong> and morphologically complex words!</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🧠 M3 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. [UPLOADED PYQ] Explain the Continuous Bag of Words (CBOW) and Skip-Gram models of Word2Vec with neat network diagrams. (10 Marks)</div>
+  <div class="qa-a">
+    - <strong>CBOW Architecture:</strong> Input layer takes $2C$ context word one-hot vectors $\rightarrow$ Projection layer averages context embeddings $\rightarrow$ Softmax output layer predicts the single probability distribution of center target word $w_t$.<br>
+    - <strong>Skip-Gram Architecture:</strong> Input layer takes 1 center word one-hot vector $w_t \rightarrow$ Projection layer retrieves embedding $\rightarrow$ Output layer simultaneously predicts $2C$ context word probability distributions $\langle w_{t-C}, \dots, w_{t+C} \rangle$ using Negative Sampling ($\log \sigma(v'_{w_O}{}^T v_{w_I}) + \sum_{i=1}^k \mathbb{E}[\log \sigma(-v'_{w_{i}}{}^T v_{w_I})]$).
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Deep Learning & Neural Architectures in NLP — Complete 8-Topic Tracker</div>
+  <div class="toc-grid">
+    <div><strong>Topic 36:</strong> Convolutional Neural Networks (CNNs) for Text Classification</div>
+    <div><strong>Topic 37:</strong> Recurrent Neural Networks (RNNs) & Vanishing Gradients</div>
+    <div><strong>Topic 38:</strong> Long Short-Term Memory (LSTM Gate Formulations & Memory Cells)</div>
+    <div><strong>Topic 39:</strong> The Transformer Architecture (Scaled Dot-Product Self-Attention)</div>
+    <div><strong>Topic 40:</strong> Sequence-to-Sequence Encoder-Decoder with Cross-Attention</div>
+    <div><strong>Topic 41:</strong> Transfer Learning in NLP (Pre-Training + Task Fine-Tuning)</div>
+    <div><strong>Topic 42:</strong> BERT (Bidirectional Encoder Representations from Transformers)</div>
+    <div><strong>Topic 43:</strong> GPT (Generative Pre-Trained Causal Autoregressive Decoders)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 36 – 38: Sequential Neural Models (CNN, RNN, LSTM)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Neural Model</th>
+      <th style="width: 45%;">Mathematical Formulation & Architecture</th>
+      <th>Key Advantage & Failure Mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. CNN for NLP</strong></td>
+      <td>1D convolution filters slide across embedding matrices capturing local $n$-gram phrase features: $c_i = f(\mathbf{w}^T \mathbf{x}_{i:i+h-1} + b) \rightarrow$ Max-Pooling over time.</td>
+      <td>Highly parallelizable; fails to model long-range sequential syntax dependencies.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Vanilla RNN</strong></td>
+      <td>Recurrent hidden state: $\mathbf{h}_t = \tanh(\mathbf{W}_{hh} \mathbf{h}_{t-1} + \mathbf{W}_{xh} \mathbf{x}_t + \mathbf{b}_h)$. Unrolls across variable sentence lengths.</td>
+      <td>Models sequential history; severely suffers from <strong>Vanishing and Exploding Gradients</strong> over $>10$ tokens.</td>
+    </tr>
+    <tr>
+      <td><strong>3. LSTM (Hochreiter, 1997)</strong></td>
+      <td>Regulates information flow using <strong>3 Gates + Constant Error Carousel Cell State $C_t$</strong>: Forget Gate $f_t$, Input Gate $i_t$, Output Gate $o_t$.</td>
+      <td>Maintains long-range gradient highway over hundreds of tokens; sequential processing inhibits GPU scaling.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="formula-card">
+  <strong>Complete LSTM Mathematical Gate Formulations:</strong>
+  $$\text{Forget Gate: } \mathbf{f}_t = \sigma(\mathbf{W}_f [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_f)$$
+  $$\text{Input Gate: } \mathbf{i}_t = \sigma(\mathbf{W}_i [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_i), \quad \tilde{\mathbf{C}}_t = \tanh(\mathbf{W}_c [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_c)$$
+  $$\text{Cell State Update: } \mathbf{C}_t = \mathbf{f}_t \odot \mathbf{C}_{t-1} + \mathbf{i}_t \odot \tilde{\mathbf{C}}_t$$
+  $$\text{Output Gate: } \mathbf{o}_t = \sigma(\mathbf{W}_o [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_o), \quad \mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{C}_t)$$
+</div>
+
+<h2 class="section-title">Topic 39 & 40: The Transformer Architecture (Vaswani et al., 2017)</h2>
+
+<div class="formula-card">
+  <strong>1. Scaled Dot-Product Attention Equation:</strong>
+  $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} \right) \mathbf{V}$$
+  Where $\mathbf{Q}$ (Query), $\mathbf{K}$ (Key), and $\mathbf{V}$ (Value) are linear projections of input embeddings. Division by $\sqrt{d_k}$ prevents gradient saturation in large dimensions!
+</div>
+
+<div class="formula-card">
+  <strong>2. Multi-Head Attention (MHA):</strong>
+  $$\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) \mathbf{W}^O, \quad \text{head}_i = \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \mathbf{K}\mathbf{W}_i^K, \mathbf{V}\mathbf{W}_i^V)$$
+</div>
+
+<h2 class="section-title">Topic 41 – 43: Pre-Trained Transformers: BERT vs. GPT</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Feature</th>
+      <th style="width: 37%;">BERT (Devlin et al., Google)</th>
+      <th>GPT Series (Radford et al., OpenAI)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Core Architecture</strong></td><td>Transformer <strong>Encoder Only</strong> (Bidirectional self-attention).</td><td>Transformer <strong>Decoder Only</strong> (Autoregressive causal masked attention).</td></tr>
+    <tr><td><strong>Pretraining Objective</strong></td><td>1. Masked LM (MLM: predicts 15% `[MASK]` tokens).<br>2. Next Sentence Prediction (NSP).</td><td>Standard Left-to-Right Causal Language Modeling: $\max \sum \log P(w_t \mid w_{<t})$.</td></tr>
+    <tr><td><strong>Optimal Tasks</strong></td><td>NLU, Text Classification, Named Entity Recognition, Question Answering.</td><td>NLG, Creative Writing, Chatbots, Open-Domain Reasoning, Code Generation.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🧠 M4 Active Recall & Exam Questions</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Explain the working of the Scaled Dot-Product Self-Attention mechanism in Transformers with a diagram. (10 Marks)</div>
+  <div class="qa-a">
+    Self-attention calculates pairwise relational affinities between every pair of tokens in parallel:<br>
+    1. <strong>Linear Projections:</strong> Input matrix $\mathbf{X}$ is multiplied by weight matrices $\mathbf{W}^Q, \mathbf{W}^K, \mathbf{W}^V$ to generate $\mathbf{Q}, \mathbf{K}, \mathbf{V}$.<br>
+    2. <strong>Score Calculation:</strong> Computes dot-product similarity matrix $\mathbf{S} = \mathbf{Q}\mathbf{K}^T$, reflecting how much each token attends to all other tokens.<br>
+    3. <strong>Scaling & Normalization:</strong> Divides by $\sqrt{d_k}$ to stabilize gradients and applies row-wise $\text{softmax}(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}})$.<br>
+    4. <strong>Weighted Aggregation:</strong> Multiplies attention weights by value matrix $\mathbf{V}$ to output contextualized embeddings!
+  </div>
+</div>
+<div class='page-break'></div>
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: NLP Applications, Dialogue Systems & AI Ethics — Complete 10-Topic Tracker</div>
+  <div class="toc-grid">
+    <div><strong>Topic 44:</strong> Text Classification (Document Categorization & Naive Bayes)</div>
+    <div><strong>Topic 45:</strong> Sentiment Analysis (Document, Sentence & Aspect-Based)</div>
+    <div><strong>Topic 46:</strong> Named Entity Recognition (NER Sequence Labeling vs. POS) [UPLOADED PYQ]</div>
+    <div><strong>Topic 47:</strong> Machine Translation Overview & The Vauquois Triangle</div>
+    <div><strong>Topic 48:</strong> Rule-Based Machine Translation (Direct, Transfer & Interlingua)</div>
+    <div><strong>Topic 49:</strong> Statistical Machine Translation (SMT Noisy Channel Formulation)</div>
+    <div><strong>Topic 50:</strong> Neural Machine Translation (End-to-End Transformer Seq2Seq)</div>
+    <div><strong>Topic 51:</strong> Chatbots & Conversational Dialogue Systems (NLU-DM-NLG Pipeline)</div>
+    <div><strong>Topic 52:</strong> Bias, Fairness & Stereotyping in Large Language Models</div>
+    <div><strong>Topic 53:</strong> Model Explainability & Interpretability (Attention Heatmaps & LIME)</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 44 – 46: Text Classification, Sentiment Analysis & NER [UPLOADED PYQ]</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Feature</th>
+      <th style="width: 37%;">Part-of-Speech (POS) Tagging</th>
+      <th>Named Entity Recognition (NER) [UPLOADED PYQ — CS633]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Objective</strong></td><td>Assigns syntactic grammatical word classes (`NN`, `VB`, `JJ`, `DT`).</td><td>Detects and classifies real-world semantic entity mentions.</td></tr>
+    <tr><td><strong>Granularity</strong></td><td>Every single token in the sentence receives a tag.</td><td>Only specific entity spans receive labels (`PERSON`, `ORG`, `LOC`, `DATE`). Non-entities are tagged `O`.</td></tr>
+    <tr><td><strong>Example</strong></td><td>`"Sundar [NNP] Pichai [NNP] leads [VBZ] Google [NNP]"`</td><td>`"Sundar Pichai [B-PER, I-PER] leads Google [B-ORG]"` (BIO tagging scheme).</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 47 – 50: Machine Translation (MT) Paradigm Evolution</h2>
+
+<div class="diagram-container">
+  <svg width="100%" height="80" viewBox="0 0 740 80" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="15" width="150" height="50" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="95" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">1. Rule-Based MT</text>
+    <text x="95" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#2563eb" text-anchor="middle">Dictionaries + Grammar</text>
+
+    <path d="M 170 40 L 205 40" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="210" y="15" width="160" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="290" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">2. Statistical MT (SMT)</text>
+    <text x="290" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Noisy Channel P(T|S)</text>
+
+    <path d="M 370 40 L 405 40" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="410" y="15" width="180" height="50" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="500" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">3. Neural MT (NMT)</text>
+    <text x="500" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#16a34a" text-anchor="middle">Seq2Seq Transformer</text>
+
+    <path d="M 590 40 L 625 40" stroke="#0284c7" stroke-width="2"/>
+
+    <rect x="630" y="15" width="95" height="50" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="677" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#581c87" text-anchor="middle">4. LLMs</text>
+    <text x="677" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#9333ea" text-anchor="middle">Zero-Shot MT</text>
+  </svg>
+  <div class="diagram-caption">Figure 5.1: The 70-Year Evolution of Machine Translation Paradigms</div>
+</div>
+
+<div class="formula-card">
+  <strong>Statistical Machine Translation (Noisy Channel Model):</strong>
+  $$\hat{T} = \arg\max_T P(T \mid S) = \arg\max_T \Big[ \underbrace{P(S \mid T)}_{\text{Translation Model (Fidelity)}} \times \underbrace{P(T)}_{\text{Language Model (Fluency)}} \Big]$$
+</div>
+
+<h2 class="section-title">Topic 51: Chatbots & Conversational Dialogue Architectures</h2>
+
+<div class="callout callout-info">
+  <div class="callout-title">The 3-Tier Task-Oriented Dialogue System Architecture</div>
+  <ol>
+    <li><strong>Natural Language Understanding (NLU):</strong> Converts user utterance into structured semantic frame: Intent Classification (e.g., `BookFlight`) + Slot Filling (e.g., `Origin: "Ranchi"`, `Destination: "Delhi"`).</li>
+    <li><strong>Dialogue State Tracker (DST) & Policy Manager:</strong> Maintains conversation history state and selects the next system action (e.g., `AskDepartureDate` or `ExecuteBookingAPI`).</li>
+    <li><strong>Natural Language Generation (NLG):</strong> Synthesizes natural, fluent response text from the structured action template.</li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 52 & 53: Ethics, Bias Mitigation & Model Explainability</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Ethical / Interpretability Challenge</th>
+      <th style="width: 45%;">Manifestation in Language Models</th>
+      <th>Engineering Mitigation Method</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Dataset & Representation Bias</strong></td>
+      <td>Stereotypical associations in word embeddings (e.g., $\text{"doctor"} - \text{"man"} + \text{"woman"} \approx \text{"nurse"}$).</td>
+      <td>Counterfactual data augmentation, debiasing projection subspaces.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Model Hallucination</strong></td>
+      <td>Generating plausibly sounding but factually incorrect assertions with high confidence.</td>
+      <td>Retrieval-Augmented Generation (RAG), RLHF with truthfulness reward models.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Black-Box Interpretability</strong></td>
+      <td>Complex billions-parameter Transformer decisions cannot be audited for high-stakes healthcare/law.</td>
+      <td><strong>LIME</strong> (Local Interpretable Model-agnostic Explanations), Integrated Gradients, Cross-Attention Heatmaps.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">🧠 M5 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. [UPLOADED PYQ] Compare Rule-Based, Statistical, and Neural Machine Translation systems across 4 dimensions. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Knowledge Representation:</strong> RBMT relies on explicit handwritten grammar rules and bilingual dictionaries; SMT uses phrase-based translation tables; NMT uses continuous distributed vector representations in a unified neural network.<br>
+    2. <strong>Fluency & Context:</strong> RBMT produces robotic, literal translations; SMT handles local phrases well but struggles with long-distance reordering; NMT generates highly fluent translations with global sentence context.<br>
+    3. <strong>Development Cost:</strong> RBMT requires decades of expert linguistic labor; SMT/NMT learn automatically from parallel sentence corpora.<br>
+    4. <strong>Hardware Requirements:</strong> RBMT runs with low compute; NMT requires massive GPU accelerators for Transformer matrix multiplications.
   </div>
 </div>
 
