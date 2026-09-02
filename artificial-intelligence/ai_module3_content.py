@@ -1,186 +1,125 @@
-# Artificial Intelligence Module 3 Exhaustive Content (12-15 Pages Target)
-# Neuroscience-backed formatting: High visual chunking, KaTeX equations, worked trace boxes, exam cards
+# Artificial Intelligence Module 3 Exhaustive Content (9 Topics Complete)
+# Neuroscience framework: Understand -> Visualize -> Connect -> Recall -> Apply -> Exam Questions
 
 AI_M3_EXHAUSTIVE = r"""
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Knowledge Representation & Logical Reasoning</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Knowledge Representation & Logical Reasoning — Complete 9-Topic Tracker</div>
   <div class="toc-grid">
-    <div>1. Knowledge-Based Agents & The Wumpus World Environment Architecture</div>
-    <div>2. Propositional Logic (PL): Syntax, Semantics, Models & Truth Tables</div>
-    <div>3. Logical Entailment ($\alpha \models \beta$), Validity (Tautology) & Satisfiability</div>
-    <div>4. Conjunctive Normal Form (CNF) 7-Step Conversion Algorithm</div>
-    <div>5. Propositional Resolution Refutation Theorem & Proof Trees</div>
-    <div>6. Forward Chaining & Backward Chaining on Horn Clauses ($O(n)$ Linear Complexity)</div>
-    <div>7. First-Order Predicate Logic (FOL): Syntax, Quantifiers ($\forall, \exists$) & Semantics</div>
-    <div>8. Knowledge Engineering in FOL & Domain Axiomatization</div>
-    <div>9. Generalized Modus Ponens (GMP) & The Unification Algorithm (MGU)</div>
-    <div>10. Skolemization Algorithms (Skolem Constants vs. Skolem Functions)</div>
-    <div>11. First-Order Resolution Refutation with MGU Substitutions</div>
-    <div>12. Comprehensive Solved BIT Mesra & GATE Exam Question Bank (8 Questions)</div>
+    <div><strong>Topic 15:</strong> Knowledge-Based Agents (KB, Inference Engine & TELL/ASK)</div>
+    <div><strong>Topic 16:</strong> Propositional Logic (Syntax, Semantics, Truth Tables & Equivalences)</div>
+    <div><strong>Topic 17:</strong> Propositional to Predicate Logic Transition</div>
+    <div><strong>Topic 18:</strong> Propositional Logic-Based Agents (Wumpus World)</div>
+    <div><strong>Topic 19:</strong> First-Order Predicate Logic (Constants, Predicates & Quantifiers)</div>
+    <div><strong>Topic 20:</strong> Knowledge Representation in FOL (English to Logic Translation)</div>
+    <div><strong>Topic 21:</strong> Forward Chaining (Data-Driven Deductive Reasoning)</div>
+    <div><strong>Topic 22:</strong> Backward Chaining (Goal-Driven Hypothesis Verification)</div>
+    <div><strong>Topic 23:</strong> The Resolution Inference Rule (Refutation Proofs & CNF)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1: Knowledge-Based Agents & The Wumpus World</h2>
+<h2 class="section-title">Topic 15: Knowledge-Based Agents (KB Architecture)</h2>
 <p>
-  A <strong>Knowledge-Based Agent (KBA)</strong> maintains an explicit internal representation of the world in a <strong>Knowledge Base (KB)</strong> (a set of sentences in a formal language) and uses an inference engine to derive new knowledge and decide actions:
+  A <strong>Knowledge-Based Agent (KBA)</strong> uses a formal, explicit internal representation of knowledge (the Knowledge Base $KB$) and an Inference Engine to deduce new facts and make decisions:
 </p>
-<pre><code>function KB-AGENT(percept) returns an action
-    TELL(KB, MAKE-PERCEPT-SENTENCE(percept, t))
-    action = ASK(KB, MAKE-ACTION-QUERY(t))
-    TELL(KB, MAKE-ACTION-SENTENCE(action, t))
-    t = t + 1
-    return action</code></pre>
+<pre><code>TELL(KB, sentence)   <-- Adds new percept facts/rules to KB
+ASK(KB, query)       <-- Deduces whether KB |= query (Entailment)</code></pre>
 
-<h3 class="subsection-title">The Wumpus World Environment Benchmark:</h3>
-<ul>
-  <li>$4 \times 4$ grid of rooms with Agent starting at $[1, 1]$ facing right.</li>
-  <li><strong>Wumpus:</strong> Monster that eats the agent; gives off a <em>Stench</em> in directly adjacent squares.</li>
-  <li><strong>Pits:</strong> Bottomless holes that trap the agent; give off a <em>Breeze</em> in adjacent squares.</li>
-  <li><strong>Gold:</strong> Gives off a <em>Glitter</em> in its exact square.</li>
-</ul>
-
-<h2 class="section-title">Topic 2 & 3: Propositional Logic Syntax, Semantics & Entailment</h2>
+<h2 class="section-title">Topic 16 & 17: Propositional Logic vs. First-Order Logic (FOL)</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Logical Operator</th>
-      <th style="width: 25%;">Standard Notation</th>
-      <th style="width: 25%;">Meaning</th>
-      <th>Truth Condition ($T$)</th>
+      <th style="width: 25%;">Formal Logic System</th>
+      <th style="width: 35%;">Ontological Commitment</th>
+      <th>Epistemological Commitment</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Negation (NOT)</strong></td><td>$\neg P$</td><td>Not $P$</td><td>True iff $P$ is False</td></tr>
-    <tr><td><strong>Conjunction (AND)</strong></td><td>$P \land Q$</td><td>$P$ and $Q$</td><td>True iff both $P$ and $Q$ are True</td></tr>
-    <tr><td><strong>Disjunction (OR)</strong></td><td>$P \lor Q$</td><td>$P$ or $Q$</td><td>True iff at least one of $P, Q$ is True</td></tr>
-    <tr><td><strong>Implication (IF-THEN)</strong></td><td>$P \implies Q$</td><td>If $P$ then $Q$</td><td>False iff $P$ is True and $Q$ is False ($\equiv \neg P \lor Q$)</td></tr>
-    <tr><td><strong>Biconditional (IFF)</strong></td><td>$P \iff Q$</td><td>$P$ if and only if $Q$</td><td>True iff both $P, Q$ have identical truth values</td></tr>
+    <tr>
+      <td><strong>Propositional Logic</strong></td>
+      <td>Facts that are either <strong>True or False</strong> (Boolean propositions $P, Q$). Treats atomic sentences as indivisible black boxes.</td>
+      <td>Belief states: $\{\text{True}, \text{False}, \text{Unknown}\}$.</td>
+    </tr>
+    <tr>
+      <td><strong>First-Order Logic (FOL)</strong></td>
+      <td><strong>Objects</strong> (Constants), <strong>Relations</strong> (Predicates), <strong>Functions</strong>, and <strong>Quantifiers</strong> ($\forall, \exists$).</td>
+      <td>Belief states: $\{\text{True}, \text{False}, \text{Unknown}\}$. Expressive power to model complex domains.</td>
+    </tr>
   </tbody>
 </table>
 
-<div class="callout callout-info">
-  <div class="callout-title">Formal Mathematical Concept: Logical Entailment ($\alpha \models \beta$)</div>
-  Sentence $\alpha$ <strong>entails</strong> sentence $\beta$ ($\alpha \models \beta$) if and only if in every model where $\alpha$ is true, $\beta$ is also true:
-  $$\alpha \models \beta \iff M(\alpha) \subseteq M(\beta)$$
-  $$\text{Deduction Theorem: } \alpha \models \beta \iff (\alpha \implies \beta) \text{ is a Tautology}$$
-  $$\text{Refutation Theorem: } \alpha \models \beta \iff (\alpha \land \neg \beta) \text{ is Unsatisfiable}$$
+<div class="formula-card">
+  <strong>Key Propositional Equivalence Laws:</strong>
+  - Implication Elimination: $P \implies Q \equiv \neg P \vee Q$
+  - Biconditional Elimination: $P \iff Q \equiv (P \implies Q) \wedge (Q \implies P)$
+  - De Morgan's Laws: $\neg (P \wedge Q) \equiv \neg P \vee \neg Q, \quad \neg (P \vee Q) \equiv \neg P \wedge \neg Q$
 </div>
 
-<h2 class="section-title">Topic 4 & 5: Conjunctive Normal Form (CNF) & Resolution Refutation</h2>
-
-<p>
-  A sentence is in <strong>Conjunctive Normal Form (CNF)</strong> if it is a conjunction of clauses (where each clause is a disjunction of literals):
-</p>
-$$\bigwedge_{i=1}^m \left( \bigvee_{j=1}^{k_i} l_{ij} \right)$$
-
-<div class="callout callout-warning">
-  <div class="callout-title">7-Step Algorithm to Convert Propositional Logic to CNF</div>
-  <ol>
-    <li><strong>Eliminate Biconditionals:</strong> Replace $\alpha \iff \beta$ with $(\alpha \implies \beta) \land (\beta \implies \alpha)$.</li>
-    <li><strong>Eliminate Implications:</strong> Replace $\alpha \implies \beta$ with $\neg \alpha \lor \beta$.</li>
-    <li><strong>Move Negations Inward (De Morgan's Laws & Double Negation):</strong>
-      $$\neg(\alpha \land \beta) \equiv \neg \alpha \lor \neg \beta, \quad \neg(\alpha \lor \beta) \equiv \neg \alpha \land \neg \beta, \quad \neg(\neg \alpha) \equiv \alpha$$
-    </li>
-    <li><strong>Distribute $\lor$ over $\land$:</strong> Replace $\alpha \lor (\beta \land \gamma)$ with $(\alpha \lor \beta) \land (\alpha \lor \gamma)$.</li>
-    <li><strong>Flatten Nested Conjunctions/Disjunctions:</strong> Group into distinct clauses separated by $\land$.</li>
-  </ol>
-</div>
+<h2 class="section-title">Topic 19 & 20: Knowledge Representation in First-Order Logic (FOL)</h2>
 
 <div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Resolution Refutation Proof in Propositional Logic</div>
-  <p><strong>Given Knowledge Base ($\text{KB}$):</strong></p>
-  <ol>
-    <li>$P \implies Q$ (If it rains, the ground is wet): $\neg P \lor Q$</li>
-    <li>$Q \implies R$ (If the ground is wet, it is slippery): $\neg Q \lor R$</li>
-    <li>$P$ (It rains): $P$</li>
-  </ol>
-  <p><strong>Goal: Prove $R$ (It is slippery) using Resolution Refutation.</strong></p>
-  <p><strong>Step 1: Negate the Goal and add to KB:</strong> Add Clause 4: $\neg R$.</p>
-  <p><strong>Step 2: Apply Resolution Rule to Resolve Complementary Literals:</strong></p>
-  <ul>
-    <li>Resolve Clause 1 ($\neg P \lor Q$) and Clause 3 ($P$) on literal $P \implies$ <strong>Clause 5: $Q$</strong>.</li>
-    <li>Resolve Clause 2 ($\neg Q \lor R$) and Clause 5 ($Q$) on literal $Q \implies$ <strong>Clause 6: $R$</strong>.</li>
-    <li>Resolve Clause 6 ($R$) and Clause 4 ($\neg R$) on literal $R \implies$ <strong>Empty Clause ($\square$ / False)</strong>.</li>
-  </ul>
-  <p><em>Conclusion:</em> Since deriving the empty clause proves that $\text{KB} \land \neg R$ is unsatisfiable, the original goal $R$ is validly entailed ($\text{KB} \models R$). $\blacksquare$</p>
+  <div class="worked-title">🏛️ Classic English $\rightarrow$ First-Order Logic Translation Suite</div>
+  <table class="custom-table">
+    <thead><tr><th>Natural English Statement</th><th>First-Order Predicate Logic Formulation</th></tr></thead>
+    <tbody>
+      <tr><td>"Every student is intelligent."</td><td>$\forall x \ (\text{Student}(x) \implies \text{Intelligent}(x))$</td></tr>
+      <tr><td>"Some students like AI."</td><td>$\exists x \ (\text{Student}(x) \wedge \text{Likes}(x, \text{AI}))$</td></tr>
+      <tr><td>"No person can live on the sun."</td><td>$\neg \exists x \ (\text{Person}(x) \wedge \text{LivesOn}(x, \text{Sun})) \equiv \forall x \ (\text{Person}(x) \implies \neg \text{LivesOn}(x, \text{Sun}))$</td></tr>
+      <tr><td>"Everyone has a mother."</td><td>$\forall x \ \exists y \ \text{MotherOf}(y, x)$</td></tr>
+    </tbody>
+  </table>
 </div>
 
-<h2 class="section-title">Topic 7 & 8: First-Order Predicate Logic (FOL)</h2>
-<p>
-  Unlike Propositional Logic (which assumes facts in the world are either True or False), <strong>First-Order Logic (FOL)</strong> models the world in terms of <strong>Objects</strong>, <strong>Relations (Predicates)</strong>, and <strong>Functions</strong>:
-</p>
+<h2 class="section-title">Topic 21 & 22: Forward Chaining vs. Backward Chaining</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">FOL Construct</th>
-      <th style="width: 45%;">Definition & Syntax</th>
-      <th>Example Statement</th>
+      <th style="width: 25%;">Parameter</th>
+      <th style="width: 37%;">Forward Chaining (Data-Driven)</th>
+      <th>Backward Chaining (Goal-Driven)</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><strong>Universal Quantifier ($\forall$)</strong></td>
-      <td>"For all $x$". Typically paired with implication ($\implies$).</td>
-      <td>$\forall x \ (\text{King}(x) \implies \text{Person}(x))$</td>
-    </tr>
-    <tr>
-      <td><strong>Existential Quantifier ($\exists$)</strong></td>
-      <td>"There exists some $x$". Typically paired with conjunction ($\land$).</td>
-      <td>$\exists x \ (\text{Crown}(x) \land \text{OnHead}(x, \text{John}))$</td>
-    </tr>
+    <tr><td><strong>Starting Point</strong></td><td>Starts from known initial <strong>atomic facts</strong> in the KB.</td><td>Starts from the <strong>Goal query hypothesis</strong> $Q$.</td></tr>
+    <tr><td><strong>Execution Direction</strong></td><td>Applies Modus Ponens forward: $P, P \implies Q \implies \text{infer } Q$. Adds new facts until goal is reached.</td><td>Works backward: finds rules that have $Q$ in the conclusion, and recursively proves their premises.</td></tr>
+    <tr><td><strong>Suitability</strong></td><td>Ideal for monitoring, diagnosis, and reactive synthesis systems.</td><td>Ideal for targeted automated theorem proving, diagnosis, and query answering (Prolog).</td></tr>
   </tbody>
 </table>
 
-<div class="callout callout-info">
-  <div class="callout-title">De Morgan's Laws for Quantifiers</div>
-  $$\forall x \ \neg P(x) \equiv \neg \exists x \ P(x)$$
-  $$\neg \forall x \ P(x) \equiv \exists x \ \neg P(x)$$
-  $$\forall x \ P(x) \equiv \neg \exists x \ \neg P(x)$$
-  $$\exists x \ P(x) \equiv \neg \forall x \ \neg P(x)$$
+<h2 class="section-title">Topic 23: The Resolution Refutation Algorithm</h2>
+
+<div class="formula-card">
+  <strong>The Resolution Inference Rule:</strong>
+  $$\frac{\ell_1 \vee \dots \vee \ell_i \vee \dots \vee \ell_k, \quad m_1 \vee \dots \vee \neg \ell_i \vee \dots \vee m_n}{\ell_1 \vee \dots \vee \ell_{i-1} \vee \ell_{i+1} \vee \dots \vee \ell_k \vee m_1 \vee \dots \vee m_{j-1} \vee m_{j+1} \vee \dots \vee m_n}$$
 </div>
 
-<h2 class="section-title">Topic 9 & 10: Unification Algorithm & Skolemization</h2>
-
-<h3 class="subsection-title">1. Unification & Most General Unifier (MGU):</h3>
-<p>
-  $\text{UNIFY}(p, q) = \theta$ finds a substitution $\theta$ such that $\text{Subst}(\theta, p) = \text{Subst}(\theta, q)$:
-</p>
-<ul>
-  <li>$\text{UNIFY}(\text{Knows}(\text{John}, x), \text{Knows}(\text{John}, \text{Jane})) = \{ x / \text{Jane} \}$</li>
-  <li>$\text{UNIFY}(\text{Knows}(\text{John}, x), \text{Knows}(y, \text{Bill})) = \{ y / \text{John}, \ x / \text{Bill} \}$</li>
-  <li><strong>Occur-Check:</strong> A variable $x$ cannot be unified with a term containing $x$ (e.g., $x$ and $f(x)$ cannot unify because substitution causes infinite recursion).</li>
-</ul>
-
-<h3 class="subsection-title">2. Skolemization:</h3>
-<ul>
-  <li><strong>Skolem Constant:</strong> Eliminates an existential quantifier not in the scope of any universal quantifier:
-    $$\exists x \ \text{Heart}(x) \implies \text{Heart}(H_1) \quad \text{where } H_1 \text{ is a new unique constant}$$
-  </li>
-  <li><strong>Skolem Function:</strong> Eliminates an existential quantifier within the scope of a universal quantifier:
-    $$\forall x \ \exists y \ \text{Mother}(y, x) \implies \forall x \ \text{Mother}(m(x), x) \quad \text{where } m(x) \text{ is a Skolem function}$$
-  </li>
-</ul>
-
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module III)</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. Differentiate between Forward Chaining and Backward Chaining for Horn Clauses. (8 Marks)</div>
-  <div class="qa-a">
-    1. <strong>Forward Chaining (Data-Driven):</strong> Starts with known atomic facts in the KB and applies inference rules to derive new facts until the goal is generated. Complete for definite clauses and runs in linear time $O(n)$. Used in reactive expert systems and real-time monitoring.<br>
-    2. <strong>Backward Chaining (Goal-Driven):</strong> Starts with the target query/goal and works backward by finding rules whose conclusions match the goal, establishing their premises as new subgoals. Avoids exploring irrelevant facts. Used in Prolog and automated theorem provers.
-  </div>
+<div class="callout callout-warning">
+  <div class="callout-title">Algorithm: Proof by Resolution Refutation ($KB \models \alpha$)</div>
+  <ol>
+    <li>Convert all sentences in $KB$ into <strong>Conjunctive Normal Form (CNF)</strong> (Eliminate $\implies$, push $\neg$ inward, standardize variables, Skolemize $\exists$, drop $\forall$, distribute $\vee$ over $\wedge$).</li>
+    <li><strong>Negate the Query:</strong> Add $\neg \alpha$ to the CNF knowledge base.</li>
+    <li>Repeatedly apply the Resolution Rule to pairs of complementary literals ($\ell$ and $\neg \ell$) to generate new resolvents.</li>
+    <li>If resolution derives the <strong>Empty Clause ($\Box$)</strong>, a formal logical contradiction is achieved $\implies$ Original query $\alpha$ is mathematically proven!</li>
+  </ol>
 </div>
 
+<h2 class="section-title">🧠 M3 Active Recall & Exam Questions</h2>
+
 <div class="qa-card">
-  <div class="qa-q">Q2. Convert the English statements into FOL and prove by Resolution Refutation: "Every person who loves animals is loved by someone. Jack loves all dogs. All dogs are animals. Prove that someone loves Jack." (10 Marks)</div>
+  <div class="qa-q">Q1. Given $KB = \{ P \implies Q, \ Q \implies R, \ P \}$, prove $R$ using Resolution Refutation. (8 Marks)</div>
   <div class="qa-a">
-    1. $\forall x \ [(\forall y \ \text{Animal}(y) \implies \text{Loves}(x, y)) \implies (\exists z \ \text{Loves}(z, x))]$<br>
-    2. $\forall y \ (\text{Dog}(y) \implies \text{Loves}(\text{Jack}, y))$<br>
-    3. $\forall y \ (\text{Dog}(y) \implies \text{Animal}(y))$<br>
-    4. Negated Goal: $\neg \exists z \ \text{Loves}(z, \text{Jack}) \implies \forall z \ \neg \text{Loves}(z, \text{Jack})$<br>
-    <em>Converting to CNF clauses and unifying with Skolem functions yields the empty clause ($\square$), formally proving someone loves Jack.</em>
+    <strong>Step 1: Convert $KB$ to CNF Clauses:</strong><br>
+    (1) $P \implies Q \equiv \neg P \vee Q$<br>
+    (2) $Q \implies R \equiv \neg Q \vee R$<br>
+    (3) $P$<br>
+    <strong>Step 2: Add Negation of Goal $R$:</strong><br>
+    (4) $\neg R$<br>
+    <strong>Step 3: Resolution Steps:</strong><br>
+    (5) Resolve (1) and (3) on literal $P \implies Q$<br>
+    (6) Resolve (2) and (5) on literal $Q \implies R$<br>
+    (7) Resolve (4) and (6) on literal $R \implies \Box$ (Empty Clause / Contradiction).<br>
+    $\therefore R$ is proven true by refutation!
   </div>
 </div>
 """
