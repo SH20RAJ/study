@@ -3,14 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compiler Design (CS24301) | BIT Mesra 5th Sem Study Suite</title>
-  <meta name="description" content="Complete Study Notes, 10-15 Page Module Guides, and High-Yield Question Banks for Compiler Design (CS24301).">
-  <!-- Google Fonts -->
+  
+  <title>Compiler Design (CS24301) | BIT Mesra CSE 5th Semester Master Study Suite</title>
+  <meta name="title" content="Compiler Design (CS24301) — Master Study Notes, PDF Books & Solved PYQs">
+  <meta name="description" content="Publication-grade master study guide for Compiler Design (CS24301) at BIT Mesra. Complete 10-15 page module notes, 54 Pages full textbook, 10-page master revision, formulas, and solved university exam bank.">
+  <meta name="keywords" content="Compiler Design, CS24301, BIT Mesra, CSE 5th Sem, Study Notes, Formula Sheet, PYQ Solutions, Master PDF, all.pdf">
+  <meta name="author" content="Shaswat Raj (BIT Mesra CSE)">
+  <link rel="canonical" href="https://sh20raj.github.io/study/compiler-design.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sh20raj.github.io/study/compiler-design.html">
+  <meta property="og:title" content="Compiler Design (CS24301) | BIT Mesra Study Suite">
+  <meta property="og:description" content="Exhaustive coverage of Lexical Analysis (DFA/NFA, Thompson's Construction), Top-Down LL(1) Parsing, Bottom-Up LR(0)/SLR(1)/CLR(1)/LALR(1) Parsing, Syntax Directed Definitions (SDD/SDTS), Intermediate 3-Address Code Generation, Runtime Activation Records, Dynamic Memory Heap, Basic Block Control Flow Graphs (CFG), and Global Loop Optimization.">
+  
+  <!-- Fonts & KaTeX & Markdown Rendering -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <style>
     :root {
       --bg: #0b0f19;
@@ -21,7 +37,7 @@
       --text-muted: #9ca3af;
       --primary: #3b82f6;
       --primary-hover: #60a5fa;
-      --accent: #2563eb;
+      --accent: #8b5cf6;
       --radius: 12px;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -69,28 +85,26 @@
     .brand-icon {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       font-size: 20px;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
     .brand-title { font-size: 17px; font-weight: 800; }
     .brand-subtitle { font-size: 11.5px; color: var(--text-muted); }
-    .nav-links { display: flex; align-items: center; gap: 12px; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
     .nav-btn {
       padding: 8px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
       background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       color: var(--text-main);
       font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -98,278 +112,308 @@
     }
     .nav-btn:hover { border-color: var(--primary); color: var(--primary); }
     
-    .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; flex: 1; width: 100%; }
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 24px 60px 24px;
+      flex: 1;
+      width: 100%;
+    }
     
-    .hero {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 32px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      background: rgba(59, 130, 246, 0.15);
-      color: #3b82f6;
-      margin-bottom: 12px;
-      border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-    .hero-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
-    .hero-desc { color: var(--text-muted); font-size: 15px; max-width: 800px; margin-bottom: 20px; }
-    
-    .downloads-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .card {
+    .subject-hero {
       background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow);
+    }
+    .badge-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
+    .badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
+    .badge-primary { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
+    .badge-code { font-family: 'Fira Code', monospace; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); }
+    
+    .subject-title { font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .subject-desc { font-size: 14.5px; color: var(--text-muted); line-height: 1.65; max-width: 950px; margin-bottom: 24px; }
+    
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+    .download-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -6px rgba(0,0,0,0.3);
+    }
+    .download-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .download-info p { font-size: 11.5px; color: var(--text-muted); }
+    .download-icon { font-size: 20px; color: var(--primary); }
+
+    .modules-section { margin-bottom: 36px; }
+    .section-heading { font-size: 20px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .mod-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 10px;
       transition: var(--transition);
+    }
+    .mod-card:hover { border-color: var(--primary); }
+    .mod-card-title { font-size: 13px; font-weight: 700; }
+    .mod-card-sub { font-size: 11px; color: var(--text-muted); }
+    .mod-actions { display: flex; gap: 8px; margin-top: 4px; }
+    .mod-btn {
+      flex: 1;
+      padding: 6px;
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .mod-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Markdown Reader Section */
+    .notes-viewer {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
       box-shadow: var(--shadow);
     }
-    .card:hover { border-color: var(--primary); transform: translateY(-4px); }
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
-    .card-tag {
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 6px;
-      background: rgba(59, 130, 246, 0.12);
-      color: var(--primary);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-    }
-    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .card-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
-    
-    .card-topics {
-      background: var(--bg-card);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 18px;
-      font-size: 12.5px;
-    }
-    .card-topics ul { padding-left: 18px; margin-top: 6px; }
-    .card-topics li { margin-bottom: 4px; color: var(--text-muted); }
-    
-    .card-actions { display: flex; gap: 10px; margin-top: auto; }
-    .btn-download {
-      flex: 1;
-      padding: 10px 16px;
-      background: var(--primary);
-      color: #ffffff;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 13.5px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: var(--transition);
-    }
-    .btn-download:hover { background: var(--primary-hover); }
-    
-    .btn-view {
-      padding: 10px 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 13.5px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: var(--transition);
-    }
-    .btn-view:hover { border-color: var(--primary); color: var(--primary); }
-
-    /* Topic Checklist */
-    .checklist-section {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-top: 40px;
-    }
-    .checklist-title { font-size: 22px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-    .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-    .check-item {
+    .notes-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .markdown-body {
       font-size: 13.5px;
-      cursor: pointer;
-      user-select: none;
-      transition: var(--transition);
+      line-height: 1.7;
+      color: var(--text-main);
     }
-    .check-item:hover { border-color: var(--primary); }
-    .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
-
-    footer {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-      padding: 24px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: auto;
-    }
+    .markdown-body h1 { font-size: 24px; margin: 24px 0 14px 0; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .markdown-body h2 { font-size: 19px; margin: 22px 0 10px 0; color: var(--primary-hover); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .markdown-body h3 { font-size: 16px; margin: 18px 0 8px 0; color: var(--text-main); }
+    .markdown-body p { margin-bottom: 12px; text-align: justify; }
+    .markdown-body pre { background: #0f172a; color: #f8fafc; padding: 14px 18px; border-radius: 8px; overflow-x: auto; margin: 14px 0; font-family: 'Fira Code', monospace; font-size: 12px; }
+    .markdown-body code { font-family: 'Fira Code', monospace; font-size: 12px; background: var(--bg-card); color: var(--primary); padding: 2px 6px; border-radius: 4px; }
+    .markdown-body pre code { background: transparent; color: inherit; padding: 0; }
+    .markdown-body table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12.5px; }
+    .markdown-body th, .markdown-body td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .markdown-body th { background: var(--bg-card); color: var(--text-main); font-weight: 700; }
+    .markdown-body blockquote { border-left: 4px solid var(--primary); background: rgba(59, 130, 246, 0.08); padding: 12px 18px; border-radius: 6px; margin: 14px 0; }
+    .markdown-body ul, .markdown-body ol { padding-left: 24px; margin-bottom: 14px; }
+    .markdown-body li { margin-bottom: 6px; }
+    
+    footer { background: var(--bg-surface); border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12.5px; color: var(--text-muted); }
   </style>
 </head>
 <body>
+
   <header>
     <div class="header-container">
       <a href="index.html" class="brand">
-        <div class="brand-icon"><i class="fa-solid fa-code"></i></div>
+        <div class="brand-icon"><i class="fa-solid fa-arrow-left"></i></div>
         <div>
-          <div class="brand-title">Study Portal</div>
-          <div class="brand-subtitle">BIT Mesra CSE 5th Sem</div>
+          <div class="brand-title">Compiler Design (CS24301)</div>
+          <div class="brand-subtitle">BIT Mesra CSE 5th Semester Master Portal</div>
         </div>
       </a>
-      <div class="nav-links">
+      <div class="nav-actions">
+        <button id="themeToggle" class="nav-btn"><i class="fa-solid fa-moon"></i></button>
         <a href="index.html" class="nav-btn"><i class="fa-solid fa-house"></i> All Courses</a>
-        <a href="data-mining.html" class="nav-btn"><i class="fa-solid fa-database"></i> Data Mining</a>
-        <button id="themeToggle" class="nav-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+        <a href="https://github.com/SH20RAJ/study" target="_blank" class="nav-btn"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="hero">
-      <div class="badge"><i class="fa-solid fa-microchip"></i> CS24301 — THEORY (3.0 CREDITS)</div>
-      <h1 class="hero-title">Compiler Design</h1>
-      <p class="hero-desc">
-        Complete study notes covering the 6 phases of compilers, Lexical Analysis (Thompson NFA, Hopcroft DFA), Syntax Analysis (LL(1), LR(0), SLR(1), CLR(1), LALR(1)), SDD/SDT Semantic Translation, Intermediate Code Generation (Three-Address Code), Runtime Environments, and Code Optimization.
-      </p>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <a href="compiler-design/pdf/Compiler_Design_Full_Course_Master.pdf" class="btn-download" target="_blank" style="max-width: 260px;">
-          <i class="fa-solid fa-book-open"></i> Full Course Master PDF
+  <main class="main-container">
+    <div class="subject-hero">
+      <div class="badge-row">
+        <span class="badge badge-primary">Theory Core</span>
+        <span class="badge badge-code">CS24301 • 3.0 Credits</span>
+      </div>
+      <h1 class="subject-title">Compiler Design</h1>
+      <p class="subject-desc">Exhaustive coverage of Lexical Analysis (DFA/NFA, Thompson's Construction), Top-Down LL(1) Parsing, Bottom-Up LR(0)/SLR(1)/CLR(1)/LALR(1) Parsing, Syntax Directed Definitions (SDD/SDTS), Intermediate 3-Address Code Generation, Runtime Activation Records, Dynamic Memory Heap, Basic Block Control Flow Graphs (CFG), and Global Loop Optimization.</p>
+      
+      <div class="downloads-grid">
+        <a href="compiler-design/pdf/Compiler_Design_Full_Course_Master.pdf" target="_blank" class="download-card">
+          <div class="download-info">
+            <h4><i class="fa-solid fa-book-open"></i> Full Course Master Book</h4>
+            <p>54 Pages • Complete Syllabus + Solved PYQs</p>
+          </div>
+          <div class="download-icon"><i class="fa-solid fa-file-pdf"></i></div>
         </a>
-        <a href="compiler-design/pdf/Compiler_Design_10_Page_Master_Revision.pdf" class="btn-view" target="_blank">
-          <i class="fa-solid fa-bolt"></i> 10-Page Master Revision PDF
+        <a href="compiler-design/pdf/Compiler_Design_10_Page_Master_Revision.pdf" target="_blank" class="download-card">
+          <div class="download-info">
+            <h4><i class="fa-solid fa-bolt"></i> 10-Page Master Quick Revision</h4>
+            <p>13 Pages • Formulas, Matrices & Flashcards</p>
+          </div>
+          <div class="download-icon"><i class="fa-solid fa-file-pdf"></i></div>
+        </a>
+        <a href="compiler-design/pdf/all.pdf" target="_blank" class="download-card">
+          <div class="download-info">
+            <h4><i class="fa-solid fa-download"></i> Download all.pdf</h4>
+            <p>43 Pages • Compiled Master Notes</p>
+          </div>
+          <div class="download-icon"><i class="fa-solid fa-file-arrow-down"></i></div>
         </a>
       </div>
     </div>
 
-    <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;"><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Modular Study Notes & Guides</h2>
+    <!-- Modules Section -->
+    <section class="modules-section">
+      <h2 class="section-heading"><i class="fa-solid fa-folder-open"></i> Individual Module Notes</h2>
+      <div class="modules-grid">
+        
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 1: Lexical Analysis & Direct DFA</div>
+                <div class="mod-card-sub">12 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="compiler-design/html/Module_1_Lexical_Analysis_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="compiler-design/pdf/Module_1_Lexical_Analysis_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 2: Syntax Analysis & LR Parsers</div>
+                <div class="mod-card-sub">11 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="compiler-design/html/Module_2_Syntax_Analysis_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="compiler-design/pdf/Module_2_Syntax_Analysis_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 3: Semantic Analysis & TAC</div>
+                <div class="mod-card-sub">10 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="compiler-design/html/Module_3_Semantic_Analysis_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="compiler-design/pdf/Module_3_Semantic_Analysis_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 4: Runtime & Activation Records</div>
+                <div class="mod-card-sub">10 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="compiler-design/html/Module_4_Runtime_Environment_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="compiler-design/pdf/Module_4_Runtime_Environment_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 5: Code Optimization & DAG</div>
+                <div class="mod-card-sub">10 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="compiler-design/html/Module_5_Code_Optimization_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="compiler-design/pdf/Module_5_Code_Optimization_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+      </div>
+    </section>
 
-    <div class="downloads-grid">
-      <!-- Module 1 -->
-      <div class="card">
+    <!-- Master Markdown Reader Section -->
+    <section class="notes-viewer" id="notes">
+      <div class="notes-header">
         <div>
-          <div class="card-header">
-            <span class="card-tag">Module I</span>
-            <span style="font-size: 12px; color: var(--text-muted);">Lexical Analysis</span>
-          </div>
-          <h3 class="card-title">Lexical Analysis & Automata</h3>
-          <p class="card-desc">Language processors, 6 phases of compiler with running example, input buffering, regular expressions, Thompson's construction, and Hopcroft's DFA minimization.</p>
+          <h2 style="font-size: 18px; font-weight: 800;"><i class="fa-solid fa-file-lines"></i> Complete Master Notes (all.md)</h2>
+          <p style="font-size: 12px; color: var(--text-muted);">Rendered live with KaTeX mathematical formulas & code syntax</p>
         </div>
-        <div class="card-actions">
-          <a href="compiler-design/pdf/Module_1_Lexical_Analysis_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="compiler-design/html/Module_1_Lexical_Analysis_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+        <div>
+          <a href="compiler-design/pdf/all.pdf" target="_blank" class="nav-btn" style="background: var(--primary); color: #fff; border-color: var(--primary);"><i class="fa-solid fa-file-pdf"></i> Get PDF</a>
         </div>
       </div>
-
-      <!-- Module 2 -->
-      <div class="card">
-        <div>
-          <div class="card-header">
-            <span class="card-tag">Module II</span>
-            <span style="font-size: 12px; color: var(--text-muted);">Syntax Analysis</span>
-          </div>
-          <h3 class="card-title">Syntax Analysis & Parsing Algorithms</h3>
-          <p class="card-desc">Context-free grammars, ambiguity elimination, FIRST & FOLLOW computation, recursive descent, LL(1) parsing, and bottom-up LR parsers (LR(0), SLR(1), CLR(1), LALR(1)).</p>
-        </div>
-        <div class="card-actions">
-          <a href="compiler-design/pdf/Module_2_Syntax_Analysis_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="compiler-design/html/Module_2_Syntax_Analysis_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
+      <div class="markdown-body" id="markdownContent">
+        <p style="text-align: center; color: var(--text-muted); padding: 40px 0;"><i class="fa-solid fa-spinner fa-spin"></i> Loading master notes...</p>
       </div>
-
-      <!-- Module 3 -->
-      <div class="card">
-        <div>
-          <div class="card-header">
-            <span class="card-tag">Module III</span>
-            <span style="font-size: 12px; color: var(--text-muted);">Semantic Analysis</span>
-          </div>
-          <h3 class="card-title">Syntax-Directed Translation & Type Checking</h3>
-          <p class="card-desc">Syntax-Directed Definitions (SDD), Synthesized vs. Inherited attributes, S-Attributed & L-Attributed SDD, dependency graphs, and static type systems.</p>
-        </div>
-        <div class="card-actions">
-          <a href="compiler-design/pdf/Module_3_Semantic_Analysis_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="compiler-design/html/Module_3_Semantic_Analysis_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
-      </div>
-
-      <!-- Module 4 -->
-      <div class="card">
-        <div>
-          <div class="card-header">
-            <span class="card-tag">Module IV</span>
-            <span style="font-size: 12px; color: var(--text-muted);">Intermediate Code</span>
-          </div>
-          <h3 class="card-title">Intermediate Code Generation & Runtime</h3>
-          <p class="card-desc">Three-Address Code (Quadruples, Triples, Indirect Triples), syntax trees, DAG generation, boolean expressions backpatching, and runtime activation records.</p>
-        </div>
-        <div class="card-actions">
-          <a href="compiler-design/pdf/Module_4_Runtime_Environment_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="compiler-design/html/Module_4_Runtime_Environment_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
-      </div>
-
-      <!-- Module 5 -->
-      <div class="card">
-        <div>
-          <div class="card-header">
-            <span class="card-tag">Module V</span>
-            <span style="font-size: 12px; color: var(--text-muted);">Optimization & Code Gen</span>
-          </div>
-          <h3 class="card-title">Code Optimization & Code Generation</h3>
-          <p class="card-desc">Basic blocks, Flow graphs, Peephole optimizations, Loop optimizations, Data-flow analysis (Reaching definitions, Available expressions), and Register allocation.</p>
-        </div>
-        <div class="card-actions">
-          <a href="compiler-design/pdf/Module_5_Code_Optimization_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="compiler-design/html/Module_5_Code_Optimization_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
-      </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <footer>
-    <p>🎓 BIT Mesra B.Tech CSE 5th Semester • Compiler Design (`CS24301`)</p>
+    <p>🎓 <strong>BIT Mesra CSE 5th Semester Study Hub</strong> • Compiler Design (CS24301)</p>
   </footer>
 
   <script>
-    function toggleTheme() {
-      const body = document.documentElement;
-      const current = body.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      body.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    if (currentTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
     }
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      }
+    });
+
+    // Fetch and render all.md
+    fetch('compiler-design/all.md')
+      .then(res => res.text())
+      .then(text => {
+        const contentDiv = document.getElementById('markdownContent');
+        contentDiv.innerHTML = marked.parse(text);
+        if (window.renderMathInElement) {
+          renderMathInElement(contentDiv, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ]
+          });
+        }
+      })
+      .catch(err => {
+        document.getElementById('markdownContent').innerHTML = '<p style="color: #ef4444;">Failed to load markdown content.</p>';
+      });
   </script>
 </body>
 </html>

@@ -3,14 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Mining Concepts & Techniques (CS24303) | BIT Mesra 5th Sem</title>
-  <meta name="description" content="Complete 46-Topic Study Notes, 10-15 Page Module Guides, and High-Yield Revision for Data Mining (CS24303).">
-  <!-- Google Fonts -->
+  
+  <title>Data Mining Concepts and Techniques (CS24303) | BIT Mesra CSE 5th Semester Master Study Suite</title>
+  <meta name="title" content="Data Mining Concepts and Techniques (CS24303) — Master Study Notes, PDF Books & Solved PYQs">
+  <meta name="description" content="Publication-grade master study guide for Data Mining Concepts and Techniques (CS24303) at BIT Mesra. Complete 10-15 page module notes, 15 Pages full textbook, 10-page master revision, formulas, and solved university exam bank.">
+  <meta name="keywords" content="Data Mining Concepts and Techniques, CS24303, BIT Mesra, CSE 5th Sem, Study Notes, Formula Sheet, PYQ Solutions, Master PDF, all.pdf">
+  <meta name="author" content="Shaswat Raj (BIT Mesra CSE)">
+  <link rel="canonical" href="https://sh20raj.github.io/study/data-mining.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sh20raj.github.io/study/data-mining.html">
+  <meta property="og:title" content="Data Mining Concepts and Techniques (CS24303) | BIT Mesra Study Suite">
+  <meta property="og:description" content="Exhaustive coverage of KDD Pipeline, Attribute Types & Proximity Dissimilarity Measures, Data Cleaning & Normalization (Z-score, Min-Max, Decimal Scaling), OLAP Data Warehousing (Star, Snowflake, Constellation Schemas), Frequent Itemset Mining (Apriori Algorithm, FP-Growth Tree, ECLAT), Association Rules, Correlation Metrics (Chi-Square, Lift), Constraint-Based Mining, Classification, and Clustering.">
+  
+  <!-- Fonts & KaTeX & Markdown Rendering -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <style>
     :root {
       --bg: #0b0f19;
@@ -19,10 +35,9 @@
       --border: #374151;
       --text-main: #f9fafb;
       --text-muted: #9ca3af;
-      --primary: #f59e0b;
-      --primary-hover: #fbbf24;
-      --accent: #d97706;
-      --success: #10b981;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --accent: #8b5cf6;
       --radius: 12px;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -34,8 +49,8 @@
       --border: #e2e8f0;
       --text-main: #0f172a;
       --text-muted: #64748b;
-      --primary: #d97706;
-      --primary-hover: #b45309;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,38 +81,30 @@
       align-items: center;
       gap: 16px;
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--text-main);
-    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); }
     .brand-icon {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       font-size: 20px;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
     }
     .brand-title { font-size: 17px; font-weight: 800; }
     .brand-subtitle { font-size: 11.5px; color: var(--text-muted); }
-    .nav-links { display: flex; align-items: center; gap: 12px; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
     .nav-btn {
       padding: 8px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
       background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       color: var(--text-main);
       font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -105,478 +112,308 @@
     }
     .nav-btn:hover { border-color: var(--primary); color: var(--primary); }
     
-    .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; flex: 1; width: 100%; }
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 24px 60px 24px;
+      flex: 1;
+      width: 100%;
+    }
     
-    .hero {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 32px;
-      position: relative;
-      overflow: hidden;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      background: rgba(245, 158, 11, 0.15);
-      color: #f59e0b;
-      margin-bottom: 12px;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .hero-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
-    .hero-desc { color: var(--text-muted); font-size: 15px; max-width: 800px; margin-bottom: 20px; }
-    
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .stat-card {
+    .subject-hero {
       background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
-      text-align: center;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow);
     }
-    .stat-val { font-size: 24px; font-weight: 800; color: var(--primary); }
-    .stat-lbl { font-size: 12.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+    .badge-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
+    .badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
+    .badge-primary { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
+    .badge-code { font-family: 'Fira Code', monospace; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); }
+    
+    .subject-title { font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .subject-desc { font-size: 14.5px; color: var(--text-muted); line-height: 1.65; max-width: 950px; margin-bottom: 24px; }
     
     .downloads-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
     }
-    .card {
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+    .download-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -6px rgba(0,0,0,0.3);
+    }
+    .download-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .download-info p { font-size: 11.5px; color: var(--text-muted); }
+    .download-icon { font-size: 20px; color: var(--primary); }
+
+    .modules-section { margin-bottom: 36px; }
+    .section-heading { font-size: 20px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .mod-card {
       background: var(--bg-surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
+      border-radius: 8px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 10px;
       transition: var(--transition);
+    }
+    .mod-card:hover { border-color: var(--primary); }
+    .mod-card-title { font-size: 13px; font-weight: 700; }
+    .mod-card-sub { font-size: 11px; color: var(--text-muted); }
+    .mod-actions { display: flex; gap: 8px; margin-top: 4px; }
+    .mod-btn {
+      flex: 1;
+      padding: 6px;
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .mod-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Markdown Reader Section */
+    .notes-viewer {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
       box-shadow: var(--shadow);
     }
-    .card:hover {
-      border-color: var(--primary);
-      transform: translateY(-4px);
-    }
-    .card-header {
+    .notes-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 14px;
-    }
-    .card-tag {
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 6px;
-      background: rgba(245, 158, 11, 0.12);
-      color: var(--primary);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-    }
-    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .card-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
-    
-    .card-topics {
-      background: var(--bg-card);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 18px;
-      font-size: 12.5px;
-    }
-    .card-topics ul { padding-left: 18px; margin-top: 6px; }
-    .card-topics li { margin-bottom: 4px; color: var(--text-muted); }
-    
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: auto;
-    }
-    .btn-download {
-      flex: 1;
-      padding: 10px 16px;
-      background: var(--primary);
-      color: #ffffff;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 13.5px;
-      text-decoration: none;
-      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: var(--transition);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
     }
-    .btn-download:hover { background: var(--primary-hover); }
-    
-    .btn-view {
-      padding: 10px 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+    .markdown-body {
+      font-size: 13.5px;
+      line-height: 1.7;
       color: var(--text-main);
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 13.5px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: var(--transition);
     }
-    .btn-view:hover { border-color: var(--primary); color: var(--primary); }
-
-    /* Topic Checklist */
-    .checklist-section {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-top: 40px;
-    }
-    .checklist-title { font-size: 22px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-    .checklist-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 12px;
-    }
-    .check-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 13.5px;
-      cursor: pointer;
-      user-select: none;
-      transition: var(--transition);
-    }
-    .check-item:hover { border-color: var(--primary); }
-    .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
-
-    footer {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-      padding: 24px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: auto;
-    }
+    .markdown-body h1 { font-size: 24px; margin: 24px 0 14px 0; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .markdown-body h2 { font-size: 19px; margin: 22px 0 10px 0; color: var(--primary-hover); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .markdown-body h3 { font-size: 16px; margin: 18px 0 8px 0; color: var(--text-main); }
+    .markdown-body p { margin-bottom: 12px; text-align: justify; }
+    .markdown-body pre { background: #0f172a; color: #f8fafc; padding: 14px 18px; border-radius: 8px; overflow-x: auto; margin: 14px 0; font-family: 'Fira Code', monospace; font-size: 12px; }
+    .markdown-body code { font-family: 'Fira Code', monospace; font-size: 12px; background: var(--bg-card); color: var(--primary); padding: 2px 6px; border-radius: 4px; }
+    .markdown-body pre code { background: transparent; color: inherit; padding: 0; }
+    .markdown-body table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12.5px; }
+    .markdown-body th, .markdown-body td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .markdown-body th { background: var(--bg-card); color: var(--text-main); font-weight: 700; }
+    .markdown-body blockquote { border-left: 4px solid var(--primary); background: rgba(59, 130, 246, 0.08); padding: 12px 18px; border-radius: 6px; margin: 14px 0; }
+    .markdown-body ul, .markdown-body ol { padding-left: 24px; margin-bottom: 14px; }
+    .markdown-body li { margin-bottom: 6px; }
+    
+    footer { background: var(--bg-surface); border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12.5px; color: var(--text-muted); }
   </style>
 </head>
 <body>
+
   <header>
     <div class="header-container">
       <a href="index.html" class="brand">
-        <div class="brand-icon"><i class="fa-solid fa-brain"></i></div>
+        <div class="brand-icon"><i class="fa-solid fa-arrow-left"></i></div>
         <div>
-          <div class="brand-title">Study Portal</div>
-          <div class="brand-subtitle">BIT Mesra CSE 5th Sem</div>
+          <div class="brand-title">Data Mining Concepts and Techniques (CS24303)</div>
+          <div class="brand-subtitle">BIT Mesra CSE 5th Semester Master Portal</div>
         </div>
       </a>
-      <div class="nav-links">
+      <div class="nav-actions">
+        <button id="themeToggle" class="nav-btn"><i class="fa-solid fa-moon"></i></button>
         <a href="index.html" class="nav-btn"><i class="fa-solid fa-house"></i> All Courses</a>
-        <a href="compiler-design.html" class="nav-btn"><i class="fa-solid fa-code"></i> Compiler Design</a>
-        <button id="themeToggle" class="nav-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+        <a href="https://github.com/SH20RAJ/study" target="_blank" class="nav-btn"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="hero">
-      <div class="badge"><i class="fa-solid fa-database"></i> CS24303 — THEORY (3.0 CREDITS)</div>
-      <h1 class="hero-title">Data Mining Concepts & Techniques</h1>
-      <p class="hero-desc">
-        Complete 46-Topic comprehensive study notes spanning the KDD pipeline, data preprocessing, multidimensional OLAP warehousing, Apriori & FP-Growth pattern mining, and advanced colossal pattern analytics.
-      </p>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <a href="data-mining/pdf/Data_Mining_Full_Course_Master.pdf" class="btn-download" target="_blank" style="max-width: 260px;">
-          <i class="fa-solid fa-book-open"></i> Full Course Master PDF (40 Pages)
+  <main class="main-container">
+    <div class="subject-hero">
+      <div class="badge-row">
+        <span class="badge badge-primary">Theory Core</span>
+        <span class="badge badge-code">CS24303 • 3.0 Credits</span>
+      </div>
+      <h1 class="subject-title">Data Mining Concepts and Techniques</h1>
+      <p class="subject-desc">Exhaustive coverage of KDD Pipeline, Attribute Types & Proximity Dissimilarity Measures, Data Cleaning & Normalization (Z-score, Min-Max, Decimal Scaling), OLAP Data Warehousing (Star, Snowflake, Constellation Schemas), Frequent Itemset Mining (Apriori Algorithm, FP-Growth Tree, ECLAT), Association Rules, Correlation Metrics (Chi-Square, Lift), Constraint-Based Mining, Classification, and Clustering.</p>
+      
+      <div class="downloads-grid">
+        <a href="data-mining/pdf/Data_Mining_Full_Course_Master.pdf" target="_blank" class="download-card">
+          <div class="download-info">
+            <h4><i class="fa-solid fa-book-open"></i> Full Course Master Book</h4>
+            <p>15 Pages • Complete Syllabus + Solved PYQs</p>
+          </div>
+          <div class="download-icon"><i class="fa-solid fa-file-pdf"></i></div>
         </a>
-        <a href="data-mining/pdf/Data_Mining_10_Page_Master_Revision.pdf" class="btn-view" target="_blank">
-          <i class="fa-solid fa-bolt"></i> 10-Page Master Revision PDF
+        <a href="data-mining/pdf/Data_Mining_10_Page_Master_Revision.pdf" target="_blank" class="download-card">
+          <div class="download-info">
+            <h4><i class="fa-solid fa-bolt"></i> 10-Page Master Quick Revision</h4>
+            <p>5 Pages • Formulas, Matrices & Flashcards</p>
+          </div>
+          <div class="download-icon"><i class="fa-solid fa-file-pdf"></i></div>
+        </a>
+        <a href="data-mining/pdf/all.pdf" target="_blank" class="download-card">
+          <div class="download-info">
+            <h4><i class="fa-solid fa-download"></i> Download all.pdf</h4>
+            <p>51 Pages • Compiled Master Notes</p>
+          </div>
+          <div class="download-icon"><i class="fa-solid fa-file-arrow-down"></i></div>
         </a>
       </div>
     </div>
 
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-val">46 / 46</div>
-        <div class="stat-lbl">Syllabus Topics Covered</div>
+    <!-- Modules Section -->
+    <section class="modules-section">
+      <h2 class="section-heading"><i class="fa-solid fa-folder-open"></i> Individual Module Notes</h2>
+      <div class="modules-grid">
+        
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 1: Data Attributes & Proximity Metrics</div>
+                <div class="mod-card-sub">4 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="data-mining/html/Module_1_Data_Attributes_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="data-mining/pdf/Module_1_Data_Attributes_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 2: Preprocessing & Normalization</div>
+                <div class="mod-card-sub">3 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="data-mining/html/Module_2_Preprocessing_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="data-mining/pdf/Module_2_Preprocessing_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 3: Data Warehousing & OLAP Cubes</div>
+                <div class="mod-card-sub">3 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="data-mining/html/Module_3_Data_Warehouse_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="data-mining/pdf/Module_3_Data_Warehouse_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 4: Apriori & FP-Growth Pattern Mining</div>
+                <div class="mod-card-sub">3 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="data-mining/html/Module_4_Pattern_Mining_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="data-mining/pdf/Module_4_Pattern_Mining_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
+            <div class="mod-card">
+              <div>
+                <div class="mod-card-title">Module 5: Advanced Mining & Constraints</div>
+                <div class="mod-card-sub">3 Pages</div>
+              </div>
+              <div class="mod-actions">
+                <a href="data-mining/html/Module_5_Advanced_Mining_Notes.html" target="_blank" class="mod-btn"><i class="fa-solid fa-eye"></i> View</a>
+                <a href="data-mining/pdf/Module_5_Advanced_Mining_Notes.pdf" target="_blank" class="mod-btn"><i class="fa-solid fa-download"></i> PDF</a>
+              </div>
+            </div>
+            
       </div>
-      <div class="stat-card">
-        <div class="stat-val">100%</div>
-        <div class="stat-lbl">BIT Mesra NEP Compliance</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val">40+</div>
-        <div class="stat-lbl">Total Printable PDF Pages</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val">15+</div>
-        <div class="stat-lbl">Worked Numericals & Derivations</div>
-      </div>
-    </div>
+    </section>
 
-    <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;"><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Modular Study Notes & Guides</h2>
-
-    <div class="downloads-grid">
-      <!-- Module 1 -->
-      <div class="card">
+    <!-- Master Markdown Reader Section -->
+    <section class="notes-viewer" id="notes">
+      <div class="notes-header">
         <div>
-          <div class="card-header">
-            <span class="card-tag">Module I • 11 Pages</span>
-            <span style="font-size: 12px; color: var(--text-muted);">14 Topics</span>
-          </div>
-          <h3 class="card-title">Introduction to Data Mining & Data Attributes</h3>
-          <p class="card-desc">KDD pipeline, relational vs transactional vs warehouse repositories, nominal/ordinal/numeric attribute types, 5-number summary, and proximity measures.</p>
-          <div class="card-topics">
-            <strong>Key Highlights:</strong>
-            <ul>
-              <li>7-Step Knowledge Discovery (KDD) Pipeline</li>
-              <li>Euclidean, Manhattan, Minkowski & Supremum metrics</li>
-              <li>Jaccard Coefficient & Cosine Similarity worked numericals</li>
-            </ul>
-          </div>
+          <h2 style="font-size: 18px; font-weight: 800;"><i class="fa-solid fa-file-lines"></i> Complete Master Notes (all.md)</h2>
+          <p style="font-size: 12px; color: var(--text-muted);">Rendered live with KaTeX mathematical formulas & code syntax</p>
         </div>
-        <div class="card-actions">
-          <a href="data-mining/pdf/Module_1_Data_Attributes_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="data-mining/html/Module_1_Data_Attributes_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
-      </div>
-
-      <!-- Module 2 -->
-      <div class="card">
         <div>
-          <div class="card-header">
-            <span class="card-tag">Module II • 9 Pages</span>
-            <span style="font-size: 12px; color: var(--text-muted);">6 Topics</span>
-          </div>
-          <h3 class="card-title">Data Preprocessing & Reduction</h3>
-          <p class="card-desc">Handling missing values (MICE, KNN), binning noise smoothing, Chi-Square test, Min-Max/Z-Score scaling, full PCA eigenvalue derivation, and ChiMerge.</p>
-          <div class="card-topics">
-            <strong>Key Highlights:</strong>
-            <ul>
-              <li>Step-by-step PCA Covariance & Eigenvalue derivation</li>
-              <li>Chi-Square ($\chi^2$) Contingency Table independence test</li>
-              <li>ChiMerge bottom-up discretization & 3-4-5 rule</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card-actions">
-          <a href="data-mining/pdf/Module_2_Preprocessing_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="data-mining/html/Module_2_Preprocessing_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
+          <a href="data-mining/pdf/all.pdf" target="_blank" class="nav-btn" style="background: var(--primary); color: #fff; border-color: var(--primary);"><i class="fa-solid fa-file-pdf"></i> Get PDF</a>
         </div>
       </div>
-
-      <!-- Module 3 -->
-      <div class="card">
-        <div>
-          <div class="card-header">
-            <span class="card-tag">Module III • 8 Pages</span>
-            <span style="font-size: 12px; color: var(--text-muted);">9 Topics</span>
-          </div>
-          <h3 class="card-title">Data Warehousing & OLAP Technology</h3>
-          <p class="card-desc">Inmon's 4 pillars, OLTP vs OLAP 10-point comparison, Star/Snowflake SQL schemas, 3D Data Cube lattice, 5 OLAP operations, BUC, and AOI trace.</p>
-          <div class="card-topics">
-            <strong>Key Highlights:</strong>
-            <ul>
-              <li>Star vs Snowflake vs Galaxy Schema SQL DDL</li>
-              <li>Roll-up, Drill-down, Slice, Dice, and Pivot movements</li>
-              <li>Attribute-Oriented Induction (AOI) worked algorithm</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card-actions">
-          <a href="data-mining/pdf/Module_3_Data_Warehouse_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="data-mining/html/Module_3_Data_Warehouse_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
+      <div class="markdown-body" id="markdownContent">
+        <p style="text-align: center; color: var(--text-muted); padding: 40px 0;"><i class="fa-solid fa-spinner fa-spin"></i> Loading master notes...</p>
       </div>
-
-      <!-- Module 4 -->
-      <div class="card">
-        <div>
-          <div class="card-header">
-            <span class="card-tag">Module IV • 8 Pages</span>
-            <span style="font-size: 12px; color: var(--text-muted);">7 Topics</span>
-          </div>
-          <h3 class="card-title">Frequent Pattern Mining & Association Rules</h3>
-          <p class="card-desc">Market basket analysis, Apriori downward closure proof & full 9-transaction trace, ECLAT vertical format, FP-Growth recursive tree mining, and Lift/Kulc analysis.</p>
-          <div class="card-topics">
-            <strong>Key Highlights:</strong>
-            <ul>
-              <li>Formal Proof of Apriori Downward Closure Property</li>
-              <li>Complete 9-Transaction Apriori candidate generation & pruning</li>
-              <li>Full FP-Tree construction & recursive mining for all items</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card-actions">
-          <a href="data-mining/pdf/Module_4_Pattern_Mining_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="data-mining/html/Module_4_Pattern_Mining_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
-      </div>
-
-      <!-- Module 5 -->
-      <div class="card">
-        <div>
-          <div class="card-header">
-            <span class="card-tag">Module V • 7 Pages</span>
-            <span style="font-size: 12px; color: var(--text-muted);">10 Topics</span>
-          </div>
-          <h3 class="card-title">Advanced Pattern Mining & Applications</h3>
-          <p class="card-desc">Multilevel rules, multidimensional predicates, constraint-based mining proofs (antimonotonic/monotonic/succinct/convertible), colossal patterns, and applications.</p>
-          <div class="card-topics">
-            <strong>Key Highlights:</strong>
-            <ul>
-              <li>Formal proofs for 8 constraint types</li>
-              <li>Pattern-Fusion colossal pattern jumping strategy</li>
-              <li>Closed Frequent Itemsets vs Maximal Itemsets derivation</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card-actions">
-          <a href="data-mining/pdf/Module_5_Advanced_Mining_Notes.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> PDF Notes</a>
-          <a href="data-mining/html/Module_5_Advanced_Mining_Notes.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Web View</a>
-        </div>
-      </div>
-
-      <!-- Master Revision -->
-      <div class="card" style="border-color: var(--primary);">
-        <div>
-          <div class="card-header">
-            <span class="card-tag" style="background: var(--primary); color: #fff;">Master Book • 40 Pages</span>
-            <span style="font-size: 12px; color: var(--text-muted);">Complete Course</span>
-          </div>
-          <h3 class="card-title">Full Course Master Book & PYQ Bank</h3>
-          <p class="card-desc">All 5 modules compiled into an exhaustive publication-grade study book with complete KaTeX math formulas, worked numericals, and BIT Mesra exam questions.</p>
-          <div class="card-topics">
-            <strong>Includes:</strong>
-            <ul>
-              <li>All 46 Syllabus Topics in high theoretical depth</li>
-              <li>15+ BIT Mesra Long-form Question Model Answers</li>
-              <li>10-Page Quick Revision Cheat Matrix</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card-actions">
-          <a href="data-mining/pdf/Data_Mining_Full_Course_Master.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-download"></i> Master Book PDF</a>
-          <a href="data-mining/html/Data_Mining_Full_Course_Master.html" target="_blank" class="btn-view"><i class="fa-solid fa-eye"></i> Full Web Book</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Interactive Checklist -->
-    <div class="checklist-section">
-      <div class="checklist-title">
-        <i class="fa-solid fa-list-check" style="color: var(--primary);"></i>
-        Interactive 46-Topic Syllabus Checklist
-      </div>
-      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">
-        Track your study progress across all 46 topics. Progress is saved locally in your browser.
-      </p>
-      <div class="checklist-grid" id="checklistContainer"></div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <footer>
-    <p>🎓 BIT Mesra B.Tech CSE 5th Semester • Data Mining Concepts & Techniques (`CS24303`)</p>
-    <p style="margin-top: 6px; font-size: 12px; color: var(--text-muted);">Published via GitHub Actions & Pages</p>
+    <p>🎓 <strong>BIT Mesra CSE 5th Semester Study Hub</strong> • Data Mining Concepts and Techniques (CS24303)</p>
   </footer>
 
   <script>
-    const topics = [
-      "1. Introduction to Data Mining & KDD",
-      "2. Relational Databases & Data Warehouses",
-      "3. Transactional & Advanced Databases",
-      "4. Data Mining Functionalities",
-      "5. Classification of Data Mining Systems",
-      "6. Major Issues in Data Mining",
-      "7. Data Objects & Attribute Types",
-      "8. Nominal, Binary, Ordinal, Numeric Attributes",
-      "9. Basic Statistical Descriptions of Data",
-      "10. Dispersion: IQR, Variance, Boxplots",
-      "11. Data Visualization Displays",
-      "12. Measuring Data Similarity (L1, L2, Lp, Linf)",
-      "13. Proximity: Jaccard & SMC Coefficients",
-      "14. Cosine Similarity for Document Vectors",
-      "15. Data Cleaning: Missing Value Strategies",
-      "16. Noise Smoothing: Binning Means & Boundaries",
-      "17. Data Integration & Entity Identification",
-      "18. Chi-Square Test for Nominal Correlation",
-      "19. Pearson & Spearman Correlation Analysis",
-      "20. Data Normalization: Min-Max, Z-Score, Decimal",
-      "21. Data Reduction: PCA Full Derivation",
-      "22. Wavelets, Sampling & Numerosity Reduction",
-      "23. Discretization: ChiMerge Algorithm",
-      "24. Concept Hierarchy Generation (3-4-5 Rule)",
-      "25. Data Warehouse Fundamentals (Inmon 4 Pillars)",
-      "26. 10-Point Comparison: OLTP vs OLAP",
-      "27. Multidimensional Modeling: Facts & Measures",
-      "28. Warehouse Schemas: Star, Snowflake, Galaxy",
-      "29. Data Cube & Lattice of Cuboids (2^n)",
-      "30. 5 OLAP Operations (Roll-up, Drill-down, Slice, Dice, Pivot)",
-      "31. Warehouse Server Architectures (ROLAP, MOLAP, HOLAP)",
-      "32. Data Cube Computation (BUC & Star-Cubing)",
-      "33. Attribute-Oriented Induction (AOI)",
-      "34. Frequent Pattern Mining Concepts",
-      "35. Market Basket Analysis Formulation",
-      "36. Apriori Downward Closure Property & Proof",
-      "37. Complete 9-Transaction Apriori Trace",
-      "38. Vertical Data Format (ECLAT Algorithm)",
-      "39. FP-Tree Construction & Recursive Mining",
-      "40. Correlation Evaluation: Lift & Kulczynski",
-      "41. Pattern Mining Road Map & Complex Types",
-      "42. Multilevel Pattern Mining & Redundancy",
-      "43. Multidimensional & Quantitative Rules",
-      "44. Constraint-Based Mining (Antimonotonic, Monotonic)",
-      "45. Colossal Patterns via Pattern-Fusion",
-      "46. Real-World Applications across 5 Industries"
-    ];
-
-    function renderChecklist() {
-      const container = document.getElementById('checklistContainer');
-      const saved = JSON.parse(localStorage.getItem('dm_checklist') || '{}');
-      
-      container.innerHTML = topics.map((t, idx) => `
-        <label class="check-item">
-          <input type="checkbox" ${saved[idx] ? 'checked' : ''} onchange="toggleCheck(${idx})">
-          <span>${t}</span>
-        </label>
-      `).join('');
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    if (currentTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
     }
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      }
+    });
 
-    function toggleCheck(idx) {
-      const saved = JSON.parse(localStorage.getItem('dm_checklist') || '{}');
-      saved[idx] = !saved[idx];
-      localStorage.setItem('dm_checklist', JSON.stringify(saved));
-    }
-
-    function toggleTheme() {
-      const body = document.documentElement;
-      const current = body.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      body.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    }
-
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-
-    renderChecklist();
+    // Fetch and render all.md
+    fetch('data-mining/all.md')
+      .then(res => res.text())
+      .then(text => {
+        const contentDiv = document.getElementById('markdownContent');
+        contentDiv.innerHTML = marked.parse(text);
+        if (window.renderMathInElement) {
+          renderMathInElement(contentDiv, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ]
+          });
+        }
+      })
+      .catch(err => {
+        document.getElementById('markdownContent').innerHTML = '<p style="color: #ef4444;">Failed to load markdown content.</p>';
+      });
   </script>
 </body>
 </html>

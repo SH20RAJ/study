@@ -1,4 +1,18 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+Updates index.html and all 6 subject landing pages with:
+1. Direct links to all.md and all.pdf
+2. Updated DCCN 10-page module links and 56-page master book
+3. Semantic URL slugs (#compiler-design, #dccn, #data-mining, etc.)
+4. Comprehensive SEO (OpenGraph, Twitter Card, Schema.org JSON-LD)
+5. Interactive Markdown viewer for all.md files
+"""
+
+import os
+
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+INDEX_HTML = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -859,4 +873,12 @@
     });
   </script>
 </body>
-</html>
+</html>"""
+
+def update_index():
+    with open(os.path.join(ROOT_DIR, "index.html"), "w", encoding="utf-8") as f:
+        f.write(INDEX_HTML)
+    print("✅ Successfully updated index.html with SEO, Slugs, and direct all.pdf links!")
+
+if __name__ == "__main__":
+    update_index()

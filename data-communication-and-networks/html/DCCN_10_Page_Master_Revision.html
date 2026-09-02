@@ -2,124 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DCCN — 10-Page Master Quick Revision</title>
+  <title>DCCN (CS24305) 10-Page Master Quick Revision</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+          onload="renderMathInElement(document.body, {delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]});"></script>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
-
-:root {
-  --primary: #0284c7;       /* Sky Blue */
-  --primary-light: #f0f9ff;
-  --accent: #0d9488;        /* Teal */
-  --secondary: #2563eb;     /* Royal Blue */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
-}
-
+    
 @page {
   size: A4 portrait;
-  margin: 14mm 11mm 14mm 11mm;
+  margin: 15mm 12mm 15mm 12mm;
   @bottom-right {
-    content: "Page " counter(page);
+    content: "Page " counter(page) " of " counter(pages);
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 8pt;
+    font-size: 8.5pt;
     color: #64748b;
   }
   @bottom-left {
-    content: "DCCN (CS24305) | BIT Mesra CSE";
+    content: "DCCN (CS24305) • BIT Mesra CSE";
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 8pt;
+    font-size: 8.5pt;
     color: #64748b;
   }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: #ffffff;
-  line-height: 1.58;
-  font-size: 12.2px;
-  padding: 0;
-}
-
-.page-container {
-  max-width: 100%;
-  margin: 0 auto;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
   background: #ffffff;
+  margin: 0;
   padding: 0;
 }
 
-.doc-header {
-  border-bottom: 2.5px solid var(--primary);
-  padding-bottom: 14px;
-  margin-bottom: 18px;
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #0284c7;
+  margin-bottom: 24px;
 }
 
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.badge {
+.course-badge {
   display: inline-block;
-  padding: 3px 9px;
-  font-size: 9.5px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 11px;
   font-weight: 700;
-  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
   letter-spacing: 0.5px;
-  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bae6fd;
 }
 
-.badge-blue { background: #e0f2fe; color: #0369a1; }
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-green { background: #d1fae5; color: #065f46; }
-.badge-amber { background: #fef3c7; color: #92400e; }
-
-h1.doc-title {
-  font-size: 21px;
+.book-title {
+  font-size: 26px;
   font-weight: 800;
-  color: var(--dark);
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
   line-height: 1.25;
-  margin-bottom: 4px;
 }
 
-.doc-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
+.book-subtitle {
+  font-size: 13.5px;
+  color: #475569;
+  margin: 0 0 16px 0;
   font-weight: 500;
 }
 
 .toc-box {
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 22px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
 }
 
 .toc-title {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #0369a1;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -128,44 +105,60 @@ h1.doc-title {
 .toc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
-  font-size: 11.2px;
+  gap: 8px 16px;
+  font-size: 11px;
+  color: #334155;
 }
 
 h2.section-title {
-  font-size: 15.5px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 22px 0 10px 0;
+  color: #0369a1;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   page-break-after: avoid;
 }
 
 h3.subsection-title {
-  font-size: 13.2px;
+  font-size: 13px;
   font-weight: 700;
-  color: #0369a1;
-  margin: 16px 0 6px 0;
+  color: #0f172a;
+  margin: 18px 0 8px 0;
   page-break-after: avoid;
 }
 
-p { margin-bottom: 8px; text-align: justify; }
+p {
+  margin: 0 0 10px 0;
+  text-align: justify;
+}
 
 .callout {
   border-radius: 6px;
-  padding: 10px 14px;
-  margin: 10px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
   font-size: 11.5px;
-  border-left: 4px solid;
   page-break-inside: avoid;
 }
-.callout-info { background: #f0f9ff; border-color: #0284c7; color: #0c4a6e; }
-.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+
+.callout-info {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  color: #0c4a6e;
+}
+
+.callout-warning {
+  background: #fefce8;
+  border-left: 4px solid #eab308;
+  color: #713f12;
+}
 
 .callout-title {
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -174,42 +167,112 @@ p { margin-bottom: 8px; text-align: justify; }
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 12px 0;
+  margin: 14px 0;
   font-size: 11px;
   page-break-inside: avoid;
 }
 
 .custom-table th, .custom-table td {
   border: 1px solid #cbd5e1;
-  padding: 7px 10px;
+  padding: 8px 10px;
   text-align: left;
+  vertical-align: top;
 }
 
 .custom-table th {
   background: #f1f5f9;
+  color: #0f172a;
   font-weight: 700;
-  color: #1e293b;
+}
+
+.custom-table tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #6366f1;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+}
+
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+
+.worked-title {
+  font-weight: 700;
+  color: #15803d;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.diagram-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px;
+  margin: 14px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.diagram-caption {
+  font-size: 10.5px;
+  color: #64748b;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.qa-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  page-break-inside: avoid;
+}
+
+.qa-q {
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.qa-a {
+  color: #334155;
+  line-height: 1.55;
 }
 
 pre {
   background: #0f172a;
   color: #f8fafc;
-  padding: 11px 14px;
+  padding: 12px 16px;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
-  font-size: 10.8px;
-  margin: 10px 0;
-  page-break-inside: avoid;
+  font-size: 10.5px;
+  line-height: 1.45;
   overflow-x: auto;
+  margin: 12px 0;
+  page-break-inside: avoid;
 }
 
 code {
   font-family: 'Fira Code', monospace;
+  font-size: 11px;
   background: #f1f5f9;
-  color: #0f172a;
+  color: #0369a1;
   padding: 2px 5px;
   border-radius: 4px;
-  font-size: 11px;
 }
 
 pre code {
@@ -218,201 +281,171 @@ pre code {
   padding: 0;
 }
 
-.qa-card {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-left: 4px solid var(--secondary);
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 12px 0;
-  page-break-inside: avoid;
-}
-
-.qa-q {
-  font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 6px;
-  font-size: 12.2px;
-}
-
-.qa-a {
-  color: #334155;
-  font-size: 11.5px;
-  line-height: 1.55;
-}
-
-.worked-box {
-  background: #ffffff;
-  border: 1.5px solid #0284c7;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin: 14px 0;
-  page-break-inside: avoid;
-}
-
-.worked-title {
-  font-size: 12.8px;
-  font-weight: 800;
-  color: #0369a1;
-  margin-bottom: 10px;
-}
-
-.formula-card {
-  background: #f0f9ff;
-  border-left: 4px solid #0284c7;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.8px;
-  page-break-inside: avoid;
-}
-
-.diagram-container {
-  margin: 14px auto;
-  text-align: center;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px;
-  page-break-inside: avoid;
-}
-
-.diagram-caption {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 6px;
-}
-
 .page-break {
   page-break-before: always;
-  break-before: page;
 }
-</style>
+
+  </style>
 </head>
 <body>
-  <div class="page-container">
-    <div class="doc-header">
-      <div class="badge-container">
-        <span class="badge badge-blue">CS24305 — Theory (3.0 Cr)</span>
-        <span class="badge badge-purple">10-Page Master Revision</span>
-        <span class="badge badge-green">BIT Mesra</span>
-        <span class="badge badge-amber">NEP Scheme</span>
-      </div>
-      <h1 class="doc-title">DCCN — 10-Page Master Quick Revision</h1>
-      <div class="doc-subtitle">High-Yield Formula Sheet, Protocol Matrices & Top 10 BIT Mesra PYQ Solutions</div>
-    </div>
-    
-<div class="toc-box">
-  <div class="toc-title">⚡ 10-Page Master Quick Revision — Data Communication & Computer Networks (CS24305)</div>
-  <div class="toc-grid">
-    <div>Page 1: Complete 52-Topic Syllabus Progress Checklist (Modules I – V)</div>
-    <div>Page 2: The Ultra-High-Yield Top 20 DCCN Exam Questions & Topics</div>
-    <div>Page 3: Physical Layer: Nyquist Rate, Shannon Capacity & Waveform Rules</div>
-    <div>Page 4: Data Link Layer: CRC-32 Division, Hamming Code & Parity Rules</div>
-    <div>Page 5: Sliding Window ARQs: Stop-and-Wait, Go-Back-N & Selective Repeat</div>
-    <div>Page 6: Switching & Cellular: Circuit vs. Packet & 1G–5G Generations</div>
-    <div>Page 7: Network Layer: IPv4 20-Byte Header Anatomy & Subnetting Formulas</div>
-    <div>Page 8: Routing Algorithms: Distance Vector (RIP), Link State (OSPF), Path Vector (BGP)</div>
-    <div>Page 9: Transport Protocols: TCP 3-Way Handshake vs. UDP & Congestion Control</div>
-    <div>Page 10: Application Services: DNS, HTTP, DHCP DORA & URL Life Cycle</div>
+  <div class="cover-container">
+    <div class="course-badge">CS24305 • Complete Master Guide</div>
+    <h1 class="book-title">DCCN (CS24305) 10-Page Master Quick Revision</h1>
+    <div class="book-subtitle">High-Yield Formulas, Protocol Summaries, Comparison Matrices & Exam Flashcards</div>
   </div>
-</div>
+  
 
-<h2 class="section-title">📋 The Complete 52-Topic Syllabus Master Checklist</h2>
+        <div class="toc-box">
+          <div class="toc-title">⚡ 10-Page Master Quick Revision — Data Communication & Computer Networks (CS24305)</div>
+          <div class="toc-grid">
+            <div>Page 1: 52-Topic Master Syllabus Progress Checklist (Modules I – V)</div>
+            <div>Page 2: The Tier-S High-Yield Core Topic Ranking & Exam Strategy</div>
+            <div>Page 3: Data Communication Fundamentals, OSI 7-Layer & TCP/IP Suite</div>
+            <div>Page 4: Channel Capacity: Nyquist, Shannon & Transmission Media Formulas</div>
+            <div>Page 5: Digital Line Coding, Scrambling (B8ZS/HDB3) & Modulation (QAM)</div>
+            <div>Page 6: Data Link Framing, CRC Error Detection & Hamming Code Correction</div>
+            <div>Page 7: Sliding Window Flow Control: Stop-and-Wait, GBN, Selective Repeat</div>
+            <div>Page 8: Switching Techniques, ALOHA, CSMA/CD & Ethernet IEEE 802.3</div>
+            <div>Page 9: IPv4 Header, Subnetting, CIDR & Routing (Dijkstra vs. Bellman-Ford)</div>
+            <div>Page 10: TCP 3-Way Handshake, Congestion Control (AIMD) & Application Protocols</div>
+          </div>
+        </div>
 
-<div class="callout callout-info">
-  <div class="callout-title">52 / 52 Syllabus Topics Complete</div>
-  <table class="custom-table" style="font-size: 10px;">
-    <thead><tr><th>Module</th><th>Topic #</th><th>Topic Name</th><th>Status</th></tr></thead>
-    <tbody>
-      <tr><td rowspan="13"><strong>M1: Overview (13)</strong></td><td>1</td><td>Communication Model (S-M-M-P)</td><td>✅ Complete</td></tr>
-      <tr><td>2</td><td>Data Communications (Simplex, Half, Full-Duplex) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>3</td><td>Networks (PAN, LAN, MAN, WAN)</td><td>✅ Complete</td></tr>
-      <tr><td>4</td><td>Internet Architecture & Packet Switching</td><td>✅ Complete</td></tr>
-      <tr><td>5</td><td>OSI 7-Layer Reference Model & Layer Functions</td><td>✅ Complete</td></tr>
-      <tr><td>6</td><td>TCP/IP Protocol Architecture (OSI vs. TCP/IP) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>7</td><td>Standards, Protocol Layers & Encapsulation</td><td>✅ Complete</td></tr>
-      <tr><td>8</td><td>Internet Applications (HTTP, SMTP, DNS, DHCP)</td><td>✅ Complete</td></tr>
-      <tr><td>9</td><td>Data Transmission Concepts (Bit vs. Baud, Latency)</td><td>✅ Complete</td></tr>
-      <tr><td>10</td><td>Analog Data Transmission (Amplitude, Frequency, Phase)</td><td>✅ Complete</td></tr>
-      <tr><td>11</td><td>Digital Data Transmission (Discrete Levels vs. Noise)</td><td>✅ Complete</td></tr>
-      <tr><td>12</td><td>Transmission Impairments (Attenuation, Distortion, Noise) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>13</td><td>Channel Capacity (Nyquist & Shannon Theorems) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
+        <h2 class="section-title" style="margin-top: 0;">Page 1: Complete 52-Topic Master Syllabus Progress Checklist</h2>
+        <div class="callout callout-info">
+          <div class="callout-title">CS24305 DCCN — All 52 Topics Verified & Mastered</div>
+          <table class="custom-table" style="font-size: 9.8px;">
+            <thead><tr><th>Module</th><th>Topic #</th><th>Topic Name</th><th>Key Focus</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="7"><strong>M1: Overview (13)</strong></td><td>1–3</td><td>Communication Model & Networks</td><td>Simplex/Half/Full-Duplex, Performance Criteria</td></tr>
+              <tr><td>4–5</td><td>Topologies & Categories</td><td>Mesh, Star, Bus, Ring, LAN, MAN, WAN</td></tr>
+              <tr><td>6–8</td><td>Internet, Standards & Layering</td><td>ISP Hierarchy, OSI vs TCP/IP Encapsulation</td></tr>
+              <tr><td>9–10</td><td>OSI 7-Layer & TCP/IP Suite</td><td>PDUs, Headers & 4-Level Addressing</td></tr>
+              <tr><td>11–12</td><td>Impairments & Channel Capacity</td><td>Attenuation, Nyquist Bit Rate & Shannon Capacity</td></tr>
+              <tr><td>13</td><td>Transmission Media</td><td>UTP, STP, Coax, SMF, MMF, Radio, Microwave</td></tr>
 
-      <tr><td rowspan="6"><strong>M2: Media & Signals (6)</strong></td><td>14</td><td>Guided Transmission Media (Twisted Pair, Coaxial, Optical Fiber)</td><td>✅ Complete</td></tr>
-      <tr><td>15</td><td>Wireless Media & Propagation (Ground, Sky, LOS, Satellite) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>16</td><td>Digital Signaling (Line Codes: NRZ, Manchester, AMI) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>17</td><td>Analog Signaling (Carrier Wave Parameters)</td><td>✅ Complete</td></tr>
-      <tr><td>18</td><td>Encoding Techniques (Waveform Comparison Matrix)</td><td>✅ Complete</td></tr>
-      <tr><td>19</td><td>Modulation Techniques (ASK, FSK, PSK, QAM)</td><td>✅ Complete</td></tr>
+              <tr><td rowspan="6"><strong>M2: Encoding (6)</strong></td><td>14</td><td>Digital Line Coding</td><td>NRZ-L, NRZ-I, Bipolar AMI, Manchester</td></tr>
+              <tr><td>15</td><td>Scrambling & Block Coding</td><td>4B/5B, B8ZS (T1) & HDB3 (E1) Substitution</td></tr>
+              <tr><td>16</td><td>Digital Modulation</td><td>ASK, FSK, PSK, QPSK, 16-QAM Constellations</td></tr>
+              <tr><td>17</td><td>Analog to Digital (PCM/DM)</td><td>Nyquist Sampling, Quantization, SQNR</td></tr>
+              <tr><td>18–19</td><td>Multiplexing (FDM/TDM)</td><td>FDM, WDM, Synchronous TDM, Statistical TDM</td></tr>
 
-      <tr><td rowspan="8"><strong>M3: Errors & Link (8)</strong></td><td>20</td><td>Types of Errors (Single-Bit vs. Burst Errors)</td><td>✅ Complete</td></tr>
-      <tr><td>21</td><td>Error Detection Techniques (Parity & Checksum) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>22</td><td>Checksum Algorithms (1's Complement Summation)</td><td>✅ Complete</td></tr>
-      <tr><td>23</td><td>Cyclic Redundancy Check (CRC-32 Modulo-2 Division) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>24</td><td>Error Correction (Hamming Code 2^r >= m+r+1 & Syndrome)</td><td>✅ Complete</td></tr>
-      <tr><td>25</td><td>Flow Control (Stop-and-Wait vs. Sliding Window)</td><td>✅ Complete</td></tr>
-      <tr><td>26</td><td>Error Control ARQs (Stop-and-Wait, GBN, Selective Repeat) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>27</td><td>HDLC Protocol (Flag 01111110, I/S/U-Frames)</td><td>✅ Complete</td></tr>
+              <tr><td rowspan="8"><strong>M3: Data Link (8)</strong></td><td>20–21</td><td>Framing & Transmission</td><td>Async/Sync, Byte Stuffing, Bit Stuffing HDLC</td></tr>
+              <tr><td>22–23</td><td>Error Detection</td><td>Single/Burst Errors, 2D Parity, Checksum</td></tr>
+              <tr><td>24</td><td>Cyclic Redundancy Check (CRC)</td><td>Modulo-2 Division, Generator Polynomials</td></tr>
+              <tr><td>25–26</td><td>Hamming Error Correction</td><td>$d_{\text{min}} \ge 2t+1$, (7,4) Hamming Code Syndrome</td></tr>
+              <tr><td>27</td><td>Flow & Error Control ARQ</td><td>Stop-and-Wait, Go-Back-N, Selective Repeat $\eta$</td></tr>
 
-      <tr><td rowspan="9"><strong>M4: WAN & LAN (9)</strong></td><td>30</td><td>Switching Networks (Circuit vs. Packet Switching) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>31</td><td>Circuit-Switching Networks (Setup, Transfer, Teardown)</td><td>✅ Complete</td></tr>
-      <tr><td>32</td><td>Circuit-Switching Concepts (Blocking & Dedicated Paths)</td><td>✅ Complete</td></tr>
-      <tr><td>33</td><td>Packet-Switching Principles (Datagram vs. Virtual Circuit) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>34</td><td>Cellular Network Principles (Frequency Reuse, Handoff)</td><td>✅ Complete</td></tr>
-      <tr><td>35</td><td>Cellular Generations Evolution (1G Voice to 5G Ultra-Low Latency)</td><td>✅ Complete</td></tr>
-      <tr><td>36</td><td>Network Topologies (Bus, Star, Ring, Mesh, Tree)</td><td>✅ Complete</td></tr>
-      <tr><td>37</td><td>LAN Protocol Architecture (IEEE 802: LLC vs. MAC)</td><td>✅ Complete</td></tr>
-      <tr><td>38</td><td>Virtual Local Area Networks (VLAN 802.1Q)</td><td>✅ Complete</td></tr>
+              <tr><td rowspan="9"><strong>M4: Switching & LANs (9)</strong></td><td>28–29</td><td>Switching Techniques</td><td>Circuit vs Packet Switching, Datagram vs VC</td></tr>
+              <tr><td>30</td><td>Switch Architectures</td><td>Crossbar, Banyan & TDM Switches</td></tr>
+              <tr><td>31–32</td><td>Random Access Protocols</td><td>Pure/Slotted ALOHA, CSMA (1/non/p-persistent)</td></tr>
+              <tr><td>33</td><td>CSMA/CD (Ethernet)</td><td>Collision Detection, Min Frame Size, Backoff</td></tr>
+              <tr><td>34</td><td>CSMA/CA (Wi-Fi)</td><td>Hidden Terminal, RTS/CTS Handshake, NAV</td></tr>
+              <tr><td>35–36</td><td>Ethernet & Layer 2 Devices</td><td>IEEE 802.3 Frame, Bridges, Switches, STP</td></tr>
 
-      <tr><td rowspan="16"><strong>M5: IP, Routing & Apps (16)</strong></td><td>39</td><td>Traditional Ethernet (IEEE 802.3 CSMA/CD at 10 Mbps)</td><td>✅ Complete</td></tr>
-      <tr><td>40</td><td>High-Speed Ethernet (Fast 100M, Gigabit 1G, 10G)</td><td>✅ Complete</td></tr>
-      <tr><td>41</td><td>IEEE 802.11 Wi-Fi (CSMA/CA with RTS/CTS Handshake)</td><td>✅ Complete</td></tr>
-      <tr><td>42</td><td>Internet Protocol (IPv4 20-Byte Header vs. IPv6 128-Bit) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>43</td><td>IP Addressing & Subnetting (2^borrowed & 2^host - 2)</td><td>✅ Complete</td></tr>
-      <tr><td>44</td><td>Transport Protocols (TCP 3-Way Handshake vs. UDP) [UPLOADED PYQ]</td><td>✅ Complete</td></tr>
-      <tr><td>45</td><td>Routing in Packet Networks (Hop Count, Metric Costs)</td><td>✅ Complete</td></tr>
-      <tr><td>46</td><td>Distance Vector Routing (Bellman-Ford & RIP Count-to-Infinity)</td><td>✅ Complete</td></tr>
-      <tr><td>47</td><td>Link State Routing (Dijkstra's Algorithm & OSPF)</td><td>✅ Complete</td></tr>
-      <tr><td>48</td><td>Path Vector Routing (Border Gateway Protocol BGP-4)</td><td>✅ Complete</td></tr>
-      <tr><td>49</td><td>Congestion Control (Leaky Bucket vs. Token Bucket)</td><td>✅ Complete</td></tr>
-      <tr><td>50</td><td>Traffic Management & Quality of Service (QoS Dimensions)</td><td>✅ Complete</td></tr>
-      <tr><td>51</td><td>Simple Mail Transfer Protocol (SMTP, POP3, IMAP)</td><td>✅ Complete</td></tr>
-      <tr><td>52</td><td>Domain Name System (DNS Hierarchy & Records A, MX)</td><td>✅ Complete</td></tr>
-      <tr><td>53</td><td>Hypertext Transfer Protocol (HTTP/1.1 vs. HTTP/2 & Statuses)</td><td>✅ Complete</td></tr>
-      <tr><td>54</td><td>Dynamic Host Configuration Protocol (DHCP DORA Sequence)</td><td>✅ Complete</td></tr>
-    </tbody>
-  </table>
-</div>
+              <tr><td rowspan="10"><strong>M5: Network, Transport, App (16)</strong></td><td>37–38</td><td>IPv4 & IPv6 Headers</td><td>20B IPv4 Fields, Fragmentation, 40B IPv6</td></tr>
+              <tr><td>39–41</td><td>Subnetting, ARP & ICMP</td><td>CIDR Prefix Math, ARP Cache, Ping/Traceroute</td></tr>
+              <tr><td>42–44</td><td>Routing Protocols</td><td>Distance Vector (RIP), Link State (OSPF), BGP</td></tr>
+              <tr><td>45–46</td><td>UDP & TCP Headers</td><td>8B UDP, 20B TCP Segment Flags (SYN/ACK/FIN)</td></tr>
+              <tr><td>47–49</td><td>TCP Handshake & Congestion</td><td>3-Way SYN, 4-Way FIN, AIMD, Slow Start, Reno</td></tr>
+              <tr><td>50–52</td><td>Application Layer Protocols</td><td>DNS Resolution, SMTP/IMAP, HTTP/1.1 vs HTTP/2/3</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 2: The Tier-S High-Yield Core Topic Ranking & Exam Strategy</h2>
+        <table class="custom-table">
+          <thead><tr><th>Rank</th><th>Core Exam Topic</th><th>Module</th><th>Frequency & Yield</th><th>Essential Mathematical Formula / Rule</th></tr></thead>
+          <tbody>
+            <tr><td><strong>⭐ 1</strong></td><td>Shannon & Nyquist Theorems</td><td>M1</td><td>100% Exam Probability (10M)</td><td>$C_{\text{Nyquist}} = 2B \log_2(L), \quad C_{\text{Shannon}} = B \log_2(1 + \text{SNR})$</td></tr>
+            <tr><td><strong>⭐ 2</strong></td><td>Line Coding & Manchester Waveforms</td><td>M2</td><td>100% Exam Probability (8M)</td><td>NRZ-L, NRZ-I, Bipolar AMI, Manchester ($0=\text{H}\rightarrow\text{L}, 1=\text{L}\rightarrow\text{H}$), Diff. Manchester</td></tr>
+            <tr><td><strong>⭐ 3</strong></td><td>CRC Polynomial Division</td><td>M3</td><td>100% Exam Probability (10M)</td><td>Modulo-2 Division of $D \cdot 2^r$ by $G(x)$ to get Remainder $R$; Codeword $T = D \cdot 2^r + R$</td></tr>
+            <tr><td><strong>⭐ 4</strong></td><td>Hamming Error Correction Code</td><td>M3</td><td>100% Exam Probability (10M)</td><td>$2^r \ge m + r + 1, \ d_{\text{min}} \ge 2t + 1$; Parity bits at powers of 2 ($1, 2, 4, 8$)</td></tr>
+            <tr><td><strong>⭐ 5</strong></td><td>Sliding Window Efficiency ($\eta$)</td><td>M3</td><td>100% Exam Probability (10M)</td><td>$\eta = \frac{W}{1 + 2a}, \ a = \frac{T_{\text{prop}}}{T_{\text{trans}}}$; GBN ($W=2^k-1$), SR ($W=2^{k-1}$)</td></tr>
+            <tr><td><strong>⭐ 6</strong></td><td>ALOHA vs CSMA/CD Min Frame Size</td><td>M4</td><td>100% Exam Probability (10M)</td><td>$S_{\text{Pure}} = G e^{-2G}, S_{\text{Slotted}} = G e^{-G}$; CSMA/CD: $\text{Frame}_{\text{min}} \ge 2 T_{\text{prop}} \times \text{Bandwidth}$</td></tr>
+            <tr><td><strong>⭐ 7</strong></td><td>IPv4 Header & Fragmentation</td><td>M5</td><td>100% Exam Probability (10M)</td><td>$\text{Total Length} \le \text{MTU}, \ \text{Fragment Offset} = \text{Data Offset} / 8$</td></tr>
+            <tr><td><strong>⭐ 8</strong></td><td>CIDR Subnetting & IP Allocations</td><td>M5</td><td>100% Exam Probability (10M)</td><td>Borrow $k$ bits: New mask $/n+k$, Usable hosts $= 2^{(32 - \text{prefix})} - 2$</td></tr>
+            <tr><td><strong>⭐ 9</strong></td><td>Dijkstra vs. Bellman-Ford Routing</td><td>M5</td><td>100% Exam Probability (10M)</td><td>Dijkstra Global Shortest Path; Bellman-Ford $D_x(y) = \min_v \{c(x, v) + D_v(y)\}$</td></tr>
+            <tr><td><strong>⭐ 10</strong></td><td>TCP 3-Way Handshake & AIMD</td><td>M5</td><td>100% Exam Probability (10M)</td><td>SYN $\rightarrow$ SYN-ACK $\rightarrow$ ACK; Slow Start ($\times 2$), Congestion Avoidance ($+1$), Fast Retransmit</td></tr>
+          </tbody>
+        </table>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 3: Module I — Data Communication, OSI & TCP/IP Architecture</h2>
+        <div class="formula-card">
+          <strong>The 7 OSI Layers & Protocol Units (PDUs):</strong><br>
+          1. <strong>Physical (Bits):</strong> Bitstream transmission, electrical voltages, pinouts.<br>
+          2. <strong>Data Link (Frames):</strong> Hop-by-hop node delivery, MAC addressing, CRC error check.<br>
+          3. <strong>Network (Packets):</strong> Host-to-host routing, logical IPv4/IPv6 addressing.<br>
+          4. <strong>Transport (Segments/Datagrams):</strong> Process-to-process port delivery (TCP/UDP).<br>
+          5. <strong>Session (Data):</strong> Dialogue control, synchronization checkpoints.<br>
+          6. <strong>Presentation (Data):</strong> Character translation (UTF-8), compression, SSL/TLS encryption.<br>
+          7. <strong>Application (Messages):</strong> User protocols: HTTP, DNS, SMTP, FTP, SSH.
+        </div>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 4: Module I — Channel Capacity Theorems & Transmission Media</h2>
+        <div class="formula-card">
+          <strong>Channel Capacity Formulas:</strong><br>
+          • <strong>Nyquist Formula (Noiseless):</strong> $\mathbf{C = 2 B \log_2(L) \text{ bps}}$<br>
+          • <strong>Shannon Formula (Noisy):</strong> $\mathbf{C = B \log_2(1 + \text{SNR}) \text{ bps}}$<br>
+          • <strong>Signal-to-Noise Ratio (dB):</strong> $\mathbf{\text{SNR}_{\text{dB}} = 10 \log_{10}(\text{SNR}) \implies \text{SNR} = 10^{\text{SNR}_{\text{dB}} / 10}}$<br>
+          • <strong>Attenuation (dB):</strong> $\mathbf{\text{dB} = 10 \log_{10}(P_2 / P_1) = 20 \log_{10}(V_2 / V_1)}$
+        </div>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 5: Module II — Digital Line Coding, Scrambling & Carrier Modulation</h2>
+        <table class="custom-table">
+          <thead><tr><th>Line Coding</th><th>Bit 0 Representation</th><th>Bit 1 Representation</th><th>Clock Sync?</th></tr></thead>
+          <tbody>
+            <tr><td><strong>NRZ-L</strong></td><td>Positive Voltage ($+V$)</td><td>Negative Voltage ($-V$)</td><td>No</td></tr>
+            <tr><td><strong>NRZ-I</strong></td><td>No transition at start</td><td>Transition at start</td><td>On 1s only</td></tr>
+            <tr><td><strong>Bipolar AMI</strong></td><td>Zero Volts ($0\text{V}$)</td><td>Alternating $+V$ and $-V$</td><td>On 1s only</td></tr>
+            <tr><td><strong>Manchester</strong></td><td>High-to-Low at midpoint</td><td>Low-to-High at midpoint</td><td><strong>100% Perfect</strong></td></tr>
+            <tr><td><strong>Diff. Manchester</strong></td><td>Transition at start</td><td>No transition at start</td><td><strong>100% Perfect</strong></td></tr>
+          </tbody>
+        </table>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 6: Module III — Framing, CRC Error Detection & Hamming Codes</h2>
+        <div class="formula-card">
+          <strong>CRC Division & Error Correction Rules:</strong><br>
+          • <strong>CRC Remainder:</strong> $\text{Remainder of } (D \cdot 2^r) / G(x) \text{ using Modulo-2 XOR division}$.<br>
+          • <strong>Hamming Redundancy:</strong> $\mathbf{2^r \ge m + r + 1}$ ($m$ data bits, $r$ parity bits).<br>
+          • <strong>Detection Limit:</strong> $d_{\text{min}} \ge d + 1$; <strong>Correction Limit:</strong> $d_{\text{min}} \ge 2t + 1$.
+        </div>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 7: Module III — Flow Control & ARQ Protocols Efficiency</h2>
+        <table class="custom-table">
+          <thead><tr><th>Protocol</th><th>Sender Window ($W_S$)</th><th>Receiver Window ($W_R$)</th><th>Efficiency ($\eta$)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Stop-and-Wait ARQ</strong></td><td>$1$</td><td>$1$</td><td>$$\eta = \frac{1}{1 + 2a}$$</td></tr>
+            <tr><td><strong>Go-Back-N (GBN)</strong></td><td>$2^k - 1$</td><td>$1$</td><td>$$\eta = \frac{W_S}{1 + 2a}$$</td></tr>
+            <tr><td><strong>Selective Repeat (SR)</strong></td><td>$2^{k-1}$</td><td>$2^{k-1}$</td><td>$$\eta = \frac{W_S}{1 + 2a}$$</td></tr>
+          </tbody>
+        </table>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 8: Module IV — Switching, MAC Protocols & Ethernet Standards</h2>
+        <div class="formula-card">
+          <strong>MAC Sublayer Formulas:</strong><br>
+          • <strong>Pure ALOHA:</strong> $S = G e^{-2G} \implies S_{\text{max}} = 18.4\%$ (at $G = 0.5$).<br>
+          • <strong>Slotted ALOHA:</strong> $S = G e^{-G} \implies S_{\text{max}} = 36.8\%$ (at $G = 1.0$).<br>
+          • <strong>CSMA/CD Min Frame Size:</strong> $\mathbf{\text{Frame Size}_{\text{min}} \ge 2 \times T_{\text{prop}} \times \text{Bandwidth}}$.
+        </div>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 9: Module V — IPv4 Header, CIDR Subnetting & Routing Protocols</h2>
+        <div class="formula-card">
+          <strong>Subnetting & Routing Equations:</strong><br>
+          • <strong>Usable Hosts:</strong> $2^{(32 - \text{Prefix})} - 2$<br>
+          • <strong>Fragment Offset:</strong> $\text{Offset} = \text{Byte Index} / 8$<br>
+          • <strong>Bellman-Ford Equation:</strong> $\mathbf{D_x(y) = \min_v \{ c(x, v) + D_v(y) \}}$<br>
+          • <strong>Dijkstra Shortest Path:</strong> Greedy node selection with minimum cumulative edge cost.
+        </div>
+        <div class='page-break'></div>
+        <h2 class="section-title" style="margin-top: 0;">Page 10: Module V — TCP Architecture, Congestion Control & Web Protocols</h2>
+        <div class="formula-card">
+          <strong>TCP Flow & Congestion Control:</strong><br>
+          • <strong>Slow Start:</strong> Exponential growth: $\text{cwnd} \leftarrow \text{cwnd} \times 2$ per RTT.<br>
+          • <strong>Congestion Avoidance:</strong> Linear growth: $\text{cwnd} \leftarrow \text{cwnd} + 1\text{ MSS}$ per RTT.<br>
+          • <strong>Fast Retransmit & Recovery:</strong> 3 Duplicate ACKs $\implies \text{ssthresh} = \text{cwnd}/2, \ \text{cwnd} = \text{ssthresh} + 3$.
+        </div>
+        
 
-<h2 class="section-title">⭐ Ultra-High-Yield Top 20 DCCN Exam Topics</h2>
-
-<table class="custom-table">
-  <thead><tr><th>#</th><th>Topic</th><th>Core Concept / Formula</th></tr></thead>
-  <tbody>
-    <tr><td>1</td><td>OSI 7-Layer Model</td><td>All People Seem To Need Data Processing</td></tr>
-    <tr><td>2</td><td>TCP/IP vs. OSI</td><td>4-layer pragmatic architecture vs 7-layer theoretical reference</td></tr>
-    <tr><td>3</td><td>Guided Media</td><td>Twisted Pair (UTP/STP), Coaxial Cable, Optical Fiber (Total Internal Reflection)</td></tr>
-    <tr><td>4</td><td>Manchester Encoding</td><td>Mandatory mid-bit clock transition (Self-clocking)</td></tr>
-    <tr><td>5</td><td>Nyquist & Shannon Capacity</td><td>$C = 2B \log_2 L$ (Noiseless); $C = B \log_2(1 + \text{SNR})$ (Noisy)</td></tr>
-    <tr><td>6</td><td>CRC-32 Modulo-2 Division</td><td>Append $r$ zeros, divide by generator $G(x)$, remainder is CRC</td></tr>
-    <tr><td>7</td><td>Hamming Code</td><td>$2^r \ge m + r + 1$, parity check positions at powers of 2</td></tr>
-    <tr><td>8</td><td>Stop-and-Wait vs GBN vs SR</td><td>$W_s=1$ vs $W_s \le 2^m-1$ vs $W_s \le 2^{m-1}$</td></tr>
-    <tr><td>9</td><td>HDLC Frame Formats</td><td>Flag `01111110`, Information (I), Supervisory (S), Unnumbered (U)</td></tr>
-    <tr><td>10</td><td>FDM vs. TDM</td><td>Frequency bands with guard bands vs. time slots (Synchronous vs Statistical)</td></tr>
-    <tr><td>11</td><td>Circuit vs. Packet Switching</td><td>Dedicated 3-phase path vs. dynamic statistical packet multiplexing</td></tr>
-    <tr><td>12</td><td>Cellular Networks (1G–5G)</td><td>Frequency reuse $D = R\sqrt{3N}$, Handoff, 1G Analog $\rightarrow$ 5G Low-Latency</td></tr>
-    <tr><td>13</td><td>Network Topologies</td><td>Mesh ($\frac{N(N-1)}{2}$ links), Star, Bus, Ring, Tree</td></tr>
-    <tr><td>14</td><td>VLAN (IEEE 802.1Q)</td><td>Logical segmentation, broadcast domain reduction</td></tr>
-    <tr><td>15</td><td>IPv4 Header Anatomy</td><td>20-byte base header (Version, IHL, Total Length, TTL, Protocol, Checksum)</td></tr>
-    <tr><td>16</td><td>Subnetting Calculations</td><td>Subnets $= 2^{\text{borrowed}}$, Usable Hosts $= 2^{\text{host}} - 2$</td></tr>
-    <tr><td>17</td><td>TCP vs. UDP</td><td>Reliable connection-oriented byte stream vs Unreliable best-effort datagram</td></tr>
-    <tr><td>18</td><td>Routing: RIP vs OSPF vs BGP</td><td>Bellman-Ford (DV) vs Dijkstra (Link-State) vs Path Vector (BGP)</td></tr>
-    <tr><td>19</td><td>Congestion: Leaky vs Token</td><td>Strict constant output rate vs Regulated burst capacity</td></tr>
-    <tr><td>20</td><td>URL $\rightarrow$ Webpage Journey</td><td>DHCP (DORA) $\rightarrow$ DNS $\rightarrow$ ARP $\rightarrow$ TCP 3-Way $\rightarrow$ TLS $\rightarrow$ HTTP $\rightarrow$ IP Routing</td></tr>
-  </tbody>
-</table>
-
-  </div>
 </body>
 </html>
