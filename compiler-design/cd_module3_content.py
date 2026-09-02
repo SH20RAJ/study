@@ -1,148 +1,451 @@
-# Compiler Design Module 3 Exhaustive Content (9 Topics Complete)
-# Neuroscience framework: Understand -> Visualize -> Connect -> Recall -> Apply -> Exam-Important Questions
-
+# Compiler Design Module 3 Exhaustive Master Content (Topics 18 to 26)
 CD_M3_EXHAUSTIVE = r"""
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Semantic Analysis & Intermediate Code — Complete 9-Topic Syllabus Tracker</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Semantic Analysis & Intermediate Code Generation — 9-Topic Master Guide</div>
   <div class="toc-grid">
-    <div><strong>Topic 1:</strong> Introduction to Semantic Analysis (Static vs Dynamic Checks)</div>
-    <div><strong>Topic 2:</strong> Syntax-Directed Definitions (SDD Semantic Rules)</div>
-    <div><strong>Topic 3:</strong> Syntax-Directed Translation Schemes (SDTS Actions)</div>
-    <div><strong>Topic 4:</strong> SDTS for Declaration Processing & Symbol Tables</div>
-    <div><strong>Topic 5:</strong> Three Address Code (Quadruples, Triples, Indirect Triples)</div>
-    <div><strong>Topic 6:</strong> Types of Attributes (Synthesized vs. Inherited)</div>
-    <div><strong>Topic 7:</strong> Type Checking for Expressions (Equivalence & Coercion)</div>
-    <div><strong>Topic 8:</strong> Intermediate Code Generation for Assignment Statements</div>
-    <div><strong>Topic 9:</strong> Translation of Multi-Dimensional Array References</div>
+    <div><strong>Topic 18:</strong> Introduction to Semantic Analysis (Static vs. Dynamic Semantic Checks)</div>
+    <div><strong>Topic 19:</strong> Syntax-Directed Definitions (SDD Attribute Grammars & Dependency Graphs)</div>
+    <div><strong>Topic 20:</strong> Syntax-Directed Translation Schemes (SDTS Embedded Semantic Actions)</div>
+    <div><strong>Topic 21:</strong> SDTS for Declaration Processing & Scoped Symbol Table Design</div>
+    <div><strong>Topic 22:</strong> Three-Address Code (Quadruples, Triples, Indirect Triples & DAG IR)</div>
+    <div><strong>Topic 23:</strong> Types of Attributes (Synthesized vs. Inherited & S-Attributed vs. L-Attributed)</div>
+    <div><strong>Topic 24:</strong> Type Checking for Expressions (Type Equivalence, Inferences & Coercions)</div>
+    <div><strong>Topic 25:</strong> Intermediate Code Generation for Complex Assignment Statements</div>
+    <div><strong>Topic 26:</strong> Translation of Multi-Dimensional Array References (Row/Col Major Math)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1: Introduction to Semantic Analysis</h2>
-<p>
-  <strong>Semantic Analysis</strong> verifies that the syntax tree conforms to the semantic rules of the language. While syntax ensures correct grammatical structure, semantics verifies logical validity:
-</p>
-<ul>
-  <li><strong>Static Semantic Checks (Compile-Time):</strong> Type consistency, variable declared before use, scope resolution, identifier uniqueness.</li>
-  <li><strong>Dynamic Semantic Checks (Run-Time):</strong> Division by zero, array out-of-bounds, null pointer dereferencing.</li>
-</ul>
+<h2 class="section-title">Topic 18: Introduction to Semantic Analysis & Static Type Systems</h2>
 
-<h2 class="section-title">Topic 2 – 4: SDD, SDTS & Declaration Processing</h2>
+<p>
+  <strong>Semantic Analysis</strong> constitutes the third major phase of a modern optimizing compiler. While syntax analysis ensures that a program conforms to the formal context-free grammar of the programming language (e.g., verifying matching parentheses, balanced statement delimiters, and correct keyword placement), it is mathematically incapable of enforcing contextual relationships—such as checking whether a variable is declared before its point of use, verifying that array index types match declared array bounds, or validating that operator argument signatures conform to type rules.
+</p>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Feature</th>
-      <th style="width: 37%;">Syntax-Directed Definition (SDD)</th>
-      <th>Syntax-Directed Translation Scheme (SDTS)</th>
+      <th style="width: 25%;">Semantic Check Category</th>
+      <th style="width: 45%;">Compiler Responsibility & Mechanism</th>
+      <th>Representative Error Scenarios</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Representation</strong></td>
-      <td>Context-Free Grammar + Semantic Rules associated with productions.</td>
-      <td>Context-Free Grammar with semantic action code embedded inside productions `{ ... }`.</td>
+      <td><strong>1. Static Semantic Checks</strong><br><em>(Evaluated at Compile-Time)</em></td>
+      <td>Executed directly by the compiler front-end by traversing the Abstract Syntax Tree (AST) with Symbol Table queries.</td>
+      <td>• Type mismatch: assigning a string literal to an integer scalar variable.<br>• Undeclared identifier referenced in an arithmetic expression.<br>• Duplicate identifier declared within the same scope block.<br>• Function called with an incorrect number or types of actual arguments.<br>• `break` or `continue` statement used outside of a loop or switch body.</td>
     </tr>
     <tr>
-      <td><strong>Execution Timing</strong></td>
-      <td>Specifies <em>what</em> value to compute (order determined by Dependency Graph topological sort).</td>
-      <td>Specifies <em>when</em> and in what exact sequence actions execute during parsing.</td>
+      <td><strong>2. Dynamic Semantic Checks</strong><br><em>(Evaluated at Run-Time)</em></td>
+      <td>Emitted by the compiler as runtime boundary assertions or trapped by target CPU hardware exceptions during execution.</td>
+      <td>• Arithmetic division by zero (`x / 0`).<br>• Array index out of bounds (`arr[100]` on array of size 10).<br>• Dereferencing a `NULL` or uninitialized memory pointer.<br>• Stack overflow resulting from unbounded recursive procedure calls.<br>• Dynamic type casting errors (e.g., `ClassCastException` in Java).</td>
     </tr>
   </tbody>
 </table>
 
-<div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step SDTS: Processing Declarations `int a, b, c;`</div>
-  <pre><code>D -> T { L.in = T.type } L
-T -> int { T.type = integer }
-T -> float { T.type = real }
-L -> { L1.in = L.in } L1, id { enter(id.name, L.in) }
-L -> id { enter(id.name, L.in) }</code></pre>
-  <p><em>Uses inherited attribute $L.\text{in}$ to propagate base type down to all declared identifier names.</em></p>
+<h2 class="section-title">Topic 19 & 23: Syntax-Directed Definitions (SDD) & Attribute Grammars</h2>
+
+<p>
+  A <strong>Syntax-Directed Definition (SDD)</strong> is a Context-Free Grammar augmented with attributes and semantic rules. An attribute is a quantity associated with a grammar symbol (such as a numerical value, a data type, a memory offset, a symbol table entry pointer, or a generated string of intermediate code).
+</p>
+
+<div class="callout callout-info">
+  <div class="callout-title">Formal Classification: Synthesized vs. Inherited Attributes</div>
+  <ul>
+    <li><strong>Synthesized Attribute:</strong> An attribute of a non-terminal node $A$ in a parse tree is synthesized if its value is computed exclusively from the attribute values of the <strong>children</strong> of $A$:
+      $$A.s = f(Y_1.a, Y_2.a, \dots, Y_k.a) \quad \text{for production } A \rightarrow Y_1 Y_2 \dots Y_k$$
+      Synthesized attributes represent <em>bottom-up information flow</em> (from terminal leaves upward toward the parse tree root).
+    </li>
+    <li><strong>Inherited Attribute:</strong> An attribute of a grammar symbol $Y_j$ on the RHS of a production is inherited if its value is computed from the attribute values of the <strong>parent</strong> $A$ and/or the <strong>left siblings</strong> $Y_1, \dots, Y_{j-1}$:
+      $$Y_j.i = f(A.a, Y_1.a, \dots, Y_{j-1}.a) \quad \text{for production } A \rightarrow Y_1 \dots Y_j \dots Y_k$$
+      Inherited attributes represent <em>top-down and left-to-right information flow</em> (such as propagating declared data types down to lists of variable identifiers).
+    </li>
+  </ul>
 </div>
 
-<h2 class="section-title">Topic 5: Three Address Code (TAC) Representations</h2>
+<h3 class="subsection-title">19.1 S-Attributed vs. L-Attributed Definitions: Exhaustive Engineering Comparison</h3>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 22%;">TAC Form</th>
-      <th style="width: 45%;">Internal Data Fields</th>
+      <th style="width: 20%;">Evaluation Dimension</th>
+      <th style="width: 40%;">S-Attributed Definitions</th>
+      <th>L-Attributed Definitions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Permissible Attributes</strong></td>
+      <td>Utilizes <strong>ONLY Synthesized attributes</strong>. Zero inherited attributes permitted.</td>
+      <td>Permits both <strong>Synthesized attributes</strong> AND <strong>Inherited attributes</strong> (subject to strict dependency ordering).</td>
+    </tr>
+    <tr>
+      <td><strong>Dependency Direction</strong></td>
+      <td>Dependencies flow strictly upward from child nodes to parent nodes.</td>
+      <td>Dependencies flow downward from parent to children, and strictly <strong>from left to right</strong> among sibling nodes.</td>
+    </tr>
+    <tr>
+      <td><strong>Parse Tree Traversal</strong></td>
+      <td>Evaluated in a single bottom-up Post-Order traversal of the parse tree.</td>
+      <td>Evaluated in a single Depth-First, Left-to-Right Pre-Order traversal.</td>
+    </tr>
+    <tr>
+      <td><strong>Bottom-Up LR Parsing</strong></td>
+      <td>Can be evaluated <strong>on-the-fly during LR bottom-up parsing</strong> by executing semantic actions upon reduction. Attribute values are held in an auxiliary parser stack.</td>
+      <td>Requires special transformations (such as inserting marker non-terminals $\epsilon$-rules) to evaluate on-the-fly in bottom-up LR parsers.</td>
+    </tr>
+    <tr>
+      <td><strong>Top-Down LL Parsing</strong></td>
+      <td>Easily evaluated in LL parsers by passing synthesized attributes up as procedure return values.</td>
+      <td><strong>Perfect Natural Match:</strong> Inherited attributes are passed down as function arguments; synthesized attributes returned as results.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 20 & 21: Syntax-Directed Translation Schemes (SDTS) & Declarations</h2>
+
+<p>
+  A <strong>Syntax-Directed Translation Scheme (SDTS)</strong> is a context-free grammar where program fragments called <strong>semantic actions</strong> are embedded directly within the right-hand sides of productions inside curly braces `{ ... }`.
+</p>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step SDTS: Processing Multi-Variable Declarations `int x, y, z;`</div>
+  <p>The compiler must propagate the base type `int` across an arbitrary sequence of declared variable identifiers:</p>
+  <pre><code>D  -> T { L.in = T.type } L
+T  -> int { T.type = integer }
+T  -> float { T.type = real }
+L  -> { L1.in = L.in } L1, id { enter_symbol_table(id.name, L.in) }
+L  -> id { enter_symbol_table(id.name, L.in) }</code></pre>
+
+  <p><strong>Complete Annotated Parse Tree Evaluation Walkthrough:</strong></p>
+  <ol>
+    <li>The parser reaches the leaf token `int` under non-terminal $T$. The semantic rule `{ T.type = integer }` computes the synthesized attribute $T.\text{type} = \text{integer}$.</li>
+    <li>At the production $D \rightarrow T \ L$, the semantic action `{ L.in = T.type }` assigns the inherited attribute $L.\text{in} = \text{integer}$ to child non-terminal $L$.</li>
+    <li>Node $L$ expands to $L_1, \mathbf{id}_3$ (representing identifier `z`). It assigns $L_1.\text{in} = L.\text{in} = \text{integer}$ and invokes `enter_symbol_table("z", integer)`.</li>
+    <li>Node $L_1$ expands to $L_2, \mathbf{id}_2$ (representing identifier `y`). It assigns $L_2.\text{in} = L_1.\text{in} = \text{integer}$ and invokes `enter_symbol_table("y", integer)`.</li>
+    <li>Node $L_2$ expands to the base production $\mathbf{id}_1$ (representing identifier `x`). It executes `enter_symbol_table("x", integer)`.</li>
+  </ol>
+</div>
+
+<h2 class="section-title">Topic 22: Three-Address Code (TAC) & Intermediate Representations</h2>
+
+<p>
+  <strong>Three-Address Code (TAC)</strong> is a linearized, machine-independent intermediate language where each statement contains at most one operator and at most three operands of the general form: $x = y \ \mathbf{op} \ z$.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Representation Form</th>
+      <th style="width: 45%;">Internal Structural Data Fields</th>
       <th>Key Advantages & Tradeoffs</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>1. Quadruples</strong></td>
-      <td>`(op, arg1, arg2, result)` with explicit temporary names (`t1`, `t2`).</td>
-      <td>Easy to reorder and optimize; consumes extra memory for names.</td>
+      <td>Explicit record containing 4 fields: `(op, arg1, arg2, result)`. Intermediate values are assigned explicit temporary variable names (`t1`, `t2`).</td>
+      <td>• Statements can be reordered freely by optimization passes.<br>• Symbol Table is enlarged to track numerous compiler-generated temporary names.</td>
     </tr>
     <tr>
       <td><strong>2. Triples</strong></td>
-      <td>`(op, arg1, arg2)` where intermediate results are referenced by index `(0)`.</td>
-      <td>Space-efficient; moving instructions requires updating all dependent indices.</td>
+      <td>Explicit record containing 3 fields: `(op, arg1, arg2)`. Results of computations are referenced implicitly by their array statement index `(0)`, `(1)`.</td>
+      <td>• Saves memory by eliminating temporary variable names.<br>• Code reordering or optimization requires updating all dependent pointer index references.</td>
     </tr>
     <tr>
       <td><strong>3. Indirect Triples</strong></td>
-      <td>Array of pointers to separate triple structures.</td>
-      <td>Optimizers reorder instructions by swapping array pointers without modifying triples.</td>
+      <td>Consists of a primary array of pointers indexing into a separate static table of Triples.</td>
+      <td>• <strong>Best of Both Worlds:</strong> Optimizers reorder, insert, or delete instructions simply by modifying the pointer array without rewriting Triples.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 6 & 7: Types of Attributes & Type Checking</h2>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Complete Comparative Implementation: Translation of `x = (a + b) * - c + (a + b)`</div>
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th style="width: 10%;">Index</th>
+        <th style="width: 35%;">Quadruple: (op, arg1, arg2, result)</th>
+        <th style="width: 30%;">Triple: (op, arg1, arg2)</th>
+        <th>Indirect Triple Pointer Array</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>(0)</td><td>`(+, a, b, t1)`</td><td>`(+, a, b)`</td><td>Statement `[0]` $\rightarrow$ Triple (0)</td></tr>
+      <tr><td>(1)</td><td>`(uminus, c, -, t2)`</td><td>`(uminus, c, -)`</td><td>Statement `[1]` $\rightarrow$ Triple (1)</td></tr>
+      <tr><td>(2)</td><td>`(*, t1, t2, t3)`</td><td>`(*, (0), (1))`</td><td>Statement `[2]` $\rightarrow$ Triple (2)</td></tr>
+      <tr><td>(3)</td><td>`(+, a, b, t4)`</td><td>`(+, a, b)`</td><td>Statement `[3]` $\rightarrow$ Triple (3)</td></tr>
+      <tr><td>(4)</td><td>`(+, t3, t4, t5)`</td><td>`(+, (2), (3))`</td><td>Statement `[4]` $\rightarrow$ Triple (4)</td></tr>
+      <tr><td>(5)</td><td>`(=, t5, -, x)`</td><td>`(=, x, (4))`</td><td>Statement `[5]` $\rightarrow$ Triple (5)</td></tr>
+    </tbody>
+  </table>
+</div>
 
-<h3 class="subsection-title">1. Synthesized vs. Inherited Attributes:</h3>
-<ul>
-  <li><strong>Synthesized Attributes:</strong> Computed strictly from children nodes in parse tree ($A.s = f(Y_1.a, \dots, Y_k.a)$). Evaluated bottom-up in LR parsing.</li>
-  <li><strong>Inherited Attributes:</strong> Computed from parent and/or left sibling nodes ($Y_j.i = f(A.a, Y_1.a, \dots, Y_{j-1}.a)$). Evaluated top-down.</li>
-</ul>
-
-<h3 class="subsection-title">2. Type Conversions & Equivalence:</h3>
-<ul>
-  <li><strong>Name Equivalence:</strong> Two types are equal if and only if they share the exact same named identifier.</li>
-  <li><strong>Structural Equivalence:</strong> Two types are equal if they have identical internal field layouts and primitive types.</li>
-  <li><strong>Widening (Coercion):</strong> `int` $\rightarrow$ `float` (implicit precision preservation).</li>
-  <li><strong>Narrowing (Casting):</strong> `float` $\rightarrow$ `int` (explicit potential precision loss).</li>
-</ul>
-
-<h2 class="section-title">Topic 8 & 9: Intermediate Code Generation for Arrays & Assignments</h2>
+<h2 class="section-title">Topic 24 & 25: Type Checking & Type Conversions</h2>
 
 <div class="formula-card">
-  <strong>1. 1D Array Reference Address Formula:</strong>
-  $$\text{Address}(A[i]) = \text{base} + (i - \text{low}) \times w$$
+  <strong>Type Equivalence & Conversion Definitions:</strong>
+  - <strong>Name Equivalence:</strong> Two types are considered equivalent if and only if their declared type names are identical.
+  - <strong>Structural Equivalence:</strong> Two types are considered equivalent if they possess identical internal memory layouts, component counts, and field types (even under different type aliases).
+  - <strong>Type Coercion (Implicit Widening):</strong> Automatic conversion performed by the compiler without explicit programmer syntax (e.g., promoting an `int` to a `float` in `float_var = int_var + 2.5`).
+  - <strong>Type Casting (Explicit Narrowing):</strong> Programmer-directed type override (e.g., `(int) float_var`) which may incur precision truncation.
+</div>
+
+<h2 class="section-title">Topic 26: Translation of Multi-Dimensional Array References</h2>
+
+<p>
+  While programming languages provide multi-dimensional coordinate arrays $A[i_1, i_2, \dots, i_k]$, physical memory hardware is strictly a <strong>one-dimensional linear byte array</strong>. The compiler must synthesize Three-Address Code to calculate the linear memory offset at runtime.
+</p>
+
+<div class="diagram-container">
+  <svg width="100%" height="80" viewBox="0 0 740 80" xmlns="http://www.w3.org/2000/svg">
+    <rect x="50" y="20" width="300" height="40" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="200" y="45" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">Row-Major Order (C, C++, Java, Rust, Python)</text>
+
+    <rect x="390" y="20" width="300" height="40" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="540" y="45" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">Column-Major Order (Fortran, MATLAB, R, Julia)</text>
+  </svg>
+  <div class="diagram-caption">Figure 3.1: Linear Memory Storage Conventions for Multi-Dimensional Arrays</div>
+</div>
+
+<h3 class="subsection-title">26.1 Mathematical Derivation of Multi-Dimensional Array Addresses:</h3>
+
+<div class="formula-card">
+  <strong>1. One-Dimensional Array ($A[\text{low}..\text{high}]$ with element width $w$):</strong>
+  $$\text{Address}(A[i]) = \text{base}_A + (i - \text{low}) \times w$$
 </div>
 
 <div class="formula-card">
-  <strong>2. 2D Array Reference Address Formula (Row-Major Order):</strong>
-  $$\text{Address}(A[i_1, i_2]) = \text{base} + \Big( (i_1 - \text{low}_1) \times n_2 + (i_2 - \text{low}_2) \Big) \times w$$
-  Where $n_2 = \text{high}_2 - \text{low}_2 + 1$ is the number of columns, and $w$ is element byte width.
+  <strong>2. Two-Dimensional Array ($A[l_1..h_1, \ l_2..h_2]$ in Row-Major Order):</strong>
+  $$\text{Address}(A[i_1, i_2]) = \text{base}_A + \Big[ (i_1 - l_1) \times n_2 + (i_2 - l_2) \Big] \times w$$
+  Where $n_2 = (h_2 - l_2 + 1)$ represents the number of elements per row (number of columns).
 </div>
 
 <div class="formula-card">
-  <strong>3. General $N$-Dimensional Row-Major Linear Offset:</strong>
-  $$\text{Offset} = \Big( \dots \big( (i_1 \cdot d_2 + i_2) \cdot d_3 + i_3 \big) \dots \Big) \cdot d_k + i_k$$
-  $$\text{Address} = \text{base} + \text{Offset} \times w$$
+  <strong>3. Two-Dimensional Array ($A[l_1..h_1, \ l_2..h_2]$ in Column-Major Order):</strong>
+  $$\text{Address}(A[i_1, i_2]) = \text{base}_A + \Big[ (i_2 - l_2) \times n_1 + (i_1 - l_1) \Big] \times w$$
+  Where $n_1 = (h_1 - l_1 + 1)$ represents the number of elements per column (number of rows).
 </div>
 
-<h2 class="section-title">🧠 M3 Active Recall & Exam-Important Question Bank</h2>
+<div class="formula-card">
+  <strong>4. Three-Dimensional Array ($A[l_1..h_1, \ l_2..h_2, \ l_3..h_3]$ in Row-Major Order):</strong>
+  $$\text{Address}(A[i_1, i_2, i_3]) = \text{base}_A + \Big[ \big( (i_1 - l_1) \times n_2 + (i_2 - l_2) \big) \times n_3 + (i_3 - l_3) \Big] \times w$$
+  Where $n_2 = (h_2 - l_2 + 1)$ and $n_3 = (h_3 - l_3 + 1)$.
+</div>
+
+<div class="formula-card">
+  <strong>5. General $k$-Dimensional Row-Major Linear Offset (Horner's Rule):</strong>
+  $$\text{Offset} = \Big( \dots \big( (i_1 - l_1) \cdot n_2 + (i_2 - l_2) \big) \cdot n_3 + \dots \Big) \cdot n_k + (i_k - l_k)$$
+  $$\mathbf{\text{Address}(A[i_1, \dots, i_k]) = \text{base}_A + \text{Offset} \times w}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Generating Three-Address Code for $X = A[i, j] + B[k, l]$</div>
+  <p>Let $A$ be a $10 \times 20$ 2D array of integers ($w = 4$ bytes) with 0-based indexing ($n_2 = 20$).<br>
+  Let $B$ be a $15 \times 30$ 2D array of integers ($w = 4$ bytes) with 0-based indexing ($n_2 = 30$).</p>
+  <pre><code>// 1. Calculate linear offset for array reference A[i, j]:
+t1 = i * 20           ; (i * n2)
+t2 = t1 + j           ; (i * n2 + j)
+t3 = t2 * 4           ; Byte offset = element_offset * 4
+t4 = A[t3]            ; Load value from A at byte offset t3
+
+// 2. Calculate linear offset for array reference B[k, l]:
+t5 = k * 30           ; (k * n2)
+t6 = t5 + l           ; (k * n2 + l)
+t7 = t6 * 4           ; Byte offset = element_offset * 4
+t8 = B[t7]            ; Load value from B at byte offset t7
+
+// 3. Perform addition and assign to scalar variable X:
+t9 = t4 + t8
+X  = t9</code></pre>
+</div>
+
+<h2 class="section-title">🧠 M3 Active Recall & 10-Question University Exam Master Bank</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Write Quadruples and Triples for statement `a = b * - c + b * - c`. (8 Marks)</div>
+  <div class="qa-q">Q1. Explain Syntax-Directed Definitions (SDD) and differentiate between S-Attributed and L-Attributed definitions with grammar examples. (10 Marks)</div>
   <div class="qa-a">
-    <strong>Quadruples:</strong><br>
-    (0) `uminus, c, -, t1`<br>
-    (1) `*, b, t1, t2`<br>
-    (2) `uminus, c, -, t3`<br>
-    (3) `*, b, t3, t4`<br>
-    (4) `+, t2, t4, t5`<br>
-    (5) `=, t5, -, a`<br><br>
-    <strong>Triples:</strong><br>
-    (0) `uminus, c, -`<br>
-    (1) `*, b, (0)`<br>
-    (2) `uminus, c, -`<br>
-    (3) `*, b, (2)`<br>
-    (4) `+, (1), (3)`<br>
-    (5) `assign, a, (4)`
+    An <strong>SDD</strong> is a context-free grammar augmented with attributes associated with grammar symbols and semantic rules associated with productions.<br>
+    - <strong>S-Attributed Definitions:</strong> Contain exclusively Synthesized attributes, where a node's value is computed strictly from its children: $A.s = f(Y_1.a, \dots, Y_k.a)$. They can be evaluated naturally during bottom-up LR parsing on the reduction stack.<br>
+      <em>Example:</em> $E \rightarrow E_1 + T \ \{ E.\text{val} = E_1.\text{val} + T.\text{val} \}$.<br>
+    - <strong>L-Attributed Definitions:</strong> Permit both Synthesized and Inherited attributes, but inherited attributes of a RHS symbol $Y_j$ can only depend on inherited attributes of parent $A$ or attributes of left siblings $Y_1 \dots Y_{j-1}$. They can be evaluated during top-down LL parsing in a single depth-first pass.<br>
+      <em>Example:</em> $D \rightarrow T \ \{ L.\text{in} = T.\text{type} \} \ L$.
   </div>
 </div>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Derive the 2D array row-major address calculation formula and generate Three-Address Code for $A[i, j] = B[i, j] + C[i]$. (10 Marks)</div>
+  <div class="qa-a">
+    <strong>Row-Major 2D Address Formula:</strong> $\text{Address}(A[i, j]) = \text{base}_A + [(i - l_1) \cdot n_2 + (j - l_2)] \cdot w$.<br>
+    <strong>Generated Three-Address Code Sequence (Assuming 0-based indexing and width $w=4$):</strong><br>
+    <pre><code>t1 = i * n2_B
+t2 = t1 + j
+t3 = t2 * 4
+t4 = B[t3]         ; Load B[i, j]
+t5 = i * 4
+t6 = C[t5]         ; Load C[i]
+t7 = t4 + t6       ; Sum
+t8 = i * n2_A
+t9 = t8 + j
+t10 = t9 * 4
+A[t10] = t7        ; Store into A[i, j]</code></pre>
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q3. Compare Quadruples, Triples, and Indirect Triples representations of Three-Address Code across 4 dimensions. (8 Marks)</div>
+  <div class="qa-a">
+    1. <strong>Field Count:</strong> Quadruples have 4 fields `(op, arg1, arg2, res)`; Triples have 3 fields `(op, arg1, arg2)`; Indirect Triples use an auxiliary pointer array to index into 3-field Triples.<br>
+    2. <strong>Temporary Names:</strong> Quadruples generate explicit temporaries (`t1`, `t2`); Triples refer to statement indices `(0)`, `(1)`.<br>
+    3. <strong>Reordering Overhead:</strong> Quadruples can be reordered freely without rewriting; Triples require rewriting all index pointers; Indirect Triples reorder pointers without touching triple records.<br>
+    4. <strong>Memory Consumption:</strong> Triples are most compact; Quadruples consume extra symbol table memory.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q4. What is Type Coercion? How does the compiler handle implicit vs explicit type conversions? (6 Marks)</div>
+  <div class="qa-a">
+    <strong>Type Coercion</strong> is the automatic conversion of a value from one data type to another performed by the compiler (e.g., widening an `int` to a `float` in `x = float_val + int_val` by inserting `inttofloat`). <strong>Explicit Type Casting</strong> is programmer-specified (e.g., `(int) float_val`), forcing narrowing conversions that may truncate precision.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q5. Explain the Scoped Symbol Table implementation for nested blocks in C/C++. (8 Marks)</div>
+  <div class="qa-a">
+    Nested scopes are represented either via a <strong>Tree of Symbol Tables</strong> (where each child scope points to its parent scope via an `enclosing_scope` pointer) or via a <strong>Scoped Hash Table with Scope Markers</strong>. When entering a new block `{`, a new scope level is pushed onto the scope stack. When leaving a block `}`, all variables declared at the current scope level are unlinked and popped from the hash buckets, ensuring outer shadow variables become visible again in $O(1)$ time.
+  </div>
+</div>
+<h2 class="section-title">Topic 26.2: Comprehensive Worked Numerical Problems in Intermediate Code & SDD</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 1: Row-Major Address Calculation for 3D Tensor Array</div>
+  <p>Let $A$ be a 3D array declared as $A[1..10, \ 1..20, \ 1..30]$ of 4-byte integers with base address $\text{base} = 2000$.<br>
+  Find the exact physical byte address of element $A[4, 12, 18]$ in Row-Major order.</p>
+  <p><strong>Solution:</strong></p>
+  $$\text{Bounds: } l_1 = 1, h_1 = 10, \quad l_2 = 1, h_2 = 20, \quad l_3 = 1, h_3 = 30$$
+  $$\text{Dimension sizes: } n_2 = (20 - 1 + 1) = 20, \quad n_3 = (30 - 1 + 1) = 30$$
+  $$\text{Offset} = \big[ (4 - 1) \times 20 + (12 - 1) \big] \times 30 + (18 - 1)$$
+  $$\text{Offset} = \big[ 3 \times 20 + 11 \big] \times 30 + 17 = [60 + 11] \times 30 + 17 = 71 \times 30 + 17 = 2130 + 17 = 2147$$
+  $$\mathbf{\text{Address}(A[4, 12, 18]) = 2000 + 2147 \times 4 = 2000 + 8588 = \mathbf{10588}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 2: Column-Major Address Calculation for 2D Array</div>
+  <p>Let $B$ be a 2D array declared as $B[-5..15, \ 2..10]$ with base address $\text{base} = 5000$ and element width $w = 8$ bytes.<br>
+  Calculate the exact physical byte address of element $B[3, 7]$ in Column-Major order.</p>
+  <p><strong>Solution:</strong></p>
+  $$\text{Bounds: } l_1 = -5, h_1 = 15 \implies n_1 = (15 - (-5) + 1) = 21, \quad l_2 = 2, h_2 = 10$$
+  $$\text{Column-Major Formula: } \text{Address}(B[i, j]) = \text{base} + \big[ (j - l_2) \times n_1 + (i - l_1) \big] \times w$$
+  $$\text{Offset} = (7 - 2) \times 21 + (3 - (-5)) = 5 \times 21 + 8 = 105 + 8 = 113$$
+  $$\mathbf{\text{Address}(B[3, 7]) = 5000 + 113 \times 8 = 5000 + 904 = \mathbf{5904}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 3: Syntax-Directed Definition for Desktop Arithmetic Calculator</div>
+  <table class="custom-table">
+    <thead><tr><th>Production</th><th>Semantic Rule</th><th>Attribute Type</th></tr></thead>
+    <tbody>
+      <tr><td>$L \rightarrow E \ \mathbf{n}$</td><td>$\text{print}(E.\text{val})$</td><td>Synthesized</td></tr>
+      <tr><td>$E \rightarrow E_1 + T$</td><td>$E.\text{val} = E_1.\text{val} + T.\text{val}$</td><td>Synthesized</td></tr>
+      <tr><td>$E \rightarrow T$</td><td>$E.\text{val} = T.\text{val}$</td><td>Synthesized</td></tr>
+      <tr><td>$T \rightarrow T_1 * F$</td><td>$T.\text{val} = T_1.\text{val} \times F.\text{val}$</td><td>Synthesized</td></tr>
+      <tr><td>$T \rightarrow F$</td><td>$T.\text{val} = F.\text{val}$</td><td>Synthesized</td></tr>
+      <tr><td>$F \rightarrow (E)$</td><td>$F.\text{val} = E.\text{val}$</td><td>Synthesized</td></tr>
+      <tr><td>$F \rightarrow \mathbf{digit}$</td><td>$F.\text{val} = \mathbf{digit}.\text{lexval}$</td><td>Synthesized</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q6. Differentiate between Synthesized and Inherited attributes with concrete annotated parse tree examples. (8 Marks)</div>
+  <div class="qa-a">
+    • <strong>Synthesized Attributes:</strong> Computed strictly from children nodes ($A.s = f(C_1.a, \dots, C_k.a)$). Evaluated bottom-up in Post-Order traversal (e.g. arithmetic expression values $E.\text{val} = E_1.\text{val} + T.\text{val}$).<br>
+    • <strong>Inherited Attributes:</strong> Computed from parent node or left siblings ($Y.i = f(\text{Parent}.a, \text{Sibling}.a)$). Evaluated top-down in Pre-Order traversal (e.g. data type propagation in declarations $L.\text{in} = T.\text{type}$).
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q7. What is a Dependency Graph in Syntax-Directed Definitions? How is Topological Sorting used to evaluate attributes? (10 Marks)</div>
+  <div class="qa-a">
+    A <strong>Dependency Graph</strong> is a directed graph where nodes represent attribute instances at parse tree nodes, and a directed edge from $u \rightarrow v$ indicates that attribute $v$ depends on attribute $u$ ($v = f(u, \dots)$). A valid evaluation order exists if and only if the dependency graph contains zero directed cycles. A <strong>Topological Sort</strong> of the DAG produces a linear evaluation sequence ensuring every attribute is computed before its consumers read it!
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q8. Explain Type Checking and Type Inferences for Expressions with formal typing rules. (8 Marks)</div>
+  <div class="qa-a">
+    A <strong>Type System</strong> defines rules assigning types to programming constructs. A formal typing rule is expressed as:
+    $$\frac{\Gamma \vdash e_1 : \text{int} \quad \Gamma \vdash e_2 : \text{int}}{\Gamma \vdash e_1 + e_2 : \text{int}}$$
+    Where $\Gamma$ represents the typing environment (Symbol Table). If operand types differ (e.g. $\text{float} + \text{int}$), the type inference engine checks for valid implicit coercions ($\text{int} \rightarrow \text{float}$) before failing with a semantic type error.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q9. Generate Three-Address Code, Quadruples, Triples, and Indirect Triples for $a = b * -c + b * -c$. (10 Marks)</div>
+  <div class="qa-a">
+    <strong>Three-Address Code:</strong><br>
+    `t1 = -c`, `t2 = b * t1`, `t3 = -c`, `t4 = b * t3`, `t5 = t2 + t4`, `a = t5`.<br>
+    <strong>Quadruples:</strong> `(uminus, c, -, t1)`, `(*, b, t1, t2)`, `(uminus, c, -, t3)`, `(*, b, t3, t4)`, `(+, t2, t4, t5)`, `(=, t5, -, a)`.<br>
+    <strong>Triples:</strong> (0): `(uminus, c, -)`, (1): `(*, b, (0))`, (2): `(uminus, c, -)`, (3): `(*, b, (2))`, (4): `(+, (1), (3))`, (5): `(=, a, (4))`.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q10. Explain the role of Abstract Syntax Trees (AST) vs Concrete Parse Trees in Semantic Analysis. (6 Marks)</div>
+  <div class="qa-a">
+    A <strong>Concrete Parse Tree</strong> contains every grammatical terminal and non-terminal used during parsing, including punctuation tokens, parentheses, and single-production chains ($E \rightarrow T \rightarrow F$). An <strong>Abstract Syntax Tree (AST)</strong> compresses the parse tree into an operator-operand hierarchy where operators become interior nodes and operands become leaves, discarding redundant formatting tokens and dramatically accelerating semantic passes.
+  </div>
+</div>
+<h2 class="section-title">Topic 26.3: Advanced Type Checking, Equivalence & AST Linearization</h2>
+
+<p>
+  A compiler’s type checker enforces the type system rules of the source programming language. The type system assigns <strong>Type Expressions</strong> to program elements. A type expression is either a basic type (such as `integer`, `float`, `char`, `type_error`, `void`) or formed by applying a <strong>Type Constructor</strong>:
+</p>
+<ul>
+  <li><strong>Array Type Constructor:</strong> If $T$ is a type expression, then $\text{array}(I, T)$ is a type expression denoting an array with index set $I$ and elements of type $T$.</li>
+  <li><strong>Product Type Constructor:</strong> If $T_1$ and $T_2$ are type expressions, then their Cartesian product $T_1 \times T_2$ represents pairs of elements.</li>
+  <li><strong>Record / Structure Constructor:</strong> Encapsulates named field elements: $\text{record}((f_1 \times T_1) \times \dots \times (f_k \times T_k))$.</li>
+  <li><strong>Function Type Constructor:</strong> Maps domain types to range types: $T_1 \rightarrow T_2$.</li>
+  <li><strong>Pointer Constructor:</strong> If $T$ is a type, then $\text{pointer}(T)$ represents memory address locations referencing values of type $T$.</li>
+</ul>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Type Checking Rules & Structural Equivalence Verification</div>
+  <p>Consider the following C type definitions:</p>
+  <pre><code>typedef struct { int x; float y; } PointA;
+typedef struct { int x; float y; } PointB;
+PointA p1;
+PointB p2;</code></pre>
+  <p><strong>Evaluation:</strong></p>
+  <ul>
+    <li><strong>Under Name Equivalence:</strong> `p1` and `p2` have <strong>DIFFERENT</strong> types because their declared type names (`PointA` vs `PointB`) differ. An assignment `p1 = p2` results in a compile-time static type error!</li>
+    <li><strong>Under Structural Equivalence:</strong> `p1` and `p2` have <strong>IDENTICAL</strong> types because their internal memory structures are both $\text{record}((\text{"x"} \times \text{int}) \times (\text{"y"} \times \text{float}))$. The assignment `p1 = p2` is permitted!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Complete Step-by-Step Translation of Array Assignment Statement with Scaling</div>
+  <p>Source Statement: `A[i][j] = B[i][j] * C[k] + 25.5`</p>
+  <pre><code>// 1. Calculate address of B[i][j] (Dimensions: 10 x 20, element width: 8 bytes)
+t1 = i * 20
+t2 = t1 + j
+t3 = t2 * 8
+t4 = B[t3]            ; Load B[i][j] float value into temporary t4
+
+// 2. Calculate address of C[k] (1D Array, element width: 8 bytes)
+t5 = k * 8
+t6 = C[t5]            ; Load C[k] float value into temporary t6
+
+// 3. Multiply and Add Constant
+t7 = t4 * t6          ; Product B[i][j] * C[k]
+t8 = t7 + 25.5        ; Add floating-point constant literal
+
+// 4. Calculate target address of A[i][j] (Dimensions: 10 x 20, element width: 8 bytes)
+t9 = i * 20
+t10 = t9 + j
+t11 = t10 * 8
+A[t11] = t8           ; Store computed value into A[i][j]</code></pre>
+</div>
+
 """
