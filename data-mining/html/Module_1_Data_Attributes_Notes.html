@@ -327,481 +327,195 @@ li { margin-bottom: 3.5px; }
   </div>
   
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Introduction to Data Mining & Data Attributes — 14 Topics Syllabus</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Introduction to Data Mining — Complete 14-Topic Syllabus Tracker</div>
   <div class="toc-grid">
-    <div>1. Introduction to Data Mining & KDD</div>
-    <div>2. Relational Databases Architecture</div>
-    <div>3. Data Warehouses Fundamentals</div>
-    <div>4. Transactional Databases</div>
-    <div>5. Advanced Database Systems & Applications</div>
-    <div>6. Data Mining Functionalities (6 Types)</div>
-    <div>7. Classification of Data Mining Systems</div>
-    <div>8. Major Issues & Challenges in Data Mining</div>
-    <div>9. Data & Dataset Anatomy</div>
-    <div>10. Data Objects & 4 Attribute Types</div>
-    <div>11. Basic Statistical Descriptions of Data</div>
-    <div>12. Data Visualization Techniques (5 Paradigms)</div>
-    <div>13. Measuring Data Similarity (Cosine, Jaccard)</div>
-    <div>14. Measuring Data Dissimilarity (L1, L2, Lp, Mixed)</div>
+    <div><strong>Topic 1:</strong> Introduction to Data Mining (Knowledge Discovery Process)</div>
+    <div><strong>Topic 2:</strong> Relational Databases (Tables, Tuples & Schemas)</div>
+    <div><strong>Topic 3:</strong> Data Warehouses (SITN Characteristics & OLAP)</div>
+    <div><strong>Topic 4:</strong> Transactional Databases (Transaction Sets & Market Basket)</div>
+    <div><strong>Topic 5:</strong> Advanced Database Systems & Applications</div>
+    <div><strong>Topic 6:</strong> Data Mining Functionalities (Characterization vs. Discrimination)</div>
+    <div><strong>Topic 7:</strong> Classification of Data Mining Systems</div>
+    <div><strong>Topic 8:</strong> Major Issues in Data Mining (Quality, Scalability, Privacy)</div>
+    <div><strong>Topic 9:</strong> Data Concepts (Objects, Attributes & Datasets)</div>
+    <div><strong>Topic 10:</strong> Data Objects & Attribute Types (Nominal, Binary, Ordinal, Numeric)</div>
+    <div><strong>Topic 11:</strong> Basic Statistical Descriptions (Mean, Median, Mode, IQR, Box Plots)</div>
+    <div><strong>Topic 12:</strong> Data Visualization (Histograms, Scatter Plots, Quantile Plots)</div>
+    <div><strong>Topic 13:</strong> Measuring Data Similarity (Cosine Similarity & Dot Products)</div>
+    <div><strong>Topic 14:</strong> Measuring Data Dissimilarity (Euclidean & Manhattan Distances)</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1: Introduction to Data Mining & The Knowledge Discovery (KDD) Process</h2>
+<h2 class="section-title">Topic 1 & 2: Introduction to Data Mining & Relational Databases</h2>
 <p>
-  <strong>Data Mining</strong> is the computational process of discovering hidden, previously unknown, valid, novel, potentially useful, and understandable patterns, correlations, anomalies, and actionable knowledge from massive volumes of structured, semi-structured, and unstructured data repositories.
+  <strong>Data Mining (Knowledge Discovery in Databases — KDD)</strong> is the computational process of discovering non-trivial, implicit, previously unknown, and potentially actionable patterns and models from massive datasets.
 </p>
-<p>
-  Often called <em>Knowledge Discovery in Databases (KDD)</em>, data mining represents the essential algorithmic step within a broader, highly iterative multi-phase engineering pipeline designed to convert raw operational data into high-value strategic decision models.
-</p>
-
-<div class="diagram-container">
-  <svg width="100%" height="90" viewBox="0 0 780 90" xmlns="http://www.w3.org/2000/svg">
-    <rect x="10" y="20" width="105" height="50" rx="5" fill="#f1f5f9" stroke="#475569"/>
-    <text x="62" y="42" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#0f172a" text-anchor="middle">1. Raw Data</text>
-    <text x="62" y="56" font-family="Plus Jakarta Sans" font-size="8.5" fill="#64748b" text-anchor="middle">Databases / Web</text>
-
-    <path d="M 115 45 L 135 45" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="140" y="20" width="105" height="50" rx="5" fill="#eff6ff" stroke="#3b82f6"/>
-    <text x="192" y="42" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#1e40af" text-anchor="middle">2. Cleaning</text>
-    <text x="192" y="56" font-family="Plus Jakarta Sans" font-size="8.5" fill="#3b82f6" text-anchor="middle">Noise / Imputation</text>
-
-    <path d="M 245 45 L 265 45" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="270" y="20" width="105" height="50" rx="5" fill="#f0fdf4" stroke="#22c55e"/>
-    <text x="322" y="42" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#14532d" text-anchor="middle">3. Integration</text>
-    <text x="322" y="56" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" text-anchor="middle">Warehouse / Cubes</text>
-
-    <path d="M 375 45 L 395 45" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="400" y="20" width="115" height="50" rx="5" fill="#fef3c7" stroke="#f59e0b"/>
-    <text x="457" y="42" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#92400e" text-anchor="middle">4. Transformation</text>
-    <text x="457" y="56" font-family="Plus Jakarta Sans" font-size="8.5" fill="#d97706" text-anchor="middle">Scaling / Reduction</text>
-
-    <path d="M 515 45 L 535 45" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="540" y="15" width="115" height="60" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
-    <text x="597" y="38" font-family="Plus Jakarta Sans" font-size="10.5" font-weight="800" fill="#0f766e" text-anchor="middle">5. DATA MINING</text>
-    <text x="597" y="52" font-family="Plus Jakarta Sans" font-size="8.5" font-weight="600" fill="#0f766e" text-anchor="middle">Pattern Extraction</text>
-    <text x="597" y="65" font-family="Plus Jakarta Sans" font-size="8" fill="#115e59" text-anchor="middle">Apriori / FP / Tree</text>
-
-    <path d="M 655 45 L 675 45" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="680" y="20" width="95" height="50" rx="5" fill="#faf5ff" stroke="#a855f7"/>
-    <text x="727" y="42" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#581c87" text-anchor="middle">6. Knowledge</text>
-    <text x="727" y="56" font-family="Plus Jakarta Sans" font-size="8.5" fill="#7e22ce" text-anchor="middle">Evaluation & Visual</text>
-  </svg>
-  <div class="diagram-caption">Figure 1.1: The End-to-End Knowledge Discovery in Databases (KDD) Pipeline</div>
-</div>
-
-<h3 class="subsection-title">Comprehensive Analysis of the 7 KDD Phases:</h3>
-<ol>
-  <li><strong>Data Cleaning:</strong> Industrial sensors, transactional points-of-sale, and web forms produce data corrupted by transmission loss, hardware malfunctions, or transcription mistakes. Cleaning eliminates extreme noise and handles missing attributes via statistical imputation.</li>
-  <li><strong>Data Integration:</strong> Merges disparate heterogeneous data sources into a unified repository. Resolves semantic conflicts, entity identification problems (e.g., matching `Cust_ID` with `Client_Number`), and detects attribute redundancy through correlation analysis.</li>
-  <li><strong>Data Selection:</strong> Dynamically isolates task-relevant attributes and subsets required for a specific business query from the massive data lake or enterprise warehouse.</li>
-  <li><strong>Data Transformation:</strong> Normalizes numeric scales ($[0, 1]$ Min-Max or Z-Score), aggregates granular records into summary facts, and constructs concept hierarchies for multi-level pattern mining.</li>
-  <li><strong>Data Mining (Core Engine):</strong> Employs machine learning, statistical pattern recognition, and database search algorithms (such as Apriori, FP-Growth, Decision Trees, K-Means, Neural Networks) to discover recurring structures, decision boundaries, or clusters.</li>
-  <li><strong>Pattern Evaluation:</strong> Evaluates discovered candidates against rigorous mathematical interestingness metrics (Support, Confidence, Lift, Information Gain, Silhouette Coefficients) to filter out trivial correlations and avoid statistical overfitting.</li>
-  <li><strong>Knowledge Presentation:</strong> Uses visual analytics, scatter matrices, parallel coordinate graphs, and interactive decision trees to present discoveries in an interpretable format for human domain experts.</li>
-</ol>
-
-
-
-<h2 class="section-title">Topics 2 – 5: Data Repositories & Advanced Database Architectures</h2>
-
-<p>Data mining algorithms must adapt their indexing, traversal, and caching strategies according to the specific data storage architecture:</p>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 20%;">Repository Type</th>
-      <th style="width: 35%;">Architecture & Data Organization</th>
-      <th style="width: 45%;">Data Mining Use Cases & Algorithmic Adaptations</th>
+      <th style="width: 25%;">Database Query (SQL / OLTP)</th>
+      <th>Data Mining (KDD / Discovery)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>2. Relational Databases (RDBMS)</strong></td>
-      <td>Organized as structured collections of normalized tables linked by foreign keys, accessed via SQL queries. Compliant with ACID properties (Atomicity, Consistency, Isolation, Durability).</td>
-      <td>Relational association mining, inductive logic programming (ILP), classification of multi-table customer records without creating expensive flat denormalized views.</td>
+      <td>Retrieves exact known records matching user-specified criteria (e.g., "Find all students with $\text{CGPA} > 8.0$").</td>
+      <td>Discovers hidden, inductive relationships and associations (e.g., "Students who score high in Algorithms also excel in Compiler Design").</td>
     </tr>
     <tr>
-      <td><strong>3. Data Warehouses</strong></td>
-      <td>Subject-oriented, integrated, time-variant, non-volatile repositories modeled using multidimensional <strong>Data Cubes</strong>, Fact tables, and Dimension tables for Online Analytical Processing (OLAP).</td>
-      <td>On-Line Analytical Mining (OLAM), roll-up/drill-down exploration, discovery-driven data cube navigation using statistical anomaly indicators.</td>
-    </tr>
-    <tr>
-      <td><strong>4. Transactional Databases</strong></td>
-      <td>Flat files or nested tables where each record represents a distinct transaction consisting of a unique identifier (`TID`) and a set of items purchased simultaneously ($T \subseteq I$).</td>
-      <td>Frequent itemset mining, cross-selling analysis, market basket analysis, sequential traversal algorithms (Apriori, FP-Growth, ECLAT).</td>
-    </tr>
-    <tr>
-      <td><strong>5. Spatial Databases</strong></td>
-      <td>Stores multidimensional geometric objects (points, lines, polygons, raster grids) indexed via R-Trees, Quad-trees, or k-d trees with GIS coordinate systems.</td>
-      <td>Spatial autocorrelation analysis, spatial trend mining, density-based geographic clustering (DBSCAN), trajectory tracking.</td>
-    </tr>
-    <tr>
-      <td><strong>5. Time-Series & Temporal</strong></td>
-      <td>Stores time-stamped numeric sequence values recorded at uniform or non-uniform intervals (stock quotes, IoT sensor telemetry, ECG).</td>
-      <td>Trend analysis, cyclic/seasonal decomposition, Dynamic Time Warping (DTW), autoregressive ARIMA forecasting, motif discovery.</td>
-    </tr>
-    <tr>
-      <td><strong>5. Text & Web Databases</strong></td>
-      <td>Unstructured text documents, HTML web graphs with hyperlinks, XML trees, server clickstream logs, social media graphs.</td>
-      <td>TF-IDF vector space modeling, Latent Dirichlet Allocation (LDA), PageRank link analysis, sentiment analysis, web usage mining.</td>
+      <td>Deductive, exact, deterministic SQL responses.</td>
+      <td>Inductive, statistical, pattern-based models with probabilistic confidence.</td>
     </tr>
   </tbody>
 </table>
 
+<h2 class="section-title">Topic 3 – 5: Data Warehouses & Advanced Databases [UPLOADED PYQ]</h2>
 
-
-<h2 class="section-title">Topic 6: Data Mining Functionalities (What Kinds of Patterns Can Be Mined?)</h2>
-
-<p>Data mining tasks are broadly divided into two major complementary paradigms: <strong>Descriptive</strong> (summarizing and discovering structural properties of current data) and <strong>Predictive</strong> (building statistical inference models to forecast future outcomes).</p>
+<div class="callout callout-info">
+  <div class="callout-title">🧠 Memory Hook: SITN Characteristics of Data Warehouses (Inmon)</div>
+  <ul>
+    <li><strong>S — Subject-Oriented:</strong> Organized around major business subjects (Customers, Products, Sales) rather than transactional operations.</li>
+    <li><strong>I — Integrated:</strong> Data from diverse operational sources is standardized into consistent naming, units, and encoding schemes.</li>
+    <li><strong>T — Time-Variant:</strong> Maintains historical data spanning 5–10 years with explicit timestamp attributes for trend analysis.</li>
+    <li><strong>N — Non-Volatile:</strong> Read-only analytical storage; historical snapshots are loaded and not updated in-place.</li>
+  </ul>
+</div>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Mining Functionality</th>
-      <th style="width: 15%;">Paradigm</th>
-      <th style="width: 35%;">Mathematical / Algorithmic Basis</th>
-      <th>Industrial Example</th>
+      <th style="width: 25%;">Operational Database (OLTP)</th>
+      <th>Data Warehouse (OLAP) [UPLOADED PYQ — IT335 Mid]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Supports day-to-day operational transactions (e.g., bank ATM withdrawal).</td><td>Supports long-term executive decision making, reporting, and predictive analytics.</td></tr>
+    <tr><td>Stores current, real-time up-to-the-second data.</td><td>Stores historical snapshots over long multi-year horizons.</td></tr>
+    <tr><td>Highly normalized tables (3NF/BCNF) to eliminate update anomalies.</td><td>Denormalized dimensional schemas (Star / Snowflake) to optimize complex query joins.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 6: Data Mining Functionalities [UPLOADED PYQ]</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Functionality</th>
+      <th style="width: 45%;">Core Algorithmic Objective</th>
+      <th>Illustrative Example</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Characterization & Discrimination</strong></td>
-      <td>Descriptive</td>
-      <td>Summarizing general features of a target class (Characterization) vs. contrasting it against comparative classes (Discrimination) via Attribute-Oriented Induction.</td>
-      <td>Summarizing characteristics of top 10% spending customers vs. comparing them against occasional buyers.</td>
+      <td><strong>1. Characterization [UPLOADED PYQ]</strong></td>
+      <td>Summarizes the general properties of a target class into compact descriptions (Attribute-Oriented Induction).</td>
+      <td>"Summarize the demographic profile of customers who spent $> ₹1,00,000$ last year."</td>
     </tr>
     <tr>
-      <td><strong>2. Frequent Patterns, Associations & Correlations</strong></td>
-      <td>Descriptive</td>
-      <td>Discovering itemsets appearing with support $\ge \text{min\_sup}$ and confidence $\ge \text{min\_conf}$. Generating rules $A \implies B$ satisfying $\text{Lift}(A, B) > 1$.</td>
-      <td>$\text{buys}(\text{laptop}) \implies \text{buys}(\text{mouse}) \ [2\%, 75\%]$.</td>
+      <td><strong>2. Discrimination [UPLOADED PYQ]</strong></td>
+      <td>Compares the target class against one or a set of contrasting comparative classes.</td>
+      <td>"Compare customers who buy gaming laptops vs. customers who buy standard business laptops."</td>
     </tr>
     <tr>
-      <td><strong>3. Classification</strong></td>
-      <td>Predictive</td>
-      <td>Supervised learning model constructed from labeled training tuples to predict discrete categorical class labels (Decision Trees, Naïve Bayes, SVM, Neural Networks).</td>
-      <td>Classifying loan applicants as <em>Safe</em> or <em>Risky</em> based on credit score, salary, and debt.</td>
+      <td><strong>3. Association & Correlation</strong></td>
+      <td>Finds frequent itemsets and conditional dependency rules ($X \implies Y$).</td>
+      <td>"Customers purchasing Milk and Bread also buy Butter with 80% confidence."</td>
     </tr>
     <tr>
-      <td><strong>4. Regression</strong></td>
-      <td>Predictive</td>
-      <td>Supervised learning mapping data objects to continuous real-valued numerical variables (Linear Regression, Non-linear curve fitting, Ridge/Lasso).</td>
-      <td>Predicting next quarter's revenue based on advertising expenditure and historical growth.</td>
+      <td><strong>4. Classification</strong></td>
+      <td>Supervised learning predicting discrete categorical class labels.</td>
+      <td>"Classifying credit card transactions as Fraudulent or Legitimate."</td>
     </tr>
     <tr>
-      <td><strong>5. Cluster Analysis</strong></td>
-      <td>Descriptive</td>
-      <td>Unsupervised learning grouping objects into clusters such that intra-cluster similarity is maximized and inter-cluster similarity is minimized (K-Means, Hierarchical, DBSCAN).</td>
-      <td>Discovering distinct customer market segments without predefined class labels.</td>
+      <td><strong>5. Prediction (Regression)</strong></td>
+      <td>Predicts continuous real-valued numeric values.</td>
+      <td>"Predicting real-estate house prices based on square footage and location."</td>
     </tr>
     <tr>
-      <td><strong>6. Outlier Analysis (Anomaly Detection)</strong></td>
-      <td>Descriptive / Predictive</td>
-      <td>Identifying data objects that deviate significantly from general distribution patterns (Statistical discordance tests, Distance-based, Density-based LOF).</td>
-      <td>Credit card fraud detection; sudden spike in foreign transactions at 3 AM.</td>
+      <td><strong>6. Clustering</strong></td>
+      <td>Unsupervised grouping of unlabeled data points based on geometric similarity.</td>
+      <td>"Customer market segmentation into 5 distinct spending behavioral clusters."</td>
+    </tr>
+    <tr>
+      <td><strong>7. Outlier Analysis</strong></td>
+      <td>Detects anomalous objects that deviate significantly from normal baseline distributions.</td>
+      <td>"Network intrusion detection and credit card fraud surveillance."</td>
     </tr>
   </tbody>
 </table>
 
-
-
-<h2 class="section-title">Topic 7: Classification of Data Mining Systems</h2>
-<p>Data mining systems are categorized across 4 multidimensional axes:</p>
-<ol>
-  <li><strong>By Data Models Mined:</strong> Relational, Transactional, Object-Oriented, Spatial, Temporal, Time-Series, Text, Web, Graph, Multimedia, and Streaming Data Mining systems.</li>
-  <li><strong>By Types of Knowledge Discovered:</strong> Association Rule systems, Classification & Prediction engines, Clustering systems, Sequential Pattern miners, Outlier detectors, and Deep Representation embedding systems.</li>
-  <li><strong>By Underlying Mining Techniques:</strong> Database-oriented (SQL/OLAP-driven), Machine learning, Statistics, Information retrieval, Neural networks, Genetic algorithms, and Visual analytics.</li>
-  <li><strong>By Applications Adapted:</strong> Telecommunications, Healthcare, Banking & Finance, Bioinformatics, E-Commerce, Retail, and Intrusion Detection.</li>
-</ol>
-
-<h2 class="section-title">Topic 8: Major Issues & Challenges in Data Mining</h2>
-
-<div class="callout callout-warning">
-  <div class="callout-title"><i class="fa-solid fa-triangle-exclamation"></i> 5 Major Technical Challenges in Modern Data Mining</div>
-  <ol>
-    <li><strong>Mining Methodology & User Interaction:</strong> Mining complex knowledge in multidimensional space; integrating background domain knowledge; designing expressive mining query languages; intuitive visual representation.</li>
-    <li><strong>Performance, Scalability & Parallelism:</strong> Processing massive petabyte data streams within strict runtime constraints ($O(n)$ or sub-linear complexity); parallel, distributed, and incremental mining algorithms.</li>
-    <li><strong>Handling Data Diversity & High Dimensionality:</strong> Dealing with noisy, incomplete data; handling extreme sparsity; mitigating the curse of dimensionality where distance metrics lose discriminative power.</li>
-    <li><strong>Pattern Evaluation & Overfitting:</strong> Separating genuine causal signals from random noise; addressing the multiple hypothesis testing problem in large candidate spaces.</li>
-    <li><strong>Social Impacts & Privacy Preservation:</strong> Ensuring algorithmic fairness, differential privacy, GDPR compliance, and avoiding bias in automated credit/hiring algorithms.</li>
-  </ol>
-</div>
-
-
-
-<h2 class="section-title">Topics 9 – 10: Data Objects & 4 Fundamental Attribute Types</h2>
-
-<p>
-  A dataset is a collection of <strong>Data Objects</strong> (also known as samples, records, points, vectors, tuples, observations, or instances). A data object represents an individual entity.
-  Data objects are described by a set of <strong>Attributes</strong> (also called features, dimensions, variables, or fields).
-</p>
+<h2 class="section-title">Topic 8 – 10: Data Objects & Attribute Types</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 18%;">Attribute Class</th>
-      <th style="width: 25%;">Mathematical Properties</th>
-      <th style="width: 30%;">Permissible Operations</th>
-      <th>Concrete Examples</th>
+      <th style="width: 20%;">Attribute Type</th>
+      <th style="width: 45%;">Mathematical Characteristics & Valid Operations</th>
+      <th>Representative Examples</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Nominal (Categorical)</strong></td>
-      <td>Values are distinct symbols or names without any inherent ordering or magnitude.</td>
-      <td>Equality ($=$), Inequality ($\ne$), Mode, Frequency counting. (No mean or median).</td>
-      <td>`Marital_Status` $\in \{\text{Single, Married, Divorced}\}$, `Eye_Color`, `Zip_Code`.</td>
+      <td><strong>1. Nominal</strong></td>
+      <td>Categorical labels, names, or codes with <strong>no meaningful rank or ordering</strong> ($=, \neq$).</td>
+      <td>`Marital_Status` (Single, Married), `Color` (Red, Blue).</td>
     </tr>
     <tr>
-      <td><strong>2. Binary (Special Nominal)</strong></td>
-      <td>Nominal attribute with exactly 2 states ($0$ and $1$, or True and False).
-        <ul>
-          <li><strong>Symmetric:</strong> Both outcomes equally important (e.g., `Gender` M/F).</li>
-          <li><strong>Asymmetric:</strong> Presence ($1$) is far more significant/rare than absence ($0$) (e.g., `Medical_Test` $+/-$).</li>
-        </ul>
-      </td>
-      <td>Simple Matching Coefficient (SMC) for symmetric; Jaccard Coefficient for asymmetric.</td>
-      <td>`Covid_Test` $\in \{0, 1\}$, `Spam_Flag` $\in \{0, 1\}$, `Item_Purchased`.</td>
+      <td><strong>2. Binary</strong></td>
+      <td>Nominal attribute with exactly 2 states (`0` and `1`). Symmetric (Gender) vs. Asymmetric (Medical test positive/negative).</td>
+      <td>`Smoker` (Yes/No), `COVID_Positive` (0/1).</td>
     </tr>
     <tr>
       <td><strong>3. Ordinal</strong></td>
-      <td>Values have a meaningful sequential order or ranking, but the distance/difference between successive values cannot be measured.</td>
-      <td>Order comparison ($<, \le, >, \ge$), Median, Percentiles, Rank correlation (Spearman's $\rho$).</td>
-      <td>`Customer_Satisfaction` $\in \{\text{Poor, Fair, Good, Excellent}\}$, `Academic_Grade` (A, B, C, D, F).</td>
+      <td>Categorical values with a <strong>meaningful ranking / order</strong>, but intervals between values cannot be measured ($<, >, =, \neq$).</td>
+      <td>`Customer_Rating` (Poor < Fair < Good < Excellent), `Academic_Grade` (A, B, C, D, F).</td>
     </tr>
     <tr>
-      <td><strong>4. Numeric: Interval-Scaled</strong></td>
-      <td>Measured on a scale of equal-sized units. Meaningful differences between values, but <strong>no true zero point</strong> (arbitrary zero).</td>
-      <td>Addition ($+$), Subtraction ($-$), Mean, Standard Deviation. (Ratios are meaningless).</td>
-      <td>`Temperature` in °C or °F ($0^\circ\text{C}$ does not mean zero heat; $20^\circ\text{C}$ is not twice as hot as $10^\circ\text{C}$), `Calendar_Year`.</td>
+      <td><strong>4. Numeric (Interval)</strong></td>
+      <td>Measured on a scale of equal units; <strong>zero is arbitrary</strong> (no true zero point; addition and subtraction meaningful, ratios meaningless).</td>
+      <td>Temperature in $^\circ\text{C}$ or $^\circ\text{F}$, Calendar Years.</td>
     </tr>
     <tr>
-      <td><strong>4. Numeric: Ratio-Scaled</strong></td>
-      <td>Numeric attribute with an absolute, inherent <strong>true zero point</strong> ($0.0 = \text{none}$).</td>
-      <td>All arithmetic operations ($+, -, \times, \div$), Geometric Mean, Harmonic Mean, Coefficient of Variation.</td>
-      <td>`Salary` (\$0 means zero earnings; \$100k is exactly $2\times$ \$50k), `Age`, `Weight`, `Length`, `Price`.</td>
+      <td><strong>5. Numeric (Ratio)</strong></td>
+      <td>Inherent <strong>absolute zero point</strong> (both differences and ratios are mathematically meaningful: $y = 2x$).</td>
+      <td>`Salary` ($₹50,000$), `Age` (20 years), `Weight`, `Length`.</td>
     </tr>
   </tbody>
 </table>
 
-
-
-<h2 class="section-title">Topic 11: Basic Statistical Descriptions of Data</h2>
-
-<p>To understand the fundamental characteristics, central tendency, and dispersion of numeric data, we compute descriptive summary statistics.</p>
-
-<h3 class="subsection-title">1. Measures of Central Tendency</h3>
-<ul>
-  <li><strong>Arithmetic Mean:</strong> $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$. Sensitive to extreme outliers.</li>
-  <li><strong>Trimmed Mean:</strong> Computed after discarding a fixed percentage (e.g., 5%) of the lowest and highest values to improve robustness against outliers.</li>
-  <li><strong>Median:</strong> Middle value in sorted order. For even $n$, average of middle two. Robust measure of central tendency:
-    $$\text{Median} = \begin{cases} x_{(n+1)/2} & \text{if } n \text{ is odd} \\ \frac{x_{n/2} + x_{(n/2)+1}}{2} & \text{if } n \text{ is even} \end{cases}$$
-  </li>
-  <li><strong>Mode:</strong> The most frequently occurring value in the dataset. A dataset can be unimodal, bimodal, multimodal, or have no mode.</li>
-  <li><strong>Midrange:</strong> Average of smallest and largest values: $\text{Midrange} = \frac{\min + \max}{2}$.</li>
-</ul>
-
-<div class="callout callout-neuro">
-  <div class="callout-title"><i class="fa-solid fa-brain"></i> Memory Key: Skewness & Mean vs. Median Relationship</div>
-  <strong>Symmetric Distribution:</strong> $\text{Mean} = \text{Median} = \text{Mode}$.<br>
-  <strong>Positively Skewed (Right-Skewed):</strong> Tail extends to the right; $\text{Mode} < \text{Median} < \text{Mean}$.<br>
-  <strong>Negatively Skewed (Left-Skewed):</strong> Tail extends to the left; $\text{Mean} < \text{Median} < \text{Mode}$.
-</div>
-
-<h3 class="subsection-title">2. Measures of Dispersion & The Five-Number Summary</h3>
-<ul>
-  <li><strong>Range:</strong> $\text{Range} = \max(x) - \min(x)$.</li>
-  <li><strong>Quartiles:</strong> $Q_1$ (25th percentile / First Quartile), $Q_2$ (50th percentile / Median), $Q_3$ (75th percentile / Third Quartile).</li>
-  <li><strong>Interquartile Range (IQR):</strong> Distance between 75th and 25th percentiles:
-    $$\text{IQR} = Q_3 - Q_1$$
-  </li>
-  <li><strong>Five-Number Summary:</strong> $[\min, Q_1, \text{Median}, Q_3, \max]$.</li>
-  <li><strong>Boxplot Outlier Boundary Rule (Tukey's Rule):</strong> Any data point falling beyond the inner fences is flagged as an outlier:
-    $$\text{Lower Fence} = Q_1 - 1.5 \times \text{IQR}, \qquad \text{Upper Fence} = Q_3 + 1.5 \times \text{IQR}$$
-  </li>
-  <li><strong>Sample Variance ($s^2$) & Standard Deviation ($s$):</strong>
-    $$s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2, \qquad s = \sqrt{s^2}$$
-  </li>
-</ul>
-
-<div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Five-Number Summary & Outlier Detection</div>
-  <p><strong>Dataset (Sorted):</strong> $S = [12, 15, 18, 22, 24, 25, 28, 30, 32, 35, 38, 42, 45, 95]$ ($n=14$).</p>
-  <p><strong>Calculations:</strong></p>
-  <ol>
-    <li>$\min = 12, \quad \max = 95$.</li>
-    <li>$\text{Median } (Q_2) = \frac{x_7 + x_8}{2} = \frac{28 + 30}{2} = \mathbf{29.0}$.</li>
-    <li>$Q_1 = \text{Median of lower half } [12, 15, 18, 22, 24, 25, 28] = \mathbf{22.0}$.</li>
-    <li>$Q_3 = \text{Median of upper half } [30, 32, 35, 38, 42, 45, 95] = \mathbf{38.0}$.</li>
-    <li>$\text{IQR} = Q_3 - Q_1 = 38.0 - 22.0 = \mathbf{16.0}$.</li>
-    <li>$\text{Lower Fence} = 22.0 - 1.5(16.0) = 22.0 - 24.0 = \mathbf{-2.0}$.</li>
-    <li>$\text{Upper Fence} = 38.0 + 1.5(16.0) = 38.0 + 24.0 = \mathbf{62.0}$.</li>
-    <li><strong>Outlier Identification:</strong> Value $95 > 62.0 \implies \mathbf{95}$ is confirmed as an extreme outlier!</li>
-  </ol>
-</div>
-
-
-
-<h2 class="section-title">Topic 12: Data Visualization Techniques</h2>
-
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 22%;">Visualization Category</th>
-      <th style="width: 45%;">Core Visual Mapping Mechanism</th>
-      <th>Common Visual Types</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>1. Pixel-Oriented Techniques</strong></td>
-      <td>Maps each attribute value to a colored pixel; arranges pixels in recursive space-filling curve windows.</td>
-      <td>Space-filling curve pixel windows, Circle segments.</td>
-    </tr>
-    <tr>
-      <td><strong>2. Geometric Projection</strong></td>
-      <td>Projects multi-dimensional datasets onto 2D/3D visual subspaces.</td>
-      <td><strong>Scatter Plot Matrices</strong>, <strong>Parallel Coordinates</strong> (attributes mapped to parallel vertical axes; tuples drawn as polylines).</td>
-    </tr>
-    <tr>
-      <td><strong>3. Icon-Based Techniques</strong></td>
-      <td>Maps attribute dimensions to visual facial or shape features of graphic icons.</td>
-      <td><strong>Chernoff Faces</strong> (eye size, smile curvature, head shape), Stick figures.</td>
-    </tr>
-    <tr>
-      <td><strong>4. Hierarchical Techniques</strong></td>
-      <td>Subdivides attribute space into hierarchical nested subspaces.</td>
-      <td>Dimensional Stacking, <strong>Treemaps</strong> (nested rectangular area proportional to value).</td>
-    </tr>
-    <tr>
-      <td><strong>5. Visualizing Complex Data</strong></td>
-      <td>Renders topological networks, text tags, and geographical thematic maps.</td>
-      <td>Node-link graphs, Chord diagrams, Word clouds, Choropleth maps.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">Topics 13 – 14: Measuring Data Similarity and Dissimilarity</h2>
-
-<p>
-  Proximity between two objects $x = (x_1, x_2, \dots, x_p)$ and $y = (y_1, y_2, \dots, y_p)$ is quantified using <strong>Distance (Dissimilarity)</strong> $d(x, y)$ or <strong>Similarity</strong> $s(x, y)$.
-</p>
-
-<h3 class="subsection-title">1. Proximity Measures for Numeric Attributes</h3>
+<h2 class="section-title">Topic 11 & 12: Basic Statistical Descriptions & Visualization</h2>
 
 <div class="formula-card">
-  <strong>Minkowski Distance ($L_p$ Norm):</strong>
-  $$d(x, y) = \left( \sum_{i=1}^p |x_i - y_i|^p \right)^{1/p}$$
+  <strong>Five-Number Summary & Box-Plot Formulations:</strong>
+  $$\text{Five-Number Summary} = \langle \text{Minimum}, \ Q_1 \ (25\%), \ \text{Median} \ (Q_2), \ Q_3 \ (75\%), \ \text{Maximum} \rangle$$
+  $$\text{Interquartile Range } (\text{IQR}) = Q_3 - Q_1$$
+  $$\text{Outlier Cutoff Boundaries: Lower} = Q_1 - 1.5 \times \text{IQR}, \quad \text{Upper} = Q_3 + 1.5 \times \text{IQR}$$
 </div>
 
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Metric Name</th>
-      <th style="width: 15%;">Parameter</th>
-      <th style="width: 35%;">Mathematical Formula</th>
-      <th>Properties & Geometric Interpretation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Manhattan Distance ($L_1$)</strong></td>
-      <td>$p = 1$</td>
-      <td>$$d(x, y) = \sum_{i=1}^p |x_i - y_i|$$</td>
-      <td>City-block grid distance. Robust against single-feature extreme outliers.</td>
-    </tr>
-    <tr>
-      <td><strong>Euclidean Distance ($L_2$)</strong></td>
-      <td>$p = 2$</td>
-      <td>$$d(x, y) = \sqrt{\sum_{i=1}^p (x_i - y_i)^2}$$</td>
-      <td>Standard straight-line Euclidean distance in Cartesian space.</td>
-    </tr>
-    <tr>
-      <td><strong>Supremum Distance ($L_\infty$)</strong></td>
-      <td>$p \rightarrow \infty$</td>
-      <td>$$d(x, y) = \max_{i=1}^p |x_i - y_i|$$</td>
-      <td>Maximum coordinate difference along any single dimension (Chebyshev distance).</td>
-    </tr>
-  </tbody>
-</table>
+<h2 class="section-title">Topic 13 & 14: Data Similarity & Dissimilarity Measures</h2>
 
-<h3 class="subsection-title">2. Proximity for Asymmetric Binary & Document Vector Data</h3>
-
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Metric Name</th>
-      <th style="width: 45%;">Mathematical Formulation</th>
-      <th>Core Use Case</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Simple Matching Coeff. (SMC)</strong></td>
-      <td>$$\text{SMC}(x, y) = \frac{q + t}{q + r + s + t}$$</td>
-      <td>Symmetric binary data (where $0-0$ matches $t$ are as important as $1-1$ matches $q$).</td>
-    </tr>
-    <tr>
-      <td><strong>Jaccard Coefficient ($J$)</strong></td>
-      <td>$$J(x, y) = \frac{|x \cap y|}{|x \cup y|} = \frac{q}{q + r + s}, \qquad d_J(x, y) = 1 - J(x, y) = \frac{r + s}{q + r + s}$$</td>
-      <td><strong>Asymmetric binary data</strong> (ignores joint absence $t$; $q = 1-1, r = 1-0, s = 0-1$).</td>
-    </tr>
-    <tr>
-      <td><strong>Cosine Similarity</strong></td>
-      <td>$$\text{sim}(x, y) = \frac{\vec{x} \cdot \vec{y}}{\|\vec{x}\| \|\vec{y}\|} = \frac{\sum_{i=1}^p x_i y_i}{\sqrt{\sum x_i^2}\sqrt{\sum y_i^2}}$$</td>
-      <td><strong>Text Mining & TF-IDF Vectors:</strong> Measures angle $\theta$ between vectors; invariant to document length.</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-<div class="worked-box">
-  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Proximity Calculations on Vector Data</div>
-  <p><strong>Given Two Data Points:</strong> $x = (3, 0, 4, 1), \quad y = (1, 2, 4, 0)$.</p>
-  <ol>
-    <li><strong>Manhattan Distance ($L_1$):</strong>
-      $$d(x, y) = |3 - 1| + |0 - 2| + |4 - 4| + |1 - 0| = 2 + 2 + 0 + 1 = \mathbf{5.0}$$
-    </li>
-    <li><strong>Euclidean Distance ($L_2$):</strong>
-      $$d(x, y) = \sqrt{(3-1)^2 + (0-2)^2 + (4-4)^2 + (1-0)^2} = \sqrt{4 + 4 + 0 + 1} = \sqrt{9} = \mathbf{3.0}$$
-    </li>
-    <li><strong>Supremum Distance ($L_\infty$):</strong>
-      $$d(x, y) = \max(|3-1|, |0-2|, |4-4|, |1-0|) = \max(2, 2, 0, 1) = \mathbf{2.0}$$
-    </li>
-    <li><strong>Cosine Similarity ($\text{sim}(x, y)$):</strong>
-      $$\vec{x} \cdot \vec{y} = (3 \times 1) + (0 \times 2) + (4 \times 4) + (1 \times 0) = 3 + 0 + 16 + 0 = 19$$
-      $$\|\vec{x}\| = \sqrt{3^2 + 0^2 + 4^2 + 1^2} = \sqrt{9 + 0 + 16 + 1} = \sqrt{26} \approx 5.099$$
-      $$\|\vec{y}\| = \sqrt{1^2 + 2^2 + 4^2 + 0^2} = \sqrt{1 + 4 + 16 + 0} = \sqrt{21} \approx 4.583$$
-      $$\text{sim}(x, y) = \frac{19}{5.099 \times 4.583} = \frac{19}{23.368} = \mathbf{0.813} \ (\text{Cosine Distance} = 1 - 0.813 = \mathbf{0.187})$$
-    </li>
-  </ol>
+<div class="formula-card">
+  <strong>1. Cosine Similarity (For Sparse Document/Text Vectors $\mathbf{x}, \mathbf{y}$):</strong>
+  $$\text{sim}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\|_2 \|\mathbf{y}\|_2} = \frac{\sum_{i=1}^n x_i y_i}{\sqrt{\sum_{i=1}^n x_i^2} \sqrt{\sum_{i=1}^n y_i^2}}$$
 </div>
 
-<h2 class="section-title">🏛️ Top BIT Mesra Exam Questions & Answers (Module I)</h2>
+<div class="formula-card">
+  <strong>2. Minkowski Distance Metric ($L_p$ Norm):</strong>
+  $$d(\mathbf{x}, \mathbf{y}) = \left( \sum_{i=1}^n |x_i - y_i|^p \right)^{\frac{1}{p}}$$
+  - For $p = 1$: <strong>Manhattan ($L_1$) Distance:</strong> $d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n |x_i - y_i|$
+  - For $p = 2$: <strong>Euclidean ($L_2$) Distance:</strong> $d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$
+</div>
+
+<h2 class="section-title">🧠 M1 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Differentiate between OLTP and OLAP systems across 6 distinct technical dimensions. (8 Marks)</div>
+  <div class="qa-q">Q1. [UPLOADED PYQ — IT426 Mid] Differentiate between Data Characterization and Data Discrimination with concrete examples. (8 Marks)</div>
   <div class="qa-a">
-    <strong>Answer:</strong>
-    1. <strong>Primary Purpose:</strong> OLTP supports day-to-day transactional business operations (INSERT/UPDATE); OLAP supports decision support, executive reporting, and analytical queries.<br>
-    2. <strong>User Base:</strong> OLTP is used by clerks, front-end staff, DBAs; OLAP is used by managers, data scientists, business analysts.<br>
-    3. <strong>Data Orientation:</strong> OLTP is application-oriented and operational; OLAP is subject-oriented (Sales, Revenue, Customer).<br>
-    4. <strong>Database Design:</strong> OLTP is highly normalized (3NF/BCNF) to prevent write anomalies; OLAP is denormalized (Star/Snowflake multidimensional schemas).<br>
-    5. <strong>Access Patterns:</strong> OLTP executes short, atomic read/write transactions; OLAP executes complex read-only aggregate queries spanning millions of rows.<br>
-    6. <strong>Time Horizon:</strong> OLTP holds current real-time snapshot; OLAP stores multi-year historical time-variant snapshots.
-  </div>
-</div>
-
-<div class="qa-card">
-  <div class="qa-q">Q2. Why is Jaccard Coefficient preferred over Simple Matching Coefficient for asymmetric binary data? (5 Marks)</div>
-  <div class="qa-a">
-    <strong>Answer:</strong> In asymmetric binary datasets (e.g., market basket analysis where thousands of items exist), the absence of an item ($0-0$ match) carries virtually zero predictive significance (e.g., two customers not buying caviar does not indicate similarity). SMC includes negative matches ($t$) in both numerator and denominator, causing two unrelated customers to appear artificially 99.9% similar. The <strong>Jaccard Coefficient</strong> excludes $t$ entirely, focusing exclusively on joint positive co-occurrences ($q$), yielding a true measure of affinity.
+    - <strong>Data Characterization:</strong> A summarization of the general characteristics or features of a target class of data. The output can be represented as pie charts, bar charts, multidimensional data cubes, or generalized relations.<br>
+      <em>Example:</em> Characterizing customers who purchased items worth over ₹1,00,000 at an electronics store to find their average age, income, and city.<br>
+    - <strong>Data Discrimination:</strong> A comparative analysis of the general features of the target class objects against one or more contrasting comparative classes.<br>
+      <em>Example:</em> Comparing software engineers who remained at a company for over 5 years against those who left within 1 year to identify key turnover drivers.
   </div>
 </div>
 
