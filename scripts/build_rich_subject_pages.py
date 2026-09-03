@@ -1,33 +1,29 @@
 #!/usr/bin/env python3
 """
-Generates rich, publication-grade interactive landing pages with live all.md viewers
-for all 6 subjects:
-- compiler-design.html
-- dccn.html
-- data-mining.html
-- artificial-intelligence.html
-- natural-language-processing.html
-- software-engineering.html
+Builds Rich, Publication-Grade Subject Landing Pages with Sticky Interactive TOC Sidebar,
+ScrollSpy, Heading Filter, Reading Progress Bar, KaTeX Math, and Lab Manual Downloads.
 """
 
-import os, json
+import os
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 SUBJECTS = [
     {
-        "file": "compiler-design.html",
-        "slug": "compiler-design",
-        "code": "CS24301",
         "name": "Compiler Design",
+        "code": "CS24301",
+        "slug": "compiler-design",
+        "file": "compiler-design.html",
         "credits": "3.0 Credits",
         "type": "Theory Core",
-        "desc": "Exhaustive coverage of Lexical Analysis (DFA/NFA, Thompson's Construction), Top-Down LL(1) Parsing, Bottom-Up LR(0)/SLR(1)/CLR(1)/LALR(1) Parsing, Syntax Directed Definitions (SDD/SDTS), Intermediate 3-Address Code Generation, Runtime Activation Records, Dynamic Memory Heap, Basic Block Control Flow Graphs (CFG), and Global Loop Optimization.",
+        "desc": "Exhaustive coverage of Lexical Analysis (Thompson's, Subset, Hopcroft & Syntax Tree Direct DFA), Syntax Analysis (LL(1), LR(0), SLR(1), LR(1), LALR(1) Parsing Tables & Yacc), Semantic Analysis (S-attributed & L-attributed SDDs, Symbol Tables), Runtime Environments (Activation Records), and Code Optimization (Basic Blocks, CFG, DAG, Loop Invariant Code Motion).",
         "folder": "compiler-design",
         "master_pdf": "compiler-design/pdf/Compiler_Design_Full_Course_Master.pdf",
         "master_pages": "54 Pages",
         "rev_pdf": "compiler-design/pdf/Compiler_Design_10_Page_Master_Revision.pdf",
         "rev_pages": "13 Pages",
+        "lab_pdf": "compiler-design/pdf/Compiler_Design_Lab_Manual.pdf",
+        "lab_pages": "11 Pages",
         "all_pdf": "compiler-design/pdf/all.pdf",
         "all_pages": "43 Pages",
         "all_md": "compiler-design/all.md",
@@ -40,20 +36,22 @@ SUBJECTS = [
         ]
     },
     {
-        "file": "dccn.html",
-        "slug": "data-communication-and-networks",
+        "name": "Data Communication & Networks",
         "code": "CS24305",
-        "name": "Data Communication & Computer Networks",
+        "slug": "dccn",
+        "file": "dccn.html",
         "credits": "3.0 Credits",
         "type": "Theory Core",
-        "desc": "Exhaustive coverage of Data Communication Models, Physical Media & Signal Attenuation, Nyquist & Shannon Limits, Line Coding (Manchester, 4B/5B), Carrier Modulation (QAM, BPSK), Multiplexing (FDM, TDM, WDM), Error Control (CRC-32, Hamming Codes), Sliding Window ARQ (GBN, Selective Repeat), CSMA/CD & Ethernet, Spanning Tree Protocol (STP), IPv4/IPv6 Subnetting & CIDR, Dijkstra/Bellman-Ford Routing, TCP Congestion Control (AIMD, Reno), and Socket Programming.",
+        "desc": "Exhaustive coverage of Layered Network Models (OSI 7-Layer vs TCP/IP), Physical Transmission Impairments, Shannon & Nyquist Capacity, Line Encoding & Multiplexing (FDM, TDM, WDM), Data Link Control (Sliding Window ARQ, CRC-32, HDLC, Framing), MAC Layer (Pure/Slotted ALOHA, CSMA/CD, Ethernet IEEE 802.3, Wi-Fi 802.11), IP Addressing, Subnetting, Dijkstra & Bellman-Ford Routing, and TCP Congestion Control.",
         "folder": "data-communication-and-networks",
         "master_pdf": "data-communication-and-networks/pdf/DCCN_Full_Course_Master.pdf",
         "master_pages": "56 Pages",
         "rev_pdf": "data-communication-and-networks/pdf/DCCN_10_Page_Master_Revision.pdf",
         "rev_pages": "13 Pages",
+        "lab_pdf": "data-communication-and-networks/pdf/DCCN_Lab_Manual.pdf",
+        "lab_pages": "10 Pages",
         "all_pdf": "data-communication-and-networks/pdf/all.pdf",
-        "all_pages": "56 Pages",
+        "all_pages": "57 Pages",
         "all_md": "data-communication-and-networks/all.md",
         "modules": [
             ("Module 1", "Data Communication Overview & Channels", "data-communication-and-networks/html/Module_1_Data_Communication_Overview_Notes.html", "data-communication-and-networks/pdf/Module_1_Data_Communication_Overview_Notes.pdf", "10 Pages"),
@@ -64,82 +62,88 @@ SUBJECTS = [
         ]
     },
     {
-        "file": "data-mining.html",
-        "slug": "data-mining",
-        "code": "CS24303",
         "name": "Data Mining Concepts and Techniques",
+        "code": "CS24303",
+        "slug": "data-mining",
+        "file": "data-mining.html",
         "credits": "3.0 Credits",
         "type": "Theory Core",
-        "desc": "Exhaustive coverage of KDD Pipeline, Attribute Types & Proximity Dissimilarity Measures, Data Cleaning & Normalization (Z-score, Min-Max, Decimal Scaling), OLAP Data Warehousing (Star, Snowflake, Constellation Schemas), Frequent Itemset Mining (Apriori Algorithm, FP-Growth Tree, ECLAT), Association Rules, Correlation Metrics (Chi-Square, Lift), Constraint-Based Mining, Classification, and Clustering.",
+        "desc": "Exhaustive coverage of KDD Pipeline, Data Objects & Attribute Types, Statistical Descriptions & Proximity Measures (Euclidean, Manhattan, Cosine, Jaccard), Data Preprocessing (Binning, Min-Max, Z-score, PCA, Chi-Square), Multidimensional Data Warehousing & OLAP Schemas, Apriori & FP-Growth Pattern Mining, Classification (Decision Trees, Naïve Bayes, SVM, AdaBoost), and Clustering (k-Means, DBSCAN, AGNES).",
         "folder": "data-mining",
-        "master_pdf": "data-mining/pdf/Data_Mining_Full_Course_Master.pdf",
-        "master_pages": "15 Pages",
-        "rev_pdf": "data-mining/pdf/Data_Mining_10_Page_Master_Revision.pdf",
-        "rev_pages": "5 Pages",
+        "master_pdf": "data-mining/pdf/DM_Full_Course_Master.pdf",
+        "master_pages": "64 Pages",
+        "rev_pdf": "data-mining/pdf/DM_10_Page_Master_Revision.pdf",
+        "rev_pages": "10 Pages",
+        "lab_pdf": "data-mining/pdf/Data_Mining_Lab_Manual.pdf",
+        "lab_pages": "10 Pages",
         "all_pdf": "data-mining/pdf/all.pdf",
         "all_pages": "51 Pages",
         "all_md": "data-mining/all.md",
         "modules": [
-            ("Module 1", "Data Attributes & Proximity Metrics", "data-mining/html/Module_1_Data_Attributes_Notes.html", "data-mining/pdf/Module_1_Data_Attributes_Notes.pdf", "4 Pages"),
-            ("Module 2", "Preprocessing & Normalization", "data-mining/html/Module_2_Preprocessing_Notes.html", "data-mining/pdf/Module_2_Preprocessing_Notes.pdf", "3 Pages"),
-            ("Module 3", "Data Warehousing & OLAP Cubes", "data-mining/html/Module_3_Data_Warehouse_Notes.html", "data-mining/pdf/Module_3_Data_Warehouse_Notes.pdf", "3 Pages"),
-            ("Module 4", "Apriori & FP-Growth Pattern Mining", "data-mining/html/Module_4_Pattern_Mining_Notes.html", "data-mining/pdf/Module_4_Pattern_Mining_Notes.pdf", "3 Pages"),
-            ("Module 5", "Advanced Mining & Constraints", "data-mining/html/Module_5_Advanced_Mining_Notes.html", "data-mining/pdf/Module_5_Advanced_Mining_Notes.pdf", "3 Pages"),
+            ("Module 1", "Data Attributes & Proximity", "data-mining/html/Module_1_Data_Understanding_Notes.html", "data-mining/pdf/Module_1_Data_Understanding_Notes.pdf", "10 Pages"),
+            ("Module 2", "Preprocessing & Normalization", "data-mining/html/Module_2_Data_Preprocessing_Notes.html", "data-mining/pdf/Module_2_Data_Preprocessing_Notes.pdf", "10 Pages"),
+            ("Module 3", "Data Warehousing & OLAP", "data-mining/html/Module_3_Data_Warehousing_OLAP_Notes.html", "data-mining/pdf/Module_3_Data_Warehousing_OLAP_Notes.pdf", "10 Pages"),
+            ("Module 4", "Apriori & FP-Growth", "data-mining/html/Module_4_Association_Rules_Notes.html", "data-mining/pdf/Module_4_Association_Rules_Notes.pdf", "10 Pages"),
+            ("Module 5", "Advanced Mining & Classification", "data-mining/html/Module_5_Classification_Clustering_Notes.html", "data-mining/pdf/Module_5_Classification_Clustering_Notes.pdf", "10 Pages"),
         ]
     },
     {
-        "file": "artificial-intelligence.html",
-        "slug": "artificial-intelligence",
-        "code": "CS24307",
         "name": "Artificial Intelligence",
+        "code": "CS24307",
+        "slug": "artificial-intelligence",
+        "file": "artificial-intelligence.html",
         "credits": "3.0 Credits",
         "type": "Theory Core",
-        "desc": "Exhaustive coverage of Intelligent Agents & PEAS Environments, Uninformed vs Informed Search (BFS, DFS, Uniform Cost, A*, IDA*), Game Playing (Minimax Algorithm, Alpha-Beta Pruning), Propositional & First-Order Logic (FOL Resolution Refutation, Unification), Classical Planning (STRIPS, PDDL), Probabilistic Reasoning (Bayesian Networks, Conditional Independence), and Machine Learning Foundations (Perceptrons, Multi-Layer Perceptrons, Backpropagation).",
+        "desc": "Exhaustive coverage of Intelligent Agents & PEAS, Uninformed Search (BFS, DFS, UCS, DLS, IDDFS), Informed Heuristic Search (A*, Admissibility & Consistency, IDA*, Greedy), Adversarial Search (Minimax, Alpha-Beta Pruning), Propositional & First-Order Logic (CNF, Resolution Refutation, Unification), Classical Planning (STRIPS, PDDL), Bayesian Networks Exact Inference, and Neural Networks Backpropagation.",
         "folder": "artificial-intelligence",
         "master_pdf": "artificial-intelligence/pdf/AI_Full_Course_Master.pdf",
-        "master_pages": "12 Pages",
+        "master_pages": "55 Pages",
         "rev_pdf": "artificial-intelligence/pdf/AI_10_Page_Master_Revision.pdf",
-        "rev_pages": "4 Pages",
+        "rev_pages": "10 Pages",
+        "lab_pdf": "artificial-intelligence/pdf/AI_Lab_Manual.pdf",
+        "lab_pages": "10 Pages",
         "all_pdf": "artificial-intelligence/pdf/all.pdf",
         "all_pages": "47 Pages",
         "all_md": "artificial-intelligence/all.md",
         "modules": [
-            ("Module 1", "Intelligent Agents & PEAS Framework", "artificial-intelligence/html/Module_1_Intelligent_Agents_Notes.html", "artificial-intelligence/pdf/Module_1_Intelligent_Agents_Notes.pdf", "3 Pages"),
-            ("Module 2", "Search Strategies & Game Trees", "artificial-intelligence/html/Module_2_Search_Algorithms_Notes.html", "artificial-intelligence/pdf/Module_2_Search_Algorithms_Notes.pdf", "2 Pages"),
-            ("Module 3", "Knowledge & Logic Resolution", "artificial-intelligence/html/Module_3_Knowledge_Logic_Notes.html", "artificial-intelligence/pdf/Module_3_Knowledge_Logic_Notes.pdf", "3 Pages"),
-            ("Module 4", "Planning & Bayesian Networks", "artificial-intelligence/html/Module_4_Planning_Bayes_Notes.html", "artificial-intelligence/pdf/Module_4_Planning_Bayes_Notes.pdf", "2 Pages"),
-            ("Module 5", "Machine Learning & MLP Networks", "artificial-intelligence/html/Module_5_Machine_Learning_Notes.html", "artificial-intelligence/pdf/Module_5_Machine_Learning_Notes.pdf", "2 Pages"),
+            ("Module 1", "Intelligent Agents & PEAS", "artificial-intelligence/html/Module_1_Intelligent_Agents_Notes.html", "artificial-intelligence/pdf/Module_1_Intelligent_Agents_Notes.pdf", "10 Pages"),
+            ("Module 2", "Search & Game AI", "artificial-intelligence/html/Module_2_Search_Algorithms_Notes.html", "artificial-intelligence/pdf/Module_2_Search_Algorithms_Notes.pdf", "10 Pages"),
+            ("Module 3", "Knowledge & Logic Resolution", "artificial-intelligence/html/Module_3_Knowledge_Logic_Notes.html", "artificial-intelligence/pdf/Module_3_Knowledge_Logic_Notes.pdf", "10 Pages"),
+            ("Module 4", "Planning & Bayesian Networks", "artificial-intelligence/html/Module_4_Planning_Bayes_Notes.html", "artificial-intelligence/pdf/Module_4_Planning_Bayes_Notes.pdf", "10 Pages"),
+            ("Module 5", "Machine Learning & MLP", "artificial-intelligence/html/Module_5_Machine_Learning_Notes.html", "artificial-intelligence/pdf/Module_5_Machine_Learning_Notes.pdf", "10 Pages"),
         ]
     },
     {
-        "file": "natural-language-processing.html",
-        "slug": "natural-language-processing",
-        "code": "CS24351",
         "name": "Natural Language Processing",
+        "code": "CS24351",
+        "slug": "natural-language-processing",
+        "file": "natural-language-processing.html",
         "credits": "3.0 Credits",
         "type": "Program Elective",
-        "desc": "Exhaustive coverage of NLP Pipelines (Tokenization, Lemmatization, Stemming, Regex), N-Gram Statistical Language Modeling & Smoothing (Laplace, Good-Turing, Kneser-Ney), Hidden Markov Models & Viterbi POS Tagging, Word Embeddings (TF-IDF, CBOW, Skip-Gram Word2Vec, GloVe), Recurrent Neural Networks (LSTM, GRU), Transformer Multi-Head Self-Attention Architecture, Pre-Trained LLMs (BERT, GPT), and Machine Translation Evaluation (BLEU, ROUGE).",
+        "desc": "Exhaustive coverage of Text Preprocessing (Tokenization, BPE, Porter Stemmer, WordNet), N-gram Language Modeling & Smoothing (Laplace, Kneser-Ney, Perplexity), POS Tagging (HMM Viterbi Decoding, MEMM, CRF), Vector Space Semantics & Word Embeddings (Word2Vec CBOW/Skip-Gram, GloVe, FastText), Sequential Models (RNN, LSTM, GRU, Seq2Seq Attention), The Transformer Architecture (Scaled Dot-Product, Multi-Head Attention, BERT vs GPT), and BLEU-4 Evaluation.",
         "folder": "natural-language-processing",
         "master_pdf": "natural-language-processing/pdf/NLP_Full_Course_Master.pdf",
-        "master_pages": "12 Pages",
+        "master_pages": "63 Pages",
         "rev_pdf": "natural-language-processing/pdf/NLP_10_Page_Master_Revision.pdf",
-        "rev_pages": "6 Pages",
+        "rev_pages": "10 Pages",
+        "lab_pdf": "natural-language-processing/pdf/NLP_Lab_Manual.pdf",
+        "lab_pages": "10 Pages",
         "all_pdf": "natural-language-processing/pdf/all.pdf",
         "all_pages": "39 Pages",
         "all_md": "natural-language-processing/all.md",
         "modules": [
-            ("Module 1", "NLP Pipeline & Morphology", "natural-language-processing/html/Module_1_Linguistics_Notes.html", "natural-language-processing/pdf/Module_1_Linguistics_Notes.pdf", "3 Pages"),
-            ("Module 2", "Language Models & N-grams", "natural-language-processing/html/Module_2_Language_Models_Notes.html", "natural-language-processing/pdf/Module_2_Language_Models_Notes.pdf", "3 Pages"),
-            ("Module 3", "Word2Vec & POS Tagging", "natural-language-processing/html/Module_3_Word_Embeddings_Notes.html", "natural-language-processing/pdf/Module_3_Word_Embeddings_Notes.pdf", "2 Pages"),
-            ("Module 4", "Transformers & Multi-Head Attn", "natural-language-processing/html/Module_4_Transformers_Notes.html", "natural-language-processing/pdf/Module_4_Transformers_Notes.pdf", "2 Pages"),
-            ("Module 5", "LLMs, Ethics & Evaluation", "natural-language-processing/html/Module_5_Applications_Ethics_Notes.html", "natural-language-processing/pdf/Module_5_Applications_Ethics_Notes.pdf", "2 Pages"),
+            ("Module 1", "NLP Pipeline & Morphology", "natural-language-processing/html/Module_1_Linguistics_Notes.html", "natural-language-processing/pdf/Module_1_Linguistics_Notes.pdf", "10 Pages"),
+            ("Module 2", "Language Models & N-grams", "natural-language-processing/html/Module_2_Language_Models_Notes.html", "natural-language-processing/pdf/Module_2_Language_Models_Notes.pdf", "10 Pages"),
+            ("Module 3", "Word2Vec & POS Tagging", "natural-language-processing/html/Module_3_Word_Embeddings_Notes.html", "natural-language-processing/pdf/Module_3_Word_Embeddings_Notes.pdf", "10 Pages"),
+            ("Module 4", "Transformers & Multi-Head Attn", "natural-language-processing/html/Module_4_Transformers_Notes.html", "natural-language-processing/pdf/Module_4_Transformers_Notes.pdf", "10 Pages"),
+            ("Module 5", "LLMs, Ethics & Evaluation", "natural-language-processing/html/Module_5_Applications_Ethics_Notes.html", "natural-language-processing/pdf/Module_5_Applications_Ethics_Notes.pdf", "10 Pages"),
         ]
     },
     {
-        "file": "software-engineering.html",
-        "slug": "software-engineering",
-        "code": "CS24353",
         "name": "Software Engineering",
+        "code": "CS24353",
+        "slug": "software-engineering",
+        "file": "software-engineering.html",
         "credits": "3.0 Credits",
         "type": "Program Elective",
         "desc": "Exhaustive coverage of Software Process Models (Waterfall, Prototyping, Spiral, RAD, Incremental, Agile Scrum/Kanban), Requirements Engineering & SRS (IEEE 830 Standard), UML Architectural Modeling & Design Patterns, Software Project Estimation (COCOMO I/II, Function Point Analysis), Risk Management (RMMM Plan), Software Quality Assurance (CMMI, ISO 9001), Software Testing (Black-Box Equivalence/BVA, White-Box Basis Path Cyclomatic Complexity), and Maintenance.",
@@ -148,6 +152,8 @@ SUBJECTS = [
         "master_pages": "59 Pages",
         "rev_pdf": "software-engineering/pdf/SE_10_Page_Master_Revision.pdf",
         "rev_pages": "6 Pages",
+        "lab_pdf": "software-engineering/pdf/SE_Lab_Manual.pdf",
+        "lab_pages": "10 Pages",
         "all_pdf": "software-engineering/pdf/all.pdf",
         "all_pages": "36 Pages",
         "all_md": "software-engineering/all.md",
@@ -201,6 +207,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       --primary: #3b82f6;
       --primary-hover: #60a5fa;
       --accent: #8b5cf6;
+      --success: #10b981;
       --radius: 12px;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -227,6 +234,24 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       line-height: 1.6;
       transition: background-color 0.3s, color 0.3s;
     }}
+
+    /* Top Reading Progress Bar */
+    .reading-progress-container {{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3.5px;
+      background: transparent;
+      z-index: 100;
+    }}
+    .reading-progress {{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.1s ease-out;
+    }}
+
     header {{
       background-color: var(--bg-surface);
       border-bottom: 1px solid var(--border);
@@ -236,9 +261,9 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       backdrop-filter: blur(12px);
     }}
     .header-container {{
-      max-width: 1280px;
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 16px 24px;
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -271,14 +296,15 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      cursor: pointer;
       transition: var(--transition);
     }}
     .nav-btn:hover {{ border-color: var(--primary); color: var(--primary); }}
     
     .main-container {{
-      max-width: 1280px;
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 32px 24px 60px 24px;
+      padding: 28px 24px 60px 24px;
       flex: 1;
       width: 100%;
     }}
@@ -288,7 +314,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 32px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       box-shadow: var(--shadow);
     }}
     .badge-row {{ display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }}
@@ -297,19 +323,19 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     .badge-code {{ font-family: 'Fira Code', monospace; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); }}
     
     .subject-title {{ font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }}
-    .subject-desc {{ font-size: 14.5px; color: var(--text-muted); line-height: 1.65; max-width: 950px; margin-bottom: 24px; }}
+    .subject-desc {{ font-size: 14px; color: var(--text-muted); line-height: 1.65; max-width: 950px; margin-bottom: 24px; }}
     
     .downloads-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
       margin-bottom: 24px;
     }}
     .download-card {{
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 16px 20px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -322,12 +348,12 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       transform: translateY(-2px);
       box-shadow: 0 8px 20px -6px rgba(0,0,0,0.3);
     }}
-    .download-info h4 {{ font-size: 14px; font-weight: 700; margin-bottom: 4px; }}
+    .download-info h4 {{ font-size: 13.5px; font-weight: 700; margin-bottom: 3px; }}
     .download-info p {{ font-size: 11.5px; color: var(--text-muted); }}
     .download-icon {{ font-size: 20px; color: var(--primary); }}
 
-    .modules-section {{ margin-bottom: 36px; }}
-    .section-heading {{ font-size: 20px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }}
+    .modules-section {{ margin-bottom: 32px; }}
+    .section-heading {{ font-size: 19px; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }}
     .modules-grid {{
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -363,12 +389,140 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     }}
     .mod-btn:hover {{ border-color: var(--primary); color: var(--primary); }}
 
-    /* Markdown Reader Section */
-    .notes-viewer {{
+    /* Dual-Column Layout: Sticky TOC Sidebar + Main Reader */
+    .notes-layout {{
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      position: relative;
+    }}
+
+    /* TOC Sidebar */
+    .toc-sidebar {{
+      width: 310px;
+      min-width: 310px;
+      max-width: 310px;
       background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 32px;
+      padding: 18px 16px;
+      position: sticky;
+      top: 76px;
+      max-height: calc(100vh - 96px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow);
+      z-index: 20;
+    }}
+    .toc-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }}
+    .toc-title {{
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }}
+    .toc-search-box {{
+      position: relative;
+      display: flex;
+      align-items: center;
+    }}
+    .toc-search-box i {{
+      position: absolute;
+      left: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }}
+    .toc-search-input {{
+      width: 100%;
+      padding: 7px 10px 7px 28px;
+      font-size: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-main);
+      outline: none;
+      transition: var(--transition);
+    }}
+    .toc-search-input:focus {{
+      border-color: var(--primary);
+    }}
+    
+    .toc-nav {{
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow-y: auto;
+      padding-right: 6px;
+      max-height: 100%;
+    }}
+    /* Custom Scrollbar */
+    .toc-nav::-webkit-scrollbar {{ width: 5px; }}
+    .toc-nav::-webkit-scrollbar-thumb {{ background: var(--border); border-radius: 4px; }}
+    
+    .toc-link {{
+      display: block;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: var(--transition);
+      line-height: 1.45;
+      white-space: normal;
+      word-break: break-word;
+      border-left: 2.5px solid transparent;
+    }}
+    .toc-link:hover {{
+      color: var(--primary-hover);
+      background: rgba(59, 130, 246, 0.08);
+    }}
+    .toc-link.active {{
+      color: var(--primary);
+      font-weight: 700;
+      background: rgba(59, 130, 246, 0.12);
+      border-left-color: var(--primary);
+    }}
+    .toc-level-1 {{
+      font-weight: 700;
+      font-size: 12.5px;
+      margin-top: 10px;
+      margin-bottom: 2px;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }}
+    .toc-level-2 {{
+      padding-left: 14px;
+      font-size: 11.5px;
+      margin-left: 4px;
+      border-left: 1px solid var(--border);
+    }}
+    .toc-level-3 {{
+      padding-left: 22px;
+      font-size: 11px;
+      margin-left: 4px;
+      border-left: 1px dashed var(--border);
+      opacity: 0.9;
+    }}
+
+    /* Main Reader Column */
+    .notes-viewer {{
+      flex: 1;
+      min-width: 0; /* Prevents overflow */
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 36px;
       box-shadow: var(--shadow);
     }}
     .notes-header {{
@@ -378,30 +532,52 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       border-bottom: 1px solid var(--border);
       padding-bottom: 16px;
       margin-bottom: 24px;
+      gap: 12px;
     }}
     .markdown-body {{
       font-size: 13.5px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--text-main);
     }}
-    .markdown-body h1 {{ font-size: 24px; margin: 24px 0 14px 0; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }}
-    .markdown-body h2 {{ font-size: 19px; margin: 22px 0 10px 0; color: var(--primary-hover); border-bottom: 1px solid var(--border); padding-bottom: 6px; }}
-    .markdown-body h3 {{ font-size: 16px; margin: 18px 0 8px 0; color: var(--text-main); }}
-    .markdown-body p {{ margin-bottom: 12px; text-align: justify; }}
-    .markdown-body pre {{ background: #0f172a; color: #f8fafc; padding: 14px 18px; border-radius: 8px; overflow-x: auto; margin: 14px 0; font-family: 'Fira Code', monospace; font-size: 12px; }}
+    .markdown-body h1 {{ font-size: 24px; margin: 28px 0 14px 0; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; scroll-margin-top: 85px; }}
+    .markdown-body h2 {{ font-size: 19px; margin: 24px 0 10px 0; color: var(--primary-hover); border-bottom: 1px solid var(--border); padding-bottom: 6px; scroll-margin-top: 85px; }}
+    .markdown-body h3 {{ font-size: 15.5px; margin: 20px 0 8px 0; color: var(--text-main); scroll-margin-top: 85px; }}
+    .markdown-body p {{ margin-bottom: 14px; text-align: justify; }}
+    .markdown-body pre {{ background: #0f172a; color: #f8fafc; padding: 14px 18px; border-radius: 8px; overflow-x: auto; margin: 16px 0; font-family: 'Fira Code', monospace; font-size: 12px; }}
     .markdown-body code {{ font-family: 'Fira Code', monospace; font-size: 12px; background: var(--bg-card); color: var(--primary); padding: 2px 6px; border-radius: 4px; }}
     .markdown-body pre code {{ background: transparent; color: inherit; padding: 0; }}
-    .markdown-body table {{ width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12.5px; }}
+    .markdown-body table {{ width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 12.5px; }}
     .markdown-body th, .markdown-body td {{ border: 1px solid var(--border); padding: 8px 12px; text-align: left; }}
     .markdown-body th {{ background: var(--bg-card); color: var(--text-main); font-weight: 700; }}
-    .markdown-body blockquote {{ border-left: 4px solid var(--primary); background: rgba(59, 130, 246, 0.08); padding: 12px 18px; border-radius: 6px; margin: 14px 0; }}
+    .markdown-body blockquote {{ border-left: 4px solid var(--primary); background: rgba(59, 130, 246, 0.08); padding: 12px 18px; border-radius: 6px; margin: 16px 0; }}
     .markdown-body ul, .markdown-body ol {{ padding-left: 24px; margin-bottom: 14px; }}
     .markdown-body li {{ margin-bottom: 6px; }}
+
+    .mobile-toc-toggle {{
+      display: none;
+    }}
+
+    @media (max-width: 1024px) {{
+      .notes-layout {{ flex-direction: column; }}
+      .toc-sidebar {{
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        position: static;
+        max-height: 280px;
+        margin-bottom: 16px;
+      }}
+      .mobile-toc-toggle {{ display: inline-flex; }}
+      .notes-viewer {{ padding: 20px; }}
+    }}
     
     footer {{ background: var(--bg-surface); border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12.5px; color: var(--text-muted); }}
   </style>
 </head>
 <body>
+
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress-container"><div class="reading-progress" id="progressBar"></div></div>
 
   <header>
     <div class="header-container">
@@ -413,7 +589,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
         </div>
       </a>
       <div class="nav-actions">
-        <button id="themeToggle" class="nav-btn"><i class="fa-solid fa-moon"></i></button>
+        <button id="themeToggle" class="nav-btn" title="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
         <a href="index.html" class="nav-btn"><i class="fa-solid fa-house"></i> All Courses</a>
         <a href="https://github.com/SH20RAJ/study" target="_blank" class="nav-btn"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
@@ -433,14 +609,21 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
         <a href="{master_pdf}" target="_blank" class="download-card">
           <div class="download-info">
             <h4><i class="fa-solid fa-book-open"></i> Full Course Master Book</h4>
-            <p>{master_pages} • Complete Syllabus + Solved PYQs</p>
+            <p>{master_pages} • Syllabus + PYQs</p>
           </div>
           <div class="download-icon"><i class="fa-solid fa-file-pdf"></i></div>
         </a>
         <a href="{rev_pdf}" target="_blank" class="download-card">
           <div class="download-info">
-            <h4><i class="fa-solid fa-bolt"></i> 10-Page Master Quick Revision</h4>
-            <p>{rev_pages} • Formulas, Matrices & Flashcards</p>
+            <h4><i class="fa-solid fa-bolt"></i> 10-Page Master Revision</h4>
+            <p>{rev_pages} • Formula Compendium</p>
+          </div>
+          <div class="download-icon"><i class="fa-solid fa-file-pdf"></i></div>
+        </a>
+        <a href="{lab_pdf}" target="_blank" class="download-card">
+          <div class="download-info">
+            <h4><i class="fa-solid fa-flask"></i> Practical Lab Manual</h4>
+            <p>{lab_pages} • Code, Exps & Viva Bank</p>
           </div>
           <div class="download-icon"><i class="fa-solid fa-file-pdf"></i></div>
         </a>
@@ -462,21 +645,41 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       </div>
     </section>
 
-    <!-- Master Markdown Reader Section -->
-    <section class="notes-viewer" id="notes">
-      <div class="notes-header">
-        <div>
-          <h2 style="font-size: 18px; font-weight: 800;"><i class="fa-solid fa-file-lines"></i> Complete Master Notes (all.md)</h2>
-          <p style="font-size: 12px; color: var(--text-muted);">Rendered live with KaTeX mathematical formulas & code syntax</p>
+    <!-- Dual-Column Master Reader & TOC Sidebar -->
+    <div class="notes-layout" id="notes">
+      
+      <!-- Sticky TOC Sidebar -->
+      <aside class="toc-sidebar" id="tocSidebar">
+        <div class="toc-header">
+          <div class="toc-title"><i class="fa-solid fa-list-ul"></i> Table of Contents</div>
+          <span style="font-size: 10.5px; color: var(--text-muted);" id="tocItemCount">0 Sections</span>
         </div>
-        <div>
-          <a href="{all_pdf}" target="_blank" class="nav-btn" style="background: var(--primary); color: #fff; border-color: var(--primary);"><i class="fa-solid fa-file-pdf"></i> Get PDF</a>
+        <div class="toc-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="tocSearch" class="toc-search-input" placeholder="Filter sections in notes...">
         </div>
-      </div>
-      <div class="markdown-body" id="markdownContent">
-        <p style="text-align: center; color: var(--text-muted); padding: 40px 0;"><i class="fa-solid fa-spinner fa-spin"></i> Loading master notes...</p>
-      </div>
-    </section>
+        <nav class="toc-nav" id="tocNav">
+          <p style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 20px 0;"><i class="fa-solid fa-spinner fa-spin"></i> Indexing topics...</p>
+        </nav>
+      </aside>
+
+      <!-- Main Notes Viewer -->
+      <section class="notes-viewer">
+        <div class="notes-header">
+          <div>
+            <h2 style="font-size: 18px; font-weight: 800;"><i class="fa-solid fa-file-lines"></i> Complete Master Notes (all.md)</h2>
+            <p style="font-size: 12px; color: var(--text-muted);">Rendered live with KaTeX mathematical formulas & code syntax</p>
+          </div>
+          <div>
+            <a href="{all_pdf}" target="_blank" class="nav-btn" style="background: var(--primary); color: #fff; border-color: var(--primary);"><i class="fa-solid fa-file-pdf"></i> Get PDF</a>
+          </div>
+        </div>
+        <div class="markdown-body" id="markdownContent">
+          <p style="text-align: center; color: var(--text-muted); padding: 40px 0;"><i class="fa-solid fa-spinner fa-spin"></i> Loading master notes...</p>
+        </div>
+      </section>
+
+    </div>
   </main>
 
   <footer>
@@ -504,6 +707,14 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
       }}
     }});
 
+    // Reading Progress Bar
+    window.addEventListener('scroll', () => {{
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+      document.getElementById('progressBar').style.width = scrolled + '%';
+    }});
+
     // Fetch and render all.md
     fetch('{all_md}')
       .then(res => res.text())
@@ -518,10 +729,87 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
             ]
           }});
         }}
+
+        // Generate Dynamic Table of Contents (TOC)
+        generateTOC(contentDiv);
       }})
       .catch(err => {{
         document.getElementById('markdownContent').innerHTML = '<p style="color: #ef4444;">Failed to load markdown content.</p>';
       }});
+
+    function generateTOC(container) {{
+      const headings = container.querySelectorAll('h1, h2, h3');
+      const tocNav = document.getElementById('tocNav');
+      const tocCount = document.getElementById('tocItemCount');
+      tocNav.innerHTML = '';
+      
+      if (headings.length === 0) {{
+        tocNav.innerHTML = '<p style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 12px 0;">No headings found.</p>';
+        return;
+      }}
+
+      tocCount.innerText = headings.length + ' Sections';
+
+      headings.forEach((h, index) => {{
+        // Generate clean unique ID
+        const text = h.innerText.trim();
+        const slug = text.toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '') || ('sec-' + index);
+        
+        h.id = slug;
+        h.style.scrollMarginTop = '85px';
+
+        const level = parseInt(h.tagName.substring(1));
+        const link = document.createElement('a');
+        link.href = '#' + slug;
+        link.className = `toc-link toc-level-${{level}}`;
+        link.dataset.target = slug;
+        link.title = text;
+        link.innerText = text;
+
+        link.addEventListener('click', (e) => {{
+          e.preventDefault();
+          h.scrollIntoView({{ behavior: 'smooth' }});
+          history.pushState(null, null, '#' + slug);
+        }});
+
+        tocNav.appendChild(link);
+      }});
+
+      // Live Search Filter in TOC
+      const tocSearch = document.getElementById('tocSearch');
+      tocSearch.addEventListener('input', () => {{
+        const query = tocSearch.value.toLowerCase().trim();
+        const links = tocNav.querySelectorAll('.toc-link');
+        links.forEach(l => {{
+          if (query === '' || l.innerText.toLowerCase().includes(query)) {{
+            l.style.display = 'block';
+          }} else {{
+            l.style.display = 'none';
+          }}
+        }});
+      }});
+
+      // ScrollSpy Active Heading Tracker
+      const observer = new IntersectionObserver((entries) => {{
+        entries.forEach(entry => {{
+          if (entry.isIntersecting) {{
+            const id = entry.target.id;
+            const activeLink = tocNav.querySelector(`[data-target="${{id}}"]`);
+            if (activeLink) {{
+              tocNav.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+              activeLink.classList.add('active');
+            }}
+          }}
+        }});
+      }}, {{
+        rootMargin: '0px 0px -70% 0px',
+        threshold: 0.1
+      }});
+
+      headings.forEach(h => observer.observe(h));
+    }}
   </script>
 </body>
 </html>"""
@@ -555,6 +843,8 @@ def build_subject_pages():
             master_pages=sub["master_pages"],
             rev_pdf=sub["rev_pdf"],
             rev_pages=sub["rev_pages"],
+            lab_pdf=sub["lab_pdf"],
+            lab_pages=sub["lab_pages"],
             all_pdf=sub["all_pdf"],
             all_pages=sub["all_pages"],
             all_md=sub["all_md"],
@@ -564,7 +854,7 @@ def build_subject_pages():
         out_path = os.path.join(ROOT_DIR, sub["file"])
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(page_html)
-        print(f"✅ Generated rich subject landing page: {sub['file']}")
+        print(f"✅ Generated rich subject landing page with sticky TOC: {sub['file']}")
 
 if __name__ == "__main__":
     build_subject_pages()
