@@ -101,19 +101,22 @@
 
 ---
 
-## 📊 Comprehensive 5th Semester Study Tracker
+## 📊 Comprehensive 5th Semester Study & Lab Tracker
 
-| Subject Code | Subject Name | Type | Modules Tracked | Current Status |
-| :---: | :--- | :---: | :---: | :---: |
-| **CS24301** | Compiler Design | Theory | 5 Modules | 🟡 M1 Completed (Notes & PDF Generated) |
-| **CS24302** | Compiler Design Lab | Practical | 5 Lab Modules | ⬜ Not Started |
-| **CS24305** | Data Communication & Networks | Theory | 5 Modules | ⬜ Not Started |
-| **CS24306** | Data Communication & Networks Lab | Practical | 5 Lab Modules | ⬜ Not Started |
-| **CS24303** | Data Mining Concepts and Techniques | Theory | 5 Modules | ⬜ Not Started |
-| **CS24307** | Artificial Intelligence | Theory | 5 Modules | ⬜ Not Started |
-| **CS24308** | Artificial Intelligence Lab | Practical | 5 Lab Modules | ⬜ Not Started |
-| **CS24351** | Natural Language Processing | Elective | 5 Modules | ⬜ Not Started |
-| **CS24353** | Software Engineering | Elective | 5 Modules | ⬜ Not Started |
+| Subject Code | Subject Name | Type | Credits | Deliverables Generated | Status |
+| :---: | :--- | :---: | :---: | :--- | :---: |
+| **CS24301** | Compiler Design | Theory | 3.0 | 5 Modules (10-12p), 10p Revision, 54p Master Book, all.pdf | ✅ **100% Complete** |
+| **CS24302** | Compiler Design Lab | Practical | 1.5 | 11-Page Lab Manual (10 Exps, GCC pass dumps, Flex/Yacc, TAC, Viva) | ✅ **100% Complete** |
+| **CS24305** | Data Communication & Networks | Theory | 3.0 | 5 Modules (10p), 10p Revision, 56p Master Book, all.pdf | ✅ **100% Complete** |
+| **CS24306** | Data Communication & Networks Lab | Practical | 1.5 | 10-Page Lab Manual (12 Exps, Sockets, CRC, Dijkstra, Leaky Bucket) | ✅ **100% Complete** |
+| **CS24307** | Artificial Intelligence | Theory | 3.0 | 5 Modules (10p), 10p Revision, 55p Master Book, all.pdf | ✅ **100% Complete** |
+| **CS24308** | Artificial Intelligence Lab | Practical | 1.5 | 10-Page Lab Manual (13 Exps, A*, Minimax, Bayes, MLP, Genetic TSP) | ✅ **100% Complete** |
+| **CS24303** | Data Mining Concepts and Techniques | Theory | 3.0 | 5 Modules (10p), 10p Revision, 64p Master Book, all.pdf | ✅ **100% Complete** |
+| **CS24304** | Data Mining Lab | Practical | 1.5 | 10-Page Lab Manual (16 Exps, Apriori, FP-Growth, PCA, k-Means, SVM) | ✅ **100% Complete** |
+| **CS24351** | Natural Language Processing | Elective | 3.0 | 5 Modules (10p), 10p Revision, 63p Master Book, all.pdf | ✅ **100% Complete** |
+| **CS24352** | NLP Lab Guide | Practical | 1.5 | 10-Page Lab Manual (14 Exps, BPE, HMM POS, Transformers, BLEU) | ✅ **100% Complete** |
+| **CS24353** | Software Engineering | Elective | 3.0 | 5 Modules (10p), 10p Revision, 59p Master Book, all.pdf | ✅ **100% Complete** |
+| **CS24354** | Software Engineering Lab | Practical | 1.5 | 10-Page Lab Manual (18 Exps, JUnit 5 TDD, Git CI/CD, UML 2.5, BVA) | ✅ **100% Complete** |
 
 ---
 *Maintained for B.Tech Computer Science & Engineering 5th Semester — BIT Mesra.*

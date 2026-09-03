@@ -565,9 +565,10 @@
       <input type="text" id="searchInput" class="search-input" placeholder="Search subjects, topics (e.g. LL(1) Parsing, Shannon Capacity, Apriori, Backprop, BLEU)...">
     </div>
     <div class="filter-tabs">
-      <button class="tab-btn active" data-filter="all">All Subjects (6)</button>
+      <button class="tab-btn active" data-filter="all">All Courses (12)</button>
       <button class="tab-btn" data-filter="core">Theory Core (4)</button>
       <button class="tab-btn" data-filter="elective">Program Electives (2)</button>
+      <button class="tab-btn" data-filter="lab">Practical Labs (6)</button>
     </div>
   </section>
 
@@ -742,21 +743,177 @@
           
           <div class="master-actions">
             <a href="software-engineering/pdf/SE_10_Page_Master_Revision.pdf" target="_blank" class="btn-action btn-primary"><i class="fa-solid fa-file-pdf"></i> 10-Page Revision</a>
-            <a href="software-engineering/pdf/SE_Full_Course_Master.pdf" target="_blank" class="btn-action btn-secondary"><i class="fa-solid fa-book-open"></i> Full Master Book</a>
+            <a href="software-engineering/pdf/SE_Full_Course_Master.pdf" target="_blank" class="btn-action btn-secondary"><i class="fa-solid fa-book-open"></i> Full Master Book (59p)</a>
           </div>
           <div class="secondary-actions">
             <a href="software-engineering.html#notes" class="btn-action btn-outline"><i class="fa-solid fa-file-lines"></i> Read all.md Notes</a>
-            <a href="software-engineering/pdf/all.pdf" target="_blank" class="btn-action btn-outline"><i class="fa-solid fa-download"></i> Download all.pdf (35p)</a>
+            <a href="software-engineering/pdf/all.pdf" target="_blank" class="btn-action btn-outline"><i class="fa-solid fa-download"></i> Download all.pdf (36p)</a>
           </div>
         </div>
         <div class="module-list">
-          <div class="module-list-title"><span>Module Notes</span><span>Read / PDF</span></div>
+          <div class="module-list-title"><span>Module Notes (10 Pages Each)</span><span>Read / PDF</span></div>
           <div class="module-items">
             <div class="module-item"><span>M1: Process Models & Agile</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_1_Process_Models_Notes.html', 'SE - M1')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_1_Process_Models_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
             <div class="module-item"><span>M2: Requirements & SRS</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_2_Requirements_Notes.html', 'SE - M2')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_2_Requirements_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
-            <div class="module-item"><span>M3: Design & UML Modeling</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_3_Design_Notes.html', 'SE - M3')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_3_Design_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
-            <div class="module-item"><span>M4: COCOMO & Risk Analysis</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_4_Estimation_Notes.html', 'SE - M4')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_4_Estimation_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
-            <div class="module-item"><span>M5: Testing & CMMI Quality</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_5_Testing_Notes.html', 'SE - M5')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_5_Testing_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
+            <div class="module-item"><span>M3: Design & UML 2.5</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_3_Design_UML_Notes.html', 'SE - M3')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_3_Design_UML_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
+            <div class="module-item"><span>M4: Testing & Reliability</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_4_Testing_QA_Notes.html', 'SE - M4')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_4_Testing_QA_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
+            <div class="module-item"><span>M5: Estimation & CMMI</span><div class="module-item-actions"><a href="javascript:void(0)" onclick="openReader('software-engineering/html/Module_5_Estimation_CMMI_Notes.html', 'SE - M5')"><i class="fa-solid fa-eye"></i></a><a href="software-engineering/pdf/Module_5_Estimation_CMMI_Notes.pdf" target="_blank"><i class="fa-solid fa-download"></i></a></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Compiler Design Lab (CS24302) -->
+      <div class="card" id="compiler-design-lab" data-category="lab" data-keywords="compiler design lab lex yacc flex bison gcc internals optimization dfa parsing tac cs24302">
+        <div>
+          <div class="card-top">
+            <span class="card-badge badge-lab">Practical Lab</span>
+            <span class="card-code">CS24302 • 1.5 Cr</span>
+          </div>
+          <h2 class="card-title">Compiler Design Lab</h2>
+          <p class="card-desc">10 practical experiments: GCC internals, handcrafted C lexer, Flex/Bison calculator, LL(1) First/Follow, Shift-Reduce parsing & TAC optimization.</p>
+          
+          <div class="master-actions">
+            <a href="compiler-design/pdf/Compiler_Design_Lab_Manual.pdf" target="_blank" class="btn-action btn-primary"><i class="fa-solid fa-file-pdf"></i> Lab Manual PDF (11p)</a>
+            <a href="javascript:void(0)" onclick="openReader('compiler-design/html/Compiler_Design_Lab_Manual.html', 'CS24302 - CD Lab Manual')" class="btn-action btn-secondary"><i class="fa-solid fa-eye"></i> View HTML Manual</a>
+          </div>
+        </div>
+        <div class="module-list">
+          <div class="module-list-title"><span>Core Experiments & Viva Bank</span><span>Exp Count</span></div>
+          <div class="module-items">
+            <div class="module-item"><span>Exps 1-3: GCC Dumps, C Lexer & Flex Spec</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+            <div class="module-item"><span>Exps 4-7: Recursive Descent, FIRST/FOLLOW & Yacc</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 8-10: TAC Quadruples, Backpatching & Optim</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+            <div class="module-item"><span>Exhaustive Viva-Voce Question Bank (20+ Q&As)</span><span style="font-weight:600; color:var(--success);">Included</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Data Comm & Networks Lab (CS24306) -->
+      <div class="card" id="dccn-lab" data-category="lab" data-keywords="data communication networks lab dccn sockets tcp udp select crc bit stuffing dijkstra leaky bucket cs24306">
+        <div>
+          <div class="card-top">
+            <span class="card-badge badge-lab">Practical Lab</span>
+            <span class="card-code">CS24306 • 1.5 Cr</span>
+          </div>
+          <h2 class="card-title">DCCN Lab Manual</h2>
+          <p class="card-desc">12 practical experiments: Linux CLI networking, Byte/Bit stuffing, Hamming (7,4), CRC-32, Bellman-Ford, Dijkstra, BSD Sockets & select() chat server.</p>
+          
+          <div class="master-actions">
+            <a href="data-communication-and-networks/pdf/DCCN_Lab_Manual.pdf" target="_blank" class="btn-action btn-primary"><i class="fa-solid fa-file-pdf"></i> Lab Manual PDF (10p)</a>
+            <a href="javascript:void(0)" onclick="openReader('data-communication-and-networks/html/DCCN_Lab_Manual.html', 'CS24306 - DCCN Lab Manual')" class="btn-action btn-secondary"><i class="fa-solid fa-eye"></i> View HTML Manual</a>
+          </div>
+        </div>
+        <div class="module-list">
+          <div class="module-list-title"><span>Core Experiments & Viva Bank</span><span>Exp Count</span></div>
+          <div class="module-items">
+            <div class="module-item"><span>Exps 1-3: Linux CLI Diagnostics & Bit/Byte Stuffing</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+            <div class="module-item"><span>Exps 4-6: Hamming (7,4), CRC-32 & Internet Checksum</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+            <div class="module-item"><span>Exps 7-10: Distance Vector, Dijkstra & Multi-Client Chat</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 11-12: Leaky Bucket & CIDR Subnet Calculator</span><span style="font-weight:600; color:var(--primary);">2 Exps</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Artificial Intelligence Lab (CS24308) -->
+      <div class="card" id="ai-lab" data-category="lab" data-keywords="artificial intelligence lab ai python a* minimax alpha beta strips bayes mlp neural genetic tsp cs24308">
+        <div>
+          <div class="card-top">
+            <span class="card-badge badge-lab">Practical Lab</span>
+            <span class="card-code">CS24308 • 1.5 Cr</span>
+          </div>
+          <h2 class="card-title">Artificial Intelligence Lab</h2>
+          <p class="card-desc">13 practical experiments: Vacuum reflex agent, BFS/DFS, A* 8-puzzle, Minimax Tic-Tac-Toe, Logic resolution, STRIPS planner, Bayes nets & NumPy MLP.</p>
+          
+          <div class="master-actions">
+            <a href="artificial-intelligence/pdf/AI_Lab_Manual.pdf" target="_blank" class="btn-action btn-primary"><i class="fa-solid fa-file-pdf"></i> Lab Manual PDF (10p)</a>
+            <a href="javascript:void(0)" onclick="openReader('artificial-intelligence/html/AI_Lab_Manual.html', 'CS24308 - AI Lab Manual')" class="btn-action btn-secondary"><i class="fa-solid fa-eye"></i> View HTML Manual</a>
+          </div>
+        </div>
+        <div class="module-list">
+          <div class="module-list-title"><span>Core Experiments & Viva Bank</span><span>Exp Count</span></div>
+          <div class="module-items">
+            <div class="module-item"><span>Exps 1-4: Intelligent Agents, BFS/DFS, UCS & A* Search</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 5-7: Simulated Annealing, Minimax Alpha-Beta & Logic</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+            <div class="module-item"><span>Exps 8-10: STRIPS Planner, Bayes Nets & NumPy MLP</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+            <div class="module-item"><span>Exps 11-13: Genetic TSP, ID3 Trees & k-NN Instance ML</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Data Mining Concepts Lab (CS24304) -->
+      <div class="card" id="data-mining-lab" data-category="lab" data-keywords="data mining lab apriori fp growth pca k-means dbscan naive bayes adaboost olap cs24304">
+        <div>
+          <div class="card-top">
+            <span class="card-badge badge-lab">Practical Lab</span>
+            <span class="card-code">CS24304 • 1.5 Cr</span>
+          </div>
+          <h2 class="card-title">Data Mining Lab</h2>
+          <p class="card-desc">16 practical experiments: Proximity metrics, binning, chi-square test, PCA eigen-decomposition, Apriori, FP-Growth, k-Means, DBSCAN & AdaBoost.</p>
+          
+          <div class="master-actions">
+            <a href="data-mining/pdf/Data_Mining_Lab_Manual.pdf" target="_blank" class="btn-action btn-primary"><i class="fa-solid fa-file-pdf"></i> Lab Manual PDF (10p)</a>
+            <a href="javascript:void(0)" onclick="openReader('data-mining/html/Data_Mining_Lab_Manual.html', 'CS24304 - DM Lab Manual')" class="btn-action btn-secondary"><i class="fa-solid fa-eye"></i> View HTML Manual</a>
+          </div>
+        </div>
+        <div class="module-list">
+          <div class="module-list-title"><span>Core Experiments & Viva Bank</span><span>Exp Count</span></div>
+          <div class="module-items">
+            <div class="module-item"><span>Exps 1-4: Statistical Descriptions, Binning, Chi2 & PCA</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 5-8: Apriori, FP-Growth, k-Means & DBSCAN</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 9-12: Naive Bayes, Confusion Matrix, AGNES & OLAP</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 13-16: Linear Regression, CART Gini, SVM & AdaBoost</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Natural Language Processing Lab (CS24352) -->
+      <div class="card" id="nlp-lab" data-category="lab" data-keywords="natural language processing lab nlp bpe edit distance viterbi tfidf word2vec transformers bleu textrank cs24352">
+        <div>
+          <div class="card-top">
+            <span class="card-badge badge-lab">Practical Lab</span>
+            <span class="card-code">CS24352 • 1.5 Cr</span>
+          </div>
+          <h2 class="card-title">NLP Lab Manual</h2>
+          <p class="card-desc">14 practical experiments: Tokenization pipeline, BPE tokenizer, Wagner-Fischer edit distance, HMM Viterbi POS, Skip-Gram, Multi-Head Attention & BLEU-4.</p>
+          
+          <div class="master-actions">
+            <a href="natural-language-processing/pdf/NLP_Lab_Manual.pdf" target="_blank" class="btn-action btn-primary"><i class="fa-solid fa-file-pdf"></i> Lab Manual PDF (10p)</a>
+            <a href="javascript:void(0)" onclick="openReader('natural-language-processing/html/NLP_Lab_Manual.html', 'CS24352 - NLP Lab Manual')" class="btn-action btn-secondary"><i class="fa-solid fa-eye"></i> View HTML Manual</a>
+          </div>
+        </div>
+        <div class="module-list">
+          <div class="module-list-title"><span>Core Experiments & Viva Bank</span><span>Exp Count</span></div>
+          <div class="module-items">
+            <div class="module-item"><span>Exps 1-4: Text Preprocessing, BPE Subwords, Edit Dist & N-grams</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 5-8: HMM Viterbi POS, TF-IDF, Word2Vec & Multi-Head Attn</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 9-11: BLEU Evaluation, Char-RNN & Sentiment Model</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+            <div class="module-item"><span>Exps 12-14: BIO NER Tagging, TextRank Summary & Lesk WSD</span><span style="font-weight:600; color:var(--primary);">3 Exps</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12. Software Engineering Lab (CS24354) -->
+      <div class="card" id="se-lab" data-category="lab" data-keywords="software engineering lab se srs cocomo fpa cpm junit tdd cyclomatic basis path bva git scm plantuml cs24354">
+        <div>
+          <div class="card-top">
+            <span class="card-badge badge-lab">Practical Lab</span>
+            <span class="card-code">CS24354 • 1.5 Cr</span>
+          </div>
+          <h2 class="card-title">Software Engineering Lab</h2>
+          <p class="card-desc">18 practical experiments: IEEE 830 SRS, COCOMO II, FPA, CPM scheduling, JUnit 5 TDD, Cyclomatic Basis Path testing, BVA, UML 2.5 & Git CI/CD.</p>
+          
+          <div class="master-actions">
+            <a href="software-engineering/pdf/SE_Lab_Manual.pdf" target="_blank" class="btn-action btn-primary"><i class="fa-solid fa-file-pdf"></i> Lab Manual PDF (10p)</a>
+            <a href="javascript:void(0)" onclick="openReader('software-engineering/html/SE_Lab_Manual.html', 'CS24354 - SE Lab Manual')" class="btn-action btn-secondary"><i class="fa-solid fa-eye"></i> View HTML Manual</a>
+          </div>
+        </div>
+        <div class="module-list">
+          <div class="module-list-title"><span>Core Experiments & Viva Bank</span><span>Exp Count</span></div>
+          <div class="module-items">
+            <div class="module-item"><span>Exps 1-4: IEEE 830 SRS, COCOMO II, FPA & CPM Network</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 5-8: JUnit 5 TDD, McCabe Basis Paths, BVA & Git Actions</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 9-12: UML Class/Sequence, RMMM Matrix & Halstead Metrics</span><span style="font-weight:600; color:var(--primary);">4 Exps</span></div>
+            <div class="module-item"><span>Exps 13-18: Reliability, DRE, SOLID Java, Statechart & GoF</span><span style="font-weight:600; color:var(--primary);">6 Exps</span></div>
           </div>
         </div>
       </div>
