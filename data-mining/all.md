@@ -805,11 +805,7 @@ with target range:
 For x = 400:
 
 $$
-x'=\frac{400-200}{1000-200}(20-10)+10
-$$
-
-$$
-=12.5
+x' = \frac{400-200}{1000-200}(20-10)+10 = 12.5
 $$
 
 **[UPLOADED PYQ]** exactly asks this normalization problem. 
