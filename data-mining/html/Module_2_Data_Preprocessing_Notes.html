@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 2: Data Preprocessing & Dimensionality Reduction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Module 2</div>
+    <h1 class="book-title">Module 2: Data Preprocessing & Dimensionality Reduction</h1>
+    <div class="book-subtitle">Topics 15 to 20 • Missing Imputation, Binning, Chi-Square Independence, Normalization & PCA</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 2 Table of Contents (Topics 15 to 20)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 15:</strong> Data Cleaning (Missing Imputation, Noise)</div>
+    <div>• <strong>Topic 16:</strong> Noise Binning (Means, Medians, Boundaries)</div>
+    <div>• <strong>Topic 17:</strong> Data Integration ($\chi^2$ Test, Pearson $r$)</div>
+    <div>• <strong>Topic 18:</strong> Normalization (Min-Max, Z-score, Decimal)</div>
+    <div>• <strong>Topic 19:</strong> PCA & Discrete Wavelet Transform</div>
+    <div>• <strong>Topic 20:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 15 & 16: Data Cleaning, Missing Value Imputation & Binning Smoothing</h2>
+
+<p>
+  Real-world operational data is dirty: incomplete (lacking attribute values), noisy (containing errors or outliers), and inconsistent (containing discrepancies in codes or names). <strong>Data Preprocessing</strong> consumes up to 80% of the total time in data mining projects.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Missing Data Strategy</th>
+      <th style="width: 40%;">Algorithmic Mechanism</th>
+      <th>Trade-offs & Best Use Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ignore the Tuple</strong></td>
+      <td>Discard any row containing missing values.</td>
+      <td>Drastically reduces sample size; only acceptable when missingness is $< 1\%$ and missing completely at random (MCAR).</td>
+    </tr>
+    <tr>
+      <td><strong>Global Constant Imputation</strong></td>
+      <td>Replace missing values with a placeholder string (e.g., `"Unknown"` or `-\infty`).</td>
+      <td>Simple, but distorts statistical distributions and introduces spurious constants into tree splits.</td>
+    </tr>
+    <tr>
+      <td><strong>Attribute Mean / Median</strong></td>
+      <td>Replace missing values with the arithmetic mean $\bar{x}$ (for symmetric data) or median (for skewed data).</td>
+      <td>Preserves sample size; artificially deflates attribute variance and alters inter-feature covariances.</td>
+    </tr>
+    <tr>
+      <td><strong>Class-Conditional Mean / Median</strong></td>
+      <td>Replace missing value with the mean/median of the subset belonging to the <em>same target class label</em>.</td>
+      <td>Significantly more accurate; preserves class separability in supervised learning tasks.</td>
+    </tr>
+    <tr>
+      <td><strong>Model-Based Imputation (k-NN / MICE / EM)</strong></td>
+      <td>Treat missing attribute as a target variable; predict its value using regression, k-NN neighbors, or Multiple Imputation by Chained Equations.</td>
+      <td>State-of-the-art accuracy; computationally expensive for massive streaming datasets.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Data Smoothing by Binning</div>
+  <p>Consider the sorted price dataset ($N = 12$):</p>
+  $$\mathbf{X = \{4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34\}}$$
+  <p>Partition into 3 equal-frequency bins (Bin Depth = 4 items per bin):</p>
+  <ul>
+    <li><strong>Bin 1:</strong> $\{4, 8, 9, 15\}$</li>
+    <li><strong>Bin 2:</strong> $\{21, 21, 24, 25\}$</li>
+    <li><strong>Bin 3:</strong> $\{26, 28, 29, 34\}$</li>
+  </ul>
+  <p><strong>1. Smoothing by Bin Means:</strong></p>
+  <ul>
+    <li>Bin 1 Mean = $\frac{4+8+9+15}{4} = \frac{36}{4} = \mathbf{9} \implies \{9, 9, 9, 9\}$</li>
+    <li>Bin 2 Mean = $\frac{21+21+24+25}{4} = \frac{91}{4} = \mathbf{22.75} \implies \{22.75, 22.75, 22.75, 22.75\}$</li>
+    <li>Bin 3 Mean = $\frac{26+28+29+34}{4} = \frac{117}{4} = \mathbf{29.25} \implies \{29.25, 29.25, 29.25, 29.25\}$</li>
+  </ul>
+  <p><strong>2. Smoothing by Bin Boundaries:</strong></p>
+  <p>Replace each value with the closer boundary (minimum or maximum of the bin):</p>
+  <ul>
+    <li>Bin 1 ($[\min=4, \max=15]$): $4 \rightarrow 4, \ 8 \rightarrow 4 \ (|8-4|=4 < |8-15|=7), \ 9 \rightarrow 15 \ (|9-15|=6 < |9-4|=5 \text{ wait, } |9-4|=5 \implies 4), \ 15 \rightarrow 15 \implies \mathbf{\{4, 4, 4, 15\}}$</li>
+    <li>Bin 2 ($[\min=21, \max=25]$): $21 \rightarrow 21, \ 21 \rightarrow 21, \ 24 \rightarrow 25, \ 25 \rightarrow 25 \implies \mathbf{\{21, 21, 25, 25\}}$</li>
+    <li>Bin 3 ($[\min=26, \max=34]$): $26 \rightarrow 26, \ 28 \rightarrow 26, \ 29 \rightarrow 26, \ 34 \rightarrow 34 \implies \mathbf{\{26, 26, 26, 34\}}$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 17 & 18: Data Integration ($\chi^2$, Pearson $r$) & Normalization</h2>
+
+<div class="formula-card">
+  <strong>Correlation & Normalization Mathematical Formulations:</strong>
+  $$\mathbf{\chi^2 \text{ Chi-Square Test of Independence: } \chi^2 = \sum_{i=1}^r \sum_{j=1}^c \frac{(O_{ij} - E_{ij})^2}{E_{ij}} \qquad E_{ij} = \frac{\text{row\_total}_i \times \text{col\_total}_j}{N}}$$
+  $$\mathbf{\text{Pearson Product-Moment Correlation: } r_{A, B} = \frac{\sum_{i=1}^N (a_i - \bar{A})(b_i - \bar{B})}{(N-1) s_A s_B} = \frac{\text{Cov}(A, B)}{s_A s_B}}$$
+  $$\mathbf{\text{Min-Max Normalization to } [\text{new\_min}, \text{new\_max}]: v' = \frac{v - \min_A}{\max_A - \min_A}(\text{new\_max} - \text{new\_min}) + \text{new\_min}}$$
+  $$\mathbf{\text{Z-Score Standardization (Zero-Mean, Unit-Variance): } v' = \frac{v - \bar{A}}{\sigma_A} \quad (\text{Robust to outliers: } v' = \frac{v - \text{Median}}{\text{Mean Absolute Deviation}})}$$
+  $$\mathbf{\text{Decimal Scaling Normalization: } v' = \frac{v}{10^j} \quad (\text{where } j \text{ is the smallest integer s.t. } \max(|v'|) < 1)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: $\chi^2$ Test of Independence on Contingency Table</div>
+  <p>Test whether gender is independent of preferred news medium at $\alpha = 0.05$ significance level:</p>
+  <table class="custom-table">
+    <thead><tr><th>Gender \ Medium</th><th>Digital News</th><th>Print Newspaper</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Male</strong></td><td>$O_{11} = 250$</td><td>$O_{12} = 50$</td><td>$300$</td></tr>
+      <tr><td><strong>Female</strong></td><td>$O_{21} = 200$</td><td>$O_{22} = 100$</td><td>$300$</td></tr>
+      <tr><td><strong>Total</strong></td><td>$450$</td><td>$150$</td><td>$\mathbf{N = 600}$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>1. Calculate Expected Frequencies ($E_{ij} = \frac{\text{RowTotal} \times \text{ColTotal}}{N}$):</strong></p>
+  <ul>
+    <li>$E_{11} = \frac{300 \times 450}{600} = \mathbf{225} \qquad E_{12} = \frac{300 \times 150}{600} = \mathbf{75}$</li>
+    <li>$E_{21} = \frac{300 \times 450}{600} = \mathbf{225} \qquad E_{22} = \frac{300 \times 150}{600} = \mathbf{75}$</li>
+  </ul>
+  <p><strong>2. Compute $\chi^2$ Statistic:</strong></p>
+  $$\chi^2 = \frac{(250 - 225)^2}{225} + \frac{(50 - 75)^2}{75} + \frac{(200 - 225)^2}{225} + \frac{(100 - 75)^2}{75}$$
+  $$\chi^2 = \frac{625}{225} + \frac{625}{75} + \frac{625}{225} + \frac{625}{75} = 2.778 + 8.333 + 2.778 + 8.333 = \mathbf{22.22}$$
+  <p><strong>3. Hypothesis Decision:</strong></p>
+  <ul>
+    <li>Degrees of Freedom: $df = (r - 1)(c - 1) = (2 - 1)(2 - 1) = \mathbf{1}$.</li>
+    <li>Critical value from $\chi^2$ distribution table at $\alpha = 0.05, df = 1$ is $\mathbf{3.841}$.</li>
+    <li>$\mathbf{22.22 \gg 3.841} \implies \mathbf{\text{Reject Null Hypothesis! Gender and News Medium are strongly correlated!}}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Min-Max Normalization & Z-Score Scaling</div>
+  <p>Suppose an attribute <strong>Income</strong> ranges from $\min = \$12,000$ to $\max = \$98,000$ with mean $\bar{x} = \$54,000$ and standard deviation $\sigma = \$16,000$. Transform value $v = \$73,600$:</p>
+  <p><strong>1. Min-Max Normalization to Range $[0.0, 1.0]$:</strong></p>
+  $$\mathbf{v' = \frac{73600 - 12000}{98000 - 12000} = \frac{61600}{86000} = \mathbf{0.7163}}$$
+  <p><strong>2. Min-Max Normalization to Range $[-1.0, 1.0]$:</strong></p>
+  $$\mathbf{v' = \left(\frac{61600}{86000}\right)(1 - (-1)) + (-1) = 0.7163(2) - 1 = 1.4326 - 1 = \mathbf{+0.4326}}$$
+  <p><strong>3. Z-Score Standardization:</strong></p>
+  $$\mathbf{z = \frac{v - \bar{x}}{\sigma} = \frac{73600 - 54000}{16000} = \frac{19600}{16000} = \mathbf{+1.225}}$$
+  <p><strong>4. Decimal Scaling Normalization:</strong></p>
+  <p>Since $\max(|v|) = 98,000$, choose $j = 5$ (so that $\frac{98000}{10^5} = 0.98 < 1$):</p>
+  $$\mathbf{v' = \frac{73600}{10^5} = \mathbf{0.736}}$$
+</div>
+
+<h2 class="section-title">Topic 19 & 20: Dimensionality Reduction (PCA) & Solved Exam Questions</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The 5-Step Principal Component Analysis (PCA) Algorithm</div>
+  <ol>
+    <li><strong>Mean-Center Data:</strong> Subtract column mean from each feature vector: $\mathbf{X}_{\text{centered}} = \mathbf{X} - \bar{\mathbf{X}}$.</li>
+    <li><strong>Compute Covariance Matrix:</strong> $\mathbf{\Sigma} = \frac{1}{N-1} \mathbf{X}_{\text{centered}}^T \mathbf{X}_{\text{centered}} \in \mathbb{R}^{p \times p}$.</li>
+    <li><strong>Compute Eigenvalues & Eigenvectors:</strong> Solve characteristic polynomial $\det(\mathbf{\Sigma} - \lambda \mathbf{I}) = 0$ to obtain eigenvalues $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_p \ge 0$ and orthogonal eigenvectors $\mathbf{e}_1, \dots, \mathbf{e}_p$.</li>
+    <li><strong>Select Top $k$ Principal Components:</strong> Choose $k \ll p$ eigenvectors corresponding to the largest eigenvalues such that Explained Variance Ratio $\ge 95\%$:
+      $$\mathbf{\text{EVR} = \frac{\sum_{i=1}^k \lambda_i}{\sum_{j=1}^p \lambda_j} \ge 0.95}$$
+    </li>
+    <li><strong>Project Data:</strong> Transform original $p$-dimensional data into reduced $k$-dimensional space: $\mathbf{Y} = \mathbf{X}_{\text{centered}} \mathbf{W}_k$ (where $\mathbf{W}_k = [\mathbf{e}_1, \dots, \mathbf{e}_k]$).</li>
+  </ol>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q1. Explain Discrete Wavelet Transform (DWT) and how it differs from Discrete Fourier Transform (DFT). (8 Marks)</div><div class="qa-a">• <strong>Fourier Transform:</strong> Decomposes a signal into global sine and cosine waves. It has perfect frequency resolution but <em>zero time localization</em> (a transient spike in a time series corrupts the entire spectrum).<br>• <strong>Wavelet Transform:</strong> Uses localized basis functions (wavelets) that possess finite duration in both time and frequency. DWT applies a pyramid of low-pass (approximation/coarse) and high-pass (detail/fluctuation) filters, allowing effective data compression and noise removal without losing transient events.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Differentiate between Stepwise Forward Selection and Stepwise Backward Elimination in Attribute Subset Selection. (8 Marks)</div><div class="qa-a">• <strong>Forward Selection:</strong> Begins with an empty feature set $\emptyset$. At each step, it trains models with each remaining candidate feature and adds the single attribute that maximizes model performance (e.g. lowest AIC/BIC or highest $F$-statistic) until additions no longer yield significant statistical improvement.<br>• <strong>Backward Elimination:</strong> Begins with the complete set of all $p$ features. At each step, it removes the single attribute that contributes least to model accuracy (highest $p$-value) until all remaining features are statistically significant ($p < 0.05$).</div></div>
+
+<h2 class="section-title">Topic 20.1: Advanced Dimensionality Reduction (LDA, SVD & t-SNE)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Reduction Technique</th>
+      <th style="width: 45%;">Core Mathematical Objective</th>
+      <th>Supervision & Linearity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Principal Component Analysis (PCA)</strong></td>
+      <td>Maximizes projected variance: $\max_{\mathbf{w}} \mathbf{w}^T \mathbf{\Sigma} \mathbf{w} \ \text{s.t. } \|\mathbf{w}\|=1$. Unsupervised linear projection.</td>
+      <td>Unsupervised • Linear</td>
+    </tr>
+    <tr>
+      <td><strong>Linear Discriminant Analysis (LDA)</strong></td>
+      <td>Maximizes between-class scatter over within-class scatter (Fisher's Criterion): $\max_{\mathbf{w}} \frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}}$.</td>
+      <td><strong>Supervised</strong> • Linear</td>
+    </tr>
+    <tr>
+      <td><strong>Singular Value Decomposition (SVD)</strong></td>
+      <td>Decomposes data matrix $\mathbf{X} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^T$. Truncated SVD provides optimal rank-$k$ low-rank approximation (Eckart-Young-Mirsky Theorem).</td>
+      <td>Unsupervised • Linear</td>
+    </tr>
+    <tr>
+      <td><strong>t-SNE (t-Distributed Stochastic Neighbor Embedding)</strong></td>
+      <td>Minimizes KL-divergence between high-dimensional Gaussian joint probabilities $p_{ij}$ and low-dimensional Student-t probabilities $q_{ij}$: $\mathcal{L} = \sum p_{ij} \log(p_{ij}/q_{ij})$.</td>
+      <td>Unsupervised • <strong>Non-linear Manifold</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: SVD Matrix Decomposition Calculation</div>
+  <p>Given rank-1 data matrix $\mathbf{X} = \begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix}$:</p>
+  <ol>
+    <li>Compute $\mathbf{X}^T \mathbf{X} = \begin{bmatrix} 3 & 4 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix} = \begin{bmatrix} 25 & 25 \\ 25 & 25 \end{bmatrix}$.</li>
+    <li>Eigenvalues of $\mathbf{X}^T \mathbf{X}$: $\det\begin{pmatrix} 25-\lambda & 25 \\ 25 & 25-\lambda \end{pmatrix} = (25-\lambda)^2 - 625 = \lambda^2 - 50\lambda = 0 \implies \mathbf{\lambda_1 = 50, \ \lambda_2 = 0}$.</li>
+    <li>Singular value $\sigma_1 = \sqrt{50} = \mathbf{5\sqrt{2} \approx 7.071}$.</li>
+    <li>Right Singular Vector $\mathbf{v}_1$: $(\mathbf{X}^T\mathbf{X} - 50\mathbf{I})\mathbf{v} = 0 \implies \begin{bmatrix} -25 & 25 \\ 25 & -25 \end{bmatrix}\mathbf{v} = 0 \implies \mathbf{v}_1 = \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix}$.</li>
+    <li>Left Singular Vector $\mathbf{u}_1 = \frac{1}{\sigma_1}\mathbf{X}\mathbf{v}_1 = \frac{1}{5\sqrt{2}}\begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix}\begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} = \frac{1}{10}\begin{bmatrix} 6 \\ 8 \end{bmatrix} = \begin{bmatrix} 0.6 \\ 0.8 \end{bmatrix}$.</li>
+  </ol>
+  $$\mathbf{\mathbf{X} = \mathbf{u}_1 \sigma_1 \mathbf{v}_1^T = \begin{bmatrix} 0.6 \\ 0.8 \end{bmatrix} (5\sqrt{2}) \begin{bmatrix} 1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix} = \begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix} \quad (\text{Exact Rank-1 SVD!})}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Kernel PCA (KPCA) and the Mercer Kernel Trick. (8 Marks)</div><div class="qa-a">Standard PCA fails when data points reside on non-linear manifolds (e.g., concentric circles or Swiss roll).<br><strong>Kernel PCA (Schölkopf 1998):</strong> Maps input data into a high-dimensional reproducing kernel Hilbert space $\Phi(\mathbf{x}) \in \mathcal{H}$ and performs linear PCA in that feature space. By <strong>Mercer's Theorem</strong>, the inner products in $\mathcal{H}$ can be computed directly in input space using kernel functions ($K(\mathbf{x}_i, \mathbf{x}_j) = \langle \Phi(\mathbf{x}_i), \Phi(\mathbf{x}_j) \rangle$), such as the Gaussian RBF kernel $K(\mathbf{x}, \mathbf{y}) = \exp(-\gamma \|\mathbf{x} - \mathbf{y}\|^2)$, discovering complex non-linear cluster structures!</div></div>
+
+<h2 class="section-title">Topic 20.2: Advanced Preprocessing & Feature Selection Topologies</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Discrete Wavelet Transform (Haar Wavelet) 1D Signal Decomposition</div>
+  <p>Consider 1D discrete time series signal $\mathbf{X} = [2, 4, 6, 8, 10, 12, 14, 16]$ ($N = 8$):</p>
+  <ol>
+    <li><strong>Level 1 Decomposition:</strong>
+      <ul>
+        <li>Averages (Low-pass coarse trend): $\left[ \frac{2+4}{2}, \frac{6+8}{2}, \frac{10+12}{2}, \frac{14+16}{2} \right] = \mathbf{[3, 7, 11, 15]}$.</li>
+        <li>Differences (High-pass wavelet details): $\left[ \frac{2-4}{2}, \frac{6-8}{2}, \frac{10-12}{2}, \frac{14-16}{2} \right] = \mathbf{[-1, -1, -1, -1]}$.</li>
+      </ul>
+    </li>
+    <li><strong>Level 2 Decomposition (on Averages $[3, 7, 11, 15]$):</strong>
+      <ul>
+        <li>Level 2 Averages: $\left[ \frac{3+7}{2}, \frac{11+15}{2} \right] = \mathbf{[5, 13]}$.</li>
+        <li>Level 2 Details: $\left[ \frac{3-7}{2}, \frac{11-15}{2} \right] = \mathbf{[-2, -2]}$.</li>
+      </ul>
+    </li>
+    <li><strong>Level 3 Decomposition (on $[5, 13]$):</strong>
+      <ul>
+        <li>Level 3 Average: $\frac{5+13}{2} = \mathbf{9}$.</li>
+        <li>Level 3 Detail: $\frac{5-13}{2} = \mathbf{-4}$.</li>
+      </ul>
+    </li>
+  </ol>
+  $$\mathbf{\text{Full Haar Wavelet Representation: } [9, \ -4, \ -2, -2, \ -1, -1, -1, -1]}$$
+  <p><em>Data Compression:</em> The detail coefficients are highly sparse, allowing extreme compression by thresholding small details to zero!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Explain ReliefF Algorithm for Feature Weighting and Selection. (8 Marks)</div><div class="qa-a"><strong>ReliefF (Kononenko 1994)</strong> evaluates the quality of individual attributes according to how well their values distinguish between instances that are near to each other:<br>1. Randomly sample an instance $R_i$.<br>2. Find its $k$ nearest instances belonging to the <em>same class</em> (Near Hits $H$) and $k$ nearest instances belonging to <em>different classes</em> (Near Misses $M$).<br>3. Update weight $W[A]$ for attribute $A$: Increase weight if $A$ separates $R_i$ from Near Misses; decrease weight if $A$ separates $R_i$ from Near Hits:
+$$\mathbf{W[A] \leftarrow W[A] - \sum_{j=1}^k \frac{\text{diff}(A, R_i, H_j)}{m \cdot k} + \sum_{C \neq \text{class}(R_i)} \frac{P(C)}{1 - P(\text{class}(R_i))} \sum_{j=1}^k \frac{\text{diff}(A, R_i, M_j(C))}{m \cdot k}}$$
+ReliefF successfully captures non-linear feature interactions and scales linearly $O(m \cdot k \cdot p)$!</div></div>
+
+<h2 class="section-title">Topic 20.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 2: Pearson Correlation Coefficient with Standardized Variance</div>
+  <p>Calculate Pearson's correlation coefficient $r_{A, B}$ for 5 observation pairs: $(1, 2), (2, 4), (3, 5), (4, 7), (5, 8)$:</p>
+  <ul>
+    <li>$\bar{A} = \frac{1+2+3+4+5}{5} = \mathbf{3.0} \qquad \bar{B} = \frac{2+4+5+7+8}{5} = \frac{26}{5} = \mathbf{5.2}$</li>
+    <li>Deviations $a_i - \bar{A}$: $[-2, -1, 0, +1, +2]$ $\implies \sum (a_i - \bar{A})^2 = 4 + 1 + 0 + 1 + 4 = \mathbf{10.0}$</li>
+    <li>Deviations $b_i - \bar{B}$: $[-3.2, -1.2, -0.2, +1.8, +2.8]$ $\implies \sum (b_i - \bar{B})^2 = 10.24 + 1.44 + 0.04 + 3.24 + 7.84 = \mathbf{22.80}$</li>
+    <li>Cross-product $\sum (a_i - \bar{A})(b_i - \bar{B}) = (-2)(-3.2) + (-1)(-1.2) + 0 + (1)(1.8) + (2)(2.8) = 6.4 + 1.2 + 0 + 1.8 + 5.6 = \mathbf{15.0}$</li>
+  </ul>
+  $$\mathbf{r_{A, B} = \frac{15.0}{\sqrt{10.0 \times 22.80}} = \frac{15.0}{\sqrt{228.0}} = \frac{15.0}{15.0997} = \mathbf{+0.9934}}$$
+  $$\mathbf{\text{Conclusion: Exceptionally strong linear correlation (+0.993) between attributes A and B!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the Concept of Data Reduction via Numerosity Reduction (Parametric vs Non-parametric). (8 Marks)</div><div class="qa-a">• <strong>Parametric Numerosity Reduction:</strong> Fits the data to a mathematical model (Linear/Multiple Regression, Log-Linear Models) and stores only the learned model parameters (intercept $\beta_0$, slope weights $\mathbf{\beta}$, and residual variance $\sigma^2$), completely discarding the raw training records.<br>• <strong>Non-Parametric Numerosity Reduction:</strong> Does NOT assume any functional form. Uses Histograms (equal-width, equal-frequency, V-optimal), Clustering (replacing groups of points with their cluster centroids), Sampling (SRS, stratified sampling), and Data Cube Aggregation.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain the Box-Cox Power Transformation for Skewed Non-Gaussian Data. (8 Marks)</div><div class="qa-a">The <strong>Box-Cox Transformation</strong> is a parametric power transformation that stabilizes variance and transforms highly skewed distributions into an approximate Gaussian bell curve:
+$$\mathbf{y^{(\lambda)} = \begin{cases} \frac{y^\lambda - 1}{\lambda} & \text{if } \lambda \neq 0 \\ \ln(y) & \text{if } \lambda = 0 \end{cases}}$$
+The parameter $\lambda$ is estimated via Maximum Likelihood Estimation (MLE). If $\lambda = 1$, no transform is needed; if $\lambda = 0$, a natural log transform is applied; if $\lambda = 0.5$, a square root transform is used.</div></div>
+
+<h2 class="section-title">Topic 20.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 3: Complete 2D Principal Component Analysis (PCA) Eigenvalue Derivation</div>
+  <p>Consider 4 centered 2D data points: $\mathbf{x}_1 = (-1, -1)^T, \mathbf{x}_2 = (-1, 1)^T, \mathbf{x}_3 = (1, -1)^T, \mathbf{x}_4 = (1, 1)^T$ with correlation covariance $\mathbf{\Sigma} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$:</p>
+  <p><strong>1. Characteristic Polynomial:</strong></p>
+  $$\det(\mathbf{\Sigma} - \lambda\mathbf{I}) = \det\begin{pmatrix} 2-\lambda & 1 \\ 1 & 2-\lambda \end{pmatrix} = (2-\lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = 0$$
+  $$\mathbf{(\lambda - 3)(\lambda - 1) = 0 \implies \lambda_1 = 3, \quad \lambda_2 = 1}$$
+  <p><strong>2. First Principal Component Eigenvector ($\lambda_1 = 3$):</strong></p>
+  $$(\mathbf{\Sigma} - 3\mathbf{I})\mathbf{e}_1 = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} e_{11} \\ e_{12} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \implies -e_{11} + e_{12} = 0 \implies e_{11} = e_{12}$$
+  $$\mathbf{\text{Normalized First Principal Component: } \mathbf{e}_1 = \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \approx \begin{bmatrix} 0.7071 \\ 0.7071 \end{bmatrix}}$$
+  <p><strong>3. Explained Variance Ratio:</strong></p>
+  $$\mathbf{\text{EVR}_1 = \frac{\lambda_1}{\lambda_1 + \lambda_2} = \frac{3}{3 + 1} = \frac{3}{4} = \mathbf{75\% \text{ of total dataset variance captured in 1D!}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain the Difference between L1-Norm (Lasso) and L2-Norm (Ridge) Regularization in Regression. (8 Marks)</div><div class="qa-a">• <strong>Ridge Regression ($L_2$):</strong> Penalizes squared magnitude of coefficients ($\lambda \sum \beta_j^2$). Shrinks weights smoothly toward zero, preventing multicollinearity, but <em>never sets weights strictly to zero</em> (does not perform feature selection).<br>• <strong>Lasso Regression ($L_1$):</strong> Penalizes absolute value of coefficients ($\lambda \sum |\beta_j|$). Due to the diamond geometric contour of the $L_1$ ball, optimal solutions hit coordinate axes, driving irrelevant feature weights <strong>strictly to zero</strong> ($\beta_j = 0$), performing automatic sparse feature selection!</div></div>
+
+<h2 class="section-title">Topic 20.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 4: Complete Chi-Square Contingency Test with 3x3 Degrees of Freedom</div>
+  <p>Test the relationship between Customer Age Group ($\text{Youth, Middle, Senior}$) and Purchase Frequency ($\text{Low, Med, High}$):</p>
+  <table class="custom-table">
+    <thead><tr><th>Age \ Frequency</th><th>Low</th><th>Medium</th><th>High</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Youth</strong></td><td>$O_{11} = 50$</td><td>$O_{12} = 30$</td><td>$O_{13} = 20$</td><td>$100$</td></tr>
+      <tr><td><strong>Middle</strong></td><td>$O_{21} = 30$</td><td>$O_{22} = 50$</td><td>$O_{23} = 20$</td><td>$100$</td></tr>
+      <tr><td><strong>Senior</strong></td><td>$O_{31} = 20$</td><td>$O_{32} = 20$</td><td>$O_{33} = 60$</td><td>$100$</td></tr>
+      <tr><td><strong>Total</strong></td><td>$100$</td><td>$100$</td><td>$100$</td><td>$\mathbf{N = 300}$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>1. Expected Frequencies:</strong> $E_{ij} = \frac{100 \times 100}{300} = \mathbf{33.33}$ for all cells.</p>
+  <p><strong>2. Compute $\chi^2$ Statistic:</strong></p>
+  $$\chi^2 = \frac{(50-33.33)^2 + (30-33.33)^2 + (20-33.33)^2 + (30-33.33)^2 + (50-33.33)^2 + (20-33.33)^2 + (20-33.33)^2 + (20-33.33)^2 + (60-33.33)^2}{33.33}$$
+  $$\chi^2 = \frac{277.89 + 11.09 + 177.69 + 11.09 + 277.89 + 177.69 + 177.69 + 177.69 + 711.29}{33.33} = \frac{1999.98}{33.33} \approx \mathbf{60.00}$$
+  <p><strong>3. Decision:</strong> $df = (3-1)(3-1) = 4$. Critical $\chi_{0.05, 4}^2 = 9.488$. $\mathbf{60.00 \gg 9.488 \implies \text{Reject Independence!}}$</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q8. Explain Principal Component Regression (PCR) and Partial Least Squares (PLS). (8 Marks)</div><div class="qa-a">• <strong>PCR:</strong> A two-step pipeline that first performs unsupervised PCA on the predictors $\mathbf{X}$ to extract the top $k$ principal components $\mathbf{Z}$, and then fits an ordinary least squares regression model predicting $\mathbf{y}$ from $\mathbf{Z}$. Prevents multicollinearity, but because PCA is unsupervised, the chosen components may not necessarily be the most predictive of $\mathbf{y}$!<br>• <strong>PLS (Partial Least Squares):</strong> <strong>Supervised Dimensionality Reduction</strong> that finds latent orthogonal components that maximize the covariance between $\mathbf{X}$ and target $\mathbf{y}$, ensuring retained components have maximal predictive power!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q9. Detail the Discretization of Numeric Attributes via Maximum Entropy Splitting. (8 Marks)</div><div class="qa-a"><strong>Maximum Entropy Discretization</strong> partitions a continuous attribute into $k$ intervals such that the Shannon entropy over all bins is maximized. This creates bins that contain approximately equal numbers of data points (equi-frequency), preventing low-density outlier intervals from distorting decision tree splits and probability estimates in Naive Bayes.</div></div>
+
+<h2 class="section-title">Topic 20.6: Complete Solved Laboratory Problem Bank on Data Cleaning</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 5: Multi-Attribute Missing Imputation via k-Nearest Neighbors (k-NN)</div>
+  <p>Consider 5 customer profiles with attributes $\text{Age}$ and $\text{Income}$ (in \$k). A new record $X = (30, ?)$ has missing Income:</p>
+  <ul>
+    <li>$P_1 = (25, \$40\text{k}), \ P_2 = (32, \$60\text{k}), \ P_3 = (28, \$55\text{k}), \ P_4 = (45, \$90\text{k}), \ P_5 = (31, \$58\text{k})$.</li>
+  </ul>
+  <p><strong>1. Calculate Euclidean Distances on Normalized Age ($\min=25, \max=45$):</strong></p>
+  <ul>
+    <li>$d(X, P_1) = \frac{|30-25|}{20} = \frac{5}{20} = 0.25$</li>
+    <li>$d(X, P_2) = \frac{|30-32|}{20} = \frac{2}{20} = 0.10$</li>
+    <li>$d(X, P_3) = \frac{|30-28|}{20} = \frac{2}{20} = 0.10$</li>
+    <li>$d(X, P_4) = \frac{|30-45|}{20} = \frac{15}{20} = 0.75$</li>
+    <li>$d(X, P_5) = \frac{|30-31|}{20} = \frac{1}{20} = \mathbf{0.05 \ (Nearest!)}$</li>
+  </ul>
+  <p><strong>2. Imputation with $k = 3$ Neighbors ($P_5, P_2, P_3$):</strong></p>
+  $$\mathbf{\text{Imputed Income} = \frac{\$58\text{k} + \$60\text{k} + \$55\text{k}}{3} = \frac{\$173\text{k}}{3} = \mathbf{\$57.67\text{k}}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 6: Decimal Scaling & Robust Outlier MAD Normalization</div>
+  <p>For dataset $X = \{10, 12, 14, 15, 16, 18, 100\}$ with $\text{Median} = 15$:</p>
+  <ul>
+    <li>Deviations from median $|x_i - 15|$: $\{5, 3, 1, 0, 1, 3, 85\}$.</li>
+    <li>Sorted deviations: $\{0, 1, 1, 3, 3, 5, 85\} \implies \text{MAD} = \mathbf{3.0}$.</li>
+    <li>Robust Z-score for outlier $100$: $M_i = \frac{0.6745(100 - 15)}{3.0} = \frac{0.6745(85)}{3.0} = \frac{57.33}{3.0} = \mathbf{19.11 \gg 3.5 \implies \text{Extreme Outlier!}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 7: Data Discretization by ChiMerge ($\chi^2$-based Interval Merging)</div>
+  <p><strong>ChiMerge (Kerber 1992)</strong> is a bottom-up supervised discretization algorithm:</p>
+  <ol>
+    <li>Sort continuous attribute values and place each distinct value into its own interval.</li>
+    <li>For each pair of adjacent intervals, compute the $\chi^2$ statistic with respect to class labels.</li>
+    <li>Identify the pair of adjacent intervals with the <strong>smallest $\chi^2$ value</strong> (indicating that their class distributions are most similar).</li>
+    <li>Merge that pair into a single interval.</li>
+    <li>Repeat steps 2–4 until all adjacent interval pairs have $\chi^2 \ge \text{threshold}$ (or until target number of intervals is reached).</li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 8: Feature Extraction using Linear Discriminant Analysis (LDA) Projection</div>
+  <p>For 2 classes with means $\mathbf{\mu}_1 = (1, 2)^T, \mathbf{\mu}_2 = (3, 4)^T$ and shared covariance $\mathbf{\Sigma} = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$:</p>
+  $$\mathbf{w} \propto \mathbf{\Sigma}^{-1}(\mathbf{\mu}_1 - \mathbf{\mu}_2) = \frac{1}{2}\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} -2 \\ -2 \end{bmatrix} = \begin{bmatrix} -1 \\ -1 \end{bmatrix}$$
+  $$\mathbf{\text{Optimal 1D Fisher Projection Line: } y = -x_1 - x_2}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 9: Non-Negative Matrix Factorization (NMF) for Topic Extraction</div>
+  <p>Unlike PCA (which allows negative weights), <strong>NMF</strong> factorizes data matrix $\mathbf{V} \approx \mathbf{W}\mathbf{H}$ where all matrices are non-negative ($V_{ij} \ge 0, W_{ik} \ge 0, H_{kj} \ge 0$). Solves Frobenius norm minimization:</p>
+  $$\min_{\mathbf{W}, \mathbf{H}} \|\mathbf{V} - \mathbf{W}\mathbf{H}\|_F^2 \quad \text{subject to } W \ge 0, H \ge 0$$
+  <p>Multiplicative update rules: $H_{aj} \leftarrow H_{aj} \frac{(W^T V)_{aj}}{(W^T W H)_{aj}}$ and $W_{ia} \leftarrow W_{ia} \frac{(V H^T)_{ia}}{(W H H^T)_{ia}}$. Produces additive, interpretable parts-based representations!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q10. Explain the Difference between Missing Completely at Random (MCAR), Missing at Random (MAR), and Missing Not at Random (MNAR). (8 Marks)</div><div class="qa-a">• <strong>MCAR:</strong> The probability of an attribute value being missing is completely independent of both observed and unobserved data (e.g., test tube dropped by accident). Dropping tuples causes zero statistical bias.<br>• <strong>MAR:</strong> The missingness depends systematically on <em>observed</em> variables but not on the missing value itself (e.g., males are less likely to report depression scores, but conditional on gender, missingness is random). Multiple imputation (MICE) is valid.<br>• <strong>MNAR (Non-ignorable):</strong> The missingness depends directly on the unobserved value itself (e.g., high-income executives refuse to disclose income on surveys). Requires explicit modeling of the missingness mechanism!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 11: Z-Score Standardization vs Min-Max Normalization Trade-Off Analysis</div>
+  <p>Consider a dataset with severe outliers: $X = \{10, 11, 12, 13, 14, 15, 1000\}$:</p>
+  <ul>
+    <li><strong>Min-Max Scaling to $[0, 1]$:</strong> $x_1 = \frac{10-10}{1000-10} = 0.000$; $x_5 = \frac{14-10}{990} = 0.004$; $x_7 = \frac{1000-10}{990} = 1.000$. The normal cluster $\{10..15\}$ is crushed into a tiny range $[0.000, 0.005]$, completely destroying feature variance!</li>
+    <li><strong>Z-Score Standardization:</strong> Outlier $1000$ pulls the mean to $\bar{x} = 154.1$ and $\sigma = 373.1$.</li>
+    <li><strong>Robust Standardization (Median & IQR):</strong> $x' = \frac{x - 13}{3.0}$. Points $\{10..15\}$ span $[-1.0, +0.67]$, preserving high variance, while outlier $1000$ becomes $+329.0$ without compressing the cluster!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q12. Explain Data Cleaning for Inconsistent Codes and Duplicate Elimination (Record Linkage). (8 Marks)</div><div class="qa-a">Real-world databases contain duplicate entities recorded with differing syntax (e.g. `IBM Corp`, `International Business Machines`, `I.B.M.`):<br>1. <strong>String Similarity Metrics:</strong> Levenshtein Edit Distance, Jaro-Winkler Metric ($d_J = \frac{1}{3}\left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m}\right)$), $q$-gram token overlapping.<br>2. <strong>Blocking (Canopy Clustering):</strong> Divides $N$ records into overlapping canopies using fast phonetic hash keys (Soundex / Metaphone) to avoid $O(N^2)$ pairwise comparisons.<br>3. <strong>Merge/Purge Pipeline:</strong> Merges duplicate records into a golden master record with unified primary keys.</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: Principal Component Analysis (PCA) Variance Proof & SVD Relationship</div>
+  <p>Prove that the principal component directions are given by the eigenvectors of the sample covariance matrix $\mathbf{\Sigma}$:</p>
+  <ul>
+    <li>Objective: Maximize projected variance $\mathbf{w}^T \mathbf{\Sigma} \mathbf{w}$ subject to $\|\mathbf{w}\|_2^2 = \mathbf{w}^T \mathbf{w} = 1$.</li>
+    <li>Lagrangian: $\mathcal{L}(\mathbf{w}, \lambda) = \mathbf{w}^T \mathbf{\Sigma} \mathbf{w} - \lambda(\mathbf{w}^T \mathbf{w} - 1)$.</li>
+    <li>Taking gradient with respect to $\mathbf{w}$ and setting to zero:
+      $$\nabla_{\mathbf{w}} \mathcal{L} = 2\mathbf{\Sigma}\mathbf{w} - 2\lambda\mathbf{w} = 0 \implies \mathbf{\mathbf{\Sigma}\mathbf{w} = \lambda\mathbf{w}}$$
+    </li>
+    <li>This is the standard eigenvector equation! Multiplying by $\mathbf{w}^T$: $\mathbf{w}^T \mathbf{\Sigma} \mathbf{w} = \lambda \mathbf{w}^T \mathbf{w} = \lambda$.</li>
+    <li>$$\mathbf{\text{Maximum variance is achieved by choosing the eigenvector corresponding to the largest eigenvalue } \lambda_{\text{max}}!}$$</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q13. Explain the V-Optimal Histogram Construction for Numerosity Reduction. (8 Marks)</div><div class="qa-a">A <strong>V-Optimal Histogram</strong> partitions $N$ data values into $B$ buckets such that the weighted variance of the bucket estimates is minimized across all possible partitionings:
+$$\mathbf{\min \sum_{j=1}^B \sum_{i \in \text{Bucket}_j} (x_i - \bar{x}_j)^2}$$
+Dynamic programming computes the globally optimal bucket boundaries in $O(B \cdot N^2)$ time. V-Optimal histograms provide the most statistically accurate selectivity estimation for database query optimizers!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Kernel Density Estimation (KDE) for Continuous Density Smoothing</div>
+  <p>For $N$ observations, <strong>Kernel Density Estimation</strong> computes continuous probability density function $\hat{f}(x)$ with Gaussian kernel $K(u) = \frac{1}{\sqrt{2\pi}}e^{-u^2/2}$ and bandwidth $h$:</p>
+  $$\mathbf{\hat{f}(x) = \frac{1}{Nh} \sum_{i=1}^N K\left( \frac{x - x_i}{h} \right) = \frac{1}{Nh\sqrt{2\pi}} \sum_{i=1}^N \exp\left( - \frac{(x - x_i)^2}{2h^2} \right)}$$
+  <p><strong>Bandwidth Selection (Silverman's Rule of Thumb):</strong> $h = 0.9 \min\left( \hat{\sigma}, \frac{\text{IQR}}{1.34} \right) N^{-1/5}$. Prevents oversmoothing (high bias) and undersmoothing (spurious variance)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Pearson Correlation vs Covariance Proof & Standardized Derivation</div>
+  <p>Prove that Pearson's correlation coefficient $r_{X, Y} \in [-1, +1]$ using Cauchy-Schwarz Inequality:</p>
+  $$\mathbf{|\text{Cov}(X, Y)|^2 = |\mathbb{E}[(X-\mu_X)(Y-\mu_Y)]|^2 \le \mathbb{E}[(X-\mu_X)^2] \cdot \mathbb{E}[(Y-\mu_Y)^2] = \sigma_X^2 \sigma_Y^2}$$
+  $$\mathbf{\frac{|\text{Cov}(X, Y)|}{\sigma_X \sigma_Y} \le 1 \implies -1 \le r_{X, Y} \le +1}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q14. Explain Missing Value Handling in Time Series Streams (Forward Fill, Linear Interpolation, Splines). (8 Marks)</div><div class="qa-a">• <strong>Forward Fill (Last Observation Carried Forward - LOCF):</strong> Replaces missing timestamp $t$ with the most recent valid observation $t-1$. Appropriate for static sensor readings.<br>• <strong>Linear / Cubic Spline Interpolation:</strong> Fits a piecewise polynomial curve through surrounding valid points, preserving continuous trajectory curvature.</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Discrete Fourier Transform (DFT) vs Wavelet Transform Signal Compression</div>
+  <p>For a 1D sequence of length $N = 2^n$, DFT projects data onto complex sinusoids $X_k = \sum_{n=0}^{N-1} x_n e^{-i 2\pi k n / N}$ ($O(N \log N)$ FFT). In contrast, Wavelet transform uses compact dyadic wavelets $\psi_{j, k}(t) = 2^{j/2}\psi(2^j t - k)$, achieving linear $O(N)$ computational complexity and retaining precise time-frequency localization of transient data spikes!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q15. Explain Stratified Sampling vs Simple Random Sampling (SRS) in Imbalanced Data Mining. (8 Marks)</div><div class="qa-a">• <strong>Simple Random Sampling (SRS):</strong> Every record has equal probability $1/N$ of selection. On highly imbalanced datasets (e.g. 99% legitimate, 1% fraud), SRS risks drawing zero fraud instances!<br>• <strong>Stratified Sampling:</strong> Divides the dataset into non-overlapping strata (classes $C_1, \dots, C_k$) and draws samples from each stratum proportionally (or equally via oversampling), guaranteeing that rare minority classes are preserved in training subsets!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: Multi-Class Linear Discriminant Analysis (LDA) Between-Class Scatter Matrix Derivation</div>
+  <p>For $C$ classes with means $\mathbf{\mu}_c$ and global mean $\mathbf{\mu}$:</p>
+  $$\mathbf{S}_B = \sum_{c=1}^C N_c (\mathbf{\mu}_c - \mathbf{\mu})(\mathbf{\mu}_c - \mathbf{\mu})^T \qquad \mathbf{S}_W = \sum_{c=1}^C \sum_{i \in c} (\mathbf{x}_i - \mathbf{\mu}_c)(\mathbf{x}_i - \mathbf{\mu}_c)^T$$
+  <p>Maximizing Rayleigh quotient $\frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}}$ yields generalized eigenvalue problem $\mathbf{S}_W^{-1} \mathbf{S}_B \mathbf{w} = \lambda \mathbf{w}$. Number of non-zero discriminant directions is at most $\mathbf{\min(p, C-1)}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 18: Quantile Normalization for High-Throughput Genomics & Microarrays</div>
+  <p><strong>Quantile Normalization</strong> aligns empirical distributions across multiple experimental batches:</p>
+  <ol>
+    <li>Sort values in each column independently.</li>
+    <li>Compute the mean across rows for the sorted values.</li>
+    <li>Replace each sorted value with the row average.</li>
+    <li>Restore columns back to their original rank orders, ensuring all columns have identical empirical distributions!</li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 19: Discrete Cosine Transform (DCT) vs PCA Data Compression</div>
+  <p>The <strong>Discrete Cosine Transform (DCT)</strong> expresses a finite sequence of data points in terms of a sum of cosine functions oscillating at different frequencies:
+  $$\mathbf{X_k = \sum_{n=0}^{N-1} x_n \cos\left[ \frac{\pi}{N} \left( n + \frac{1}{2} \right) k \right]}$$
+  • <strong>Energy Compaction Property:</strong> DCT concentrates most of the signal energy into the first few low-frequency transform coefficients.<br>• <strong>PCA vs DCT:</strong> PCA requires computing data covariance matrices $O(N p^2)$ and solving eigenvalue polynomials. DCT uses fixed data-independent cosine basis functions, allowing $O(N \log N)$ fast FFT computation (used in JPEG image compression and MP3 audio encoding)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 20: Covariance & Correlation Matrix Derivation for 3-Variable Dataset</div>
+  <p>Given 3 attributes $A, B, C$ with mean-centered vectors $\mathbf{a} = (-1, 0, 1)^T, \mathbf{b} = (2, -1, -1)^T, \mathbf{c} = (0, 1, -1)^T$:</p>
+  <ul>
+    <li>Variances: $s_A^2 = \frac{1+0+1}{2} = 1.0; \ s_B^2 = \frac{4+1+1}{2} = 3.0; \ s_C^2 = \frac{0+1+1}{2} = 1.0$.</li>
+    <li>Covariances:
+      <ul>
+        <li>$\text{Cov}(A, B) = \frac{(-1)(2) + (0)(-1) + (1)(-1)}{2} = \frac{-2 + 0 - 1}{2} = \mathbf{-1.5}$</li>
+        <li>$\text{Cov}(A, C) = \frac{(-1)(0) + (0)(1) + (1)(-1)}{2} = \frac{-1}{2} = \mathbf{-0.5}$</li>
+        <li>$\text{Cov}(B, C) = \frac{(2)(0) + (-1)(1) + (-1)(-1)}{2} = \frac{-1 + 1}{2} = \mathbf{0.0}$</li>
+      </ul>
+    </li>
+  </ul>
+  $$\mathbf{\mathbf{\Sigma} = \begin{bmatrix} 1.0 & -1.5 & -0.5 \\ -1.5 & 3.0 & 0.0 \\ -0.5 & 0.0 & 1.0 \end{bmatrix} \qquad \mathbf{R} = \begin{bmatrix} 1.0 & -0.866 & -0.500 \\ -0.866 & 1.0 & 0.0 \\ -0.500 & 0.0 & 1.0 \end{bmatrix}}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 21: Multi-Dimensional Data Transformation & Wavelet Thresholding</div>
+  <p>In Wavelet soft thresholding: $\hat{w} = \text{sign}(w)(|w| - \lambda)_+$ with Universal threshold $\lambda = \sigma \sqrt{2 \ln N}$. Discards high-frequency stochastic noise coefficients while preserving sharp edge boundaries in spatial signals!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 22: Singular Value Decomposition (SVD) Matrix Approximations</div>
+  <p>For any rectangular matrix $\mathbf{X} \in \mathbb{R}^{n \times d}$, SVD decomposes $\mathbf{X} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^T$ where $\mathbf{U} \in \mathbb{R}^{n \times n}$ and $\mathbf{V} \in \mathbb{R}^{d \times d}$ are orthogonal matrices and $\mathbf{\Sigma} \in \mathbb{R}^{n \times d}$ contains sorted singular values $\sigma_1 \ge \sigma_2 \ge \dots \ge 0$.</p>
+  <ul>
+    <li><strong>Eckart-Young-Mirsky Theorem:</strong> The rank-$k$ truncated matrix $\mathbf{X}_k = \sum_{i=1}^k \sigma_i \mathbf{u}_i \mathbf{v}_i^T$ is the provably optimal rank-$k$ approximation minimizing both Frobenius and spectral matrix norms!</li>
+    <li>Used in Latent Semantic Indexing (LSI), Netflix collaborative filtering, and facial image compression!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 23: Fast Fourier Transform (FFT) vs Wavelet Energy Compaction Proof</div>
+  <p>For discrete signal $x = [1, 3, 5, 7]$:</p>
+  <ul>
+    <li>Haar Wavelet level 1 averages: $a_1 = [\frac{1+3}{\sqrt{2}}, \frac{5+7}{\sqrt{2}}] = [2\sqrt{2}, 6\sqrt{2}] \approx [2.828, 8.485]$.</li>
+    <li>Haar Wavelet level 1 details: $d_1 = [\frac{1-3}{\sqrt{2}}, \frac{5-7}{\sqrt{2}}] = [-\sqrt{2}, -\sqrt{2}] \approx [-1.414, -1.414]$.</li>
+    <li>Haar level 2 average: $a_2 = \frac{2\sqrt{2} + 6\sqrt{2}}{\sqrt{2}} = \mathbf{8.0}$.</li>
+    <li>Haar level 2 detail: $d_2 = \frac{2\sqrt{2} - 6\sqrt{2}}{\sqrt{2}} = \mathbf{-4.0}$.</li>
+    <li>Transformed Wavelet vector: $\mathbf{W = [8.0, -4.0, -1.414, -1.414]}$. Energy is perfectly conserved: $\|W\|^2 = 64 + 16 + 2 + 2 = 84 = \|x\|^2 = 1 + 9 + 25 + 49 = 84$!</li>
+  </ul>
+</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

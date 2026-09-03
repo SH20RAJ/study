@@ -145,18 +145,18 @@ SUBJECTS = [
         "desc": "Exhaustive coverage of Software Process Models (Waterfall, Prototyping, Spiral, RAD, Incremental, Agile Scrum/Kanban), Requirements Engineering & SRS (IEEE 830 Standard), UML Architectural Modeling & Design Patterns, Software Project Estimation (COCOMO I/II, Function Point Analysis), Risk Management (RMMM Plan), Software Quality Assurance (CMMI, ISO 9001), Software Testing (Black-Box Equivalence/BVA, White-Box Basis Path Cyclomatic Complexity), and Maintenance.",
         "folder": "software-engineering",
         "master_pdf": "software-engineering/pdf/SE_Full_Course_Master.pdf",
-        "master_pages": "13 Pages",
+        "master_pages": "59 Pages",
         "rev_pdf": "software-engineering/pdf/SE_10_Page_Master_Revision.pdf",
-        "rev_pages": "5 Pages",
+        "rev_pages": "6 Pages",
         "all_pdf": "software-engineering/pdf/all.pdf",
-        "all_pages": "35 Pages",
+        "all_pages": "36 Pages",
         "all_md": "software-engineering/all.md",
         "modules": [
-            ("Module 1", "Process Models & Agile", "software-engineering/html/Module_1_Process_Models_Notes.html", "software-engineering/pdf/Module_1_Process_Models_Notes.pdf", "3 Pages"),
-            ("Module 2", "Requirements & SRS Specification", "software-engineering/html/Module_2_Requirements_Notes.html", "software-engineering/pdf/Module_2_Requirements_Notes.pdf", "2 Pages"),
-            ("Module 3", "Design & UML Modeling", "software-engineering/html/Module_3_Design_Notes.html", "software-engineering/pdf/Module_3_Design_Notes.pdf", "3 Pages"),
-            ("Module 4", "COCOMO & Risk Analysis", "software-engineering/html/Module_4_Estimation_Notes.html", "software-engineering/pdf/Module_4_Estimation_Notes.pdf", "2 Pages"),
-            ("Module 5", "Testing & CMMI Quality", "software-engineering/html/Module_5_Testing_Notes.html", "software-engineering/pdf/Module_5_Testing_Notes.pdf", "3 Pages"),
+            ("Module 1", "Process Models & Agile", "software-engineering/html/Module_1_Process_Models_Notes.html", "software-engineering/pdf/Module_1_Process_Models_Notes.pdf", "10 Pages"),
+            ("Module 2", "Requirements Engineering & SRS", "software-engineering/html/Module_2_Requirements_Notes.html", "software-engineering/pdf/Module_2_Requirements_Notes.pdf", "10 Pages"),
+            ("Module 3", "Design Engineering & UML 2.5", "software-engineering/html/Module_3_Design_UML_Notes.html", "software-engineering/pdf/Module_3_Design_UML_Notes.pdf", "10 Pages"),
+            ("Module 4", "Testing Methodologies & Reliability", "software-engineering/html/Module_4_Testing_QA_Notes.html", "software-engineering/pdf/Module_4_Testing_QA_Notes.pdf", "10 Pages"),
+            ("Module 5", "Project Estimation & CMMI Quality", "software-engineering/html/Module_5_Estimation_CMMI_Notes.html", "software-engineering/pdf/Module_5_Estimation_CMMI_Notes.pdf", "10 Pages"),
         ]
     }
 ]

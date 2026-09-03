@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Mining Python Laboratory Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Complete Master Guide</div>
+    <h1 class="book-title">Data Mining Python Laboratory Guide</h1>
+    <div class="book-subtitle">Hands-On Implementation of Apriori, Decision Trees & DBSCAN</div>
+  </div>
+  
+<div class="page-break"></div>
+<div class="cover-container" style="margin-top: 40px;">
+  <div class="course-badge">Hands-On Practical Lab Master Appendix</div>
+  <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">Data Mining Laboratory & Python Implementation Master Guide</h2>
+  <div style="font-size: 12.5px; color: #64748b;">Complete Python Algorithms for Apriori Association Rules, Decision Tree Classification & DBSCAN Clustering</div>
+</div>
+
+<h2 class="section-title">Lab Experiment 1: Production-Grade Apriori Algorithm Implementation in Python</h2>
+
+<pre><code class="language-python">import pandas as pd
+from itertools import combinations
+
+def get_frequent_1_itemsets(transactions, min_sup_count):
+    item_counts = {}
+    for transaction in transactions:
+        for item in transaction:
+            item_counts[frozenset([item])] = item_counts.get(frozenset([item]), 0) + 1
+    return {item: count for item, count in item_counts.items() if count >= min_sup_count}
+
+def apriori_gen(Lk_minus_1, k):
+    candidates = set()
+    lk_list = list(Lk_minus_1.keys())
+    for i in range(len(lk_list)):
+        for j in range(i + 1, len(lk_list)):
+            union_set = lk_list[i] | lk_list[j]
+            if len(union_set) == k:
+                subsets = [frozenset(s) for s in combinations(union_set, k - 1)]
+                if all(s in Lk_minus_1 for s in subsets):
+                    candidates.add(union_set)
+    return candidates
+
+def run_apriori(dataset, min_support=0.4):
+    num_trans = len(dataset)
+    min_sup_count = min_support * num_trans
+    L1 = get_frequent_1_itemsets(dataset, min_sup_count)
+    
+    all_frequent = dict(L1)
+    current_L = L1
+    k = 2
+    
+    while current_L:
+        candidates = apriori_gen(current_L, k)
+        candidate_counts = {}
+        for trans in dataset:
+            trans_set = set(trans)
+            for cand in candidates:
+                if cand.issubset(trans_set):
+                    candidate_counts[cand] = candidate_counts.get(cand, 0) + 1
+        
+        current_L = {cand: count for cand, count in candidate_counts.items() if count >= min_sup_count}
+        all_frequent.update(current_L)
+        k += 1
+        
+    return all_frequent
+
+# Example Run
+dataset = [
+    ['Milk', 'Onion', 'Nutmeg', 'Kidney_Beans', 'Eggs', 'Yogurt'],
+    ['Dill', 'Onion', 'Nutmeg', 'Kidney_Beans', 'Eggs', 'Yogurt'],
+    ['Milk', 'Apple', 'Kidney_Beans', 'Eggs'],
+    ['Milk', 'Unicorn', 'Corn', 'Kidney_Beans', 'Yogurt'],
+    ['Corn', 'Onion', 'Onion', 'Kidney_Beans', 'Ice_cream', 'Eggs']
+]
+
+frequent_patterns = run_apriori(dataset, min_support=0.6)
+for itemset, count in frequent_patterns.items():
+    print(f"Frequent Itemset: {set(itemset)} (Support = {count/len(dataset):.2f})")
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 2: End-to-End Decision Tree Induction & Evaluation</h2>
+
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Dataset generation
+np.random.seed(42)
+X = np.random.randn(200, 4)
+y = (X[:, 0] + X[:, 1] > 0).astype(int)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+clf = DecisionTreeClassifier(criterion='entropy', max_depth=4)
+clf.fit(X_train, y_train)
+
+y_pred = clf.predict(X_test)
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 3: Density-Based Spatial Clustering (DBSCAN) in Python</h2>
+
+<pre><code class="language-python">from sklearn.cluster import DBSCAN
+from sklearn.datasets import make_moons
+
+# Non-convex crescent moon dataset
+X_moons, _ = make_moons(n_samples=300, noise=0.08, random_state=42)
+
+dbscan = DBSCAN(eps=0.2, min_samples=5)
+clusters = dbscan.fit_predict(X_moons)
+
+n_clusters = len(set(clusters)) - (1 if -1 in clusters else 0)
+n_noise = list(clusters).count(-1)
+print(f"Discovered Clusters: {n_clusters}, Detected Noise Outliers: {n_noise}")
+</code></pre>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

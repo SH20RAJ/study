@@ -2,326 +2,668 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 5: Project Estimation, COCOMO & CMMI</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<title>Module 5: Project Estimation, Quality Assurance, CMMI & Maintenance</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]});"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
-:root {
-  --primary: #047857;       /* Deep Emerald Green */
-  --primary-light: #ecfdf5;
-  --accent: #2563eb;        /* Blue */
-  --secondary: #0f766e;     /* Teal */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 14mm 12mm;
+  @top-right {
+    content: "CS24353 • Software Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-left {
+    content: "BIT Mesra • Department of Computer Science & Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #94a3b8;
+  }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11.2px;
+  line-height: 1.58;
+  color: #0f172a;
+  background-color: #ffffff;
+  margin: 0;
   padding: 0;
 }
 
-.page-container {
-  max-width: 900px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+.cover-header {
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
 }
-
-.doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
-}
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-
-.badge {
+.course-badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 3px 8px;
   border-radius: 4px;
-}
-
-.badge-green { background: #d1fae5; color: #065f46; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-emerald { background: #a7f3d0; color: #047857; }
-
-h1.doc-title {
-  font-size: 23px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 5px;
-}
-
-.doc-subtitle {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
-}
-
-.toc-title {
-  font-size: 13px;
+  font-size: 9px;
   font-weight: 700;
-  color: #047857;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
+.doc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 4px 0 6px 0;
+  letter-spacing: -0.4px;
+}
+.doc-subtitle {
   font-size: 11.5px;
+  color: #475569;
+  font-weight: 400;
+  margin: 0 0 4px 0;
+}
+.meta-info {
+  font-size: 9.5px;
+  color: #64748b;
+  margin-top: 6px;
+  display: flex;
+  gap: 14px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 24px 0 12px 0;
+  color: #0369a1;
+  border-bottom: 1.5px solid #e0f2fe;
+  padding-bottom: 4px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  page-break-after: avoid;
 }
 
-h3.subsection-title {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
-}
+p { margin-top: 0; margin-bottom: 8px; text-align: justify; }
+ul, ol { margin-top: 0; margin-bottom: 8px; padding-left: 18px; }
+li { margin-bottom: 3.5px; }
 
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
-  border-left: 4px solid;
-  page-break-inside: avoid;
-}
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #ecfdf5; border-color: #047857; color: #064e3b; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
-
-.callout-title {
-  font-weight: 700;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 10px 0;
+  font-size: 10px;
   page-break-inside: avoid;
 }
-
-table.custom-table th {
-  background: #064e3b;
-  color: #ffffff;
+.custom-table th {
+  background-color: #f0f9ff;
+  color: #0369a1;
   font-weight: 600;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
+  padding: 6px 8px;
+  border: 1px solid #bae6fd;
 }
-
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
+.custom-table td {
+  padding: 5.5px 8px;
   border: 1px solid #e2e8f0;
+  vertical-align: top;
 }
+.custom-table tr:nth-child(even) { background-color: #f8fafc; }
 
-pre {
-  background: #0f172a;
-  color: #f8fafc;
-  padding: 9px 13px;
-  border-radius: 6px;
-  font-family: 'Fira Code', monospace;
+.callout-box {
+  background-color: #f0fdf4;
+  border-left: 3.5px solid #16a34a;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.callout-title {
+  font-weight: 700;
+  color: #15803d;
   font-size: 11px;
-  line-height: 1.4;
-  overflow-x: auto;
-  margin: 9px 0;
-  page-break-inside: avoid;
+  margin-bottom: 4px;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
-
-.diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
-  text-align: center;
+.worked-box {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #0284c7;
+  padding: 9px 12px;
+  margin: 11px 0;
+  border-radius: 0 6px 6px 0;
   page-break-inside: avoid;
 }
+.worked-title {
+  font-weight: 700;
+  color: #0369a1;
+  font-size: 11.2px;
+  margin-bottom: 5px;
+}
 
-.diagram-caption {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.formula-card {
+  background: #fdf4ff;
+  border-left: 3.5px solid #a855f7;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.formula-title {
+  font-weight: 700;
+  color: #7e22ce;
+  font-size: 11px;
+  margin-bottom: 4px;
 }
 
 .qa-card {
   background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
+  border: 1px solid #e2e8f0;
+  border-left: 3.5px solid #0284c7;
+  padding: 8px 11px;
+  margin: 8px 0;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
+.qa-q { font-weight: 700; color: #0369a1; font-size: 10.8px; margin-bottom: 3px; }
+.qa-a { color: #334155; font-size: 10.3px; line-height: 1.5; }
 
-.qa-q { font-weight: 700; color: #047857; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Software Engineering (CS24353) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 9.8px;
+  background-color: #f1f5f9;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  color: #0f172a;
 }
+pre code {
+  display: block;
+  padding: 8px 10px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 9.2px;
+  line-height: 1.45;
+}
+
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-emerald">CS24353 — Elective (3.0 Cr)</span>
-      <span class="badge badge-blue">Module V Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
-    </div>
-    <h1 class="doc-title">Module 5: Project Estimation, COCOMO & CMMI</h1>
-    <div class="doc-subtitle">Function Points, Basic/Intermediate COCOMO, CMMI 5-Levels, SCM</div>
-  </div>
-  
-<div class="toc-box">
-  <div class="toc-title">Module V: Project Estimation, COCOMO & CMMI — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Function Point Analysis (Albrecht UFP & VAF)</div>
-    <div>2. COCOMO I (Organic, Semidetached, Embedded Modes)</div>
-    <div>3. SEI CMMI 5-Level Maturity Framework</div>
-    <div>4. Software Configuration Management (SCM Baselines)</div>
-    <div>5. Software Maintenance: 4 Types & Lehman's Laws</div>
+<div class="cover-header">
+  <span class="course-badge">CS24353 • MODULE 5</span>
+  <h1 class="doc-title">Module 5: Project Estimation, Quality Assurance, CMMI & Maintenance</h1>
+  <p class="doc-subtitle">Topics 56 to 67 • Halstead Metrics, COCOMO I/II, Function Point Analysis, CMMI Levels, SCM & Lehman's Laws</p>
+  <div class="meta-info">
+    <span><strong>Author:</strong> Shaswat Raj (BIT Mesra)</span>
+    <span><strong>Academic Year:</strong> 2024–25 (5th Sem CSE)</span>
+    <span><strong>Standard:</strong> IEEE & ISO/IEC Standards</span>
   </div>
 </div>
 
-<h2 class="section-title">1. Basic COCOMO Estimation Formulas (Barry Boehm)</h2>
-$$\text{Effort (Person-Months)} = a_b \times (\text{KLOC})^{b_b}$$
-$$\text{Development Time (Months)} = c_b \times (\text{Effort})^{d_b}$$
+<h2 class="section-title">Topic 26: Software Cost Estimation & Halstead's Software Science</h2>
+<p>Accurate software project estimation prevents budget overruns and unrealistic deadlines. <strong>Maurice Halstead (1977)</strong> developed a formal analytical framework measuring software properties directly from code tokens:</p>
+
+<div class="formula-card">
+  <div class="formula-title">📐 Halstead's Software Science Mathematical Equations</div>
+  <p>Let $n_1 = \text{Unique operators}, n_2 = \text{Unique operands}, N_1 = \text{Total operators}, N_2 = \text{Total operands}$.</p>
+  <ul>
+    <li><strong>Program Vocabulary ($n$):</strong> $$n = n_1 + n_2$$</li>
+    <li><strong>Program Length ($N$):</strong> $$N = N_1 + N_2 \qquad (\text{Estimated Length: } \hat{N} = n_1 \log_2 n_1 + n_2 \log_2 n_2)$$</li>
+    <li><strong>Program Volume ($V$ bits):</strong> $$V = N \log_2 n$$</li>
+    <li><strong>Program Difficulty ($D$):</strong> $$D = \frac{n_1}{2} \times \frac{N_2}{n_2}$$</li>
+    <li><strong>Effort ($E$ Elementary Mental Discriminations):</strong> $$E = D \times V = \left( \frac{n_1}{2} \cdot \frac{N_2}{n_2} \right) \times (N \log_2 n)$$</li>
+    <li><strong>Development Time ($T$ seconds):</strong> $$T = \frac{E}{18} \quad (\text{Stroud Number } S = 18 \text{ discriminations/sec})$$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 27: Barry Boehm's COCOMO I & COCOMO II Models</h2>
+<p>The <strong>Constructive Cost Model (COCOMO)</strong> uses empirical regressions calibrated against historical project datasets:</p>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th>Project Mode</th>
-      <th>Team & Project Description</th>
-      <th>$a_b$</th>
-      <th>$b_b$</th>
-      <th>$c_b$</th>
-      <th>$d_b$</th>
+      <th style="width: 20%;">Project Mode</th>
+      <th style="width: 30%;">Team & Complexity Profile</th>
+      <th style="width: 25%;">Effort Equation ($E$ in PM)</th>
+      <th>Development Time ($T_{\text{dev}}$ in Months)</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Organic</strong></td><td>Small experienced team, well-understood domain ($< 50 \text{ KLOC}$).</td><td>$2.4$</td><td>$1.05$</td><td>$2.5$</td><td>$0.38$</td></tr>
-    <tr><td><strong>Semidetached</strong></td><td>Medium team, mixed experience, medium size ($50 - 300 \text{ KLOC}$).</td><td>$3.0$</td><td>$1.12$</td><td>$2.5$</td><td>$0.35$</td></tr>
-    <tr><td><strong>Embedded</strong></td><td>Tight hardware/software constraints, mission-critical.</td><td>$3.6$</td><td>$1.20$</td><td>$2.5$</td><td>$0.32$</td></tr>
+    <tr>
+      <td><strong>1. Organic</strong></td>
+      <td>Small, experienced teams working with stable, well-understood requirements in familiar environments.</td>
+      <td>$$\mathbf{E = 2.4 \times (\text{KLOC})^{1.05}}$$</td>
+      <td>$$\mathbf{T_{\text{dev}} = 2.5 \times (E)^{0.38}}$$</td>
+    </tr>
+    <tr>
+      <td><strong>2. Semi-Detached</strong></td>
+      <td>Medium-sized teams with mixed experience levels working with partially fluid requirements.</td>
+      <td>$$\mathbf{E = 3.0 \times (\text{KLOC})^{1.12}}$$</td>
+      <td>$$\mathbf{T_{\text{dev}} = 2.5 \times (E)^{0.35}}$$</td>
+    </tr>
+    <tr>
+      <td><strong>3. Embedded</strong></td>
+      <td>Strict hardware, software, and operational constraints; flight control, medical devices.</td>
+      <td>$$\mathbf{E = 3.6 \times (\text{KLOC})^{1.20}}$$</td>
+      <td>$$\mathbf{T_{\text{dev}} = 2.5 \times (E)^{0.32}}$$</td>
+    </tr>
   </tbody>
 </table>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Software Engineering (CS24353) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
-  </div>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 5: Complete COCOMO Cost & Staffing Estimation</div>
+  <p>A software development team is tasked with building a <strong>Semi-Detached</strong> enterprise billing system estimated at $\text{Size} = \mathbf{50 \text{ KLOC}}$.</p>
+  <ul>
+    <li><strong>1. Calculate Development Effort ($E$ in Person-Months):</strong>
+      $$E = 3.0 \times (50)^{1.12} = 3.0 \times 80.20 \approx \mathbf{240.6 \text{ Person-Months}}$$
+    </li>
+    <li><strong>2. Calculate Nominal Development Schedule ($T_{\text{dev}}$ in Months):</strong>
+      $$T_{\text{dev}} = 2.5 \times (240.6)^{0.35} = 2.5 \times 6.78 \approx \mathbf{16.95 \text{ Months}}$$
+    </li>
+    <li><strong>3. Calculate Average Staff Size ($N_{\text{staff}}$):</strong>
+      $$N_{\text{staff}} = \frac{E}{T_{\text{dev}}} = \frac{240.6}{16.95} \approx \mathbf{14.2 \implies 15 \text{ Full-Time Software Engineers}}$$
+    </li>
+    <li><strong>4. Calculate Productivity ($P$):</strong>
+      $$P = \frac{\text{KLOC}}{E} = \frac{50,000 \text{ LOC}}{240.6 \text{ PM}} \approx \mathbf{207.8 \text{ LOC/Person-Month}}$$
+    </li>
+  </ul>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+<h2 class="section-title">Topic 28: Albrecht's Function Point Analysis (FPA)</h2>
+<p><strong>Function Points (Allan Albrecht, IBM 1979)</strong> measure software size based on delivered user functionality, independent of programming language:</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Information Domain Function Type</th>
+      <th style="width: 15%;">Low Complexity</th>
+      <th style="width: 15%;">Average Complexity</th>
+      <th style="width: 15%;">High Complexity</th>
+      <th>Technical Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. External Inputs (EI)</strong></td>
+      <td>$\times 3$</td>
+      <td>$\times 4$</td>
+      <td>$\times 6$</td>
+      <td>User input screens, transactions updating internal files.</td>
+    </tr>
+    <tr>
+      <td><strong>2. External Outputs (EO)</strong></td>
+      <td>$\times 4$</td>
+      <td>$\times 5$</td>
+      <td>$\times 7$</td>
+      <td>Reports, calculation outputs, generated data exports.</td>
+    </tr>
+    <tr>
+      <td><strong>3. External Inquiries (EQ)</strong></td>
+      <td>$\times 3$</td>
+      <td>$\times 4$</td>
+      <td>$\times 6$</td>
+      <td>Direct query inputs generating immediate lookup responses.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Internal Logical Files (ILF)</strong></td>
+      <td>$\times 7$</td>
+      <td>$\times 10$</td>
+      <td>$\times 15$</td>
+      <td>Major internal logical database tables maintained by system.</td>
+    </tr>
+    <tr>
+      <td><strong>5. External Interface Files (EIF)</strong></td>
+      <td>$\times 5$</td>
+      <td>$\times 7$</td>
+      <td>$\times 10$</td>
+      <td>Files/APIs shared with external third-party systems.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="formula-card">
+  <div class="formula-title">📐 Value Adjustment Factor (VAF) & Adjusted Function Points Formula</div>
+  $$\mathbf{\text{UFP} = \sum_{i=1}^5 \sum_{j=1}^3 W_{ij} X_{ij} \qquad \text{TDI} = \sum_{k=1}^{14} C_k \quad (0 \le C_k \le 5)}$$
+  $$\mathbf{\text{VAF} = 0.65 + 0.01 \times \text{TDI} \qquad \text{FP} = \text{UFP} \times \text{VAF}}$$
+  <p>Where $\text{TDI}$ is the Total Degree of Influence across 14 General System Characteristics (data communications, distributed processing, performance, transaction rate, reusability).</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 6: Complete Function Point Analysis Calculation</div>
+  <p>A university portal project has the following functional counts with average complexity:</p>
+  <ul>
+    <li>External Inputs ($\text{EI}$) = $10$ ($\text{Weight} = 4$) $\implies 10 \times 4 = \mathbf{40}$</li>
+    <li>External Outputs ($\text{EO}$) = $6$ ($\text{Weight} = 5$) $\implies 6 \times 5 = \mathbf{30}$</li>
+    <li>External Inquiries ($\text{EQ}$) = $8$ ($\text{Weight} = 4$) $\implies 8 \times 4 = \mathbf{32}$</li>
+    <li>Internal Logical Files ($\text{ILF}$) = $4$ ($\text{Weight} = 10$) $\implies 4 \times 10 = \mathbf{40}$</li>
+    <li>External Interface Files ($\text{EIF}$) = $2$ ($\text{Weight} = 7$) $\implies 2 \times 7 = \mathbf{14}$</li>
+    <li>$$\mathbf{\text{Unadjusted Function Points (UFP)} = 40 + 30 + 32 + 40 + 14 = \mathbf{156}}$$</li>
+    <li>Sum of 14 GSC ratings: $\text{TDI} = \mathbf{35}$.</li>
+    <li>$$\text{VAF} = 0.65 + 0.01 \times 35 = 0.65 + 0.35 = \mathbf{1.00}$$</li>
+    <li>$$\mathbf{\text{Adjusted Function Points (FP)} = \text{UFP} \times \text{VAF} = 156 \times 1.00 = \mathbf{156 \text{ FP}}}$$</li>
+    <li>Using Java language gear factor ($1 \text{ FP} \approx 53 \text{ LOC}$): $\text{Estimated Size} = 156 \times 53 = \mathbf{8,268 \text{ Lines of Java Code!}}$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 29: SEI Capability Maturity Model Integration (CMMI)</h2>
+<p>The <strong>SEI CMMI Framework</strong> evaluates an organization's software process maturity across 5 evolutionary levels:</p>
+
+<table class="custom-table">
+  <thead><tr><th>CMMI Level</th><th>Process Characterization</th><th>Key Process Areas (KPAs)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Level 1: Initial</strong></td><td>Ad-hoc, chaotic, heroic efforts. Unpredictable budget and quality.</td><td>Zero formalized processes.</td></tr>
+    <tr><td><strong>Level 2: Managed</strong></td><td>Project-level discipline. Projects are planned, performed, and controlled.</td><td>Requirements Management, Project Planning, SCM, QA.</td></tr>
+    <tr><td><strong>Level 3: Defined</strong></td><td>Organization-wide standardized engineering processes documented across all teams.</td><td>Organizational Process Definition, Technical Solution, Verification.</td></tr>
+    <tr><td><strong>Level 4: Quantitatively Managed</strong></td><td>Sub-processes measured statistically with quantitative quality targets.</td><td>Quantitative Project Management, Statistical Process Control.</td></tr>
+    <tr><td><strong>Level 5: Optimizing</strong></td><td>Continuous process improvement powered by causal defect analysis.</td><td>Causal Analysis and Resolution, Organizational Innovation.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 30: Software Maintenance, Lehman's Laws & SCM</h2>
+<h3 class="sub-title">Lientz & Swanson Maintenance Taxonomy</h3>
+<ul>
+  <li><strong>Corrective (~20% effort):</strong> Reactive repair of active bugs discovered after release.</li>
+  <li><strong>Adaptive (~25% effort):</strong> Modifying software to accommodate changing operational environments (new OS, new cloud database, changed tax laws).</li>
+  <li><strong>Perfective (~50% effort):</strong> Adding new user features, optimizing performance, refactoring UI.</li>
+  <li><strong>Preventive (~5% effort):</strong> Refactoring internal architecture and documentation to prevent future decay (reducing Technical Debt).</li>
+</ul>
+
+<h3 class="sub-title">Lehman's Laws of Software Evolution</h3>
+<ol>
+  <li><strong>I. Continuing Change:</strong> A system used in an environment must continually adapt or become progressively less useful.</li>
+  <li><strong>II. Increasing Complexity:</strong> As software evolves, its complexity increases unless active work is done to maintain its structure.</li>
+  <li><strong>VI. Continuing Growth:</strong> The functional capability of software must continually increase over its lifetime to maintain customer satisfaction.</li>
+</ol>
+
+<h2 class="section-title">Topic 31: University Exam Problem Bank & Model Answers</h2>
+
+<div class="qa-card"><div class="qa-q">Q10. Explain Software Configuration Management (SCM) and the Role of the Change Control Board (CCB). (8 Marks)</div><div class="qa-a"><strong>SCM</strong> controls evolution across all software artifacts (code, SRS, design, test cases):<br>1. <strong>Software Configuration Items (SCIs):</strong> Documented baselined components under formal version control.<br>2. <strong>Change Control Board (CCB):</strong> Cross-functional steering committee that reviews all formal Change Requests (CRs), analyzes business/cost impact, and issues approvals/rejections.<br>3. <strong>SCM Audits:</strong> Functional Configuration Audits (verifies SCI passes all functional tests) vs. Physical Configuration Audits (verifies code and documentation match exact build release versions).</div></div>
+
+<div class="qa-card"><div class="qa-q">Q11. Explain Software Re-engineering and Compare Reverse Engineering with Forward Engineering. (8 Marks)</div><div class="qa-a"><strong>Re-engineering</strong> modernizes aging legacy systems without changing external business functionality:<br>• <strong>Reverse Engineering:</strong> Analyzing existing legacy binary/source code to extract higher-level design models, data schemas, and business rules.<br>• <strong>Restructuring:</strong> Transforming spaghetti code and obsolete database schemas into modular, clean architectures.<br>• <strong>Forward Engineering:</strong> Applying modern software engineering practices to rebuild the system on modern cloud/microservices stacks, completely eliminating technical debt!</div></div>
+
+<h2 class="section-title">Topic 54: Intermediate COCOMO & The 15 Effort Multipliers</h2>
+<p><strong>Intermediate COCOMO</strong> refines nominal effort by multiplying by an <strong>Effort Adjustment Factor (EAF)</strong> derived from 15 cost drivers rated from Very Low to Extra High:</p>
+$$\mathbf{E = a \times (\text{KLOC})^b \times \text{EAF} \qquad \text{where } \text{EAF} = \prod_{i=1}^{15} \text{EM}_i}$$
+
+<table class="custom-table">
+  <thead><tr><th>Cost Driver Category</th><th>Specific Effort Multipliers ($\text{EM}_i$)</th><th>Impact Range on Project Effort</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Product Attributes</strong></td><td>Required Software Reliability (`RELY`), Database Size (`DATA`), Product Complexity (`CPLX`).</td><td>$0.75 \text{ (Low)} \leftrightarrow 1.40 \text{ (Extra High)}$</td></tr>
+    <tr><td><strong>Computer Attributes</strong></td><td>Execution Time Constraint (`TIME`), Memory Constraint (`STOR`), Platform Volatility (`VIRT`).</td><td>$1.00 \text{ (Nominal)} \leftrightarrow 1.66 \text{ (Severe limit)}$</td></tr>
+    <tr><td><strong>Personnel Attributes</strong></td><td>Analyst Capability (`ACAP`), Programmer Capability (`PCAP`), Language Experience (`LEXP`).</td><td>$1.46 \text{ (Very Low)} \leftrightarrow 0.70 \text{ (Expert team)}$</td></tr>
+    <tr><td><strong>Project Attributes</strong></td><td>Modern Programming Practices (`MODP`), Software Tools (`TOOL`), Required Schedule (`SCED`).</td><td>$1.24 \text{ (No tools)} \leftrightarrow 0.83 \text{ (Advanced CI/CD)}$</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 10: Complete Halstead Software Science Metric Trace</div>
+  <p>A C++ function contains $n_1 = 4$ unique operators, $n_2 = 8$ unique operands, $N_1 = 12$ total operators, and $N_2 = 16$ total operands:</p>
+  <ul>
+    <li>$$\text{Program Vocabulary } \mathbf{n = n_1 + n_2 = 4 + 8 = \mathbf{12}}$$</li>
+    <li>$$\text{Program Length } \mathbf{N = N_1 + N_2 = 12 + 16 = \mathbf{28}}$$</li>
+    <li>$$\text{Program Volume } \mathbf{V = N \log_2 n = 28 \log_2(12) = 28 \times 3.585 = \mathbf{100.38 \text{ Bits}}}$$</li>
+    <li>$$\text{Program Difficulty } \mathbf{D = \frac{n_1}{2} \times \frac{N_2}{n_2} = \frac{4}{2} \times \frac{16}{8} = 2 \times 2 = \mathbf{4.0}}$$</li>
+    <li>$$\text{Effort } \mathbf{E = D \times V = 4.0 \times 100.38 = \mathbf{401.52 \text{ Elementary Mental Discriminations}}}$$</li>
+    <li>$$\text{Estimated Time } \mathbf{T = \frac{E}{18} = \frac{401.52}{18} \approx \mathbf{22.31 \text{ Seconds}}}$$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 55: The 8 Laws of Software Evolution (Meir Lehman)</h2>
+<table class="custom-table">
+  <thead><tr><th>Law</th><th>Formal Law Name</th><th>Engineering Law Axiom</th></tr></thead>
+  <tbody>
+    <tr><td><strong>I</strong></td><td><strong>Continuing Change</strong></td><td>An E-type system must be continually adapted else it becomes progressively less satisfactory.</td></tr>
+    <tr><td><strong>II</strong></td><td><strong>Increasing Complexity</strong></td><td>As a system evolves, its complexity increases unless work is done to maintain or reduce it.</td></tr>
+    <tr><td><strong>III</strong></td><td><strong>Self Regulation</strong></td><td>Evolution processes are self-regulating with statistically determinable distributions of product measures.</td></tr>
+    <tr><td><strong>IV</strong></td><td><strong>Conservation of Organizational Stability</strong></td><td>The average effective global activity rate in an evolving system is invariant over product lifetime.</td></tr>
+    <tr><td><strong>V</strong></td><td><strong>Conservation of Familiarity</strong></td><td>The incremental growth of an evolving system declines with each release to preserve team familiarity.</td></tr>
+    <tr><td><strong>VI</strong></td><td><strong>Continuing Growth</strong></td><td>The functional capability of a system must continually increase to maintain user satisfaction.</td></tr>
+    <tr><td><strong>VII</strong></td><td><strong>Declining Quality</strong></td><td>Quality will appear to decline unless rigorously maintained and adapted to operational environment changes.</td></tr>
+    <tr><td><strong>VIII</strong></td><td><strong>Feedback System</strong></td><td>Evolution processes constitute multi-loop, multi-agent feedback systems that must be managed.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 56: University Exam Problem Bank (Part II)</h2>
+
+<div class="qa-card"><div class="qa-q">Q20. Differentiate between ISO 9001 and SEI CMMI across Scope, Focus, and Implementation. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>ISO 9001:2015</th><th>SEI CMMI Framework</th></tr></thead><tbody><tr><td><strong>Scope</strong></td><td>Generic quality management across all industries (manufacturing, services).</td><td>Specialized specifically for software and systems engineering.</td></tr><tr><td><strong>Approach</strong></td><td>Pass/Fail threshold certification (You either meet the standard or you don't).</td><td>Graded 5-level continuous maturity scale (Level 1 to Level 5).</td></tr><tr><td><strong>Primary Focus</strong></td><td>Customer satisfaction and compliance to documented processes.</td><td>Continuous process improvement and statistical defect reduction.</td></tr><tr><td><strong>Auditing Body</strong></td><td>External accredited third-party ISO registrars.</td><td>Certified SEI Lead Appraisers (SCAMPI appraisal).</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q21. What is Software Configuration Audit? Differentiate between FCA and PCA. (8 Marks)</div><div class="qa-a"><strong>Configuration Audits</strong> verify that software products conform to specifications before release:<br>• <strong>Functional Configuration Audit (FCA):</strong> Verifies through formal test execution logs that the configuration item has satisfied all functional and performance requirements specified in the SRS.<br>• <strong>Physical Configuration Audit (PCA):</strong> Inspects the physical build artifacts, confirming that the source code, build scripts, user manuals, and release notes match the exact version numbers specified in the baseline documentation!</div></div>
+
+<h2 class="section-title">Topic 57: COCOMO II 5 Scale Factors ($W_i$)</h2>
+<p>In <strong>COCOMO II</strong>, project size diseconomy of scale is determined by 5 Scale Factors ($W_i$ rated 0 to 5):</p>
+$$\mathbf{B = 0.91 + 0.01 \times \sum_{i=1}^5 W_i \qquad E = A \times (\text{KSLOC})^B \times \prod \text{EM}_i}$$
+<table class="custom-table">
+  <thead><tr><th>Scale Factor</th><th>Meaning</th><th>Impact on Exponent $B$</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1. PREC (Precedentedness)</strong></td><td>Domain familiarity and team past project experience.</td><td>High experience lowers $B \rightarrow 0.91$ (Economy of scale).</td></tr>
+    <tr><td><strong>2. FLEX (Development Flexibility)</strong></td><td>Relaxation of strict pre-defined requirement specs.</td><td>High flexibility lowers $B$.</td></tr>
+    <tr><td><strong>3. RESL (Architecture / Risk Resolution)</strong></td><td>Percentage of risks resolved prior to development.</td><td>Early risk resolution lowers $B$.</td></tr>
+    <tr><td><strong>4. TEAM (Team Cohesion)</strong></td><td>Team communication and shared vision.</td><td>High cohesion lowers $B$.</td></tr>
+    <tr><td><strong>5. PMAT (Process Maturity)</strong></td><td>SEI CMMI Process maturity rating.</td><td>CMMI Level 5 drops $W_5 \rightarrow 0.0$.</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Defect Density & Phase Containment Effectiveness (PCE)</div>
+  <p>In a $40 \text{ KLOC}$ system, 120 defects were detected during development inspections, and 30 defects were discovered in production:</p>
+  $$\mathbf{\text{Defect Density} = \frac{\text{Total Defects}}{\text{Size in KLOC}} = \frac{120 + 30}{40} = \frac{150}{40} = \mathbf{3.75 \text{ Defects/KLOC}}}$$
+  $$\mathbf{\text{Phase Containment Effectiveness (PCE)} = \frac{\text{In-Phase Defects}}{\text{In-Phase} + \text{Escaped Defects}} = \frac{120}{120 + 30} = \frac{120}{150} = \mathbf{0.80 = 80.0\%}}$$
+</div>
+
+<h2 class="section-title">Topic 58: SEI CMMI 5 Maturity Levels & Key Process Areas (KPAs)</h2>
+<table class="custom-table">
+  <thead><tr><th>CMMI Maturity Level</th><th>Focus</th><th>Key Process Areas (KPAs) Required for Certification</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Level 1: Initial</strong></td><td>Competent people & heroics</td><td>No KPAs. Unpredictable, poorly controlled, reactive environments.</td></tr>
+    <tr><td><strong>Level 2: Managed</strong></td><td>Basic project management</td><td>Requirements Management (REQM), Project Planning (PP), Project Monitoring and Control (PMC), Supplier Agreement Management (SAM), Measurement and Analysis (MA), Process and Product Quality Assurance (PPQA), Configuration Management (CM).</td></tr>
+    <tr><td><strong>Level 3: Defined</strong></td><td>Process standardization</td><td>Requirements Development (RD), Technical Solution (TS), Product Integration (PI), Verification (VER), Validation (VAL), Organizational Process Focus (OPF), Organizational Training (OT), Risk Management (RSKM), Decision Analysis and Resolution (DAR).</td></tr>
+    <tr><td><strong>Level 4: Quantitatively Managed</strong></td><td>Quantitative management</td><td>Organizational Process Performance (OPP), Quantitative Project Management (QPM). (Uses Statistical Process Control charts).</td></tr>
+    <tr><td><strong>Level 5: Optimizing</strong></td><td>Continuous improvement</td><td>Organizational Performance Management (OPM), Causal Analysis and Resolution (CAR).</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 18: Function Point Analysis Gear Factor Code Size Estimation</div>
+  <p>An enterprise project is estimated at $\text{FP} = 250 \text{ Function Points}$. Estimate source code size across different language stacks:</p>
+  <ul>
+    <li>$$\text{Assembly } (320 \text{ LOC/FP}) \implies 250 \times 320 = \mathbf{80,000 \text{ Lines of Code}}$$</li>
+    <li>$$\text{C Language } (128 \text{ LOC/FP}) \implies 250 \times 128 = \mathbf{32,000 \text{ Lines of Code}}$$</li>
+    <li>$$\text{Java / C++ } (53 \text{ LOC/FP}) \implies 250 \times 53 = \mathbf{13,250 \text{ Lines of Code}}$$</li>
+    <li>$$\text{Python / Ruby } (21 \text{ LOC/FP}) \implies 250 \times 21 = \mathbf{5,250 \text{ Lines of Code}}$$</li>
+    <li>$$\text{SQL / 4GL } (13 \text{ LOC/FP}) \implies 250 \times 13 = \mathbf{3,250 \text{ Lines of Code}}$$</li>
+    <li><em>Conclusion:</em> Modern high-level languages slash source code volume by over $\mathbf{15\times}$ for identical business functional output!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 26: Intermediate COCOMO with Cost Driver Multipliers</div>
+  <p>A $30 \text{ KLOC}$ embedded system has High Reliability requirement ($\text{EM}_1 = 1.15$), High Execution Constraint ($\text{EM}_2 = 1.11$), and Expert Team ($\text{EM}_3 = 0.82$):</p>
+  <ul>
+    <li>$$\text{EAF} = 1.15 \times 1.11 \times 0.82 \approx \mathbf{1.0467}$$</li>
+    <li>$$E_{\text{nominal}} = 3.6 \times (30)^{1.20} = 3.6 \times 59.22 \approx \mathbf{213.2 \text{ Person-Months}}$$</li>
+    <li>$$\mathbf{E_{\text{adjusted}} = 213.2 \times 1.0467 \approx \mathbf{223.15 \text{ Person-Months}}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 27: Software Science Potential Volume ($V^*$) and Language Level ($L$)</div>
+  <p>For minimum potential representation with $n_2^* = 4$ input/output parameters: $V^* = (2 + n_2^*)\log_2(2 + n_2^*) = 6 \log_2(6) = \mathbf{15.51 \text{ Bits}}$. Program Level $L = V^* / V = 15.51 / 100.38 \approx \mathbf{0.1545}$.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 36: COCOMO II Early Design vs Post-Architecture Models</div>
+  <p>• <strong>Early Design Model:</strong> Used during requirements phase when code architecture is emerging; uses 7 aggregated cost drivers.<br>• <strong>Post-Architecture Model:</strong> Used during detailed construction; uses all 17 detailed cost drivers and 5 scale factors $W_i$ for high-precision cost prediction!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 37: Software Re-engineering Reverse Engineering Metrics</div>
+  <p>In legacy modernization, <strong>Cyclomatic Complexity per Function</strong> and <strong>Fan-In / Fan-Out Ratios</strong> identify high-risk candidate modules for containerized microservice extraction!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 46: Halstead Software Science Stroud Number Derivation</div>
+  <p>Psychologist John Stroud determined that the human brain can process a maximum of $S = 18$ elementary mental discriminations per second. Dividing total programming effort $E$ by $18$ yields exact estimated human cognitive coding time $T = E/18$ seconds!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 47: Software Configuration Item (SCI) Baseline Dependency Graph</div>
+  <p>In enterprise SCM: An approved Release Baseline binds `SRS v2.1`, `Architecture v1.4`, `Commit SHA-7f8a9`, and `Test Run #402`, ensuring reproducible zero-drift deployment across production clusters!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 56: COCOMO II Early Design Unadjusted Function Point Sizing</div>
+  <p>Convert $150 \text{ Function Points}$ to KSLOC in C++ ($53 \text{ SLOC/FP}$): $\text{Size} = 150 \times 53 = 7,950 \text{ SLOC} = \mathbf{7.95 \text{ KSLOC}}$. Compute Effort with scale factor $B = 1.10$: $E = 2.94 \times (7.95)^{1.10} \approx \mathbf{28.7 \text{ Person-Months}}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 57: Technical Debt Ratio (TDR) Formula</div>
+  <p>In SonarQube static analysis: $\text{TDR} = \frac{\text{Remediation Cost}}{\text{Development Cost}} \times 100\%$. A TDR $< 5\%$ indicates clean, highly maintainable code!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 66: COCOMO II Nominal Effort Multipliers Calibration</div>
+  <p>Calculate EAF for High Security ($1.15$), High Execution Constraint ($1.11$), and Expert Team ($0.75$): $\text{EAF} = 1.15 \times 1.11 \times 0.75 \approx \mathbf{0.9574}$. Results in a $4.26\%$ net effort reduction!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 67: Cyclomatic Complexity vs Maintainability Index (MI)</div>
+  <p>Maintainability Index $\text{MI} = 171 - 5.2 \ln(V) - 0.23 V(G) - 16.2 \ln(\text{LOC})$. A score $> 85$ indicates highly maintainable code with minimal technical debt!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 75: Function Point Analysis General System Characteristics (GSC) Scoring</div>
+  <p>The 14 GSCs evaluate environmental complexity (data comms, online update, reusability, installation ease). Each is rated 0 (no influence) to 5 (strong influence). The sum $\text{TDI} \in [0, 70]$ shifts the VAF multiplier between $0.65$ and $1.35$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 76: Software Re-engineering Code Smells & Refactoring</div>
+  <p>Identify common code smells: <strong>Long Method</strong> (refactor via Extract Method), <strong>Large Class</strong> (refactor via Extract Class), <strong>Feature Envy</strong> (refactor via Move Method), and <strong>Primitive Obsession</strong> (refactor to Value Objects)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 88: SCM Gitflow vs Trunk-Based Development</div>
+  <p>• <strong>Gitflow:</strong> Uses long-lived branches (`feature/*`, `develop`, `release/*`, `hotfix/*`, `main`). Suitable for scheduled quarterly enterprise releases.<br>• <strong>Trunk-Based Development:</strong> Developers merge short-lived branches directly to `main` daily behind feature flags. Required for high-velocity CI/CD deployments (10+ deploys/day)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 89: Software Maintenance Effort Distribution by Lientz & Swanson</div>
+  <p>Empirical studies across Fortune 500 companies prove that $\approx 50\%$ of software maintenance expenditure is <strong>Perfective</strong> (adding new features and user enhancements), debunking the myth that maintenance is just fixing bugs!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 90: Software Re-engineering Technical Debt Remediation Lifecycle</div>
+  $$\text{Code Smell Detection} \rightarrow \text{Automated Unit Testing} \rightarrow \text{Stepwise Refactoring} \rightarrow \text{Regression Verification} \rightarrow \text{Zero Debt Baseline!}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 102: ISO 9001 vs ISO/IEC 25010 Software Product Quality Model</div>
+  <p>ISO/IEC 25010 evaluates 8 software quality characteristics: <strong>Functional Suitability, Performance Efficiency, Compatibility, Usability, Reliability, Security, Maintainability, Portability</strong>!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 103: Software Maintenance Ripple Effect Analysis</div>
+  <p>Using call graphs and dependency matrices to compute the exact reachability set of classes affected when modifying a central database schema column!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 104: Software Re-engineering Code Restructuring via Microservices Migration</div>
+  <p>Using the <strong>Strangler Fig Pattern</strong> to incrementally replace monolithic legacy components with containerized microservices behind an API gateway with zero system downtime!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 116: Software Product Lines (SPL) & Domain Engineering</div>
+  <p>Maximizes software asset reuse across product variants by defining a shared Core Architecture and Feature Model with explicit variation points!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 117: COCOMO II Post-Architecture Cost Drivers Calibration</div>
+  <p>Calibrating 17 detailed effort multipliers ($\text{EM}_i$) for High Storage Constraints ($1.21$), High Platform Volatility ($1.15$), and High Team Cohesion ($0.86$), generating high-precision cost and staffing estimates!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 118: Software Evolution Legacy System Modernization Strategies</div>
+  <p>The 5 Rs of Legacy Modernization: <strong>Rehost</strong> (lift and shift), <strong>Refactor</strong> (code cleanup), <strong>Rearchitect</strong> (microservices), <strong>Rebuild</strong> (cloud native), <strong>Replace</strong> (commercial SaaS)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 127: Software Cost Estimation Machine Learning Regression Models</div>
+  <p>Training ensemble random forests and neural networks on historical ISBSG benchmark datasets to predict project effort with $< 10\%$ mean absolute relative error!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 128: Software Architecture Drift & Technical Debt Governance</div>
+  <p>Enforcing architectural fitness functions in CI/CD pipelines (ArchUnit) to automatically fail builds when forbidden cross-layer dependencies are introduced!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 137: Function Point Analysis for Object-Oriented Software (COSMIC Function Points)</div>
+  <p>The <strong>COSMIC FP Standard (ISO/IEC 19761)</strong> measures software size based on 4 fundamental data movements (Entry $E$, Exit $X$, Read $R$, Write $W$), providing a mathematically continuous metric for modern microservices and real-time event systems!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 138: Software Technical Debt Valuation via Financial Option Models</div>
+  <p>Treating refactoring investments as financial call options: Refactoring high-churn modules yields compound interest by slashing future feature addition latency!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 142: Software Evolution 8 Lehman Laws Architecture Mapping</div>
+  <p>Applying Lehman's Second Law (Increasing Complexity) to justify dedicated $20\%$ refactoring sprints in enterprise banking software!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 149: COCOMO II Scale Factors Mathematical Proof</div>
+  <p>Deriving the project size exponent $B = 0.91 + 0.01 \sum W_i$ to quantify the transition from diseconomy of scale ($B > 1.0$) to economy of scale ($B < 1.0$)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 150: Automated Technical Debt Governance in CI Pipelines</div>
+  <p>Failing CI builds automatically when new code introduces cyclic dependencies or causes test coverage to drop below the $85\%$ quality gate threshold!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 157: Software Process Quality Control Charts (Shewhart Control Charts)</div>
+  <p>Plotting defect discovery rate per inspection against Upper Control Limit (UCL) and Lower Control Limit (LCL) to trigger root-cause corrective action when out of statistical control!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 158: Enterprise SCM Configuration Status Accounting (CSA)</div>
+  <p>Maintaining historical audit logs tracking what was changed, why it was changed, who authorized the change, and when the change was released to production clusters!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 165: Function Point Analysis Gear Factor Calibration Across Modern Stacks</div>
+  <p>Comparing Java ($53 \text{ LOC/FP}$), TypeScript ($42 \text{ LOC/FP}$), and Python ($21 \text{ LOC/FP}$): Quantifying how high-level abstractions cut total codebase volume and maintenance defect surface!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 166: Technical Debt Compounding Interest & Refactoring ROI</div>
+  <p>Mathematical proof: Investing 2 sprints in debt remediation cuts future sprint bug-fixing overhead by $40\%$, paying back the investment within 4 months!</p>
+</div>
+
 </body>
 </html>

@@ -2,327 +2,707 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 3: Software Architecture, Cohesion & UML</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<title>Module 3: Software Design Engineering & UML 2.5 Modeling</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]});"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
-:root {
-  --primary: #047857;       /* Deep Emerald Green */
-  --primary-light: #ecfdf5;
-  --accent: #2563eb;        /* Blue */
-  --secondary: #0f766e;     /* Teal */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 14mm 12mm;
+  @top-right {
+    content: "CS24353 • Software Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-left {
+    content: "BIT Mesra • Department of Computer Science & Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #94a3b8;
+  }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11.2px;
+  line-height: 1.58;
+  color: #0f172a;
+  background-color: #ffffff;
+  margin: 0;
   padding: 0;
 }
 
-.page-container {
-  max-width: 900px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+.cover-header {
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
 }
-
-.doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
-}
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-
-.badge {
+.course-badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 3px 8px;
   border-radius: 4px;
-}
-
-.badge-green { background: #d1fae5; color: #065f46; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-emerald { background: #a7f3d0; color: #047857; }
-
-h1.doc-title {
-  font-size: 23px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 5px;
-}
-
-.doc-subtitle {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
-}
-
-.toc-title {
-  font-size: 13px;
+  font-size: 9px;
   font-weight: 700;
-  color: #047857;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
+.doc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 4px 0 6px 0;
+  letter-spacing: -0.4px;
+}
+.doc-subtitle {
   font-size: 11.5px;
+  color: #475569;
+  font-weight: 400;
+  margin: 0 0 4px 0;
+}
+.meta-info {
+  font-size: 9.5px;
+  color: #64748b;
+  margin-top: 6px;
+  display: flex;
+  gap: 14px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 24px 0 12px 0;
+  color: #0369a1;
+  border-bottom: 1.5px solid #e0f2fe;
+  padding-bottom: 4px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  page-break-after: avoid;
 }
 
-h3.subsection-title {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
-}
+p { margin-top: 0; margin-bottom: 8px; text-align: justify; }
+ul, ol { margin-top: 0; margin-bottom: 8px; padding-left: 18px; }
+li { margin-bottom: 3.5px; }
 
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
-  border-left: 4px solid;
-  page-break-inside: avoid;
-}
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #ecfdf5; border-color: #047857; color: #064e3b; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
-
-.callout-title {
-  font-weight: 700;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 10px 0;
+  font-size: 10px;
   page-break-inside: avoid;
 }
-
-table.custom-table th {
-  background: #064e3b;
-  color: #ffffff;
+.custom-table th {
+  background-color: #f0f9ff;
+  color: #0369a1;
   font-weight: 600;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
+  padding: 6px 8px;
+  border: 1px solid #bae6fd;
 }
-
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
+.custom-table td {
+  padding: 5.5px 8px;
   border: 1px solid #e2e8f0;
+  vertical-align: top;
 }
+.custom-table tr:nth-child(even) { background-color: #f8fafc; }
 
-pre {
-  background: #0f172a;
-  color: #f8fafc;
-  padding: 9px 13px;
-  border-radius: 6px;
-  font-family: 'Fira Code', monospace;
+.callout-box {
+  background-color: #f0fdf4;
+  border-left: 3.5px solid #16a34a;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.callout-title {
+  font-weight: 700;
+  color: #15803d;
   font-size: 11px;
-  line-height: 1.4;
-  overflow-x: auto;
-  margin: 9px 0;
-  page-break-inside: avoid;
+  margin-bottom: 4px;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
-
-.diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
-  text-align: center;
+.worked-box {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #0284c7;
+  padding: 9px 12px;
+  margin: 11px 0;
+  border-radius: 0 6px 6px 0;
   page-break-inside: avoid;
 }
+.worked-title {
+  font-weight: 700;
+  color: #0369a1;
+  font-size: 11.2px;
+  margin-bottom: 5px;
+}
 
-.diagram-caption {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.formula-card {
+  background: #fdf4ff;
+  border-left: 3.5px solid #a855f7;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.formula-title {
+  font-weight: 700;
+  color: #7e22ce;
+  font-size: 11px;
+  margin-bottom: 4px;
 }
 
 .qa-card {
   background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
+  border: 1px solid #e2e8f0;
+  border-left: 3.5px solid #0284c7;
+  padding: 8px 11px;
+  margin: 8px 0;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
+.qa-q { font-weight: 700; color: #0369a1; font-size: 10.8px; margin-bottom: 3px; }
+.qa-a { color: #334155; font-size: 10.3px; line-height: 1.5; }
 
-.qa-q { font-weight: 700; color: #047857; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Software Engineering (CS24353) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 9.8px;
+  background-color: #f1f5f9;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  color: #0f172a;
 }
+pre code {
+  display: block;
+  padding: 8px 10px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 9.2px;
+  line-height: 1.45;
+}
+
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-emerald">CS24353 — Elective (3.0 Cr)</span>
-      <span class="badge badge-blue">Module III Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
-    </div>
-    <h1 class="doc-title">Module 3: Software Architecture, Cohesion & UML</h1>
-    <div class="doc-subtitle">Modularity, 7 Cohesion Types, 6 Coupling Types, SOLID, UML</div>
-  </div>
-  
-<div class="toc-box">
-  <div class="toc-title">Module III: Software Architecture, Cohesion & UML — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Architectural Concepts & SOLID Principles</div>
-    <div>2. Modularity: Cohesion (7 Levels) & Coupling (6 Levels)</div>
-    <div>3. Architectural Styles (Layered, Microservices, MVC)</div>
-    <div>4. UML Structural: Use Case & Class Diagrams</div>
-    <div>5. UML Behavioral: Sequence, Activity & Statecharts</div>
+<div class="cover-header">
+  <span class="course-badge">CS24353 • MODULE 3</span>
+  <h1 class="doc-title">Module 3: Software Design Engineering & UML 2.5 Modeling</h1>
+  <p class="doc-subtitle">Topics 27 to 39 • Modularity, Cohesion, Coupling, SOLID Principles, Use Case, Class, Sequence & Activity Diagrams</p>
+  <div class="meta-info">
+    <span><strong>Author:</strong> Shaswat Raj (BIT Mesra)</span>
+    <span><strong>Academic Year:</strong> 2024–25 (5th Sem CSE)</span>
+    <span><strong>Standard:</strong> IEEE & ISO/IEC Standards</span>
   </div>
 </div>
 
-<h2 class="section-title">1. Cohesion and Coupling Quality Spectrum</h2>
-<p>
-  <strong>Desirable Design Goal:</strong> High Cohesion within modules and Low (Loose) Coupling between modules.
-</p>
+<h2 class="section-title">Topic 14: Software Design Principles & Architectural Engineering</h2>
+<p><strong>Software Design</strong> bridges the gap between the requirements domain and the implementation domain. It defines the internal organization of software components, interfaces, and data structures.</p>
+
+<div class="callout-box">
+  <div class="callout-title">📐 Fundamental Design Concepts</div>
+  <ul>
+    <li><strong>Abstraction:</strong> Hiding internal implementation complexity while exposing a clean, essential interface (e.g., procedural and data abstraction).</li>
+    <li><strong>Modularity:</strong> Decomposing a complex monolithic system into distinct, independently manageable components.</li>
+    <li><strong>Information Hiding (David Parnas):</strong> Encapsulating design decisions inside modules so that internal changes do not ripple across external callers.</li>
+    <li><strong>Functional Independence:</strong> Designing modules with high cohesion and low coupling.</li>
+    <li><strong>Refinement:</strong> Stepwise top-down elaboration from high-level abstract logic down to concrete algorithms.</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 15: Cohesion Taxonomy (7 Hierarchical Levels)</h2>
+<p><strong>Cohesion</strong> measures the degree of functional relatedness among elements inside a single module. <em>High cohesion is the hallmark of superior software design!</em></p>
+
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 50%;">Cohesion Spectrum (Low $\rightarrow$ High / Desirable)</th>
-      <th>Coupling Spectrum (High / Undesirable $\rightarrow$ Low / Desirable)</th>
+      <th style="width: 18%;">Cohesion Level</th>
+      <th style="width: 14%;">Quality Rating</th>
+      <th style="width: 32%;">Description</th>
+      <th>Concrete Code Example</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>1. Coincidental (Worst)</td><td>1. Content Coupling (Worst - direct memory modification)</td></tr>
-    <tr><td>2. Logical</td><td>2. Common Coupling (Shared global variables)</td></tr>
-    <tr><td>3. Temporal</td><td>3. External Coupling</td></tr>
-    <tr><td>4. Procedural</td><td>4. Control Coupling</td></tr>
-    <tr><td>5. Communicational</td><td>5. Stamp Coupling (Passing composite data structure)</td></tr>
-    <tr><td>6. Sequential</td><td rowspan="2">6. <strong>Data Coupling (Best - passing scalar parameters)</strong></td></tr>
-    <tr><td>7. <strong>Functional Cohesion (Best - performs single focused task)</strong></td></tr>
+    <tr>
+      <td><strong>1. Coincidental</strong></td>
+      <td><span style="color:#dc2626; font-weight:700;">Worst (0/10)</span></td>
+      <td>Elements grouped purely at random with zero logical relationship.</td>
+      <td>`Utilities.java` containing `calculateTax()`, `printString()`, `sortArray()`.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Logical</strong></td>
+      <td><span style="color:#ea580c; font-weight:700;">Poor (2/10)</span></td>
+      <td>Elements perform logically similar functions selected via a control flag.</td>
+      <td>`handleInput(int flag)` where flag 1=Mouse, flag 2=Keyboard, flag 3=Network.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Temporal</strong></td>
+      <td><span style="color:#d97706; font-weight:700;">Fair (4/10)</span></td>
+      <td>Elements executed together during the same timeframe.</td>
+      <td>`systemStartup()` initializing DB connections, loading config files, and clearing cache.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Procedural</strong></td>
+      <td><span style="color:#ca8a04; font-weight:700;">Moderate (5/10)</span></td>
+      <td>Elements executed in a specific sequence to accomplish a broader task.</td>
+      <td>`processOrder()`: `checkStock()` $\rightarrow$ `deductBalance()` $\rightarrow$ `printReceipt()`.</td>
+    </tr>
+    <tr>
+      <td><strong>5. Communicational</strong></td>
+      <td><span style="color:#65a30d; font-weight:700;">Good (7/10)</span></td>
+      <td>Elements operate upon the exact same shared input dataset.</td>
+      <td>`analyzeStudentRecords()`: `computeGPA(student)` and `generateTranscript(student)`.</td>
+    </tr>
+    <tr>
+      <td><strong>6. Sequential</strong></td>
+      <td><span style="color:#16a34a; font-weight:700;">Very Good (8.5/10)</span></td>
+      <td>Output of one element serves as the direct input to the next element (pipeline).</td>
+      <td>`parseXML(file)` $\rightarrow$ `validateSchema(xml)` $\rightarrow$ `insertToDB(records)`.</td>
+    </tr>
+    <tr>
+      <td><strong>7. Functional</strong></td>
+      <td><span style="color:#15803d; font-weight:700;">Best (10/10)</span></td>
+      <td>Every element contributes strictly to executing exactly one well-defined mathematical or business task.</td>
+      <td>`Math.sin(angle)`, `calculateCompoundInterest(P, r, n, t)`.</td>
+    </tr>
   </tbody>
 </table>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Software Engineering (CS24353) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
-  </div>
+<h2 class="section-title">Topic 16: Coupling Taxonomy (6 Hierarchical Levels)</h2>
+<p><strong>Coupling</strong> measures the degree of interdependence between separate software modules. <em>Low coupling minimizes ripple effects during system maintenance!</em></p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Coupling Level</th>
+      <th style="width: 14%;">Quality Rating</th>
+      <th style="width: 32%;">Description</th>
+      <th>Concrete Architecture Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Content</strong></td>
+      <td><span style="color:#dc2626; font-weight:700;">Worst (High)</span></td>
+      <td>One module directly accesses and modifies internal code or private data of another module.</td>
+      <td>Module A branches into the middle of Module B via `goto` or directly mutates B's private pointers.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Common</strong></td>
+      <td><span style="color:#ea580c; font-weight:700;">Very Poor</span></td>
+      <td>Multiple modules read and write to shared global variables or shared memory pools.</td>
+      <td>Modules A, B, and C all mutating global variable `int g_system_state;`.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Control</strong></td>
+      <td><span style="color:#d97706; font-weight:700;">Poor</span></td>
+      <td>One module passes a control flag that dictates the internal execution path of another module.</td>
+      <td>`calculatePayroll(employee, boolean isExecutive)`.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Stamp (Data-Structured)</strong></td>
+      <td><span style="color:#65a30d; font-weight:700;">Fair / Good</span></td>
+      <td>Modules pass a complete composite data structure when only a few fields are needed.</td>
+      <td>Passing complete `Customer` object (30 fields) to a function that only needs `customer.zipCode`.</td>
+    </tr>
+    <tr>
+      <td><strong>5. Data</strong></td>
+      <td><span style="color:#16a34a; font-weight:700;">Very Good</span></td>
+      <td>Modules communicate strictly by passing atomic primitive parameters through interfaces.</td>
+      <td>`computeTax(double salary, double taxRate)`.</td>
+    </tr>
+    <tr>
+      <td><strong>6. Message / No Coupling</strong></td>
+      <td><span style="color:#15803d; font-weight:700;">Best (Lowest)</span></td>
+      <td>Modules communicate asynchronously via message queues with zero shared state.</td>
+      <td>Microservices communicating via RabbitMQ JSON events.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 17: Object-Oriented Design & The SOLID Principles</h2>
+<table class="custom-table">
+  <thead><tr><th>Principle</th><th>Core Definition</th><th>Violation vs. Clean Architectural Solution</th></tr></thead>
+  <tbody>
+    <tr><td><strong>S — Single Responsibility (SRP)</strong></td><td>A class should have one, and only one, reason to change.</td><td><em>Violation:</em> `User` class handling business logic + database saving + PDF email formatting.<br><em>Solution:</em> Split into `User`, `UserRepository`, and `UserInvoicePdfService`.</td></tr>
+    <tr><td><strong>O — Open/Closed (OCP)</strong></td><td>Software entities should be open for extension, but closed for modification.</td><td><em>Violation:</em> Using huge `switch(shapeType)` statements to compute areas.<br><em>Solution:</em> Define abstract `Shape` interface with polymorphic `calculateArea()` implementations (`Circle`, `Rectangle`).</td></tr>
+    <tr><td><strong>L — Liskov Substitution (LSP)</strong></td><td>Subtypes must be substitutable for their base types without altering correctness.</td><td><em>Violation:</em> `Square` inheriting from `Rectangle` where mutating width unexpectedly changes height.<br><em>Solution:</em> Extract common `Shape` interface; do not force square-rectangle inheritance.</td></tr>
+    <tr><td><strong>I — Interface Segregation (ISP)</strong></td><td>Clients should not be forced to depend upon interfaces they do not use.</td><td><em>Violation:</em> Massive `IMachine` with `print()`, `scan()`, `fax()`, `staple()`.<br><em>Solution:</em> Segregate into `IPrinter`, `IScanner`, `IFax`.</td></tr>
+    <tr><td><strong>D — Dependency Inversion (DIP)</strong></td><td>High-level modules should not depend on low-level modules; both should depend on abstractions.</td><td><em>Violation:</em> `OrderService` directly instantiating `MySQLDatabase db = new MySQLDatabase();`.<br><em>Solution:</em> Inject interface `IDatabase` via Dependency Injection.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 18: UML 2.5 Modeling Suite (Structural & Behavioral Diagrams)</h2>
+<p>The <strong>Unified Modeling Language (UML)</strong> is the standard graphical language for specifying, visualizing, constructing, and documenting software system artifacts.</p>
+
+<h3 class="sub-title">1. UML Use Case Diagram</h3>
+<ul>
+  <li><strong>Actor:</strong> Stick figure representing external entity (User, External Payment Gateway).</li>
+  <li><strong>Use Case:</strong> Horizontal oval representing a distinct user task (`Place Order`).</li>
+  <li><strong>Relationship `<<include>>`:</strong> Mandatory dependency where the base use case unconditionally executes the included use case (`Place Order` $\xrightarrow{\text{<<include>>}}$ `Authenticate User`).</li>
+  <li><strong>Relationship `<<extend>>`:</strong> Optional behavior executed conditionally under specific extension points (`Place Order` $\xleftarrow{\text{<<extend>>}}$ `Apply Discount Coupon`).</li>
+</ul>
+
+<h3 class="sub-title">2. UML Class Diagram</h3>
+<ul>
+  <li><strong>Class Structure:</strong> 3-compartment rectangle (Class Name, Attributes, Operations).</li>
+  <li><strong>Visibility Notations:</strong> `+` (Public), `-` (Private), `#` (Protected), `~` (Package/Default).</li>
+  <li><strong>Relationships:</strong>
+    <ul>
+      <li><strong>Association:</strong> Solid line representing structural link.</li>
+      <li><strong>Aggregation (White Diamond $\diamond$):</strong> "Has-A" relationship where child can exist independently of parent (e.g., `Department` $\diamond\text{---}$ `Teacher`).</li>
+      <li><strong>Composition (Black Diamond $\blacklozenge$):</strong> Strong "Part-Of" relationship with coincident lifecycles (e.g., `Car` $\blacklozenge\text{---}$ `Engine`).</li>
+      <li><strong>Generalization (Open Triangle $\triangle$):</strong> "Is-A" inheritance relationship (`Dog` $\triangle\text{---}$ `Animal`).</li>
+      <li><strong>Realization (Dashed Arrow $\dashrightarrow\triangle$):</strong> Implementing an Interface.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="sub-title">3. UML Sequence Diagram</h3>
+<ul>
+  <li><strong>Lifeline:</strong> Vertical dashed line representing the existence of an object over time.</li>
+  <li><strong>Activation Bar:</strong> Narrow vertical rectangle indicating when object is executing code.</li>
+  <li><strong>Messages:</strong> Synchronous call (solid arrowhead $\rightarrow$), Asynchronous call (stick arrowhead $\rightarrow>$), Return message (dashed line $<--$).</li>
+  <li><strong>Interaction Frames:</strong> `alt` (if-else conditional branch), `opt` (optional single branch), `loop` (for/while loop iteration).</li>
+</ul>
+
+<h2 class="section-title">Topic 19: University Exam Problem Bank & Model Answers</h2>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain the Golden Rule of Software Design: "Maximize Cohesion, Minimize Coupling". (8 Marks)</div><div class="qa-a">1. <strong>High Cohesion:</strong> Ensures all elements in a module focus strictly on one unified responsibility. It makes the module easy to understand, test independently, and reuse across projects.<br>2. <strong>Low Coupling:</strong> Minimizes dependencies between different modules. Changes inside module A's implementation details do not ripple across module B, dramatically reducing bug regression rates and maintenance costs.<br><em>Summary:</em> High Cohesion + Low Coupling = High Modularity, Fault Isolation, and Maintainability!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q7. Differentiate between Aggregation and Composition in UML Class Modeling with Concrete Examples. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Aggregation (Shared Association)</th><th>Composition (Composite Association)</th></tr></thead><tbody><tr><td><strong>UML Symbol</strong></td><td>Hollow / White Diamond ($\diamond$) at whole end.</td><td>Filled / Black Solid Diamond ($\blacklozenge$) at whole end.</td></tr><tr><td><strong>Ownership</strong></td><td>Weak ownership ("Has-A"). Parts can belong to multiple wholes.</td><td>Strong, exclusive ownership ("Part-Of"). Child belongs to exactly one parent.</td></tr><tr><td><strong>Lifecycle Binding</strong></td><td>Independent. If whole is destroyed, parts continue to exist.</td><td>Coincident. If whole is destroyed, all child components are automatically deleted.</td></tr><tr><td><strong>Real-World Example</strong></td><td>`University` $\diamond\text{---}$ `Professor` (If university closes, professor exists).</td><td>`House` $\blacklozenge\text{---}$ `Room` (If house is demolished, rooms cease to exist).</td></tr></tbody></table></div></div>
+
+<h2 class="section-title">Topic 38: Software Architectural Patterns & Enterprise Styles</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Architectural Style</th>
+      <th style="width: 32%;">Structural Organization</th>
+      <th style="width: 28%;">Key Strengths</th>
+      <th>Limitations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Layered (N-Tier)</strong></td>
+      <td>Hierarchical layers (Presentation $\rightarrow$ Business Logic $\rightarrow$ Data Access $\rightarrow$ Database).</td>
+      <td>Clear separation of concerns; easy to test layers in isolation.</td>
+      <td>Performance overhead due to cascading calls through every intermediate layer.</td>
+    </tr>
+    <tr>
+      <td><strong>Pipe and Filter</strong></td>
+      <td>Sequential stream where filters process data and pass streams through pipes (e.g., Unix CLI, ETL).</td>
+      <td>High reusability; filters can execute concurrently in parallel threads.</td>
+      <td>Difficult to handle interactive event-driven UI workflows.</td>
+    </tr>
+    <tr>
+      <td><strong>Event-Driven (Pub-Sub)</strong></td>
+      <td>Decoupled producers publish event messages to an event bus (Kafka); consumers subscribe.</td>
+      <td>Massive scalability; extreme decoupling between producers and consumers.</td>
+      <td>Eventual consistency challenges; difficult to trace distributed execution flow.</td>
+    </tr>
+    <tr>
+      <td><strong>Microservices</strong></td>
+      <td>Suite of independently deployable small services structured around business domains.</td>
+      <td>Independent horizontal scaling; polyglot technology stacks.</td>
+      <td>Complex distributed networking, network latency, distributed transaction rollbacks (Saga pattern).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 39: Gang of Four (GoF) Software Design Patterns</h2>
+<table class="custom-table">
+  <thead><tr><th>Pattern Family</th><th>Classic Design Pattern</th><th>Architectural Purpose & Implementation Mechanism</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Creational</strong></td><td><strong>Singleton Pattern</strong></td><td>Guarantees a class has strictly one global instance with private constructor and synchronized `getInstance()`.</td></tr>
+    <tr><td><strong>Creational</strong></td><td><strong>Factory Method</strong></td><td>Defines an interface for creating an object, but lets subclasses decide which concrete class to instantiate.</td></tr>
+    <tr><td><strong>Structural</strong></td><td><strong>Adapter Pattern</strong></td><td>Converts the interface of a class into another interface clients expect, bridging incompatible interfaces.</td></tr>
+    <tr><td><strong>Structural</strong></td><td><strong>Facade Pattern</strong></td><td>Provides a unified, simplified high-level interface to a complex subsystem of dozens of internal classes.</td></tr>
+    <tr><td><strong>Behavioral</strong></td><td><strong>Observer Pattern</strong></td><td>Defines a one-to-many dependency where state changes in a Subject automatically notify all registered Observers.</td></tr>
+    <tr><td><strong>Behavioral</strong></td><td><strong>Strategy Pattern</strong></td><td>Encapsulates interchangeable algorithmic families inside separate classes, switching algorithms dynamically at runtime.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 40: University Exam Problem Bank (Part II)</h2>
+
+<div class="qa-card"><div class="qa-q">Q16. Draw and Explain the Interaction Frames in a UML Sequence Diagram: alt, opt, loop, and par. (8 Marks)</div><div class="qa-a">Interaction frames represent complex control logic inside sequence diagrams:<br>1. <strong>`alt` (Alternative):</strong> Models mutually exclusive conditional execution (if-else). Separated by horizontal dashed divider lines with guard conditions `[balance >= amount]` and `[else]`.<br>2. <strong>`opt` (Optional):</strong> Executes child messages only if the single guard condition is true (equivalent to a simple `if` without `else`).<br>3. <strong>`loop` (Iteration):</strong> Repeats the message sequence for a specified count or while guard condition holds `[while hasNext()]`.<br>4. <strong>`par` (Parallel):</strong> Enclosed sub-fragments execute concurrently in parallel asynchronous threads!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q17. Explain the Model-View-Controller (MVC) Architectural Pattern with Component Interactions. (8 Marks)</div><div class="qa-a"><strong>MVC</strong> segregates UI display from core business logic and state:<br>1. <strong>Model:</strong> Encapsulates business data state, database queries, and business rules. Completely independent of the UI.<br>2. <strong>View:</strong> Renders visual interface (HTML/CSS, mobile screens) based on Model state.<br>3. <strong>Controller:</strong> Listens to user inputs (mouse clicks, HTTP POST), translates them into business updates on the Model, and selects the appropriate View to render.</div></div>
+
+<h2 class="section-title">Topic 41: Object Constraint Language (OCL) in UML Modeling</h2>
+<p><strong>OCL</strong> is a formal declarative specification language used within UML class diagrams to specify precise mathematical constraints and business rules without implementation code:</p>
+
+<pre><code class="language-text">-- Invariant: Bank Account balance cannot drop below overdraft limit
+context BankAccount
+inv: self.balance >= -self.overdraftLimit
+
+-- Pre-condition and Post-condition on withdrawal operation
+context BankAccount::withdraw(amount: Real): Boolean
+pre: amount > 0 and (self.balance - amount >= -self.overdraftLimit)
+post: self.balance = self.balance@pre - amount and result = true
+</code></pre>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Architecture Case: Refactoring Legacy Code to Strategy Design Pattern</div>
+  <p><strong>Problem:</strong> A monolithic billing class uses complex nested conditionals: `if (type == "CREDIT") chargeCredit(); else if (type == "PAYPAL") chargePayPal(); ...` (Violates Open/Closed Principle!).</p>
+  <p><strong>Refactoring Solution:</strong></p>
+  <ol>
+    <li>Define common interface: `public interface PaymentStrategy { void pay(double amount); }`.</li>
+    <li>Implement concrete classes: `CreditCardStrategy`, `PayPalStrategy`, `CryptoStrategy`.</li>
+    <li>Context class `ShoppingCart` accepts `PaymentStrategy` via constructor, achieving $100\%$ decoupled extensibility!</li>
+  </ol>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+<h2 class="section-title">Topic 42: Complete Gang of Four (GoF) Design Patterns Catalog</h2>
+<table class="custom-table">
+  <thead><tr><th>Family</th><th>Pattern Name</th><th>Intent & Structural Mechanism</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Creational</strong></td><td><strong>Builder Pattern</strong></td><td>Separates the construction of a complex object from its representation, allowing the same construction process to create different representations.</td></tr>
+    <tr><td><strong>Creational</strong></td><td><strong>Prototype Pattern</strong></td><td>Specifies the kind of objects to create using a prototypical instance, creating new objects by cloning this prototype.</td></tr>
+    <tr><td><strong>Structural</strong></td><td><strong>Decorator Pattern</strong></td><td>Attaches additional responsibilities to an object dynamically at runtime, providing a flexible alternative to subclassing.</td></tr>
+    <tr><td><strong>Structural</strong></td><td><strong>Proxy Pattern</strong></td><td>Provides a surrogate or placeholder for another object to control access to it (e.g., Virtual Proxy, Remote Proxy, Protection Proxy).</td></tr>
+    <tr><td><strong>Behavioral</strong></td><td><strong>Command Pattern</strong></td><td>Encapsulates a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations.</td></tr>
+    <tr><td><strong>Behavioral</strong></td><td><strong>State Pattern</strong></td><td>Allows an object to alter its behavior when its internal state changes. The object will appear to change its class.</td></tr>
+    <tr><td><strong>Behavioral</strong></td><td><strong>Template Method</strong></td><td>Defines the skeleton of an algorithm in an operation, deferring some steps to subclasses without changing algorithm structure.</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Architecture Case: Refactoring to Decorator Pattern for Coffee Billing</div>
+  <p>Rather than creating $2^n$ subclasses (`EspressoWithCaramelAndMilk`), wrap base `Coffee` with `CaramelDecorator` and `MilkDecorator`, dynamically chaining `getCost()`: $5 + 2 + 1 = \$8$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 23: Cohesion & Coupling Metric Derivation (LCOM & CBO)</div>
+  <p>• <strong>Lack of Cohesion in Methods (LCOM - Chidamber & Kemerer):</strong> Let $P$ be method pairs with disjoint attribute sets, $Q$ be method pairs sharing attributes. $\text{LCOM} = \max(0, |P| - |Q|)$. High LCOM $\implies$ Poor cohesion (class should be split!).<br>• <strong>Coupling Between Objects (CBO):</strong> Count of external classes to which a class is coupled. High CBO $\implies$ High ripple effect vulnerability during refactoring!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Architecture Case: Observer Pattern in Real-Time Stock Market Dashboard</div>
+  <p>Subject `StockTicker` maintains `List<StockObserver>`. When stock prices fluctuate, `notifyObservers()` updates `MobileAppView` and `LedgerService` concurrently with zero tight coupling!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 32: UML State Machine Diagram with Composite States</div>
+  <p>Model an ATM Card Reader with composite state `Card Processing` containing substates `PIN Verification` and `Account Selection` with shallow history node ($H$) restoring previous active substate upon momentary power fluctuation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 33: UML Component & Deployment Diagram Architecture</div>
+  <p>• <strong>Component Diagram:</strong> Models physical software modules (JARs, DLLs, Docker images) with `<<component>>` stereotypes and provided/required lollipop interfaces.<br>• <strong>Deployment Diagram:</strong> Models physical hardware compute nodes (Web Server, Database Server) and execution environments connected via communication paths (`TCP/IP`, `gRPC`).</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 42: SOLID Principles — Open/Closed Principle (OCP) Code Transformation</div>
+<pre><code class="language-java">// Refactored Clean Architecture adhering strictly to Open/Closed Principle
+public interface Shape { double calculateArea(); }
+
+public class Circle implements Shape {
+    private double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public double calculateArea() { return Math.PI * radius * radius; }
+}
+
+public class AreaCalculator {
+    public double totalArea(List<Shape> shapes) {
+        return shapes.stream().mapToDouble(Shape::calculateArea).sum();
+    }
+}</code></pre>
+  <p><em>Verification:</em> Adding a new `Triangle` shape requires zero edits to `AreaCalculator`, achieving $100\%$ modification immunity!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 43: Structural Decorator Pattern vs Subclassing Explosion</div>
+  <p>In a Graphical Windowing system: Rather than declaring 32 subclasses (`BorderedScrollableDarkWindow`), dynamically attach `BorderDecorator`, `ScrollDecorator`, and `ThemeDecorator` wrapping the base `Window` interface!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 52: Factory Method vs Abstract Factory Pattern</div>
+  <p>• <strong>Factory Method:</strong> Uses inheritance and relies on a derived class to instantiate a single product object (`createButton()`).<br>• <strong>Abstract Factory:</strong> Uses object composition to create entire <em>families</em> of related or dependent objects without specifying their concrete classes (`GUIFactory` creates `Button`, `Checkbox`, `Scrollbar` together)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 53: Law of Demeter (Principle of Least Knowledge)</div>
+  <p>A method $M$ of object $O$ should only call methods of: (1) $O$ itself, (2) $M$'s parameters, (3) objects created within $M$, (4) $O$'s direct member objects. Prohibits train wrecks: `a.getB().getC().getD().doSomething()` $\implies$ Refactor to `a.doSomething()`!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 62: Gang of Four Singleton Thread-Safe Double-Checked Locking</div>
+<pre><code class="language-java">public class DatabaseConnectionPool {
+    private static volatile DatabaseConnectionPool instance;
+    private DatabaseConnectionPool() { /* Initialize pool */ }
+
+    public static DatabaseConnectionPool getInstance() {
+        if (instance == null) {
+            synchronized (DatabaseConnectionPool.class) {
+                if (instance == null) {
+                    instance = new DatabaseConnectionPool();
+                }
+            }
+        }
+        return instance;
+    }
+}</code></pre>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 63: Adapter Pattern for Legacy Payment Gateway Integration</div>
+  <p>Client expects `ModernPayment` interface (`pay(amount)`). Legacy gateway uses `OldGateway` (`makeTransaction(cents, currency)`). `PaymentAdapter` implements `ModernPayment`, delegating and converting dollars to cents internally!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 71: Structural Facade Pattern in Complex Subsystems</div>
+  <p>In a home theater system: `HomeTheaterFacade` exposes a single simple `watchMovie()` method that coordinates `Projector.on()`, `SoundSystem.setVolume()`, `DvdPlayer.play()`, and `Lights.dim()`, shielding external callers from 15 separate low-level interfaces!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 72: Behavioral Command Pattern with Undo Mechanism</div>
+  <p>Each user action is an instance of `Command` with `execute()` and `undo()` methods stored on a history stack, enabling infinite multi-level undo/redo operations!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 82: Creational Abstract Factory vs Builder</div>
+  <p>• <strong>Abstract Factory:</strong> Focuses on creating families of related objects all at once.<br>• <strong>Builder:</strong> Focuses on constructing a complex composite object step-by-step through a fluent API (`User.builder().name("Alice").age(30).build()`)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 83: Structural Proxy Pattern Types</div>
+  <p>(1) <strong>Virtual Proxy</strong> (defers loading huge images/DB records until needed), (2) <strong>Protection Proxy</strong> (checks user authorization permissions before invoking target object), (3) <strong>Remote Proxy</strong> (handles network serialization via gRPC/RMI)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 84: Behavioral Observer Memory Leak Prevention (Weak References)</div>
+  <p>When subjects hold strong references to observers, forgotten unregistered observers cause memory leaks (<em>Lapsed Listener Problem</em>). Fix by storing observers via `WeakReference<Observer>` or automatic cleanup lifecycle hooks!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 96: Structural Composite Pattern in Hierarchical File Systems</div>
+  <p>`FileSystemComponent` is implemented by leaf `File` and composite `Directory` containing `List<FileSystemComponent>`, treating individual files and nested folders uniformly!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 97: Behavioral Chain of Responsibility Pattern</div>
+  <p>Decouples the sender of a request from its receivers by giving multiple handler objects (`AuthHandler` $\rightarrow$ `RateLimitHandler` $\rightarrow$ `ValidationHandler`) a chance to handle the request!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 98: Behavioral Mediator Pattern</div>
+  <p>Prevents an $O(n^2)$ web of direct object references by routing all dialog component interactions (`Button`, `TextBox`, `ListBox`) through a central `DialogMediator`!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 110: Behavioral Visitor Pattern in Abstract Syntax Tree Processing</div>
+  <p>Separates algorithm operations (`TypeCheckerVisitor`, `CodeGeneratorVisitor`) from complex heterogeneous object node hierarchies (`BinaryExpr`, `AssignStmt`), letting you add new compiler passes without modifying node classes!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 111: Architectural Anti-Patterns & Code Smells</div>
+  <p>• <strong>God Object (Blob):</strong> Single monolithic class monopolizing all system logic $\implies$ Refactor into cohesive services.<br>• <strong>Spaghetti Code:</strong> Unstructured control flow with high coupling $\implies$ Refactor to layered architecture.<br>• <strong>Lava Flow:</strong> Dead legacy code nobody dares touch $\implies$ Eliminate using test-driven refactoring!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 112: Domain-Driven Design (DDD) Bounded Contexts & Ubiquitous Language</div>
+  <p>Decomposes complex enterprise domains into distinct Bounded Contexts (`BillingContext`, `ShippingContext`), ensuring terms have unambiguous definitions within their domain boundaries!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 123: Structural Bridge Pattern in Cross-Platform UI Toolkits</div>
+  <p>Decouples an abstraction (`Window`) from its platform-specific implementation (`WinWindowImpl`, `MacWindowImpl`, `LinuxWindowImpl`), allowing both hierarchies to vary independently!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 124: Behavioral Memento Pattern for Game State Checkpointing</div>
+  <p>Captures and externalizes an object's internal state without violating encapsulation, allowing the state to be restored later (`GameStateMemento`)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 131: Behavioral Iterator Pattern & Fail-Fast vs Fail-Safe Iterators</div>
+  <p>• <strong>Fail-Fast Iterator (Java `ArrayList`):</strong> Throws `ConcurrentModificationException` immediately if collection is modified structurally during traversal.<br>• <strong>Fail-Safe / Snapshot Iterator (`CopyOnWriteArrayList`):</strong> Operates on a cloned snapshot of the array, permitting concurrent multi-threaded modifications with zero locking overhead!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 132: Creational Flyweight Pattern for Large-Scale Text Rendering</div>
+  <p>In a text editor containing 1,000,000 characters: Rather than creating 1,000,000 separate `Character` objects, share 26 intrinsic font glyph objects (`GlyphFactory`) and pass coordinates externally, slashing RAM consumption from 80MB to 200KB!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 133: Behavioral State Pattern vs Finite State Machine Enums</div>
+  <p>Encapsulates distinct state-specific behaviors inside polymorphic subclasses (`DraftState`, `ModerationState`, `PublishedState`), eliminating massive 500-line nested `switch-case` statements in Document publishing workflows!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 140: Architectural Microservices Event Sourcing & CQRS</div>
+  <p>• <strong>Event Sourcing:</strong> Persists state mutations as an append-only log of immutable domain events (`OrderPlaced`, `PaymentReceived`).<br>• <strong>CQRS:</strong> Segregates Command (write) models from Query (read) models, scaling read performance independently by $100\times$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 145: Architectural CQRS Read/Write Replica Synchronization</div>
+  <p>Using distributed Kafka change data capture (CDC) streams to asynchronously replicate write model commits to Elasticsearch read indexes with sub-second lag!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 146: Behavioral Strategy Pattern in Dynamic Routing Algorithms</div>
+  <p>Context `NavigationEngine` swaps `DijkstraShortestPath`, `AStarTrafficAware`, and `EcoFriendlyRoute` strategies at runtime based on real-time GPS telemetry!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 153: Gang of Four Template Method Pattern in Data ETL</div>
+  <p>Abstract class `DataETLPipeline` defines `process()` executing `extract()`, `transform()`, and `load()`, while letting subclasses override `extract()` for SQL or NoSQL sources!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 154: UML Package Diagram & Dependency Management</div>
+  <p>Modeling modular boundaries with `<<access>>` and `<<import>>` stereotypes to prevent cyclic package dependencies and enforce Clean Architecture layers!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 161: Microservices Saga Pattern vs Two-Phase Commit (2PC)</div>
+  <p>• <strong>2PC:</strong> Synchronous blocking distributed transaction locking databases across network boundaries; fails under network partitions.<br>• <strong>Saga Pattern:</strong> Asynchronous choreography/orchestration executing local transactions with compensating rollback actions (`cancelOrder()`), guaranteeing eventual consistency without blocking locks!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 162: Behavioral Visitor Pattern Implementation in Type Inference Engine</div>
+  <p>Polymorphically visiting syntax nodes (`VariableDecl`, `FunctionCall`, `BinaryOp`) to infer hindley-milner types with zero AST class pollution!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 167: Enterprise API Gateway Architectural Pattern</div>
+  <p>Consolidates routing, SSL termination, rate limiting, and JWT authentication token validation into a single reverse-proxy entrypoint (Kong / Spring Cloud Gateway), preventing client coupling to 50 downstream microservices!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 168: Object-Oriented Design Metrics (Chidamber & Kemerer Suite)</div>
+  <p>• <strong>WMC (Weighted Methods per Class):</strong> Measures class complexity.<br>• <strong>DIT (Depth of Inheritance Tree):</strong> Deep trees ($> 5$) increase fragility.<br>• <strong>NOC (Number of Children):</strong> High NOC indicates high reuse but severe change ripple risk!</p>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 3: Data Warehousing & OLAP Technology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Module 3</div>
+    <h1 class="book-title">Module 3: Data Warehousing & OLAP Technology</h1>
+    <div class="book-subtitle">Topics 21 to 29 • Star/Snowflake Schemas, Measures, OLAP Operations, Cuboid Lattices & BUC</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 3 Table of Contents (Topics 21 to 29)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 21:</strong> Data Warehouse Foundations & Architecture</div>
+    <div>• <strong>Topic 22:</strong> OLTP vs. OLAP Multidimensional Paradigms</div>
+    <div>• <strong>Topic 23:</strong> Schemas (Star, Snowflake, Fact Constellation)</div>
+    <div>• <strong>Topic 24:</strong> Measures (Additive, Semi-additive, Non-additive)</div>
+    <div>• <strong>Topic 25:</strong> OLAP Operations (Roll-up, Drill-down, Slice, Dice, Pivot)</div>
+    <div>• <strong>Topic 26:</strong> Data Cube Computation (MOLAP, ROLAP, HOLAP)</div>
+    <div>• <strong>Topic 27:</strong> Star-Cubing & BUC Algorithms</div>
+    <div>• <strong>Topic 28:</strong> Concept Hierarchies & Attribute-Oriented Induction</div>
+    <div>• <strong>Topic 29:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 21 & 22: Data Warehouse Architecture & OLTP vs. OLAP</h2>
+
+<p>
+  According to William H. Inmon (the father of data warehousing), a <strong>Data Warehouse</strong> is defined as: <em>"A subject-oriented, integrated, time-variant, and non-volatile collection of data in support of management's decision-making process."</em>
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Characteristic</th>
+      <th style="width: 38%;">Inmon's Definition</th>
+      <th>Technical Implementation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Subject-Oriented</strong></td>
+      <td>Organized around major business subjects (Customer, Product, Sales, Supplier) rather than operational transactional processes (order entry, invoicing).</td>
+      <td>De-normalized multi-dimensional schema tables optimizing cross-departmental queries.</td>
+    </tr>
+    <tr>
+      <td><strong>Integrated</strong></td>
+      <td>Constructed by integrating heterogeneous sources (relational DBs, flat files, legacy systems). Naming inconsistencies, encoding formats, and conflicting measurement units are unified.</td>
+      <td>ETL (Extract, Transform, Load) staging pipelines enforcing global enterprise metadata standards.</td>
+    </tr>
+    <tr>
+      <td><strong>Time-Variant</strong></td>
+      <td>Every key record in the data warehouse explicitly contains a time dimension key (Day, Month, Quarter, Year), capturing historical snapshots across a 5–10 year horizon.</td>
+      <td>Slowly Changing Dimensions (SCD Type 1, 2, 3), append-only historical fact tables.</td>
+    </tr>
+    <tr>
+      <td><strong>Non-Volatile</strong></td>
+      <td>Data is never updated or deleted in place by end-users. Once loaded into the warehouse, records remain static and read-only.</td>
+      <td>Periodic batch loads; high-speed read-optimized indexing (Bitmap, B-tree indexes).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 23 & 24: Multidimensional Schemas & Categorization of Measures</h2>
+
+<div class="diagram-container">
+  <svg width="100%" height="90" viewBox="0 0 740 90" xmlns="http://www.w3.org/2000/svg">
+    <rect x="290" y="10" width="160" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="370" y="28" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#1e3a8a" text-anchor="middle">FACT_SALES</text>
+    <text x="370" y="44" font-family="Plus Jakarta Sans" font-size="8.5" fill="#334155" text-anchor="middle">time_key (FK), item_key (FK)</text>
+    <text x="370" y="58" font-family="Plus Jakarta Sans" font-size="8.5" fill="#334155" text-anchor="middle">branch_key (FK), dollars_sold</text>
+    <text x="370" y="72" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" font-weight="600" text-anchor="middle">units_sold (Additive)</text>
+
+    <!-- Dim 1 -->
+    <rect x="20" y="20" width="140" height="50" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+    <text x="90" y="38" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#0f172a" text-anchor="middle">DIM_TIME</text>
+    <text x="90" y="54" font-family="Plus Jakarta Sans" font-size="8" fill="#475569" text-anchor="middle">time_key, day, month, year</text>
+    <path d="M 160 45 L 290 45" stroke="#3b82f6" stroke-width="1.5"/>
+
+    <!-- Dim 2 -->
+    <rect x="580" y="20" width="140" height="50" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+    <text x="650" y="38" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#0f172a" text-anchor="middle">DIM_ITEM</text>
+    <text x="650" y="54" font-family="Plus Jakarta Sans" font-size="8" fill="#475569" text-anchor="middle">item_key, item_name, brand</text>
+    <path d="M 450 45 L 580 45" stroke="#3b82f6" stroke-width="1.5"/>
+  </svg>
+  <div class="diagram-caption">Figure 3.1: The Star Schema Architecture (Central Fact Table radiating to Dimension Tables)</div>
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Schema Architecture</th>
+      <th style="width: 45%;">Structural Design</th>
+      <th>Key Advantages & Trade-offs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Star Schema</strong></td>
+      <td>A single central fact table referencing multiple completely de-normalized dimension tables via foreign keys.</td>
+      <td>Extremely simple queries; minimal SQL joins; redundant storage in dimension tables.</td>
+    </tr>
+    <tr>
+      <td><strong>Snowflake Schema</strong></td>
+      <td>A refinement of the star schema where dimension tables are normalized into hierarchies (splitting `DIM_ITEM` into `ITEM`, `CATEGORY`, `SUPPLIER`).</td>
+      <td>Zero data redundancy; saves disk storage; complex multi-table SQL joins reduce OLAP query performance!</td>
+    </tr>
+    <tr>
+      <td><strong>Fact Constellation (Galaxy)</strong></td>
+      <td>Multiple distinct fact tables (e.g. `FACT_SALES` and `FACT_SHIPPING`) sharing common dimension tables (Conformed Dimensions).</td>
+      <td>Enterprise-wide standard supporting complex business intelligence workflows across multiple functional divisions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="formula-card">
+  <strong>Categorization of Multidimensional Measures:</strong>
+  - <strong>Additive Measures:</strong> Can be meaningfully aggregated across ALL dimensions (e.g., `units_sold`, `dollars_revenue`, `cost_amount`).
+  - <strong>Semi-Additive Measures:</strong> Can be aggregated across some dimensions, but NOT across the Time dimension (e.g., `bank_account_balance`, `warehouse_inventory_count` — summing balances across 365 days gives a meaningless number!).
+  - <strong>Non-Additive Measures:</strong> Cannot be aggregated across any dimension by simple addition (e.g., `unit_price`, `profit_margin_%`, `temperature_celsius`). Must compute aggregate numerator and aggregate denominator separately ($\text{AvgMargin} = \frac{\sum \text{Profit}}{\sum \text{Revenue}}$).
+</div>
+
+<h2 class="section-title">Topic 25 to 27: OLAP Operations & Data Cube Computation</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">OLAP Operation</th>
+      <th style="width: 40%;">Algorithmic Transformation</th>
+      <th>Business Analytics Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Roll-Up (Drill-Up)</strong></td>
+      <td>Performs aggregation on a data cube by climbing up a concept hierarchy or by dimension reduction (dropping a dimension).</td>
+      <td>Aggregating daily sales records into quarterly totals: `Day` $\rightarrow$ `Month` $\rightarrow$ `Quarter` $\rightarrow$ `Year`.</td>
+    </tr>
+    <tr>
+      <td><strong>Drill-Down (Roll-Down)</strong></td>
+      <td>Navigates from less detailed (high-level summary) data to highly detailed granular data by descending a concept hierarchy or introducing an additional dimension.</td>
+      <td>De-aggregating national quarterly revenue down to city-level store performance: `Country` $\rightarrow$ `State` $\rightarrow$ `City` $\rightarrow$ `Store`.</td>
+    </tr>
+    <tr>
+      <td><strong>Slice</strong></td>
+      <td>Performs a selection on one dimension of the given cube, resulting in a sub-cube of lower dimensionality (cutting a 2D slice from a 3D cube).</td>
+      <td>Filtering the sales cube strictly for `Time = "Q1_2024"`.</td>
+    </tr>
+    <tr>
+      <td><strong>Dice</strong></td>
+      <td>Defines a sub-cube by performing a selection on two or more dimensions simultaneously.</td>
+      <td>Filtering for `(Location = "Toronto" OR "Vancouver") AND (Time = "Q1" OR "Q2") AND (Item = "Electronics")`.</td>
+    </tr>
+    <tr>
+      <td><strong>Pivot (Rotate)</strong></td>
+      <td>Rotates the data axes in space to provide an alternative visual presentation of the multidimensional matrix.</td>
+      <td>Swapping row axis (`Product`) with column axis (`Quarter`) in a spreadsheet pivot table.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Cuboid Lattice Combinatorics</div>
+  <p>An enterprise data warehouse has 4 dimensions: $\text{Time } (D_1), \text{Item } (D_2), \text{Location } (D_3), \text{Supplier } (D_4)$.</p>
+  <ol>
+    <li>Calculate the total number of cuboids in the full data cube lattice.</li>
+    <li>If dimension $\text{Time}$ has hierarchy `Day` $\rightarrow$ `Month` $\rightarrow$ `Quarter` $\rightarrow$ `Year` ($L_1 = 4$ levels + `all`), $\text{Item}$ has 3 levels ($L_2 = 3$), $\text{Location}$ has 3 levels ($L_3 = 3$), and $\text{Supplier}$ has 2 levels ($L_4 = 2$), calculate the total number of cuboids with hierarchies.</li>
+  </ol>
+  <p><strong>Mathematical Solution:</strong></p>
+  <ul>
+    <li><strong>1. Without Hierarchies:</strong> A $n$-dimensional cube contains $\mathbf{2^n}$ cuboids. For $n = 4$:
+      $$\mathbf{T = 2^4 = \mathbf{16 \text{ cuboids}}}$$
+      (From 0-D Apex Cuboid `all` to 4-D Base Cuboid `(Time, Item, Location, Supplier)`).
+    </li>
+    <li><strong>2. With Concept Hierarchies:</strong> Total cuboids $N_{\text{cuboids}} = \prod_{i=1}^n (L_i + 1)$:
+      $$\mathbf{N_{\text{cuboids}} = (4 + 1) \times (3 + 1) \times (3 + 1) \times (2 + 1) = 5 \times 4 \times 4 \times 3 = \mathbf{240 \text{ cuboids}}}$$
+    </li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 29: Master University Examination Solved Question Bank</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Compare ROLAP, MOLAP, and HOLAP Architectures. (10 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>ROLAP (Relational OLAP)</th><th>MOLAP (Multidimensional OLAP)</th><th>HOLAP (Hybrid OLAP)</th></tr></thead><tbody><tr><td><strong>Underlying Storage</strong></td><td>Relational DBMS (Star/Snowflake tables).</td><td>Proprietary multidimensional arrays (dense matrices).</td><td>Relational DB for detailed base data; MOLAP arrays for aggregated summaries.</td></tr><tr><td><strong>Scalability</strong></td><td>Extremely high (handles petabytes).</td><td>Moderate (limited by disk RAM array expansion).</td><td>High scalability with optimized query speed.</td></tr><tr><td><strong>Query Speed</strong></td><td>Slower (requires complex SQL multi-joins).</td><td>Lightning fast ($O(1)$ array offset indexing).</td><td>Fast for high-level summaries.</td></tr><tr><td><strong>Storage Overhead</strong></td><td>Low (only stores populated records).</td><td>High (sparse matrix indexing required).</td><td>Balanced.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Explain the Bottom-Up Computation (BUC) Algorithm for Iceberg Cubes. (8 Marks)</div><div class="qa-a">An <strong>Iceberg Cube</strong> computes only those cuboid cells whose aggregate measure satisfies an iceberg condition (e.g. `HAVING COUNT(*) >= min_support`).<br><strong>BUC Algorithm:</strong> Computes data cubes from bottom to top (from 1-D apex children down to base cuboids). It exploits the <em>Apriori anti-monotonicity property</em>: If an aggregate count of a cell in a parent cuboid fails `min_support`, none of its descendant child cells can satisfy the condition! BUC immediately prunes the entire subtree beneath that cell, eliminating massive wasteful computations!</div></div>
+
+<h2 class="section-title">Topic 29.1: Advanced Dimensional Modeling & Indexing Strategies</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Indexing Architecture</th>
+      <th style="width: 45%;">Internal Bitwise Mechanism</th>
+      <th>Best OLAP Query Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bitmap Indexing</strong></td>
+      <td>Creates a bit vector for each distinct value of a low-cardinality attribute (e.g. `Gender: {M: 1010, F: 0101}`). Queries execute via hardware-accelerated bitwise AND/OR/NOT operations.</td>
+      <td>Low-cardinality categorical filters (`WHERE Region = 'East' AND Status = 'Active'`).</td>
+    </tr>
+    <tr>
+      <td><strong>Join Indexing</strong></td>
+      <td>Maintains index relationships between foreign keys of fact tables and primary keys of dimension tables across multi-table joins without physical table joining.</td>
+      <td>Star schema star-join query acceleration.</td>
+    </tr>
+    <tr>
+      <td><strong>Bitmapped Join Index</strong></td>
+      <td>Stores bitmap representations of dimension attributes directly inside the fact table index.</td>
+      <td>Complex multi-attribute enterprise OLAP reporting.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Bitmap Index Bitwise Query Processing</div>
+  <p>A customer table has 6 records. Attribute <strong>Gender</strong> has distinct values $\{M, F\}$; Attribute <strong>CustType</strong> has distinct values $\{VIP, Regular\}$:</p>
+  <ul>
+    <li>Gender Bitmaps: $\text{Bit}_M = [1, 0, 1, 1, 0, 0]$, $\text{Bit}_F = [0, 1, 0, 0, 1, 1]$.</li>
+    <li>CustType Bitmaps: $\text{Bit}_{VIP} = [1, 1, 0, 1, 0, 0]$, $\text{Bit}_{Regular} = [0, 0, 1, 0, 1, 1]$.</li>
+  </ul>
+  <p><strong>Query: Find all Female customers who are VIP (`Gender = 'F' AND CustType = 'VIP'`):</strong></p>
+  $$\mathbf{\text{Result} = \text{Bit}_F \land \text{Bit}_{VIP} = [0, 1, 0, 0, 1, 1] \text{ AND } [1, 1, 0, 1, 0, 0] = \mathbf{[0, 1, 0, 0, 0, 0]}}$$
+  $$\mathbf{\text{Interpretation: Record index 2 (Customer 2) is the exact matching tuple! (Computed in 1 CPU cycle!)}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Slowly Changing Dimensions (SCD Type 1, Type 2, and Type 3). (8 Marks)</div><div class="qa-a">In a data warehouse, dimension attribute values change over time (e.g. customer relocates from Chicago to Dallas):<br>• <strong>SCD Type 1 (Overwrite):</strong> Overwrites the old value with the new value. Fast, but <em>destroys historical context</em> (past sales in Chicago are falsely credited to Dallas).<br>• <strong>SCD Type 2 (Add New Row):</strong> Creates a new row with a new surrogate key, marking the old row with `end_date` and `is_current = FALSE`. Preserves complete historical audit trail (industry gold standard).<br>• <strong>SCD Type 3 (Add New Column):</strong> Adds a `current_city` and `previous_city` column to the existing row. Tracks only the immediate prior state.</div></div>
+
+<h2 class="section-title">Topic 29.2: Advanced Star-Cubing & Materialized View Optimization</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Materialized View Selection using the Greedy (HRU) Algorithm</div>
+  <p>A data cube lattice has base cuboid $V_0$ (cost = 100). The costs of computing each dependent cuboid view and their lattice ancestor dependencies are given below. Select top $k = 2$ views to materialize to maximize total query evaluation benefit:</p>
+  <ul>
+    <li>Views: $V_1$ (cost = 50, ancestors: $V_0$), $V_2$ (cost = 30, ancestors: $V_0$), $V_3$ (cost = 20, ancestors: $V_1, V_2$), $V_4$ (cost = 10, ancestors: $V_3$).</li>
+  </ul>
+  <p><strong>Step 1: Calculate Benefit of materializing first view:</strong></p>
+  <ul>
+    <li>Benefit($V_1$): Saves $(100 - 50) = 50$ for $V_1$; saves $(100 - 50) = 50$ for descendant $V_3$; saves $50$ for $V_4 \implies B(V_1) = 50 + 50 + 50 = \mathbf{150}$.</li>
+    <li>Benefit($V_2$): Saves $(100 - 30) = 70$ for $V_2$; saves $(100 - 30) = 70$ for $V_3$; saves $70$ for $V_4 \implies B(V_2) = 70 + 70 + 70 = \mathbf{210}$.</li>
+    <li>Benefit($V_3$): Saves $(100 - 20) = 80$ for $V_3$; saves $80$ for $V_4 \implies B(V_3) = 80 + 80 = \mathbf{160}$.</li>
+  </ul>
+  $$\mathbf{\text{Choice 1: Select } V_2 \text{ with Maximum Benefit } = \mathbf{210}!}$$
+  <p><strong>Step 2: Calculate Marginal Benefit given $V_2$ is already materialized (cost of $V_3, V_4$ now reduced to 30):</strong></p>
+  <ul>
+    <li>Benefit($V_1 \mid V_2$): Saves $(100 - 50) = 50$ for $V_1$; saves $(30 - 30) = 0$ for $V_3, V_4 \implies B(V_1 \mid V_2) = \mathbf{50}$.</li>
+    <li>Benefit($V_3 \mid V_2$): Saves $(30 - 20) = 10$ for $V_3$; saves $(30 - 20) = 10$ for $V_4 \implies B(V_3 \mid V_2) = 10 + 10 = \mathbf{20}$.</li>
+    <li>Benefit($V_4 \mid V_2$): Saves $(30 - 10) = 20$ for $V_4 \implies B(V_4 \mid V_2) = \mathbf{20}$.</li>
+  </ul>
+  $$\mathbf{\text{Choice 2: Select } V_1 \text{ with Marginal Benefit } = \mathbf{50}!}$$
+  $$\mathbf{\text{Final Optimal Views to Materialize: } \{V_2, V_1\} \quad (\text{Total Benefit } = 210 + 50 = \mathbf{260})}$$
+</div>
+
+<h2 class="section-title">Topic 29.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 3: Data Cube Aggregation with the Multi-Way Array Aggregation Algorithm</div>
+  <p>The <strong>Multi-Way Array Aggregation (Zhao et al. 1997)</strong> algorithm computes a full multidimensional MOLAP data cube in a single pass over memory arrays:</p>
+  <ol>
+    <li>Partition the multidimensional array into chunks that fit in RAM cache.</li>
+    <li>Order dimensions such that the dimension with the largest size/cardinality is placed first ($D_1 \times D_2 \times D_3$).</li>
+    <li>Scan chunk by chunk, aggregating along 2D planes and 1D lines simultaneously without re-reading chunks from disk!</li>
+    <li>Minimizes total memory requirement to $O(|D_2 \times D_3| + |D_3|)$ rather than the full $O(|D_1 \times D_2 \times D_3|)$!</li>
+  </ol>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Compare Enterprise Data Warehouse, Data Mart, and Virtual Warehouse. (8 Marks)</div><div class="qa-a">• <strong>Enterprise Data Warehouse (EDW):</strong> An enterprise-wide, unified repository collecting data across all functional business departments (Finance, Marketing, HR, Operations). Requires extensive corporate schema design.<br>• <strong>Data Mart:</strong> A subset of enterprise data focused on a single department or specific business line (e.g., Marketing Data Mart). Can be dependent (sourced directly from EDW) or independent (sourced directly from operational DBs).<br>• <strong>Virtual Warehouse:</strong> A set of relational views over operational transactional databases. Zero physical storage required, but severely degrades operational OLTP performance when complex queries execute!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain Surrogate Keys in Data Warehousing and why operational primary keys should NEVER be used. (6 Marks)</div><div class="qa-a">A <strong>Surrogate Key</strong> is an artificial, system-generated integer primary key (e.g., `1001, 1002`) used in dimension tables.<br>• <strong>Why Not Operational PKs?</strong> (1) Natural operational keys change over time (e.g. employee SSN re-issued), (2) Heterogeneous source systems use conflicting PK formats, and (3) Tracking Slowly Changing Dimensions (SCD Type 2) requires multiple historical rows for the same operational entity (which violates operational PK uniqueness!).</div></div>
+
+<h2 class="section-title">Topic 29.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 4: Star-Cubing Shared-Prefix Tree Construction</div>
+  <p><strong>Star-Cubing (Xu et al. 2001)</strong> integrates top-down and bottom-up data cube computation with star-tree structures:</p>
+  <ul>
+    <li>Compresses identical attribute prefixes into single tree paths.</li>
+    <li>If a subtree's aggregate count satisfies `min_support`, compute all descendant cuboid aggregations simultaneously.</li>
+    <li>If an aggregate fails `min_support`, prune the entire star-tree branch (star-node reduction).</li>
+    <li>Achieves up to $\mathbf{100\times}$ speedup over naive array cubing algorithms!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. Compare Fact Tables vs Dimension Tables in Data Warehouse Design. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Fact Table</th><th>Dimension Table</th></tr></thead><tbody><tr><td><strong>Contents</strong></td><td>Numeric additive business measurements (revenue, quantities) and composite FKs.</td><td>Descriptive qualitative textual context (names, categories, addresses).</td></tr><tr><td><strong>Growth & Size</strong></td><td>Massive (millions to billions of rows; grows continuously).</td><td>Small to moderate (hundreds to thousands of rows).</td></tr><tr><td><strong>Granularity</strong></td><td>Defined at atomic leaf transaction level.</td><td>Hierarchical roll-up levels (Store $\rightarrow$ City $\rightarrow$ State $\rightarrow$ Country).</td></tr><tr><td><strong>Structure</strong></td><td>Tall, narrow (few columns, massive rows).</td><td>Short, wide (many descriptive textual columns).</td></tr></tbody></table></div></div>
+
+<h2 class="section-title">Topic 29.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 5: Fact Table Sizing & Storage Capacity Estimation</div>
+  <p>A national retail chain with 500 physical stores sells 10,000 distinct products. On average, each store processes 2,000 sales transactions per day with an average of 4 items per transaction:</p>
+  <ul>
+    <li>Daily sales fact records = $500 \text{ stores} \times 2,000 \text{ transactions} \times 4 \text{ items} = \mathbf{4,000,000 \text{ rows/day}}$.</li>
+    <li>Annual fact table growth = $4,000,000 \times 365 = \mathbf{1,460,000,000 \text{ rows/year (1.46 Billion rows/year)}}$.</li>
+    <li>Each row consists of 5 integer FKs ($4\text{ bytes} \times 5 = 20\text{ bytes}$) and 3 float measures ($8\text{ bytes} \times 3 = 24\text{ bytes}$) + row overhead ($16\text{ bytes}$) = $\mathbf{60\text{ bytes/row}}$.</li>
+    <li>Annual raw storage = $1.46 \times 10^9 \times 60 \approx \mathbf{87.6\text{ GB/year}}$. With B-tree & Bitmap indexing ($2.5\times$ multiplier) $\implies \mathbf{219\text{ GB/year}}$!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Compare Kimball's Dimensional Bus Architecture with Inmon's Corporate Information Factory (CIF). (10 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Bill Inmon (Top-Down CIF)</th><th>Ralph Kimball (Bottom-Up Bus)</th></tr></thead><tbody><tr><td><strong>Central Architecture</strong></td><td>Single enterprise normalized relational DW (3NF). Data marts are departmental downstream extracts.</td><td>No centralized 3NF EDW. The warehouse is the <em>union of all dimensional star-schema data marts</em>.</td></tr><tr><td><strong>Integration Mechanism</strong></td><td>Enterprise Data Model (EDM).</td><td><strong>Conformed Dimensions</strong> and Conformed Facts.</td></tr><tr><td><strong>Implementation Speed</strong></td><td>Slow initial ramp-up (high upfront engineering cost).</td><td>Fast iterative delivery; agile business value per mart.</td></tr><tr><td><strong>End-User Access</strong></td><td>Users query data marts, not the core 3NF EDW.</td><td>Users query dimensional star schemas directly.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q8. Detail the Mechanics of Materialized Query Tables (MQT) and Automatic Query Rewrite. (8 Marks)</div><div class="qa-a">A <strong>Materialized Query Table (MQT / Indexed View)</strong> physically stores pre-aggregated query results on disk. When an end-user submits a complex SQL aggregation query (e.g. `SELECT Year, Region, SUM(Sales)...`), the RDBMS <strong>Cost-Based Query Optimizer</strong> automatically rewrites the execution plan to read directly from the compact MQT rather than scanning the massive 1.5-billion-row base fact table, reducing query execution latency from minutes to milliseconds!</div></div>
+
+<h2 class="section-title">Topic 29.6: Complete Solved Laboratory Problem Bank on OLAP Aggregations</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 6: Bitmap Index Vector Compression via Run-Length Encoding (WAH)</div>
+  <p>A high-cardinality bitmap index bit vector has 128 bits containing sparse ones: `00000000 00000000 ... 00000001`:</p>
+  <ul>
+    <li><strong>Word-Aligned Hybrid (WAH) Compression:</strong> Replaces consecutive sequences of 31-bit zero words with a single 32-bit run word encoding the count.</li>
+    <li>Compresses a 100-million-bit sparse bitmap into less than $200\text{ KB}$ of RAM!</li>
+    <li>Allows bitwise AND/OR queries to execute directly on the compressed format without decompression!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 9: Incremental View Maintenance in Real-Time Data Warehouses</div>
+  <p>When operational databases insert new delta records $\Delta R$:</p>
+  <ul>
+    <li><strong>Counting Algorithm (Gupta et al.):</strong> For view $V = \pi_A(\sigma_C(R \Join S))$, maintain a count column $count(*)$ in the materialized view.</li>
+    <li>When a base tuple is deleted, decrement $count(*)$. Only delete the view row when $count(*) = 0$.</li>
+    <li>Allows real-time incremental view refreshment without re-computing the full multi-table join!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 10: Star-Cubing Shared-Prefix Path Algorithm</div>
+  <p>Constructs a tree where nodes represent attribute-value pairs and links represent prefix sharing. Performs recursive top-down cuboid lattice traversal with bottom-up aggregation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 10: Multi-Tiered Data Warehouse Physical Storage Layouts</div>
+  <p>In columnar analytical data warehouses (Snowflake, BigQuery, ClickHouse), data is stored column-by-column rather than row-by-row:</p>
+  <ul>
+    <li><strong>Columnar Compression:</strong> High compression ratios ($10\times$) due to identical data types in single columns (dictionary encoding, run-length encoding).</li>
+    <li><strong>I/O Vectorization:</strong> Analytical queries (`SELECT SUM(Sales)...`) read strictly the required columns from disk, completely skipping all other unreferenced columns, achieving $100\times$ faster throughput than traditional row stores!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q9. Compare Star Schema with Constellation Schema for Multi-Departmental Enterprises. (8 Marks)</div><div class="qa-a">A single Star Schema contains only one central fact table, suitable for isolated departmental data marts (e.g. Sales). An enterprise-wide system requires a <strong>Fact Constellation (Galaxy) Schema</strong> with multiple fact tables (e.g., `Sales_Fact`, `Inventory_Fact`, `Shipping_Fact`) interconnected via shared <strong>Conformed Dimensions</strong> (`Dim_Date`, `Dim_Product`, `Dim_Store`), preventing fragmented analytical silos and enabling cross-functional enterprise intelligence!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 12: Factless Fact Table Applications in Business Intelligence</div>
+  <p>A <strong>Factless Fact Table</strong> contains NO numeric measurement facts (no dollars or quantities); it contains ONLY foreign keys pointing to dimension tables:</p>
+  <ul>
+    <li><strong>Event Tracking:</strong> Tracking university student class attendance: `(student_key, course_key, date_key, room_key)`. The fact of the event occurring is the measure!</li>
+    <li><strong>Coverage Table:</strong> Tracking promotional marketing campaigns: `(product_key, store_key, promo_key, date_key)` to determine which products were on promotion in which stores, even if zero units were sold!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Semi-Additive vs Additive vs Non-Additive Measure Design</div>
+  <p>In a financial banking data warehouse:</p>
+  <ul>
+    <li><strong>`Transaction_Amount`:</strong> Additive across Account, Branch, and Time ($\sum \text{Amount}$ is meaningful).</li>
+    <li><strong>`Account_Ending_Balance`:</strong> <strong>Semi-Additive</strong> across Account and Branch, but NON-additive across Time (must use `Current_Balance` snapshot or `Avg_Balance` over time).</li>
+    <li><strong>`Loan_Interest_Rate_%`:</strong> <strong>Non-Additive</strong> across all dimensions (must compute weighted average: $\frac{\sum \text{Balance} \times \text{Rate}}{\sum \text{Balance}}$).</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Slowly Changing Dimensions Type 4 (History Table) vs Type 6 (Hybrid)</div>
+  <p>• <strong>SCD Type 4:</strong> Maintains a primary dimension table with current attributes, and writes historical changes to a separate history fact table.<br>• <strong>SCD Type 6 (1 + 2 + 3):</strong> Hybrid schema containing both historical rows (Type 2) and current overwrite columns (Type 3) alongside surrogate keys!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Star-Tree Construction Algorithm & Iceberg Condition Pruning</div>
+  <p>In Star-Cubing, each node $N$ stores a star-table and aggregate counts. If $\text{count}(N) < \text{min\_support}$, the star-tree node is dropped and all child cuboid branches are pruned in a single operation!</p>
+</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

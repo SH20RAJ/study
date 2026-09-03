@@ -1,98 +1,87 @@
-# Artificial Intelligence 10-Page Master Revision Exhaustive Content (CS24307)
-# Contains the full 38-Topic Checklist, AI Algorithm Map, Formula Sheet & Contrast Cards
-
 AI_REVISION_EXHAUSTIVE = r"""
-<div class="toc-box">
-  <div class="toc-title">⚡ 10-Page Master Quick Revision — Artificial Intelligence (CS24307)</div>
-  <div class="toc-grid">
-    <div>Page 1: 38-Topic Master Syllabus Progress Checklist (Modules I – V)</div>
-    <div>Page 2: The Core AI Architecture: Agent Loop & 5 Architectural Types</div>
-    <div>Page 3: Uninformed Search: BFS, DFS, UCS, DLS & IDDFS Complexity Matrix</div>
-    <div>Page 4: Informed & Adversarial: A* Admissibility Proof, Minimax & Alpha-Beta</div>
-    <div>Page 5: Knowledge Representation: Propositional vs. First-Order Logic Translation</div>
-    <div>Page 6: Inference Engines: Forward Chaining, Backward Chaining & Resolution</div>
-    <div>Page 7: Automated Planning: STRIPS Action Schema & Goal Stack Mechanics</div>
-    <div>Page 8: Probabilistic AI: Bayes' Theorem & Bayesian Belief Networks Math</div>
-    <div>Page 9: Machine Learning: Neural Networks, Perceptron Activations & Backpropagation</div>
-    <div>Page 10: Generalization Theory: Underfitting vs. Overfitting & 9 Contrast Flashcards</div>
-  </div>
+<h2 class="section-title">Page 1: AI Master Mental Model & Environmental Taxonomy</h2>
+<div class="callout callout-info"><div class="callout-title">Core Paradigm</div>Rational Agent: Selects action $a \in \mathcal{A}$ maximizing expected performance measure $P$ given historical percept sequence $\mathcal{P}^*$.</div>
+<table class="custom-table">
+  <thead><tr><th>Environment</th><th>Observability</th><th>Determinism</th><th>Episodic/Seq</th><th>Static/Dyn</th><th>Discrete/Cont</th><th>Agents</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Chess</strong></td><td>Fully</td><td>Deterministic</td><td>Sequential</td><td>Static</td><td>Discrete</td><td>Multi (Adversarial)</td></tr>
+    <tr><td><strong>Poker</strong></td><td>Partially</td><td>Stochastic</td><td>Sequential</td><td>Static</td><td>Discrete</td><td>Multi (Adversarial)</td></tr>
+    <tr><td><strong>Self-Driving</strong></td><td>Partially</td><td>Stochastic</td><td>Sequential</td><td>Dynamic</td><td>Continuous</td><td>Multi</td></tr>
+    <tr><td><strong>Medical Diagn.</strong></td><td>Partially</td><td>Stochastic</td><td>Sequential</td><td>Dynamic</td><td>Continuous</td><td>Single</td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+<h2 class="section-title">Page 2: Uninformed vs. Informed Search Complexity Matrix</h2>
+<table class="custom-table">
+  <thead><tr><th>Algorithm</th><th>Data Structure</th><th>Time Complexity</th><th>Space Complexity</th><th>Complete?</th><th>Optimal?</th></tr></thead>
+  <tbody>
+    <tr><td><strong>BFS</strong></td><td>FIFO Queue</td><td>$O(b^d)$</td><td>$O(b^d)$</td><td>Yes</td><td>Yes (uniform costs)</td></tr>
+    <tr><td><strong>DFS</strong></td><td>LIFO Stack</td><td>$O(b^m)$</td><td>$O(b \cdot m)$</td><td>No (infinite trees)</td><td>No</td></tr>
+    <tr><td><strong>UCS</strong></td><td>Priority Queue</td><td>$O(b^{1 + \lfloor C^*/\epsilon \rfloor})$</td><td>$O(b^{1 + \lfloor C^*/\epsilon \rfloor})$</td><td>Yes</td><td><strong>Yes (Cost optimal)</strong></td></tr>
+    <tr><td><strong>IDDFS</strong></td><td>LIFO Stack</td><td>$O(b^d)$</td><td>$\mathbf{O(b \cdot d)}$</td><td>Yes</td><td>Yes (uniform costs)</td></tr>
+    <tr><td><strong>$A^*$ Search</strong></td><td>Priority Queue</td><td>$O(b^d)$</td><td>$O(b^d)$</td><td>Yes</td><td><strong>Yes (if $h$ admissible)</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+<h2 class="section-title">Page 3: $A^*$ Search Admissibility & Consistency Theorems</h2>
+<div class="formula-card">
+  $$\text{Admissibility: } 0 \le h(n) \le h^*(n) \implies A^* \text{ Tree Search is Optimal}$$
+  $$\text{Consistency: } h(n) \le c(n, a, n') + h(n') \implies A^* \text{ Graph Search is Optimal (No node re-expansion!)}$$
 </div>
 
-<h2 class="section-title">📋 The Complete 38-Topic Syllabus Master Checklist</h2>
-
-<div class="callout callout-info">
-  <div class="callout-title">38 / 38 Syllabus Topics Complete</div>
-  <table class="custom-table" style="font-size: 10px;">
-    <thead><tr><th>Module</th><th>Topic #</th><th>Topic Name</th><th>Status</th></tr></thead>
-    <tbody>
-      <tr><td rowspan="7"><strong>M1: Preliminaries (7)</strong></td><td>1</td><td>What is AI? (4 Classical Approaches & Rational Agent Paradigm)</td><td>✅ Complete</td></tr>
-      <tr><td>2</td><td>Evolution of AI (Turing 1950 to GenAI 2020s)</td><td>✅ Complete</td></tr>
-      <tr><td>3</td><td>Intelligent Agents (Sense-Think-Act Loop & PEAS)</td><td>✅ Complete</td></tr>
-      <tr><td>4</td><td>Concept of Rationality (Rationality vs. Omniscience)</td><td>✅ Complete</td></tr>
-      <tr><td>5</td><td>Nature of Environments (O-D-E-D-C-N Taxonomy)</td><td>✅ Complete</td></tr>
-      <tr><td>6</td><td>Structure of Agents (5 Agent Architectures)</td><td>✅ Complete</td></tr>
-      <tr><td>7</td><td>Applications of AI (Healthcare, Robotics, Vision)</td><td>✅ Complete</td></tr>
-
-      <tr><td rowspan="6"><strong>M2: Search (6)</strong></td><td>8</td><td>Search-Based Problem Solving (5-Tuple Formulation)</td><td>✅ Complete</td></tr>
-      <tr><td>9</td><td>State-Space Search (BFS, DFS, UCS, DLS, IDDFS)</td><td>✅ Complete</td></tr>
-      <tr><td>10</td><td>Tree Search vs. Graph Search (Explored Sets)</td><td>✅ Complete</td></tr>
-      <tr><td>11</td><td>Heuristic Search (Greedy Best-First & A* Search)</td><td>✅ Complete</td></tr>
-      <tr><td>12</td><td>Local Search (Hill Climbing & Simulated Annealing)</td><td>✅ Complete</td></tr>
-      <tr><td>13</td><td>Complex Environments & Adversarial Game Trees (Minimax & Alpha-Beta)</td><td>✅ Complete</td></tr>
-
-      <tr><td rowspan="9"><strong>M3: Reasoning (9)</strong></td><td>14</td><td>Knowledge-Based Agents (KB & Inference Engine)</td><td>✅ Complete</td></tr>
-      <tr><td>15</td><td>Propositional Logic (Truth Tables & Equivalences)</td><td>✅ Complete</td></tr>
-      <tr><td>16</td><td>Propositional to Predicate Logic Transition</td><td>✅ Complete</td></tr>
-      <tr><td>17</td><td>Propositional Logic Agents (Wumpus World)</td><td>✅ Complete</td></tr>
-      <tr><td>18</td><td>First-Order Predicate Logic (FOPL Quantifiers)</td><td>✅ Complete</td></tr>
-      <tr><td>19</td><td>Knowledge Representation in FOL (English to Logic)</td><td>✅ Complete</td></tr>
-      <tr><td>20</td><td>Forward Chaining (Data-Driven Modus Ponens)</td><td>✅ Complete</td></tr>
-      <tr><td>21</td><td>Backward Chaining (Goal-Driven Hypothesis)</td><td>✅ Complete</td></tr>
-      <tr><td>22</td><td>Resolution Refutation Inference Rule (CNF)</td><td>✅ Complete</td></tr>
-
-      <tr><td rowspan="7"><strong>M4: Planning (7)</strong></td><td>23</td><td>Planning in AI (Goal-Directed Action Sequences)</td><td>✅ Complete</td></tr>
-      <tr><td>24</td><td>Components of Planning Problems (STRIPS: PRE, ADD, DEL)</td><td>✅ Complete</td></tr>
-      <tr><td>25</td><td>Types of Planning (State-Space, Partial-Order, HTN)</td><td>✅ Complete</td></tr>
-      <tr><td>26</td><td>Goal Stack Planning (Subgoal Interleaving)</td><td>✅ Complete</td></tr>
-      <tr><td>27</td><td>Reasoning Under Uncertainty (Axioms of Probability)</td><td>✅ Complete</td></tr>
-      <tr><td>28</td><td>Bayesian Inference (Prior, Likelihood, Posterior)</td><td>✅ Complete</td></tr>
-      <tr><td>29</td><td>Probabilistic Reasoning & Bayesian Belief Networks</td><td>✅ Complete</td></tr>
-
-      <tr><td rowspan="9"><strong>M5: Learning (9)</strong></td><td>30</td><td>What is Learning? (Experience to Performance)</td><td>✅ Complete</td></tr>
-      <tr><td>31</td><td>Rote Learning (Direct Memorization & Caching)</td><td>✅ Complete</td></tr>
-      <tr><td>32</td><td>Learning by Taking Advice (Expert Rules)</td><td>✅ Complete</td></tr>
-      <tr><td>33</td><td>Learning from Examples (Inductive Supervised Learning)</td><td>✅ Complete</td></tr>
-      <tr><td>34</td><td>Induction vs. Deduction in AI</td><td>✅ Complete</td></tr>
-      <tr><td>35</td><td>Formal Learning Theory (Hypothesis Space, Bias-Variance)</td><td>✅ Complete</td></tr>
-      <tr><td>36</td><td>Neural Net Learning (Perceptrons & Backpropagation)</td><td>✅ Complete</td></tr>
-      <tr><td>37</td><td>Underfitting (High Bias, Low Capacity)</td><td>✅ Complete</td></tr>
-      <tr><td>38</td><td>Overfitting (High Variance, Regularization & Dropout)</td><td>✅ Complete</td></tr>
-    </tbody>
-  </table>
+<div class="page-break"></div>
+<h2 class="section-title">Page 4: Adversarial Minimax & Alpha-Beta Pruning Rules</h2>
+<div class="formula-card">
+  $$\alpha \leftarrow \max(\alpha, \text{child\_val}) \quad (\text{Initialized to } -\infty)$$
+  $$\beta \leftarrow \min(\beta, \text{child\_val}) \quad (\text{Initialized to } +\infty)$$
+  $$\mathbf{\text{PRUNE SUBTREE IF } \alpha \ge \beta}$$
 </div>
 
-<h2 class="section-title">🧠 Complete AI Master Algorithm Map</h2>
+<div class="page-break"></div>
+<h2 class="section-title">Page 5: Propositional & First-Order Logic (FOL) Transformation Rules</h2>
+<div class="worked-box">
+  $$\alpha \rightarrow \beta \equiv \neg \alpha \lor \beta \qquad \alpha \leftrightarrow \beta \equiv (\neg \alpha \lor \beta) \land (\neg \beta \lor \alpha)$$
+  $$\neg (\forall x P(x)) \equiv \exists x \neg P(x) \qquad \neg (\exists x P(x)) \equiv \forall x \neg P(x)$$
+  $$\text{Resolution: } \frac{A \lor B, \quad \neg B \lor C}{A \lor C}$$
+</div>
 
-<pre><code>                    ARTIFICIAL INTELLIGENCE
-                               │
-                       INTELLIGENT AGENT
-                               │
-          ┌────────────────────┼────────────────────┐
-          ↓                    ↓                    ↓
-       SEARCH              REASONING             LEARNING
-          │                    │                    │
-   ┌──────┼──────┐       ┌─────┼─────┐        ┌─────┼─────┐
-   ↓      ↓      ↓       ↓     ↓     ↓        ↓     ↓     ↓
-  BFS    UCS     A*     Prop  FOL  Forward   Rote Examples Neural
-  DFS   Greedy         Logic Logic Backward           Nets
-  Hill  Minimax                    Resolution
-  Anneal AlphaBeta
-                               │
-                            PLANNING
-                               │
-                         STRIPS / Goal Stack
-                               │
-                          UNCERTAINTY
-                               │
-                           Bayes / DAG BBN</code></pre>
+<div class="page-break"></div>
+<h2 class="section-title">Page 6: Classical Planning STRIPS & Graphplan Mutexes</h2>
+<div class="callout callout-info"><div class="callout-title">3 Mutex Conditions</div>Inconsistent Effects (Add vs Delete), Interference (Delete vs Precond), Competing Needs (Mutex Preconditions).</div>
+
+<div class="page-break"></div>
+<h2 class="section-title">Page 7: Probability, Bayes' Rule & Bayesian Networks</h2>
+<div class="formula-card">
+  $$P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B)} \qquad P(X_1, \dots, X_n) = \prod_{i=1}^n P(X_i \mid \text{Parents}(X_i))$$
+</div>
+
+<div class="page-break"></div>
+<h2 class="section-title">Page 8: Decision Tree Induction (ID3 Entropy & Gain)</h2>
+<div class="formula-card">
+  $$H(S) = - \sum p_i \log_2(p_i) \qquad \text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$$
+</div>
+
+<div class="page-break"></div>
+<h2 class="section-title">Page 9: Multi-Layer Perceptrons & Backpropagation Gradient</h2>
+<div class="formula-card">
+  $$\delta_k = (y_k - \hat{y}_k) \sigma'(z_k) \qquad \delta_j = \sigma'(z_j) \sum_k \delta_k w_{jk} \qquad \Delta w = \eta \delta a_{\text{in}}$$
+</div>
+
+<div class="page-break"></div>
+<h2 class="section-title">Page 10: AI Final High-Yield Exam Checklist & Formulas</h2>
+<div class="worked-box">
+  <div class="worked-title">10 Instant Revision Points</div>
+  1. $A^*$ with $h=0$ becomes Uniform Cost Search.<br>
+  2. $A^*$ with $g=0$ becomes Greedy Best-First Search.<br>
+  3. Iterative Deepening DFS uses $O(bd)$ memory and visits nodes at depth $d$ only once.<br>
+  4. Alpha-Beta does not affect final minimax value at root.<br>
+  5. Skolemization replaces $\exists x$ with constant or Skolem function $f(y_1\dots y_k)$.<br>
+  6. Unification requires variables to be standardized apart.<br>
+  7. d-separation isolates nodes given evidence variables.<br>
+  8. Backpropagation computes exact gradient via dynamic programming chain rule.<br>
+  9. ReLU eliminates vanishing gradient for positive activations.<br>
+  10. Softmax produces valid categorical probability distribution.
+</div>
 """

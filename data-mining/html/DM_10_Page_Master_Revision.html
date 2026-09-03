@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Mining (CS24303) 10-Page Master Revision</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Complete Master Guide</div>
+    <h1 class="book-title">Data Mining (CS24303) 10-Page Master Revision</h1>
+    <div class="book-subtitle">High-Yield Formulas, Schemas, Cuboid Lattices, Apriori Rules & Solved Numerical Cards</div>
+  </div>
+  
+<div class="cover-container">
+  <div class="course-badge">Comprehensive High-Yield Master Guide</div>
+  <h1 class="book-title">Data Mining & Data Warehousing (CS24303) 10-Page Master Quick Revision Guide</h1>
+  <div class="book-subtitle">Formulas, Schemas, Cuboid Lattices, Apriori Rules, Cluster Algorithms & Solved Exam Cards</div>
+</div>
+
+<h2 class="section-title">Master Formula & Metric Reference Sheet</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Domain</th>
+      <th style="width: 45%;">Universal Formula</th>
+      <th>Key Exam Property</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Min-Max Normalization</strong></td>
+      <td>$$v' = \frac{v - \min_A}{\max_A - \min_A}(\text{new\_max} - \text{new\_min}) + \text{new\_min}$$</td>
+      <td>Preserves exact relationships; sensitive to future out-of-bound outliers.</td>
+    </tr>
+    <tr>
+      <td><strong>Z-Score Standardization</strong></td>
+      <td>$$z = \frac{v - \bar{x}}{\sigma}$$</td>
+      <td>Zero mean, unit variance ($\mathcal{N}(0, 1)$); ideal when min/max are unknown.</td>
+    </tr>
+    <tr>
+      <td><strong>$\chi^2$ Independence Test</strong></td>
+      <td>$$\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}} \quad \text{where } E_{ij} = \frac{\text{Row}_i \times \text{Col}_j}{N}$$</td>
+      <td>$df = (r - 1)(c - 1)$; tests categorical attribute independence.</td>
+    </tr>
+    <tr>
+      <td><strong>Cosine Similarity</strong></td>
+      <td>$$\text{sim}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\| \|\mathbf{y}\|} = \frac{\sum x_i y_i}{\sqrt{\sum x_i^2}\sqrt{\sum y_i^2}}$$</td>
+      <td>Angle between vectors; independent of document text length.</td>
+    </tr>
+    <tr>
+      <td><strong>Jaccard Similarity</strong></td>
+      <td>$$J(\mathbf{x}, \mathbf{y}) = \frac{q}{q + r + s}$$</td>
+      <td>Asymmetric binary metric; completely ignores $0-0$ negative matches $t$.</td>
+    </tr>
+    <tr>
+      <td><strong>Association Rule Lift</strong></td>
+      <td>$$\text{Lift}(A \implies B) = \frac{P(A \cup B)}{P(A) P(B)} = \frac{\text{Confidence}(A \implies B)}{\text{Support}(B)}$$</td>
+      <td>$\text{Lift} > 1 \implies \text{Positive correlation}; = 1 \implies \text{Independent}$.</td>
+    </tr>
+    <tr>
+      <td><strong>Information Gain</strong></td>
+      <td>$$\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$</td>
+      <td>Biased towards attributes with massive numbers of distinct values.</td>
+    </tr>
+    <tr>
+      <td><strong>Gini Impurity</strong></td>
+      <td>$$\text{Gini}(S) = 1 - \sum_{i=1}^m p_i^2$$</td>
+      <td>CART metric for strictly binary decision tree splits.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Complete 5-Module Comparative Checklists & Solved Flashcards</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Module</th>
+      <th style="width: 40%;">Core Theoretical Concepts</th>
+      <th>High-Yield Exam Numericals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>M1: Data Understanding</strong></td>
+      <td>KDD Process, Nominal/Ordinal/Interval/Ratio, Proximity Metrics (SMC, Jaccard, Cosine, Mahalanobis, Gower).</td>
+      <td>Five-number summary, IQR outlier fences, Cosine vector similarity, Jaccard distance.</td>
+    </tr>
+    <tr>
+      <td><strong>M2: Preprocessing</strong></td>
+      <td>Missing imputation, Bin smoothing (means, boundaries), $\chi^2$ test, Min-Max / Z-score normalization, PCA.</td>
+      <td>Contingency table $\chi^2$ computation, decimal scaling, Min-Max re-scaling to $[-1, 1]$.</td>
+    </tr>
+    <tr>
+      <td><strong>M3: Data Warehousing</strong></td>
+      <td>OLTP vs OLAP, Star / Snowflake / Fact Constellation, Additive vs Semi-additive measures, Cuboid lattice combinatorics.</td>
+      <td>Total cuboids calculation with hierarchies $N = \prod (L_i + 1)$, OLAP operations (slice/dice/roll-up).</td>
+    </tr>
+    <tr>
+      <td><strong>M4: Frequent Patterns</strong></td>
+      <td>Apriori property, join & prune, FP-Tree conditional bases, ECLAT vertical TID lists, Closed vs Maximal.</td>
+      <td>Full Apriori table trace, Support/Confidence/Lift calculations, FP-Tree branch insertion.</td>
+    </tr>
+    <tr>
+      <td><strong>M5: Classification & Clustering</strong></td>
+      <td>ID3 vs C4.5 vs CART, Naive Bayes, Confusion Matrix, ROC/AUC, k-Means vs PAM, DBSCAN density, LOF.</td>
+      <td>Entropy & Information Gain numerical, Confusion matrix Precision/Recall/F1, k-Means 1D convergence.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 1: Star vs Snowflake Schema Differences</div>
+  <p><strong>Star Schema:</strong> De-normalized dimension tables with redundant columns, single-join fact table queries, optimized for fast OLAP read speeds.<br><strong>Snowflake Schema:</strong> Normalized dimension hierarchies (splitting out sub-dimensions into 3NF), zero redundancy, requires complex multi-table SQL joins that degrade interactive slice/dice query performance.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 2: k-Means vs DBSCAN Clustering Trade-offs</div>
+  <p><strong>k-Means:</strong> Fast $O(t k N)$, requires upfront $k$, assumes spherical clusters of equal size/variance, highly sensitive to outliers.<br><strong>DBSCAN:</strong> Density-based $(\epsilon, \text{MinPts})$, automatically determines number of clusters, discovers arbitrary non-convex geometries (crescents, rings), completely isolates noise outliers.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 3: Confidence vs Lift in Association Rules</div>
+  <p>Confidence measures conditional probability $P(B \mid A)$, but fails to account for the baseline popularity of item $B$. <strong>Lift</strong> divides confidence by $P(B)$ to reveal true statistical correlation ($\text{Lift} > 1$ positive correlation, $\text{Lift} = 1$ independent, $\text{Lift} < 1$ negative substitute).</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 4: Confusion Matrix Metrics Summary</div>
+  <ul>
+    <li>$\text{Accuracy} = \frac{TP + TN}{N}$ (Overall correctness)</li>
+    <li>$\text{Sensitivity / Recall} = \frac{TP}{TP + FN}$ (Fraction of actual positives captured)</li>
+    <li>$\text{Specificity} = \frac{TN}{TN + FP}$ (Fraction of actual negatives captured)</li>
+    <li>$\text{Precision} = \frac{TP}{TP + FP}$ (Fraction of predicted positives that are correct)</li>
+    <li>$F_1\text{-Score} = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$ (Harmonic mean)</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 5: Information Gain vs Gain Ratio vs Gini Index</div>
+  <ul>
+    <li><strong>Information Gain (ID3):</strong> $\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$. Biased toward attributes with large numbers of distinct values.</li>
+    <li><strong>Gain Ratio (C4.5):</strong> $\text{GainRatio}(S, A) = \frac{\text{Gain}(S, A)}{\text{SplitInfo}(S, A)}$. Normalizes gain by split entropy, penalizing broad multi-way splits.</li>
+    <li><strong>Gini Impurity (CART):</strong> $\text{Gini}(S) = 1 - \sum p_i^2$. Strictly binary splits.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 6: Complete Normalization Formulas Reference</div>
+  <ul>
+    <li><strong>Min-Max Scaling:</strong> $v' = \frac{v - \min}{\max - \min}(\text{new\_max} - \text{new\_min}) + \text{new\_min}$</li>
+    <li><strong>Z-Score Standardization:</strong> $z = \frac{v - \mu}{\sigma}$</li>
+    <li><strong>Modified Z-Score (Outlier-Robust):</strong> $M_i = \frac{0.6745(x_i - \text{Median})}{\text{MAD}}$ where $\text{MAD} = \text{Median}(|x_i - \text{Median}|)$</li>
+    <li><strong>Decimal Scaling:</strong> $v' = \frac{v}{10^j}$ where $j = \lceil \log_{10}(\max|v|) \rceil$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 7: The 4 Major Clustering Paradigms</div>
+  <table class="custom-table">
+    <thead><tr><th>Paradigm</th><th>Representative Algorithms</th><th>Key Characteristics</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Partitioning</strong></td><td>k-Means, k-Medoids (PAM), CLARA, CLARANS</td><td>Constructs $k$ partitions; iterative relocation; spherical clusters.</td></tr>
+      <tr><td><strong>Hierarchical</strong></td><td>AGNES (agglomerative), DIANA (divisive), BIRCH, CURE</td><td>Dendrogram tree; no $k$ required; irreversible merges.</td></tr>
+      <tr><td><strong>Density-Based</strong></td><td>DBSCAN, OPTICS, DENCLUE</td><td>Arbitrary non-convex shapes; filters noise outliers automatically.</td></tr>
+      <tr><td><strong>Grid-Based</strong></td><td>STING, WaveCluster, CLIQUE</td><td>Quantizes object space into finite grid cells; fast $O(N)$ execution.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-title">Comprehensive 10-Page Master Revision Examination Compendium</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 19: Full Data Preprocessing Pipeline Checklist</div>
+  <ul>
+    <li><strong>1. Data Cleaning:</strong> Missing values (impute mean/mode/k-NN), Noise smoothing (bin means, bin boundaries).</li>
+    <li><strong>2. Data Integration:</strong> $\chi^2$ independence test for nominal data, Pearson $r$ / Covariance for numeric data.</li>
+    <li><strong>3. Data Reduction:</strong> Dimensionality reduction (PCA, Wavelet, SVD, t-SNE), Numerosity reduction (Histograms, Clustering).</li>
+    <li><strong>4. Data Transformation:</strong> Normalization (Min-Max, Z-score, Decimal scaling), Discretization (ChiMerge, Equi-depth binning).</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 20: Data Warehouse Architecture Reference</div>
+  <ul>
+    <li><strong>Bottom Tier:</strong> Warehouse Database Server (relational back-end data store).</li>
+    <li><strong>Middle Tier:</strong> OLAP Server (ROLAP relational engines, MOLAP multidimensional servers, or HOLAP hybrid).</li>
+    <li><strong>Top Tier:</strong> Front-End Client Tools (Analysis, Query/Reporting, Data Mining engines).</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 21: Full Association Mining Formulas</div>
+  $$\text{Support}(A \implies B) = \frac{\text{count}(A \cup B)}{N} \qquad \text{Confidence}(A \implies B) = \frac{\text{count}(A \cup B)}{\text{count}(A)}$$
+  $$\text{Lift}(A \implies B) = \frac{\text{Conf}(A \implies B)}{\text{Support}(B)} \qquad \text{Leverage} = P(A \cup B) - P(A)P(B)$$
+  $$\text{Conviction} = \frac{1 - \text{Support}(B)}{1 - \text{Conf}(A \implies B)} \qquad \text{Jaccard}(A, B) = \frac{P(A \cup B)}{P(A) + P(B) - P(A \cup B)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 22: Classification Decision Criteria</div>
+  <ul>
+    <li><strong>Information Gain (ID3):</strong> $\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$</li>
+    <li><strong>Gain Ratio (C4.5):</strong> $\text{GainRatio}(S, A) = \frac{\text{Gain}(S, A)}{\text{SplitInfo}(S, A)}$</li>
+    <li><strong>Gini Impurity (CART):</strong> $\text{Gini}(S) = 1 - \sum p_i^2$</li>
+    <li><strong>Misclassification Error:</strong> $\text{Error}(S) = 1 - \max(p_i)$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 23: Complete Clustering Paradigms Summary</div>
+  <table class="custom-table">
+    <thead><tr><th>Method</th><th>Core Algorithm</th><th>Strengths & Limitations</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Partitioning</strong></td><td>k-Means, k-Medoids (PAM)</td><td>Fast $O(t k N)$; spherical clusters only; sensitive to initialization.</td></tr>
+      <tr><td><strong>Hierarchical</strong></td><td>AGNES (bottom-up), DIANA (top-down)</td><td>Dendrogram hierarchy; $O(N^2)$ distance matrix; irreversible merges.</td></tr>
+      <tr><td><strong>Density-Based</strong></td><td>DBSCAN, OPTICS, DENCLUE</td><td>Arbitrary non-convex shapes; filters noise outliers; $O(N \log N)$ with spatial index.</td></tr>
+      <tr><td><strong>Grid-Based</strong></td><td>STING, CLIQUE, WaveCluster</td><td>Quantized spatial grid cells; fast $O(K)$ query speed independent of $N$.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-title">Master Exam Final Checklists & Complete Solved Cards</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 24: KDD vs Data Mining vs Machine Learning</div>
+  <ul>
+    <li><strong>KDD:</strong> Complete iterative end-to-end knowledge discovery process (Cleaning, Integration, Selection, Transformation, Mining, Evaluation, Presentation).</li>
+    <li><strong>Data Mining:</strong> The algorithmic pattern discovery phase of KDD.</li>
+    <li><strong>Machine Learning:</strong> Algorithms that learn predictive functions from data.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 25: All Normalization Formulas</div>
+  <ul>
+    <li><strong>Min-Max:</strong> $v' = \frac{v - \min}{\max - \min}(\text{new\_max} - \text{new\_min}) + \text{new\_min}$</li>
+    <li><strong>Z-Score:</strong> $z = \frac{v - \mu}{\sigma}$</li>
+    <li><strong>Robust MAD:</strong> $M_i = \frac{0.6745(x_i - \text{Median})}{\text{MAD}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 26: Complete Data Warehousing Concepts</div>
+  <ul>
+    <li><strong>Inmon:</strong> Top-down 3NF centralized enterprise data warehouse.</li>
+    <li><strong>Kimball:</strong> Bottom-up dimensional data marts with conformed dimensions.</li>
+    <li><strong>Star:</strong> De-normalized, fast OLAP queries.</li>
+    <li><strong>Snowflake:</strong> Normalized dimensions, zero redundancy, multi-join queries.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 27: Association Rule Metrics</div>
+  $$\text{Support} = \frac{\text{count}(A \cup B)}{N} \qquad \text{Confidence} = \frac{\text{count}(A \cup B)}{\text{count}(A)} \qquad \text{Lift} = \frac{\text{Conf}}{\text{Support}(B)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 28: Complete Decision Tree Induction Pipeline</div>
+  $$\text{Dataset } S \xrightarrow{\text{Calculate Impurity}} \text{Evaluate Splits} \xrightarrow{\text{Select Max Gain / Min Gini}} \text{Partition Tree} \xrightarrow{\text{Post-Prune Subtrees}} \text{Final Model}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 29: Complete Hierarchical Clustering Linkage Summary</div>
+  <ul>
+    <li><strong>Single Link:</strong> $d(A, B) = \min d(x, y)$ (Chaining effect, arbitrary shapes)</li>
+    <li><strong>Complete Link:</strong> $d(A, B) = \max d(x, y)$ (Dense spherical clusters, avoids chaining)</li>
+    <li><strong>Average Link:</strong> $d(A, B) = \text{mean } d(x, y)$ (Balanced compromise)</li>
+    <li><strong>Ward's Method:</strong> Minimizes total within-cluster variance increase $\Delta\text{SSE}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 30: Complete Association Rule Quality Check</div>
+  $$\text{Confidence}(A \implies B) \ge \text{min\_conf} \quad \text{AND} \quad \text{Lift}(A \implies B) > 1.0 \quad \text{AND} \quad \chi^2 > 3.841$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 31: OLAP Storage Architecture Summary</div>
+  <ul>
+    <li><strong>ROLAP:</strong> Relational backend, Star/Snowflake schemas, high scalability, SQL engine.</li>
+    <li><strong>MOLAP:</strong> Multidimensional array backend, dense matrix offsets, sub-second query latency.</li>
+    <li><strong>HOLAP:</strong> Hybrid engine: relational for detailed leaf records, multidimensional arrays for aggregates.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 32: Outlier Detection Techniques Compared</div>
+  <ul>
+    <li><strong>Statistical:</strong> $3\sigma$ rule, Grubbs' test, Tukey's IQR fences (assumes parametric distribution).</li>
+    <li><strong>Distance-Based:</strong> $k$-NN distance thresholding ($O(N^2)$).</li>
+    <li><strong>Density-Based:</strong> Local Outlier Factor (LOF) comparing local reachability densities.</li>
+    <li><strong>Ensemble:</strong> Isolation Forest (iTrees) measuring average path lengths to isolate anomalies in $O(N \log N)$.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 33: Complete Model Performance Metrics Reference</div>
+  <table class="custom-table">
+    <thead><tr><th>Metric</th><th>Formula</th><th>Diagnostic Focus</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Accuracy</strong></td><td>$\frac{TP + TN}{N}$</td><td>Overall proportion of correct classifications.</td></tr>
+      <tr><td><strong>Sensitivity (Recall)</strong></td><td>$\frac{TP}{TP + FN}$</td><td>Minimizing False Negatives (medical diagnosis).</td></tr>
+      <tr><td><strong>Specificity</strong></td><td>$\frac{TN}{TN + FP}$</td><td>True Negative rate ($1 - \text{FPR}$).</td></tr>
+      <tr><td><strong>Precision</strong></td><td>$\frac{TP}{TP + FP}$</td><td>Minimizing False Positives (search ranking, spam).</td></tr>
+      <tr><td><strong>$F_1$-Score</strong></td><td>$\frac{2 \cdot P \cdot R}{P + R}$</td><td>Harmonic mean for imbalanced targets.</td></tr>
+      <tr><td><strong>ROC AUC</strong></td><td>$\int_0^1 \text{TPR}(t) d(\text{FPR}(t))$</td><td>Threshold-independent ranking performance.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 34: Data Preprocessing Matrix & Transformation Techniques</div>
+  <ul>
+    <li><strong>Data Cleaning:</strong> Missing imputation (MICE, k-NN), Noise smoothing (bin means/boundaries).</li>
+    <li><strong>Data Integration:</strong> $\chi^2$ independence test ($df=(r-1)(c-1)$), Pearson correlation $r_{A, B}$.</li>
+    <li><strong>Data Transformation:</strong> Min-Max to $[0, 1]$, Z-score standardization ($\mu=0, \sigma=1$), Decimal scaling.</li>
+    <li><strong>Data Reduction:</strong> PCA ($EVR \ge 95\%$), DWT Wavelets, SVD low-rank approximation, ReliefF feature selection.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 35: Apriori Join & Prune Step Rule</div>
+  <p>Two frequent $(k-1)$-itemsets $p, q \in L_{k-1}$ are joined if they share the first $k-2$ items ($p[1]=q[1], \dots, p[k-2]=q[k-2]$ and $p[k-1] < q[k-1]$). Candidate $c = p \cup \{q[k-1]\}$ is pruned if ANY of its $(k-1)$ subsets is missing from $L_{k-1}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 36: DBSCAN Point Categorization Rule</div>
+  <ul>
+    <li><strong>Core Point:</strong> $|N_\epsilon(p)| \ge \text{MinPts}$ (Density center)</li>
+    <li><strong>Border Point:</strong> $|N_\epsilon(p)| < \text{MinPts}$, but $p \in N_\epsilon(q)$ where $q$ is a core point</li>
+    <li><strong>Noise Point:</strong> Neither core nor border (Isolated anomaly)</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 37: Multi-Dimensional Schema Architecture Rule</div>
+  <ul>
+    <li><strong>Star Schema:</strong> Fact table surrounded by flat de-normalized dimension tables.</li>
+    <li><strong>Snowflake Schema:</strong> Fact table surrounded by normalized dimension hierarchy tables.</li>
+    <li><strong>Fact Constellation:</strong> Multiple fact tables sharing conformed dimensions.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 38: Attribute Subset Selection Techniques</div>
+  <ul>
+    <li><strong>Stepwise Forward Selection:</strong> Starts with $\emptyset$, greedily adds best attribute.</li>
+    <li><strong>Stepwise Backward Elimination:</strong> Starts with full feature set, greedily removes worst attribute.</li>
+    <li><strong>Decision Tree Induction:</strong> Attributes selected as split nodes represent minimal descriptive subset.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 39: Classification Performance Metrics Summary</div>
+  $$\text{FPR} = \frac{FP}{TN + FP} = 1 - \text{Specificity} \qquad \text{FNR} = \frac{FN}{TP + FN} = 1 - \text{Sensitivity}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 40: Density-Based Reachability Axioms</div>
+  $$p \xrightarrow{\text{direct}} q \implies q \in N_\epsilon(p) \land |N_\epsilon(p)| \ge \text{MinPts}$$
+  $$\text{Density-Reachable: Chain of Core Points} \qquad \text{Density-Connected: Common Core Ancestor } o$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 41: Data Cube Computation Strategies</div>
+  <ul>
+    <li><strong>BUC (Bottom-Up Computation):</strong> Explores cuboid tree bottom-up with Apriori pruning; ideal for sparse iceberg cubes.</li>
+    <li><strong>MultiWay Array Aggregation:</strong> Computes full dense cubes in single pass over multidimensional RAM chunks.</li>
+    <li><strong>Star-Cubing:</strong> Combines star-trees and shared prefix paths for iceberg cubing.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 42: Distance Metrics Axioms & Semi-Metrics</div>
+  $$\text{Non-negativity: } d(x, y) \ge 0 \qquad \text{Identity: } d(x, y) = 0 \iff x = y$$
+  $$\text{Symmetry: } d(x, y) = d(y, x) \qquad \text{Triangle Inequality: } d(x, z) \le d(x, y) + d(y, z)$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 43: SVD vs PCA Mathematical Equivalences</div>
+  $$\text{Centering: } \mathbf{X}_c = \mathbf{X} - \mathbf{1}\mathbf{\mu}^T \implies \mathbf{X}_c = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^T$$
+  $$\text{Covariance: } \mathbf{S} = \frac{1}{n-1}\mathbf{X}_c^T \mathbf{X}_c = \frac{1}{n-1}\mathbf{V}\mathbf{\Sigma}^2\mathbf{V}^T \implies \lambda_i = \frac{\sigma_i^2}{n-1}, \ \mathbf{e}_i = \mathbf{v}_i$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 44: Complete Hierarchical Linkage Metrics</div>
+  <ul>
+    <li><strong>Single Link (Nearest Neighbor):</strong> $d(A, B) = \min_{x \in A, y \in B} d(x, y)$</li>
+    <li><strong>Complete Link (Farthest Neighbor):</strong> $d(A, B) = \max_{x \in A, y \in B} d(x, y)$</li>
+    <li><strong>Average Link (Group Average):</strong> $d(A, B) = \frac{1}{|A||B|} \sum_{x \in A} \sum_{y \in B} d(x, y)$</li>
+    <li><strong>Centroid Link:</strong> $d(A, B) = \|\mathbf{\mu}_A - \mathbf{\mu}_B\|_2$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 45: Complete Master Review Strategy</div>
+  <p>Master the 4 Core Pillars: 1. Proximity & Five-number summary, 2. Star/Snowflake & OLAP lattices, 3. Apriori/FP-Tree association rules, 4. Decision trees & DBSCAN density clustering!</p>
+</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

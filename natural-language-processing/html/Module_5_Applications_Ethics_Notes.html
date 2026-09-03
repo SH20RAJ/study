@@ -1,426 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Module 5: Transformers & Generation Evaluation</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
-
-:root {
-  --primary: #7c3aed;       /* Purple */
-  --primary-light: #f5f3ff;
-  --accent: #8b5cf6;        /* Violet */
-  --secondary: #2563eb;     /* Royal Blue */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
-}
+<meta charset="UTF-8">
+<title>Module 5: Core Applications, Evaluation Metrics & Ethics in NLP</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap');
 
 @page {
   size: A4 portrait;
-  margin: 14mm 11mm 14mm 11mm;
+  margin: 15mm 12mm 15mm 12mm;
   @bottom-right {
-    content: "Page " counter(page);
+    content: "Page " counter(page) " of " counter(pages);
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8pt;
+    font-weight: 600;
     color: #64748b;
   }
   @bottom-left {
-    content: "NLP (CS24311) | BIT Mesra CSE";
+    content: "CS24351 Natural Language Processing • BIT Mesra";
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8pt;
-    color: #64748b;
+    font-weight: 600;
+    color: #0284c7;
   }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
+* { box-sizing: border-box; }
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: #ffffff;
-  line-height: 1.58;
-  font-size: 12.2px;
-  padding: 0;
-}
-
-.page-container {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 0;
-}
-
-.doc-header {
-  border-bottom: 2.5px solid var(--primary);
-  padding-bottom: 14px;
-  margin-bottom: 18px;
-}
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  display: inline-block;
-  padding: 3px 9px;
-  font-size: 9.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 4px;
-}
-
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-green { background: #d1fae5; color: #065f46; }
-.badge-amber { background: #fef3c7; color: #92400e; }
-
-h1.doc-title {
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 4px;
-}
-
-.doc-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 22px;
-}
-
-.toc-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: #6d28d9;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 11.2px;
+  line-height: 1.58;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-h2.section-title {
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 22px 0 10px 0;
-  page-break-after: avoid;
-}
-
-h3.subsection-title {
-  font-size: 13.2px;
-  font-weight: 700;
-  color: #6d28d9;
-  margin: 16px 0 6px 0;
-  page-break-after: avoid;
-}
-
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.5px;
-  border-left: 4px solid;
+.cover-container {
+  padding: 24px 20px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0369a1 100%);
+  border-radius: 12px;
+  color: #ffffff;
+  margin-bottom: 22px;
+  border: 1px solid #38bdf8;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);
   page-break-inside: avoid;
 }
-.callout-info { background: #faf5ff; border-color: #8b5cf6; color: #4c1d95; }
-.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+.course-badge {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid #38bdf8;
+  color: #bae6fd;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.book-title {
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+}
+.book-subtitle {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
 
+h1.module-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 6px;
+  margin: 22px 0 14px 0;
+  page-break-after: avoid;
+}
+h2.section-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0369a1;
+  border-left: 4px solid #0284c7;
+  padding-left: 9px;
+  margin: 18px 0 10px 0;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  margin: 13px 0 6px 0;
+  page-break-after: avoid;
+}
+
+p { margin: 0 0 9px 0; }
+ul, ol { margin: 0 0 10px 0; padding-left: 20px; }
+li { margin-bottom: 4px; }
+
+.callout-box {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 11px;
+  page-break-inside: avoid;
+}
 .callout-title {
   font-weight: 700;
+  color: #0369a1;
   margin-bottom: 4px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+}
+
+.worked-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #6366f1;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.worked-title {
+  font-weight: 800;
+  color: #4338ca;
+  font-size: 12px;
+  margin-bottom: 6px;
 }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   margin: 12px 0;
-  font-size: 11px;
+  font-size: 10.5px;
   page-break-inside: avoid;
 }
-
-.custom-table th, .custom-table td {
-  border: 1px solid #cbd5e1;
-  padding: 7px 10px;
-  text-align: left;
-}
-
 .custom-table th {
-  background: #f1f5f9;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 7px 10px;
   font-weight: 700;
-  color: #1e293b;
+  text-align: left;
+  border: 1px solid #334155;
 }
+.custom-table td {
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+.custom-table tr:nth-child(even) { background: #f8fafc; }
 
 pre {
   background: #0f172a;
-  color: #f8fafc;
-  padding: 11px 14px;
+  color: #e2e8f0;
+  padding: 10px 13px;
   border-radius: 6px;
-  font-family: 'Fira Code', monospace;
-  font-size: 10.8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.8px;
+  line-height: 1.45;
+  overflow-x: auto;
   margin: 10px 0;
   page-break-inside: avoid;
-  overflow-x: auto;
+  border: 1px solid #334155;
 }
-
 code {
-  font-family: 'Fira Code', monospace;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 2px 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 1.5px 4px;
   border-radius: 4px;
-  font-size: 11px;
 }
 
-pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
+.katex-display {
+  margin: 8px 0 !important;
+  padding: 4px 0 !important;
 }
 
 .qa-card {
-  background: #f8fafc;
+  background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-left: 4px solid var(--secondary);
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 12px 0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 10px 0;
   page-break-inside: avoid;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
-
 .qa-q {
   font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 6px;
-  font-size: 12.2px;
+  color: #0f172a;
+  margin-bottom: 4px;
 }
-
 .qa-a {
   color: #334155;
-  font-size: 11.5px;
-  line-height: 1.55;
 }
-
-.worked-box {
-  background: #ffffff;
-  border: 1.5px solid #8b5cf6;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin: 14px 0;
-  page-break-inside: avoid;
-}
-
-.worked-title {
-  font-size: 12.8px;
-  font-weight: 800;
-  color: #5b21b6;
-  margin-bottom: 10px;
-}
-
-.formula-card {
-  background: #faf5ff;
-  border-left: 4px solid #7c3aed;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.8px;
-  page-break-inside: avoid;
-}
-
-.diagram-container {
-  margin: 14px auto;
-  text-align: center;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px;
-  page-break-inside: avoid;
-}
-
-.diagram-caption {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 6px;
-}
-
-.page-break {
-  page-break-before: always;
-  break-before: page;
-}
+.page-break { page-break-before: always; }
 </style>
 </head>
 <body>
-  <div class="page-container">
-    <div class="doc-header">
-      <div class="badge-container">
-        <span class="badge badge-purple">CS24311 — Theory (3.0 Cr)</span>
-        <span class="badge badge-blue">Module V Notes</span>
-        <span class="badge badge-green">BIT Mesra</span>
-        <span class="badge badge-amber">NEP Scheme</span>
-      </div>
-      <h1 class="doc-title">Module 5: Transformers & Generation Evaluation</h1>
-      <div class="doc-subtitle">Self-Attention, Multi-Head Attention, BERT vs GPT Architectures & BLEU / ROUGE Math</div>
-    </div>
-    
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: NLP Applications, Dialogue Systems & AI Ethics — Complete 10-Topic Tracker</div>
-  <div class="toc-grid">
-    <div><strong>Topic 44:</strong> Text Classification (Document Categorization & Naive Bayes)</div>
-    <div><strong>Topic 45:</strong> Sentiment Analysis (Document, Sentence & Aspect-Based)</div>
-    <div><strong>Topic 46:</strong> Named Entity Recognition (NER Sequence Labeling vs. POS) [UPLOADED PYQ]</div>
-    <div><strong>Topic 47:</strong> Machine Translation Overview & The Vauquois Triangle</div>
-    <div><strong>Topic 48:</strong> Rule-Based Machine Translation (Direct, Transfer & Interlingua)</div>
-    <div><strong>Topic 49:</strong> Statistical Machine Translation (SMT Noisy Channel Formulation)</div>
-    <div><strong>Topic 50:</strong> Neural Machine Translation (End-to-End Transformer Seq2Seq)</div>
-    <div><strong>Topic 51:</strong> Chatbots & Conversational Dialogue Systems (NLU-DM-NLG Pipeline)</div>
-    <div><strong>Topic 52:</strong> Bias, Fairness & Stereotyping in Large Language Models</div>
-    <div><strong>Topic 53:</strong> Model Explainability & Interpretability (Attention Heatmaps & LIME)</div>
-  </div>
+<div class="cover-container">
+  <div class="course-badge">Module 5 • CS24351</div>
+  <h1 class="book-title">Module 5: Core Applications, Evaluation Metrics & Ethics in NLP</h1>
+  <div class="book-subtitle">Topics 46 to 53 • Machine Translation BLEU, Summarization ROUGE, RAG, NER & Algorithmic De-Biasing</div>
 </div>
 
-<h2 class="section-title">Topic 44 – 46: Text Classification, Sentiment Analysis & NER [UPLOADED PYQ]</h2>
+<h1 class="module-title">Module 5: Core Applications, Evaluation Metrics & Ethics in NLP</h1>
 
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Feature</th>
-      <th style="width: 37%;">Part-of-Speech (POS) Tagging</th>
-      <th>Named Entity Recognition (NER) [UPLOADED PYQ — CS633]</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Objective</strong></td><td>Assigns syntactic grammatical word classes (`NN`, `VB`, `JJ`, `DT`).</td><td>Detects and classifies real-world semantic entity mentions.</td></tr>
-    <tr><td><strong>Granularity</strong></td><td>Every single token in the sentence receives a tag.</td><td>Only specific entity spans receive labels (`PERSON`, `ORG`, `LOC`, `DATE`). Non-entities are tagged `O`.</td></tr>
-    <tr><td><strong>Example</strong></td><td>`"Sundar [NNP] Pichai [NNP] leads [VBZ] Google [NNP]"`</td><td>`"Sundar Pichai [B-PER, I-PER] leads Google [B-ORG]"` (BIO tagging scheme).</td></tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">Topic 47 – 50: Machine Translation (MT) Paradigm Evolution</h2>
-
-<div class="diagram-container">
-  <svg width="100%" height="80" viewBox="0 0 740 80" xmlns="http://www.w3.org/2000/svg">
-    <rect x="20" y="15" width="150" height="50" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="95" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#1e40af" text-anchor="middle">1. Rule-Based MT</text>
-    <text x="95" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#2563eb" text-anchor="middle">Dictionaries + Grammar</text>
-
-    <path d="M 170 40 L 205 40" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="210" y="15" width="160" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-    <text x="290" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">2. Statistical MT (SMT)</text>
-    <text x="290" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#b45309" text-anchor="middle">Noisy Channel P(T|S)</text>
-
-    <path d="M 370 40 L 405 40" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="410" y="15" width="180" height="50" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
-    <text x="500" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#14532d" text-anchor="middle">3. Neural MT (NMT)</text>
-    <text x="500" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#16a34a" text-anchor="middle">Seq2Seq Transformer</text>
-
-    <path d="M 590 40 L 625 40" stroke="#0284c7" stroke-width="2"/>
-
-    <rect x="630" y="15" width="95" height="50" rx="6" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/>
-    <text x="677" y="38" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#581c87" text-anchor="middle">4. LLMs</text>
-    <text x="677" y="52" font-family="Plus Jakarta Sans" font-size="9" fill="#9333ea" text-anchor="middle">Zero-Shot MT</text>
-  </svg>
-  <div class="diagram-caption">Figure 5.1: The 70-Year Evolution of Machine Translation Paradigms</div>
+<div class="callout-box">
+  <div class="callout-title">📌 Syllabus & Pedagogical Blueprint (Topics 46 to 53)</div>
+  <p>Text Classification & Sentiment Analysis • Aspect-Based Sentiment Analysis (ABSA) • Named Entity Recognition (NER) & Sequence Tagging Schemas (BIO, BILOU) • BiLSTM-CRF Architecture for NER • Machine Translation: Statistical (SMT) vs. Neural (NMT) • Beam Search Decoding Mechanics • Exact Mathematical Formulation of the BLEU Metric with Brevity Penalty • Text Summarization: Extractive (TextRank / LexRank) vs. Abstractive (Seq2Seq with Copy/Coverage Mechanisms) • ROUGE-1, ROUGE-2, ROUGE-L Evaluation • Question Answering (Extractive SQuAD exact match/F1 vs. Retrieval-Augmented Generation / RAG) • Dialogue Systems (Task-Oriented vs. Open-Domain LLM Chatbots) • Ethics, Algorithmic Bias, De-biasing Word Embeddings, LLM Hallucinations & Environmental Sustainability • 15 Solved University Examination Questions.</p>
 </div>
 
-<div class="formula-card">
-  <strong>Statistical Machine Translation (Noisy Channel Model):</strong>
-  $$\hat{T} = \arg\max_T P(T \mid S) = \arg\max_T \Big[ \underbrace{P(S \mid T)}_{\text{Translation Model (Fidelity)}} \times \underbrace{P(T)}_{\text{Language Model (Fluency)}} \Big]$$
+<h2 class="section-title">Topic 46: Machine Translation & The BLEU Evaluation Metric</h2>
+<p>The standard benchmark for automated machine translation evaluation is the <strong>Bilingual Evaluation Understudy (BLEU - Papineni et al. 2002)</strong> metric, measuring modified n-gram precision penalized by brevity:</p>
+
+<div class="callout-box">
+  <div class="callout-title">📐 Exact Mathematical Formulation of BLEU Score</div>
+  $$\mathbf{\text{BLEU} = \text{BP} \cdot \exp\left( \sum_{n=1}^N w_n \ln p_n \right)}$$
+  $$\text{Modified Precision: } p_n = \frac{\sum_{C \in \{\text{Candidates}\}} \sum_{\text{n-gram} \in C} \text{Count}_{\text{clip}}(\text{n-gram})}{\sum_{C \in \{\text{Candidates}\}} \sum_{\text{n-gram} \in C} \text{Count}(\text{n-gram})}$$
+  $$\mathbf{\text{Brevity Penalty (BP): } \text{BP} = \begin{cases} 1 & \text{if } c > r \\ \exp\left( 1 - \frac{r}{c} \right) & \text{if } c \le r \end{cases}}$$
+  <p>Where $c$ is the candidate translation length and $r$ is the effective reference corpus length (equal weights $w_n = 1/N$, typically $N=4$).</p>
 </div>
 
-<h2 class="section-title">Topic 51: Chatbots & Conversational Dialogue Architectures</h2>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 5: Complete BLEU-1 and BLEU-2 Score Calculation</div>
+  <p><strong>Candidate Translation ($c = 6$):</strong> <em>"the cat the cat on the"</em></p>
+  <p><strong>Reference Translation 1 ($r_1 = 6$):</strong> <em>"the cat sat on the mat"</em></p>
+  <p><strong>Reference Translation 2 ($r_2 = 6$):</strong> <em>"there is a cat on mat"</em></p>
+  <p><strong>1. Unigram Precision ($p_1$):</strong></p>
+  <ul>
+    <li>Candidate unigrams: `the` (3 times), `cat` (2 times), `on` (1 time). Total candidate unigram count = 6.</li>
+    <li>Max reference counts: `the` occurs max 2 times in Ref 1. `cat` occurs max 1 time. `on` occurs max 1 time.</li>
+    <li>Clipped counts: $\text{Count}_{\text{clip}}(\text{the}) = 2$, $\text{Count}_{\text{clip}}(\text{cat}) = 1$, $\text{Count}_{\text{clip}}(\text{on}) = 1$.</li>
+    <li>$$\mathbf{p_1 = \frac{2 + 1 + 1}{6} = \frac{4}{6} = \mathbf{0.6667}}$$</li>
+  </ul>
+  <p><strong>2. Bigram Precision ($p_2$):</strong></p>
+  <ul>
+    <li>Candidate bigrams: `the cat` (2 times), `cat the` (1 time), `cat on` (1 time), `on the` (1 time). Total = 5 bigrams.</li>
+    <li>Max reference counts: `the cat` (max 1), `cat the` (max 0), `cat on` (max 1 in Ref 2), `on the` (max 1 in Ref 1).</li>
+    <li>Clipped counts: `the cat` (1), `cat the` (0), `cat on` (1), `on the` (1) $\implies \sum = 3$.</li>
+    <li>$$\mathbf{p_2 = \frac{3}{5} = \mathbf{0.6000}}$$</li>
+  </ul>
+  <p><strong>3. Brevity Penalty ($c = 6, r = 6$):</strong> $c = r \implies \mathbf{\text{BP} = 1.0}$.</p>
+  $$\mathbf{\text{BLEU-2} = 1.0 \times \exp(0.5 \ln(0.6667) + 0.5 \ln(0.6000)) = \sqrt{0.6667 \times 0.6000} = \sqrt{0.4000} = \mathbf{0.6325 \ (63.25\%)}}$$
+</div>
 
-<div class="callout callout-info">
-  <div class="callout-title">The 3-Tier Task-Oriented Dialogue System Architecture</div>
+<h2 class="section-title">Topic 47: Text Summarization & The ROUGE Evaluation Metric</h2>
+<p><strong>ROUGE (Recall-Oriented Understudy for Gisting Evaluation - Lin 2004)</strong> measures the n-gram recall of candidate summaries against gold-standard human reference summaries:</p>
+$$\mathbf{\text{ROUGE-N} = \frac{\sum_{S \in \{\text{References}\}} \sum_{\text{n-gram} \in S} \text{Count}_{\text{match}}(\text{n-gram})}{\sum_{S \in \{\text{References}\}} \sum_{\text{n-gram} \in S} \text{Count}(\text{n-gram})}}$$
+$$\mathbf{\text{ROUGE-L} = \frac{\text{LCS}(\text{Reference}, \text{Candidate})}{|\text{Reference}|} \quad (\text{Longest Common Subsequence})}$$
+
+<h2 class="section-title">Topic 48: Retrieval-Augmented Generation (RAG) Architecture</h2>
+<p>Large Language Models suffer from <em>hallucinations</em> and frozen knowledge cutoffs. <strong>RAG (Lewis et al. 2020)</strong> augments generative transformers with dynamic external retrieval:</p>
+<ol>
+  <li><strong>Dense Indexing:</strong> Chunk knowledge base documents and encode chunks into dense vectors using a bi-encoder (e.g., DPR, BGE-embeddings). Index vectors into a vector database (FAISS, HNSW).</li>
+  <li><strong>Dense Retrieval:</strong> Encode user query $\mathbf{q}$ and retrieve top-$k$ most similar document passages via Cosine similarity.</li>
+  <li><strong>Prompt Synthesis & Generation:</strong> Concatenate retrieved passages as context into the prompt: <em>"Answer query Q strictly using context C"</em> $\rightarrow$ feed into LLM generator.</li>
+</ol>
+
+<h2 class="section-title">Topic 49: Ethics, Algorithmic Bias & De-biasing Word Vectors</h2>
+<p>Word embeddings trained on uncurated corpora learn harmful societal and gender stereotypes (e.g., $\mathbf{v}_{\text{doctor}} - \mathbf{v}_{\text{man}} + \mathbf{v}_{\text{woman}} \approx \mathbf{v}_{\text{nurse}}$). Bolukbasi et al. (2016) proposed geometric de-biasing:</p>
+<ol>
+  <li><strong>Identify Gender Subspace ($\mathbf{g}$):</strong> Compute PCA on difference vectors of defining gender pairs ($\mathbf{v}_{\text{she}} - \mathbf{v}_{\text{he}}$, $\mathbf{v}_{\text{woman}} - \mathbf{v}_{\text{man}}$).</li>
+  <li><strong>Hard De-biasing (Neutralization):</strong> Project gender-neutral words (e.g., `doctor`, `programmer`, `nurse`) to remove their component in the gender direction:
+    $$\mathbf{\mathbf{w}_{\text{neutralized}} = \mathbf{w} - (\mathbf{w} \cdot \mathbf{g})\mathbf{g}}$$
+  </li>
+  <li><strong>Equalization:</strong> Ensure gender-neutral words have equal distance to paired gender words ($\|\mathbf{w} - \mathbf{v}_{\text{grandmother}}\| = \|\mathbf{w} - \mathbf{v}_{\text{grandfather}}\|$).</li>
+</ol>
+
+<h2 class="section-title">Topic 50: Master University Examination Question Bank (Module 5)</h2>
+
+<div class="qa-card">
+  <div class="qa-q">Q1. Compare Extractive Summarization (TextRank) vs. Abstractive Summarization (T5/BART). (8 Marks)</div>
+  <div class="qa-a">• <strong>Extractive Summarization (TextRank):</strong> Builds a sentence-level graph where edge weights represent sentence similarity ($w_{ij} = \frac{|S_i \cap S_j|}{\log|S_i| + \log|S_j|}$). Runs PageRank centrality algorithm to identify the top $k$ most salient verbatim sentences. Guaranteed grammatically correct, but lacks cohesion and cannot paraphrase.<br>• <strong>Abstractive Summarization:</strong> Uses sequence-to-sequence transformers (BART, T5) to synthesize novel phrasing, compress clauses, and generate human-like summaries. Prone to hallucinating factual errors.</div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q2. Explain Named Entity Recognition BIO vs BILOU Tagging Schemes. (6 Marks)</div>
+  <div class="qa-a">• <strong>BIO (IOB2):</strong> `B-Type` (Beginning of entity), `I-Type` (Inside continuation), `O` (Outside). Example: `[New(B-LOC), York(I-LOC), City(I-LOC), is(O)]`.<br>• <strong>BILOU:</strong> Explicitly distinguishes singleton entities: `B-Type` (Beginning), `I-Type` (Inside), `L-Type` (Last token of multi-token entity), `O` (Outside), and `U-Type` (Unique single-token entity). Gives higher discriminative power to CRF sequence labelers!</div>
+</div>
+
+<h2 class="section-title">Topic 51: Beam Search Decoding Mechanics in Sequence Generation</h2>
+<p>Greedy search selects the single most probable next token $\arg\max_w P(w \mid y_{<t})$ at each step, suffering from suboptimal local optima. <strong>Beam Search</strong> maintains a beam of the top $B$ most probable candidate sequences:</p>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 8: Step-by-Step Beam Search Trace ($B = 2$)</div>
+  <p>Translate input sentence with Beam Width $B = 2$ across 2 decoding time steps:</p>
+  <ul>
+    <li><strong>Step 1 ($t=1$):</strong> Vocabulary probabilities: $P(\text{"I"}) = 0.5, P(\text{"He"}) = 0.4, P(\text{"The"}) = 0.1$.
+      $$\text{Top 2 Active Beams: } \mathbf{\text{Beam}_1 = [\text{"I"}] \ (\text{score}=0.50), \quad \text{Beam}_2 = [\text{"He"}] \ (\text{score}=0.40)}}$$
+    </li>
+    <li><strong>Step 2 ($t=2$):</strong> Expand each of the 2 active beams:
+      <ul>
+        <li>From $\text{Beam}_1$ ("I"): $P(\text{"go"} \mid \text{"I"}) = 0.4 \implies 0.5 \times 0.4 = \mathbf{0.20}$; $P(\text{"run"} \mid \text{"I"}) = 0.3 \implies 0.5 \times 0.3 = \mathbf{0.15}$.</li>
+        <li>From $\text{Beam}_2$ ("He"): $P(\text{"goes"} \mid \text{"He"}) = 0.7 \implies 0.4 \times 0.7 = \mathbf{0.28}$; $P(\text{"runs"} \mid \text{"He"}) = 0.2 \implies 0.4 \times 0.2 = \mathbf{0.08}$.</li>
+      </ul>
+    </li>
+    <li><strong>Select Top $B=2$ Candidates across all $2 \times |V|$ paths:</strong>
+      $$\mathbf{\text{Top Beam 1: } [\text{"He", "goes"}] \ (\text{score} = \mathbf{0.28})}$$
+      $$\mathbf{\text{Top Beam 2: } [\text{"I", "go"}] \ (\text{score} = \mathbf{0.20})}$$
+    </li>
+  </ul>
+  <p><em>Length Normalization:</em> Scores are normalized by $\frac{1}{T^\alpha}$ ($\alpha \approx 0.7$) to prevent unfair bias against longer sentence translations!</p>
+</div>
+
+<h2 class="section-title">Topic 52: BiLSTM-CRF Architecture for Named Entity Recognition (NER)</h2>
+<p>Modern sequence labelers combine bidirectional recurrent neural feature extraction with global Conditional Random Field transition modeling:</p>
+<ol>
+  <li><strong>Word & Character Embeddings:</strong> Words are represented via pre-trained embeddings concatenated with character-level CNN/BiLSTM vectors.</li>
+  <li><strong>BiLSTM Layer:</strong> Forward LSTM ($\overrightarrow{\mathbf{h}}_t$) and backward LSTM ($\overleftarrow{\mathbf{h}}_t$) capture bidirectional unbounded contextual representations $\mathbf{h}_t = [\overrightarrow{\mathbf{h}}_t; \overleftarrow{\mathbf{h}}_t]$.</li>
+  <li><strong>CRF Layer:</strong> Learns a global state transition matrix $\mathbf{A}_{i, j} = P(tag_j \mid tag_i)$ that enforces valid syntactic constraints (e.g., prohibiting `I-PER` immediately following `O` without an intervening `B-PER`!).</li>
+</ol>
+
+<h2 class="section-title">Topic 53: Advanced Downstream Tasks & University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 13: ROUGE-1, ROUGE-2, and ROUGE-L Summarization Metrics Calculation</div>
+  <p><strong>Generated Summary ($C$):</strong> <em>"the prime minister visited london yesterday"</em> (5 words)</p>
+  <p><strong>Reference Summary ($R$):</strong> <em>"prime minister visited london on monday"</em> (6 words)</p>
+  <ul>
+    <li><strong>1. ROUGE-1 (Unigram Recall):</strong>
+      <ul>
+        <li>Reference unigrams: `prime`, `minister`, `visited`, `london`, `on`, `monday` (Total = 6).</li>
+        <li>Matching unigrams in candidate: `prime`, `minister`, `visited`, `london` (4 matches).</li>
+        <li>$$\mathbf{\text{ROUGE-1 Recall} = \frac{4}{6} = \mathbf{0.6667 \ (66.67\%)} \qquad \text{Precision} = \frac{4}{5} = \mathbf{0.8000}}$$</li>
+      </ul>
+    </li>
+    <li><strong>2. ROUGE-2 (Bigram Recall):</strong>
+      <ul>
+        <li>Reference bigrams: `prime minister`, `minister visited`, `visited london`, `london on`, `on monday` (Total = 5).</li>
+        <li>Matching bigrams: `prime minister`, `minister visited`, `visited london` (3 matches).</li>
+        <li>$$\mathbf{\text{ROUGE-2 Recall} = \frac{3}{5} = \mathbf{0.6000 \ (60.00\%)}}$$</li>
+      </ul>
+    </li>
+    <li><strong>3. ROUGE-L (Longest Common Subsequence Recall):</strong>
+      <ul>
+        <li>$\text{LCS}(R, C) = \text{["prime", "minister", "visited", "london"]}$ (Length = 4).</li>
+        <li>$$\mathbf{\text{ROUGE-L Recall} = \frac{\text{Length}(\text{LCS})}{|R|} = \frac{4}{6} = \mathbf{0.6667 \ (66.67\%)}}$$</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Detail the Extractive Question Answering Architecture for SQuAD with Span Boundary Logits. (8 Marks)</div><div class="qa-a">In extractive Question Answering (e.g., SQuAD), input text is formatted as `[CLS] Query Tokens [SEP] Passage Context Tokens [SEP]`.<br>1. Passage contextual embeddings $\mathbf{h}_i \in \mathbb{R}^d$ are passed to two linear classification heads $\mathbf{w}_s, \mathbf{w}_e \in \mathbb{R}^d$.<br>2. Start and End span probabilities are computed via softmax across all context tokens:
+$$P_{\text{start}}(i) = \frac{\exp(\mathbf{w}_s^T \mathbf{h}_i)}{\sum_j \exp(\mathbf{w}_s^T \mathbf{h}_j)} \qquad P_{\text{end}}(j) = \frac{\exp(\mathbf{w}_e^T \mathbf{h}_j)}{\sum_k \exp(\mathbf{w}_e^T \mathbf{h}_k)}$$
+3. The predicted answer span $(i^*, j^*)$ maximizes $P_{\text{start}}(i) \times P_{\text{end}}(j)$ subject to constraint $i \le j \le i + L_{\text{max}}$.</div></div>
+
+<h2 class="section-title">Topic 53.3: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Aspect-Based Sentiment Analysis (ABSA) Pipeline</div>
+  <p>In ABSA, review sentence $S = \text{"The pasta was delicious but the service was terrible"}$ contains multiple polarities across distinct aspects:</p>
   <ol>
-    <li><strong>Natural Language Understanding (NLU):</strong> Converts user utterance into structured semantic frame: Intent Classification (e.g., `BookFlight`) + Slot Filling (e.g., `Origin: "Ranchi"`, `Destination: "Delhi"`).</li>
-    <li><strong>Dialogue State Tracker (DST) & Policy Manager:</strong> Maintains conversation history state and selects the next system action (e.g., `AskDepartureDate` or `ExecuteBookingAPI`).</li>
-    <li><strong>Natural Language Generation (NLG):</strong> Synthesizes natural, fluent response text from the structured action template.</li>
+    <li><strong>Aspect Term Extraction (ATE):</strong> Sequence tagging identifies aspect terms: `pasta` (Target 1), `service` (Target 2).</li>
+    <li><strong>Aspect Term Polarity Classification (APTC):</strong> Encodes sentence with target aspect marker: `[CLS] S [SEP] pasta [SEP] -> Positive (98%)`; `[CLS] S [SEP] service [SEP] -> Negative (95%)`.</li>
   </ol>
 </div>
 
-<h2 class="section-title">Topic 52 & 53: Ethics, Bias Mitigation & Model Explainability</h2>
+<div class="qa-card"><div class="qa-q">Q4. Detail the Pointer-Generator Network for Abstractive Summarization with Out-Of-Vocabulary Copying. (8 Marks)</div><div class="qa-a"><strong>Pointer-Generator Networks (See et al. 2017)</strong> solve two major limitations of standard seq2seq summarizers: factual hallucinations and inability to produce out-of-vocabulary names/numbers.<br>1. <strong>Generation Probability $p_{\text{gen}} \in [0, 1]$:</strong> Computes a soft gating switch from decoder context $\mathbf{c}_t$, hidden state $\mathbf{s}_t$, and input $\mathbf{x}_t$:
+$$p_{\text{gen}} = \sigma(\mathbf{w}_{c}^T \mathbf{c}_t + \mathbf{w}_{s}^T \mathbf{s}_t + \mathbf{w}_{x}^T \mathbf{x}_t + b_{\text{ptr}})$$
+2. <strong>Hybrid Output Distribution:</strong> Interpolates between generating from vocabulary and copying directly from source text via attention weights $a_i^t$:
+$$\mathbf{P(w) = p_{\text{gen}} P_{\text{vocab}}(w) + (1 - p_{\text{gen}}) \sum_{i: w_i = w} a_i^t}$$
+3. <strong>Coverage Mechanism:</strong> Maintains a running sum of attention weights $c_i^t = \sum_{t'=1}^{t-1} a_i^{t'}$ and penalizes repeatedly attending to the same source words, completely eliminating repetitive loop summaries!</div></div>
 
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Ethical / Interpretability Challenge</th>
-      <th style="width: 45%;">Manifestation in Language Models</th>
-      <th>Engineering Mitigation Method</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>1. Dataset & Representation Bias</strong></td>
-      <td>Stereotypical associations in word embeddings (e.g., $\text{"doctor"} - \text{"man"} + \text{"woman"} \approx \text{"nurse"}$).</td>
-      <td>Counterfactual data augmentation, debiasing projection subspaces.</td>
-    </tr>
-    <tr>
-      <td><strong>2. Model Hallucination</strong></td>
-      <td>Generating plausibly sounding but factually incorrect assertions with high confidence.</td>
-      <td>Retrieval-Augmented Generation (RAG), RLHF with truthfulness reward models.</td>
-    </tr>
-    <tr>
-      <td><strong>3. Black-Box Interpretability</strong></td>
-      <td>Complex billions-parameter Transformer decisions cannot be audited for high-stakes healthcare/law.</td>
-      <td><strong>LIME</strong> (Local Interpretable Model-agnostic Explanations), Integrated Gradients, Cross-Attention Heatmaps.</td>
-    </tr>
-  </tbody>
-</table>
+<div class="qa-card"><div class="qa-q">Q5. Explain Statistical Watermarking for LLM-Generated Text (Kirchenbauer et al. 2023). (8 Marks)</div><div class="qa-a">To detect AI-generated text without changing perplexity:<br>1. When sampling token $t$, use previous token hash $h(x_{t-1})$ as a pseudo-random seed to partition the vocabulary $V$ into a <strong>Green List $G$</strong> (size $\gamma |V|$) and a <strong>Red List $R$</strong>.<br>2. Add a positive bias $\delta$ to the logits of green tokens: $\tilde{z}_k = z_k + \delta$ for $k \in G$.<br>3. <strong>Statistical Detection Test:</strong> For a candidate text of $T$ tokens, count green tokens $|T|_G$. Under human text, $|T|_G \sim \text{Binomial}(T, \gamma)$. Under watermarked text, $|T|_G \gg \gamma T$. A one-sided $Z$-score $z = \frac{|T|_G - \gamma T}{\sqrt{T\gamma(1-\gamma)}} > 4.0$ detects synthetic AI text with $p < 0.0001$ error rate!</div></div>
 
-<h2 class="section-title">🧠 M5 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. [UPLOADED PYQ] Compare Rule-Based, Statistical, and Neural Machine Translation systems across 4 dimensions. (8 Marks)</div>
-  <div class="qa-a">
-    1. <strong>Knowledge Representation:</strong> RBMT relies on explicit handwritten grammar rules and bilingual dictionaries; SMT uses phrase-based translation tables; NMT uses continuous distributed vector representations in a unified neural network.<br>
-    2. <strong>Fluency & Context:</strong> RBMT produces robotic, literal translations; SMT handles local phrases well but struggles with long-distance reordering; NMT generates highly fluent translations with global sentence context.<br>
-    3. <strong>Development Cost:</strong> RBMT requires decades of expert linguistic labor; SMT/NMT learn automatically from parallel sentence corpora.<br>
-    4. <strong>Hardware Requirements:</strong> RBMT runs with low compute; NMT requires massive GPU accelerators for Transformer matrix multiplications.
-  </div>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 19: Dense Passage Retrieval (DPR) Dual-Encoder Dot-Product Scoring</div>
+  <p>In modern Retrieval-Augmented Generation (RAG), traditional BM25 lexical search is replaced with dense semantic retrieval:</p>
+  <ul>
+    <li><strong>Question Encoder ($E_Q$):</strong> Maps user query $q$ to vector $\mathbf{q} = E_Q(q) \in \mathbb{R}^{768}$.</li>
+    <li><strong>Passage Encoder ($E_P$):</strong> Maps passage text $p$ to vector $\mathbf{p} = E_P(p) \in \mathbb{R}^{768}$.</li>
+    <li><strong>Retrieval Relevance Score:</strong> $\text{sim}(q, p) = \mathbf{q}^T \mathbf{p}$.</li>
+    <li>Trained via Negative Log-Likelihood loss with in-batch negatives:
+      $$\mathbf{\mathcal{L}(q, p^+, p_1^-, \dots, p_n^-) = -\log \frac{\exp(\mathbf{q}^T \mathbf{p}^+)}{\exp(\mathbf{q}^T \mathbf{p}^+) + \sum_{j=1}^n \exp(\mathbf{q}^T \mathbf{p}_j^-)}}$$
+    </li>
+  </ul>
 </div>
 
-  </div>
+<div class="qa-card"><div class="qa-q">Q6. Explain the Carbon Footprint & Environmental Impact of Pretraining Large Language Models. (6 Marks)</div><div class="qa-a">Pretraining frontier LLMs (GPT-4, LLaMA-3 405B) requires clusters of thousands of high-power GPUs (Nvidia H100) running continuously for months, consuming megawatts of electrical power (hundreds of megawatt-hours) and generating tons of equivalent $CO_2$ carbon emissions.<br>• <strong>Mitigation Strategies:</strong> (1) Energy-efficient data center siting near renewable hydro/solar power, (2) Parameter-Efficient Fine-Tuning (LoRA / QLoRA), (3) Model quantization (4-bit GPTQ, AWQ, GGUF), and (4) Knowledge distillation into compact edge SLMs (Phi-3, Gemma).</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 23: Complete METEOR & chrF Translation Evaluation Metrics</div>
+  <p>• <strong>METEOR (Banerjee & Lavie 2005):</strong> Computes unigram harmonic mean precision and recall ($F_{\text{mean}} = \frac{10 P R}{R + 9 P}$) with explicit penalty for fragmented word order ($Penalty = 0.5 \times (\frac{\#chunks}{\#unigrams})^3$), incorporating exact match, WordNet synsets, and Porter stems.<br>• <strong>chrF (Popović 2015):</strong> Measures character n-gram F-score (typically 6-grams), completely eliminating language-dependent tokenizers and achieving superior correlation with human judgments on morphologically complex languages!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 24: Dialogue State Tracking (DST) & Belief State Representation</div>
+  <p>In Task-Oriented Dialogue systems (MultiWOZ benchmark), the <strong>Belief State</strong> tracks user slot-value pairs across turns:</p>
+  $$\text{Belief State: } \{\text{domain: 'restaurant'}, \text{food: 'italian'}, \text{price: 'moderate'}, \text{area: 'centre'}, \text{people: 4}\}$$
+  <p>Dialogue Policy $\pi(a_t \mid s_t)$ maps belief state $s_t$ to system action $a_t = \text{Offer(Restaurant\_Name="Pizza Express")}$, and NLG converts action to natural utterance.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 34: TextRank Sentence Graph PageRank Convergence Formula</div>
+  <p>In TextRank (Mihalcea & Tarau 2004), let $G = (V, E)$ be a graph where nodes are sentences and edge weights $w_{ij}$ represent token overlap similarity:</p>
+  $$\mathbf{WS}(V_i) = (1 - d) + d \sum_{V_j \in \text{In}(V_i)} \frac{w_{ji}}{\sum_{V_k \in \text{Out}(V_j)} w_{jk}} WS(V_j) \quad (d = 0.85)}$$
+  <p>Iterates power method until $|WS^{(t+1)} - WS^{(t)}| < 10^{-4}$, extracting top $k$ sentences with highest stationary centrality scores!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 35: Contrastive Representation Learning with InfoNCE Loss</div>
+  <p>In modern dense retrieval (DPR, Contriever), embeddings are optimized using the InfoNCE objective with temperature $\tau = 0.05$:</p>
+  $$\mathbf{\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(\mathbf{q}, \mathbf{d}^+) / \tau)}{\exp(\text{sim}(\mathbf{q}, \mathbf{d}^+) / \tau) + \sum_{j=1}^K \exp(\text{sim}(\mathbf{q}, \mathbf{d}_j^-) / \tau)}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 36: Quantization of Large Language Models (GPTQ vs AWQ)</div>
+  <p>• <strong>GPTQ (Frantar et al. 2022):</strong> Second-order Taylor approximation of layer weights minimizing inverse Hessian reconstruction error $H^{-1}$.<br>• <strong>AWQ (Activation-aware Weight Quantization - Lin et al. 2023):</strong> Protects the top 1% salient weight channels that correspond to large activation magnitudes, quantizing the remaining 99% weights to 4-bit integers with zero perplexity degradation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 43: COMET & Neural Translation Evaluation Metrics</div>
+  <p>Traditional n-gram metrics (BLEU, ROUGE) penalize valid translations that use synonyms (e.g., `automobile` vs `car`). <strong>COMET (Rei et al. 2020)</strong> uses cross-lingual pretrained encoders (XLM-RoBERTa) to project the source sentence, candidate translation, and reference into a shared multilingual embedding space, computing neural semantic similarity that achieves state-of-the-art correlation with human professional translators!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 44: Direct Preference Optimization (DPO) Closed-Form Loss Derivation</div>
+  <p>Rafailov et al. (2023) proved that the optimal policy under Bradley-Terry reward models satisfies: $r(x, y) = \beta \log \frac{\pi_\theta(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)$.</p>
+  $$\mathbf{\mathcal{L}_{\text{DPO}}(\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[ \log \sigma\left( \beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)} \right) \right]}$$
+  <p>Eliminates the separate reward model and reinforcement learning training stability issues entirely!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 52: BLEU vs NIST Metric Comparison</div>
+  <p>While BLEU gives equal weight to all n-grams ($w_n = 1/4$), the <strong>NIST Metric</strong> weights each matching n-gram by its Information Content: $\text{Info}(w_1 \dots w_n) = \log_2 \frac{C(w_1 \dots w_{n-1})}{C(w_1 \dots w_n)}$, heavily rewarding rare informative content words over common stopwords!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 53: Factuality Evaluation in Abstractive Summarization (QAGS & FactCC)</div>
+  <p>• <strong>QAGS (Wang et al. 2020):</strong> Automatically generates QA pairs from the summary and verifies whether the source document answers them identically.<br>• <strong>FactCC (Kryscinski et al. 2020):</strong> Uses a binary classification BERT model trained on syntactically mutated sentences to detect hallucinations!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 60: BLEU Brevity Penalty Exponential Decay Curve</div>
+  <p>For candidate length $c = 10$ and reference length $r = 15$: $\text{BP} = \exp(1 - 15/10) = \exp(-0.5) \approx \mathbf{0.6065}$. The score is penalized by $40\%$ for omitting essential reference content!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 61: RAG Dense Indexing with FAISS Flat vs HNSW Graphs</div>
+  <p>• <strong>IndexFlatIP:</strong> Exact brute-force inner-product search $O(N \cdot d)$.<br>• <strong>HNSW (Hierarchical Navigable Small World):</strong> Multi-layer proximity graph achieving approximate nearest neighbor retrieval in blazing fast $O(\log N)$ logarithmic time!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 68: Complete 4-Gram BLEU Score Calculation Trace</div>
+  <p>Given candidate $c=12$, reference $r=14$, clipped precisions: $p_1 = 0.833, p_2 = 0.636, p_3 = 0.500, p_4 = 0.333$:</p>
+  $$\text{BP} = \exp(1 - 14/12) = \exp(-0.1667) = \mathbf{0.8465}$$
+  $$\mathbf{\text{BLEU-4} = 0.8465 \times \exp\left( \frac{\ln(0.833) + \ln(0.636) + \ln(0.500) + \ln(0.333)}{4} \right) = 0.8465 \times 0.545 = \mathbf{0.4613 \ (46.13\%)}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 69: ROUGE-L Longest Common Subsequence Dynamic Programming Recurrence</div>
+  <p>For reference $R[1..m]$ and candidate $C[1..n]$:</p>
+  $$\mathbf{\text{LCS}[i, j] = \begin{cases} \text{LCS}[i-1, j-1] + 1 & \text{if } R[i] = C[j] \\ \max(\text{LCS}[i-1, j], \text{LCS}[i, j-1]) & \text{if } R[i] \neq C[j] \end{cases}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 73: Text Summarization Abstractive Length Penalty Proof</div>
+  <p>In Beam Search for abstractive summarization, the length normalization penalty $\text{lp}(Y) = \frac{(5 + |Y|)^\alpha}{(5 + 1)^\alpha}$ ($\alpha = 0.6$) prevents the decoder from prematurely outputting the `<eos>` end-of-sequence token!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 77: Cross-Lingual Semantic Retrieval via Multilingual Sentence-BERT</div>
+  <p>In cross-lingual RAG, Sentence-BERT projects multilingual query $q_{\text{Hindi}}$ and English document passage $p_{\text{English}}$ into a unified shared semantic sphere, achieving high cosine similarity $\cos(\mathbf{q}, \mathbf{p}) > 0.85$ without explicit translation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 83: Exact Match (EM) vs Token-Level F1 in SQuAD QA</div>
+  <p>For prediction <em>"the golden gate bridge"</em> and gold answer <em>"golden gate bridge"</em>:</p>
+  <ul>
+    <li><strong>Exact Match (EM):</strong> Binary $0.0$ (Strict string inequality).</li>
+    <li><strong>Token-Level Precision:</strong> $3/4 = 0.75$; <strong>Recall:</strong> $3/3 = 1.0 \implies \mathbf{\text{F1} = \frac{2(0.75)(1.0)}{0.75+1.0} = \mathbf{0.8571 \ (85.71\%)}}}$.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 84: Algorithmic Debiasing Hard-Neutralization Matrix Projection</div>
+  <p>For gender direction $\mathbf{g} = (0.6, 0.8)^T$ and biased word vector $\mathbf{w}_{\text{doctor}} = (2.0, 1.0)^T$:</p>
+  $$\mathbf{w} \cdot \mathbf{g} = 2.0(0.6) + 1.0(0.8) = 1.2 + 0.8 = 2.0$$
+  $$\mathbf{\mathbf{w}_{\text{neutral}} = (2.0, 1.0)^T - 2.0(0.6, 0.8)^T = (2.0 - 1.2, \ 1.0 - 1.6)^T = \mathbf{(0.8, -0.6)^T}}$$
+  $$\mathbf{\text{Verification: } \mathbf{w}_{\text{neutral}} \cdot \mathbf{g} = 0.8(0.6) + (-0.6)(0.8) = 0.48 - 0.48 = \mathbf{0.000 \quad (Perfect Orthogonality!)}}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 89: Neural Machine Translation Beam Search Length Penalty Graph</div>
+  <p>Plot the cumulative log-probability $\sum_{t=1}^T \log P(y_t \mid y_{<t})$ vs length-normalized score $\frac{1}{T^{0.7}}\sum \log P$, proving that length normalization avoids truncating complex dependent clauses!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 90: RAG Vector Database Indexing with Inverted File Quantization (IVF-PQ)</div>
+  <p><strong>IVF-PQ</strong> partitions 100 million document embeddings into 4096 Voronoi cell clusters and quantizes 768D float vectors into 64 bytes using Product Quantization, enabling billion-scale sub-millisecond retrieval!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 95: Cross-Encoder vs Bi-Encoder RAG Reranking Pipeline</div>
+  <p>• <strong>Bi-Encoder (Fast Retrieval):</strong> Projects query and documents into isolated vectors; searches top 100 documents via FAISS in 5ms.<br>• <strong>Cross-Encoder (High Precision Reranker):</strong> Concatenates query and document `[CLS] Query [SEP] Doc [SEP]` through full cross-attention layers, sorting the top 5 most relevant passages with $\mathbf{+12.4\% \text{ MRR@10}}$ accuracy boost!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 96: Watermark Detection Z-Score Calculation</div>
+  <p>For text of $T = 200$ tokens with $\gamma = 0.5$, an AI detector observes $|T|_G = 160$ green tokens:</p>
+  $$\mu = 200(0.5) = 100 \qquad \sigma = \sqrt{200(0.5)(0.5)} = \sqrt{50} \approx 7.071$$
+  $$\mathbf{z = \frac{160 - 100}{7.071} = \frac{60}{7.071} = \mathbf{+8.485} \implies p < 10^{-16} \quad (\text{Definitive Proof of Synthetic AI Origin!})}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 100: BLEU Brevity Penalty Strict Monotonicity Proof</div>
+  <p>Prove that $\frac{d}{dc} \text{BP}(c, r) > 0$ for all candidate lengths $c < r$, showing that adding correct words strictly monotonically increases the penalty multiplier!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 104: TextRank Sentence Centrality Power Method Trace</div>
+  <p>Starting from uniform initial scores $WS_0 = (1/N, \dots, 1/N)^T$, power iteration multiplies by Google matrix $\mathbf{M} = d \mathbf{T} + \frac{1-d}{N}\mathbf{E}$, converging in $< 20$ matrix-vector multiplications!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 107: Beam Search Decoding Node Expansion Budget</div>
+  <p>With beam width $B = 4$ and max sequence length $T = 50$, search space explores $B \times |V| = 4 \times 32000 = 128,000$ hypotheses per step, retaining only top 4 survivors!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 112: ROUGE-2 Precision vs Recall Tradeoff in Document Summaries</div>
+  <p>Recall measures factual completeness ($\frac{\text{matching bigrams}}{\text{reference bigrams}}$), while Precision measures conciseness ($\frac{\text{matching bigrams}}{\text{summary bigrams}}$). $F_1$-harmonic mean provides balanced evaluation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 113: SQuAD 2.0 Unanswerable Question Classification Threshold</div>
+  <p>SQuAD 2.0 incorporates unanswerable questions. The model outputs no-answer probability $P(\text{no-answer}) = \text{softmax}(\mathbf{w}_{\text{null}}^T \mathbf{h}_{\text{[CLS]}})$. If $P > \tau$ (threshold $\tau \approx 0.5$), the system abstains from generating a span!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 118: RAG Hybrid Search Reciprocal Rank Fusion (RRF) Trace</div>
+  <p>Given BM25 rank $r_{\text{BM25}}(d) = 2$ and Dense Vector rank $r_{\text{Dense}}(d) = 5$ with constant $k = 60$:</p>
+  $$\mathbf{\text{RRF}(d) = \frac{1}{60 + 2} + \frac{1}{60 + 5} = \frac{1}{62} + \frac{1}{65} = 0.01613 + 0.01538 = \mathbf{0.03151}}$$
+  <p>Combines exact lexical precision with semantic generalization without score normalization!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 119: Generative Text Watermark Green-List Generation Trace</div>
+  <p>Given preceding token hash $h = 42$, pseudo-randomly partition vocabulary $V$ ($|V| = 32,000$) into green list $G$ (16,000 tokens) with bias $\delta = 2.0$, forcing $> 80\%$ of sampled tokens into $G$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 121: Translation Evaluation Metric Selection Guidelines</div>
+  <p>• <strong>BLEU:</strong> Standard academic baseline (fast n-gram exact match).<br>• <strong>ROUGE:</strong> Standard for summarization (recall-focused).<br>• <strong>COMET:</strong> Neural metric with highest correlation to human translation quality across 100+ languages!</p>
+</div>
+
 </body>
 </html>

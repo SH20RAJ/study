@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Mining Concepts & Techniques (CS24303) Full Course Master</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Complete Master Guide</div>
+    <h1 class="book-title">Data Mining Concepts & Techniques (CS24303) Full Course Master</h1>
+    <div class="book-subtitle">Exhaustive 46-Topic Textbook, Python Lab Guide & Solved University Question Bank</div>
+  </div>
+  
+        <div class="page-break"></div>
+        <div class="cover-container" style="margin-top: 40px;">
+          <div class="course-badge">Module 1 of 5</div>
+          <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">Module 1: Data Understanding & Statistical Proximity</h2>
+          <div style="font-size: 12.5px; color: #64748b;">Topics 1 to 14 • KDD Lifecycle, Attributes, Boxplots, Q-Q, Jaccard & Distance Metrics</div>
+        </div>
+        
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 1 Table of Contents (Topics 1 to 14)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 1:</strong> Data Mining & KDD Lifecycle</div>
+    <div>• <strong>Topic 2:</strong> Data Objects & Attribute Types</div>
+    <div>• <strong>Topic 3:</strong> Central Tendency (Mean, Median, Mode)</div>
+    <div>• <strong>Topic 4:</strong> Dispersion & Five-Number Summary</div>
+    <div>• <strong>Topic 5:</strong> Visual Displays (Boxplots, Q-Q Plots)</div>
+    <div>• <strong>Topic 6:</strong> Nominal & Binary Proximity (SMC, Jaccard)</div>
+    <div>• <strong>Topic 7:</strong> Numeric Distance (Minkowski, Manhattan)</div>
+    <div>• <strong>Topic 8:</strong> Cosine & Mahalanobis Metrics</div>
+    <div>• <strong>Topic 9:</strong> Mixed Attribute Distance (Gower)</div>
+    <div>• <strong>Topic 10:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 1 & 2: Data Mining Foundations, KDD Process & Attribute Types</h2>
+
+<p>
+  <strong>Data Mining</strong> is the computational process of discovering valid, novel, potentially useful, and ultimately understandable patterns from massive, complex datasets. It sits at the confluence of Database Systems, Statistics, Machine Learning, Pattern Recognition, and High-Performance Computing.
+</p>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The 7-Stage KDD Process Pipeline (Fayyad et al.)</div>
+  <ol>
+    <li><strong>Data Cleaning:</strong> Eliminating noisy, erroneous, and inconsistent records; imputing missing values.</li>
+    <li><strong>Data Integration:</strong> Merging heterogeneous schemas, relational databases, flat files, and real-time data streams into a unified repository.</li>
+    <li><strong>Data Selection:</strong> Retrieving task-relevant subsets from operational repositories.</li>
+    <li><strong>Data Transformation:</strong> Normalizing, aggregating, scaling, and constructing informative features.</li>
+    <li><strong>Data Mining:</strong> Applying intelligent algorithms (Apriori, Decision Trees, k-Means, SVM) to extract patterns.</li>
+    <li><strong>Pattern Evaluation:</strong> Identifying truly interesting patterns using objective interestingness measures (Support, Confidence, Lift).</li>
+    <li><strong>Knowledge Presentation:</strong> Visualizing findings via dashboards and decision support systems.</li>
+  </ol>
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Attribute Type</th>
+      <th style="width: 35%;">Mathematical Characteristics</th>
+      <th style="width: 25%;">Meaningful Operators</th>
+      <th>Real-World Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Nominal (Categorical)</strong></td>
+      <td>Values are distinct qualitative categories or names without intrinsic ordering.</td>
+      <td>$=, \neq, \text{Mode}, \text{Entropy}$</td>
+      <td>`MaritalStatus: {Single, Married, Divorced}`, `BloodType: {A, B, AB, O}`.</td>
+    </tr>
+    <tr>
+      <td><strong>Binary (Symmetric vs Asymmetric)</strong></td>
+      <td>Nominal attribute with exactly 2 states ($0, 1$). <em>Symmetric:</em> both states equally important; <em>Asymmetric:</em> presence of state $1$ carries far higher significance than $0$.</td>
+      <td>$=, \neq$, Contingency tables, Jaccard coefficient</td>
+      <td><em>Symmetric:</em> `Gender: {M, F}`; <em>Asymmetric:</em> `COVID-19_Test: {Positive=1, Negative=0}`.</td>
+    </tr>
+    <tr>
+      <td><strong>Ordinal</strong></td>
+      <td>Values possess a meaningful ranked order, but step intervals between adjacent ranks are subjective and unequal.</td>
+      <td>$=, \neq, <, >, \text{Median}, \text{Percentiles}$</td>
+      <td>`CustomerRating: {Poor, Fair, Good, Excellent}`, `AcademicGrade: {A, B, C, D, F}`.</td>
+    </tr>
+    <tr>
+      <td><strong>Numeric: Interval-Scaled</strong></td>
+      <td>Measured on a scale of equal-sized units, but lacks a true physical absolute zero point (zero is an arbitrary convention).</td>
+      <td>$+ , -, \text{Mean}, \text{Variance}$ (Ratios are meaningless!)</td>
+      <td>`Temperature in Celsius / Fahrenheit`, `Calendar Years (2024 CE)`.</td>
+    </tr>
+    <tr>
+      <td><strong>Numeric: Ratio-Scaled</strong></td>
+      <td>Measured on a scale with a physically absolute zero point (representing total absence of the measured quantity).</td>
+      <td>$+ , -, \times, \div$, Ratios, Geometric Mean</td>
+      <td>`Salary in USD ($0 = no income)`, `Age`, `Weight in kg`, `Network Bandwidth`.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 3 & 4: Statistical Descriptions of Central Tendency & Dispersion</h2>
+
+<div class="formula-card">
+  <strong>Comprehensive Central Tendency & Dispersion Formulas:</strong>
+  $$\mathbf{\text{Arithmetic Mean: } \bar{x} = \frac{1}{N} \sum_{i=1}^N x_i \qquad \text{Trimmed Mean: Mean after dropping top/bottom } k\% \text{ outliers}}$$
+  $$\mathbf{\text{Median: Middle value when sorted } x_{(N+1)/2} \quad (\text{Robust to extreme outliers!})}$$
+  $$\mathbf{\text{Empirical Mean-Median-Mode Relationship for Moderately Skewed Data: } \text{Mean} - \text{Mode} \approx 3(\text{Mean} - \text{Median})}$$
+  $$\mathbf{\text{Variance: } \sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \bar{x})^2 \qquad \text{Sample Variance: } s^2 = \frac{1}{N-1}\sum_{i=1}^N (x_i - \bar{x})^2}$$
+  $$\mathbf{\text{Standard Deviation: } \sigma = \sqrt{\sigma^2} \qquad \text{Interquartile Range: } \text{IQR} = Q_3 - Q_1}$$
+  $$\mathbf{\text{Tukey's Outlier Bounds: } [\text{Lower Fence}, \text{Upper Fence}] = [Q_1 - 1.5 \cdot \text{IQR}, \ Q_3 + 1.5 \cdot \text{IQR}]}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Five-Number Summary & Outlier Detection</div>
+  <p>Consider the dataset representing monthly engineering salaries (in thousands of dollars):</p>
+  $$\mathbf{X = \{15, 20, 22, 25, 28, 30, 32, 35, 38, 42, 45, 120\}}$$
+  <p><strong>1. Five-Number Summary Calculation ($N = 12$):</strong></p>
+  <ul>
+    <li><strong>Minimum:</strong> $\mathbf{15}$</li>
+    <li><strong>First Quartile ($Q_1$):</strong> Median of lower half $\{15, 20, 22, 25, 28, 30\} \implies \frac{22 + 25}{2} = \mathbf{23.5}$</li>
+    <li><strong>Median ($Q_2$):</strong> $\frac{x_6 + x_7}{2} = \frac{30 + 32}{2} = \mathbf{31.0}$</li>
+    <li><strong>Third Quartile ($Q_3$):</strong> Median of upper half $\{32, 35, 38, 42, 45, 120\} \implies \frac{38 + 42}{2} = \mathbf{40.0}$</li>
+    <li><strong>Maximum:</strong> $\mathbf{120}$</li>
+  </ul>
+  <p><strong>2. Interquartile Range & Outlier Fences:</strong></p>
+  $$\text{IQR} = Q_3 - Q_1 = 40.0 - 23.5 = \mathbf{16.5}$$
+  $$\text{Lower Fence} = Q_1 - 1.5(\text{IQR}) = 23.5 - 1.5(16.5) = 23.5 - 24.75 = \mathbf{-1.25}$$
+  $$\text{Upper Fence} = Q_3 + 1.5(\text{IQR}) = 40.0 + 1.5(16.5) = 40.0 + 24.75 = \mathbf{64.75}$$
+  $$\mathbf{\text{Outlier Identification: } 120 > 64.75 \implies \mathbf{120 \text{ is a severe outlier!}}}$$
+</div>
+
+<h2 class="section-title">Topic 6 to 9: Mathematical Proximity & Distance Metrics</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Proximity Metric</th>
+      <th style="width: 45%;">Mathematical Formulation</th>
+      <th>Properties & Applications</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Euclidean Distance ($L_2$)</strong></td>
+      <td>$$d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^p (x_i - y_i)^2} = \|\mathbf{x} - \mathbf{y}\|_2$$</td>
+      <td>Rotational invariant; sensitive to feature scales and extreme outliers.</td>
+    </tr>
+    <tr>
+      <td><strong>Manhattan Distance ($L_1$)</strong></td>
+      <td>$$d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^p |x_i - y_i| = \|\mathbf{x} - \mathbf{y}\|_1$$</td>
+      <td>City-block orthogonal grid distance; robust to axis outliers.</td>
+    </tr>
+    <tr>
+      <td><strong>Minkowski Distance ($L_h$)</strong></td>
+      <td>$$d(\mathbf{x}, \mathbf{y}) = \left( \sum_{i=1}^p |x_i - y_i|^h \right)^{1/h}$$</td>
+      <td>Generalization ($h=1 \implies \text{Manhattan}; h=2 \implies \text{Euclidean}; h \rightarrow \infty \implies \text{Chebyshev } L_\infty$).</td>
+    </tr>
+    <tr>
+      <td><strong>Cosine Similarity</strong></td>
+      <td>$$\text{sim}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\|_2 \|\mathbf{y}\|_2} = \frac{\sum x_i y_i}{\sqrt{\sum x_i^2}\sqrt{\sum y_i^2}}$$</td>
+      <td>Measures orientation angle regardless of document magnitude; ideal for high-dimensional sparse text vectors!</td>
+    </tr>
+    <tr>
+      <td><strong>Simple Matching Coeff (SMC)</strong></td>
+      <td>$$\text{SMC} = \frac{q + t}{q + r + s + t}$$</td>
+      <td>Used for symmetric binary attributes (equal weight to 0-0 and 1-1 matches).</td>
+    </tr>
+    <tr>
+      <td><strong>Jaccard Coefficient</strong></td>
+      <td>$$J = \frac{q}{q + r + s} \qquad d_J = 1 - J = \frac{r + s}{q + r + s}$$</td>
+      <td>Used for asymmetric binary data (ignores irrelevant negative-negative $0-0$ matches $t$).</td>
+    </tr>
+    <tr>
+      <td><strong>Mahalanobis Distance</strong></td>
+      <td>$$d_M(\mathbf{x}, \mathbf{y}) = \sqrt{(\mathbf{x} - \mathbf{y})^T \mathbf{\Sigma}^{-1} (\mathbf{x} - \mathbf{y})}$$</td>
+      <td>Scale-invariant metric accounting for correlations between attributes ($\mathbf{\Sigma}$ is covariance matrix).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Jaccard vs. SMC on Binary Medical Patient Vectors</div>
+  <p>Two patient symptom vectors $\mathbf{x} = [1, 0, 0, 1, 1, 0, 1, 0]$ and $\mathbf{y} = [1, 1, 0, 1, 0, 0, 1, 0]$ for 8 rare diseases:</p>
+  <ul>
+    <li>$q = \text{number of attributes where } \mathbf{x}=1 \text{ and } \mathbf{y}=1 \implies \text{Indices } \{1, 4, 7\} \implies q = 3$.</li>
+    <li>$r = \text{number of attributes where } \mathbf{x}=1 \text{ and } \mathbf{y}=0 \implies \text{Index } \{5\} \implies r = 1$.</li>
+    <li>$s = \text{number of attributes where } \mathbf{x}=0 \text{ and } \mathbf{y}=1 \implies \text{Index } \{2\} \implies s = 1$.</li>
+    <li>$t = \text{number of attributes where } \mathbf{x}=0 \text{ and } \mathbf{y}=0 \implies \text{Indices } \{3, 6, 8\} \implies t = 3$.</li>
+  </ul>
+  $$\mathbf{\text{Jaccard Similarity: } J(\mathbf{x}, \mathbf{y}) = \frac{q}{q + r + s} = \frac{3}{3 + 1 + 1} = \frac{3}{5} = \mathbf{0.60 = 60\%}}$$
+  $$\mathbf{\text{Jaccard Distance: } d_J(\mathbf{x}, \mathbf{y}) = 1 - 0.60 = \mathbf{0.40}}$$
+  $$\mathbf{\text{SMC Similarity: } \text{SMC}(\mathbf{x}, \mathbf{y}) = \frac{q + t}{q + r + s + t} = \frac{3 + 3}{8} = \frac{6}{8} = \mathbf{0.75 = 75\%}}$$
+</div>
+
+<h2 class="section-title">Topic 10: Master University Examination Solved Question Bank (10 Solved Questions)</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Differentiate between OLTP (Online Transaction Processing) and Data Mining / OLAP. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Feature</th><th>OLTP</th><th>Data Mining / OLAP</th></tr></thead><tbody><tr><td><strong>Purpose</strong></td><td>Real-time day-to-day transaction processing (ACID compliance).</td><td>Long-term strategic decision support, pattern discovery.</td></tr><tr><td><strong>Data Model</strong></td><td>Highly normalized relational tables (3NF/BCNF) to eliminate redundancy.</td><td>De-normalized multidimensional Star / Snowflake schemas.</td></tr><tr><td><strong>Queries</strong></td><td>Simple, fast indexed read/write transactions (`SELECT/UPDATE by ID`).</td><td>Complex multi-table aggregations (`GROUP BY, ROLLUP, CUBE`).</td></tr><tr><td><strong>Access Pattern</strong></td><td>High concurrency, continuous write/update.</td><td>Read-only periodic batch ETL loads from historical data.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Calculate the Cosine Similarity between document vectors $\mathbf{d_1} = (5, 0, 3, 0, 2, 0, 0, 2, 0, 0)$ and $\mathbf{d_2} = (3, 0, 2, 0, 1, 1, 0, 1, 0, 1)$. (8 Marks)</div><div class="qa-a">1. Dot Product: $\mathbf{d_1} \cdot \mathbf{d_2} = (5\times 3) + 0 + (3\times 2) + 0 + (2\times 1) + 0 + 0 + (2\times 1) + 0 + 0 = 15 + 6 + 2 + 2 = \mathbf{25}$.<br>2. Vector Magnitudes:<br>$\|\mathbf{d_1}\| = \sqrt{5^2 + 3^2 + 2^2 + 2^2} = \sqrt{25 + 9 + 4 + 4} = \sqrt{42} \approx 6.4807$.<br>$\|\mathbf{d_2}\| = \sqrt{3^2 + 2^2 + 1^2 + 1^2 + 1^2 + 1^2} = \sqrt{9 + 4 + 1 + 1 + 1 + 1} = \sqrt{17} \approx 4.1231$.<br>$$\mathbf{\text{Cosine Similarity} = \frac{25}{\sqrt{42}\sqrt{17}} = \frac{25}{6.4807 \times 4.1231} = \frac{25}{26.7206} = \mathbf{0.9356 = 93.56\%}}$$</div></div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Gower's General Dissimilarity Coefficient for Mixed Attribute Datasets. (8 Marks)</div><div class="qa-a">When records contain a combination of nominal, symmetric/asymmetric binary, ordinal, and numeric attributes, <strong>Gower's Metric</strong> computes distance as:
+$$\mathbf{d(i, j) = \frac{\sum_{f=1}^p \delta_{ij}^{(f)} d_{ij}^{(f)}}{\sum_{f=1}^p \delta_{ij}^{(f)}}}$$
+Where $\delta_{ij}^{(f)} = 1$ if both records have valid non-missing values for feature $f$ (and $\delta_{ij}^{(f)} = 0$ for asymmetric binary 0-0 matches). The per-feature distance $d_{ij}^{(f)}$ is:
+- Nominal/Binary: $0$ if $x_{if} = x_{jf}$, else $1$.
+- Numeric: $d_{ij}^{(f)} = \frac{|x_{if} - x_{jf}|}{\max(f) - \min(f)}$ (normalized to $[0, 1]$).
+- Ordinal: Convert ranks to $z_{if} = \frac{r_{if} - 1}{M_f - 1}$ and treat as numeric.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q4. Explain Quantile-Quantile (Q-Q) Plots and their diagnostic utility in Data Mining. (6 Marks)</div><div class="qa-a">A <strong>Q-Q Plot</strong> graphs the quantiles of an empirical dataset distribution against the theoretical quantiles of a standard distribution (e.g. Standard Normal $\mathcal{N}(0, 1)$) or against a second dataset. If the points fall strictly along the $45^\circ$ reference line $y = x$, the two distributions have identical shapes. Deviations from the straight line expose heavy tails (leptokurtosis), light tails, right skew, or bimodality.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Why is Euclidean Distance ineffective in high-dimensional sparse spaces (Curse of Dimensionality)? (8 Marks)</div><div class="qa-a">In high-dimensional spaces ($p \rightarrow \infty$), the ratio of the distance to the nearest neighbor and the distance to the furthest neighbor approaches 1:
+$$\mathbf{\lim_{p \rightarrow \infty} \frac{D_{\text{max}} - D_{\text{min}}}{D_{\text{min}}} \rightarrow 0}$$
+All data points become equidistant from each other in $L_2$ space! Furthermore, high dimensions dilute dense clusters into vast empty space ($V_{\text{hypersphere}} \rightarrow 0$), causing distance-based algorithms like k-NN and k-Means to degrade into random guessing unless dimensionality reduction (PCA, t-SNE) or Cosine similarity is applied!</div></div>
+
+<h2 class="section-title">Topic 11: Higher-Order Statistical Moments & Skewness / Kurtosis</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Statistical Moment</th>
+      <th style="width: 45%;">Mathematical Formulation</th>
+      <th>Diagnostic Significance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1st Raw Moment (Mean)</strong></td>
+      <td>$$\mu_1' = \mathbb{E}[X] = \frac{1}{N}\sum x_i$$</td>
+      <td>Center of mass / location of the distribution.</td>
+    </tr>
+    <tr>
+      <td><strong>2nd Central Moment (Variance)</strong></td>
+      <td>$$\mu_2 = \mathbb{E}[(X - \mu)^2] = \sigma^2$$</td>
+      <td>Spread / scale of dispersion around the mean.</td>
+    </tr>
+    <tr>
+      <td><strong>3rd Standardized Moment (Skewness)</strong></td>
+      <td>$$\gamma_1 = \mathbb{E}\left[\left(\frac{X - \mu}{\sigma}\right)^3\right] = \frac{\mu_3}{\sigma^3}$$</td>
+      <td>Asymmetry of distribution ($\gamma_1 > 0 \implies \text{Right/Positive Skew}$; $\gamma_1 < 0 \implies \text{Left/Negative Skew}$).</td>
+    </tr>
+    <tr>
+      <td><strong>4th Standardized Moment (Kurtosis)</strong></td>
+      <td>$$\text{Excess Kurtosis } \gamma_2 = \frac{\mu_4}{\sigma^4} - 3$$</td>
+      <td>Tailedness and outlier propensity ($\gamma_2 > 0 \implies \text{Leptokurtic / Heavy-tailed}$; $\gamma_2 < 0 \implies \text{Platykurtic / Light-tailed}$).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Spearman's Rank Correlation Calculation</div>
+  <p>Two data mining algorithms rank 5 customer profiles by risk score:</p>
+  <table class="custom-table">
+    <thead><tr><th>Customer</th><th>Algorithm A Rank ($R_A$)</th><th>Algorithm B Rank ($R_B$)</th><th>$d_i = R_A - R_B$</th><th>$d_i^2$</th></tr></thead>
+    <tbody>
+      <tr><td>C1</td><td>1</td><td>2</td><td>$-1$</td><td>1</td></tr>
+      <tr><td>C2</td><td>2</td><td>1</td><td>$+1$</td><td>1</td></tr>
+      <tr><td>C3</td><td>3</td><td>4</td><td>$-1$</td><td>1</td></tr>
+      <tr><td>C4</td><td>4</td><td>3</td><td>$+1$</td><td>1</td></tr>
+      <tr><td>C5</td><td>5</td><td>5</td><td>$0$</td><td>0</td></tr>
+      <tr><td><strong>Total</strong></td><td>—</td><td>—</td><td>$\sum d_i = 0$</td><td>$\mathbf{\sum d_i^2 = 4}$</td></tr>
+    </tbody>
+  </table>
+  $$\mathbf{r_s = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)} = 1 - \frac{6(4)}{5(25 - 1)} = 1 - \frac{24}{5(24)} = 1 - \frac{24}{120} = 1 - 0.20 = \mathbf{+0.80}}$$
+  $$\mathbf{\text{Conclusion: Strong positive monotonic agreement between the two ranking algorithms!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. State and prove Chebyshev's Inequality and explain its application in Outlier Detection. (8 Marks)</div><div class="qa-a"><strong>Chebyshev's Theorem:</strong> For any random variable $X$ with mean $\mu$ and finite variance $\sigma^2$, the probability that $X$ deviates from its mean by at least $k$ standard deviations is bounded by:
+$$\mathbf{P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}}$$
+<em>Application:</em> Unlike the Empirical Rule (which strictly requires a Gaussian bell curve), Chebyshev holds for <strong>ANY arbitrary probability distribution</strong>. For $k = 3$, at most $\frac{1}{3^2} = \frac{1}{9} \approx 11.11\%$ of observations can lie outside $[\mu - 3\sigma, \mu + 3\sigma]$. Any data point beyond $3\sigma$ is a candidate outlier!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain Dynamic Time Warping (DTW) for Time-Series Distance Measurement. (8 Marks)</div><div class="qa-a">Standard Euclidean distance requires two time-series sequences to have identical lengths and aligned time steps, failing when sequences are shifted in phase or time-dilated (e.g. someone speaking slowly vs quickly).<br><strong>Dynamic Time Warping (DTW):</strong> Uses dynamic programming to find an optimal non-linear alignment (warping path $W = w_1, w_2, \dots, w_K$) on a cost matrix $C(i, j) = |x_i - y_j|$, satisfying boundary conditions, continuity, and monotonicity ($D(i, j) = C(i, j) + \min(D(i-1, j), D(i, j-1), D(i-1, j-1))$).</div></div>
+
+<h2 class="section-title">Topic 13: Advanced Proximity Matrices & Multidimensional Scaling (MDS)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Constructing Full Dissimilarity Matrix</div>
+  <p>Consider 4 data objects in 2D space: $x_1 = (1, 2), x_2 = (3, 5), x_3 = (2, 0), x_4 = (4, 2)$. Construct the complete $4 \times 4$ Euclidean Dissimilarity Matrix $\mathbf{D}$:</p>
+  <ul>
+    <li>$d(x_1, x_2) = \sqrt{(3-1)^2 + (5-2)^2} = \sqrt{4 + 9} = \sqrt{13} \approx \mathbf{3.606}$</li>
+    <li>$d(x_1, x_3) = \sqrt{(2-1)^2 + (0-2)^2} = \sqrt{1 + 4} = \sqrt{5} \approx \mathbf{2.236}$</li>
+    <li>$d(x_1, x_4) = \sqrt{(4-1)^2 + (2-2)^2} = \sqrt{9 + 0} = \mathbf{3.000}$</li>
+    <li>$d(x_2, x_3) = \sqrt{(2-3)^2 + (0-5)^2} = \sqrt{1 + 25} = \sqrt{26} \approx \mathbf{5.099}$</li>
+    <li>$d(x_2, x_4) = \sqrt{(4-3)^2 + (2-5)^2} = \sqrt{1 + 9} = \sqrt{10} \approx \mathbf{3.162}$</li>
+    <li>$d(x_3, x_4) = \sqrt{(4-2)^2 + (2-0)^2} = \sqrt{4 + 4} = \sqrt{8} \approx \mathbf{2.828}$</li>
+  </ul>
+  $$\mathbf{\mathbf{D} = \begin{pmatrix} 0 & 3.606 & 2.236 & 3.000 \\ 3.606 & 0 & 5.099 & 3.162 \\ 2.236 & 5.099 & 0 & 2.828 \\ 3.000 & 3.162 & 2.828 & 0 \end{pmatrix}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q8. Explain Multidimensional Scaling (MDS) and Metric vs Non-metric MDS. (8 Marks)</div><div class="qa-a"><strong>Multidimensional Scaling (MDS)</strong> is a non-linear dimensionality reduction technique that takes an arbitrary pairwise dissimilarity matrix $\mathbf{D} \in \mathbb{R}^{N \times N}$ and maps the $N$ objects into a low-dimensional Euclidean space $\mathbb{R}^k$ ($k=2$ or $3$) such that Euclidean distances in the embedding $\hat{d}_{ij} = \|\mathbf{y}_i - \mathbf{y}_j\|$ preserve the original input dissimilarities $\delta_{ij}$ as faithfully as possible.<br>• <strong>Metric MDS:</strong> Minimizes Kruskal's Stress: $\text{Stress} = \sqrt{\frac{\sum (\delta_{ij} - \hat{d}_{ij})^2}{\sum \hat{d}_{ij}^2}}$.<br>• <strong>Non-Metric MDS:</strong> Preserves only the <em>rank order</em> of distances ($\delta_{ij} < \delta_{kl} \implies \hat{d}_{ij} < \hat{d}_{kl}$) using isotonic monotonic regression.</div></div>
+
+<h2 class="section-title">Topic 14: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 1: Mahalanobis Distance vs. Euclidean Distance with Covariance</div>
+  <p>Given 2 data points $\mathbf{x} = (1, 2)^T, \mathbf{y} = (4, 6)^T$ in 2D space with empirical covariance matrix $\mathbf{\Sigma} = \begin{bmatrix} 4 & 2 \\ 2 & 9 \end{bmatrix}$:</p>
+  <p><strong>1. Standard Euclidean Distance:</strong></p>
+  $$\mathbf{d_E(\mathbf{x}, \mathbf{y}) = \sqrt{(4-1)^2 + (6-2)^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = \mathbf{5.000}}$$
+  <p><strong>2. Mahalanobis Distance:</strong></p>
+  <ul>
+    <li>Difference Vector: $\mathbf{\Delta} = \mathbf{x} - \mathbf{y} = (-3, -4)^T$.</li>
+    <li>Covariance Determinant: $\det(\mathbf{\Sigma}) = (4)(9) - (2)(2) = 36 - 4 = \mathbf{32}$.</li>
+    <li>Inverse Covariance Matrix: $\mathbf{\Sigma}^{-1} = \frac{1}{32}\begin{bmatrix} 9 & -2 \\ -2 & 4 \end{bmatrix}$.</li>
+    <li>Matrix Product: $\mathbf{\Delta}^T \mathbf{\Sigma}^{-1} \mathbf{\Delta} = \frac{1}{32} \begin{bmatrix} -3 & -4 \end{bmatrix} \begin{bmatrix} 9 & -2 \\ -2 & 4 \end{bmatrix} \begin{bmatrix} -3 \\ -4 \end{bmatrix} = \frac{1}{32} \begin{bmatrix} -19 & -10 \end{bmatrix} \begin{bmatrix} -3 \\ -4 \end{bmatrix} = \frac{1}{32}(57 + 40) = \frac{97}{32} \approx \mathbf{3.03125}$.</li>
+  </ul>
+  $$\mathbf{d_M(\mathbf{x}, \mathbf{y}) = \sqrt{3.03125} = \mathbf{1.741}}$$
+  <p><em>Interpretation:</em> Because the two features are positively correlated ($\text{Cov}=2$), the effective statistical distance is significantly smaller ($1.741$) than the naive geometric Euclidean distance ($5.000$)!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q9. Explain the Difference between Exploratory Data Analysis (EDA) and Confirmatory Data Analysis (CDA). (8 Marks)</div><div class="qa-a">• <strong>Exploratory Data Analysis (EDA - John Tukey):</strong> An open-ended, inductive approach that uses graphical displays (boxplots, scatter matrices, histograms) and non-parametric summary statistics to uncover unexpected patterns, detect anomalies, test underlying assumptions, and generate novel hypotheses without preconceived probabilistic models.<br>• <strong>Confirmatory Data Analysis (CDA):</strong> A deductive, hypothesis-driven approach that uses formal statistical inference tests ($t$-tests, ANOVA, $\chi^2$ independence tests, $p$-values) to evaluate the statistical significance of specific a priori hypotheses.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q10. Detail the Properties of Metric Distance Functions (Identity, Symmetry, Triangle Inequality). (6 Marks)</div><div class="qa-a">A valid mathematical distance metric $d(x, y)$ must satisfy 4 fundamental axioms:<br>1. <strong>Non-negativity:</strong> $d(x, y) \ge 0$.<br>2. <strong>Identity of Indiscernibles:</strong> $d(x, y) = 0 \iff x = y$.<br>3. <strong>Symmetry:</strong> $d(x, y) = d(y, x)$.<br>4. <strong>Triangle Inequality:</strong> $d(x, z) \le d(x, y) + d(y, z)$ for all points $x, y, z$. (Cosine distance $1 - \text{sim}$ violates triangle inequality and is therefore a semi-metric).</div></div>
+
+<h2 class="section-title">Topic 15: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 3: Complete Five-Number Summary & Skewness Analysis on Examination Scores</div>
+  <p>Consider the final examination marks of 16 engineering students:</p>
+  $$\mathbf{X = \{35, 42, 48, 52, 56, 58, 60, 62, 65, 68, 72, 75, 78, 82, 88, 98\}}$$
+  <p><strong>1. Five-Number Summary ($N = 16$):</strong></p>
+  <ul>
+    <li><strong>Min:</strong> $\mathbf{35}$</li>
+    <li><strong>$Q_1$:</strong> Median of lower 8 values $\{35, 42, 48, 52, 56, 58, 60, 62\} \implies \frac{52 + 56}{2} = \mathbf{54.0}$</li>
+    <li><strong>Median ($Q_2$):</strong> $\frac{x_8 + x_9}{2} = \frac{62 + 65}{2} = \mathbf{63.5}$</li>
+    <li><strong>$Q_3$:</strong> Median of upper 8 values $\{65, 68, 72, 75, 78, 82, 88, 98\} \implies \frac{75 + 78}{2} = \mathbf{76.5}$</li>
+    <li><strong>Max:</strong> $\mathbf{98}$</li>
+  </ul>
+  <p><strong>2. Interquartile Range & Outlier Boundaries:</strong></p>
+  $$\text{IQR} = Q_3 - Q_1 = 76.5 - 54.0 = \mathbf{22.5}$$
+  $$\text{Lower Outlier Fence} = 54.0 - 1.5(22.5) = 54.0 - 33.75 = \mathbf{20.25}$$
+  $$\text{Upper Outlier Fence} = 76.5 + 1.5(22.5) = 76.5 + 33.75 = \mathbf{110.25}$$
+  $$\mathbf{\text{Conclusion: All data points lie within } [20.25, 110.25] \implies \mathbf{\text{Zero Outliers Present!}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q11. Explain Pearson's Mode Skewness and Bowley's Quartile Skewness Coefficient. (8 Marks)</div><div class="qa-a">• <strong>Pearson's Mode Skewness:</strong> $S_k = \frac{\text{Mean} - \text{Mode}}{\sigma} \approx \frac{3(\text{Mean} - \text{Median})}{\sigma}$. Measures asymmetry standardized by standard deviation.<br>• <strong>Bowley's Quartile Skewness (Galton's Coefficient):</strong>
+$$\mathbf{B_q = \frac{(Q_3 - Q_2) - (Q_2 - Q_1)}{(Q_3 - Q_2) + (Q_2 - Q_1)} = \frac{Q_3 + Q_1 - 2Q_2}{Q_3 - Q_1}}$$
+$B_q \in [-1, +1]$. $B_q > 0 \implies \text{Right Skew}$; $B_q = 0 \implies \text{Symmetric}$; $B_q < 0 \implies \text{Left Skew}$. Robust to extreme outliers because it depends solely on quartiles!</div></div>
+
+        
+        <div class="page-break"></div>
+        <div class="cover-container" style="margin-top: 40px;">
+          <div class="course-badge">Module 2 of 5</div>
+          <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">Module 2: Data Preprocessing & Dimensionality Reduction</h2>
+          <div style="font-size: 12.5px; color: #64748b;">Topics 15 to 20 • Missing Imputation, Binning, Chi-Square Independence, Normalization & PCA</div>
+        </div>
+        
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 2 Table of Contents (Topics 15 to 20)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 15:</strong> Data Cleaning (Missing Imputation, Noise)</div>
+    <div>• <strong>Topic 16:</strong> Noise Binning (Means, Medians, Boundaries)</div>
+    <div>• <strong>Topic 17:</strong> Data Integration ($\chi^2$ Test, Pearson $r$)</div>
+    <div>• <strong>Topic 18:</strong> Normalization (Min-Max, Z-score, Decimal)</div>
+    <div>• <strong>Topic 19:</strong> PCA & Discrete Wavelet Transform</div>
+    <div>• <strong>Topic 20:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 15 & 16: Data Cleaning, Missing Value Imputation & Binning Smoothing</h2>
+
+<p>
+  Real-world operational data is dirty: incomplete (lacking attribute values), noisy (containing errors or outliers), and inconsistent (containing discrepancies in codes or names). <strong>Data Preprocessing</strong> consumes up to 80% of the total time in data mining projects.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Missing Data Strategy</th>
+      <th style="width: 40%;">Algorithmic Mechanism</th>
+      <th>Trade-offs & Best Use Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ignore the Tuple</strong></td>
+      <td>Discard any row containing missing values.</td>
+      <td>Drastically reduces sample size; only acceptable when missingness is $< 1\%$ and missing completely at random (MCAR).</td>
+    </tr>
+    <tr>
+      <td><strong>Global Constant Imputation</strong></td>
+      <td>Replace missing values with a placeholder string (e.g., `"Unknown"` or `-\infty`).</td>
+      <td>Simple, but distorts statistical distributions and introduces spurious constants into tree splits.</td>
+    </tr>
+    <tr>
+      <td><strong>Attribute Mean / Median</strong></td>
+      <td>Replace missing values with the arithmetic mean $\bar{x}$ (for symmetric data) or median (for skewed data).</td>
+      <td>Preserves sample size; artificially deflates attribute variance and alters inter-feature covariances.</td>
+    </tr>
+    <tr>
+      <td><strong>Class-Conditional Mean / Median</strong></td>
+      <td>Replace missing value with the mean/median of the subset belonging to the <em>same target class label</em>.</td>
+      <td>Significantly more accurate; preserves class separability in supervised learning tasks.</td>
+    </tr>
+    <tr>
+      <td><strong>Model-Based Imputation (k-NN / MICE / EM)</strong></td>
+      <td>Treat missing attribute as a target variable; predict its value using regression, k-NN neighbors, or Multiple Imputation by Chained Equations.</td>
+      <td>State-of-the-art accuracy; computationally expensive for massive streaming datasets.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Data Smoothing by Binning</div>
+  <p>Consider the sorted price dataset ($N = 12$):</p>
+  $$\mathbf{X = \{4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34\}}$$
+  <p>Partition into 3 equal-frequency bins (Bin Depth = 4 items per bin):</p>
+  <ul>
+    <li><strong>Bin 1:</strong> $\{4, 8, 9, 15\}$</li>
+    <li><strong>Bin 2:</strong> $\{21, 21, 24, 25\}$</li>
+    <li><strong>Bin 3:</strong> $\{26, 28, 29, 34\}$</li>
+  </ul>
+  <p><strong>1. Smoothing by Bin Means:</strong></p>
+  <ul>
+    <li>Bin 1 Mean = $\frac{4+8+9+15}{4} = \frac{36}{4} = \mathbf{9} \implies \{9, 9, 9, 9\}$</li>
+    <li>Bin 2 Mean = $\frac{21+21+24+25}{4} = \frac{91}{4} = \mathbf{22.75} \implies \{22.75, 22.75, 22.75, 22.75\}$</li>
+    <li>Bin 3 Mean = $\frac{26+28+29+34}{4} = \frac{117}{4} = \mathbf{29.25} \implies \{29.25, 29.25, 29.25, 29.25\}$</li>
+  </ul>
+  <p><strong>2. Smoothing by Bin Boundaries:</strong></p>
+  <p>Replace each value with the closer boundary (minimum or maximum of the bin):</p>
+  <ul>
+    <li>Bin 1 ($[\min=4, \max=15]$): $4 \rightarrow 4, \ 8 \rightarrow 4 \ (|8-4|=4 < |8-15|=7), \ 9 \rightarrow 15 \ (|9-15|=6 < |9-4|=5 \text{ wait, } |9-4|=5 \implies 4), \ 15 \rightarrow 15 \implies \mathbf{\{4, 4, 4, 15\}}$</li>
+    <li>Bin 2 ($[\min=21, \max=25]$): $21 \rightarrow 21, \ 21 \rightarrow 21, \ 24 \rightarrow 25, \ 25 \rightarrow 25 \implies \mathbf{\{21, 21, 25, 25\}}$</li>
+    <li>Bin 3 ($[\min=26, \max=34]$): $26 \rightarrow 26, \ 28 \rightarrow 26, \ 29 \rightarrow 26, \ 34 \rightarrow 34 \implies \mathbf{\{26, 26, 26, 34\}}$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 17 & 18: Data Integration ($\chi^2$, Pearson $r$) & Normalization</h2>
+
+<div class="formula-card">
+  <strong>Correlation & Normalization Mathematical Formulations:</strong>
+  $$\mathbf{\chi^2 \text{ Chi-Square Test of Independence: } \chi^2 = \sum_{i=1}^r \sum_{j=1}^c \frac{(O_{ij} - E_{ij})^2}{E_{ij}} \qquad E_{ij} = \frac{\text{row\_total}_i \times \text{col\_total}_j}{N}}$$
+  $$\mathbf{\text{Pearson Product-Moment Correlation: } r_{A, B} = \frac{\sum_{i=1}^N (a_i - \bar{A})(b_i - \bar{B})}{(N-1) s_A s_B} = \frac{\text{Cov}(A, B)}{s_A s_B}}$$
+  $$\mathbf{\text{Min-Max Normalization to } [\text{new\_min}, \text{new\_max}]: v' = \frac{v - \min_A}{\max_A - \min_A}(\text{new\_max} - \text{new\_min}) + \text{new\_min}}$$
+  $$\mathbf{\text{Z-Score Standardization (Zero-Mean, Unit-Variance): } v' = \frac{v - \bar{A}}{\sigma_A} \quad (\text{Robust to outliers: } v' = \frac{v - \text{Median}}{\text{Mean Absolute Deviation}})}$$
+  $$\mathbf{\text{Decimal Scaling Normalization: } v' = \frac{v}{10^j} \quad (\text{where } j \text{ is the smallest integer s.t. } \max(|v'|) < 1)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: $\chi^2$ Test of Independence on Contingency Table</div>
+  <p>Test whether gender is independent of preferred news medium at $\alpha = 0.05$ significance level:</p>
+  <table class="custom-table">
+    <thead><tr><th>Gender \ Medium</th><th>Digital News</th><th>Print Newspaper</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Male</strong></td><td>$O_{11} = 250$</td><td>$O_{12} = 50$</td><td>$300$</td></tr>
+      <tr><td><strong>Female</strong></td><td>$O_{21} = 200$</td><td>$O_{22} = 100$</td><td>$300$</td></tr>
+      <tr><td><strong>Total</strong></td><td>$450$</td><td>$150$</td><td>$\mathbf{N = 600}$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>1. Calculate Expected Frequencies ($E_{ij} = \frac{\text{RowTotal} \times \text{ColTotal}}{N}$):</strong></p>
+  <ul>
+    <li>$E_{11} = \frac{300 \times 450}{600} = \mathbf{225} \qquad E_{12} = \frac{300 \times 150}{600} = \mathbf{75}$</li>
+    <li>$E_{21} = \frac{300 \times 450}{600} = \mathbf{225} \qquad E_{22} = \frac{300 \times 150}{600} = \mathbf{75}$</li>
+  </ul>
+  <p><strong>2. Compute $\chi^2$ Statistic:</strong></p>
+  $$\chi^2 = \frac{(250 - 225)^2}{225} + \frac{(50 - 75)^2}{75} + \frac{(200 - 225)^2}{225} + \frac{(100 - 75)^2}{75}$$
+  $$\chi^2 = \frac{625}{225} + \frac{625}{75} + \frac{625}{225} + \frac{625}{75} = 2.778 + 8.333 + 2.778 + 8.333 = \mathbf{22.22}$$
+  <p><strong>3. Hypothesis Decision:</strong></p>
+  <ul>
+    <li>Degrees of Freedom: $df = (r - 1)(c - 1) = (2 - 1)(2 - 1) = \mathbf{1}$.</li>
+    <li>Critical value from $\chi^2$ distribution table at $\alpha = 0.05, df = 1$ is $\mathbf{3.841}$.</li>
+    <li>$\mathbf{22.22 \gg 3.841} \implies \mathbf{\text{Reject Null Hypothesis! Gender and News Medium are strongly correlated!}}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Min-Max Normalization & Z-Score Scaling</div>
+  <p>Suppose an attribute <strong>Income</strong> ranges from $\min = \$12,000$ to $\max = \$98,000$ with mean $\bar{x} = \$54,000$ and standard deviation $\sigma = \$16,000$. Transform value $v = \$73,600$:</p>
+  <p><strong>1. Min-Max Normalization to Range $[0.0, 1.0]$:</strong></p>
+  $$\mathbf{v' = \frac{73600 - 12000}{98000 - 12000} = \frac{61600}{86000} = \mathbf{0.7163}}$$
+  <p><strong>2. Min-Max Normalization to Range $[-1.0, 1.0]$:</strong></p>
+  $$\mathbf{v' = \left(\frac{61600}{86000}\right)(1 - (-1)) + (-1) = 0.7163(2) - 1 = 1.4326 - 1 = \mathbf{+0.4326}}$$
+  <p><strong>3. Z-Score Standardization:</strong></p>
+  $$\mathbf{z = \frac{v - \bar{x}}{\sigma} = \frac{73600 - 54000}{16000} = \frac{19600}{16000} = \mathbf{+1.225}}$$
+  <p><strong>4. Decimal Scaling Normalization:</strong></p>
+  <p>Since $\max(|v|) = 98,000$, choose $j = 5$ (so that $\frac{98000}{10^5} = 0.98 < 1$):</p>
+  $$\mathbf{v' = \frac{73600}{10^5} = \mathbf{0.736}}$$
+</div>
+
+<h2 class="section-title">Topic 19 & 20: Dimensionality Reduction (PCA) & Solved Exam Questions</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The 5-Step Principal Component Analysis (PCA) Algorithm</div>
+  <ol>
+    <li><strong>Mean-Center Data:</strong> Subtract column mean from each feature vector: $\mathbf{X}_{\text{centered}} = \mathbf{X} - \bar{\mathbf{X}}$.</li>
+    <li><strong>Compute Covariance Matrix:</strong> $\mathbf{\Sigma} = \frac{1}{N-1} \mathbf{X}_{\text{centered}}^T \mathbf{X}_{\text{centered}} \in \mathbb{R}^{p \times p}$.</li>
+    <li><strong>Compute Eigenvalues & Eigenvectors:</strong> Solve characteristic polynomial $\det(\mathbf{\Sigma} - \lambda \mathbf{I}) = 0$ to obtain eigenvalues $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_p \ge 0$ and orthogonal eigenvectors $\mathbf{e}_1, \dots, \mathbf{e}_p$.</li>
+    <li><strong>Select Top $k$ Principal Components:</strong> Choose $k \ll p$ eigenvectors corresponding to the largest eigenvalues such that Explained Variance Ratio $\ge 95\%$:
+      $$\mathbf{\text{EVR} = \frac{\sum_{i=1}^k \lambda_i}{\sum_{j=1}^p \lambda_j} \ge 0.95}$$
+    </li>
+    <li><strong>Project Data:</strong> Transform original $p$-dimensional data into reduced $k$-dimensional space: $\mathbf{Y} = \mathbf{X}_{\text{centered}} \mathbf{W}_k$ (where $\mathbf{W}_k = [\mathbf{e}_1, \dots, \mathbf{e}_k]$).</li>
+  </ol>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q1. Explain Discrete Wavelet Transform (DWT) and how it differs from Discrete Fourier Transform (DFT). (8 Marks)</div><div class="qa-a">• <strong>Fourier Transform:</strong> Decomposes a signal into global sine and cosine waves. It has perfect frequency resolution but <em>zero time localization</em> (a transient spike in a time series corrupts the entire spectrum).<br>• <strong>Wavelet Transform:</strong> Uses localized basis functions (wavelets) that possess finite duration in both time and frequency. DWT applies a pyramid of low-pass (approximation/coarse) and high-pass (detail/fluctuation) filters, allowing effective data compression and noise removal without losing transient events.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Differentiate between Stepwise Forward Selection and Stepwise Backward Elimination in Attribute Subset Selection. (8 Marks)</div><div class="qa-a">• <strong>Forward Selection:</strong> Begins with an empty feature set $\emptyset$. At each step, it trains models with each remaining candidate feature and adds the single attribute that maximizes model performance (e.g. lowest AIC/BIC or highest $F$-statistic) until additions no longer yield significant statistical improvement.<br>• <strong>Backward Elimination:</strong> Begins with the complete set of all $p$ features. At each step, it removes the single attribute that contributes least to model accuracy (highest $p$-value) until all remaining features are statistically significant ($p < 0.05$).</div></div>
+
+<h2 class="section-title">Topic 20.1: Advanced Dimensionality Reduction (LDA, SVD & t-SNE)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Reduction Technique</th>
+      <th style="width: 45%;">Core Mathematical Objective</th>
+      <th>Supervision & Linearity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Principal Component Analysis (PCA)</strong></td>
+      <td>Maximizes projected variance: $\max_{\mathbf{w}} \mathbf{w}^T \mathbf{\Sigma} \mathbf{w} \ \text{s.t. } \|\mathbf{w}\|=1$. Unsupervised linear projection.</td>
+      <td>Unsupervised • Linear</td>
+    </tr>
+    <tr>
+      <td><strong>Linear Discriminant Analysis (LDA)</strong></td>
+      <td>Maximizes between-class scatter over within-class scatter (Fisher's Criterion): $\max_{\mathbf{w}} \frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}}$.</td>
+      <td><strong>Supervised</strong> • Linear</td>
+    </tr>
+    <tr>
+      <td><strong>Singular Value Decomposition (SVD)</strong></td>
+      <td>Decomposes data matrix $\mathbf{X} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^T$. Truncated SVD provides optimal rank-$k$ low-rank approximation (Eckart-Young-Mirsky Theorem).</td>
+      <td>Unsupervised • Linear</td>
+    </tr>
+    <tr>
+      <td><strong>t-SNE (t-Distributed Stochastic Neighbor Embedding)</strong></td>
+      <td>Minimizes KL-divergence between high-dimensional Gaussian joint probabilities $p_{ij}$ and low-dimensional Student-t probabilities $q_{ij}$: $\mathcal{L} = \sum p_{ij} \log(p_{ij}/q_{ij})$.</td>
+      <td>Unsupervised • <strong>Non-linear Manifold</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: SVD Matrix Decomposition Calculation</div>
+  <p>Given rank-1 data matrix $\mathbf{X} = \begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix}$:</p>
+  <ol>
+    <li>Compute $\mathbf{X}^T \mathbf{X} = \begin{bmatrix} 3 & 4 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix} = \begin{bmatrix} 25 & 25 \\ 25 & 25 \end{bmatrix}$.</li>
+    <li>Eigenvalues of $\mathbf{X}^T \mathbf{X}$: $\det\begin{pmatrix} 25-\lambda & 25 \\ 25 & 25-\lambda \end{pmatrix} = (25-\lambda)^2 - 625 = \lambda^2 - 50\lambda = 0 \implies \mathbf{\lambda_1 = 50, \ \lambda_2 = 0}$.</li>
+    <li>Singular value $\sigma_1 = \sqrt{50} = \mathbf{5\sqrt{2} \approx 7.071}$.</li>
+    <li>Right Singular Vector $\mathbf{v}_1$: $(\mathbf{X}^T\mathbf{X} - 50\mathbf{I})\mathbf{v} = 0 \implies \begin{bmatrix} -25 & 25 \\ 25 & -25 \end{bmatrix}\mathbf{v} = 0 \implies \mathbf{v}_1 = \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix}$.</li>
+    <li>Left Singular Vector $\mathbf{u}_1 = \frac{1}{\sigma_1}\mathbf{X}\mathbf{v}_1 = \frac{1}{5\sqrt{2}}\begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix}\begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} = \frac{1}{10}\begin{bmatrix} 6 \\ 8 \end{bmatrix} = \begin{bmatrix} 0.6 \\ 0.8 \end{bmatrix}$.</li>
+  </ol>
+  $$\mathbf{\mathbf{X} = \mathbf{u}_1 \sigma_1 \mathbf{v}_1^T = \begin{bmatrix} 0.6 \\ 0.8 \end{bmatrix} (5\sqrt{2}) \begin{bmatrix} 1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix} = \begin{bmatrix} 3 & 3 \\ 4 & 4 \end{bmatrix} \quad (\text{Exact Rank-1 SVD!})}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Kernel PCA (KPCA) and the Mercer Kernel Trick. (8 Marks)</div><div class="qa-a">Standard PCA fails when data points reside on non-linear manifolds (e.g., concentric circles or Swiss roll).<br><strong>Kernel PCA (Schölkopf 1998):</strong> Maps input data into a high-dimensional reproducing kernel Hilbert space $\Phi(\mathbf{x}) \in \mathcal{H}$ and performs linear PCA in that feature space. By <strong>Mercer's Theorem</strong>, the inner products in $\mathcal{H}$ can be computed directly in input space using kernel functions ($K(\mathbf{x}_i, \mathbf{x}_j) = \langle \Phi(\mathbf{x}_i), \Phi(\mathbf{x}_j) \rangle$), such as the Gaussian RBF kernel $K(\mathbf{x}, \mathbf{y}) = \exp(-\gamma \|\mathbf{x} - \mathbf{y}\|^2)$, discovering complex non-linear cluster structures!</div></div>
+
+<h2 class="section-title">Topic 20.2: Advanced Preprocessing & Feature Selection Topologies</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Discrete Wavelet Transform (Haar Wavelet) 1D Signal Decomposition</div>
+  <p>Consider 1D discrete time series signal $\mathbf{X} = [2, 4, 6, 8, 10, 12, 14, 16]$ ($N = 8$):</p>
+  <ol>
+    <li><strong>Level 1 Decomposition:</strong>
+      <ul>
+        <li>Averages (Low-pass coarse trend): $\left[ \frac{2+4}{2}, \frac{6+8}{2}, \frac{10+12}{2}, \frac{14+16}{2} \right] = \mathbf{[3, 7, 11, 15]}$.</li>
+        <li>Differences (High-pass wavelet details): $\left[ \frac{2-4}{2}, \frac{6-8}{2}, \frac{10-12}{2}, \frac{14-16}{2} \right] = \mathbf{[-1, -1, -1, -1]}$.</li>
+      </ul>
+    </li>
+    <li><strong>Level 2 Decomposition (on Averages $[3, 7, 11, 15]$):</strong>
+      <ul>
+        <li>Level 2 Averages: $\left[ \frac{3+7}{2}, \frac{11+15}{2} \right] = \mathbf{[5, 13]}$.</li>
+        <li>Level 2 Details: $\left[ \frac{3-7}{2}, \frac{11-15}{2} \right] = \mathbf{[-2, -2]}$.</li>
+      </ul>
+    </li>
+    <li><strong>Level 3 Decomposition (on $[5, 13]$):</strong>
+      <ul>
+        <li>Level 3 Average: $\frac{5+13}{2} = \mathbf{9}$.</li>
+        <li>Level 3 Detail: $\frac{5-13}{2} = \mathbf{-4}$.</li>
+      </ul>
+    </li>
+  </ol>
+  $$\mathbf{\text{Full Haar Wavelet Representation: } [9, \ -4, \ -2, -2, \ -1, -1, -1, -1]}$$
+  <p><em>Data Compression:</em> The detail coefficients are highly sparse, allowing extreme compression by thresholding small details to zero!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Explain ReliefF Algorithm for Feature Weighting and Selection. (8 Marks)</div><div class="qa-a"><strong>ReliefF (Kononenko 1994)</strong> evaluates the quality of individual attributes according to how well their values distinguish between instances that are near to each other:<br>1. Randomly sample an instance $R_i$.<br>2. Find its $k$ nearest instances belonging to the <em>same class</em> (Near Hits $H$) and $k$ nearest instances belonging to <em>different classes</em> (Near Misses $M$).<br>3. Update weight $W[A]$ for attribute $A$: Increase weight if $A$ separates $R_i$ from Near Misses; decrease weight if $A$ separates $R_i$ from Near Hits:
+$$\mathbf{W[A] \leftarrow W[A] - \sum_{j=1}^k \frac{\text{diff}(A, R_i, H_j)}{m \cdot k} + \sum_{C \neq \text{class}(R_i)} \frac{P(C)}{1 - P(\text{class}(R_i))} \sum_{j=1}^k \frac{\text{diff}(A, R_i, M_j(C))}{m \cdot k}}$$
+ReliefF successfully captures non-linear feature interactions and scales linearly $O(m \cdot k \cdot p)$!</div></div>
+
+<h2 class="section-title">Topic 20.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 2: Pearson Correlation Coefficient with Standardized Variance</div>
+  <p>Calculate Pearson's correlation coefficient $r_{A, B}$ for 5 observation pairs: $(1, 2), (2, 4), (3, 5), (4, 7), (5, 8)$:</p>
+  <ul>
+    <li>$\bar{A} = \frac{1+2+3+4+5}{5} = \mathbf{3.0} \qquad \bar{B} = \frac{2+4+5+7+8}{5} = \frac{26}{5} = \mathbf{5.2}$</li>
+    <li>Deviations $a_i - \bar{A}$: $[-2, -1, 0, +1, +2]$ $\implies \sum (a_i - \bar{A})^2 = 4 + 1 + 0 + 1 + 4 = \mathbf{10.0}$</li>
+    <li>Deviations $b_i - \bar{B}$: $[-3.2, -1.2, -0.2, +1.8, +2.8]$ $\implies \sum (b_i - \bar{B})^2 = 10.24 + 1.44 + 0.04 + 3.24 + 7.84 = \mathbf{22.80}$</li>
+    <li>Cross-product $\sum (a_i - \bar{A})(b_i - \bar{B}) = (-2)(-3.2) + (-1)(-1.2) + 0 + (1)(1.8) + (2)(2.8) = 6.4 + 1.2 + 0 + 1.8 + 5.6 = \mathbf{15.0}$</li>
+  </ul>
+  $$\mathbf{r_{A, B} = \frac{15.0}{\sqrt{10.0 \times 22.80}} = \frac{15.0}{\sqrt{228.0}} = \frac{15.0}{15.0997} = \mathbf{+0.9934}}$$
+  $$\mathbf{\text{Conclusion: Exceptionally strong linear correlation (+0.993) between attributes A and B!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the Concept of Data Reduction via Numerosity Reduction (Parametric vs Non-parametric). (8 Marks)</div><div class="qa-a">• <strong>Parametric Numerosity Reduction:</strong> Fits the data to a mathematical model (Linear/Multiple Regression, Log-Linear Models) and stores only the learned model parameters (intercept $\beta_0$, slope weights $\mathbf{\beta}$, and residual variance $\sigma^2$), completely discarding the raw training records.<br>• <strong>Non-Parametric Numerosity Reduction:</strong> Does NOT assume any functional form. Uses Histograms (equal-width, equal-frequency, V-optimal), Clustering (replacing groups of points with their cluster centroids), Sampling (SRS, stratified sampling), and Data Cube Aggregation.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain the Box-Cox Power Transformation for Skewed Non-Gaussian Data. (8 Marks)</div><div class="qa-a">The <strong>Box-Cox Transformation</strong> is a parametric power transformation that stabilizes variance and transforms highly skewed distributions into an approximate Gaussian bell curve:
+$$\mathbf{y^{(\lambda)} = \begin{cases} \frac{y^\lambda - 1}{\lambda} & \text{if } \lambda \neq 0 \\ \ln(y) & \text{if } \lambda = 0 \end{cases}}$$
+The parameter $\lambda$ is estimated via Maximum Likelihood Estimation (MLE). If $\lambda = 1$, no transform is needed; if $\lambda = 0$, a natural log transform is applied; if $\lambda = 0.5$, a square root transform is used.</div></div>
+
+<h2 class="section-title">Topic 20.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 3: Complete 2D Principal Component Analysis (PCA) Eigenvalue Derivation</div>
+  <p>Consider 4 centered 2D data points: $\mathbf{x}_1 = (-1, -1)^T, \mathbf{x}_2 = (-1, 1)^T, \mathbf{x}_3 = (1, -1)^T, \mathbf{x}_4 = (1, 1)^T$ with correlation covariance $\mathbf{\Sigma} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$:</p>
+  <p><strong>1. Characteristic Polynomial:</strong></p>
+  $$\det(\mathbf{\Sigma} - \lambda\mathbf{I}) = \det\begin{pmatrix} 2-\lambda & 1 \\ 1 & 2-\lambda \end{pmatrix} = (2-\lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = 0$$
+  $$\mathbf{(\lambda - 3)(\lambda - 1) = 0 \implies \lambda_1 = 3, \quad \lambda_2 = 1}$$
+  <p><strong>2. First Principal Component Eigenvector ($\lambda_1 = 3$):</strong></p>
+  $$(\mathbf{\Sigma} - 3\mathbf{I})\mathbf{e}_1 = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} e_{11} \\ e_{12} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \implies -e_{11} + e_{12} = 0 \implies e_{11} = e_{12}$$
+  $$\mathbf{\text{Normalized First Principal Component: } \mathbf{e}_1 = \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \approx \begin{bmatrix} 0.7071 \\ 0.7071 \end{bmatrix}}$$
+  <p><strong>3. Explained Variance Ratio:</strong></p>
+  $$\mathbf{\text{EVR}_1 = \frac{\lambda_1}{\lambda_1 + \lambda_2} = \frac{3}{3 + 1} = \frac{3}{4} = \mathbf{75\% \text{ of total dataset variance captured in 1D!}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain the Difference between L1-Norm (Lasso) and L2-Norm (Ridge) Regularization in Regression. (8 Marks)</div><div class="qa-a">• <strong>Ridge Regression ($L_2$):</strong> Penalizes squared magnitude of coefficients ($\lambda \sum \beta_j^2$). Shrinks weights smoothly toward zero, preventing multicollinearity, but <em>never sets weights strictly to zero</em> (does not perform feature selection).<br>• <strong>Lasso Regression ($L_1$):</strong> Penalizes absolute value of coefficients ($\lambda \sum |\beta_j|$). Due to the diamond geometric contour of the $L_1$ ball, optimal solutions hit coordinate axes, driving irrelevant feature weights <strong>strictly to zero</strong> ($\beta_j = 0$), performing automatic sparse feature selection!</div></div>
+
+<h2 class="section-title">Topic 20.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 4: Complete Chi-Square Contingency Test with 3x3 Degrees of Freedom</div>
+  <p>Test the relationship between Customer Age Group ($\text{Youth, Middle, Senior}$) and Purchase Frequency ($\text{Low, Med, High}$):</p>
+  <table class="custom-table">
+    <thead><tr><th>Age \ Frequency</th><th>Low</th><th>Medium</th><th>High</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Youth</strong></td><td>$O_{11} = 50$</td><td>$O_{12} = 30$</td><td>$O_{13} = 20$</td><td>$100$</td></tr>
+      <tr><td><strong>Middle</strong></td><td>$O_{21} = 30$</td><td>$O_{22} = 50$</td><td>$O_{23} = 20$</td><td>$100$</td></tr>
+      <tr><td><strong>Senior</strong></td><td>$O_{31} = 20$</td><td>$O_{32} = 20$</td><td>$O_{33} = 60$</td><td>$100$</td></tr>
+      <tr><td><strong>Total</strong></td><td>$100$</td><td>$100$</td><td>$100$</td><td>$\mathbf{N = 300}$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>1. Expected Frequencies:</strong> $E_{ij} = \frac{100 \times 100}{300} = \mathbf{33.33}$ for all cells.</p>
+  <p><strong>2. Compute $\chi^2$ Statistic:</strong></p>
+  $$\chi^2 = \frac{(50-33.33)^2 + (30-33.33)^2 + (20-33.33)^2 + (30-33.33)^2 + (50-33.33)^2 + (20-33.33)^2 + (20-33.33)^2 + (20-33.33)^2 + (60-33.33)^2}{33.33}$$
+  $$\chi^2 = \frac{277.89 + 11.09 + 177.69 + 11.09 + 277.89 + 177.69 + 177.69 + 177.69 + 711.29}{33.33} = \frac{1999.98}{33.33} \approx \mathbf{60.00}$$
+  <p><strong>3. Decision:</strong> $df = (3-1)(3-1) = 4$. Critical $\chi_{0.05, 4}^2 = 9.488$. $\mathbf{60.00 \gg 9.488 \implies \text{Reject Independence!}}$</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q8. Explain Principal Component Regression (PCR) and Partial Least Squares (PLS). (8 Marks)</div><div class="qa-a">• <strong>PCR:</strong> A two-step pipeline that first performs unsupervised PCA on the predictors $\mathbf{X}$ to extract the top $k$ principal components $\mathbf{Z}$, and then fits an ordinary least squares regression model predicting $\mathbf{y}$ from $\mathbf{Z}$. Prevents multicollinearity, but because PCA is unsupervised, the chosen components may not necessarily be the most predictive of $\mathbf{y}$!<br>• <strong>PLS (Partial Least Squares):</strong> <strong>Supervised Dimensionality Reduction</strong> that finds latent orthogonal components that maximize the covariance between $\mathbf{X}$ and target $\mathbf{y}$, ensuring retained components have maximal predictive power!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q9. Detail the Discretization of Numeric Attributes via Maximum Entropy Splitting. (8 Marks)</div><div class="qa-a"><strong>Maximum Entropy Discretization</strong> partitions a continuous attribute into $k$ intervals such that the Shannon entropy over all bins is maximized. This creates bins that contain approximately equal numbers of data points (equi-frequency), preventing low-density outlier intervals from distorting decision tree splits and probability estimates in Naive Bayes.</div></div>
+
+<h2 class="section-title">Topic 20.6: Complete Solved Laboratory Problem Bank on Data Cleaning</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 5: Multi-Attribute Missing Imputation via k-Nearest Neighbors (k-NN)</div>
+  <p>Consider 5 customer profiles with attributes $\text{Age}$ and $\text{Income}$ (in \$k). A new record $X = (30, ?)$ has missing Income:</p>
+  <ul>
+    <li>$P_1 = (25, \$40\text{k}), \ P_2 = (32, \$60\text{k}), \ P_3 = (28, \$55\text{k}), \ P_4 = (45, \$90\text{k}), \ P_5 = (31, \$58\text{k})$.</li>
+  </ul>
+  <p><strong>1. Calculate Euclidean Distances on Normalized Age ($\min=25, \max=45$):</strong></p>
+  <ul>
+    <li>$d(X, P_1) = \frac{|30-25|}{20} = \frac{5}{20} = 0.25$</li>
+    <li>$d(X, P_2) = \frac{|30-32|}{20} = \frac{2}{20} = 0.10$</li>
+    <li>$d(X, P_3) = \frac{|30-28|}{20} = \frac{2}{20} = 0.10$</li>
+    <li>$d(X, P_4) = \frac{|30-45|}{20} = \frac{15}{20} = 0.75$</li>
+    <li>$d(X, P_5) = \frac{|30-31|}{20} = \frac{1}{20} = \mathbf{0.05 \ (Nearest!)}$</li>
+  </ul>
+  <p><strong>2. Imputation with $k = 3$ Neighbors ($P_5, P_2, P_3$):</strong></p>
+  $$\mathbf{\text{Imputed Income} = \frac{\$58\text{k} + \$60\text{k} + \$55\text{k}}{3} = \frac{\$173\text{k}}{3} = \mathbf{\$57.67\text{k}}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 6: Decimal Scaling & Robust Outlier MAD Normalization</div>
+  <p>For dataset $X = \{10, 12, 14, 15, 16, 18, 100\}$ with $\text{Median} = 15$:</p>
+  <ul>
+    <li>Deviations from median $|x_i - 15|$: $\{5, 3, 1, 0, 1, 3, 85\}$.</li>
+    <li>Sorted deviations: $\{0, 1, 1, 3, 3, 5, 85\} \implies \text{MAD} = \mathbf{3.0}$.</li>
+    <li>Robust Z-score for outlier $100$: $M_i = \frac{0.6745(100 - 15)}{3.0} = \frac{0.6745(85)}{3.0} = \frac{57.33}{3.0} = \mathbf{19.11 \gg 3.5 \implies \text{Extreme Outlier!}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 7: Data Discretization by ChiMerge ($\chi^2$-based Interval Merging)</div>
+  <p><strong>ChiMerge (Kerber 1992)</strong> is a bottom-up supervised discretization algorithm:</p>
+  <ol>
+    <li>Sort continuous attribute values and place each distinct value into its own interval.</li>
+    <li>For each pair of adjacent intervals, compute the $\chi^2$ statistic with respect to class labels.</li>
+    <li>Identify the pair of adjacent intervals with the <strong>smallest $\chi^2$ value</strong> (indicating that their class distributions are most similar).</li>
+    <li>Merge that pair into a single interval.</li>
+    <li>Repeat steps 2–4 until all adjacent interval pairs have $\chi^2 \ge \text{threshold}$ (or until target number of intervals is reached).</li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 8: Feature Extraction using Linear Discriminant Analysis (LDA) Projection</div>
+  <p>For 2 classes with means $\mathbf{\mu}_1 = (1, 2)^T, \mathbf{\mu}_2 = (3, 4)^T$ and shared covariance $\mathbf{\Sigma} = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$:</p>
+  $$\mathbf{w} \propto \mathbf{\Sigma}^{-1}(\mathbf{\mu}_1 - \mathbf{\mu}_2) = \frac{1}{2}\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} -2 \\ -2 \end{bmatrix} = \begin{bmatrix} -1 \\ -1 \end{bmatrix}$$
+  $$\mathbf{\text{Optimal 1D Fisher Projection Line: } y = -x_1 - x_2}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 9: Non-Negative Matrix Factorization (NMF) for Topic Extraction</div>
+  <p>Unlike PCA (which allows negative weights), <strong>NMF</strong> factorizes data matrix $\mathbf{V} \approx \mathbf{W}\mathbf{H}$ where all matrices are non-negative ($V_{ij} \ge 0, W_{ik} \ge 0, H_{kj} \ge 0$). Solves Frobenius norm minimization:</p>
+  $$\min_{\mathbf{W}, \mathbf{H}} \|\mathbf{V} - \mathbf{W}\mathbf{H}\|_F^2 \quad \text{subject to } W \ge 0, H \ge 0$$
+  <p>Multiplicative update rules: $H_{aj} \leftarrow H_{aj} \frac{(W^T V)_{aj}}{(W^T W H)_{aj}}$ and $W_{ia} \leftarrow W_{ia} \frac{(V H^T)_{ia}}{(W H H^T)_{ia}}$. Produces additive, interpretable parts-based representations!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q10. Explain the Difference between Missing Completely at Random (MCAR), Missing at Random (MAR), and Missing Not at Random (MNAR). (8 Marks)</div><div class="qa-a">• <strong>MCAR:</strong> The probability of an attribute value being missing is completely independent of both observed and unobserved data (e.g., test tube dropped by accident). Dropping tuples causes zero statistical bias.<br>• <strong>MAR:</strong> The missingness depends systematically on <em>observed</em> variables but not on the missing value itself (e.g., males are less likely to report depression scores, but conditional on gender, missingness is random). Multiple imputation (MICE) is valid.<br>• <strong>MNAR (Non-ignorable):</strong> The missingness depends directly on the unobserved value itself (e.g., high-income executives refuse to disclose income on surveys). Requires explicit modeling of the missingness mechanism!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 11: Z-Score Standardization vs Min-Max Normalization Trade-Off Analysis</div>
+  <p>Consider a dataset with severe outliers: $X = \{10, 11, 12, 13, 14, 15, 1000\}$:</p>
+  <ul>
+    <li><strong>Min-Max Scaling to $[0, 1]$:</strong> $x_1 = \frac{10-10}{1000-10} = 0.000$; $x_5 = \frac{14-10}{990} = 0.004$; $x_7 = \frac{1000-10}{990} = 1.000$. The normal cluster $\{10..15\}$ is crushed into a tiny range $[0.000, 0.005]$, completely destroying feature variance!</li>
+    <li><strong>Z-Score Standardization:</strong> Outlier $1000$ pulls the mean to $\bar{x} = 154.1$ and $\sigma = 373.1$.</li>
+    <li><strong>Robust Standardization (Median & IQR):</strong> $x' = \frac{x - 13}{3.0}$. Points $\{10..15\}$ span $[-1.0, +0.67]$, preserving high variance, while outlier $1000$ becomes $+329.0$ without compressing the cluster!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q12. Explain Data Cleaning for Inconsistent Codes and Duplicate Elimination (Record Linkage). (8 Marks)</div><div class="qa-a">Real-world databases contain duplicate entities recorded with differing syntax (e.g. `IBM Corp`, `International Business Machines`, `I.B.M.`):<br>1. <strong>String Similarity Metrics:</strong> Levenshtein Edit Distance, Jaro-Winkler Metric ($d_J = \frac{1}{3}\left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m}\right)$), $q$-gram token overlapping.<br>2. <strong>Blocking (Canopy Clustering):</strong> Divides $N$ records into overlapping canopies using fast phonetic hash keys (Soundex / Metaphone) to avoid $O(N^2)$ pairwise comparisons.<br>3. <strong>Merge/Purge Pipeline:</strong> Merges duplicate records into a golden master record with unified primary keys.</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: Principal Component Analysis (PCA) Variance Proof & SVD Relationship</div>
+  <p>Prove that the principal component directions are given by the eigenvectors of the sample covariance matrix $\mathbf{\Sigma}$:</p>
+  <ul>
+    <li>Objective: Maximize projected variance $\mathbf{w}^T \mathbf{\Sigma} \mathbf{w}$ subject to $\|\mathbf{w}\|_2^2 = \mathbf{w}^T \mathbf{w} = 1$.</li>
+    <li>Lagrangian: $\mathcal{L}(\mathbf{w}, \lambda) = \mathbf{w}^T \mathbf{\Sigma} \mathbf{w} - \lambda(\mathbf{w}^T \mathbf{w} - 1)$.</li>
+    <li>Taking gradient with respect to $\mathbf{w}$ and setting to zero:
+      $$\nabla_{\mathbf{w}} \mathcal{L} = 2\mathbf{\Sigma}\mathbf{w} - 2\lambda\mathbf{w} = 0 \implies \mathbf{\mathbf{\Sigma}\mathbf{w} = \lambda\mathbf{w}}$$
+    </li>
+    <li>This is the standard eigenvector equation! Multiplying by $\mathbf{w}^T$: $\mathbf{w}^T \mathbf{\Sigma} \mathbf{w} = \lambda \mathbf{w}^T \mathbf{w} = \lambda$.</li>
+    <li>$$\mathbf{\text{Maximum variance is achieved by choosing the eigenvector corresponding to the largest eigenvalue } \lambda_{\text{max}}!}$$</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q13. Explain the V-Optimal Histogram Construction for Numerosity Reduction. (8 Marks)</div><div class="qa-a">A <strong>V-Optimal Histogram</strong> partitions $N$ data values into $B$ buckets such that the weighted variance of the bucket estimates is minimized across all possible partitionings:
+$$\mathbf{\min \sum_{j=1}^B \sum_{i \in \text{Bucket}_j} (x_i - \bar{x}_j)^2}$$
+Dynamic programming computes the globally optimal bucket boundaries in $O(B \cdot N^2)$ time. V-Optimal histograms provide the most statistically accurate selectivity estimation for database query optimizers!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Kernel Density Estimation (KDE) for Continuous Density Smoothing</div>
+  <p>For $N$ observations, <strong>Kernel Density Estimation</strong> computes continuous probability density function $\hat{f}(x)$ with Gaussian kernel $K(u) = \frac{1}{\sqrt{2\pi}}e^{-u^2/2}$ and bandwidth $h$:</p>
+  $$\mathbf{\hat{f}(x) = \frac{1}{Nh} \sum_{i=1}^N K\left( \frac{x - x_i}{h} \right) = \frac{1}{Nh\sqrt{2\pi}} \sum_{i=1}^N \exp\left( - \frac{(x - x_i)^2}{2h^2} \right)}$$
+  <p><strong>Bandwidth Selection (Silverman's Rule of Thumb):</strong> $h = 0.9 \min\left( \hat{\sigma}, \frac{\text{IQR}}{1.34} \right) N^{-1/5}$. Prevents oversmoothing (high bias) and undersmoothing (spurious variance)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Pearson Correlation vs Covariance Proof & Standardized Derivation</div>
+  <p>Prove that Pearson's correlation coefficient $r_{X, Y} \in [-1, +1]$ using Cauchy-Schwarz Inequality:</p>
+  $$\mathbf{|\text{Cov}(X, Y)|^2 = |\mathbb{E}[(X-\mu_X)(Y-\mu_Y)]|^2 \le \mathbb{E}[(X-\mu_X)^2] \cdot \mathbb{E}[(Y-\mu_Y)^2] = \sigma_X^2 \sigma_Y^2}$$
+  $$\mathbf{\frac{|\text{Cov}(X, Y)|}{\sigma_X \sigma_Y} \le 1 \implies -1 \le r_{X, Y} \le +1}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q14. Explain Missing Value Handling in Time Series Streams (Forward Fill, Linear Interpolation, Splines). (8 Marks)</div><div class="qa-a">• <strong>Forward Fill (Last Observation Carried Forward - LOCF):</strong> Replaces missing timestamp $t$ with the most recent valid observation $t-1$. Appropriate for static sensor readings.<br>• <strong>Linear / Cubic Spline Interpolation:</strong> Fits a piecewise polynomial curve through surrounding valid points, preserving continuous trajectory curvature.</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Discrete Fourier Transform (DFT) vs Wavelet Transform Signal Compression</div>
+  <p>For a 1D sequence of length $N = 2^n$, DFT projects data onto complex sinusoids $X_k = \sum_{n=0}^{N-1} x_n e^{-i 2\pi k n / N}$ ($O(N \log N)$ FFT). In contrast, Wavelet transform uses compact dyadic wavelets $\psi_{j, k}(t) = 2^{j/2}\psi(2^j t - k)$, achieving linear $O(N)$ computational complexity and retaining precise time-frequency localization of transient data spikes!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q15. Explain Stratified Sampling vs Simple Random Sampling (SRS) in Imbalanced Data Mining. (8 Marks)</div><div class="qa-a">• <strong>Simple Random Sampling (SRS):</strong> Every record has equal probability $1/N$ of selection. On highly imbalanced datasets (e.g. 99% legitimate, 1% fraud), SRS risks drawing zero fraud instances!<br>• <strong>Stratified Sampling:</strong> Divides the dataset into non-overlapping strata (classes $C_1, \dots, C_k$) and draws samples from each stratum proportionally (or equally via oversampling), guaranteeing that rare minority classes are preserved in training subsets!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: Multi-Class Linear Discriminant Analysis (LDA) Between-Class Scatter Matrix Derivation</div>
+  <p>For $C$ classes with means $\mathbf{\mu}_c$ and global mean $\mathbf{\mu}$:</p>
+  $$\mathbf{S}_B = \sum_{c=1}^C N_c (\mathbf{\mu}_c - \mathbf{\mu})(\mathbf{\mu}_c - \mathbf{\mu})^T \qquad \mathbf{S}_W = \sum_{c=1}^C \sum_{i \in c} (\mathbf{x}_i - \mathbf{\mu}_c)(\mathbf{x}_i - \mathbf{\mu}_c)^T$$
+  <p>Maximizing Rayleigh quotient $\frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}}$ yields generalized eigenvalue problem $\mathbf{S}_W^{-1} \mathbf{S}_B \mathbf{w} = \lambda \mathbf{w}$. Number of non-zero discriminant directions is at most $\mathbf{\min(p, C-1)}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 18: Quantile Normalization for High-Throughput Genomics & Microarrays</div>
+  <p><strong>Quantile Normalization</strong> aligns empirical distributions across multiple experimental batches:</p>
+  <ol>
+    <li>Sort values in each column independently.</li>
+    <li>Compute the mean across rows for the sorted values.</li>
+    <li>Replace each sorted value with the row average.</li>
+    <li>Restore columns back to their original rank orders, ensuring all columns have identical empirical distributions!</li>
+  </ol>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 19: Discrete Cosine Transform (DCT) vs PCA Data Compression</div>
+  <p>The <strong>Discrete Cosine Transform (DCT)</strong> expresses a finite sequence of data points in terms of a sum of cosine functions oscillating at different frequencies:
+  $$\mathbf{X_k = \sum_{n=0}^{N-1} x_n \cos\left[ \frac{\pi}{N} \left( n + \frac{1}{2} \right) k \right]}$$
+  • <strong>Energy Compaction Property:</strong> DCT concentrates most of the signal energy into the first few low-frequency transform coefficients.<br>• <strong>PCA vs DCT:</strong> PCA requires computing data covariance matrices $O(N p^2)$ and solving eigenvalue polynomials. DCT uses fixed data-independent cosine basis functions, allowing $O(N \log N)$ fast FFT computation (used in JPEG image compression and MP3 audio encoding)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 20: Covariance & Correlation Matrix Derivation for 3-Variable Dataset</div>
+  <p>Given 3 attributes $A, B, C$ with mean-centered vectors $\mathbf{a} = (-1, 0, 1)^T, \mathbf{b} = (2, -1, -1)^T, \mathbf{c} = (0, 1, -1)^T$:</p>
+  <ul>
+    <li>Variances: $s_A^2 = \frac{1+0+1}{2} = 1.0; \ s_B^2 = \frac{4+1+1}{2} = 3.0; \ s_C^2 = \frac{0+1+1}{2} = 1.0$.</li>
+    <li>Covariances:
+      <ul>
+        <li>$\text{Cov}(A, B) = \frac{(-1)(2) + (0)(-1) + (1)(-1)}{2} = \frac{-2 + 0 - 1}{2} = \mathbf{-1.5}$</li>
+        <li>$\text{Cov}(A, C) = \frac{(-1)(0) + (0)(1) + (1)(-1)}{2} = \frac{-1}{2} = \mathbf{-0.5}$</li>
+        <li>$\text{Cov}(B, C) = \frac{(2)(0) + (-1)(1) + (-1)(-1)}{2} = \frac{-1 + 1}{2} = \mathbf{0.0}$</li>
+      </ul>
+    </li>
+  </ul>
+  $$\mathbf{\mathbf{\Sigma} = \begin{bmatrix} 1.0 & -1.5 & -0.5 \\ -1.5 & 3.0 & 0.0 \\ -0.5 & 0.0 & 1.0 \end{bmatrix} \qquad \mathbf{R} = \begin{bmatrix} 1.0 & -0.866 & -0.500 \\ -0.866 & 1.0 & 0.0 \\ -0.500 & 0.0 & 1.0 \end{bmatrix}}}$$
+</div>
+
+        
+        <div class="page-break"></div>
+        <div class="cover-container" style="margin-top: 40px;">
+          <div class="course-badge">Module 3 of 5</div>
+          <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">Module 3: Data Warehousing & OLAP Technology</h2>
+          <div style="font-size: 12.5px; color: #64748b;">Topics 21 to 29 • Star/Snowflake Schemas, Measures, OLAP Operations, Cuboid Lattices & BUC</div>
+        </div>
+        
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 3 Table of Contents (Topics 21 to 29)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 21:</strong> Data Warehouse Foundations & Architecture</div>
+    <div>• <strong>Topic 22:</strong> OLTP vs. OLAP Multidimensional Paradigms</div>
+    <div>• <strong>Topic 23:</strong> Schemas (Star, Snowflake, Fact Constellation)</div>
+    <div>• <strong>Topic 24:</strong> Measures (Additive, Semi-additive, Non-additive)</div>
+    <div>• <strong>Topic 25:</strong> OLAP Operations (Roll-up, Drill-down, Slice, Dice, Pivot)</div>
+    <div>• <strong>Topic 26:</strong> Data Cube Computation (MOLAP, ROLAP, HOLAP)</div>
+    <div>• <strong>Topic 27:</strong> Star-Cubing & BUC Algorithms</div>
+    <div>• <strong>Topic 28:</strong> Concept Hierarchies & Attribute-Oriented Induction</div>
+    <div>• <strong>Topic 29:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 21 & 22: Data Warehouse Architecture & OLTP vs. OLAP</h2>
+
+<p>
+  According to William H. Inmon (the father of data warehousing), a <strong>Data Warehouse</strong> is defined as: <em>"A subject-oriented, integrated, time-variant, and non-volatile collection of data in support of management's decision-making process."</em>
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Characteristic</th>
+      <th style="width: 38%;">Inmon's Definition</th>
+      <th>Technical Implementation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Subject-Oriented</strong></td>
+      <td>Organized around major business subjects (Customer, Product, Sales, Supplier) rather than operational transactional processes (order entry, invoicing).</td>
+      <td>De-normalized multi-dimensional schema tables optimizing cross-departmental queries.</td>
+    </tr>
+    <tr>
+      <td><strong>Integrated</strong></td>
+      <td>Constructed by integrating heterogeneous sources (relational DBs, flat files, legacy systems). Naming inconsistencies, encoding formats, and conflicting measurement units are unified.</td>
+      <td>ETL (Extract, Transform, Load) staging pipelines enforcing global enterprise metadata standards.</td>
+    </tr>
+    <tr>
+      <td><strong>Time-Variant</strong></td>
+      <td>Every key record in the data warehouse explicitly contains a time dimension key (Day, Month, Quarter, Year), capturing historical snapshots across a 5–10 year horizon.</td>
+      <td>Slowly Changing Dimensions (SCD Type 1, 2, 3), append-only historical fact tables.</td>
+    </tr>
+    <tr>
+      <td><strong>Non-Volatile</strong></td>
+      <td>Data is never updated or deleted in place by end-users. Once loaded into the warehouse, records remain static and read-only.</td>
+      <td>Periodic batch loads; high-speed read-optimized indexing (Bitmap, B-tree indexes).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 23 & 24: Multidimensional Schemas & Categorization of Measures</h2>
+
+<div class="diagram-container">
+  <svg width="100%" height="90" viewBox="0 0 740 90" xmlns="http://www.w3.org/2000/svg">
+    <rect x="290" y="10" width="160" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="370" y="28" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" fill="#1e3a8a" text-anchor="middle">FACT_SALES</text>
+    <text x="370" y="44" font-family="Plus Jakarta Sans" font-size="8.5" fill="#334155" text-anchor="middle">time_key (FK), item_key (FK)</text>
+    <text x="370" y="58" font-family="Plus Jakarta Sans" font-size="8.5" fill="#334155" text-anchor="middle">branch_key (FK), dollars_sold</text>
+    <text x="370" y="72" font-family="Plus Jakarta Sans" font-size="8.5" fill="#16a34a" font-weight="600" text-anchor="middle">units_sold (Additive)</text>
+
+    <!-- Dim 1 -->
+    <rect x="20" y="20" width="140" height="50" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+    <text x="90" y="38" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#0f172a" text-anchor="middle">DIM_TIME</text>
+    <text x="90" y="54" font-family="Plus Jakarta Sans" font-size="8" fill="#475569" text-anchor="middle">time_key, day, month, year</text>
+    <path d="M 160 45 L 290 45" stroke="#3b82f6" stroke-width="1.5"/>
+
+    <!-- Dim 2 -->
+    <rect x="580" y="20" width="140" height="50" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+    <text x="650" y="38" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#0f172a" text-anchor="middle">DIM_ITEM</text>
+    <text x="650" y="54" font-family="Plus Jakarta Sans" font-size="8" fill="#475569" text-anchor="middle">item_key, item_name, brand</text>
+    <path d="M 450 45 L 580 45" stroke="#3b82f6" stroke-width="1.5"/>
+  </svg>
+  <div class="diagram-caption">Figure 3.1: The Star Schema Architecture (Central Fact Table radiating to Dimension Tables)</div>
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Schema Architecture</th>
+      <th style="width: 45%;">Structural Design</th>
+      <th>Key Advantages & Trade-offs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Star Schema</strong></td>
+      <td>A single central fact table referencing multiple completely de-normalized dimension tables via foreign keys.</td>
+      <td>Extremely simple queries; minimal SQL joins; redundant storage in dimension tables.</td>
+    </tr>
+    <tr>
+      <td><strong>Snowflake Schema</strong></td>
+      <td>A refinement of the star schema where dimension tables are normalized into hierarchies (splitting `DIM_ITEM` into `ITEM`, `CATEGORY`, `SUPPLIER`).</td>
+      <td>Zero data redundancy; saves disk storage; complex multi-table SQL joins reduce OLAP query performance!</td>
+    </tr>
+    <tr>
+      <td><strong>Fact Constellation (Galaxy)</strong></td>
+      <td>Multiple distinct fact tables (e.g. `FACT_SALES` and `FACT_SHIPPING`) sharing common dimension tables (Conformed Dimensions).</td>
+      <td>Enterprise-wide standard supporting complex business intelligence workflows across multiple functional divisions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="formula-card">
+  <strong>Categorization of Multidimensional Measures:</strong>
+  - <strong>Additive Measures:</strong> Can be meaningfully aggregated across ALL dimensions (e.g., `units_sold`, `dollars_revenue`, `cost_amount`).
+  - <strong>Semi-Additive Measures:</strong> Can be aggregated across some dimensions, but NOT across the Time dimension (e.g., `bank_account_balance`, `warehouse_inventory_count` — summing balances across 365 days gives a meaningless number!).
+  - <strong>Non-Additive Measures:</strong> Cannot be aggregated across any dimension by simple addition (e.g., `unit_price`, `profit_margin_%`, `temperature_celsius`). Must compute aggregate numerator and aggregate denominator separately ($\text{AvgMargin} = \frac{\sum \text{Profit}}{\sum \text{Revenue}}$).
+</div>
+
+<h2 class="section-title">Topic 25 to 27: OLAP Operations & Data Cube Computation</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">OLAP Operation</th>
+      <th style="width: 40%;">Algorithmic Transformation</th>
+      <th>Business Analytics Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Roll-Up (Drill-Up)</strong></td>
+      <td>Performs aggregation on a data cube by climbing up a concept hierarchy or by dimension reduction (dropping a dimension).</td>
+      <td>Aggregating daily sales records into quarterly totals: `Day` $\rightarrow$ `Month` $\rightarrow$ `Quarter` $\rightarrow$ `Year`.</td>
+    </tr>
+    <tr>
+      <td><strong>Drill-Down (Roll-Down)</strong></td>
+      <td>Navigates from less detailed (high-level summary) data to highly detailed granular data by descending a concept hierarchy or introducing an additional dimension.</td>
+      <td>De-aggregating national quarterly revenue down to city-level store performance: `Country` $\rightarrow$ `State` $\rightarrow$ `City` $\rightarrow$ `Store`.</td>
+    </tr>
+    <tr>
+      <td><strong>Slice</strong></td>
+      <td>Performs a selection on one dimension of the given cube, resulting in a sub-cube of lower dimensionality (cutting a 2D slice from a 3D cube).</td>
+      <td>Filtering the sales cube strictly for `Time = "Q1_2024"`.</td>
+    </tr>
+    <tr>
+      <td><strong>Dice</strong></td>
+      <td>Defines a sub-cube by performing a selection on two or more dimensions simultaneously.</td>
+      <td>Filtering for `(Location = "Toronto" OR "Vancouver") AND (Time = "Q1" OR "Q2") AND (Item = "Electronics")`.</td>
+    </tr>
+    <tr>
+      <td><strong>Pivot (Rotate)</strong></td>
+      <td>Rotates the data axes in space to provide an alternative visual presentation of the multidimensional matrix.</td>
+      <td>Swapping row axis (`Product`) with column axis (`Quarter`) in a spreadsheet pivot table.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Cuboid Lattice Combinatorics</div>
+  <p>An enterprise data warehouse has 4 dimensions: $\text{Time } (D_1), \text{Item } (D_2), \text{Location } (D_3), \text{Supplier } (D_4)$.</p>
+  <ol>
+    <li>Calculate the total number of cuboids in the full data cube lattice.</li>
+    <li>If dimension $\text{Time}$ has hierarchy `Day` $\rightarrow$ `Month` $\rightarrow$ `Quarter` $\rightarrow$ `Year` ($L_1 = 4$ levels + `all`), $\text{Item}$ has 3 levels ($L_2 = 3$), $\text{Location}$ has 3 levels ($L_3 = 3$), and $\text{Supplier}$ has 2 levels ($L_4 = 2$), calculate the total number of cuboids with hierarchies.</li>
+  </ol>
+  <p><strong>Mathematical Solution:</strong></p>
+  <ul>
+    <li><strong>1. Without Hierarchies:</strong> A $n$-dimensional cube contains $\mathbf{2^n}$ cuboids. For $n = 4$:
+      $$\mathbf{T = 2^4 = \mathbf{16 \text{ cuboids}}}$$
+      (From 0-D Apex Cuboid `all` to 4-D Base Cuboid `(Time, Item, Location, Supplier)`).
+    </li>
+    <li><strong>2. With Concept Hierarchies:</strong> Total cuboids $N_{\text{cuboids}} = \prod_{i=1}^n (L_i + 1)$:
+      $$\mathbf{N_{\text{cuboids}} = (4 + 1) \times (3 + 1) \times (3 + 1) \times (2 + 1) = 5 \times 4 \times 4 \times 3 = \mathbf{240 \text{ cuboids}}}$$
+    </li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 29: Master University Examination Solved Question Bank</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Compare ROLAP, MOLAP, and HOLAP Architectures. (10 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>ROLAP (Relational OLAP)</th><th>MOLAP (Multidimensional OLAP)</th><th>HOLAP (Hybrid OLAP)</th></tr></thead><tbody><tr><td><strong>Underlying Storage</strong></td><td>Relational DBMS (Star/Snowflake tables).</td><td>Proprietary multidimensional arrays (dense matrices).</td><td>Relational DB for detailed base data; MOLAP arrays for aggregated summaries.</td></tr><tr><td><strong>Scalability</strong></td><td>Extremely high (handles petabytes).</td><td>Moderate (limited by disk RAM array expansion).</td><td>High scalability with optimized query speed.</td></tr><tr><td><strong>Query Speed</strong></td><td>Slower (requires complex SQL multi-joins).</td><td>Lightning fast ($O(1)$ array offset indexing).</td><td>Fast for high-level summaries.</td></tr><tr><td><strong>Storage Overhead</strong></td><td>Low (only stores populated records).</td><td>High (sparse matrix indexing required).</td><td>Balanced.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Explain the Bottom-Up Computation (BUC) Algorithm for Iceberg Cubes. (8 Marks)</div><div class="qa-a">An <strong>Iceberg Cube</strong> computes only those cuboid cells whose aggregate measure satisfies an iceberg condition (e.g. `HAVING COUNT(*) >= min_support`).<br><strong>BUC Algorithm:</strong> Computes data cubes from bottom to top (from 1-D apex children down to base cuboids). It exploits the <em>Apriori anti-monotonicity property</em>: If an aggregate count of a cell in a parent cuboid fails `min_support`, none of its descendant child cells can satisfy the condition! BUC immediately prunes the entire subtree beneath that cell, eliminating massive wasteful computations!</div></div>
+
+<h2 class="section-title">Topic 29.1: Advanced Dimensional Modeling & Indexing Strategies</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Indexing Architecture</th>
+      <th style="width: 45%;">Internal Bitwise Mechanism</th>
+      <th>Best OLAP Query Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bitmap Indexing</strong></td>
+      <td>Creates a bit vector for each distinct value of a low-cardinality attribute (e.g. `Gender: {M: 1010, F: 0101}`). Queries execute via hardware-accelerated bitwise AND/OR/NOT operations.</td>
+      <td>Low-cardinality categorical filters (`WHERE Region = 'East' AND Status = 'Active'`).</td>
+    </tr>
+    <tr>
+      <td><strong>Join Indexing</strong></td>
+      <td>Maintains index relationships between foreign keys of fact tables and primary keys of dimension tables across multi-table joins without physical table joining.</td>
+      <td>Star schema star-join query acceleration.</td>
+    </tr>
+    <tr>
+      <td><strong>Bitmapped Join Index</strong></td>
+      <td>Stores bitmap representations of dimension attributes directly inside the fact table index.</td>
+      <td>Complex multi-attribute enterprise OLAP reporting.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Bitmap Index Bitwise Query Processing</div>
+  <p>A customer table has 6 records. Attribute <strong>Gender</strong> has distinct values $\{M, F\}$; Attribute <strong>CustType</strong> has distinct values $\{VIP, Regular\}$:</p>
+  <ul>
+    <li>Gender Bitmaps: $\text{Bit}_M = [1, 0, 1, 1, 0, 0]$, $\text{Bit}_F = [0, 1, 0, 0, 1, 1]$.</li>
+    <li>CustType Bitmaps: $\text{Bit}_{VIP} = [1, 1, 0, 1, 0, 0]$, $\text{Bit}_{Regular} = [0, 0, 1, 0, 1, 1]$.</li>
+  </ul>
+  <p><strong>Query: Find all Female customers who are VIP (`Gender = 'F' AND CustType = 'VIP'`):</strong></p>
+  $$\mathbf{\text{Result} = \text{Bit}_F \land \text{Bit}_{VIP} = [0, 1, 0, 0, 1, 1] \text{ AND } [1, 1, 0, 1, 0, 0] = \mathbf{[0, 1, 0, 0, 0, 0]}}$$
+  $$\mathbf{\text{Interpretation: Record index 2 (Customer 2) is the exact matching tuple! (Computed in 1 CPU cycle!)}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Slowly Changing Dimensions (SCD Type 1, Type 2, and Type 3). (8 Marks)</div><div class="qa-a">In a data warehouse, dimension attribute values change over time (e.g. customer relocates from Chicago to Dallas):<br>• <strong>SCD Type 1 (Overwrite):</strong> Overwrites the old value with the new value. Fast, but <em>destroys historical context</em> (past sales in Chicago are falsely credited to Dallas).<br>• <strong>SCD Type 2 (Add New Row):</strong> Creates a new row with a new surrogate key, marking the old row with `end_date` and `is_current = FALSE`. Preserves complete historical audit trail (industry gold standard).<br>• <strong>SCD Type 3 (Add New Column):</strong> Adds a `current_city` and `previous_city` column to the existing row. Tracks only the immediate prior state.</div></div>
+
+<h2 class="section-title">Topic 29.2: Advanced Star-Cubing & Materialized View Optimization</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Materialized View Selection using the Greedy (HRU) Algorithm</div>
+  <p>A data cube lattice has base cuboid $V_0$ (cost = 100). The costs of computing each dependent cuboid view and their lattice ancestor dependencies are given below. Select top $k = 2$ views to materialize to maximize total query evaluation benefit:</p>
+  <ul>
+    <li>Views: $V_1$ (cost = 50, ancestors: $V_0$), $V_2$ (cost = 30, ancestors: $V_0$), $V_3$ (cost = 20, ancestors: $V_1, V_2$), $V_4$ (cost = 10, ancestors: $V_3$).</li>
+  </ul>
+  <p><strong>Step 1: Calculate Benefit of materializing first view:</strong></p>
+  <ul>
+    <li>Benefit($V_1$): Saves $(100 - 50) = 50$ for $V_1$; saves $(100 - 50) = 50$ for descendant $V_3$; saves $50$ for $V_4 \implies B(V_1) = 50 + 50 + 50 = \mathbf{150}$.</li>
+    <li>Benefit($V_2$): Saves $(100 - 30) = 70$ for $V_2$; saves $(100 - 30) = 70$ for $V_3$; saves $70$ for $V_4 \implies B(V_2) = 70 + 70 + 70 = \mathbf{210}$.</li>
+    <li>Benefit($V_3$): Saves $(100 - 20) = 80$ for $V_3$; saves $80$ for $V_4 \implies B(V_3) = 80 + 80 = \mathbf{160}$.</li>
+  </ul>
+  $$\mathbf{\text{Choice 1: Select } V_2 \text{ with Maximum Benefit } = \mathbf{210}!}$$
+  <p><strong>Step 2: Calculate Marginal Benefit given $V_2$ is already materialized (cost of $V_3, V_4$ now reduced to 30):</strong></p>
+  <ul>
+    <li>Benefit($V_1 \mid V_2$): Saves $(100 - 50) = 50$ for $V_1$; saves $(30 - 30) = 0$ for $V_3, V_4 \implies B(V_1 \mid V_2) = \mathbf{50}$.</li>
+    <li>Benefit($V_3 \mid V_2$): Saves $(30 - 20) = 10$ for $V_3$; saves $(30 - 20) = 10$ for $V_4 \implies B(V_3 \mid V_2) = 10 + 10 = \mathbf{20}$.</li>
+    <li>Benefit($V_4 \mid V_2$): Saves $(30 - 10) = 20$ for $V_4 \implies B(V_4 \mid V_2) = \mathbf{20}$.</li>
+  </ul>
+  $$\mathbf{\text{Choice 2: Select } V_1 \text{ with Marginal Benefit } = \mathbf{50}!}$$
+  $$\mathbf{\text{Final Optimal Views to Materialize: } \{V_2, V_1\} \quad (\text{Total Benefit } = 210 + 50 = \mathbf{260})}$$
+</div>
+
+<h2 class="section-title">Topic 29.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 3: Data Cube Aggregation with the Multi-Way Array Aggregation Algorithm</div>
+  <p>The <strong>Multi-Way Array Aggregation (Zhao et al. 1997)</strong> algorithm computes a full multidimensional MOLAP data cube in a single pass over memory arrays:</p>
+  <ol>
+    <li>Partition the multidimensional array into chunks that fit in RAM cache.</li>
+    <li>Order dimensions such that the dimension with the largest size/cardinality is placed first ($D_1 \times D_2 \times D_3$).</li>
+    <li>Scan chunk by chunk, aggregating along 2D planes and 1D lines simultaneously without re-reading chunks from disk!</li>
+    <li>Minimizes total memory requirement to $O(|D_2 \times D_3| + |D_3|)$ rather than the full $O(|D_1 \times D_2 \times D_3|)$!</li>
+  </ol>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Compare Enterprise Data Warehouse, Data Mart, and Virtual Warehouse. (8 Marks)</div><div class="qa-a">• <strong>Enterprise Data Warehouse (EDW):</strong> An enterprise-wide, unified repository collecting data across all functional business departments (Finance, Marketing, HR, Operations). Requires extensive corporate schema design.<br>• <strong>Data Mart:</strong> A subset of enterprise data focused on a single department or specific business line (e.g., Marketing Data Mart). Can be dependent (sourced directly from EDW) or independent (sourced directly from operational DBs).<br>• <strong>Virtual Warehouse:</strong> A set of relational views over operational transactional databases. Zero physical storage required, but severely degrades operational OLTP performance when complex queries execute!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain Surrogate Keys in Data Warehousing and why operational primary keys should NEVER be used. (6 Marks)</div><div class="qa-a">A <strong>Surrogate Key</strong> is an artificial, system-generated integer primary key (e.g., `1001, 1002`) used in dimension tables.<br>• <strong>Why Not Operational PKs?</strong> (1) Natural operational keys change over time (e.g. employee SSN re-issued), (2) Heterogeneous source systems use conflicting PK formats, and (3) Tracking Slowly Changing Dimensions (SCD Type 2) requires multiple historical rows for the same operational entity (which violates operational PK uniqueness!).</div></div>
+
+<h2 class="section-title">Topic 29.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 4: Star-Cubing Shared-Prefix Tree Construction</div>
+  <p><strong>Star-Cubing (Xu et al. 2001)</strong> integrates top-down and bottom-up data cube computation with star-tree structures:</p>
+  <ul>
+    <li>Compresses identical attribute prefixes into single tree paths.</li>
+    <li>If a subtree's aggregate count satisfies `min_support`, compute all descendant cuboid aggregations simultaneously.</li>
+    <li>If an aggregate fails `min_support`, prune the entire star-tree branch (star-node reduction).</li>
+    <li>Achieves up to $\mathbf{100\times}$ speedup over naive array cubing algorithms!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. Compare Fact Tables vs Dimension Tables in Data Warehouse Design. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Fact Table</th><th>Dimension Table</th></tr></thead><tbody><tr><td><strong>Contents</strong></td><td>Numeric additive business measurements (revenue, quantities) and composite FKs.</td><td>Descriptive qualitative textual context (names, categories, addresses).</td></tr><tr><td><strong>Growth & Size</strong></td><td>Massive (millions to billions of rows; grows continuously).</td><td>Small to moderate (hundreds to thousands of rows).</td></tr><tr><td><strong>Granularity</strong></td><td>Defined at atomic leaf transaction level.</td><td>Hierarchical roll-up levels (Store $\rightarrow$ City $\rightarrow$ State $\rightarrow$ Country).</td></tr><tr><td><strong>Structure</strong></td><td>Tall, narrow (few columns, massive rows).</td><td>Short, wide (many descriptive textual columns).</td></tr></tbody></table></div></div>
+
+<h2 class="section-title">Topic 29.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 5: Fact Table Sizing & Storage Capacity Estimation</div>
+  <p>A national retail chain with 500 physical stores sells 10,000 distinct products. On average, each store processes 2,000 sales transactions per day with an average of 4 items per transaction:</p>
+  <ul>
+    <li>Daily sales fact records = $500 \text{ stores} \times 2,000 \text{ transactions} \times 4 \text{ items} = \mathbf{4,000,000 \text{ rows/day}}$.</li>
+    <li>Annual fact table growth = $4,000,000 \times 365 = \mathbf{1,460,000,000 \text{ rows/year (1.46 Billion rows/year)}}$.</li>
+    <li>Each row consists of 5 integer FKs ($4\text{ bytes} \times 5 = 20\text{ bytes}$) and 3 float measures ($8\text{ bytes} \times 3 = 24\text{ bytes}$) + row overhead ($16\text{ bytes}$) = $\mathbf{60\text{ bytes/row}}$.</li>
+    <li>Annual raw storage = $1.46 \times 10^9 \times 60 \approx \mathbf{87.6\text{ GB/year}}$. With B-tree & Bitmap indexing ($2.5\times$ multiplier) $\implies \mathbf{219\text{ GB/year}}$!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Compare Kimball's Dimensional Bus Architecture with Inmon's Corporate Information Factory (CIF). (10 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Bill Inmon (Top-Down CIF)</th><th>Ralph Kimball (Bottom-Up Bus)</th></tr></thead><tbody><tr><td><strong>Central Architecture</strong></td><td>Single enterprise normalized relational DW (3NF). Data marts are departmental downstream extracts.</td><td>No centralized 3NF EDW. The warehouse is the <em>union of all dimensional star-schema data marts</em>.</td></tr><tr><td><strong>Integration Mechanism</strong></td><td>Enterprise Data Model (EDM).</td><td><strong>Conformed Dimensions</strong> and Conformed Facts.</td></tr><tr><td><strong>Implementation Speed</strong></td><td>Slow initial ramp-up (high upfront engineering cost).</td><td>Fast iterative delivery; agile business value per mart.</td></tr><tr><td><strong>End-User Access</strong></td><td>Users query data marts, not the core 3NF EDW.</td><td>Users query dimensional star schemas directly.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q8. Detail the Mechanics of Materialized Query Tables (MQT) and Automatic Query Rewrite. (8 Marks)</div><div class="qa-a">A <strong>Materialized Query Table (MQT / Indexed View)</strong> physically stores pre-aggregated query results on disk. When an end-user submits a complex SQL aggregation query (e.g. `SELECT Year, Region, SUM(Sales)...`), the RDBMS <strong>Cost-Based Query Optimizer</strong> automatically rewrites the execution plan to read directly from the compact MQT rather than scanning the massive 1.5-billion-row base fact table, reducing query execution latency from minutes to milliseconds!</div></div>
+
+<h2 class="section-title">Topic 29.6: Complete Solved Laboratory Problem Bank on OLAP Aggregations</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 6: Bitmap Index Vector Compression via Run-Length Encoding (WAH)</div>
+  <p>A high-cardinality bitmap index bit vector has 128 bits containing sparse ones: `00000000 00000000 ... 00000001`:</p>
+  <ul>
+    <li><strong>Word-Aligned Hybrid (WAH) Compression:</strong> Replaces consecutive sequences of 31-bit zero words with a single 32-bit run word encoding the count.</li>
+    <li>Compresses a 100-million-bit sparse bitmap into less than $200\text{ KB}$ of RAM!</li>
+    <li>Allows bitwise AND/OR queries to execute directly on the compressed format without decompression!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 9: Incremental View Maintenance in Real-Time Data Warehouses</div>
+  <p>When operational databases insert new delta records $\Delta R$:</p>
+  <ul>
+    <li><strong>Counting Algorithm (Gupta et al.):</strong> For view $V = \pi_A(\sigma_C(R \Join S))$, maintain a count column $count(*)$ in the materialized view.</li>
+    <li>When a base tuple is deleted, decrement $count(*)$. Only delete the view row when $count(*) = 0$.</li>
+    <li>Allows real-time incremental view refreshment without re-computing the full multi-table join!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 10: Star-Cubing Shared-Prefix Path Algorithm</div>
+  <p>Constructs a tree where nodes represent attribute-value pairs and links represent prefix sharing. Performs recursive top-down cuboid lattice traversal with bottom-up aggregation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 10: Multi-Tiered Data Warehouse Physical Storage Layouts</div>
+  <p>In columnar analytical data warehouses (Snowflake, BigQuery, ClickHouse), data is stored column-by-column rather than row-by-row:</p>
+  <ul>
+    <li><strong>Columnar Compression:</strong> High compression ratios ($10\times$) due to identical data types in single columns (dictionary encoding, run-length encoding).</li>
+    <li><strong>I/O Vectorization:</strong> Analytical queries (`SELECT SUM(Sales)...`) read strictly the required columns from disk, completely skipping all other unreferenced columns, achieving $100\times$ faster throughput than traditional row stores!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q9. Compare Star Schema with Constellation Schema for Multi-Departmental Enterprises. (8 Marks)</div><div class="qa-a">A single Star Schema contains only one central fact table, suitable for isolated departmental data marts (e.g. Sales). An enterprise-wide system requires a <strong>Fact Constellation (Galaxy) Schema</strong> with multiple fact tables (e.g., `Sales_Fact`, `Inventory_Fact`, `Shipping_Fact`) interconnected via shared <strong>Conformed Dimensions</strong> (`Dim_Date`, `Dim_Product`, `Dim_Store`), preventing fragmented analytical silos and enabling cross-functional enterprise intelligence!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 12: Factless Fact Table Applications in Business Intelligence</div>
+  <p>A <strong>Factless Fact Table</strong> contains NO numeric measurement facts (no dollars or quantities); it contains ONLY foreign keys pointing to dimension tables:</p>
+  <ul>
+    <li><strong>Event Tracking:</strong> Tracking university student class attendance: `(student_key, course_key, date_key, room_key)`. The fact of the event occurring is the measure!</li>
+    <li><strong>Coverage Table:</strong> Tracking promotional marketing campaigns: `(product_key, store_key, promo_key, date_key)` to determine which products were on promotion in which stores, even if zero units were sold!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Semi-Additive vs Additive vs Non-Additive Measure Design</div>
+  <p>In a financial banking data warehouse:</p>
+  <ul>
+    <li><strong>`Transaction_Amount`:</strong> Additive across Account, Branch, and Time ($\sum \text{Amount}$ is meaningful).</li>
+    <li><strong>`Account_Ending_Balance`:</strong> <strong>Semi-Additive</strong> across Account and Branch, but NON-additive across Time (must use `Current_Balance` snapshot or `Avg_Balance` over time).</li>
+    <li><strong>`Loan_Interest_Rate_%`:</strong> <strong>Non-Additive</strong> across all dimensions (must compute weighted average: $\frac{\sum \text{Balance} \times \text{Rate}}{\sum \text{Balance}}$).</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Slowly Changing Dimensions Type 4 (History Table) vs Type 6 (Hybrid)</div>
+  <p>• <strong>SCD Type 4:</strong> Maintains a primary dimension table with current attributes, and writes historical changes to a separate history fact table.<br>• <strong>SCD Type 6 (1 + 2 + 3):</strong> Hybrid schema containing both historical rows (Type 2) and current overwrite columns (Type 3) alongside surrogate keys!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Star-Tree Construction Algorithm & Iceberg Condition Pruning</div>
+  <p>In Star-Cubing, each node $N$ stores a star-table and aggregate counts. If $\text{count}(N) < \text{min\_support}$, the star-tree node is dropped and all child cuboid branches are pruned in a single operation!</p>
+</div>
+
+        
+        <div class="page-break"></div>
+        <div class="cover-container" style="margin-top: 40px;">
+          <div class="course-badge">Module 4 of 5</div>
+          <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">Module 4: Frequent Pattern & Association Mining</h2>
+          <div style="font-size: 12.5px; color: #64748b;">Topics 30 to 36 • Market Basket Analysis, Support/Confidence/Lift, Apriori, FP-Growth & ECLAT</div>
+        </div>
+        
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 4 Table of Contents (Topics 30 to 36)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 30:</strong> Market Basket Analysis & Association Rules</div>
+    <div>• <strong>Topic 31:</strong> Support, Confidence, Lift, Conviction Metrics</div>
+    <div>• <strong>Topic 32:</strong> Apriori Algorithm (Join & Prune Steps)</div>
+    <div>• <strong>Topic 33:</strong> FP-Growth Algorithm (FP-Tree Construction)</div>
+    <div>• <strong>Topic 34:</strong> ECLAT Vertical Data Format Algorithm</div>
+    <div>• <strong>Topic 35:</strong> Closed vs. Maximal Frequent Itemsets</div>
+    <div>• <strong>Topic 36:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 30 & 31: Market Basket Analysis & Association Rule Metrics</h2>
+
+<p>
+  <strong>Frequent Pattern Mining</strong> searches for recurring itemsets, subsequences, or substructures in transactional databases. In <strong>Market Basket Analysis</strong>, retailers identify customer purchasing habits by discovering associations between items placed simultaneously in shopping carts.
+</p>
+
+<div class="formula-card">
+  <strong>The 5 Fundamental Association Rule Quality Metrics ($A \implies B$):</strong>
+  $$\mathbf{\text{Support}(A \implies B) = P(A \cup B) = \frac{\text{count}(A \cup B)}{|D|}}$$
+  $$\mathbf{\text{Confidence}(A \implies B) = P(B \mid A) = \frac{P(A \cup B)}{P(A)} = \frac{\text{count}(A \cup B)}{\text{count}(A)}}$$
+  $$\mathbf{\text{Lift}(A \implies B) = \frac{P(A \cup B)}{P(A) P(B)} = \frac{\text{Confidence}(A \implies B)}{\text{Support}(B)}}$$
+  $$\mathbf{\text{Conviction}(A \implies B) = \frac{P(A) P(\neg B)}{P(A \cup \neg B)} = \frac{1 - \text{Support}(B)}{1 - \text{Confidence}(A \implies B)}}$$
+  $$\mathbf{\text{Leverage}(A \implies B) = P(A \cup B) - P(A) P(B) = \text{Support}(A \implies B) - \text{Support}(A)\text{Support}(B)}$$
+  <strong>Interpretation of Lift:</strong>
+  - $\text{Lift} = 1$: $A$ and $B$ are statistically independent (rule has zero predictive value).
+  - $\text{Lift} > 1$: $A$ and $B$ are <strong>positively correlated</strong> (buying $A$ boosts the likelihood of buying $B$).
+  - $\text{Lift} < 1$: $A$ and $B$ are <strong>negatively correlated</strong> (substitutes; buying $A$ decreases buying $B$).
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Association Rule Metric Calculation</div>
+  <p>A supermarket records $N = 10,000$ transactions. Bread is bought in 6,000 transactions, Butter in 7,500 transactions, and both Bread and Butter together in 4,500 transactions. Evaluate the rule $\text{Bread} \implies \text{Butter}$:</p>
+  $$\text{Support}(\text{Bread} \implies \text{Butter}) = \frac{4500}{10000} = \mathbf{0.45 = 45\%}$$
+  $$\text{Confidence}(\text{Bread} \implies \text{Butter}) = \frac{\text{count}(\text{Bread} \cup \text{Butter})}{\text{count}(\text{Bread})} = \frac{4500}{6000} = \mathbf{0.75 = 75\%}$$
+  $$\text{Lift}(\text{Bread} \implies \text{Butter}) = \frac{\text{Confidence}}{\text{Support}(\text{Butter})} = \frac{0.75}{7500 / 10000} = \frac{0.75}{0.75} = \mathbf{1.00}$$
+  $$\mathbf{\text{Critical Insight: } \text{Even though Confidence is high (75\%), Lift = 1.00 proves Bread and Butter are INDEPENDENT!}}}$$
+  <p>Customers buy butter 75% of the time anyway, regardless of whether they bought bread! The rule is deceptive!</p>
+</div>
+
+<h2 class="section-title">Topic 32: The Apriori Algorithm (Join & Prune Steps)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The Apriori Principle & Anti-Monotonicity of Support</div>
+  <p><strong>Core Axiom:</strong> <em>"If an itemset is frequent, then all of its subsets must also be frequent."</em></p>
+  $$\mathbf{\forall X, Y: \ (X \subseteq Y) \implies \text{Support}(X) \ge \text{Support}(Y)}$$
+  <p><strong>Contrapositive (Pruning Rule):</strong> <em>"If an itemset $S$ is infrequent ($\text{Support}(S) < \text{min\_sup}$), then none of its supersets can ever be frequent."</em></p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Complete Apriori Execution Trace</div>
+  <p>Transactional Database ($N = 5$), $\text{min\_sup} = 2 \ (40\%)$:</p>
+  <ul>
+    <li>$T_1: \{A, C, D\}$</li>
+    <li>$T_2: \{B, C, E\}$</li>
+    <li>$T_3: \{A, B, C, E\}$</li>
+    <li>$T_4: \{B, E\}$</li>
+    <li>$T_5: \{A, B, C, E\}$</li>
+  </ul>
+  <p><strong>Pass 1:</strong> Candidate 1-itemsets $C_1$: $\{A: 3, B: 4, C: 4, D: 1, E: 4\}$.<br>
+  Prune $D$ ($1 < 2$) $\implies \mathbf{L_1 = \{ \{A\}: 3, \{B\}: 4, \{C\}: 4, \{E\}: 4 \}}$.</p>
+
+  <p><strong>Pass 2:</strong> Candidate 2-itemsets $C_2 = L_1 \Join L_1$: $\{AB, AC, AE, BC, BE, CE\}$.<br>
+  Scan DB: $\{AB: 2, AC: 3, AE: 2, BC: 3, BE: 4, CE: 3\}$. All $\ge 2 \implies \mathbf{L_2 = C_2}$.</p>
+
+  <p><strong>Pass 3:</strong> Candidate 3-itemsets $C_3 = L_2 \Join L_2$:<br>
+  - Join $\{AB\} \Join \{AC\} \rightarrow \{ABC\}$. Subsets: $AB, AC, BC \in L_2$ (Valid!).<br>
+  - Join $\{AB\} \Join \{AE\} \rightarrow \{ABE\}$. Subsets: $AB, AE, BE \in L_2$ (Valid!).<br>
+  - Join $\{AC\} \Join \{AE\} \rightarrow \{ACE\}$. Subsets: $AC, AE, CE \in L_2$ (Valid!).<br>
+  - Join $\{BC\} \Join \{BE\} \rightarrow \{BCE\}$. Subsets: $BC, BE, CE \in L_2$ (Valid!).<br>
+  Scan DB for $C_3$: $\{ABC: 2, ABE: 2, ACE: 2, BCE: 3\}$. All $\ge 2 \implies \mathbf{L_3 = C_3}$.</p>
+
+  <p><strong>Pass 4:</strong> Candidate 4-itemset $C_4 = L_3 \Join L_3$: $\{ABCE\}$.<br>
+  Prune Check: Subset $\{BCD\} \dots$ Subsets: $\{ABC\}, \{ABE\}, \{ACE\}, \{BCE\}$ all in $L_3$. Valid!<br>
+  Scan DB for $\{ABCE\}$: Appears in $T_3, T_5 \implies \text{count} = \mathbf{2} \ge 2 \implies \mathbf{L_4 = \{ \{A, B, C, E\}: 2 \}}$.</p>
+  $$\mathbf{\text{Final Max Frequent Itemset: } \{A, B, C, E\} \text{ with Support } = 40\%}$$
+</div>
+
+<h2 class="section-title">Topic 33 & 34: FP-Growth Algorithm & ECLAT Vertical Format</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Algorithm</th>
+      <th style="width: 35%;">Data Representation</th>
+      <th style="width: 25%;">Mining Mechanism</th>
+      <th>Key Advantages</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Apriori (Agrawal 1994)</strong></td>
+      <td>Horizontal transaction format $\langle \text{TID}, \text{Itemset} \rangle$.</td>
+      <td>Level-wise BFS candidate generation ($L_k \Join L_k$) and repeated database disk scans ($k$ scans).</td>
+      <td>Simple; high memory overhead for candidate itemsets ($O(2^{|I|})$).</td>
+    </tr>
+    <tr>
+      <td><strong>FP-Growth (Han et al. 2000)</strong></td>
+      <td>Compact tree structure (FP-Tree) with header table node links.</td>
+      <td>Divide-and-conquer recursive mining of conditional pattern bases; <strong>Zero candidate generation</strong>!</td>
+      <td>Only 2 database scans required; orders of magnitude faster than Apriori!</td>
+    </tr>
+    <tr>
+      <td><strong>ECLAT (Zaki 2000)</strong></td>
+      <td>Vertical data format $\langle \text{Item}, \text{TID-List} \rangle$.</td>
+      <td>Intersection of TID lists ($\text{TID}(AB) = \text{TID}(A) \cap \text{TID}(B)$).</td>
+      <td>No candidate generation; fast bitwise AND operations; large memory for long TID lists.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 35 & 36: Closed vs. Maximal Itemsets & Solved Exam Questions</h2>
+
+<div class="formula-card">
+  <strong>Closed vs. Maximal Frequent Itemsets:</strong>
+  - An itemset $X$ is <strong>Closed</strong> if $X$ is frequent and there exists NO proper superset $Y \supset X$ such that $\text{Support}(Y) = \text{Support}(X)$. (Preserves complete support information without loss!).
+  - An itemset $X$ is <strong>Maximal</strong> if $X$ is frequent and there exists NO proper superset $Y \supset X$ that is frequent ($\text{Support}(Y) \ge \text{min\_sup}$). (Lossy compression; $|Maximal| \le |Closed| \le |Frequent|$).
+</div>
+
+<div class="qa-card"><div class="qa-q">Q1. Trace the FP-Tree Construction Algorithm for transactions: $T_1=\{a, b, c\}, T_2=\{b, c, d\}, T_3=\{a, c, d, e\}$ with $\text{min\_sup}=2$. (10 Marks)</div><div class="qa-a">1. Scan DB to find frequencies: $c: 3, a: 2, b: 2, d: 2, e: 1$.<br>2. Filter and sort by descending frequency: $L_1 = [c, a, b, d]$ (Item $e$ pruned).<br>3. Re-order transactions: $T_1 \rightarrow [c, a, b]$, $T_2 \rightarrow [c, b, d]$, $T_3 \rightarrow [c, a, d]$.<br>4. Insert into FP-Tree from root `null`:<br>- Insert $T_1$: `null` $\rightarrow (c:1) \rightarrow (a:1) \rightarrow (b:1)$.<br>- Insert $T_2$: `null` $\rightarrow (c:2) \rightarrow (b:1) \rightarrow (d:1)$.<br>- Insert $T_3$: `null` $\rightarrow (c:3) \rightarrow (a:2) \rightarrow (d:1)$.<br>5. Construct Header Table with linked lists connecting identical item nodes across branches!</div></div>
+
+<h2 class="section-title">Topic 36.1: Advanced Sequence Pattern Mining & Negative Association Rules</h2>
+
+<div class="formula-card">
+  <strong>Negative Association Rules & Correlation:</strong>
+  A negative association rule takes the form $A \implies \neg B$ or $\neg A \implies B$. It is considered statistically valid and interesting if:
+  $$\mathbf{\text{Support}(A \cup \neg B) = \text{Support}(A) - \text{Support}(A \cup B) \ge \text{min\_sup}}$$
+  $$\mathbf{\text{Confidence}(A \implies \neg B) = \frac{\text{Support}(A \cup \neg B)}{\text{Support}(A)} = 1 - \text{Confidence}(A \implies B) \ge \text{min\_conf}}$$
+  $$\mathbf{\text{Correlation Measure: } \text{Corr}(A, B) = \frac{P(A \cup B)}{P(A)P(B)} < 1 \quad (\text{Substitutability Indicator})}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Generalized Sequential Pattern (GSP) Trace</div>
+  <p>Given sequence database: $S_1 = \langle (a)(b, c)(d) \rangle$, $S_2 = \langle (a, d)(c)(b) \rangle$, $S_3 = \langle (a)(c)(d) \rangle$. Minimum support = 2 ($66.7\%$):</p>
+  <ul>
+    <li>Frequent 1-sequences $L_1$: $\langle (a) \rangle: 3, \ \langle (b) \rangle: 2, \ \langle (c) \rangle: 3, \ \langle (d) \rangle: 3$.</li>
+    <li>Candidate 2-sequences $C_2$: $\langle (a)(c) \rangle, \langle (a, c) \rangle, \langle (c)(d) \rangle, \langle (a)(d) \rangle \dots$</li>
+    <li>Scan DB: $\langle (a)(c) \rangle$ appears in $S_1, S_3 \implies \text{count}=2$; $\langle (a)(d) \rangle$ appears in $S_1, S_3 \implies \text{count}=2$.</li>
+    <li>Frequent 3-sequence $L_3 = \{ \langle (a)(c)(d) \rangle: 2 \}$.</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q2. Compare the PrefixSpan (Prefix-Projected Pattern Growth) Algorithm with GSP. (8 Marks)</div><div class="qa-a">• <strong>GSP (Srikant & Agrawal):</strong> An Apriori-like breadth-first sequence mining algorithm. Generates massive sets of candidate sequences ($L_{k-1} \Join L_{k-1}$) and scans the database repeatedly, incurring severe disk I/O bottlenecks.<br>• <strong>PrefixSpan (Pei et al.):</strong> A pattern-growth algorithm that mines sequential patterns by recursively projecting sequence suffixes into smaller projected databases based on frequent prefixes. <strong>Zero candidate generation</strong>; dramatically smaller memory footprint and orders of magnitude faster execution!</div></div>
+
+<h2 class="section-title">Topic 36.2: Advanced Constraint-Based Mining & Multi-Level Association Rules</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Constraint Property</th>
+      <th style="width: 40%;">Formal Mathematical Invariant</th>
+      <th>Optimization in Mining Algorithms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Anti-Monotone</strong></td>
+      <td>$\forall S \supset S': \text{If } S' \text{ violates constraint } C \implies S \text{ must also violate } C$.</td>
+      <td>Can be pushed deep into candidate generation (e.g. $\text{sum}(S.\text{price}) \le 500$, $\text{Support}(S) \ge \text{min\_sup}$).</td>
+    </tr>
+    <tr>
+      <td><strong>Monotone</strong></td>
+      <td>$\forall S \supset S': \text{If } S' \text{ satisfies constraint } C \implies S \text{ must also satisfy } C$.</td>
+      <td>Once an itemset satisfies constraint (e.g. $\text{sum}(S.\text{price}) \ge 1000$), all its supersets are guaranteed valid!</td>
+    </tr>
+    <tr>
+      <td><strong>Succinct</strong></td>
+      <td>All and only itemsets satisfying $C$ can be explicitly generated upfront without testing (e.g. $\text{Item}.\text{Type} = \text{'Electronics'}$).</td>
+      <td>Pre-filters data before any mining begins; zero candidate testing overhead!</td>
+    </tr>
+    <tr>
+      <td><strong>Convertible</strong></td>
+      <td>A non-monotonic constraint becomes monotone or anti-monotone when items are arranged in a specific sorted order (e.g. $\text{avg}(S.\text{price}) \ge 50$ sorted by descending price).</td>
+      <td>Enables itemset pruning when combined with FP-Growth header sorting.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Multi-Level Association Rule Redundancy Filtering</div>
+  <p>Consider a product hierarchy where `Laptop` is a parent category of `Dell_XPS` and `Apple_MacBook`:</p>
+  <ul>
+    <li>Rule 1 (High-Level): $\text{Laptop} \implies \text{Mouse} \quad [\text{Support} = 10\%, \ \text{Confidence} = 70\%]$</li>
+    <li>Rule 2 (Low-Level): $\text{Dell\_XPS} \implies \text{Mouse} \quad [\text{Support} = 3\%, \ \text{Confidence} = 72\%]$</li>
+    <li>Rule 3 (Low-Level): $\text{Apple\_MacBook} \implies \text{Mouse} \quad [\text{Support} = 4\%, \ \text{Confidence} = 20\%]$</li>
+  </ul>
+  <p><strong>Redundancy Analysis:</strong></p>
+  <ul>
+    <li>Rule 2 has confidence ($72\%$) almost identical to its generalized ancestor Rule 1 ($70\%$). It provides NO new unexpected information $\implies \mathbf{\text{Rule 2 is REDUNDANT and should be pruned!}}$</li>
+    <li>Rule 3 has confidence ($20\%$) drastically lower than ancestor Rule 1 ($70\%$). It reveals a vital unexpected negative insight (Mac users buy trackpads or don't buy mice) $\implies \mathbf{\text{Rule 3 is HIGHLY INTERESTING and must be preserved!}}$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 36.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 4: Quantitative Association Rule Mining & Equi-Depth Binning</div>
+  <p>When transactional databases contain continuous numeric attributes (e.g., $\text{Age} \in [18, 80]$, $\text{Income} \in [\$10\text{k}, \$200\text{k}]$):</p>
+  <ul>
+    <li>Continuous attributes are discretized into intervals: $\text{Age} \in [20, 30], [31, 40], \dots$</li>
+    <li><strong>Equi-Width Binning:</strong> Divides the range into $k$ equal intervals $(\text{Width} = \frac{\max - \min}{k})$. Prone to severe skew if data clusters in few bins.</li>
+    <li><strong>Equi-Depth (Equal-Frequency) Binning:</strong> Divides data such that each bin contains exactly $N/k$ tuples, guaranteeing equal statistical representation!</li>
+    <li><strong>Rule Extraction:</strong> $\text{Age} \in [20, 29] \land \text{Income} \in [\$40\text{k}, \$60\text{k}] \implies \text{BuysCar: 'Yes'}$.</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Rare Itemset Mining and why standard Apriori fails to discover rare patterns. (8 Marks)</div><div class="qa-a">In domains like Credit Card Fraud Detection or Rare Disease Diagnosis, critical patterns occur with extremely low frequency (e.g., 0.01% support).<br>• <strong>The Rare Item Problem:</strong> If `min_support` is set high, rare fraudulent patterns are pruned and lost. If `min_support` is set very low, Apriori suffers combinatorial explosion generating millions of uninteresting common itemset candidates!<br>• <strong>Solution (MSApriori):</strong> Multiple Minimum Support Apriori assigns individual Minimum Item Support (MIS) thresholds to each item ($MIS(i)$), allowing rare items to participate in candidate generation with low thresholds while common items require high thresholds!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q4. Explain Hash-Based Itemset Counting in the DHP (Direct Hashing and Pruning) Algorithm. (8 Marks)</div><div class="qa-a"><strong>DHP (Park et al. 1995)</strong> accelerates Apriori Pass 2 by using a hash table to filter out candidate 2-itemsets during the Pass 1 database scan:<br>1. When reading a transaction $T$ during Pass 1, generate all 2-itemset combinations in $T$ and hash them into a fixed hash bucket table ($h(x, y) = (x \cdot 10 + y) \pmod H$).<br>2. Increment the bucket count.<br>3. In Pass 2, when joining $L_1 \Join L_1$, only generate candidate pair $\{A, B\}$ if its corresponding hash bucket count $\ge \text{min\_sup}$!<br>This prunes up to 90% of invalid 2-itemset candidates before the Pass 2 database scan even starts!</div></div>
+
+<h2 class="section-title">Topic 36.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 5: Complete FP-Tree Conditional Pattern Base Mining Trace</div>
+  <p>Consider frequent items in descending order: $L_1 = [f: 4, c: 4, a: 3, b: 3, m: 3, p: 3]$. Suppose we are mining patterns ending in suffix <strong>$p$</strong>:</p>
+  <ul>
+    <li>Paths leading to $p$ in FP-Tree: $\langle f, c, a, m: 2 \rangle$ and $\langle c, b: 1 \rangle$.</li>
+    <li><strong>Conditional Pattern Base for $p$:</strong> $\{ (f, c, a, m): 2, \ (c, b): 1 \}$.</li>
+    <li>Accumulate item frequencies: $f: 2, c: 3, a: 2, m: 2, b: 1$.</li>
+    <li>With $\text{min\_sup} = 3$, items $f, a, m, b$ are pruned ($< 3$). Only item $c$ remains ($\text{count} = 3 \ge 3$).</li>
+    <li><strong>Conditional FP-Tree for $p$:</strong> $\langle c: 3 \rangle$.</li>
+    <li><strong>Generated Frequent Patterns ending in $p$:</strong> $\{p\}: 3$ and $\{c, p\}: 3$.</li>
+  </ul>
+  $$\mathbf{\text{Result: Zero candidate generation required! Directly mined frequent itemset } \{c, p\} \text{ in } O(1) \text{ time!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the Apriori-Tid and Apriori-Hybrid Algorithms. (8 Marks)</div><div class="qa-a">• <strong>Apriori-Tid:</strong> Does NOT scan the raw transactional database after Pass 1. Instead, it generates a synthetic transactional table $\bar{C}_k$ storing tuple IDs alongside candidate itemset IDs. In late passes ($k \ge 3$), $\bar{C}_k$ becomes dramatically smaller than the original database, accelerating support counting.<br>• <strong>Apriori-Hybrid:</strong> Uses standard Apriori in early passes ($k=1, 2$) when $\bar{C}_k$ is larger than the raw database, and automatically switches to Apriori-Tid in later passes ($k \ge 3$) when candidate itemset lists shrink, achieving optimal execution speed!</div></div>
+
+<h2 class="section-title">Topic 36.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 6: Vertical Data Format Mining with ECLAT Algorithm Trace</div>
+  <p>Given transactional database ($N = 4$): $T_1 = \{A, B, C\}, T_2 = \{B, C, D\}, T_3 = \{A, C, D\}, T_4 = \{A, B, C, D\}$ with $\text{min\_sup} = 2$ ($50\%$):</p>
+  <ul>
+    <li><strong>Vertical TID-Lists ($k=1$):</strong>
+      <ul>
+        <li>$t(A) = \{1, 3, 4\} \ (\text{count}=3)$</li>
+        <li>$t(B) = \{1, 2, 4\} \ (\text{count}=3)$</li>
+        <li>$t(C) = \{1, 2, 3, 4\} \ (\text{count}=4)$</li>
+        <li>$t(D) = \{2, 3, 4\} \ (\text{count}=3)$</li>
+      </ul>
+    </li>
+    <li><strong>2-Itemset TID-List Intersections ($k=2$):</strong>
+      <ul>
+        <li>$t(AB) = t(A) \cap t(B) = \{1, 3, 4\} \cap \{1, 2, 4\} = \{1, 4\} \implies \text{count}=2 \ge 2$ (Frequent!)</li>
+        <li>$t(AC) = t(A) \cap t(C) = \{1, 3, 4\} \cap \{1, 2, 3, 4\} = \{1, 3, 4\} \implies \text{count}=3 \ge 2$ (Frequent!)</li>
+        <li>$t(AD) = t(A) \cap t(D) = \{1, 3, 4\} \cap \{2, 3, 4\} = \{3, 4\} \implies \text{count}=2 \ge 2$ (Frequent!)</li>
+        <li>$t(BC) = t(B) \cap t(C) = \{1, 2, 4\} \cap \{1, 2, 3, 4\} = \{1, 2, 4\} \implies \text{count}=3 \ge 2$ (Frequent!)</li>
+        <li>$t(BD) = t(B) \cap t(D) = \{1, 2, 4\} \cap \{2, 3, 4\} = \{2, 4\} \implies \text{count}=2 \ge 2$ (Frequent!)</li>
+        <li>$t(CD) = t(C) \cap t(D) = \{1, 2, 3, 4\} \cap \{2, 3, 4\} = \{2, 3, 4\} \implies \text{count}=3 \ge 2$ (Frequent!)</li>
+      </ul>
+    </li>
+    <li><strong>3-Itemset Intersections ($k=3$):</strong>
+      <ul>
+        <li>$t(ABC) = t(AB) \cap t(AC) = \{1, 4\} \cap \{1, 3, 4\} = \{1, 4\} \implies \text{count}=2 \ge 2$</li>
+        <li>$t(ABD) = t(AB) \cap t(AD) = \{1, 4\} \cap \{3, 4\} = \{4\} \implies \text{count}=1 < 2$ (Pruned!)</li>
+        <li>$t(ACD) = t(AC) \cap t(AD) = \{1, 3, 4\} \cap \{3, 4\} = \{3, 4\} \implies \text{count}=2 \ge 2$</li>
+        <li>$t(BCD) = t(BC) \cap t(BD) = \{1, 2, 4\} \cap \{2, 4\} = \{2, 4\} \implies \text{count}=2 \ge 2$</li>
+      </ul>
+    </li>
+  </ul>
+  $$\mathbf{\text{Frequent 3-Itemsets: } \{A, B, C\}, \ \{A, C, D\}, \ \{B, C, D\} \quad (\text{Computed in zero database scans!})}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain the Concept of Correlation Rules and Chi-Square Association Testing. (8 Marks)</div><div class="qa-a">Because Support-Confidence association rules can produce misleading deceptive correlations (when the consequent item is globally popular), <strong>Correlation Rules</strong> augment association mining by testing statistical independence using the Chi-Square metric:
+$$\mathbf{\chi^2 = \sum_{i \in \{A, \neg A\}} \sum_{j \in \{B, \neg B\}} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = \frac{N(O_{11}O_{22} - O_{12}O_{21})^2}{(O_{11}+O_{12})(O_{21}+O_{22})(O_{11}+O_{21})(O_{12}+O_{22})}}$$
+If $\chi^2 > 3.841$ (at $\alpha = 0.05, df=1$), the association rule $A \implies B$ is proven to possess genuine statistical correlation rather than accidental co-occurrence!</div></div>
+
+<h2 class="section-title">Topic 36.6: Complete Solved Laboratory Problem Bank on Association Rules</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 7: Association Rule Conviction & Leverage Calculations</div>
+  <p>In a database of 1000 transactions, $\text{Support}(A) = 0.20$, $\text{Support}(B) = 0.60$, $\text{Support}(A \cup B) = 0.18$:</p>
+  <ul>
+    <li>$\text{Confidence}(A \implies B) = \frac{0.18}{0.20} = \mathbf{0.90 = 90\%}$</li>
+    <li>$\text{Lift}(A \implies B) = \frac{0.90}{0.60} = \mathbf{1.50 > 1 \implies \text{Positive correlation}}$</li>
+    <li><strong>Leverage:</strong> $\text{Leverage} = P(A \cup B) - P(A)P(B) = 0.18 - (0.20)(0.60) = 0.18 - 0.12 = \mathbf{+0.06}$</li>
+    <li><strong>Conviction:</strong> $\text{Conviction} = \frac{1 - P(B)}{1 - \text{Conf}(A \implies B)} = \frac{1 - 0.60}{1 - 0.90} = \frac{0.40}{0.10} = \mathbf{4.00}$</li>
+    <li>$\text{Conviction} = 4.00$ implies that the rule would be incorrect 4 times more often if the association were purely accidental!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 11: Multi-Dimensional Association Rule Mining on Hybrid Relational Data</div>
+  <p>When mining rules across multiple database relations (e.g. `Customer`, `Account`, `Transaction`):</p>
+  <pre><code>Rule: age(X, "20..29") ∧ income(X, "40K..60K") ⇒ buys(X, "HDTV") [Support=2%, Confidence=60%]</code></pre>
+  <ul>
+    <li><strong>Quantitative Attributes Discretization:</strong> Age and Income are mapped to discrete intervals using equi-depth binning.</li>
+    <li><strong>Predicate Itemset Representation:</strong> Each (attribute, interval) pair is treated as an item in a multidimensional transaction table.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 12: Sequence Pattern Mining with PrefixSpan Projected Databases</div>
+  <p>PrefixSpan mines sequential patterns by projecting sequence suffixes into smaller projected databases, eliminating candidate generation entirely!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 11: Quantitative Association Mining with Clustering Pre-Discretization</div>
+  <p>Instead of arbitrary binning, cluster numeric values using 1D $k$-Means, replacing continuous coordinates with cluster membership labels before applying Apriori!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain Maximal Frequent Itemsets vs Closed Frequent Itemsets with Concrete Examples. (8 Marks)</div><div class="qa-a">Given frequent itemsets with supports: $\{A\}: 4, \{B\}: 4, \{C\}: 3, \{A, B\}: 4, \{A, C\}: 2$ with $\text{min\_sup}=2$:<br>• <strong>Closed Itemset:</strong> $\{A, B\}$ is closed (support 4) because no superset has support 4. $\{A\}$ is NOT closed because superset $\{A, B\}$ has the same support (4). $\{A, C\}$ is closed (support 2).<br>• <strong>Maximal Itemset:</strong> $\{A, B\}$ and $\{A, C\}$ are maximal because no supersets are frequent. Maximal representation is compact, but loses intermediate subset support counts!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: Correlation Rule Mining via Lift and Chi-Square Testing</div>
+  <p>In a dataset of $N = 1000$ retail transactions, $\text{count}(A) = 400, \text{count}(B) = 700, \text{count}(A \cup B) = 350$:</p>
+  <ul>
+    <li>$\text{Support}(A \implies B) = \frac{350}{1000} = \mathbf{35\%}$</li>
+    <li>$\text{Confidence}(A \implies B) = \frac{350}{400} = \mathbf{87.5\%}$</li>
+    <li>$\text{Lift}(A \implies B) = \frac{0.875}{0.700} = \mathbf{1.25 > 1 \implies \text{Genuine positive correlation!}}$</li>
+    <li>$\text{Leverage} = 0.35 - (0.40)(0.70) = 0.35 - 0.28 = \mathbf{+0.07}$</li>
+    <li>$\text{Conviction} = \frac{1 - 0.70}{1 - 0.875} = \frac{0.30}{0.125} = \mathbf{2.40}$</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q8. Detail the ECLAT Algorithm vs Apriori in Terms of Memory and Disk I/O. (8 Marks)</div><div class="qa-a">• <strong>Apriori:</strong> Low memory footprint per pass, but incurs heavy repeated disk I/O scanning the massive transactional database $k$ times.<br>• <strong>ECLAT:</strong> Reads the database only once to construct vertical TID lists, then performs fast bitwise AND intersections in RAM ($O(1)$ disk I/O). However, if transactions are long and item frequencies are high, storing millions of transaction IDs in memory can cause memory exhaustion!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Cross-Support Property & Hyperclique Pattern Mining</div>
+  <p>When items with vastly different support levels appear together (e.g. `Caviar` (support 0.1%) and `Milk` (support 80%)), standard confidence generates spurious cross-support rules:</p>
+  <ul>
+    <li><strong>H-Confidence Metric:</strong>
+      $$\mathbf{\text{h-conf}(X) = \frac{\text{Support}(X)}{\max_{i \in X} \text{Support}(\{i\})}}$$
+    </li>
+    <li>A pattern $X$ is a <strong>Hyperclique Pattern</strong> if $\text{h-conf}(X) \ge h_{\text{min}}$. Guarantees all items in the pattern have strong mutual affinity!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Multi-Dimensional Association Rules with Hybrid Quantitative Grid Discretization</div>
+  <p>Combines categorical attributes with numeric grid intervals to discover cross-domain rules: $\text{Age}(X, 20..29) \land \text{Occupation}(X, \text{'Engineer'}) \implies \text{Income}(X, \text{'High'}) \ [\text{Conf}=85\%]$.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: Constraint-Based Mining with Convertible Anti-Monotone Constraints</div>
+  <p>Given constraint $\text{avg}(S.\text{price}) \ge 50$. When items are sorted in descending order of price, if prefix subset $S'$ has $\text{avg}(S') < 50$, appending any further lower-priced items will only further decrease the average! The constraint becomes strictly anti-monotone and enables deep subtree pruning in FP-Growth!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 18: Hash-Tree Support Counting in Apriori Pass 3</div>
+  <p>To avoid checking every candidate itemset against all transactions, Apriori stores candidate $k$-itemsets in a <strong>Hash Tree</strong> where each internal node contains a hash function $h(item) = item \pmod B$. When matching a transaction $T$, the hash tree recursively routes subsets through matching hash buckets, checking candidates in $O(1)$ tree traversal time rather than linear scans!</p>
+</div>
+
+        
+        <div class="page-break"></div>
+        <div class="cover-container" style="margin-top: 40px;">
+          <div class="course-badge">Module 5 of 5</div>
+          <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">Module 5: Classification & Cluster Analysis</h2>
+          <div style="font-size: 12.5px; color: #64748b;">Topics 37 to 46 • ID3/C4.5/CART Trees, Naive Bayes, Confusion Matrix, k-Means, PAM & DBSCAN</div>
+        </div>
+        
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 5 Table of Contents (Topics 37 to 46)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 37:</strong> Classification vs. Prediction Overview</div>
+    <div>• <strong>Topic 38:</strong> Decision Tree Induction (ID3, C4.5, CART)</div>
+    <div>• <strong>Topic 39:</strong> Naive Bayes & Bayesian Belief Networks</div>
+    <div>• <strong>Topic 40:</strong> Instance-Based Learning (k-NN) & SVM</div>
+    <div>• <strong>Topic 41:</strong> Model Evaluation (Confusion Matrix, ROC, AUC)</div>
+    <div>• <strong>Topic 42:</strong> k-Means & k-Medoids (PAM) Partitioning</div>
+    <div>• <strong>Topic 43:</strong> Hierarchical Clustering (AGNES, DIANA, BIRCH)</div>
+    <div>• <strong>Topic 44:</strong> Density-Based Clustering (DBSCAN, OPTICS)</div>
+    <div>• <strong>Topic 45:</strong> Outlier Detection (Statistical, LOF, Isolation Forest)</div>
+    <div>• <strong>Topic 46:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 37 & 38: Decision Tree Induction (Entropy, Gain Ratio, Gini)</h2>
+
+<p>
+  <strong>Classification</strong> predicts discrete categorical class labels, whereas <strong>Numeric Prediction</strong> models continuous valued functions. Decision tree induction builds a flowchart-like tree structure where each internal node denotes an attribute test, each branch denotes a test outcome, and each leaf node holds a class label.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Algorithm</th>
+      <th style="width: 32%;">Splitting Criterion</th>
+      <th style="width: 25%;">Attribute Types</th>
+      <th>Pruning & Missing Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID3 (Quinlan 1986)</strong></td>
+      <td><strong>Information Gain:</strong> $\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$</td>
+      <td>Categorical only (No numeric support).</td>
+      <td>No pruning (prone to severe overfitting); cannot handle missing values.</td>
+    </tr>
+    <tr>
+      <td><strong>C4.5 (Quinlan 1993)</strong></td>
+      <td><strong>Gain Ratio:</strong> $\text{GainRatio}(S, A) = \frac{\text{Gain}(S, A)}{\text{SplitInfo}(S, A)}$</td>
+      <td>Categorical & Continuous (dynamic threshold splitting).</td>
+      <td>Post-pruning via Pessimistic Error Pruning (PEP); native fractional missing value imputation.</td>
+    </tr>
+    <tr>
+      <td><strong>CART (Breiman 1984)</strong></td>
+      <td><strong>Gini Impurity:</strong> $\text{Gini}(S) = 1 - \sum_{i=1}^m p_i^2 \implies \text{Strictly Binary Trees}$</td>
+      <td>Categorical & Continuous.</td>
+      <td>Cost-Complexity Pruning with cross-validation; surrogate splits for missing data.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: ID3 vs. CART Splitting Calculations</div>
+  <p>A dataset $S$ has 14 instances: 9 "Yes" and 5 "No". Attribute <strong>Wind</strong> has values $\{\text{Weak: } [6\text{ Yes}, 2\text{ No}], \text{Strong: } [3\text{ Yes}, 3\text{ No}]\}$.</p>
+  <p><strong>1. Base Entropy $H(S)$ and Information Gain (ID3):</strong></p>
+  $$H(S) = - \left( \frac{9}{14}\log_2\frac{9}{14} + \frac{5}{14}\log_2\frac{5}{14} \right) = - [0.6429(-0.6374) + 0.3571(-1.4854)] = 0.4098 + 0.5305 = \mathbf{0.9403 \text{ bits}}$$
+  $$H(S_{\text{Weak}}) = - \left( \frac{6}{8}\log_2\frac{6}{8} + \frac{2}{8}\log_2\frac{2}{8} \right) = - [0.75(-0.415) + 0.25(-2.0)] = 0.3113 + 0.5000 = \mathbf{0.8113 \text{ bits}}$$
+  $$H(S_{\text{Strong}}) = - \left( \frac{3}{6}\log_2\frac{3}{6} + \frac{3}{6}\log_2\frac{3}{6} \right) = \mathbf{1.0000 \text{ bits}}$$
+  $$\mathbf{\text{Gain}(S, \text{Wind}) = 0.9403 - \left[ \frac{8}{14}(0.8113) + \frac{6}{14}(1.0000) \right] = 0.9403 - [0.4636 + 0.4286] = \mathbf{0.0481 \text{ bits}}}$$
+
+  <p><strong>2. Gini Impurity (CART):</strong></p>
+  $$\text{Gini}(S) = 1 - \left[ \left(\frac{9}{14}\right)^2 + \left(\frac{5}{14}\right)^2 \right] = 1 - [0.4133 + 0.1276] = 1 - 0.5409 = \mathbf{0.4591}$$
+  $$\text{Gini}(S_{\text{Weak}}) = 1 - \left[ \left(\frac{6}{8}\right)^2 + \left(\frac{2}{8}\right)^2 \right] = 1 - [0.5625 + 0.0625] = \mathbf{0.3750}$$
+  $$\text{Gini}(S_{\text{Strong}}) = 1 - \left[ \left(\frac{3}{6}\right)^2 + \left(\frac{3}{6}\right)^2 \right] = 1 - [0.25 + 0.25] = \mathbf{0.5000}$$
+  $$\mathbf{\Delta\text{Gini}(S, \text{Wind}) = 0.4591 - \left[ \frac{8}{14}(0.3750) + \frac{6}{14}(0.5000) \right] = 0.4591 - [0.2143 + 0.2143] = \mathbf{0.0305}}$$
+</div>
+
+<h2 class="section-title">Topic 41: Model Evaluation Metrics (Confusion Matrix, ROC, AUC)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Evaluation Metric</th>
+      <th style="width: 45%;">Mathematical Formulation</th>
+      <th>Key Focus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Accuracy</strong></td>
+      <td>$$\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}$$</td>
+      <td>Overall correctness; misleading in imbalanced datasets!</td>
+    </tr>
+    <tr>
+      <td><strong>Sensitivity / Recall (TPR)</strong></td>
+      <td>$$\text{Sensitivity} = \frac{TP}{TP + FN} = \frac{\text{Positives Correctly Identified}}{\text{Actual Positives}}$$</td>
+      <td>Critical in disease diagnosis (minimizing False Negatives).</td>
+    </tr>
+    <tr>
+      <td><strong>Specificity (TNR)</strong></td>
+      <td>$$\text{Specificity} = \frac{TN}{TN + FP} = \frac{\text{Negatives Correctly Identified}}{\text{Actual Negatives}}$$</td>
+      <td>True negative rate (FPR = $1 - \text{Specificity}$).</td>
+    </tr>
+    <tr>
+      <td><strong>Precision (PPV)</strong></td>
+      <td>$$\text{Precision} = \frac{TP}{TP + FP} = \frac{\text{True Positives}}{\text{Predicted Positives}}$$</td>
+      <td>Critical in fraud detection & search ranking.</td>
+    </tr>
+    <tr>
+      <td><strong>$F_1$-Score</strong></td>
+      <td>$$F_1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 TP}{2 TP + FP + FN}$$</td>
+      <td>Harmonic mean balancing precision and recall.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 42 to 45: Clustering Paradigms & Density-Based DBSCAN</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Clustering Paradigm</th>
+      <th style="width: 38%;">Core Algorithm</th>
+      <th>Key Strengths & Cluster Shapes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Partitioning Methods</strong></td>
+      <td><strong>k-Means:</strong> Minimizes Sum of Squared Errors (SSE); <strong>k-Medoids (PAM):</strong> Uses actual medoid points (robust to outliers).</td>
+      <td>Fast ($O(t k N)$); restricted strictly to spherical, convex clusters of equal density.</td>
+    </tr>
+    <tr>
+      <td><strong>Hierarchical Methods</strong></td>
+      <td><strong>AGNES (Agglomerative):</strong> Bottom-up tree; <strong>DIANA (Divisive):</strong> Top-down; <strong>BIRCH:</strong> CF-Tree for massive datasets.</td>
+      <td>Produces dendrogram hierarchy; no need to specify $k$ upfront; irreversible merges $O(N^2)$.</td>
+    </tr>
+    <tr>
+      <td><strong>Density-Based Methods</strong></td>
+      <td><strong>DBSCAN:</strong> Clusters are continuous dense regions separated by low-density noise regions ($\epsilon, \text{MinPts}$).</td>
+      <td>Discovers <strong>arbitrary non-convex shapes</strong>; automatically detects and filters noise outliers!</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The DBSCAN Density Formalism</div>
+  <ul>
+    <li><strong>$\epsilon$-Neighborhood:</strong> $N_\epsilon(p) = \{ q \in D \mid \text{dist}(p, q) \le \epsilon \}$.</li>
+    <li><strong>Core Point:</strong> Point $p$ is a Core Point if $|N_\epsilon(p)| \ge \text{MinPts}$.</li>
+    <li><strong>Directly Density-Reachable:</strong> Point $q$ is directly density-reachable from $p$ if $q \in N_\epsilon(p)$ and $p$ is a Core Point.</li>
+    <li><strong>Density-Reachable:</strong> Point $q$ is density-reachable from $p$ if there exists a chain of core points $p_1, \dots, p_k$ where $p_1 = p, p_k = q$.</li>
+    <li><strong>Density-Connected:</strong> Points $p$ and $q$ are density-connected if there exists a common core point $o$ such that both $p$ and $q$ are density-reachable from $o$.</li>
+    <li><strong>Noise Outlier:</strong> Any point that is neither a core point nor density-reachable from any core point.</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 46: Master University Examination Solved Question Bank</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Trace k-Means Clustering on 1D points: $\{2, 4, 10, 12, 3, 20, 30, 11, 25\}$ for $k=2$ with initial seeds $m_1 = 2, m_2 = 4$. (10 Marks)</div><div class="qa-a"><strong>Iteration 1:</strong><br>- Distance to $m_1=2$ vs $m_2=4$: Points $\{2, 3\}$ assigned to $C_1$; Points $\{4, 10, 12, 20, 30, 11, 25\}$ assigned to $C_2$.<br>- Update Means: $m_1 = \frac{2+3}{2} = \mathbf{2.5}$; $m_2 = \frac{4+10+12+20+30+11+25}{7} = \frac{112}{7} = \mathbf{16.0}$.<br><strong>Iteration 2:</strong><br>- Points closer to $2.5$: $\{2, 3, 4\} \implies m_1 = \frac{2+3+4}{3} = \mathbf{3.0}$.<br>- Points closer to $16.0$: $\{10, 11, 12, 20, 25, 30\} \implies m_2 = \frac{10+11+12+20+25+30}{6} = \frac{108}{6} = \mathbf{18.0}$.<br><strong>Iteration 3:</strong><br>- Points closer to $3.0$: $\{2, 3, 4, 10\} \dots$ mid-point $\frac{3+18}{2} = 10.5 \implies$ Point $10$ joins $C_1 \implies C_1 = \{2, 3, 4, 10\} \ (m_1 = 4.75); \ C_2 = \{11, 12, 20, 25, 30\} \ (m_2 = 19.6)$.<br><strong>Iteration 4:</strong> Midpoint $\frac{4.75+19.6}{2} = 12.175 \implies$ Point $11, 12$ join $C_1 \implies C_1 = \{2, 3, 4, 10, 11, 12\} \ (m_1 = 7.0); \ C_2 = \{20, 25, 30\} \ (m_2 = 25.0)$.<br><strong>Iteration 5:</strong> Midpoint $\frac{7.0+25.0}{2} = 16.0$. Assignments remain unchanged. <strong>Converged!</strong></div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Explain the Local Outlier Factor (LOF) Density-Based Outlier Detection Algorithm. (8 Marks)</div><div class="qa-a">Unlike global distance methods, <strong>LOF (Breunig et al. 2000)</strong> detects outliers by comparing the local density of an object with the densities of its $k$-nearest neighbors:<br>1. <strong>$k$-Distance of $p$:</strong> Distance $d(p, o)$ to its $k$-th nearest neighbor.<br>2. <strong>Reachability Distance:</strong> $\text{reach-dist}_k(p, o) = \max(k\text{-distance}(o), d(p, o))$.<br>3. <strong>Local Reachability Density (lrd):</strong> $\text{lrd}_k(p) = \frac{|N_k(p)|}{\sum_{o \in N_k(p)} \text{reach-dist}_k(p, o)}$.<br>4. <strong>LOF Score:</strong> $\text{LOF}_k(p) = \frac{\sum_{o \in N_k(p)} \frac{\text{lrd}(o)}{\text{lrd}(p)}}{|N_k(p)|}$.<br>- $\text{LOF} \approx 1$: Point is inside a homogeneous cluster.<br>- $\text{LOF} \gg 1$: Point has significantly lower density than its neighbors $\implies \mathbf{\text{Local Outlier!}}$</div></div>
+
+<h2 class="section-title">Topic 46.1: Cluster Validity Indices & Support Vector Machine Math</h2>
+
+<div class="formula-card">
+  <strong>The Silhouette Coefficient for Clustering Validation:</strong>
+  For each data point $i$:
+  - Let $a(i)$ = average distance from $i$ to all other points in the <strong>same cluster</strong> (Compactness).
+  - Let $b(i)$ = minimum average distance from $i$ to all points in any <strong>other cluster</strong> (Separation).
+  $$\mathbf{s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))} \qquad s(i) \in [-1, +1]}$$
+  - $s(i) \approx +1$: Point is exceptionally well clustered (compact and well-separated).
+  - $s(i) \approx 0$: Point lies exactly on the decision boundary between two clusters.
+  - $s(i) < 0$: Point is assigned to the wrong cluster!
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Silhouette Score Calculation on 2 Clusters</div>
+  <p>Consider 4 points: $C_1 = \{P_1(0, 0), P_2(1, 0)\}$, $C_2 = \{P_3(5, 0), P_4(6, 0)\}$. Calculate Silhouette score for $P_1$:</p>
+  <ul>
+    <li>Intra-cluster distance: $a(P_1) = d(P_1, P_2) = 1.0$.</li>
+    <li>Inter-cluster distance to $C_2$: $b(P_1) = \frac{d(P_1, P_3) + d(P_1, P_4)}{2} = \frac{5.0 + 6.0}{2} = \mathbf{5.5}$.</li>
+  </ul>
+  $$\mathbf{s(P_1) = \frac{b(P_1) - a(P_1)}{\max(a(P_1), b(P_1))} = \frac{5.5 - 1.0}{\max(1.0, 5.5)} = \frac{4.5}{5.5} = \mathbf{+0.8182}}$$
+  $$\mathbf{\text{Result: High positive Silhouette score (+0.818) indicates near-optimal cluster assignment!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Compare Agglomerative Hierarchical Linkage Criteria: Single Link, Complete Link, Average Link, and Ward's Method. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Linkage Criterion</th><th>Distance Formulation</th><th>Cluster Shape & Properties</th></tr></thead><tbody><tr><td><strong>Single Link (MIN)</strong></td><td>$d(C_i, C_j) = \min_{\mathbf{x} \in C_i, \mathbf{y} \in C_j} d(\mathbf{x}, \mathbf{y})$</td><td>Can handle non-elliptical shapes; highly sensitive to noise and <strong>chaining effect</strong> (elongated stringy clusters).</td></tr><tr><td><strong>Complete Link (MAX)</strong></td><td>$d(C_i, C_j) = \max_{\mathbf{x} \in C_i, \mathbf{y} \in C_j} d(\mathbf{x}, \mathbf{y})$</td><td>Produces compact, spherical clusters of equal diameter; avoids chaining; sensitive to outliers.</td></tr><tr><td><strong>Average Link (UPGMA)</strong></td><td>$d(C_i, C_j) = \frac{1}{|C_i||C_j|}\sum_{\mathbf{x}} \sum_{\mathbf{y}} d(\mathbf{x}, \mathbf{y})$</td><td>Robust balance between single and complete link; resistant to noise.</td></tr><tr><td><strong>Ward's Method</strong></td><td>Merges pair that minimizes increase in total within-cluster Sum of Squared Errors ($\Delta\text{SSE}$).</td><td>Produces exceptionally balanced, dense spherical clusters (most popular in business analytics).</td></tr></tbody></table></div></div>
+
+<h2 class="section-title">Topic 46.2: Advanced Ensemble Learning & Density-Based OPTICS Algorithm</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Ensemble Method</th>
+      <th style="width: 40%;">Core Algorithmic Paradigm</th>
+      <th>Variance vs. Bias Reduction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bagging (Bootstrap Aggregating)</strong></td>
+      <td>Trains $B$ independent base models (e.g. deep unpruned Decision Trees) on bootstrap sampled subsets ($N$ with replacement). Averages predictions (regression) or takes majority vote (classification).</td>
+      <td><strong>Dramatically reduces Variance</strong> without increasing bias (e.g. Random Forests).</td>
+    </tr>
+    <tr>
+      <td><strong>Boosting (AdaBoost / GBM / XGBoost)</strong></td>
+      <td>Trains a sequence of weak learners iteratively. Each new learner is trained on the residual errors / weighted mistakes of previous learners.</td>
+      <td><strong>Dramatically reduces Bias</strong> and variance; prone to overfitting on heavy noise.</td>
+    </tr>
+    <tr>
+      <td><strong>Stacking (Stacked Generalization)</strong></td>
+      <td>Trains multiple heterogeneous base models (SVM, Random Forest, k-NN); uses a meta-classifier (e.g. Logistic Regression) to learn optimal combination weights.</td>
+      <td>Maximizes generalization performance by combining diverse hypothesis spaces.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: The OPTICS (Ordering Points To Identify Clustering Structure) Algorithm</div>
+  <p>Unlike DBSCAN (which requires a single rigid global radius $\epsilon$), <strong>OPTICS (Ankerst et al. 1999)</strong> creates an ordered list of points storing two dynamic distance attributes:</p>
+  <ul>
+    <li><strong>Core-Distance of $p$:</strong> The smallest distance $\epsilon'$ such that $p$ is a core point with respect to $\text{MinPts}$:
+      $$\mathbf{\text{core-dist}_{\epsilon, \text{MinPts}}(p) = \begin{cases} \text{UNDEFINED} & \text{if } |N_\epsilon(p)| < \text{MinPts} \\ \text{Distance to } \text{MinPts}\text{-th nearest neighbor} & \text{otherwise} \end{cases}}$$
+    </li>
+    <li><strong>Reachability-Distance of $p$ from $o$:</strong>
+      $$\mathbf{\text{reach-dist}_{\epsilon, \text{MinPts}}(p, o) = \begin{cases} \text{UNDEFINED} & \text{if } |N_\epsilon(o)| < \text{MinPts} \\ \max(\text{core-dist}(o), \text{dist}(o, p)) & \text{otherwise} \end{cases}}$$
+    </li>
+  </ul>
+  <p><em>Reachability Plot:</em> Plotting reachability distances in the OPTICS ordering produces valleys corresponding to dense clusters and peaks corresponding to noise dividers, revealing hierarchical multi-density cluster structures across all $\epsilon$ simultaneously!</p>
+</div>
+
+<h2 class="section-title">Topic 46.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 5: Naive Bayes Classification with Laplace Smoothing Calculation</div>
+  <p>A training dataset has 10 samples: 6 Class $C_1$ and 4 Class $C_2$. An attribute <strong>Color</strong> has values $\{\text{Red, Green, Blue}\}$. In class $C_1$, $\text{count}(\text{Red}) = 0, \text{count}(\text{Green}) = 4, \text{count}(\text{Blue}) = 2$.</p>
+  <p><strong>1. Zero-Frequency Problem (Without Smoothing):</strong></p>
+  $$P(\text{Red} \mid C_1) = \frac{0}{6} = 0 \implies \text{Total posterior } P(C_1 \mid \text{Red}, \dots) = 0 \quad (\text{Wipes out all evidence!})$$
+  <p><strong>2. Laplace (Add-1) Smoothing ($k = 3$ attribute values):</strong></p>
+  $$\mathbf{P(\text{Red} \mid C_1) = \frac{\text{count}(\text{Red}) + 1}{|C_1| + k} = \frac{0 + 1}{6 + 3} = \frac{1}{9} = \mathbf{0.1111}}$$
+  $$\mathbf{P(\text{Green} \mid C_1) = \frac{4 + 1}{6 + 3} = \frac{5}{9} = \mathbf{0.5556} \qquad P(\text{Blue} \mid C_1) = \frac{2 + 1}{6 + 3} = \frac{3}{9} = \mathbf{0.3333}}$$
+  $$\mathbf{\text{Sum of Smoothed Probabilities: } \frac{1}{9} + \frac{5}{9} + \frac{3}{9} = \frac{9}{9} = \mathbf{1.0000 \quad (Strictly Valid!)}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Compare k-Means Clustering with Gaussian Mixture Models (GMM) and Expectation-Maximization (EM). (8 Marks)</div><div class="qa-a">• <strong>k-Means:</strong> Hard clustering (each point belongs strictly to exactly one cluster with probability 1 or 0), assumes spherical clusters of equal variance, minimizes Euclidean SSE.<br>• <strong>GMM with EM:</strong> <strong>Soft (Probabilistic) Clustering</strong> where each data point has a posterior membership probability $\gamma_{ik} \in [0, 1]$ across all $K$ Gaussian components ($\sum_k \gamma_{ik} = 1$). GMM learns arbitrary ellipsoidal covariance matrices $\mathbf{\Sigma}_k$ with varying cluster orientations, densities, and scales!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the Davies-Bouldin Index (DBI) for Evaluating Clustering Quality. (8 Marks)</div><div class="qa-a">The <strong>Davies-Bouldin Index (DBI)</strong> measures clustering quality based on the ratio of within-cluster scatter ($S_i$) to between-cluster separation ($R_{ij}$):
+$$\mathbf{\text{DBI} = \frac{1}{k} \sum_{i=1}^k \max_{j \neq i} \left( \frac{S_i + S_j}{M_{ij}} \right)}$$
+Where $S_i$ is the average distance from points in cluster $i$ to their centroid $c_i$, and $M_{ij} = \|c_i - c_j\|$ is the distance between centroids. <strong>A lower DBI value indicates better clustering</strong> (tighter compactness and wider separation)!</div></div>
+
+<h2 class="section-title">Topic 46.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 6: Complete Confusion Matrix & ROC Curve Coordinates Calculation</div>
+  <p>A binary classifier produces probabilities for 5 test samples: $(S_1: 0.9, +), (S_2: 0.8, +), (S_3: 0.6, -), (S_4: 0.4, +), (S_5: 0.1, -)$ ($P=3, N=2$):</p>
+  <table class="custom-table">
+    <thead><tr><th>Threshold $T$</th><th>Predictions $(\hat{Y})$</th><th>$TP$</th><th>$FP$</th><th>$\text{TPR} = \frac{TP}{3}$</th><th>$\text{FPR} = \frac{FP}{2}$</th><th>ROC Point $(x, y)$</th></tr></thead>
+    <tbody>
+      <tr><td>$> 0.9$</td><td>$[- - - - -]$</td><td>0</td><td>0</td><td>$0.00$</td><td>$0.00$</td><td>$(0, 0)$</td></tr>
+      <tr><td>$0.85$</td><td>$[+ - - - -]$</td><td>1</td><td>0</td><td>$0.33$</td><td>$0.00$</td><td>$(0, 0.33)$</td></tr>
+      <tr><td>$0.70$</td><td>$[+ + - - -]$</td><td>2</td><td>0</td><td>$0.67$</td><td>$0.00$</td><td>$(0, 0.67)$</td></tr>
+      <tr><td>$0.50$</td><td>$[+ + + - -]$</td><td>2</td><td>1</td><td>$0.67$</td><td>$0.50$</td><td>$(0.50, 0.67)$</td></tr>
+      <tr><td>$0.30$</td><td>$[+ + + + -]$</td><td>3</td><td>1</td><td>$1.00$</td><td>$0.50$</td><td>$(0.50, 1.00)$</td></tr>
+      <tr><td>$< 0.1$</td><td>$[+ + + + +]$</td><td>3</td><td>2</td><td>$1.00$</td><td>$1.00$</td><td>$(1.00, 1.00)$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Area Under the Curve (AUC) by Trapezoidal Rule:</strong></p>
+  $$\text{AUC} = (0.50 - 0)(0.67) + (1.00 - 0.50)\left(\frac{1.00 + 0.67}{2}\right) = 0.335 + 0.50(0.835) = 0.335 + 0.4175 = \mathbf{0.7525}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain BIRCH (Balanced Iterative Reducing and Clustering using Hierarchies) Algorithm and Clustering Feature (CF) Trees. (8 Marks)</div><div class="qa-a"><strong>BIRCH (Zhang, Ramakrishnan, Livny 1996)</strong> clusters massive datasets in a single database scan using <strong>Clustering Feature (CF) Vectors</strong>:
+$$\mathbf{CF = \langle N, \mathbf{LS}, SS \rangle = \langle N, \sum_{i=1}^N \mathbf{x}_i, \sum_{i=1}^N \mathbf{x}_i^2 \rangle}$$
+• <strong>Additivity Theorem:</strong> $CF_1 + CF_2 = \langle N_1+N_2, \mathbf{LS}_1+\mathbf{LS}_2, SS_1+SS_2 \rangle$.<br>• <strong>CF-Tree:</strong> A height-balanced B-tree storing CF vectors. Inserts points incrementally into leaf nodes based on radius thresholds without holding raw data points in memory! Runs in linear time $O(N)$!</div></div>
+
+<h2 class="section-title">Topic 46.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 7: Complete Support Vector Machine (SVM) Margin & Hyperplane Equations</div>
+  <p>Given 3 support vectors in 2D space: $\mathbf{x}_1 = (1, 1)^T, y_1 = -1$; $\mathbf{x}_2 = (2, 0)^T, y_2 = -1$; $\mathbf{x}_3 = (2, 3)^T, y_3 = +1$:</p>
+  <ul>
+    <li>Normal weight vector: $\mathbf{w} = (0, 1.5)^T$.</li>
+    <li>Bias intercept: $b = -3.5$.</li>
+    <li><strong>Optimal Separating Hyperplane:</strong> $\mathbf{w}^T \mathbf{x} + b = 0 \implies 0(x_1) + 1.5(x_2) - 3.5 = 0 \implies \mathbf{x_2 = 2.333}$.</li>
+    <li><strong>Margin Width ($M$):</strong>
+      $$\mathbf{M = \frac{2}{\|\mathbf{w}\|} = \frac{2}{\sqrt{0^2 + 1.5^2}} = \frac{2}{1.5} = \mathbf{1.3333 \text{ units}}}$$
+    </li>
+    <li><strong>Classification Decision Rule:</strong>
+      $$f(\mathbf{x}) = \text{sign}(1.5 x_2 - 3.5) = \begin{cases} +1 & \text{if } x_2 \ge 2.333 \\ -1 & \text{if } x_2 < 2.333 \end{cases}$$
+    </li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain the Density-Based Spatial Clustering of Applications with Noise (DBSCAN) Time Complexity and Spatial Indexing. (8 Marks)</div><div class="qa-a">• <strong>Naive Complexity:</strong> Without spatial indexing, finding the $\epsilon$-neighborhood for all $N$ points requires computing $N \times N$ pairwise distance comparisons $\implies O(N^2)$ time complexity.<br>• <strong>Spatial Indexing Acceleration:</strong> Using $R^*$-Trees, $k$-d Trees, or Ball Trees to index spatial coordinates reduces $\epsilon$-range query lookups from $O(N)$ to $O(\log N)$, slashing overall DBSCAN execution complexity to $\mathbf{O(N \log N)}$!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q8. Detail the Isolation Forest Algorithm for Fast Outlier Detection. (8 Marks)</div><div class="qa-a"><strong>Isolation Forest (Liu et al. 2008)</strong> detects anomalies by explicitly isolating outliers rather than profiling normal data points:<br>1. Randomly build an ensemble of $t$ Isolation Trees (iTrees) by recursively choosing a random feature and selecting a random split value between $\min$ and $\max$.<br>2. <strong>Core Axiom:</strong> Anomalies require far fewer random splits to isolate than normal cluster points, resulting in drastically shorter tree path lengths $h(x)$!<br>3. <strong>Anomaly Score:</strong> $s(x, n) = 2^{-\frac{\mathbb{E}[h(x)]}{c(n)}}$. If $s \rightarrow 1$, instance is definitively an outlier. Runs in blazing fast linear time $O(t \cdot \psi \log \psi)$!</div></div>
+
+<h2 class="section-title">Topic 46.6: Complete Solved Laboratory Problem Bank on Clustering & Classification</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 8: k-Medoids Partitioning Around Medoids (PAM) Execution Step</div>
+  <p>Given 5 objects with pairwise $L_1$ distances: $P_1(1, 1), P_2(2, 2), P_3(3, 3), P_4(8, 8), P_5(9, 9)$. Initial medoids $M_1 = P_2(2, 2), M_2 = P_4(8, 8)$:</p>
+  <ul>
+    <li>Initial Total Cost = $d(P_1, P_2) + d(P_3, P_2) + d(P_5, P_4) = (|1-2|+|1-2|) + (|3-2|+|3-2|) + (|9-8|+|9-8|) = 2 + 2 + 2 = \mathbf{6.0}$.</li>
+    <li>Swap $P_2$ with non-medoid candidate $P_3(3, 3)$:</li>
+    <li>New Cost = $d(P_1, P_3) + d(P_2, P_3) + d(P_5, P_4) = 4 + 2 + 2 = \mathbf{8.0}$.</li>
+    <li>$\Delta\text{Cost} = 8.0 - 6.0 = +2.0 > 0 \implies \mathbf{\text{Reject swap! Keep } P_2 \text{ as medoid!}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: Cost-Complexity Tree Pruning ($Minimal \alpha$ Subtree Selection)</div>
+  <p>In CART decision trees, the cost-complexity measure for subtree $T$ with parameter $\alpha \ge 0$ is:</p>
+  $$\mathbf{R_\alpha(T) = R(T) + \alpha |T|}$$
+  <p>Where $R(T)$ is the misclassification error rate and $|T|$ is the number of leaf nodes. By calculating $\alpha = \frac{R(t) - R(T_t)}{|T_t| - 1}$ for each internal node $t$, CART prunes nodes that produce the smallest error increase per leaf saved!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Non-Linear Kernel Support Vector Machine (RBF Gaussian Kernel)</div>
+  <p>The Radial Basis Function (RBF) kernel is formulated as:</p>
+  $$\mathbf{K(\mathbf{x}, \mathbf{y}) = \exp\left( - \gamma \|\mathbf{x} - \mathbf{y}\|^2 \right) = \exp\left( - \frac{\|\mathbf{x} - \mathbf{y}\|^2}{2\sigma^2} \right)}$$
+  <p>Maps input points into an <em>infinite-dimensional Hilbert space</em>, allowing linear separation of any arbitrary non-linear dataset!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 12: Grid-Based Spatial Clustering with STING Algorithm</div>
+  <p><strong>STING (Statistical Information Grid - Wang et al. 1997)</strong> divides spatial area into hierarchical rectangular cells at multiple resolution levels. Stores statistical parameters ($\text{count } n, \text{mean } m, \text{standard deviation } s, \min, \max$, distribution type) in each grid cell. Queries execute in blazing fast $O(K)$ time (where $K$ is number of grid cells at bottom layer), completely independent of total dataset size $N$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Decision Tree Pruning via Pessimistic Error Estimation (PEP)</div>
+  <p>In C4.5, a subtree $T$ with $L$ leaves and $E$ training errors has pessimistic error estimate:</p>
+  $$\mathbf{E_{\text{pessimistic}}(T) = E + \frac{L}{2} + 1.96 \sqrt{\frac{(E + L/2)(N - E - L/2)}{N}}}$$
+  <p>If the pessimistic error of collapsing the subtree into a single leaf node is lower than keeping the complex subtree, C4.5 prunes the subtree, improving generalization on unseen test data!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Complete Naive Bayes Full Likelihood Table Proof</div>
+  <p>Given prior probabilities $P(\text{Play}=\text{Yes}) = \frac{9}{14}, P(\text{Play}=\text{No}) = \frac{5}{14}$, and evidence $X = (\text{Outlook}=\text{Sunny}, \text{Temp}=\text{Cool}, \text{Humidity}=\text{High}, \text{Wind}=\text{Strong})$:</p>
+  $$P(X \mid \text{Yes}) = \left(\frac{2}{9}\right) \left(\frac{3}{9}\right) \left(\frac{3}{9}\right) \left(\frac{3}{9}\right) = \frac{2 \times 3 \times 3 \times 3}{6561} = \frac{54}{6561} \approx \mathbf{0.00823}$$
+  $$P(X \mid \text{No}) = \left(\frac{3}{5}\right) \left(\frac{1}{5}\right) \left(\frac{4}{5}\right) \left(\frac{3}{5}\right) = \frac{3 \times 1 \times 4 \times 3}{625} = \frac{36}{625} = \mathbf{0.05760}$$
+  $$\mathbf{P(X, \text{Yes}) = 0.00823 \times \frac{9}{14} = \mathbf{0.00529} \qquad P(X, \text{No}) = 0.05760 \times \frac{5}{14} = \mathbf{0.02057}}$$
+  $$\mathbf{\text{Posterior: } P(\text{No} \mid X) = \frac{0.02057}{0.00529 + 0.02057} = \frac{0.02057}{0.02586} = \mathbf{79.54\% \implies \text{Predict: NO PLAY!}}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: Multi-Class Support Vector Machine (One-vs-Rest vs One-vs-One)</div>
+  <p>• <strong>One-vs-Rest (OvR):</strong> Trains $K$ binary classifiers separating class $k$ from all other $K-1$ classes combined. Fast ($K$ models), but sensitive to class imbalance.<br>• <strong>One-vs-One (OvO):</strong> Trains $\frac{K(K-1)}{2}$ binary classifiers separating all pairwise combinations. Slower training, but each classifier is trained on balanced subsets!</p>
+</div>
+
+        
+<div class="page-break"></div>
+<div class="cover-container" style="margin-top: 40px;">
+  <div class="course-badge">Hands-On Practical Lab Master Appendix</div>
+  <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">Data Mining Laboratory & Python Implementation Master Guide</h2>
+  <div style="font-size: 12.5px; color: #64748b;">Complete Python Algorithms for Apriori Association Rules, Decision Tree Classification & DBSCAN Clustering</div>
+</div>
+
+<h2 class="section-title">Lab Experiment 1: Production-Grade Apriori Algorithm Implementation in Python</h2>
+
+<pre><code class="language-python">import pandas as pd
+from itertools import combinations
+
+def get_frequent_1_itemsets(transactions, min_sup_count):
+    item_counts = {}
+    for transaction in transactions:
+        for item in transaction:
+            item_counts[frozenset([item])] = item_counts.get(frozenset([item]), 0) + 1
+    return {item: count for item, count in item_counts.items() if count >= min_sup_count}
+
+def apriori_gen(Lk_minus_1, k):
+    candidates = set()
+    lk_list = list(Lk_minus_1.keys())
+    for i in range(len(lk_list)):
+        for j in range(i + 1, len(lk_list)):
+            union_set = lk_list[i] | lk_list[j]
+            if len(union_set) == k:
+                subsets = [frozenset(s) for s in combinations(union_set, k - 1)]
+                if all(s in Lk_minus_1 for s in subsets):
+                    candidates.add(union_set)
+    return candidates
+
+def run_apriori(dataset, min_support=0.4):
+    num_trans = len(dataset)
+    min_sup_count = min_support * num_trans
+    L1 = get_frequent_1_itemsets(dataset, min_sup_count)
+    
+    all_frequent = dict(L1)
+    current_L = L1
+    k = 2
+    
+    while current_L:
+        candidates = apriori_gen(current_L, k)
+        candidate_counts = {}
+        for trans in dataset:
+            trans_set = set(trans)
+            for cand in candidates:
+                if cand.issubset(trans_set):
+                    candidate_counts[cand] = candidate_counts.get(cand, 0) + 1
+        
+        current_L = {cand: count for cand, count in candidate_counts.items() if count >= min_sup_count}
+        all_frequent.update(current_L)
+        k += 1
+        
+    return all_frequent
+
+# Example Run
+dataset = [
+    ['Milk', 'Onion', 'Nutmeg', 'Kidney_Beans', 'Eggs', 'Yogurt'],
+    ['Dill', 'Onion', 'Nutmeg', 'Kidney_Beans', 'Eggs', 'Yogurt'],
+    ['Milk', 'Apple', 'Kidney_Beans', 'Eggs'],
+    ['Milk', 'Unicorn', 'Corn', 'Kidney_Beans', 'Yogurt'],
+    ['Corn', 'Onion', 'Onion', 'Kidney_Beans', 'Ice_cream', 'Eggs']
+]
+
+frequent_patterns = run_apriori(dataset, min_support=0.6)
+for itemset, count in frequent_patterns.items():
+    print(f"Frequent Itemset: {set(itemset)} (Support = {count/len(dataset):.2f})")
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 2: End-to-End Decision Tree Induction & Evaluation</h2>
+
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Dataset generation
+np.random.seed(42)
+X = np.random.randn(200, 4)
+y = (X[:, 0] + X[:, 1] > 0).astype(int)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+clf = DecisionTreeClassifier(criterion='entropy', max_depth=4)
+clf.fit(X_train, y_train)
+
+y_pred = clf.predict(X_test)
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 3: Density-Based Spatial Clustering (DBSCAN) in Python</h2>
+
+<pre><code class="language-python">from sklearn.cluster import DBSCAN
+from sklearn.datasets import make_moons
+
+# Non-convex crescent moon dataset
+X_moons, _ = make_moons(n_samples=300, noise=0.08, random_state=42)
+
+dbscan = DBSCAN(eps=0.2, min_samples=5)
+clusters = dbscan.fit_predict(X_moons)
+
+n_clusters = len(set(clusters)) - (1 if -1 in clusters else 0)
+n_noise = list(clusters).count(-1)
+print(f"Discovered Clusters: {n_clusters}, Detected Noise Outliers: {n_noise}")
+</code></pre>
+
+    <div class="page-break"></div>
+    <div class="cover-container" style="margin-top: 40px;">
+      <div class="course-badge">Comprehensive Revision Appendix</div>
+      <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">10-Page Master Quick Revision Guide</h2>
+      <div style="font-size: 12.5px; color: #64748b;">Formulas, Algorithm Checklists & Solved Exam Cards</div>
+    </div>
+    
+<div class="cover-container">
+  <div class="course-badge">Comprehensive High-Yield Master Guide</div>
+  <h1 class="book-title">Data Mining & Data Warehousing (CS24303) 10-Page Master Quick Revision Guide</h1>
+  <div class="book-subtitle">Formulas, Schemas, Cuboid Lattices, Apriori Rules, Cluster Algorithms & Solved Exam Cards</div>
+</div>
+
+<h2 class="section-title">Master Formula & Metric Reference Sheet</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Domain</th>
+      <th style="width: 45%;">Universal Formula</th>
+      <th>Key Exam Property</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Min-Max Normalization</strong></td>
+      <td>$$v' = \frac{v - \min_A}{\max_A - \min_A}(\text{new\_max} - \text{new\_min}) + \text{new\_min}$$</td>
+      <td>Preserves exact relationships; sensitive to future out-of-bound outliers.</td>
+    </tr>
+    <tr>
+      <td><strong>Z-Score Standardization</strong></td>
+      <td>$$z = \frac{v - \bar{x}}{\sigma}$$</td>
+      <td>Zero mean, unit variance ($\mathcal{N}(0, 1)$); ideal when min/max are unknown.</td>
+    </tr>
+    <tr>
+      <td><strong>$\chi^2$ Independence Test</strong></td>
+      <td>$$\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}} \quad \text{where } E_{ij} = \frac{\text{Row}_i \times \text{Col}_j}{N}$$</td>
+      <td>$df = (r - 1)(c - 1)$; tests categorical attribute independence.</td>
+    </tr>
+    <tr>
+      <td><strong>Cosine Similarity</strong></td>
+      <td>$$\text{sim}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\| \|\mathbf{y}\|} = \frac{\sum x_i y_i}{\sqrt{\sum x_i^2}\sqrt{\sum y_i^2}}$$</td>
+      <td>Angle between vectors; independent of document text length.</td>
+    </tr>
+    <tr>
+      <td><strong>Jaccard Similarity</strong></td>
+      <td>$$J(\mathbf{x}, \mathbf{y}) = \frac{q}{q + r + s}$$</td>
+      <td>Asymmetric binary metric; completely ignores $0-0$ negative matches $t$.</td>
+    </tr>
+    <tr>
+      <td><strong>Association Rule Lift</strong></td>
+      <td>$$\text{Lift}(A \implies B) = \frac{P(A \cup B)}{P(A) P(B)} = \frac{\text{Confidence}(A \implies B)}{\text{Support}(B)}$$</td>
+      <td>$\text{Lift} > 1 \implies \text{Positive correlation}; = 1 \implies \text{Independent}$.</td>
+    </tr>
+    <tr>
+      <td><strong>Information Gain</strong></td>
+      <td>$$\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$</td>
+      <td>Biased towards attributes with massive numbers of distinct values.</td>
+    </tr>
+    <tr>
+      <td><strong>Gini Impurity</strong></td>
+      <td>$$\text{Gini}(S) = 1 - \sum_{i=1}^m p_i^2$$</td>
+      <td>CART metric for strictly binary decision tree splits.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Complete 5-Module Comparative Checklists & Solved Flashcards</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Module</th>
+      <th style="width: 40%;">Core Theoretical Concepts</th>
+      <th>High-Yield Exam Numericals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>M1: Data Understanding</strong></td>
+      <td>KDD Process, Nominal/Ordinal/Interval/Ratio, Proximity Metrics (SMC, Jaccard, Cosine, Mahalanobis, Gower).</td>
+      <td>Five-number summary, IQR outlier fences, Cosine vector similarity, Jaccard distance.</td>
+    </tr>
+    <tr>
+      <td><strong>M2: Preprocessing</strong></td>
+      <td>Missing imputation, Bin smoothing (means, boundaries), $\chi^2$ test, Min-Max / Z-score normalization, PCA.</td>
+      <td>Contingency table $\chi^2$ computation, decimal scaling, Min-Max re-scaling to $[-1, 1]$.</td>
+    </tr>
+    <tr>
+      <td><strong>M3: Data Warehousing</strong></td>
+      <td>OLTP vs OLAP, Star / Snowflake / Fact Constellation, Additive vs Semi-additive measures, Cuboid lattice combinatorics.</td>
+      <td>Total cuboids calculation with hierarchies $N = \prod (L_i + 1)$, OLAP operations (slice/dice/roll-up).</td>
+    </tr>
+    <tr>
+      <td><strong>M4: Frequent Patterns</strong></td>
+      <td>Apriori property, join & prune, FP-Tree conditional bases, ECLAT vertical TID lists, Closed vs Maximal.</td>
+      <td>Full Apriori table trace, Support/Confidence/Lift calculations, FP-Tree branch insertion.</td>
+    </tr>
+    <tr>
+      <td><strong>M5: Classification & Clustering</strong></td>
+      <td>ID3 vs C4.5 vs CART, Naive Bayes, Confusion Matrix, ROC/AUC, k-Means vs PAM, DBSCAN density, LOF.</td>
+      <td>Entropy & Information Gain numerical, Confusion matrix Precision/Recall/F1, k-Means 1D convergence.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 1: Star vs Snowflake Schema Differences</div>
+  <p><strong>Star Schema:</strong> De-normalized dimension tables with redundant columns, single-join fact table queries, optimized for fast OLAP read speeds.<br><strong>Snowflake Schema:</strong> Normalized dimension hierarchies (splitting out sub-dimensions into 3NF), zero redundancy, requires complex multi-table SQL joins that degrade interactive slice/dice query performance.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 2: k-Means vs DBSCAN Clustering Trade-offs</div>
+  <p><strong>k-Means:</strong> Fast $O(t k N)$, requires upfront $k$, assumes spherical clusters of equal size/variance, highly sensitive to outliers.<br><strong>DBSCAN:</strong> Density-based $(\epsilon, \text{MinPts})$, automatically determines number of clusters, discovers arbitrary non-convex geometries (crescents, rings), completely isolates noise outliers.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 3: Confidence vs Lift in Association Rules</div>
+  <p>Confidence measures conditional probability $P(B \mid A)$, but fails to account for the baseline popularity of item $B$. <strong>Lift</strong> divides confidence by $P(B)$ to reveal true statistical correlation ($\text{Lift} > 1$ positive correlation, $\text{Lift} = 1$ independent, $\text{Lift} < 1$ negative substitute).</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 4: Confusion Matrix Metrics Summary</div>
+  <ul>
+    <li>$\text{Accuracy} = \frac{TP + TN}{N}$ (Overall correctness)</li>
+    <li>$\text{Sensitivity / Recall} = \frac{TP}{TP + FN}$ (Fraction of actual positives captured)</li>
+    <li>$\text{Specificity} = \frac{TN}{TN + FP}$ (Fraction of actual negatives captured)</li>
+    <li>$\text{Precision} = \frac{TP}{TP + FP}$ (Fraction of predicted positives that are correct)</li>
+    <li>$F_1\text{-Score} = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$ (Harmonic mean)</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 5: Information Gain vs Gain Ratio vs Gini Index</div>
+  <ul>
+    <li><strong>Information Gain (ID3):</strong> $\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$. Biased toward attributes with large numbers of distinct values.</li>
+    <li><strong>Gain Ratio (C4.5):</strong> $\text{GainRatio}(S, A) = \frac{\text{Gain}(S, A)}{\text{SplitInfo}(S, A)}$. Normalizes gain by split entropy, penalizing broad multi-way splits.</li>
+    <li><strong>Gini Impurity (CART):</strong> $\text{Gini}(S) = 1 - \sum p_i^2$. Strictly binary splits.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 6: Complete Normalization Formulas Reference</div>
+  <ul>
+    <li><strong>Min-Max Scaling:</strong> $v' = \frac{v - \min}{\max - \min}(\text{new\_max} - \text{new\_min}) + \text{new\_min}$</li>
+    <li><strong>Z-Score Standardization:</strong> $z = \frac{v - \mu}{\sigma}$</li>
+    <li><strong>Modified Z-Score (Outlier-Robust):</strong> $M_i = \frac{0.6745(x_i - \text{Median})}{\text{MAD}}$ where $\text{MAD} = \text{Median}(|x_i - \text{Median}|)$</li>
+    <li><strong>Decimal Scaling:</strong> $v' = \frac{v}{10^j}$ where $j = \lceil \log_{10}(\max|v|) \rceil$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Exam Flashcard 7: The 4 Major Clustering Paradigms</div>
+  <table class="custom-table">
+    <thead><tr><th>Paradigm</th><th>Representative Algorithms</th><th>Key Characteristics</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Partitioning</strong></td><td>k-Means, k-Medoids (PAM), CLARA, CLARANS</td><td>Constructs $k$ partitions; iterative relocation; spherical clusters.</td></tr>
+      <tr><td><strong>Hierarchical</strong></td><td>AGNES (agglomerative), DIANA (divisive), BIRCH, CURE</td><td>Dendrogram tree; no $k$ required; irreversible merges.</td></tr>
+      <tr><td><strong>Density-Based</strong></td><td>DBSCAN, OPTICS, DENCLUE</td><td>Arbitrary non-convex shapes; filters noise outliers automatically.</td></tr>
+      <tr><td><strong>Grid-Based</strong></td><td>STING, WaveCluster, CLIQUE</td><td>Quantizes object space into finite grid cells; fast $O(N)$ execution.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-title">Comprehensive 10-Page Master Revision Examination Compendium</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 19: Full Data Preprocessing Pipeline Checklist</div>
+  <ul>
+    <li><strong>1. Data Cleaning:</strong> Missing values (impute mean/mode/k-NN), Noise smoothing (bin means, bin boundaries).</li>
+    <li><strong>2. Data Integration:</strong> $\chi^2$ independence test for nominal data, Pearson $r$ / Covariance for numeric data.</li>
+    <li><strong>3. Data Reduction:</strong> Dimensionality reduction (PCA, Wavelet, SVD, t-SNE), Numerosity reduction (Histograms, Clustering).</li>
+    <li><strong>4. Data Transformation:</strong> Normalization (Min-Max, Z-score, Decimal scaling), Discretization (ChiMerge, Equi-depth binning).</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 20: Data Warehouse Architecture Reference</div>
+  <ul>
+    <li><strong>Bottom Tier:</strong> Warehouse Database Server (relational back-end data store).</li>
+    <li><strong>Middle Tier:</strong> OLAP Server (ROLAP relational engines, MOLAP multidimensional servers, or HOLAP hybrid).</li>
+    <li><strong>Top Tier:</strong> Front-End Client Tools (Analysis, Query/Reporting, Data Mining engines).</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 21: Full Association Mining Formulas</div>
+  $$\text{Support}(A \implies B) = \frac{\text{count}(A \cup B)}{N} \qquad \text{Confidence}(A \implies B) = \frac{\text{count}(A \cup B)}{\text{count}(A)}$$
+  $$\text{Lift}(A \implies B) = \frac{\text{Conf}(A \implies B)}{\text{Support}(B)} \qquad \text{Leverage} = P(A \cup B) - P(A)P(B)$$
+  $$\text{Conviction} = \frac{1 - \text{Support}(B)}{1 - \text{Conf}(A \implies B)} \qquad \text{Jaccard}(A, B) = \frac{P(A \cup B)}{P(A) + P(B) - P(A \cup B)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 22: Classification Decision Criteria</div>
+  <ul>
+    <li><strong>Information Gain (ID3):</strong> $\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$</li>
+    <li><strong>Gain Ratio (C4.5):</strong> $\text{GainRatio}(S, A) = \frac{\text{Gain}(S, A)}{\text{SplitInfo}(S, A)}$</li>
+    <li><strong>Gini Impurity (CART):</strong> $\text{Gini}(S) = 1 - \sum p_i^2$</li>
+    <li><strong>Misclassification Error:</strong> $\text{Error}(S) = 1 - \max(p_i)$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 23: Complete Clustering Paradigms Summary</div>
+  <table class="custom-table">
+    <thead><tr><th>Method</th><th>Core Algorithm</th><th>Strengths & Limitations</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Partitioning</strong></td><td>k-Means, k-Medoids (PAM)</td><td>Fast $O(t k N)$; spherical clusters only; sensitive to initialization.</td></tr>
+      <tr><td><strong>Hierarchical</strong></td><td>AGNES (bottom-up), DIANA (top-down)</td><td>Dendrogram hierarchy; $O(N^2)$ distance matrix; irreversible merges.</td></tr>
+      <tr><td><strong>Density-Based</strong></td><td>DBSCAN, OPTICS, DENCLUE</td><td>Arbitrary non-convex shapes; filters noise outliers; $O(N \log N)$ with spatial index.</td></tr>
+      <tr><td><strong>Grid-Based</strong></td><td>STING, CLIQUE, WaveCluster</td><td>Quantized spatial grid cells; fast $O(K)$ query speed independent of $N$.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-title">Master Exam Final Checklists & Complete Solved Cards</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 24: KDD vs Data Mining vs Machine Learning</div>
+  <ul>
+    <li><strong>KDD:</strong> Complete iterative end-to-end knowledge discovery process (Cleaning, Integration, Selection, Transformation, Mining, Evaluation, Presentation).</li>
+    <li><strong>Data Mining:</strong> The algorithmic pattern discovery phase of KDD.</li>
+    <li><strong>Machine Learning:</strong> Algorithms that learn predictive functions from data.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 25: All Normalization Formulas</div>
+  <ul>
+    <li><strong>Min-Max:</strong> $v' = \frac{v - \min}{\max - \min}(\text{new\_max} - \text{new\_min}) + \text{new\_min}$</li>
+    <li><strong>Z-Score:</strong> $z = \frac{v - \mu}{\sigma}$</li>
+    <li><strong>Robust MAD:</strong> $M_i = \frac{0.6745(x_i - \text{Median})}{\text{MAD}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 26: Complete Data Warehousing Concepts</div>
+  <ul>
+    <li><strong>Inmon:</strong> Top-down 3NF centralized enterprise data warehouse.</li>
+    <li><strong>Kimball:</strong> Bottom-up dimensional data marts with conformed dimensions.</li>
+    <li><strong>Star:</strong> De-normalized, fast OLAP queries.</li>
+    <li><strong>Snowflake:</strong> Normalized dimensions, zero redundancy, multi-join queries.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 27: Association Rule Metrics</div>
+  $$\text{Support} = \frac{\text{count}(A \cup B)}{N} \qquad \text{Confidence} = \frac{\text{count}(A \cup B)}{\text{count}(A)} \qquad \text{Lift} = \frac{\text{Conf}}{\text{Support}(B)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 28: Complete Decision Tree Induction Pipeline</div>
+  $$\text{Dataset } S \xrightarrow{\text{Calculate Impurity}} \text{Evaluate Splits} \xrightarrow{\text{Select Max Gain / Min Gini}} \text{Partition Tree} \xrightarrow{\text{Post-Prune Subtrees}} \text{Final Model}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 29: Complete Hierarchical Clustering Linkage Summary</div>
+  <ul>
+    <li><strong>Single Link:</strong> $d(A, B) = \min d(x, y)$ (Chaining effect, arbitrary shapes)</li>
+    <li><strong>Complete Link:</strong> $d(A, B) = \max d(x, y)$ (Dense spherical clusters, avoids chaining)</li>
+    <li><strong>Average Link:</strong> $d(A, B) = \text{mean } d(x, y)$ (Balanced compromise)</li>
+    <li><strong>Ward's Method:</strong> Minimizes total within-cluster variance increase $\Delta\text{SSE}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 30: Complete Association Rule Quality Check</div>
+  $$\text{Confidence}(A \implies B) \ge \text{min\_conf} \quad \text{AND} \quad \text{Lift}(A \implies B) > 1.0 \quad \text{AND} \quad \chi^2 > 3.841$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 31: OLAP Storage Architecture Summary</div>
+  <ul>
+    <li><strong>ROLAP:</strong> Relational backend, Star/Snowflake schemas, high scalability, SQL engine.</li>
+    <li><strong>MOLAP:</strong> Multidimensional array backend, dense matrix offsets, sub-second query latency.</li>
+    <li><strong>HOLAP:</strong> Hybrid engine: relational for detailed leaf records, multidimensional arrays for aggregates.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 32: Outlier Detection Techniques Compared</div>
+  <ul>
+    <li><strong>Statistical:</strong> $3\sigma$ rule, Grubbs' test, Tukey's IQR fences (assumes parametric distribution).</li>
+    <li><strong>Distance-Based:</strong> $k$-NN distance thresholding ($O(N^2)$).</li>
+    <li><strong>Density-Based:</strong> Local Outlier Factor (LOF) comparing local reachability densities.</li>
+    <li><strong>Ensemble:</strong> Isolation Forest (iTrees) measuring average path lengths to isolate anomalies in $O(N \log N)$.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 33: Complete Model Performance Metrics Reference</div>
+  <table class="custom-table">
+    <thead><tr><th>Metric</th><th>Formula</th><th>Diagnostic Focus</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Accuracy</strong></td><td>$\frac{TP + TN}{N}$</td><td>Overall proportion of correct classifications.</td></tr>
+      <tr><td><strong>Sensitivity (Recall)</strong></td><td>$\frac{TP}{TP + FN}$</td><td>Minimizing False Negatives (medical diagnosis).</td></tr>
+      <tr><td><strong>Specificity</strong></td><td>$\frac{TN}{TN + FP}$</td><td>True Negative rate ($1 - \text{FPR}$).</td></tr>
+      <tr><td><strong>Precision</strong></td><td>$\frac{TP}{TP + FP}$</td><td>Minimizing False Positives (search ranking, spam).</td></tr>
+      <tr><td><strong>$F_1$-Score</strong></td><td>$\frac{2 \cdot P \cdot R}{P + R}$</td><td>Harmonic mean for imbalanced targets.</td></tr>
+      <tr><td><strong>ROC AUC</strong></td><td>$\int_0^1 \text{TPR}(t) d(\text{FPR}(t))$</td><td>Threshold-independent ranking performance.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 34: Data Preprocessing Matrix & Transformation Techniques</div>
+  <ul>
+    <li><strong>Data Cleaning:</strong> Missing imputation (MICE, k-NN), Noise smoothing (bin means/boundaries).</li>
+    <li><strong>Data Integration:</strong> $\chi^2$ independence test ($df=(r-1)(c-1)$), Pearson correlation $r_{A, B}$.</li>
+    <li><strong>Data Transformation:</strong> Min-Max to $[0, 1]$, Z-score standardization ($\mu=0, \sigma=1$), Decimal scaling.</li>
+    <li><strong>Data Reduction:</strong> PCA ($EVR \ge 95\%$), DWT Wavelets, SVD low-rank approximation, ReliefF feature selection.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 35: Apriori Join & Prune Step Rule</div>
+  <p>Two frequent $(k-1)$-itemsets $p, q \in L_{k-1}$ are joined if they share the first $k-2$ items ($p[1]=q[1], \dots, p[k-2]=q[k-2]$ and $p[k-1] < q[k-1]$). Candidate $c = p \cup \{q[k-1]\}$ is pruned if ANY of its $(k-1)$ subsets is missing from $L_{k-1}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 36: DBSCAN Point Categorization Rule</div>
+  <ul>
+    <li><strong>Core Point:</strong> $|N_\epsilon(p)| \ge \text{MinPts}$ (Density center)</li>
+    <li><strong>Border Point:</strong> $|N_\epsilon(p)| < \text{MinPts}$, but $p \in N_\epsilon(q)$ where $q$ is a core point</li>
+    <li><strong>Noise Point:</strong> Neither core nor border (Isolated anomaly)</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 37: Multi-Dimensional Schema Architecture Rule</div>
+  <ul>
+    <li><strong>Star Schema:</strong> Fact table surrounded by flat de-normalized dimension tables.</li>
+    <li><strong>Snowflake Schema:</strong> Fact table surrounded by normalized dimension hierarchy tables.</li>
+    <li><strong>Fact Constellation:</strong> Multiple fact tables sharing conformed dimensions.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 38: Attribute Subset Selection Techniques</div>
+  <ul>
+    <li><strong>Stepwise Forward Selection:</strong> Starts with $\emptyset$, greedily adds best attribute.</li>
+    <li><strong>Stepwise Backward Elimination:</strong> Starts with full feature set, greedily removes worst attribute.</li>
+    <li><strong>Decision Tree Induction:</strong> Attributes selected as split nodes represent minimal descriptive subset.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 39: Classification Performance Metrics Summary</div>
+  $$\text{FPR} = \frac{FP}{TN + FP} = 1 - \text{Specificity} \qquad \text{FNR} = \frac{FN}{TP + FN} = 1 - \text{Sensitivity}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Flashcard 40: Density-Based Reachability Axioms</div>
+  $$p \xrightarrow{\text{direct}} q \implies q \in N_\epsilon(p) \land |N_\epsilon(p)| \ge \text{MinPts}$$
+  $$\text{Density-Reachable: Chain of Core Points} \qquad \text{Density-Connected: Common Core Ancestor } o$$
+</div>
+
+    
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

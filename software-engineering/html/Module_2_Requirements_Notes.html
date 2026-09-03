@@ -1,410 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Module 2: Requirements & DFD Analysis</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+<meta charset="UTF-8">
+<title>Module 2: Software Requirements Engineering & SRS Standards</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]});"></script>
+<style>
 
-:root {
-  --primary: #ea580c;       /* Orange */
-  --primary-light: #fff7ed;
-  --accent: #f97316;        /* Bright Orange */
-  --secondary: #d97706;     /* Amber */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 @page {
   size: A4 portrait;
-  margin: 14mm 11mm 14mm 11mm;
-  @bottom-right {
-    content: "Page " counter(page);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 8pt;
+  margin: 14mm 12mm 14mm 12mm;
+  @top-right {
+    content: "CS24353 • Software Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
     color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
   }
   @bottom-left {
-    content: "Software Engineering (CS24309) | BIT Mesra CSE";
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 8pt;
-    color: #64748b;
+    content: "BIT Mesra • Department of Computer Science & Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #94a3b8;
   }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 11.2px;
   line-height: 1.58;
-  font-size: 12.2px;
+  color: #0f172a;
+  background-color: #ffffff;
+  margin: 0;
   padding: 0;
 }
 
-.page-container {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 0;
-}
-
-.doc-header {
-  border-bottom: 2.5px solid var(--primary);
-  padding-bottom: 14px;
+.cover-header {
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 12px;
   margin-bottom: 18px;
 }
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.badge {
+.course-badge {
   display: inline-block;
-  padding: 3px 9px;
-  font-size: 9.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 3px 8px;
   border-radius: 4px;
-}
-
-.badge-orange { background: #ffedd5; color: #c2410c; }
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-amber { background: #fef3c7; color: #92400e; }
-
-h1.doc-title {
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 4px;
-}
-
-.doc-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #fff7ed;
-  border: 1px solid #fed7aa;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 22px;
-}
-
-.toc-title {
-  font-size: 13px;
+  font-size: 9px;
   font-weight: 700;
-  color: #c2410c;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
-  font-size: 11.2px;
+.doc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 4px 0 6px 0;
+  letter-spacing: -0.4px;
+}
+.doc-subtitle {
+  font-size: 11.5px;
+  color: #475569;
+  font-weight: 400;
+  margin: 0 0 4px 0;
+}
+.meta-info {
+  font-size: 9.5px;
+  color: #64748b;
+  margin-top: 6px;
+  display: flex;
+  gap: 14px;
 }
 
 h2.section-title {
-  font-size: 15.5px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 22px 0 10px 0;
+  color: #0369a1;
+  border-bottom: 1.5px solid #e0f2fe;
+  padding-bottom: 4px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-top: 12px;
+  margin-bottom: 6px;
   page-break-after: avoid;
 }
 
-h3.subsection-title {
-  font-size: 13.2px;
-  font-weight: 700;
-  color: #c2410c;
-  margin: 16px 0 6px 0;
-  page-break-after: avoid;
-}
-
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.5px;
-  border-left: 4px solid;
-  page-break-inside: avoid;
-}
-.callout-info { background: #fff7ed; border-color: #ea580c; color: #7c2d12; }
-.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
-
-.callout-title {
-  font-weight: 700;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+p { margin-top: 0; margin-bottom: 8px; text-align: justify; }
+ul, ol { margin-top: 0; margin-bottom: 8px; padding-left: 18px; }
+li { margin-bottom: 3.5px; }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 12px 0;
-  font-size: 11px;
-  page-break-inside: avoid;
-}
-
-.custom-table th, .custom-table td {
-  border: 1px solid #cbd5e1;
-  padding: 7px 10px;
-  text-align: left;
-}
-
-.custom-table th {
-  background: #f1f5f9;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-pre {
-  background: #0f172a;
-  color: #f8fafc;
-  padding: 11px 14px;
-  border-radius: 6px;
-  font-family: 'Fira Code', monospace;
-  font-size: 10.8px;
   margin: 10px 0;
+  font-size: 10px;
   page-break-inside: avoid;
-  overflow-x: auto;
 }
-
-code {
-  font-family: 'Fira Code', monospace;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 11px;
+.custom-table th {
+  background-color: #f0f9ff;
+  color: #0369a1;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border: 1px solid #bae6fd;
 }
-
-pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
-}
-
-.qa-card {
-  background: #f8fafc;
+.custom-table td {
+  padding: 5.5px 8px;
   border: 1px solid #e2e8f0;
-  border-left: 4px solid var(--secondary);
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 12px 0;
+  vertical-align: top;
+}
+.custom-table tr:nth-child(even) { background-color: #f8fafc; }
+
+.callout-box {
+  background-color: #f0fdf4;
+  border-left: 3.5px solid #16a34a;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
-
-.qa-q {
+.callout-title {
   font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 6px;
-  font-size: 12.2px;
-}
-
-.qa-a {
-  color: #334155;
-  font-size: 11.5px;
-  line-height: 1.55;
+  color: #15803d;
+  font-size: 11px;
+  margin-bottom: 4px;
 }
 
 .worked-box {
-  background: #ffffff;
-  border: 1.5px solid #ea580c;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin: 14px 0;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #0284c7;
+  padding: 9px 12px;
+  margin: 11px 0;
+  border-radius: 0 6px 6px 0;
   page-break-inside: avoid;
 }
-
 .worked-title {
-  font-size: 12.8px;
-  font-weight: 800;
-  color: #c2410c;
-  margin-bottom: 10px;
+  font-weight: 700;
+  color: #0369a1;
+  font-size: 11.2px;
+  margin-bottom: 5px;
 }
 
 .formula-card {
-  background: #fff7ed;
-  border-left: 4px solid #ea580c;
-  padding: 10px 14px;
+  background: #fdf4ff;
+  border-left: 3.5px solid #a855f7;
+  padding: 8px 12px;
   margin: 10px 0;
-  font-size: 11.8px;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
+.formula-title {
+  font-weight: 700;
+  color: #7e22ce;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
 
-.diagram-container {
-  margin: 14px auto;
-  text-align: center;
+.qa-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px;
+  border-left: 3.5px solid #0284c7;
+  padding: 8px 11px;
+  margin: 8px 0;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
+.qa-q { font-weight: 700; color: #0369a1; font-size: 10.8px; margin-bottom: 3px; }
+.qa-a { color: #334155; font-size: 10.3px; line-height: 1.5; }
 
-.diagram-caption {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 6px;
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 9.8px;
+  background-color: #f1f5f9;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  color: #0f172a;
+}
+pre code {
+  display: block;
+  padding: 8px 10px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 9.2px;
+  line-height: 1.45;
 }
 
-.page-break {
-  page-break-before: always;
-  break-before: page;
-}
 </style>
 </head>
 <body>
-  <div class="page-container">
-    <div class="doc-header">
-      <div class="badge-container">
-        <span class="badge badge-orange">CS24309 — Theory (3.0 Cr)</span>
-        <span class="badge badge-blue">Module II Notes</span>
-        <span class="badge badge-purple">BIT Mesra</span>
-        <span class="badge badge-amber">NEP Scheme</span>
-      </div>
-      <h1 class="doc-title">Module 2: Requirements & DFD Analysis</h1>
-      <div class="doc-subtitle">IEEE 830 SRS Standard, Use Case Specifications, Data Flow Diagrams & Data Dictionaries</div>
-    </div>
-    
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Software Requirements Engineering — Complete 12-Topic Syllabus Tracker</div>
-  <div class="toc-grid">
-    <div><strong>Topic 15:</strong> Functional Requirements (Core Behavioral Capabilities)</div>
-    <div><strong>Topic 16:</strong> Non-Functional Requirements (Quality Constraints & Performance)</div>
-    <div><strong>Topic 17:</strong> User Requirements (High-Level Natural Language Statements)</div>
-    <div><strong>Topic 18:</strong> System Requirements (Detailed Technical Specifications)</div>
-    <div><strong>Topic 19:</strong> The Software Requirements Specification (SRS) Document</div>
-    <div><strong>Topic 20:</strong> IEEE 830 Standard Format for SRS Organization</div>
-    <div><strong>Topic 21:</strong> 9 Characteristics of a Good SRS (C-U-C-C-V-F-T-P-M)</div>
-    <div><strong>Topic 22:</strong> Feasibility Study (The TELOS Analytical Framework)</div>
-    <div><strong>Topic 23:</strong> Requirements Elicitation Techniques (Interviews, JAD, Prototyping)</div>
-    <div><strong>Topic 24:</strong> Requirements Analysis & Conflict Negotiation</div>
-    <div><strong>Topic 25:</strong> Requirements Validation & Formal Inspection Reviews</div>
-    <div><strong>Topic 26:</strong> Requirements Management & Traceability Matrices (RTM)</div>
+<div class="cover-header">
+  <span class="course-badge">CS24353 • MODULE 2</span>
+  <h1 class="doc-title">Module 2: Software Requirements Engineering & SRS Standards</h1>
+  <p class="doc-subtitle">Topics 15 to 26 • Functional/Non-Functional Requirements, FURPS+, TELOS Feasibility, IEEE 830 SRS & RTM</p>
+  <div class="meta-info">
+    <span><strong>Author:</strong> Shaswat Raj (BIT Mesra)</span>
+    <span><strong>Academic Year:</strong> 2024–25 (5th Sem CSE)</span>
+    <span><strong>Standard:</strong> IEEE & ISO/IEC Standards</span>
   </div>
 </div>
 
-<h2 class="section-title">Topic 15 – 18: Functional vs. Non-Functional & User vs. System Requirements</h2>
+<h2 class="section-title">Topic 7: The Requirements Engineering Lifecycle</h2>
+<p><strong>Requirements Engineering (RE)</strong> is the systematic process of discovering, analyzing, documenting, and maintaining software requirements throughout the project lifecycle. The cost of fixing a requirements error escalates exponentially across subsequent phases:</p>
+$$\mathbf{\text{Relative Cost: Requirements (1x)} \rightarrow \text{Design (5x)} \rightarrow \text{Coding (10x)} \rightarrow \text{Testing (20x)} \rightarrow \text{Post-Release (100x–200x)!}}$$
 
+<h3 class="sub-title">The 5 Core Phases of Requirements Engineering</h3>
+<ol>
+  <li><strong>Feasibility Study:</strong> Assesses whether the proposed system is viable technically, economically, and operationally.</li>
+  <li><strong>Requirements Elicitation:</strong> Gathers customer and user needs through interactive fact-finding techniques.</li>
+  <li><strong>Requirements Analysis & Modeling:</strong> Resolves ambiguities, boundary conflicts, and overlaps using structured models.</li>
+  <li><strong>Requirements Specification:</strong> Formally documents the functional and non-functional requirements in an <strong>SRS</strong>.</li>
+  <li><strong>Requirements Validation & Management:</strong> Validates requirements with stakeholders and manages change requests via a <strong>Requirements Traceability Matrix (RTM)</strong>.</li>
+</ol>
+
+<h2 class="section-title">Topic 8: Functional vs. Non-Functional Requirements & The FURPS+ Framework</h2>
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 22%;">Requirement Class</th>
-      <th style="width: 45%;">Formal Definition & Scope</th>
-      <th>Concrete Illustrative Example</th>
+      <th style="width: 25%;">Category</th>
+      <th style="width: 37%;">Definition & Scope</th>
+      <th>Concrete Industry Examples</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Functional</strong></td>
-      <td>Specifies <strong>WHAT</strong> services, computations, and transformations the software must perform in response to specific inputs.</td>
-      <td>"The banking system shall transfer funds between accounts and send SMS confirmation within 5 seconds."</td>
+      <td><strong>Functional Requirements (FR)</strong></td>
+      <td>Specifies the exact behavioral services and computational functions the system must perform (<em>What the system does</em>).</td>
+      <td>• "The system shall calculate compound interest using formula $A = P(1 + r/n)^{nt}$."<br>• "The system shall generate PDF invoices upon successful Stripe payment."</td>
     </tr>
     <tr>
-      <td><strong>2. Non-Functional</strong></td>
-      <td>Specifies <strong>HOW WELL</strong> the system operates, defining constraints on quality attributes: Performance, Security, Availability, Usability.</td>
-      <td>"The system shall maintain $99.99\%$ annual availability and encrypt database records using AES-256."</td>
-    </tr>
-    <tr>
-      <td><strong>3. User Requirements</strong></td>
-      <td>High-level natural language statements + informal diagrams intended for non-technical clients and executive sponsors.</td>
-      <td>"Patients should be able to book doctor consultations online."</td>
-    </tr>
-    <tr>
-      <td><strong>4. System Requirements</strong></td>
-      <td>Structured, unambiguous technical contracts detailing software services, inputs, outputs, exceptions, and DB schemas for developers.</td>
-      <td>"The API endpoint `POST /api/v1/appointments` shall validate doctor availability locks via Redis mutexes."</td>
+      <td><strong>Non-Functional Requirements (NFR)</strong></td>
+      <td>Specifies systemic quality attributes, performance bounds, security constraints, and operational standards (<em>How well it performs</em>).</td>
+      <td>• "The system shall maintain $99.99\%$ monthly availability."<br>• "API response latency shall not exceed $200\text{ms}$ at $10,000$ concurrent requests."</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 19 – 21: The SRS Document & IEEE 830 Standard</h2>
+<div class="callout-box">
+  <div class="callout-title">📐 The FURPS+ Quality Attribute Taxonomy (Hewlett-Packard)</div>
+  <ul>
+    <li><strong>F — Functionality:</strong> Feature set, capabilities, security encryption, mathematical algorithms.</li>
+    <li><strong>U — Usability:</strong> Human factors, aesthetics, user interface consistency, error recovery, accessibility (WCAG 2.1).</li>
+    <li><strong>R — Reliability:</strong> Failure frequency, MTTF, recoverability, predictability, fault tolerance.</li>
+    <li><strong>P — Performance:</strong> Response latency, throughput, memory consumption, resource limits.</li>
+    <li><strong>S — Supportability:</strong> Testability, extensibility, maintainability, internationalization (i18n), configurability.</li>
+    <li><strong>+ — Constraints:</strong> Design constraints, operating system dependencies, legal compliance (GDPR, HIPAA).</li>
+  </ul>
+</div>
 
-<div class="callout callout-info">
-  <div class="callout-title">🧠 The 9 Characteristics of a High-Quality SRS (C-U-C-C-V-F-T-P-M)</div>
+<h2 class="section-title">Topic 9: Feasibility Analysis — The TELOS Framework</h2>
+<table class="custom-table">
+  <thead>
+    <tr><th>Dimension</th><th>Evaluation Criteria</th><th>Quantitative Analytical Techniques</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>T — Technical</strong></td><td>Can the system be constructed with available hardware, software stacks, and engineering skills?</td><td>Proof-of-concept prototyping, technology risk scoring.</td></tr>
+    <tr><td><strong>E — Economic</strong></td><td>Is the financial return on investment sufficient to justify capital expenditure?</td><td>Cost-Benefit Analysis (CBA), Net Present Value (NPV), ROI, Payback Period.</td></tr>
+    <tr><td><strong>L — Legal</strong></td><td>Does the project comply with intellectual property laws, data privacy, and industry regulations?</td><td>Compliance audits (GDPR, SOC2, HIPAA, PCI-DSS).</td></tr>
+    <tr><td><strong>O — Operational</strong></td><td>Will the end-users embrace the software within existing organizational workflows?</td><td>Change management assessments, user resistance surveys.</td></tr>
+    <tr><td><strong>S — Schedule</strong></td><td>Can the project meet strict market windows or hard statutory deadlines?</td><td>PERT schedule variance analysis, critical path evaluation.</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 2: Economic Feasibility — Net Present Value (NPV) Calculation</div>
+  <p>A software project requires an initial development investment of $I_0 = \$100,000$. It generates annual net cash inflows of $C_1 = \$40,000, C_2 = \$50,000, C_3 = \$50,000$ over 3 years at a discount rate of $r = 10\%$ ($0.10$):</p>
+  $$\mathbf{\text{NPV} = \sum_{t=1}^n \frac{C_t}{(1 + r)^t} - I_0}$$
+  <ul>
+    <li>$$\text{PV}_1 = \frac{40,000}{(1.10)^1} = \frac{40,000}{1.10} = \mathbf{\$36,363.64}$$</li>
+    <li>$$\text{PV}_2 = \frac{50,000}{(1.10)^2} = \frac{50,000}{1.21} = \mathbf{\$41,322.31}$$</li>
+    <li>$$\text{PV}_3 = \frac{50,000}{(1.10)^3} = \frac{50,000}{1.331} = \mathbf{\$37,565.74}$$</li>
+    <li>$$\text{Total Present Value} = 36,363.64 + 41,322.31 + 37,565.74 = \mathbf{\$115,251.69}$$</li>
+    <li>$$\mathbf{\text{NPV} = \$115,251.69 - \$100,000 = \mathbf{+\$15,251.69}}$$</li>
+  </ul>
+  $$\mathbf{\text{Conclusion: Since } \text{NPV} > 0 \implies \mathbf{\text{Project is Economically Feasible \& Approved!}}}$$
+</div>
+
+<h2 class="section-title">Topic 10: Requirements Elicitation Techniques</h2>
+<ul>
+  <li><strong>Interviews:</strong> Structured (formal question checklist) vs. Unstructured (open-ended discovery). Essential for executive stakeholder vision.</li>
+  <li><strong>Questionnaires & Surveys:</strong> Quantitatively samples large, geographically distributed user bases for statistical trend analysis.</li>
+  <li><strong>FAST / JAD Workshops (Joint Application Development):</strong> Intensive collaborative sessions bringing developers, users, and business analysts into a single room to construct agreed requirement baselines.</li>
+  <li><strong>Ethnography & Observation:</strong> Observing end-users in their natural work environment to discover tacit, unarticulated operational requirements.</li>
+  <li><strong>Prototyping:</strong> Building interactive UI mockups (Figma) to validate user mental models.</li>
+</ul>
+
+<h2 class="section-title">Topic 11: IEEE 830-1998 Standard for SRS Structure</h2>
+<div class="callout-box">
+  <div class="callout-title">📋 Standard IEEE 830 SRS Document Hierarchy</div>
   <ol>
-    <li><strong>Correct:</strong> Every requirement accurately reflects actual customer needs.</li>
-    <li><strong>Unambiguous:</strong> Every requirement has exactly ONE possible interpretation by developers and testers.</li>
-    <li><strong>Complete:</strong> All critical functional capabilities, responses to errors, and constraints are specified.</li>
-    <li><strong>Consistent:</strong> Zero contradictions between individual requirements or interface definitions.</li>
-    <li><strong>Verifiable (Testable):</strong> A finite, cost-effective test case can prove whether the software satisfies the requirement.</li>
-    <li><strong>Feasible:</strong> The requirement is achievable within project budget, timeline, and technology constraints.</li>
-    <li><strong>Traceable:</strong> Each requirement has a unique identifier linked backward to user needs and forward to code/tests.</li>
-    <li><strong>Prioritized:</strong> Requirements are ranked by business importance (Essential, Desirable, Optional).</li>
-    <li><strong>Modifiable:</strong> Organized with a clear table of contents and cross-references for easy updates.</li>
+    <li><strong>1. Introduction:</strong>
+      <ul>
+        <li>1.1 Purpose (Audience and document objectives)</li>
+        <li>1.2 Scope (Product name, benefits, and boundary limitations)</li>
+        <li>1.3 Definitions, Acronyms, and Abbreviations</li>
+        <li>1.4 References (Standards, project artifacts)</li>
+        <li>1.5 Overview (Document structure)</li>
+      </ul>
+    </li>
+    <li><strong>2. Overall Description:</strong>
+      <ul>
+        <li>2.1 Product Perspective (System context diagram, external interfaces)</li>
+        <li>2.2 Product Functions (High-level functional summary)</li>
+        <li>2.3 User Characteristics (Educational level, technical expertise)</li>
+        <li>2.4 General Constraints (Regulatory, hardware limits)</li>
+        <li>2.5 Assumptions and Dependencies</li>
+      </ul>
+    </li>
+    <li><strong>3. Specific Requirements:</strong> (Exhaustive detailed functional requirements, UI/hardware/software interfaces, database schema constraints, performance metrics, security encryption standards).</li>
   </ol>
 </div>
 
-<h2 class="section-title">Topic 22 – 26: Requirements Engineering Process (TELOS to Traceability)</h2>
+<h2 class="section-title">Topic 12: 9 Characteristics of a Good SRS (C-U-C-C-V-F-T-P-M)</h2>
+<table class="custom-table">
+  <thead><tr><th>Quality Attribute</th><th>Engineering Meaning & Verification Method</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1. Correct</strong></td><td>Every stated requirement accurately reflects true real-world user needs.</td></tr>
+    <tr><td><strong>2. Unambiguous</strong></td><td>Every requirement statement possesses exactly one possible interpretation (Zero vagueness: avoid words like "user-friendly", "fast").</td></tr>
+    <tr><td><strong>3. Complete</strong></td><td>Includes all essential capabilities, boundary conditions, error responses, and default states (No `TBD` sections).</td></tr>
+    <tr><td><strong>4. Consistent</strong></td><td>Contains zero internal contradictions between conflicting requirement specifications.</td></tr>
+    <tr><td><strong>5. Verifiable (Testable)</strong></td><td>There exists a finite, cost-effective automated or manual test case that can definitively prove requirement satisfaction.</td></tr>
+    <tr><td><strong>6. Modifiable</strong></td><td>Structured with unique numbering and cross-references so changes can be made without cascading errors.</td></tr>
+    <tr><td><strong>7. Traceable</strong></td><td>Each requirement has a unique identifier linked backward to business goals and forward to design modules and test cases.</td></tr>
+    <tr><td><strong>8. Prioritized</strong></td><td>Ranked by customer importance and technical stability (e.g., MoSCoW: Must-have, Should-have, Could-have, Won't-have).</td></tr>
+    <tr><td><strong>9. Feasible</strong></td><td>Achievable within system constraints, available budget, and technological capabilities.</td></tr>
+  </tbody>
+</table>
 
-<div class="formula-card">
-  <strong>The TELOS Feasibility Analysis Framework:</strong>
-  - <strong>T — Technical:</strong> Do we have the hardware, software tools, and developer expertise?
-  - <strong>E — Economic:</strong> Is the Return on Investment (ROI) and Cost-Benefit Analysis positive?
-  - <strong>L — Legal:</strong> Does the product comply with GDPR, HIPAA, copyright, and regional labor laws?
-  - <strong>O — Operational:</strong> Will end-users and the organizational structure accept the system?
-  - <strong>S — Schedule:</strong> Can the product be delivered before the critical market deadline?
+<h2 class="section-title">Topic 13: University Exam Problem Bank & Model Answers</h2>
+
+<div class="qa-card"><div class="qa-q">Q4. What is a Requirements Traceability Matrix (RTM)? Explain Forward and Backward Traceability with an Example Table. (8 Marks)</div><div class="qa-a">An <strong>RTM</strong> is a grid mapping requirements across all SDLC artifacts to guarantee full requirement fulfillment.<br>• <strong>Forward Traceability:</strong> Tracks each requirement forward into design components, source code classes, and test cases (ensures no requirement is forgotten).<br>• <strong>Backward Traceability:</strong> Tracks each test case and source code module backward to its originating requirement (prevents "gold plating" or building features nobody asked for!).<br><table class="custom-table"><thead><tr><th>Req ID</th><th>Requirement Description</th><th>Architecture Component</th><th>Source Code File</th><th>Test Case ID</th></tr></thead><tbody><tr><td><strong>REQ-101</strong></td><td>User password reset via OTP</td><td>AuthService.java</td><td>/auth/PasswordReset.java</td><td>TC-AUTH-01, TC-AUTH-02</td></tr><tr><td><strong>REQ-102</strong></td><td>PDF Invoice Generation</td><td>BillingModule.java</td><td>/billing/PdfGenerator.java</td><td>TC-BILL-05</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain Why Ambiguous Terms in SRS Lead to Software Failure and How to Make Non-Verifiable Requirements Verifiable. (8 Marks)</div><div class="qa-a">Ambiguous terms lack quantitative boundaries, preventing quality assurance engineers from creating definitive pass/fail test cases.<br>• <em>Non-Verifiable Bad Requirement:</em> "The website shall load quickly and be user-friendly." (Subjective; impossible to test mathematically).<br>• <em>Verifiable Good Requirement:</em> "The web portal home page shall render the First Contentful Paint (FCP) within $1.5\text{ seconds}$ on a $4\text{G}$ mobile connection for $95\%$ of global users, and achieve a System Usability Scale (SUS) score $\ge 80/100$ in usability testing."</div></div>
+
+<h2 class="section-title">Topic 24: Quality Function Deployment (QFD) & The House of Quality</h2>
+<p><strong>QFD (Yoji Akao)</strong> is a structured technique that translates customer desires (<em>"Voice of the Customer"</em>) directly into actionable software engineering requirements:</p>
+
+<table class="custom-table">
+  <thead>
+    <tr><th>QFD Requirement Category</th><th>Customer Expectation Profile</th><th>System Behavior & Satisfaction Impact</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>1. Normal Requirements</strong></td><td>Explicitly requested in customer meetings.</td><td>Customer is satisfied if present, dissatisfied if absent (e.g., Search filter).</td></tr>
+    <tr><td><strong>2. Expected Requirements</strong></td><td>Implicit baseline capabilities assumed without asking.</td><td>Customer takes them for granted; absence causes catastrophic dissatisfaction (e.g., Data encryption, crash resilience).</td></tr>
+    <tr><td><strong>3. Exciting Requirements</strong></td><td>Unexpected, innovative delightful features.</td><td>Absence causes zero complaint; presence creates immense customer delight and market differentiation (e.g., AI auto-completion).</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 25: Class-Responsibility-Collaborator (CRC) Cards</h2>
+<p><strong>CRC Modeling (Beck & Cunningham)</strong> provides an agile, physical index-card method for discovering object-oriented requirements:</p>
+<div class="callout-box">
+  <div class="callout-title">📋 Structure of a Standard 4x6 CRC Card</div>
+  <ul>
+    <li><strong>Header:</strong> Class Name (e.g., `OrderTransaction`).</li>
+    <li><strong>Left Column (Responsibilities):</strong> What the class knows (data) and what it does (computations: `CalculateTotal()`, `ValidateStock()`).</li>
+    <li><strong>Right Column (Collaborators):</strong> Other classes required to fulfill responsibilities (`Customer`, `InventoryDatabase`, `PaymentGateway`).</li>
+  </ul>
 </div>
 
 <div class="worked-box">
-  <div class="worked-title">Requirements Traceability Matrix (RTM) Sample Architecture</div>
+  <div class="worked-title">🏛️ Solved Numerical 8: Payback Period & Return on Investment (ROI)</div>
+  <p>An automated testing framework costs $\$60,000$ to engineer. It generates recurring annual QA labor savings of $\$25,000/\text{year}$ over a 4-year lifecycle:</p>
+  <ul>
+    <li>$$\mathbf{\text{Payback Period} = \frac{\text{Initial Investment}}{\text{Annual Cash Inflow}} = \frac{\$60,000}{\$25,000} = \mathbf{2.4 \text{ Years (28.8 Months)}}}$$</li>
+    <li>$$\text{Total 4-Year Inflow} = 4 \times \$25,000 = \$100,000 \implies \text{Net Profit} = \$100,000 - \$60,000 = \$40,000$$</li>
+    <li>$$\mathbf{\text{ROI} = \frac{\text{Net Profit}}{\text{Total Cost}} \times 100\% = \frac{\$40,000}{\$60,000} \times 100\% = \mathbf{+66.67\%}}$$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 26: University Exam Problem Bank (Part II)</h2>
+
+<div class="qa-card"><div class="qa-q">Q14. Explain the Delphi Method for Requirements Prioritization and Consensus Building. (8 Marks)</div><div class="qa-a">The <strong>Delphi Method</strong> achieves objective consensus among domain experts without peer pressure or dominance bias:<br>1. A facilitator circulates anonymous requirement ranking questionnaires to all distributed experts.<br>2. Experts independently assign priority scores and provide written justifications.<br>3. Facilitator compiles statistical summary (median and interquartile range) and redistributes it anonymously.<br>4. Experts review collective results and adjust their rankings over 2–3 iterative rounds until variance stabilizes into strong group consensus!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q15. Explain Formal Methods in Requirements Engineering and the Role of Z-Notation. (8 Marks)</div><div class="qa-a"><strong>Formal Methods</strong> utilize mathematical discrete structures (first-order predicate logic, set theory) to specify software requirements with zero ambiguity.<br>• <strong>Z-Notation:</strong> Encapsulates system states and operations inside graphical formal boxes called <strong>Schemas</strong>. Each schema specifies <em>State Invariants</em>, <em>Pre-conditions</em> (what must hold before operation), and <em>Post-conditions</em> (what is guaranteed after operation: $x' = x + 1$). Essential for safety-critical systems (nuclear reactor controllers, pacemaker firmware).</div></div>
+
+<h2 class="section-title">Topic 27: Non-Functional Requirements (NFR) Framework & Softgoal Interdependency</h2>
+<p>The <strong>Chung et al. NFR Framework</strong> models non-functional requirements as <strong>Softgoals</strong> that are "satisficed" rather than strictly satisfied:</p>
+<ul>
+  <li><strong>NFR Softgoal:</strong> Abstract quality target (e.g., `Security`, `High Throughput`).</li>
+  <li><strong>Operationalization:</strong> Concrete design or architectural decision that contributes positively or negatively to the softgoal (e.g., `JWT Authentication`, `AES-256 Encryption`).</li>
+  <li><strong>Interdependency Contribution Types:</strong>
+    <ul>
+      <li>`MAKE (++)`: Strongly positive contribution.</li>
+      <li>`HELP (+)`: Moderately positive contribution.</li>
+      <li>`HURT (-)`: Moderately negative contribution (e.g., Heavy Encryption <em>HURTS</em> Latency!).</li>
+      <li>`BREAK (--)`: Catastrophic negative conflict.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 12: Requirements Prioritization via Analytical Hierarchy Process (AHP)</div>
+  <p>Compare 3 Requirements ($R_1, R_2, R_3$) in a Pairwise Comparison Matrix $\mathbf{A}$ where $R_1$ is $3\times$ more important than $R_2$, and $R_1$ is $6\times$ more important than $R_3$:</p>
+  $$\mathbf{A} = \begin{bmatrix} 1 & 3 & 6 \\ 1/3 & 1 & 2 \\ 1/6 & 1/2 & 1 \end{bmatrix} \implies \text{Normalized Weight Vector } \mathbf{W} = \begin{bmatrix} \mathbf{0.667 \ (66.7\%)} \\ \mathbf{0.222 \ (22.2\%)} \\ \mathbf{0.111 \ (11.1\%)} \end{bmatrix}$$
+  $$\mathbf{\text{Priority Order: } R_1 \text{ (Must-Have)} \gg R_2 \text{ (Should-Have)} \gg R_3 \text{ (Could-Have)}}$$
+</div>
+
+<h2 class="section-title">Topic 28: Formal Specifications in Safety-Critical Systems</h2>
+<p>Formal methods use discrete mathematics to prove program correctness before code generation:</p>
+
+<div class="callout-box">
+  <div class="callout-title">📋 Model-Based vs. Property-Based Formal Specifications</div>
+  <ul>
+    <li><strong>Model-Based (Z-Notation, VDM, B-Method):</strong> System state is modeled via sets, relations, functions, and sequences. Operations specify state transitions via mathematical preconditions and postconditions.</li>
+    <li><strong>Property-Based (Algebraic Specifications, OBJ, Larch):</strong> System behavior is defined implicitly through algebraic axioms relating operations (e.g., $\text{pop}(\text{push}(s, v)) = s$).</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Z-Schema for Online Library Borrowing Transaction</div>
+<pre><code class="language-text">┌─── BorrowBook ──────────────────────────┐
+│ Δ LibraryState                          │
+│ user? : UserID                          │
+│ book? : BookID                          │
+├─────────────────────────────────────────┤
+│ user? ∈ RegisteredUsers                 │
+│ book? ∈ AvailableBooks                  │
+│ #(BorrowedBooks ▷ {user?}) < MaxLimit  │
+│ AvailableBooks' = AvailableBooks \ {book?}│
+│ BorrowedBooks' = BorrowedBooks ∪ {(book?, user?)}│
+└─────────────────────────────────────────┘
+</code></pre>
+  <p><em>Verification:</em> Guaranteed to prevent exceeding checkout limits or borrowing unavailable books by mathematical proof!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 21: Quality Function Deployment (QFD) Customer Importance Weighting</div>
+  <p>In a QFD House of Quality matrix, customer requirements ($CR_1$: Fast Search, $CR_2$: Data Security) have weights $W = [8, 10]$. Technical metrics ($TC_1$: Query Cache, $TC_2$: 256-Bit SSL) have relationship scores $R = [[9, 1], [3, 9]]$:</p>
+  <ul>
+    <li>$$\text{Technical Importance (Query Cache)} = 8(9) + 10(3) = 72 + 30 = \mathbf{102}$$</li>
+    <li>$$\text{Technical Importance (256-Bit SSL)} = 8(1) + 10(9) = 8 + 90 = \mathbf{98}$$</li>
+    <li>$$\mathbf{\text{Conclusion: Query Caching receives highest initial engineering allocation!}}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 22: Requirements Change Impact Assessment Metric</div>
+  <p>For a proposed change impacting 4 classes in a 40-class system: $\text{Impact Ratio} = \frac{4}{40} = \mathbf{10.0\%}$. Change is classified as Moderate Impact and approved by CCB!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 30: Use Case Modeling & Boundary Conditions in E-Commerce</div>
+  <p>Construct a complete Use Case Specification table for `Process Checkout`:</p>
   <table class="custom-table">
-    <thead><tr><th>Req ID</th><th>Requirement Description</th><th>Source</th><th>Design Module</th><th>Code File</th><th>Test Case ID</th></tr></thead>
+    <thead><tr><th>Field</th><th>Specification Description</th></tr></thead>
     <tbody>
-      <tr><td>`REQ-01`</td><td>User OTP Authentication</td><td>Client Specs §2.1</td><td>`AuthModule`</td><td>`auth_service.py`</td><td>`TC-AUTH-001`</td></tr>
-      <tr><td>`REQ-02`</td><td>Payment Gateway Checkout</td><td>Client Specs §3.4</td><td>`PaymentEngine`</td><td>`payment_gateway.py`</td><td>`TC-PAY-014`</td></tr>
+      <tr><td><strong>Use Case ID</strong></td><td>UC-CHK-01</td></tr>
+      <tr><td><strong>Primary Actor</strong></td><td>Authenticated Registered Customer</td></tr>
+      <tr><td><strong>Pre-Conditions</strong></td><td>Customer cart contains $\ge 1$ available in-stock item; customer is logged in.</td></tr>
+      <tr><td><strong>Main Success Scenario</strong></td><td>1. Customer reviews cart. 2. Enters shipping address. 3. Selects payment method. 4. Authorizes charge. 5. System generates order ID and triggers PDF receipt email.</td></tr>
+      <tr><td><strong>Extensions (Exception)</strong></td><td>4a. Card authorization fails $\implies$ Prompt customer to retry with secondary payment method.</td></tr>
+      <tr><td><strong>Post-Conditions</strong></td><td>Inventory reserved, credit card charged, order record persisted in database.</td></tr>
     </tbody>
   </table>
 </div>
 
-<h2 class="section-title">🧠 M2 Active Recall & Exam Questions</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. Explain the IEEE 830 standard structure for a Software Requirements Specification (SRS). (8 Marks)</div>
-  <div class="qa-a">
-    The IEEE 830 standard organizes an SRS into 3 primary sections:<br>
-    1. <strong>Section 1: Introduction:</strong> Purpose, Scope, Definitions, Acronyms, References, and Document Overview.<br>
-    2. <strong>Section 2: Overall Description:</strong> Product Perspective, Product Functions, User Classes & Characteristics, Operating Environment, Design Constraints, Assumptions & Dependencies.<br>
-    3. <strong>Section 3: Specific Requirements:</strong> Detailed Functional Requirements, External Interface Requirements (User, Hardware, Software, Comm), Performance Requirements, Security & Safety Attributes, and Verification Criteria.
-  </div>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 31: Requirements Change Control Board (CCB) Formal Workflow</div>
+  $$\text{Change Request (CR)} \xrightarrow{\text{Impact Analysis}} \text{CCB Review} \xrightarrow{\text{Approved}} \text{Baseline Updated} \xrightarrow{\text{RTM Modified}} \text{Engineering}$$
 </div>
 
-  </div>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 40: Software Requirements Inspection Checklist & Defect Classification</div>
+  <p>Classify requirements defects using IEEE standards:</p>
+  <ul>
+    <li><strong>Ambiguity:</strong> "System shall load data quickly." $\implies$ Missing latency bound ($\le 500\text{ms}$).</li>
+    <li><strong>Incompleteness:</strong> Missing behavior on network timeout $\implies$ Add automated retry with exponential backoff.</li>
+    <li><strong>Inconsistency:</strong> Section 2.1 states max users $= 1000$, while Section 3.4 specifies concurrent sessions $= 5000$ $\implies$ Reconcile system capacity baseline!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 41: Object-Oriented Requirements Domain Modeling</div>
+  <p>In a University Course Registration domain: Extract entities (`Student`, `CourseOffering`, `Professor`, `Transcript`) and establish multiplicity constraints: A Student registers for $3..6$ CourseOfferings; a CourseOffering is taught by exactly $1$ Professor!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 50: Use Case Point (UCP) Estimation Method (Gustav Karner)</div>
+  <p>In Use Case Point analysis:</p>
+  <ul>
+    <li>$$\text{Unadjusted Actor Weight (UAW)} = \sum \text{Actors} \times \text{Weight} \quad (\text{Simple: 1, Average: 2, Complex: 3})$$</li>
+    <li>$$\text{Unadjusted Use Case Weight (UUCW)} = \sum \text{UseCases} \times \text{Weight} \quad (\le 3 \text{ steps: 5, } 4\text{--}7 \text{ steps: 10, } \ge 8 \text{ steps: 15})$$</li>
+    <li>$$\mathbf{\text{UUCP} = \text{UAW} + \text{UUCW} \qquad \text{UCP} = \text{UUCP} \times \text{TCF} \times \text{ECF}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 51: Requirements Completeness Verification Matrix</div>
+  <p>In an ATM system specification: For every valid pin state, verify that all three failure conditions (Wrong PIN, Expired Card, Network Timeout) have explicit state transitions and localized error dialog prompts!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 60: Requirements Volatility Index (RVI) Metric</div>
+  <p>If $R_{\text{initial}} = 80$, $R_{\text{added}} = 12$, $R_{\text{modified}} = 8$, and $R_{\text{deleted}} = 4$:</p>
+  $$\mathbf{\text{RVI} = \frac{R_{\text{added}} + R_{\text{modified}} + R_{\text{deleted}}}{R_{\text{initial}}} \times 100\% = \frac{12 + 8 + 4}{80} \times 100\% = \frac{24}{80} \times 100\% = \mathbf{30.0\%}}$$
+  <p>An RVI $> 20\%$ signals high requirement volatility, requiring agile iterative planning rather than fixed-price waterfall contracts!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 61: IEEE 830 Section 3 Software Interfaces Specification</div>
+  <p>Specify exact communication protocols, endpoints, payload formats (`application/json`), TLS 1.3 encryption, and error status codes (`400 Bad Request`, `401 Unauthorized`, `500 Server Error`) for zero interface mismatch!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 69: Requirements Elicitation Cognitive Biases</div>
+  <p>Identify and mitigate cognitive biases in stakeholder interviews: (1) <strong>Availability Heuristic</strong> (users request features based on recent memorable outages), (2) <strong>Anchoring Bias</strong> (over-weighting the initial executive suggestion), (3) <strong>Confirmation Bias</strong> (analysts only hearing feedback supporting their pet architecture)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 70: Use Case Generalization vs Extension</div>
+  <p>`Make Payment` is a generalized base use case specialized by `Make Credit Card Payment` and `Make Crypto Payment` via standard object-oriented polymorphism!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 79: Natural Language Requirements Ambiguity Patterns</div>
+  <p>Identify 4 common ambiguity pitfalls: (1) <strong>Vague Adverbs</strong> ("rapidly"), (2) <strong>Loophole Conditionals</strong> ("as far as possible"), (3) <strong>Passive Voice</strong> ("the password shall be hashed" $\implies$ by client or server?), (4) <strong>Compound Conjunctions</strong> ("A and B or C" $\implies$ $(A \land B) \lor C$ vs $A \land (B \lor C)$)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 80: User Stories INVEST Criteria</div>
+  $$\mathbf{\text{I — Independent • N — Negotiable • V — Valuable • E — Estimable • S — Small • T — Testable}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 81: Requirements Traceability Forward and Backward Audit</div>
+  <p>In a Medical Device audit: Verify that $100\%$ of safety requirements in SRS map forward to verified unit tests and hazard mitigation code modules with zero orphan code!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 93: Requirements Elicitation via User Personas</div>
+  <p>Construct realistic user personas (e.g., "Dr. Priya, Senior Radiologist, needs 1-click DICOM export within 2 seconds") to ground abstract requirements in real clinical workflows!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 94: Requirements Prioritization via Kano Model</div>
+  <p>• <strong>Must-Be:</strong> Core features users expect (login).<br>• <strong>One-Dimensional:</strong> Customer satisfaction scales linearly with performance (search speed).<br>• <strong>Attractive / Delighters:</strong> Innovative features creating high delight (AI instant summary)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 95: Formal Verification of Requirements Consistency</div>
+  <p>Using SAT solvers (Z3) to mathematically prove that a set of 500 security rules contains zero mutually contradictory assertion deadlocks!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 107: Non-Functional Security Requirements Specification (OWASP ASVS)</div>
+  <p>Specify application security verification standards: Rate limiting ($100 \text{ req/min/IP}$), AES-GCM-256 at-rest database encryption, Argon2id password hashing, and zero raw PII in application debug logs!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 108: Requirements Traceability Forward/Backward Audit Checklist</div>
+  <p>Audit matrix verifying $100\%$ of customer requirements have assigned test cases ($\ge 1$ pass/fail test per FR) and zero untested orphaned source code classes!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 109: System Architecture Boundary Definition in SRS</div>
+  <p>Explicitly delineate external third-party boundaries: Stripe Payment Gateway, Twilio SMS API, and AWS S3 Storage Interfaces with timeout fallback rules!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 121: Requirements Elicitation via Ethnographic Work Observation</div>
+  <p>Shadowing air traffic controllers in live radar rooms to discover unstated cognitive overload bottlenecks during multi-aircraft conflict resolution!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 122: Software Requirements Ambiguity Scoring & Defect Removal</div>
+  <p>Using natural language processing rule checkers to flag non-quantifiable adjectives ("efficient", "flexible", "intuitive") and auto-prompting requirement authors for quantitative bounding metrics!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 129: Requirements Elicitation via Brainstorming vs Nominal Group Technique (NGT)</div>
+  <p>• <strong>Brainstorming:</strong> Unconstrained rapid generation of ideas without initial critique.<br>• <strong>NGT:</strong> Structured 4-phase technique (Silent idea generation $\rightarrow$ Round-robin recording $\rightarrow$ Group discussion $\rightarrow$ Anonymous mathematical voting), eliminating dominant stakeholder bias and yielding objective requirement priorities!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 130: Functional Requirements CRUD Matrix Completeness Verification</div>
+  <p>In a Customer Management subsystem: Verify that for every data entity (`CustomerProfile`, `Invoice`, `CreditCard`), all 4 lifecycle operations (Create, Read, Update, Delete/Deactivate) have explicit business logic and authorization constraints!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 139: Requirements Completeness Formal Proof</div>
+  <p>In a Medical Infusion Pump controller: Using model checking to verify that for every possible drug rate limit, the safety cutoff circuit is guaranteed to trigger within $50\text{ms}$ under all operational conditions!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 143: Requirements Change Propagation Cost Model</div>
+  <p>Calculating the multiplier cost of requirements modification across the SDLC: $\text{Cost}(t) = C_0 e^{k t}$. A requirement defect caught in testing costs $20\times$ more to fix than during SRS inspection!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 144: Formal Security Invariants Specification in Z-Notation</div>
+  <p>Mathematical proof that session tokens expire after $15\text{ minutes}$ of user inactivity and cannot be forged without cryptographic secret key!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 151: Requirements Engineering for Cloud-Native Distributed Systems</div>
+  <p>Specifying multi-region active-active database replication latency bounds ($< 50\text{ms}$) and automated partition tolerance guarantees adhering to the CAP Theorem!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 152: User Story Acceptance Criteria using Gherkin BDD Syntax</div>
+<pre><code class="language-text">Feature: User Password Authentication
+  Scenario: Successful login with valid credentials
+    Given the user is on the login portal
+    When the user enters valid email and correct password
+    Then the system should issue a signed JWT token and redirect to dashboard
+</code></pre>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 159: Formal Verification of Requirements Completeness via Model Checking</div>
+  <p>Using Temporal Logic (LTL/CTL) to prove that the system guarantees safety invariant $\mathbf{G}(\text{Request} \implies \mathbf{F} \text{Acknowledge})$ across all $2^{30}$ reachable execution states with zero deadlock risk!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 160: Non-Functional Scalability & Latency SLA Bounds</div>
+  <p>Contractual SLA engineering: Specifying $99.999\%$ uptime (less than 5.26 minutes downtime per year) with p99 API latency bounded below $120\text{ms}$ at $50,000 \text{ QPS}$ load!</p>
+</div>
+
 </body>
 </html>

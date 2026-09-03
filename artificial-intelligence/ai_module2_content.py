@@ -1,124 +1,392 @@
-# Artificial Intelligence Module 2 Exhaustive Content (6 Topics Complete)
-# Neuroscience framework: Understand -> Visualize -> Connect -> Recall -> Apply -> Exam Questions
-
 AI_M2_EXHAUSTIVE = r"""
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module II: Problem Solving by Search Agents — Complete 6-Topic Syllabus Tracker</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 2 Table of Contents (Topics 8 to 13)</div>
   <div class="toc-grid">
-    <div><strong>Topic 8:</strong> Search-Based Problem Solving (5-Tuple Formal Problem Formulation)</div>
-    <div><strong>Topic 9 & 10:</strong> State-Space Search (BFS, DFS, UCS, DLS, IDDFS & Graph Search)</div>
-    <div><strong>Topic 11:</strong> Heuristic Search (Greedy Best-First, A* Search & Admissibility)</div>
-    <div><strong>Topic 12:</strong> Local Search (Hill Climbing, Simulated Annealing & Genetic Algo)</div>
-    <div><strong>Topic 13:</strong> Search in Complex Environments (Belief States & Contingencies)</div>
-    <div><strong>Topic 14:</strong> Adversarial Game-Tree Search (Minimax Algorithm & Alpha-Beta Pruning)</div>
+    <div>• <strong>Topic 8:</strong> Problem Formulation & State Space</div>
+    <div>• <strong>Topic 9:</strong> Uninformed Search (BFS, DFS, UCS, DLS, IDDFS)</div>
+    <div>• <strong>Topic 10:</strong> Informed Heuristic Search ($A^*$, Greedy, IDA*)</div>
+    <div>• <strong>Topic 11:</strong> Mathematical Admissibility & Consistency Proofs</div>
+    <div>• <strong>Topic 12:</strong> Adversarial Game Playing (Minimax Algorithm)</div>
+    <div>• <strong>Topic 13:</strong> Alpha-Beta Pruning Traces & Solved Numerical Bank</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 8: Search Problem Formulation (The 5-Tuple)</h2>
+<h2 class="section-title">Topic 8: Formal Problem Formulation & State Space Representation</h2>
 
-<div class="callout callout-info">
-  <div class="callout-title">Formal Problem Formulation 5-Tuple: $\langle S_0, A(s), \text{Result}(s, a), \text{GoalTest}(s), c(s, a, s') \rangle$</div>
-  <ol>
-    <li><strong>Initial State ($S_0$):</strong> The starting state the agent begins in (e.g., $\text{In}(\text{Arad})$).</li>
-    <li><strong>Actions ($A(s)$):</strong> Set of legal executable actions available in state $s$.</li>
-    <li><strong>Transition Model ($\text{Result}(s, a)$):</strong> Returns the successor state after taking action $a$ in state $s$.</li>
-    <li><strong>Goal Test ($\text{GoalTest}(s)$):</strong> Boolean function determining if state $s$ is a target goal.</li>
-    <li><strong>Path Cost Function ($c(s, a, s')$):</strong> Step cost $g(n)$ of taking action $a$ to reach $s'$. Total path cost $= \sum c$.</li>
-  </ol>
+<p>
+  A classical search problem is formally defined by a 5-tuple:
+  $$\mathbf{\mathcal{P} = \langle S_0, \text{Actions}(s), \text{Result}(s, a), \text{GoalTest}(s), c(s, a, s') \rangle}$$
+  1. <strong>Initial State ($S_0$):</strong> The starting state of the agent.<br>
+  2. <strong>Actions ($Actions(s)$):</strong> The set of legal actions applicable in state $s$.<br>
+  3. <strong>Transition Model ($Result(s, a)$):</strong> Returns the successor state $s'$ produced by action $a$ in state $s$.<br>
+  4. <strong>Goal Test ($GoalTest(s)$):</strong> Boolean function determining if state $s$ is a goal state.<br>
+  5. <strong>Path Cost ($c(s, a, s')$):</strong> Step cost of taking action $a$ from state $s$ to $s'$. Total path cost is $g(n) = \sum \text{step costs}$.
+</p>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Problem Formulation: The 8-Puzzle Problem</div>
+  <ul>
+    <li><strong>State:</strong> $3 \times 3$ grid configuration containing numbers $\{1, 2, \dots, 8\}$ and one blank space ($\text{Total States} = 9! / 2 = 181,440$).</li>
+    <li><strong>Initial State:</strong> Any given permutation of the 8 tiles and blank.</li>
+    <li><strong>Actions:</strong> Move Blank $\{\text{Left}, \text{Right}, \text{Up}, \text{Down}\}$.</li>
+    <li><strong>Goal Test:</strong> Matches goal matrix `[[1,2,3],[8,blank,4],[7,6,5]]` (or standard sequential `[[1,2,3],[4,5,6],[7,8,blank]]`).</li>
+    <li><strong>Path Cost:</strong> Each tile move costs 1 unit ($g(n) = \text{number of moves}$).</li>
+  </ul>
 </div>
 
-<h2 class="section-title">Topic 9 & 10: Uninformed (Blind) Search Strategies</h2>
+<h2 class="section-title">Topic 9: Exhaustive Uninformed (Blind) Search Algorithms</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 18%;">Algorithm</th>
-      <th style="width: 18%;">Frontier Data Structure</th>
+      <th style="width: 20%;">Algorithm</th>
+      <th style="width: 18%;">Data Structure</th>
       <th style="width: 18%;">Time Complexity</th>
       <th style="width: 18%;">Space Complexity</th>
-      <th style="width: 14%;">Complete?</th>
+      <th style="width: 13%;">Complete?</th>
       <th>Optimal?</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>1. BFS</strong></td><td>FIFO Queue</td><td>$O(b^{d+1})$</td><td>$O(b^{d+1})$ (High)</td><td>Yes</td><td>Yes (if equal step costs)</td></tr>
-    <tr><td><strong>2. DFS</strong></td><td>LIFO Stack / Recursion</td><td>$O(b^m)$</td><td>$O(b \cdot m)$ (Low)</td><td>No (in infinite trees)</td><td>No</td></tr>
-    <tr><td><strong>3. UCS</strong></td><td>Priority Queue by $g(n)$</td><td>$O(b^{1 + \lfloor C^* / \epsilon \rfloor})$</td><td>$O(b^{1 + \lfloor C^* / \epsilon \rfloor})$</td><td>Yes</td><td>Yes (for step costs $\ge \epsilon > 0$)</td></tr>
-    <tr><td><strong>4. IDDFS</strong></td><td>Iterative LIFO Stack</td><td>$O(b^d)$</td><td>$O(b \cdot d)$ (Low)</td><td>Yes</td><td>Yes (if equal step costs)</td></tr>
+    <tr>
+      <td><strong>Breadth-First Search (BFS)</strong></td>
+      <td>FIFO Queue</td>
+      <td>$O(b^d)$</td>
+      <td>$O(b^d)$ (Severe memory bottle-neck)</td>
+      <td><strong>Yes</strong> (if $b < \infty$)</td>
+      <td><strong>Yes</strong> (if step costs equal)</td>
+    </tr>
+    <tr>
+      <td><strong>Uniform-Cost Search (UCS)</strong></td>
+      <td>Priority Queue by $g(n)$</td>
+      <td>$O(b^{1 + \lfloor C^* / \epsilon \rfloor})$</td>
+      <td>$O(b^{1 + \lfloor C^* / \epsilon \rfloor})$</td>
+      <td><strong>Yes</strong> (if step cost $\ge \epsilon > 0$)</td>
+      <td><strong>Yes</strong> (Cost optimal)</td>
+    </tr>
+    <tr>
+      <td><strong>Depth-First Search (DFS)</strong></td>
+      <td>LIFO Stack</td>
+      <td>$O(b^m)$ ($m = \text{max depth}$)</td>
+      <td>$O(b \cdot m)$ (Linear memory!)</td>
+      <td>No (Infinite trees)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><strong>Depth-Limited Search (DLS)</strong></td>
+      <td>LIFO Stack with limit $l$</td>
+      <td>$O(b^l)$</td>
+      <td>$O(b \cdot l)$</td>
+      <td>No (if $l < d$)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td><strong>Iterative Deepening DFS (IDDFS)</strong></td>
+      <td>LIFO Stack with increasing $l$</td>
+      <td>$O(b^d)$</td>
+      <td>$\mathbf{O(b \cdot d)}$ (Best of both worlds!)</td>
+      <td><strong>Yes</strong></td>
+      <td><strong>Yes</strong> (if step costs equal)</td>
+    </tr>
+    <tr>
+      <td><strong>Bidirectional Search</strong></td>
+      <td>Two simultaneous Queues</td>
+      <td>$O(b^{d/2})$</td>
+      <td>$O(b^{d/2})$</td>
+      <td><strong>Yes</strong></td>
+      <td><strong>Yes</strong> (if step costs equal)</td>
+    </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 11: Informed Heuristic Search & The A* Algorithm</h2>
+<h2 class="section-title">Topic 10 & 11: Informed Heuristic Search ($A^*$) & Mathematical Proofs</h2>
+
+<p>
+  <strong>$A^*$ Search</strong> evaluates frontier nodes by the total estimated path cost function:
+  $$\mathbf{f(n) = g(n) + h(n)}$$
+  Where $g(n)$ is the exact cost from initial state to node $n$, and $h(n)$ is the estimated cost from node $n$ to the closest goal state.
+</p>
 
 <div class="formula-card">
-  <strong>1. Evaluation Functions:</strong>
-  - <strong>Greedy Best-First Search:</strong> $f(n) = h(n)$ (Fast, but non-optimal; can get trapped in loops).
-  - <strong>A* Search:</strong> $f(n) = g(n) + h(n)$ where $g(n)$ is the exact cost from start to $n$, and $h(n)$ is estimated cost to goal.
+  <strong>1. Admissibility Property (Tree-Search Optimality):</strong>
+  A heuristic $h(n)$ is <strong>admissible</strong> if it never overestimates the true minimal cost $h^*(n)$ to reach the goal:
+  $$\mathbf{0 \le h(n) \le h^*(n) \quad \forall n}$$
+  <strong>2. Consistency / Monotonicity Property (Graph-Search Optimality):</strong>
+  A heuristic $h(n)$ is <strong>consistent</strong> if for every node $n$ and every successor $n'$ generated by action $a$:
+  $$\mathbf{h(n) \le c(n, a, n') + h(n')}$$
+  $$\mathbf{\text{Triangle Inequality: } f(n') = g(n') + h(n') = g(n) + c(n, a, n') + h(n') \ge g(n) + h(n) = f(n)}$$
+  <em>Crucial Consequence:</em> Monotonicity guarantees that $f(n)$ is non-decreasing along any path, ensuring that the first time a node is expanded in Graph-Search, the path is globally optimal!
 </div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Trace of $A^*$ Search on Romania Map</div>
+  <p>Find shortest path from <strong>Arad to Bucharest</strong> given straight-line distance heuristics $h_{\text{SLD}}$:</p>
+  <ul>
+    <li>$h(\text{Arad})=366, h(\text{Zerind})=374, h(\text{Timisoara})=329, h(\text{Sibiu})=253, h(\text{Fagaras})=176, h(\text{Rimnicu})=193, h(\text{Pitesti})=100, h(\text{Bucharest})=0$.</li>
+  </ul>
+  <p><strong>$A^*$ Priority Queue Execution Trace:</strong></p>
+  <ol>
+    <li>Expand <strong>Arad</strong>: Front = $\{ \text{Sibiu: } g=140, f=140+253=393; \ \text{Timisoara: } g=118, f=118+329=447; \ \text{Zerind: } g=75, f=75+374=449 \}$.</li>
+    <li>Select lowest $f$: <strong>Sibiu ($f=393$)</strong> $\rightarrow$ Expand Sibiu: Successors: $\{ \text{Fagaras: } g=140+99=239, f=239+176=415; \ \text{Rimnicu: } g=140+80=220, f=220+193=413 \}$.</li>
+    <li>Select lowest $f$: <strong>Rimnicu Vilcea ($f=413$)</strong> $\rightarrow$ Expand Rimnicu: Successors: $\{ \text{Pitesti: } g=220+97=317, f=317+100=417; \ \text{Craiova: } g=220+146=366, f=366+160=526 \}$.</li>
+    <li>Select lowest $f$: <strong>Fagaras ($f=415$)</strong> $\rightarrow$ Expand Fagaras: Successor: $\{ \text{Bucharest: } g=239+211=450, f=450+0=450 \}$.</li>
+    <li>Select lowest $f$: <strong>Pitesti ($f=417$)</strong> $\rightarrow$ Expand Pitesti: Successor: $\{ \text{Bucharest: } g=317+101=\mathbf{418}, f=418+0=\mathbf{418} \}$.</li>
+    <li>Select lowest $f$: $\mathbf{\text{Bucharest } (f=418)}$ $\rightarrow$ Goal reached!</li>
+  </ol>
+  $$\mathbf{\text{Optimal Path: } \text{Arad} \rightarrow \text{Sibiu} \rightarrow \text{Rimnicu Vilcea} \rightarrow \text{Pitesti} \rightarrow \text{Bucharest} \quad (\text{Total Cost } = \mathbf{418})}$$
+</div>
+
+<h2 class="section-title">Topic 12 & 13: Adversarial Search, Minimax & Alpha-Beta Pruning</h2>
+
+<p>
+  In a zero-sum two-player game, $\mathbf{MAX}$ seeks to maximize the utility score while $\mathbf{MIN}$ seeks to minimize it:
+  $$\mathbf{\text{Minimax}(s) = \begin{cases} \text{Utility}(s) & \text{if Terminal}(s) \\ \max_{a \in Actions(s)} \text{Minimax}(\text{Result}(s, a)) & \text{if Player}(s) = \text{MAX} \\ \min_{a \in Actions(s)} \text{Minimax}(\text{Result}(s, a)) & \text{if Player}(s) = \text{MIN} \end{cases}}$$
+</p>
 
 <div class="formula-card">
-  <strong>2. Admissibility and Consistency Conditions for A* Optimality:</strong>
-  - <strong>Admissible Heuristic:</strong> $h(n) \le h^*(n)$ for all $n$ (never overestimates the true remaining cost). Guarantees A* is optimal in Tree Search!
-  - <strong>Consistent (Monotonic) Heuristic:</strong> $h(n) \le c(n, a, n') + h(n')$ (satisfies the triangle inequality). Guarantees A* is optimal in Graph Search with zero node re-expansions!
+  <strong>The Alpha-Beta Pruning Invariant:</strong>
+  - $\alpha$: The highest-value choice found so far at any choice point along the path for $\text{MAX}$ (initialized to $-\infty$).
+  - $\beta$: The lowest-value choice found so far at any choice point along the path for $\text{MIN}$ (initialized to $+\infty$).
+  $$\mathbf{\text{Pruning Rule: Prune remaining subtree whenever } \alpha \ge \beta}$$
 </div>
 
-<h2 class="section-title">Topic 12: Local Search & Optimization Algorithms</h2>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Alpha-Beta Pruning Tree Execution</div>
+  <p>Consider a 2-ply game tree with root $\text{MAX}$, children $B, C, D$ ($\text{MIN}$), each having 2 terminal leaves:</p>
+  <ul>
+    <li>Node $B$: Leaves are $[3, 5]$ $\implies$ $\text{MIN}$ evaluates $3$, updates $\beta = 3$. Evaluates $5 \implies \text{Node } B = 3$. Root $\text{MAX}$ updates $\alpha = 3$.</li>
+    <li>Node $C$: Left leaf is $2$. $\text{MIN}$ updates $\beta = 2$. Now $\mathbf{\alpha = 3 \ge \beta = 2} \implies \mathbf{\text{PRUNE RIGHT CHILD OF } C}$! (No need to evaluate right child).</li>
+    <li>Node $D$: Left leaf is $0$. $\text{MIN}$ updates $\beta = 0$. Now $\mathbf{\alpha = 3 \ge \beta = 0} \implies \mathbf{\text{PRUNE RIGHT CHILD OF } D}$!</li>
+    <li>$\mathbf{\text{Root Value } = \mathbf{3}}$ (Move to $B$ is optimal).</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 13.2: Master University Examination Solved Question Bank (10 Solved Questions)</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Prove that $A^*$ Search using tree-search is guaranteed to be optimal if the heuristic function $h(n)$ is admissible. (10 Marks)</div><div class="qa-a">Let $G_2$ be a sub-optimal goal state on the frontier, and $C^* = f(G^*) = g(G^*)$ be optimal goal cost. Suppose $n$ is an unexpanded node on the path to optimal goal $G^*$. By admissibility, $h(n) \le h^*(n)$, so $f(n) = g(n) + h(n) \le g(n) + h^*(n) = C^*$. Since $G_2$ is sub-optimal, $f(G_2) = g(G_2) > C^* \ge f(n)$. Therefore, $f(n) \le f(G_2)$ holds for all ancestors of optimal goal $G^*$, meaning $A^*$ will always select and expand $n$ before ever expanding sub-optimal goal $G_2$!</div></div>
+<div class="qa-card"><div class="qa-q">Q2. Compare Iterative Deepening Search (IDDFS) with Breadth-First Search (BFS) in terms of time and space complexity. (8 Marks)</div><div class="qa-a">BFS has time complexity $O(b^d)$ and space complexity $O(b^d)$, causing catastrophic out-of-memory errors on large trees. IDDFS combines the completeness and shallowest-goal optimality of BFS with the linear space complexity $O(bd)$ of DFS. In IDDFS, nodes at depth $d$ are generated only once, depth $d-1$ twice, and the root $d+1$ times. The overhead factor is $\frac{b}{b-1}$, which is negligible for $b \ge 3$!</div></div>
+<div class="qa-card"><div class="qa-q">Q3. What is the Horizon Effect in Adversarial Game Playing? How is Quiescence Search used to mitigate it? (8 Marks)</div><div class="qa-a">The Horizon Effect occurs when an unavoidable catastrophic opponent move (e.g. losing a Queen) is pushed just beyond the search tree depth limit by executing stalling delaying moves (spurious checks). <strong>Quiescence Search</strong> mitigates this by extending the search beyond the fixed depth limit for "noisy" / unstable positions (e.g., capture sequences or checks) until the board reaches a quiescent (stable) state before evaluating the heuristic evaluation function.</div></div>
+<div class="qa-card"><div class="qa-q">Q4. Explain Constraint Satisfaction Problems (CSP). Trace the Backtracking Search with MRV and Forward Checking. (10 Marks)</div><div class="qa-a">A CSP is defined by Variables $X=\{X_1,\dots,X_n\}$, Domains $D=\{D_1,\dots,D_n\}$, and Constraints $C$. Standard backtracking is augmented by:<br>1. <strong>Minimum Remaining Values (MRV / Most Constrained Variable):</strong> Choose the variable with the fewest legal values remaining.<br>2. <strong>Degree Heuristic:</strong> Tie-breaker choosing variable with most constraints on remaining unassigned variables.<br>3. <strong>Least Constraining Value (LCV):</strong> Prefers the value that rules out the fewest choices for neighboring variables.<br>4. <strong>Forward Checking:</strong> Keeps track of remaining legal values for unassigned variables and terminates immediately if any domain becomes empty.</div></div>
+<div class="qa-card"><div class="qa-q">Q5. Explain Hill Climbing Search and its three primary failure modes. How does Simulated Annealing overcome them? (8 Marks)</div><div class="qa-a">Hill Climbing is a local search algorithm that iteratively moves in the direction of increasing elevation (greedy gradient ascent).<br><strong>Failure Modes:</strong><br>1. <strong>Local Maxima:</strong> A peak that is higher than neighboring states but lower than the global maximum.<br>2. <strong>Ridges:</strong> A sequence of local maxima where uphill moves are impossible in single coordinate directions.<br>3. <strong>Plateaux / Shoulders:</strong> Flat areas where the evaluation function is constant.<br><strong>Simulated Annealing:</strong> Allows downhill moves with probability $P = e^{\Delta E / T}$. At high initial temperature $T$, it explores broadly; as $T \rightarrow 0$ (annealing schedule), it converges to the global maximum.</div></div>
+<div class="qa-card"><div class="qa-q">Q6. What is Genetic Algorithm (GA)? Explain Selection, Crossover, and Mutation with bit-string representations. (8 Marks)</div><div class="qa-a">A Genetic Algorithm is a stochastic local search inspired by natural evolution:<br>1. <strong>Initial Population:</strong> Set of candidate state bit-strings.<br>2. <strong>Fitness Function:</strong> Assigns higher numeric reproduction probability to better states.<br>3. <strong>Selection:</strong> Roulette wheel or tournament selection picks parent chromosomes proportional to fitness.<br>4. <strong>Crossover:</strong> Recombines parent bit-strings at random crossover points to produce offspring.<br>5. <strong>Mutation:</strong> Randomly flips individual bits with small probability $p_m$ to maintain genetic diversity and prevent premature convergence.</div></div>
+<div class="qa-card"><div class="qa-q">Q7. Formulate the 8-Queens Problem as a State Space Search Problem. (6 Marks)</div><div class="qa-a">• <strong>States:</strong> Any arrangement of 0 to 8 queens on an $8\times 8$ chessboard.<br>• <strong>Initial State:</strong> No queens on the board.<br>• <strong>Actions:</strong> Add a queen to any empty square in the next empty column such that no queen attacks another.<br>• <strong>Goal Test:</strong> 8 queens placed on the board with no two queens attacking each other (same row, column, or diagonal).<br>• <strong>Path Cost:</strong> Zero (only the final state matters).</div></div>
+<div class="qa-card"><div class="qa-q">Q8. Explain Iterative Deepening $A^*$ (IDA*) and compare it with Memory-Bounded $A^*$ (SMA*). (8 Marks)</div><div class="qa-a">IDA* is a memory-bounded heuristic search that uses depth-first search with an $f$-cost limit. Each iteration expands nodes until $f(n) > \text{limit}$. The next iteration's limit is the minimum $f$-value among all pruned nodes. It consumes only $O(bd)$ memory while retaining the cost-optimality of $A^*$! SMA* uses all available memory and prunes worst-performing subtrees while backing up values to parents.</div></div>
+<div class="qa-card"><div class="qa-q">Q9. Explain the Minimax Algorithm for Game Trees with Chance Nodes (Expectiminimax). (8 Marks)</div><div class="qa-a">In games with stochastic elements (e.g., Backgammon dice rolls), <strong>Expectiminimax</strong> adds <em>Chance Nodes</em> between MAX and MIN layers. The value of a Chance Node is the mathematical expected value: $\text{Expectivalue}(s) = \sum_s P(s) \cdot \text{Expectiminimax}(s)$. Alpha-Beta pruning can be adapted if bounds on evaluation functions are strictly known.</div></div>
+<div class="qa-card"><div class="qa-q">Q10. Calculate the Effective Branching Factor ($b^*$) if $A^*$ search finds a solution at depth $d=5$ after expanding $N=150$ nodes. (6 Marks)</div><div class="qa-a">Using the polynomial formula $N + 1 = 1 + b^* + (b^*)^2 + (b^*)^3 + (b^*)^4 + (b^*)^5 = 151$:<br>For $b^* = 2$: $1 + 2 + 4 + 8 + 16 + 32 = 63 < 151$.<br>For $b^* = 2.5$: $1 + 2.5 + 6.25 + 15.625 + 39.0625 + 97.65625 = 162.09 > 151$.<br>Interpolating: $\mathbf{b^* \approx 2.45}$.</div></div>
+
+<h2 class="section-title">Topic 13.5: Local Search, Continuous Optimization & Genetic Algorithms</h2>
+
+<p>
+  When the path to the goal is irrelevant and only the final state configuration matters (e.g. 8-Queens, VLSI circuit layout, protein folding), <strong>Local Search Algorithms</strong> operate on a single current state rather than maintaining extensive search tree paths.
+</p>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Local Search Algorithm</th>
-      <th style="width: 45%;">Operating Strategy & State Space Navigation</th>
-      <th>Key Pitfall & Solution</th>
+      <th style="width: 22%;">Algorithm</th>
+      <th style="width: 40%;">Core Operational Mechanism</th>
+      <th>Space Complexity & Global Optimality</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Hill Climbing</strong></td>
-      <td>Greedy local search that continuously moves in the direction of increasing elevation (value).</td>
-      <td>Gets trapped on <strong>Local Maxima, Plateaus, and Ridges</strong>. Solution: Random-restart hill climbing.</td>
+      <td><strong>Hill-Climbing (Greedy Local Search)</strong></td>
+      <td>Continuously moves in the direction of increasing elevation/objective value ($s' = \arg\max_{n \in \text{Neighbors}(s)} f(n)$). Terminates when no neighbor has higher value.</td>
+      <td>$\mathbf{O(1)}$ space; prone to getting trapped in local maxima, ridges, and plateau shoulders.</td>
     </tr>
     <tr>
-      <td><strong>2. Simulated Annealing</strong></td>
-      <td>Escapes local maxima by allowing downhill moves with probability $P = e^{\frac{\Delta E}{T}}$. Temperature $T$ decreases according to a cooling schedule.</td>
-      <td>Guaranteed asymptotic convergence to global optimum as $T \rightarrow 0$ if cooled sufficiently slowly.</td>
+      <td><strong>Simulated Annealing</strong></td>
+      <td>Accepts uphill moves unconditionally ($\Delta E > 0$). Downhill moves are accepted with Boltzmann probability $\mathbf{P(\text{accept}) = e^{\Delta E / T}}$, where temperature $T$ decreases according to cooling schedule $T(t)$.</td>
+      <td>$\mathbf{O(1)}$ space; asymptotically guaranteed to find global optimum if temperature decreases sufficiently slowly ($\sum_{k} T_k = \infty$).</td>
     </tr>
     <tr>
-      <td><strong>3. Genetic Algorithms</strong></td>
-      <td>Population-based search simulating natural selection: <strong>Selection</strong> (fitness proportionate) $\rightarrow$ <strong>Crossover</strong> $\rightarrow$ <strong>Mutation</strong>.</td>
-      <td>Excellent for massive, complex, multi-modal search landscapes (e.g., TSP, circuit design).</td>
+      <td><strong>Local Beam Search</strong></td>
+      <td>Maintains $k$ states in parallel. At each step, all successors of all $k$ states are generated, and only the top $k$ best successors across the entire pool are retained.</td>
+      <td>$\mathbf{O(k)}$ space; facilitates information sharing among parallel exploratory search trajectories.</td>
+    </tr>
+    <tr>
+      <td><strong>Genetic Algorithms (GA)</strong></td>
+      <td>Populations of candidate state chromosomes undergo fitness-proportional Selection (Roulette Wheel / Tournament), Crossover recombination, and point Mutation.</td>
+      <td>$\mathbf{O(\text{PopSize} \cdot L)}$; powerful global explorer across complex rugged discontinuous fitness landscapes.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 14: Adversarial Game-Tree Search (Minimax & Alpha-Beta Pruning)</h2>
-
-<div class="formula-card">
-  <strong>1. Minimax Value Recursive Definition:</strong>
-  $$\text{Minimax}(s) = \begin{cases} \text{Utility}(s) & \text{if } \text{Terminal}(s) \\ \max_{a \in A(s)} \text{Minimax}(\text{Result}(s, a)) & \text{if } \text{Player}(s) = \text{MAX} \\ \min_{a \in A(s)} \text{Minimax}(\text{Result}(s, a)) & \text{if } \text{Player}(s) = \text{MIN} \end{cases}$$
-</div>
-
-<div class="callout callout-warning">
-  <div class="callout-title">Alpha-Beta ($\alpha$-$\beta$) Pruning Invariant Rule</div>
-  Maintain two bounds during recursive DFS traversal:
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Simulated Annealing Acceptance Probability Calculations</div>
+  <p>An optimization problem minimizing cost $E$ considers a neighbor with cost change $\Delta E = E_{\text{new}} - E_{\text{current}} = +15$ (worse by 15 units).</p>
+  <ol>
+    <li>Calculate the acceptance probability at initial high temperature $T = 100$.</li>
+    <li>Calculate the acceptance probability at medium temperature $T = 20$.</li>
+    <li>Calculate the acceptance probability at freezing temperature $T = 1.0$.</li>
+  </ol>
+  <p><strong>Solution:</strong></p>
+  $$\mathbf{P = e^{- \Delta E / T}}$$
   <ul>
-    <li>$\alpha = $ the highest value choice found so far along the path for $\text{MAX}$ (initialized to $-\infty$).</li>
-    <li>$\beta = $ the lowest value choice found so far along the path for $\text{MIN}$ (initialized to $+\infty$).</li>
+    <li>At $T = 100$: $P = e^{-15 / 100} = e^{-0.15} \approx \mathbf{0.8607 = 86.07\%}$ (Very high exploratory freedom!).</li>
+    <li>At $T = 20$: $P = e^{-15 / 20} = e^{-0.75} \approx \mathbf{0.4724 = 47.24\%}$ (Balanced exploration/exploitation).</li>
+    <li>At $T = 1.0$: $P = e^{-15 / 1.0} = e^{-15} \approx \mathbf{3.059 \times 10^{-7} \approx 0.00003\%}$ (Pure greedy hill climbing!).</li>
   </ul>
-  <strong>Pruning Condition:</strong> Whenever $\mathbf{\alpha \ge \beta}$, prune the remaining subtree below the current node immediately! (Reduces effective branching factor from $b$ to $\sqrt{b}$, doubling search depth!).
 </div>
 
-<h2 class="section-title">🧠 M2 Active Recall & Exam Questions</h2>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Constraint Propagation via the AC-3 Algorithm</div>
+  <p>Let variables $X_1, X_2, X_3 \in \{1, 2, 3, 4\}$ be constrained by $X_1 < X_2$ and $X_2 < X_3$. Trace the <strong>AC-3 (Arc Consistency 3) Algorithm</strong>:</p>
+  <ol>
+    <li>Initial domains: $D_1 = \{1, 2, 3, 4\}, D_2 = \{1, 2, 3, 4\}, D_3 = \{1, 2, 3, 4\}$.</li>
+    <li>Queue of Arcs = $\{ (X_1, X_2), (X_2, X_1), (X_2, X_3), (X_3, X_2) \}$.</li>
+    <li>Pop $(X_1, X_2)$: For $X_1 = 4$, no value in $D_2$ satisfies $4 < X_2$. Remove $4$ from $D_1 \implies \mathbf{D_1 = \{1, 2, 3\}}$.</li>
+    <li>Pop $(X_2, X_3)$: For $X_2 = 4$, no value in $D_3$ satisfies $4 < X_3$. Remove $4$ from $D_2 \implies \mathbf{D_2 = \{1, 2, 3\}}$. Arc $(X_1, X_2)$ re-added.</li>
+    <li>Pop $(X_3, X_2)$: For $X_3 = 1$, no value in $D_2$ satisfies $X_2 < 1$. Remove $1$ from $D_3 \implies \mathbf{D_3 = \{2, 3, 4\}}$.</li>
+    <li>Pop $(X_1, X_2)$: For $X_1 = 3$, since $D_2 = \{1, 2, 3\}$, only $X_2 = 4$ could satisfy $3 < X_2$, but $4 \notin D_2$. Remove $3$ from $D_1 \implies \mathbf{D_1 = \{1, 2\}}$.</li>
+    <li>Pop $(X_2, X_1)$: For $X_2 = 1$, no value in $D_1 = \{1, 2\}$ satisfies $X_1 < 1$. Remove $1$ from $D_2 \implies \mathbf{D_2 = \{2, 3\}}$.</li>
+    <li>Pop $(X_3, X_2)$: For $X_3 = 2$, since $D_2 = \{2, 3\}$, no value satisfies $X_2 < 2$. Remove $2$ from $D_3 \implies \mathbf{D_3 = \{3, 4\}}$.</li>
+    <li>Pop $(X_1, X_2)$: For $X_1 = 2$, $X_2 = 3 \in D_2$ satisfies $2 < 3$. Valid!</li>
+  </ol>
+  $$\mathbf{\text{Final Arc-Consistent Domains: } D_1 = \{1, 2\}, \quad D_2 = \{2, 3\}, \quad D_3 = \{3, 4\}}}$$
+</div>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Prove that A* Search is optimal when using an Admissible Heuristic in Tree Search. (8 Marks)</div>
+  <div class="qa-q">Q12. Prove that Depth-First Search with Graph Search is NOT optimal even for uniform step costs. (6 Marks)</div>
   <div class="qa-a">
-    Let $G_2$ be a suboptimal goal with cost $g(G_2) > C^*$, and $G$ be an optimal goal with $g(G) = C^*$.<br>
-    Suppose $G_2$ is in the frontier and is about to be selected. For any unexpanded node $n$ on the optimal path to $G$:<br>
-    1. Since $h$ is admissible: $f(n) = g(n) + h(n) \le C^*$.<br>
-    2. For the suboptimal goal: $f(G_2) = g(G_2) + h(G_2) = g(G_2) > C^*$.<br>
-    3. Therefore, $f(n) \le C^* < f(G_2) \implies f(n) < f(G_2)$.<br>
-    Hence, A* will always expand node $n$ on the optimal path before ever selecting $G_2$, guaranteeing that $G_2$ can never be chosen before an optimal path is found!
+    Consider a graph where Start $S$ has two edges: $S \xrightarrow{1} G$ (direct goal path, depth 1) and $S \xrightarrow{1} A \xrightarrow{1} G$ (depth 2). If DFS expands $A$ first because of arbitrary node ordering, it adds $A$ to the explored set and then reaches $G$ via path $S \rightarrow A \rightarrow G$ with cost $2$. When it backtracks to $S$, $G$ is already in the explored set, so the direct optimal path $S \rightarrow G$ (cost $1$) is never explored! Hence DFS is not cost-optimal.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q13. What is the difference between Minimax with Alpha-Beta Pruning and SSS* (State Space Search) in Game Trees? (8 Marks)</div>
+  <div class="qa-a">
+    • <strong>Minimax with Alpha-Beta:</strong> A depth-first traversal of the game tree that maintains single-path scalar bounds $(\alpha, \beta)$ and consumes only $O(bd)$ memory. It evaluates nodes in a fixed depth-first order.<br>
+    • <strong>SSS* (Stockman 1979):</strong> A best-first branch-and-bound search that maintains an open list of game tree solution trees (sets of strategies). SSS* never expands any leaf that Alpha-Beta prunes, and can prune additional nodes that Alpha-Beta explores. However, SSS* requires exponential queue memory $O(b^{d/2})$, making it computationally impractical for deep game trees like Chess and Go!
+  </div>
+</div>
+
+<h2 class="section-title">Topic 13.6: Exhaustive Adversarial Game Theory & Alpha-Beta Deep Traces</h2>
+
+<div class="formula-card">
+  <strong>Alpha-Beta Pruning Efficiency Theorems:</strong>
+  - <strong>Worst-Case Move Ordering (Worst-first):</strong> Alpha-Beta examines every leaf node $\implies O(b^d)$ (No pruning advantage over standard Minimax).
+  - <strong>Ideal / Optimal Move Ordering (Best-first):</strong> The effective branching factor is reduced from $b$ to $\sqrt{b}$ $\implies \mathbf{O(b^{d/2})}$.
+  - <em>Profound Consequence:</em> With optimal move ordering, an Alpha-Beta search can search <strong>twice as deep</strong> in the same compute time as standard Minimax (e.g., searching 12 plies instead of 6 plies in Chess)!
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Full 3-Ply Alpha-Beta Pruning Tree Trace</div>
+  <p>Consider a 3-ply Minimax tree where Root is MAX, Level 1 is MIN ($B, C$), Level 2 is MAX ($D, E, F, G$), and Level 3 has 8 terminal leaves:</p>
+  <ul>
+    <li>Node $D$ leaves: $[4, 6]$ $\implies \text{Node } D = \max(4, 6) = 6$.</li>
+    <li>Node $E$ leaves: $[7, 9]$ $\implies \text{Node } E = \max(7, 9) = 9$.</li>
+    <li>Node $B$ ($\text{MIN}$ of $D, E$): $\beta = \min(6, 9) = 6$. Updates Root MAX: $\alpha = 6$.</li>
+    <li>Node $F$ left leaf: $1$. Since $\text{Node } F$ is MAX, $F \ge 1$. Node $F$ right leaf: $2 \implies \text{Node } F = 2$.</li>
+    <li>Node $C$ ($\text{MIN}$): Updates $\beta = 2$.</li>
+    <li>Now at Node $C$, we have $\mathbf{\alpha = 6 \ge \beta = 2} \implies \mathbf{\text{PRUNE NODE } G \text{ AND ALL ITS LEAVES COMPLETELY!}}$</li>
+    <li>$\mathbf{\text{Root Optimal Value } = 6 \quad (\text{Optimal Move: } A \rightarrow B)}$.</li>
+  </ul>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q14. Explain Transposition Tables in Game Tree Search. How do Zobrist Hashing keys operate? (8 Marks)</div>
+  <div class="qa-a">
+    In games like Chess, different move orders can lead to the identical board position (Transposition: $1. e4 \ e5 \ 2. Nf3 \ Nc6$ vs $1. Nf3 \ Nc6 \ 2. e4 \ e5$). A <strong>Transposition Table</strong> is a high-speed hash map caching previously evaluated board states.<br>
+    <strong>Zobrist Hashing:</strong> Assigns a random 64-bit integer to each `(piece, square)` tuple. A board position's hash is computed by XORing ($\oplus$) all present piece keys. When a move occurs, updating the hash takes $O(1)$ XOR operations ($\text{Hash}' = \text{Hash} \oplus \text{Key}_{\text{old}} \oplus \text{Key}_{\text{new}}$), enabling millions of board lookups per second!
+  </div>
+</div>
+
+<h2 class="section-title">Topic 13.7: Advanced Adversarial Search & Monte Carlo Tree Search (MCTS)</h2>
+
+<p>
+  In ultra-large state space games where evaluation functions cannot be hand-crafted (e.g. Go, Chess variants), <strong>Monte Carlo Tree Search (MCTS)</strong> uses stochastic rollouts to evaluate positions.
+</p>
+
+<div class="diagram-container">
+  <svg width="100%" height="70" viewBox="0 0 740 70" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="15" width="160" height="40" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+    <text x="90" y="32" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#1e40af" text-anchor="middle">1. SELECTION</text>
+    <text x="90" y="45" font-family="Plus Jakarta Sans" font-size="8" fill="#2563eb" text-anchor="middle">Traverse via UCT Formula</text>
+
+    <path d="M 170 35 L 200 35" stroke="#0284c7" stroke-width="1.5"/>
+
+    <rect x="205" y="15" width="160" height="40" rx="4" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2"/>
+    <text x="285" y="32" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#854d0e" text-anchor="middle">2. EXPANSION</text>
+    <text x="285" y="45" font-family="Plus Jakarta Sans" font-size="8" fill="#a16207" text-anchor="middle">Add New Child Node</text>
+
+    <path d="M 365 35 L 395 35" stroke="#0284c7" stroke-width="1.5"/>
+
+    <rect x="400" y="15" width="160" height="40" rx="4" fill="#faf5ff" stroke="#a855f7" stroke-width="1.2"/>
+    <text x="480" y="32" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#581c87" text-anchor="middle">3. SIMULATION</text>
+    <text x="480" y="45" font-family="Plus Jakarta Sans" font-size="8" fill="#9333ea" text-anchor="middle">Random Rollout to Terminal</text>
+
+    <path d="M 560 35 L 590 35" stroke="#0284c7" stroke-width="1.5"/>
+
+    <rect x="595" y="15" width="135" height="40" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.2"/>
+    <text x="662" y="32" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" fill="#14532d" text-anchor="middle">4. BACKPROPAGATION</text>
+    <text x="662" y="45" font-family="Plus Jakarta Sans" font-size="8" fill="#16a34a" text-anchor="middle">Update Visit Counts & $Q$</text>
+  </svg>
+  <div class="diagram-caption">Figure 2.1: The Four Discrete Phases of Monte Carlo Tree Search (MCTS / AlphaGo)</div>
+</div>
+
+<div class="formula-card">
+  <strong>The Upper Confidence Bound for Trees (UCT) Formula:</strong>
+  $$\mathbf{\text{UCT}(v_i, v) = \frac{Q(v_i)}{N(v_i)} + c \sqrt{\frac{\ln N(v)}{N(v_i)}} = \text{Exploitation Term} + \text{Exploration Term}}$$
+  Where $Q(v_i)$ is total simulation reward, $N(v_i)$ is child visit count, $N(v)$ is parent visit count, and $c = \sqrt{2}$ is the exploration parameter balancing exploitation of winning moves with exploration of rarely visited branches.
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: MCTS UCT Calculation</div>
+  <p>A parent node $v$ has been visited $N(v) = 100$ times. It has two children $A$ and $B$:</p>
+  <ul>
+    <li>Child $A$: Visited $N(A) = 60$ times with total wins $Q(A) = 45$.</li>
+    <li>Child $B$: Visited $N(B) = 40$ times with total wins $Q(B) = 28$.</li>
+  </ul>
+  $$\text{UCT}(A) = \frac{45}{60} + \sqrt{2} \sqrt{\frac{\ln 100}{60}} = 0.75 + 1.414 \sqrt{\frac{4.605}{60}} = 0.75 + 1.414(0.277) = 0.75 + 0.392 = \mathbf{1.142}$$
+  $$\text{UCT}(B) = \frac{28}{40} + \sqrt{2} \sqrt{\frac{\ln 100}{40}} = 0.70 + 1.414 \sqrt{\frac{4.605}{40}} = 0.70 + 1.414(0.339) = 0.70 + 0.479 = \mathbf{1.179}$$
+  $$\mathbf{\text{Selection Decision: Choose Child } B \text{ because its exploration potential (1.179) outweighs Child } A \text{ (1.142)!}}$$
+</div>
+
+<h2 class="section-title">Topic 13.8: Complete Step-by-Step Solved Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 3: IDA* (Iterative Deepening A*) Search Execution Trace</div>
+  <p>Consider a search tree with initial state $S$ and goal $G$ with branch costs and heuristics:</p>
+  <ul>
+    <li>$S \xrightarrow{2} A \ (h=5), \ S \xrightarrow{3} B \ (h=4)$.</li>
+    <li>$A \xrightarrow{4} C \ (h=3), \ A \xrightarrow{5} D \ (h=2)$.</li>
+    <li>$B \xrightarrow{2} E \ (h=3), \ B \xrightarrow{6} G \ (h=0)$.</li>
+    <li>$C \xrightarrow{2} G \ (h=0)$.</li>
+  </ul>
+  <p><strong>IDA* Iterations:</strong></p>
+  <ol>
+    <li><strong>Iteration 1 (Cutoff = $f(S) = g(S) + h(S) = 0 + 6 = 6$):</strong>
+      <ul>
+        <li>Expand $S$: $f(A) = 2 + 5 = 7 > 6$ (Pruned, min cutoff = 7); $f(B) = 3 + 4 = 7 > 6$ (Pruned, min cutoff = 7).</li>
+        <li>Threshold for Iteration 2 is set to $\mathbf{7}$.</li>
+      </ul>
+    </li>
+    <li><strong>Iteration 2 (Cutoff = 7):</strong>
+      <ul>
+        <li>Expand $S$: $A$ ($f=7 \le 7$), $B$ ($f=7 \le 7$).</li>
+        <li>Expand $A$: $f(C) = 2 + 4 + 3 = 9 > 7$ (Pruned, cutoff=9); $f(D) = 2 + 5 + 2 = 9 > 7$ (Pruned, cutoff=9).</li>
+        <li>Expand $B$: $f(E) = 3 + 2 + 3 = 8 > 7$ (Pruned, cutoff=8); $f(G) = 3 + 6 + 0 = 9 > 7$ (Pruned, cutoff=9).</li>
+        <li>Next threshold is $\min(9, 9, 8, 9) = \mathbf{8}$.</li>
+      </ul>
+    </li>
+    <li><strong>Iteration 3 (Cutoff = 8):</strong>
+      <ul>
+        <li>Expand $S \rightarrow B \rightarrow E$: Successors of $E \dots$</li>
+        <li>Next threshold = $\mathbf{8}$. Goal $G$ reached via path $S \rightarrow C \rightarrow G$ with cost $\mathbf{8}$!</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q17. Explain Simulated Annealing Cooling Schedules and the Metropolis Criterion. (8 Marks)</div>
+  <div class="qa-a">
+    The <strong>Metropolis Criterion</strong> dictates that downhill moves (cost improvements) are accepted with probability 1.0, while uphill moves ($\Delta E > 0$) are accepted with probability $P = e^{-\Delta E / T}$.<br>
+    <strong>Cooling Schedules:</strong><br>
+    1. <em>Linear Cooling:</em> $T(t) = T_0 - \alpha t$.<br>
+    2. <em>Geometric / Exponential Cooling:</em> $T(t) = T_0 \cdot \alpha^t$ (where $\alpha \in [0.80, 0.99]$).<br>
+    3. <em>Logarithmic Cooling (Geman & Geman):</em> $T(t) = \frac{C}{\ln(1 + t)}$. This is the only schedule mathematically proven to converge to the global optimum, but requires astronomically many iterations!
   </div>
 </div>
 """

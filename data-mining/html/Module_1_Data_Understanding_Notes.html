@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 1: Data Understanding & Statistical Proximity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Module 1</div>
+    <h1 class="book-title">Module 1: Data Understanding & Statistical Proximity</h1>
+    <div class="book-subtitle">Topics 1 to 14 • KDD Lifecycle, Attributes, Boxplots, Q-Q, Jaccard & Distance Metrics</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 1 Table of Contents (Topics 1 to 14)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 1:</strong> Data Mining & KDD Lifecycle</div>
+    <div>• <strong>Topic 2:</strong> Data Objects & Attribute Types</div>
+    <div>• <strong>Topic 3:</strong> Central Tendency (Mean, Median, Mode)</div>
+    <div>• <strong>Topic 4:</strong> Dispersion & Five-Number Summary</div>
+    <div>• <strong>Topic 5:</strong> Visual Displays (Boxplots, Q-Q Plots)</div>
+    <div>• <strong>Topic 6:</strong> Nominal & Binary Proximity (SMC, Jaccard)</div>
+    <div>• <strong>Topic 7:</strong> Numeric Distance (Minkowski, Manhattan)</div>
+    <div>• <strong>Topic 8:</strong> Cosine & Mahalanobis Metrics</div>
+    <div>• <strong>Topic 9:</strong> Mixed Attribute Distance (Gower)</div>
+    <div>• <strong>Topic 10:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 1 & 2: Data Mining Foundations, KDD Process & Attribute Types</h2>
+
+<p>
+  <strong>Data Mining</strong> is the computational process of discovering valid, novel, potentially useful, and ultimately understandable patterns from massive, complex datasets. It sits at the confluence of Database Systems, Statistics, Machine Learning, Pattern Recognition, and High-Performance Computing.
+</p>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The 7-Stage KDD Process Pipeline (Fayyad et al.)</div>
+  <ol>
+    <li><strong>Data Cleaning:</strong> Eliminating noisy, erroneous, and inconsistent records; imputing missing values.</li>
+    <li><strong>Data Integration:</strong> Merging heterogeneous schemas, relational databases, flat files, and real-time data streams into a unified repository.</li>
+    <li><strong>Data Selection:</strong> Retrieving task-relevant subsets from operational repositories.</li>
+    <li><strong>Data Transformation:</strong> Normalizing, aggregating, scaling, and constructing informative features.</li>
+    <li><strong>Data Mining:</strong> Applying intelligent algorithms (Apriori, Decision Trees, k-Means, SVM) to extract patterns.</li>
+    <li><strong>Pattern Evaluation:</strong> Identifying truly interesting patterns using objective interestingness measures (Support, Confidence, Lift).</li>
+    <li><strong>Knowledge Presentation:</strong> Visualizing findings via dashboards and decision support systems.</li>
+  </ol>
+</div>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Attribute Type</th>
+      <th style="width: 35%;">Mathematical Characteristics</th>
+      <th style="width: 25%;">Meaningful Operators</th>
+      <th>Real-World Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Nominal (Categorical)</strong></td>
+      <td>Values are distinct qualitative categories or names without intrinsic ordering.</td>
+      <td>$=, \neq, \text{Mode}, \text{Entropy}$</td>
+      <td>`MaritalStatus: {Single, Married, Divorced}`, `BloodType: {A, B, AB, O}`.</td>
+    </tr>
+    <tr>
+      <td><strong>Binary (Symmetric vs Asymmetric)</strong></td>
+      <td>Nominal attribute with exactly 2 states ($0, 1$). <em>Symmetric:</em> both states equally important; <em>Asymmetric:</em> presence of state $1$ carries far higher significance than $0$.</td>
+      <td>$=, \neq$, Contingency tables, Jaccard coefficient</td>
+      <td><em>Symmetric:</em> `Gender: {M, F}`; <em>Asymmetric:</em> `COVID-19_Test: {Positive=1, Negative=0}`.</td>
+    </tr>
+    <tr>
+      <td><strong>Ordinal</strong></td>
+      <td>Values possess a meaningful ranked order, but step intervals between adjacent ranks are subjective and unequal.</td>
+      <td>$=, \neq, <, >, \text{Median}, \text{Percentiles}$</td>
+      <td>`CustomerRating: {Poor, Fair, Good, Excellent}`, `AcademicGrade: {A, B, C, D, F}`.</td>
+    </tr>
+    <tr>
+      <td><strong>Numeric: Interval-Scaled</strong></td>
+      <td>Measured on a scale of equal-sized units, but lacks a true physical absolute zero point (zero is an arbitrary convention).</td>
+      <td>$+ , -, \text{Mean}, \text{Variance}$ (Ratios are meaningless!)</td>
+      <td>`Temperature in Celsius / Fahrenheit`, `Calendar Years (2024 CE)`.</td>
+    </tr>
+    <tr>
+      <td><strong>Numeric: Ratio-Scaled</strong></td>
+      <td>Measured on a scale with a physically absolute zero point (representing total absence of the measured quantity).</td>
+      <td>$+ , -, \times, \div$, Ratios, Geometric Mean</td>
+      <td>`Salary in USD ($0 = no income)`, `Age`, `Weight in kg`, `Network Bandwidth`.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 3 & 4: Statistical Descriptions of Central Tendency & Dispersion</h2>
+
+<div class="formula-card">
+  <strong>Comprehensive Central Tendency & Dispersion Formulas:</strong>
+  $$\mathbf{\text{Arithmetic Mean: } \bar{x} = \frac{1}{N} \sum_{i=1}^N x_i \qquad \text{Trimmed Mean: Mean after dropping top/bottom } k\% \text{ outliers}}$$
+  $$\mathbf{\text{Median: Middle value when sorted } x_{(N+1)/2} \quad (\text{Robust to extreme outliers!})}$$
+  $$\mathbf{\text{Empirical Mean-Median-Mode Relationship for Moderately Skewed Data: } \text{Mean} - \text{Mode} \approx 3(\text{Mean} - \text{Median})}$$
+  $$\mathbf{\text{Variance: } \sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \bar{x})^2 \qquad \text{Sample Variance: } s^2 = \frac{1}{N-1}\sum_{i=1}^N (x_i - \bar{x})^2}$$
+  $$\mathbf{\text{Standard Deviation: } \sigma = \sqrt{\sigma^2} \qquad \text{Interquartile Range: } \text{IQR} = Q_3 - Q_1}$$
+  $$\mathbf{\text{Tukey's Outlier Bounds: } [\text{Lower Fence}, \text{Upper Fence}] = [Q_1 - 1.5 \cdot \text{IQR}, \ Q_3 + 1.5 \cdot \text{IQR}]}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Five-Number Summary & Outlier Detection</div>
+  <p>Consider the dataset representing monthly engineering salaries (in thousands of dollars):</p>
+  $$\mathbf{X = \{15, 20, 22, 25, 28, 30, 32, 35, 38, 42, 45, 120\}}$$
+  <p><strong>1. Five-Number Summary Calculation ($N = 12$):</strong></p>
+  <ul>
+    <li><strong>Minimum:</strong> $\mathbf{15}$</li>
+    <li><strong>First Quartile ($Q_1$):</strong> Median of lower half $\{15, 20, 22, 25, 28, 30\} \implies \frac{22 + 25}{2} = \mathbf{23.5}$</li>
+    <li><strong>Median ($Q_2$):</strong> $\frac{x_6 + x_7}{2} = \frac{30 + 32}{2} = \mathbf{31.0}$</li>
+    <li><strong>Third Quartile ($Q_3$):</strong> Median of upper half $\{32, 35, 38, 42, 45, 120\} \implies \frac{38 + 42}{2} = \mathbf{40.0}$</li>
+    <li><strong>Maximum:</strong> $\mathbf{120}$</li>
+  </ul>
+  <p><strong>2. Interquartile Range & Outlier Fences:</strong></p>
+  $$\text{IQR} = Q_3 - Q_1 = 40.0 - 23.5 = \mathbf{16.5}$$
+  $$\text{Lower Fence} = Q_1 - 1.5(\text{IQR}) = 23.5 - 1.5(16.5) = 23.5 - 24.75 = \mathbf{-1.25}$$
+  $$\text{Upper Fence} = Q_3 + 1.5(\text{IQR}) = 40.0 + 1.5(16.5) = 40.0 + 24.75 = \mathbf{64.75}$$
+  $$\mathbf{\text{Outlier Identification: } 120 > 64.75 \implies \mathbf{120 \text{ is a severe outlier!}}}$$
+</div>
+
+<h2 class="section-title">Topic 6 to 9: Mathematical Proximity & Distance Metrics</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Proximity Metric</th>
+      <th style="width: 45%;">Mathematical Formulation</th>
+      <th>Properties & Applications</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Euclidean Distance ($L_2$)</strong></td>
+      <td>$$d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^p (x_i - y_i)^2} = \|\mathbf{x} - \mathbf{y}\|_2$$</td>
+      <td>Rotational invariant; sensitive to feature scales and extreme outliers.</td>
+    </tr>
+    <tr>
+      <td><strong>Manhattan Distance ($L_1$)</strong></td>
+      <td>$$d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^p |x_i - y_i| = \|\mathbf{x} - \mathbf{y}\|_1$$</td>
+      <td>City-block orthogonal grid distance; robust to axis outliers.</td>
+    </tr>
+    <tr>
+      <td><strong>Minkowski Distance ($L_h$)</strong></td>
+      <td>$$d(\mathbf{x}, \mathbf{y}) = \left( \sum_{i=1}^p |x_i - y_i|^h \right)^{1/h}$$</td>
+      <td>Generalization ($h=1 \implies \text{Manhattan}; h=2 \implies \text{Euclidean}; h \rightarrow \infty \implies \text{Chebyshev } L_\infty$).</td>
+    </tr>
+    <tr>
+      <td><strong>Cosine Similarity</strong></td>
+      <td>$$\text{sim}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\|_2 \|\mathbf{y}\|_2} = \frac{\sum x_i y_i}{\sqrt{\sum x_i^2}\sqrt{\sum y_i^2}}$$</td>
+      <td>Measures orientation angle regardless of document magnitude; ideal for high-dimensional sparse text vectors!</td>
+    </tr>
+    <tr>
+      <td><strong>Simple Matching Coeff (SMC)</strong></td>
+      <td>$$\text{SMC} = \frac{q + t}{q + r + s + t}$$</td>
+      <td>Used for symmetric binary attributes (equal weight to 0-0 and 1-1 matches).</td>
+    </tr>
+    <tr>
+      <td><strong>Jaccard Coefficient</strong></td>
+      <td>$$J = \frac{q}{q + r + s} \qquad d_J = 1 - J = \frac{r + s}{q + r + s}$$</td>
+      <td>Used for asymmetric binary data (ignores irrelevant negative-negative $0-0$ matches $t$).</td>
+    </tr>
+    <tr>
+      <td><strong>Mahalanobis Distance</strong></td>
+      <td>$$d_M(\mathbf{x}, \mathbf{y}) = \sqrt{(\mathbf{x} - \mathbf{y})^T \mathbf{\Sigma}^{-1} (\mathbf{x} - \mathbf{y})}$$</td>
+      <td>Scale-invariant metric accounting for correlations between attributes ($\mathbf{\Sigma}$ is covariance matrix).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Jaccard vs. SMC on Binary Medical Patient Vectors</div>
+  <p>Two patient symptom vectors $\mathbf{x} = [1, 0, 0, 1, 1, 0, 1, 0]$ and $\mathbf{y} = [1, 1, 0, 1, 0, 0, 1, 0]$ for 8 rare diseases:</p>
+  <ul>
+    <li>$q = \text{number of attributes where } \mathbf{x}=1 \text{ and } \mathbf{y}=1 \implies \text{Indices } \{1, 4, 7\} \implies q = 3$.</li>
+    <li>$r = \text{number of attributes where } \mathbf{x}=1 \text{ and } \mathbf{y}=0 \implies \text{Index } \{5\} \implies r = 1$.</li>
+    <li>$s = \text{number of attributes where } \mathbf{x}=0 \text{ and } \mathbf{y}=1 \implies \text{Index } \{2\} \implies s = 1$.</li>
+    <li>$t = \text{number of attributes where } \mathbf{x}=0 \text{ and } \mathbf{y}=0 \implies \text{Indices } \{3, 6, 8\} \implies t = 3$.</li>
+  </ul>
+  $$\mathbf{\text{Jaccard Similarity: } J(\mathbf{x}, \mathbf{y}) = \frac{q}{q + r + s} = \frac{3}{3 + 1 + 1} = \frac{3}{5} = \mathbf{0.60 = 60\%}}$$
+  $$\mathbf{\text{Jaccard Distance: } d_J(\mathbf{x}, \mathbf{y}) = 1 - 0.60 = \mathbf{0.40}}$$
+  $$\mathbf{\text{SMC Similarity: } \text{SMC}(\mathbf{x}, \mathbf{y}) = \frac{q + t}{q + r + s + t} = \frac{3 + 3}{8} = \frac{6}{8} = \mathbf{0.75 = 75\%}}$$
+</div>
+
+<h2 class="section-title">Topic 10: Master University Examination Solved Question Bank (10 Solved Questions)</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Differentiate between OLTP (Online Transaction Processing) and Data Mining / OLAP. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Feature</th><th>OLTP</th><th>Data Mining / OLAP</th></tr></thead><tbody><tr><td><strong>Purpose</strong></td><td>Real-time day-to-day transaction processing (ACID compliance).</td><td>Long-term strategic decision support, pattern discovery.</td></tr><tr><td><strong>Data Model</strong></td><td>Highly normalized relational tables (3NF/BCNF) to eliminate redundancy.</td><td>De-normalized multidimensional Star / Snowflake schemas.</td></tr><tr><td><strong>Queries</strong></td><td>Simple, fast indexed read/write transactions (`SELECT/UPDATE by ID`).</td><td>Complex multi-table aggregations (`GROUP BY, ROLLUP, CUBE`).</td></tr><tr><td><strong>Access Pattern</strong></td><td>High concurrency, continuous write/update.</td><td>Read-only periodic batch ETL loads from historical data.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Calculate the Cosine Similarity between document vectors $\mathbf{d_1} = (5, 0, 3, 0, 2, 0, 0, 2, 0, 0)$ and $\mathbf{d_2} = (3, 0, 2, 0, 1, 1, 0, 1, 0, 1)$. (8 Marks)</div><div class="qa-a">1. Dot Product: $\mathbf{d_1} \cdot \mathbf{d_2} = (5\times 3) + 0 + (3\times 2) + 0 + (2\times 1) + 0 + 0 + (2\times 1) + 0 + 0 = 15 + 6 + 2 + 2 = \mathbf{25}$.<br>2. Vector Magnitudes:<br>$\|\mathbf{d_1}\| = \sqrt{5^2 + 3^2 + 2^2 + 2^2} = \sqrt{25 + 9 + 4 + 4} = \sqrt{42} \approx 6.4807$.<br>$\|\mathbf{d_2}\| = \sqrt{3^2 + 2^2 + 1^2 + 1^2 + 1^2 + 1^2} = \sqrt{9 + 4 + 1 + 1 + 1 + 1} = \sqrt{17} \approx 4.1231$.<br>$$\mathbf{\text{Cosine Similarity} = \frac{25}{\sqrt{42}\sqrt{17}} = \frac{25}{6.4807 \times 4.1231} = \frac{25}{26.7206} = \mathbf{0.9356 = 93.56\%}}$$</div></div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Gower's General Dissimilarity Coefficient for Mixed Attribute Datasets. (8 Marks)</div><div class="qa-a">When records contain a combination of nominal, symmetric/asymmetric binary, ordinal, and numeric attributes, <strong>Gower's Metric</strong> computes distance as:
+$$\mathbf{d(i, j) = \frac{\sum_{f=1}^p \delta_{ij}^{(f)} d_{ij}^{(f)}}{\sum_{f=1}^p \delta_{ij}^{(f)}}}$$
+Where $\delta_{ij}^{(f)} = 1$ if both records have valid non-missing values for feature $f$ (and $\delta_{ij}^{(f)} = 0$ for asymmetric binary 0-0 matches). The per-feature distance $d_{ij}^{(f)}$ is:
+- Nominal/Binary: $0$ if $x_{if} = x_{jf}$, else $1$.
+- Numeric: $d_{ij}^{(f)} = \frac{|x_{if} - x_{jf}|}{\max(f) - \min(f)}$ (normalized to $[0, 1]$).
+- Ordinal: Convert ranks to $z_{if} = \frac{r_{if} - 1}{M_f - 1}$ and treat as numeric.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q4. Explain Quantile-Quantile (Q-Q) Plots and their diagnostic utility in Data Mining. (6 Marks)</div><div class="qa-a">A <strong>Q-Q Plot</strong> graphs the quantiles of an empirical dataset distribution against the theoretical quantiles of a standard distribution (e.g. Standard Normal $\mathcal{N}(0, 1)$) or against a second dataset. If the points fall strictly along the $45^\circ$ reference line $y = x$, the two distributions have identical shapes. Deviations from the straight line expose heavy tails (leptokurtosis), light tails, right skew, or bimodality.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Why is Euclidean Distance ineffective in high-dimensional sparse spaces (Curse of Dimensionality)? (8 Marks)</div><div class="qa-a">In high-dimensional spaces ($p \rightarrow \infty$), the ratio of the distance to the nearest neighbor and the distance to the furthest neighbor approaches 1:
+$$\mathbf{\lim_{p \rightarrow \infty} \frac{D_{\text{max}} - D_{\text{min}}}{D_{\text{min}}} \rightarrow 0}$$
+All data points become equidistant from each other in $L_2$ space! Furthermore, high dimensions dilute dense clusters into vast empty space ($V_{\text{hypersphere}} \rightarrow 0$), causing distance-based algorithms like k-NN and k-Means to degrade into random guessing unless dimensionality reduction (PCA, t-SNE) or Cosine similarity is applied!</div></div>
+
+<h2 class="section-title">Topic 11: Higher-Order Statistical Moments & Skewness / Kurtosis</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Statistical Moment</th>
+      <th style="width: 45%;">Mathematical Formulation</th>
+      <th>Diagnostic Significance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1st Raw Moment (Mean)</strong></td>
+      <td>$$\mu_1' = \mathbb{E}[X] = \frac{1}{N}\sum x_i$$</td>
+      <td>Center of mass / location of the distribution.</td>
+    </tr>
+    <tr>
+      <td><strong>2nd Central Moment (Variance)</strong></td>
+      <td>$$\mu_2 = \mathbb{E}[(X - \mu)^2] = \sigma^2$$</td>
+      <td>Spread / scale of dispersion around the mean.</td>
+    </tr>
+    <tr>
+      <td><strong>3rd Standardized Moment (Skewness)</strong></td>
+      <td>$$\gamma_1 = \mathbb{E}\left[\left(\frac{X - \mu}{\sigma}\right)^3\right] = \frac{\mu_3}{\sigma^3}$$</td>
+      <td>Asymmetry of distribution ($\gamma_1 > 0 \implies \text{Right/Positive Skew}$; $\gamma_1 < 0 \implies \text{Left/Negative Skew}$).</td>
+    </tr>
+    <tr>
+      <td><strong>4th Standardized Moment (Kurtosis)</strong></td>
+      <td>$$\text{Excess Kurtosis } \gamma_2 = \frac{\mu_4}{\sigma^4} - 3$$</td>
+      <td>Tailedness and outlier propensity ($\gamma_2 > 0 \implies \text{Leptokurtic / Heavy-tailed}$; $\gamma_2 < 0 \implies \text{Platykurtic / Light-tailed}$).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Spearman's Rank Correlation Calculation</div>
+  <p>Two data mining algorithms rank 5 customer profiles by risk score:</p>
+  <table class="custom-table">
+    <thead><tr><th>Customer</th><th>Algorithm A Rank ($R_A$)</th><th>Algorithm B Rank ($R_B$)</th><th>$d_i = R_A - R_B$</th><th>$d_i^2$</th></tr></thead>
+    <tbody>
+      <tr><td>C1</td><td>1</td><td>2</td><td>$-1$</td><td>1</td></tr>
+      <tr><td>C2</td><td>2</td><td>1</td><td>$+1$</td><td>1</td></tr>
+      <tr><td>C3</td><td>3</td><td>4</td><td>$-1$</td><td>1</td></tr>
+      <tr><td>C4</td><td>4</td><td>3</td><td>$+1$</td><td>1</td></tr>
+      <tr><td>C5</td><td>5</td><td>5</td><td>$0$</td><td>0</td></tr>
+      <tr><td><strong>Total</strong></td><td>—</td><td>—</td><td>$\sum d_i = 0$</td><td>$\mathbf{\sum d_i^2 = 4}$</td></tr>
+    </tbody>
+  </table>
+  $$\mathbf{r_s = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)} = 1 - \frac{6(4)}{5(25 - 1)} = 1 - \frac{24}{5(24)} = 1 - \frac{24}{120} = 1 - 0.20 = \mathbf{+0.80}}$$
+  $$\mathbf{\text{Conclusion: Strong positive monotonic agreement between the two ranking algorithms!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. State and prove Chebyshev's Inequality and explain its application in Outlier Detection. (8 Marks)</div><div class="qa-a"><strong>Chebyshev's Theorem:</strong> For any random variable $X$ with mean $\mu$ and finite variance $\sigma^2$, the probability that $X$ deviates from its mean by at least $k$ standard deviations is bounded by:
+$$\mathbf{P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}}$$
+<em>Application:</em> Unlike the Empirical Rule (which strictly requires a Gaussian bell curve), Chebyshev holds for <strong>ANY arbitrary probability distribution</strong>. For $k = 3$, at most $\frac{1}{3^2} = \frac{1}{9} \approx 11.11\%$ of observations can lie outside $[\mu - 3\sigma, \mu + 3\sigma]$. Any data point beyond $3\sigma$ is a candidate outlier!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain Dynamic Time Warping (DTW) for Time-Series Distance Measurement. (8 Marks)</div><div class="qa-a">Standard Euclidean distance requires two time-series sequences to have identical lengths and aligned time steps, failing when sequences are shifted in phase or time-dilated (e.g. someone speaking slowly vs quickly).<br><strong>Dynamic Time Warping (DTW):</strong> Uses dynamic programming to find an optimal non-linear alignment (warping path $W = w_1, w_2, \dots, w_K$) on a cost matrix $C(i, j) = |x_i - y_j|$, satisfying boundary conditions, continuity, and monotonicity ($D(i, j) = C(i, j) + \min(D(i-1, j), D(i, j-1), D(i-1, j-1))$).</div></div>
+
+<h2 class="section-title">Topic 13: Advanced Proximity Matrices & Multidimensional Scaling (MDS)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Constructing Full Dissimilarity Matrix</div>
+  <p>Consider 4 data objects in 2D space: $x_1 = (1, 2), x_2 = (3, 5), x_3 = (2, 0), x_4 = (4, 2)$. Construct the complete $4 \times 4$ Euclidean Dissimilarity Matrix $\mathbf{D}$:</p>
+  <ul>
+    <li>$d(x_1, x_2) = \sqrt{(3-1)^2 + (5-2)^2} = \sqrt{4 + 9} = \sqrt{13} \approx \mathbf{3.606}$</li>
+    <li>$d(x_1, x_3) = \sqrt{(2-1)^2 + (0-2)^2} = \sqrt{1 + 4} = \sqrt{5} \approx \mathbf{2.236}$</li>
+    <li>$d(x_1, x_4) = \sqrt{(4-1)^2 + (2-2)^2} = \sqrt{9 + 0} = \mathbf{3.000}$</li>
+    <li>$d(x_2, x_3) = \sqrt{(2-3)^2 + (0-5)^2} = \sqrt{1 + 25} = \sqrt{26} \approx \mathbf{5.099}$</li>
+    <li>$d(x_2, x_4) = \sqrt{(4-3)^2 + (2-5)^2} = \sqrt{1 + 9} = \sqrt{10} \approx \mathbf{3.162}$</li>
+    <li>$d(x_3, x_4) = \sqrt{(4-2)^2 + (2-0)^2} = \sqrt{4 + 4} = \sqrt{8} \approx \mathbf{2.828}$</li>
+  </ul>
+  $$\mathbf{\mathbf{D} = \begin{pmatrix} 0 & 3.606 & 2.236 & 3.000 \\ 3.606 & 0 & 5.099 & 3.162 \\ 2.236 & 5.099 & 0 & 2.828 \\ 3.000 & 3.162 & 2.828 & 0 \end{pmatrix}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q8. Explain Multidimensional Scaling (MDS) and Metric vs Non-metric MDS. (8 Marks)</div><div class="qa-a"><strong>Multidimensional Scaling (MDS)</strong> is a non-linear dimensionality reduction technique that takes an arbitrary pairwise dissimilarity matrix $\mathbf{D} \in \mathbb{R}^{N \times N}$ and maps the $N$ objects into a low-dimensional Euclidean space $\mathbb{R}^k$ ($k=2$ or $3$) such that Euclidean distances in the embedding $\hat{d}_{ij} = \|\mathbf{y}_i - \mathbf{y}_j\|$ preserve the original input dissimilarities $\delta_{ij}$ as faithfully as possible.<br>• <strong>Metric MDS:</strong> Minimizes Kruskal's Stress: $\text{Stress} = \sqrt{\frac{\sum (\delta_{ij} - \hat{d}_{ij})^2}{\sum \hat{d}_{ij}^2}}$.<br>• <strong>Non-Metric MDS:</strong> Preserves only the <em>rank order</em> of distances ($\delta_{ij} < \delta_{kl} \implies \hat{d}_{ij} < \hat{d}_{kl}$) using isotonic monotonic regression.</div></div>
+
+<h2 class="section-title">Topic 14: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 1: Mahalanobis Distance vs. Euclidean Distance with Covariance</div>
+  <p>Given 2 data points $\mathbf{x} = (1, 2)^T, \mathbf{y} = (4, 6)^T$ in 2D space with empirical covariance matrix $\mathbf{\Sigma} = \begin{bmatrix} 4 & 2 \\ 2 & 9 \end{bmatrix}$:</p>
+  <p><strong>1. Standard Euclidean Distance:</strong></p>
+  $$\mathbf{d_E(\mathbf{x}, \mathbf{y}) = \sqrt{(4-1)^2 + (6-2)^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = \mathbf{5.000}}$$
+  <p><strong>2. Mahalanobis Distance:</strong></p>
+  <ul>
+    <li>Difference Vector: $\mathbf{\Delta} = \mathbf{x} - \mathbf{y} = (-3, -4)^T$.</li>
+    <li>Covariance Determinant: $\det(\mathbf{\Sigma}) = (4)(9) - (2)(2) = 36 - 4 = \mathbf{32}$.</li>
+    <li>Inverse Covariance Matrix: $\mathbf{\Sigma}^{-1} = \frac{1}{32}\begin{bmatrix} 9 & -2 \\ -2 & 4 \end{bmatrix}$.</li>
+    <li>Matrix Product: $\mathbf{\Delta}^T \mathbf{\Sigma}^{-1} \mathbf{\Delta} = \frac{1}{32} \begin{bmatrix} -3 & -4 \end{bmatrix} \begin{bmatrix} 9 & -2 \\ -2 & 4 \end{bmatrix} \begin{bmatrix} -3 \\ -4 \end{bmatrix} = \frac{1}{32} \begin{bmatrix} -19 & -10 \end{bmatrix} \begin{bmatrix} -3 \\ -4 \end{bmatrix} = \frac{1}{32}(57 + 40) = \frac{97}{32} \approx \mathbf{3.03125}$.</li>
+  </ul>
+  $$\mathbf{d_M(\mathbf{x}, \mathbf{y}) = \sqrt{3.03125} = \mathbf{1.741}}$$
+  <p><em>Interpretation:</em> Because the two features are positively correlated ($\text{Cov}=2$), the effective statistical distance is significantly smaller ($1.741$) than the naive geometric Euclidean distance ($5.000$)!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q9. Explain the Difference between Exploratory Data Analysis (EDA) and Confirmatory Data Analysis (CDA). (8 Marks)</div><div class="qa-a">• <strong>Exploratory Data Analysis (EDA - John Tukey):</strong> An open-ended, inductive approach that uses graphical displays (boxplots, scatter matrices, histograms) and non-parametric summary statistics to uncover unexpected patterns, detect anomalies, test underlying assumptions, and generate novel hypotheses without preconceived probabilistic models.<br>• <strong>Confirmatory Data Analysis (CDA):</strong> A deductive, hypothesis-driven approach that uses formal statistical inference tests ($t$-tests, ANOVA, $\chi^2$ independence tests, $p$-values) to evaluate the statistical significance of specific a priori hypotheses.</div></div>
+
+<div class="qa-card"><div class="qa-q">Q10. Detail the Properties of Metric Distance Functions (Identity, Symmetry, Triangle Inequality). (6 Marks)</div><div class="qa-a">A valid mathematical distance metric $d(x, y)$ must satisfy 4 fundamental axioms:<br>1. <strong>Non-negativity:</strong> $d(x, y) \ge 0$.<br>2. <strong>Identity of Indiscernibles:</strong> $d(x, y) = 0 \iff x = y$.<br>3. <strong>Symmetry:</strong> $d(x, y) = d(y, x)$.<br>4. <strong>Triangle Inequality:</strong> $d(x, z) \le d(x, y) + d(y, z)$ for all points $x, y, z$. (Cosine distance $1 - \text{sim}$ violates triangle inequality and is therefore a semi-metric).</div></div>
+
+<h2 class="section-title">Topic 15: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 3: Complete Five-Number Summary & Skewness Analysis on Examination Scores</div>
+  <p>Consider the final examination marks of 16 engineering students:</p>
+  $$\mathbf{X = \{35, 42, 48, 52, 56, 58, 60, 62, 65, 68, 72, 75, 78, 82, 88, 98\}}$$
+  <p><strong>1. Five-Number Summary ($N = 16$):</strong></p>
+  <ul>
+    <li><strong>Min:</strong> $\mathbf{35}$</li>
+    <li><strong>$Q_1$:</strong> Median of lower 8 values $\{35, 42, 48, 52, 56, 58, 60, 62\} \implies \frac{52 + 56}{2} = \mathbf{54.0}$</li>
+    <li><strong>Median ($Q_2$):</strong> $\frac{x_8 + x_9}{2} = \frac{62 + 65}{2} = \mathbf{63.5}$</li>
+    <li><strong>$Q_3$:</strong> Median of upper 8 values $\{65, 68, 72, 75, 78, 82, 88, 98\} \implies \frac{75 + 78}{2} = \mathbf{76.5}$</li>
+    <li><strong>Max:</strong> $\mathbf{98}$</li>
+  </ul>
+  <p><strong>2. Interquartile Range & Outlier Boundaries:</strong></p>
+  $$\text{IQR} = Q_3 - Q_1 = 76.5 - 54.0 = \mathbf{22.5}$$
+  $$\text{Lower Outlier Fence} = 54.0 - 1.5(22.5) = 54.0 - 33.75 = \mathbf{20.25}$$
+  $$\text{Upper Outlier Fence} = 76.5 + 1.5(22.5) = 76.5 + 33.75 = \mathbf{110.25}$$
+  $$\mathbf{\text{Conclusion: All data points lie within } [20.25, 110.25] \implies \mathbf{\text{Zero Outliers Present!}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q11. Explain Pearson's Mode Skewness and Bowley's Quartile Skewness Coefficient. (8 Marks)</div><div class="qa-a">• <strong>Pearson's Mode Skewness:</strong> $S_k = \frac{\text{Mean} - \text{Mode}}{\sigma} \approx \frac{3(\text{Mean} - \text{Median})}{\sigma}$. Measures asymmetry standardized by standard deviation.<br>• <strong>Bowley's Quartile Skewness (Galton's Coefficient):</strong>
+$$\mathbf{B_q = \frac{(Q_3 - Q_2) - (Q_2 - Q_1)}{(Q_3 - Q_2) + (Q_2 - Q_1)} = \frac{Q_3 + Q_1 - 2Q_2}{Q_3 - Q_1}}$$
+$B_q \in [-1, +1]$. $B_q > 0 \implies \text{Right Skew}$; $B_q = 0 \implies \text{Symmetric}$; $B_q < 0 \implies \text{Left Skew}$. Robust to extreme outliers because it depends solely on quartiles!</div></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

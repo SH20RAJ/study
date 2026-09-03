@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Software Engineering Practical Lab Guide</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]});"></script>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 14mm 12mm;
+  @top-right {
+    content: "CS24353 • Software Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-left {
+    content: "BIT Mesra • Department of Computer Science & Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #94a3b8;
+  }
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.2px;
+  line-height: 1.58;
+  color: #0f172a;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.cover-header {
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+}
+.course-badge {
+  display: inline-block;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.doc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 4px 0 6px 0;
+  letter-spacing: -0.4px;
+}
+.doc-subtitle {
+  font-size: 11.5px;
+  color: #475569;
+  font-weight: 400;
+  margin: 0 0 4px 0;
+}
+.meta-info {
+  font-size: 9.5px;
+  color: #64748b;
+  margin-top: 6px;
+  display: flex;
+  gap: 14px;
+}
+
+h2.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0369a1;
+  border-bottom: 1.5px solid #e0f2fe;
+  padding-bottom: 4px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  page-break-after: avoid;
+}
+
+p { margin-top: 0; margin-bottom: 8px; text-align: justify; }
+ul, ol { margin-top: 0; margin-bottom: 8px; padding-left: 18px; }
+li { margin-bottom: 3.5px; }
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 10px;
+  page-break-inside: avoid;
+}
+.custom-table th {
+  background-color: #f0f9ff;
+  color: #0369a1;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border: 1px solid #bae6fd;
+}
+.custom-table td {
+  padding: 5.5px 8px;
+  border: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+.custom-table tr:nth-child(even) { background-color: #f8fafc; }
+
+.callout-box {
+  background-color: #f0fdf4;
+  border-left: 3.5px solid #16a34a;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.callout-title {
+  font-weight: 700;
+  color: #15803d;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.worked-box {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #0284c7;
+  padding: 9px 12px;
+  margin: 11px 0;
+  border-radius: 0 6px 6px 0;
+  page-break-inside: avoid;
+}
+.worked-title {
+  font-weight: 700;
+  color: #0369a1;
+  font-size: 11.2px;
+  margin-bottom: 5px;
+}
+
+.formula-card {
+  background: #fdf4ff;
+  border-left: 3.5px solid #a855f7;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.formula-title {
+  font-weight: 700;
+  color: #7e22ce;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.qa-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 3.5px solid #0284c7;
+  padding: 8px 11px;
+  margin: 8px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.qa-q { font-weight: 700; color: #0369a1; font-size: 10.8px; margin-bottom: 3px; }
+.qa-a { color: #334155; font-size: 10.3px; line-height: 1.5; }
+
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 9.8px;
+  background-color: #f1f5f9;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  color: #0f172a;
+}
+pre code {
+  display: block;
+  padding: 8px 10px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 9.2px;
+  line-height: 1.45;
+}
+
+</style>
+</head>
+<body>
+<div class="cover-header">
+  <span class="course-badge">CS24353 • MASTER REVISION</span>
+  <h1 class="doc-title">Software Engineering Practical Lab Guide</h1>
+  <p class="doc-subtitle">Test-Driven Development with JUnit 5, Git SCM Branching & CCB Workflows</p>
+  <div class="meta-info">
+    <span><strong>Author:</strong> Shaswat Raj (BIT Mesra)</span>
+    <span><strong>Academic Year:</strong> 2024–25 (5th Sem CSE)</span>
+    <span><strong>Standard:</strong> IEEE & ISO/IEC Standards</span>
+  </div>
+</div>
+
+<h2 class="section-title">Lab Experiment 1: Automated Unit Testing with JUnit 5 & Mockito</h2>
+
+<pre><code class="language-java">import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BankAccountTest {
+    private BankAccount account;
+
+    @BeforeEach
+    void setUp() {
+        account = new BankAccount("ACC-1001", 1000.0);
+    }
+
+    @Test
+    @DisplayName("Deposit positive amount increases balance")
+    void testValidDeposit() {
+        account.deposit(500.0);
+        assertEquals(1500.0, account.getBalance(), 0.001);
+    }
+
+    @Test
+    @DisplayName("Withdrawal exceeding balance throws InsufficientFundsException")
+    void testOverdrawThrowsException() {
+        assertThrows(InsufficientFundsException.class, () -> {
+            account.withdraw(2000.0);
+        });
+    }
+}
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 2: Git Software Configuration Management (SCM) & Branching</h2>
+<pre><code class="language-bash"># 1. Create and switch to feature branch
+git checkout -b feature/user-auth-jwt
+
+# 2. Stage changes and create verified commit linked to Requirement ID
+git add src/main/java/com/auth/JwtService.java
+git commit -m "feat(auth): implement JWT token generation [REQ-AUTH-101]"
+
+# 3. Rebase on main and push to remote
+git checkout main && git pull origin main
+git checkout feature/user-auth-jwt
+git rebase main
+git push origin feature/user-auth-jwt
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 3: StarUML Object-Oriented Modeling & Reverse Engineering</h2>
+<pre><code class="language-text">1. Launch StarUML -> Select Model -> Add Diagram -> Class Diagram.
+2. Create Classes: User, Account, Transaction with attributes and visibility annotations (+, -, #).
+3. Draw Composite and Aggregation relationships with multiplicity bounds (1..*, 0..1).
+4. Export Java code stubs automatically using the StarUML Java Extension generator!
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 4: Mockito Mocking in Spring Boot Service Testing</h2>
+<pre><code class="language-java">@ExtendWith(MockitoExtension.class)
+public class OrderServiceTest {
+    @Mock private PaymentGateway paymentGateway;
+    @Mock private InventoryRepository inventoryRepo;
+    @InjectMocks private OrderService orderService;
+
+    @Test
+    void testProcessOrderSuccess() {
+        when(inventoryRepo.isInStock("SKU-100", 2)).thenReturn(true);
+        when(paymentGateway.charge(100.0)).thenReturn(new PaymentResult(true, "TXN-999"));
+
+        Order order = new Order("SKU-100", 2, 100.0);
+        OrderResult result = orderService.processOrder(order);
+
+        assertTrue(result.isSuccess());
+        verify(paymentGateway, times(1)).charge(100.0);
+    }
+}
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 5: Continuous Integration (CI) Pipeline with GitHub Actions</h2>
+<pre><code class="language-yaml">name: Java CI with Maven & JUnit 5
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build with Maven
+        run: mvn clean test --batch-mode
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: target/surefire-reports/*.xml
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 6: Static Code Quality Analysis with SonarQube & SpotBugs</h2>
+<pre><code class="language-bash"># Run static analysis and generate technical debt reports
+mvn clean compile spotbugs:spotbugs
+mvn sonar:sonar -Dsonar.projectKey=banking-portal -Dsonar.host.url=http://localhost:9000
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 7: Continuous Deployment (CD) with Docker & Kubernetes</h2>
+<pre><code class="language-dockerfile">FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY target/banking-service-1.0.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 8: Automated Security Scanning with OWASP ZAP & Dependency-Check</h2>
+<pre><code class="language-bash"># Scan Java dependencies for known CVE vulnerabilities
+mvn org.owasp:dependency-check-maven:check
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 9: Automated Load Testing with Apache JMeter</h2>
+<pre><code class="language-bash"># Run headless performance benchmark with 1000 concurrent threads
+jmeter -n -t test_plan.jmx -l results.jtl -e -o ./report_dashboard
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 10: Automated Containerized Microservices Testing with Testcontainers</h2>
+<pre><code class="language-java">@Testcontainers
+class UserRepositoryTest {
+    @Container
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine");
+
+    @Test
+    void testSaveAndFindUser() {
+        // Runs real isolated database container automatically in CI!
+    }
+}
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 11: End-to-End API Testing with Postman & Newman CI</h2>
+<pre><code class="language-bash"># Run automated API regression test suite in headless continuous integration
+newman run postman_collection.json -e staging_env.json --reporters cli,htmlextra
+</code></pre>
+
+<h2 class="section-title">Lab Experiment 12: Performance & Load Benchmark Analysis</h2>
+<pre><code class="language-bash"># Run Artillery HTTP load test simulating 5000 virtual users
+artillery run load_test_scenario.yml --output load_report.json
+artillery report load_report.json
+</code></pre>
+
+</body>
+</html>

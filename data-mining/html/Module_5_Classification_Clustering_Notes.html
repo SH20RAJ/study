@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 5: Classification & Cluster Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Module 5</div>
+    <h1 class="book-title">Module 5: Classification & Cluster Analysis</h1>
+    <div class="book-subtitle">Topics 37 to 46 • ID3/C4.5/CART Trees, Naive Bayes, Confusion Matrix, k-Means, PAM & DBSCAN</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 5 Table of Contents (Topics 37 to 46)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 37:</strong> Classification vs. Prediction Overview</div>
+    <div>• <strong>Topic 38:</strong> Decision Tree Induction (ID3, C4.5, CART)</div>
+    <div>• <strong>Topic 39:</strong> Naive Bayes & Bayesian Belief Networks</div>
+    <div>• <strong>Topic 40:</strong> Instance-Based Learning (k-NN) & SVM</div>
+    <div>• <strong>Topic 41:</strong> Model Evaluation (Confusion Matrix, ROC, AUC)</div>
+    <div>• <strong>Topic 42:</strong> k-Means & k-Medoids (PAM) Partitioning</div>
+    <div>• <strong>Topic 43:</strong> Hierarchical Clustering (AGNES, DIANA, BIRCH)</div>
+    <div>• <strong>Topic 44:</strong> Density-Based Clustering (DBSCAN, OPTICS)</div>
+    <div>• <strong>Topic 45:</strong> Outlier Detection (Statistical, LOF, Isolation Forest)</div>
+    <div>• <strong>Topic 46:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 37 & 38: Decision Tree Induction (Entropy, Gain Ratio, Gini)</h2>
+
+<p>
+  <strong>Classification</strong> predicts discrete categorical class labels, whereas <strong>Numeric Prediction</strong> models continuous valued functions. Decision tree induction builds a flowchart-like tree structure where each internal node denotes an attribute test, each branch denotes a test outcome, and each leaf node holds a class label.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Algorithm</th>
+      <th style="width: 32%;">Splitting Criterion</th>
+      <th style="width: 25%;">Attribute Types</th>
+      <th>Pruning & Missing Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ID3 (Quinlan 1986)</strong></td>
+      <td><strong>Information Gain:</strong> $\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$</td>
+      <td>Categorical only (No numeric support).</td>
+      <td>No pruning (prone to severe overfitting); cannot handle missing values.</td>
+    </tr>
+    <tr>
+      <td><strong>C4.5 (Quinlan 1993)</strong></td>
+      <td><strong>Gain Ratio:</strong> $\text{GainRatio}(S, A) = \frac{\text{Gain}(S, A)}{\text{SplitInfo}(S, A)}$</td>
+      <td>Categorical & Continuous (dynamic threshold splitting).</td>
+      <td>Post-pruning via Pessimistic Error Pruning (PEP); native fractional missing value imputation.</td>
+    </tr>
+    <tr>
+      <td><strong>CART (Breiman 1984)</strong></td>
+      <td><strong>Gini Impurity:</strong> $\text{Gini}(S) = 1 - \sum_{i=1}^m p_i^2 \implies \text{Strictly Binary Trees}$</td>
+      <td>Categorical & Continuous.</td>
+      <td>Cost-Complexity Pruning with cross-validation; surrogate splits for missing data.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: ID3 vs. CART Splitting Calculations</div>
+  <p>A dataset $S$ has 14 instances: 9 "Yes" and 5 "No". Attribute <strong>Wind</strong> has values $\{\text{Weak: } [6\text{ Yes}, 2\text{ No}], \text{Strong: } [3\text{ Yes}, 3\text{ No}]\}$.</p>
+  <p><strong>1. Base Entropy $H(S)$ and Information Gain (ID3):</strong></p>
+  $$H(S) = - \left( \frac{9}{14}\log_2\frac{9}{14} + \frac{5}{14}\log_2\frac{5}{14} \right) = - [0.6429(-0.6374) + 0.3571(-1.4854)] = 0.4098 + 0.5305 = \mathbf{0.9403 \text{ bits}}$$
+  $$H(S_{\text{Weak}}) = - \left( \frac{6}{8}\log_2\frac{6}{8} + \frac{2}{8}\log_2\frac{2}{8} \right) = - [0.75(-0.415) + 0.25(-2.0)] = 0.3113 + 0.5000 = \mathbf{0.8113 \text{ bits}}$$
+  $$H(S_{\text{Strong}}) = - \left( \frac{3}{6}\log_2\frac{3}{6} + \frac{3}{6}\log_2\frac{3}{6} \right) = \mathbf{1.0000 \text{ bits}}$$
+  $$\mathbf{\text{Gain}(S, \text{Wind}) = 0.9403 - \left[ \frac{8}{14}(0.8113) + \frac{6}{14}(1.0000) \right] = 0.9403 - [0.4636 + 0.4286] = \mathbf{0.0481 \text{ bits}}}$$
+
+  <p><strong>2. Gini Impurity (CART):</strong></p>
+  $$\text{Gini}(S) = 1 - \left[ \left(\frac{9}{14}\right)^2 + \left(\frac{5}{14}\right)^2 \right] = 1 - [0.4133 + 0.1276] = 1 - 0.5409 = \mathbf{0.4591}$$
+  $$\text{Gini}(S_{\text{Weak}}) = 1 - \left[ \left(\frac{6}{8}\right)^2 + \left(\frac{2}{8}\right)^2 \right] = 1 - [0.5625 + 0.0625] = \mathbf{0.3750}$$
+  $$\text{Gini}(S_{\text{Strong}}) = 1 - \left[ \left(\frac{3}{6}\right)^2 + \left(\frac{3}{6}\right)^2 \right] = 1 - [0.25 + 0.25] = \mathbf{0.5000}$$
+  $$\mathbf{\Delta\text{Gini}(S, \text{Wind}) = 0.4591 - \left[ \frac{8}{14}(0.3750) + \frac{6}{14}(0.5000) \right] = 0.4591 - [0.2143 + 0.2143] = \mathbf{0.0305}}$$
+</div>
+
+<h2 class="section-title">Topic 41: Model Evaluation Metrics (Confusion Matrix, ROC, AUC)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Evaluation Metric</th>
+      <th style="width: 45%;">Mathematical Formulation</th>
+      <th>Key Focus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Accuracy</strong></td>
+      <td>$$\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}$$</td>
+      <td>Overall correctness; misleading in imbalanced datasets!</td>
+    </tr>
+    <tr>
+      <td><strong>Sensitivity / Recall (TPR)</strong></td>
+      <td>$$\text{Sensitivity} = \frac{TP}{TP + FN} = \frac{\text{Positives Correctly Identified}}{\text{Actual Positives}}$$</td>
+      <td>Critical in disease diagnosis (minimizing False Negatives).</td>
+    </tr>
+    <tr>
+      <td><strong>Specificity (TNR)</strong></td>
+      <td>$$\text{Specificity} = \frac{TN}{TN + FP} = \frac{\text{Negatives Correctly Identified}}{\text{Actual Negatives}}$$</td>
+      <td>True negative rate (FPR = $1 - \text{Specificity}$).</td>
+    </tr>
+    <tr>
+      <td><strong>Precision (PPV)</strong></td>
+      <td>$$\text{Precision} = \frac{TP}{TP + FP} = \frac{\text{True Positives}}{\text{Predicted Positives}}$$</td>
+      <td>Critical in fraud detection & search ranking.</td>
+    </tr>
+    <tr>
+      <td><strong>$F_1$-Score</strong></td>
+      <td>$$F_1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 TP}{2 TP + FP + FN}$$</td>
+      <td>Harmonic mean balancing precision and recall.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 42 to 45: Clustering Paradigms & Density-Based DBSCAN</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 22%;">Clustering Paradigm</th>
+      <th style="width: 38%;">Core Algorithm</th>
+      <th>Key Strengths & Cluster Shapes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Partitioning Methods</strong></td>
+      <td><strong>k-Means:</strong> Minimizes Sum of Squared Errors (SSE); <strong>k-Medoids (PAM):</strong> Uses actual medoid points (robust to outliers).</td>
+      <td>Fast ($O(t k N)$); restricted strictly to spherical, convex clusters of equal density.</td>
+    </tr>
+    <tr>
+      <td><strong>Hierarchical Methods</strong></td>
+      <td><strong>AGNES (Agglomerative):</strong> Bottom-up tree; <strong>DIANA (Divisive):</strong> Top-down; <strong>BIRCH:</strong> CF-Tree for massive datasets.</td>
+      <td>Produces dendrogram hierarchy; no need to specify $k$ upfront; irreversible merges $O(N^2)$.</td>
+    </tr>
+    <tr>
+      <td><strong>Density-Based Methods</strong></td>
+      <td><strong>DBSCAN:</strong> Clusters are continuous dense regions separated by low-density noise regions ($\epsilon, \text{MinPts}$).</td>
+      <td>Discovers <strong>arbitrary non-convex shapes</strong>; automatically detects and filters noise outliers!</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The DBSCAN Density Formalism</div>
+  <ul>
+    <li><strong>$\epsilon$-Neighborhood:</strong> $N_\epsilon(p) = \{ q \in D \mid \text{dist}(p, q) \le \epsilon \}$.</li>
+    <li><strong>Core Point:</strong> Point $p$ is a Core Point if $|N_\epsilon(p)| \ge \text{MinPts}$.</li>
+    <li><strong>Directly Density-Reachable:</strong> Point $q$ is directly density-reachable from $p$ if $q \in N_\epsilon(p)$ and $p$ is a Core Point.</li>
+    <li><strong>Density-Reachable:</strong> Point $q$ is density-reachable from $p$ if there exists a chain of core points $p_1, \dots, p_k$ where $p_1 = p, p_k = q$.</li>
+    <li><strong>Density-Connected:</strong> Points $p$ and $q$ are density-connected if there exists a common core point $o$ such that both $p$ and $q$ are density-reachable from $o$.</li>
+    <li><strong>Noise Outlier:</strong> Any point that is neither a core point nor density-reachable from any core point.</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 46: Master University Examination Solved Question Bank</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Trace k-Means Clustering on 1D points: $\{2, 4, 10, 12, 3, 20, 30, 11, 25\}$ for $k=2$ with initial seeds $m_1 = 2, m_2 = 4$. (10 Marks)</div><div class="qa-a"><strong>Iteration 1:</strong><br>- Distance to $m_1=2$ vs $m_2=4$: Points $\{2, 3\}$ assigned to $C_1$; Points $\{4, 10, 12, 20, 30, 11, 25\}$ assigned to $C_2$.<br>- Update Means: $m_1 = \frac{2+3}{2} = \mathbf{2.5}$; $m_2 = \frac{4+10+12+20+30+11+25}{7} = \frac{112}{7} = \mathbf{16.0}$.<br><strong>Iteration 2:</strong><br>- Points closer to $2.5$: $\{2, 3, 4\} \implies m_1 = \frac{2+3+4}{3} = \mathbf{3.0}$.<br>- Points closer to $16.0$: $\{10, 11, 12, 20, 25, 30\} \implies m_2 = \frac{10+11+12+20+25+30}{6} = \frac{108}{6} = \mathbf{18.0}$.<br><strong>Iteration 3:</strong><br>- Points closer to $3.0$: $\{2, 3, 4, 10\} \dots$ mid-point $\frac{3+18}{2} = 10.5 \implies$ Point $10$ joins $C_1 \implies C_1 = \{2, 3, 4, 10\} \ (m_1 = 4.75); \ C_2 = \{11, 12, 20, 25, 30\} \ (m_2 = 19.6)$.<br><strong>Iteration 4:</strong> Midpoint $\frac{4.75+19.6}{2} = 12.175 \implies$ Point $11, 12$ join $C_1 \implies C_1 = \{2, 3, 4, 10, 11, 12\} \ (m_1 = 7.0); \ C_2 = \{20, 25, 30\} \ (m_2 = 25.0)$.<br><strong>Iteration 5:</strong> Midpoint $\frac{7.0+25.0}{2} = 16.0$. Assignments remain unchanged. <strong>Converged!</strong></div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Explain the Local Outlier Factor (LOF) Density-Based Outlier Detection Algorithm. (8 Marks)</div><div class="qa-a">Unlike global distance methods, <strong>LOF (Breunig et al. 2000)</strong> detects outliers by comparing the local density of an object with the densities of its $k$-nearest neighbors:<br>1. <strong>$k$-Distance of $p$:</strong> Distance $d(p, o)$ to its $k$-th nearest neighbor.<br>2. <strong>Reachability Distance:</strong> $\text{reach-dist}_k(p, o) = \max(k\text{-distance}(o), d(p, o))$.<br>3. <strong>Local Reachability Density (lrd):</strong> $\text{lrd}_k(p) = \frac{|N_k(p)|}{\sum_{o \in N_k(p)} \text{reach-dist}_k(p, o)}$.<br>4. <strong>LOF Score:</strong> $\text{LOF}_k(p) = \frac{\sum_{o \in N_k(p)} \frac{\text{lrd}(o)}{\text{lrd}(p)}}{|N_k(p)|}$.<br>- $\text{LOF} \approx 1$: Point is inside a homogeneous cluster.<br>- $\text{LOF} \gg 1$: Point has significantly lower density than its neighbors $\implies \mathbf{\text{Local Outlier!}}$</div></div>
+
+<h2 class="section-title">Topic 46.1: Cluster Validity Indices & Support Vector Machine Math</h2>
+
+<div class="formula-card">
+  <strong>The Silhouette Coefficient for Clustering Validation:</strong>
+  For each data point $i$:
+  - Let $a(i)$ = average distance from $i$ to all other points in the <strong>same cluster</strong> (Compactness).
+  - Let $b(i)$ = minimum average distance from $i$ to all points in any <strong>other cluster</strong> (Separation).
+  $$\mathbf{s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))} \qquad s(i) \in [-1, +1]}$$
+  - $s(i) \approx +1$: Point is exceptionally well clustered (compact and well-separated).
+  - $s(i) \approx 0$: Point lies exactly on the decision boundary between two clusters.
+  - $s(i) < 0$: Point is assigned to the wrong cluster!
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Silhouette Score Calculation on 2 Clusters</div>
+  <p>Consider 4 points: $C_1 = \{P_1(0, 0), P_2(1, 0)\}$, $C_2 = \{P_3(5, 0), P_4(6, 0)\}$. Calculate Silhouette score for $P_1$:</p>
+  <ul>
+    <li>Intra-cluster distance: $a(P_1) = d(P_1, P_2) = 1.0$.</li>
+    <li>Inter-cluster distance to $C_2$: $b(P_1) = \frac{d(P_1, P_3) + d(P_1, P_4)}{2} = \frac{5.0 + 6.0}{2} = \mathbf{5.5}$.</li>
+  </ul>
+  $$\mathbf{s(P_1) = \frac{b(P_1) - a(P_1)}{\max(a(P_1), b(P_1))} = \frac{5.5 - 1.0}{\max(1.0, 5.5)} = \frac{4.5}{5.5} = \mathbf{+0.8182}}$$
+  $$\mathbf{\text{Result: High positive Silhouette score (+0.818) indicates near-optimal cluster assignment!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Compare Agglomerative Hierarchical Linkage Criteria: Single Link, Complete Link, Average Link, and Ward's Method. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Linkage Criterion</th><th>Distance Formulation</th><th>Cluster Shape & Properties</th></tr></thead><tbody><tr><td><strong>Single Link (MIN)</strong></td><td>$d(C_i, C_j) = \min_{\mathbf{x} \in C_i, \mathbf{y} \in C_j} d(\mathbf{x}, \mathbf{y})$</td><td>Can handle non-elliptical shapes; highly sensitive to noise and <strong>chaining effect</strong> (elongated stringy clusters).</td></tr><tr><td><strong>Complete Link (MAX)</strong></td><td>$d(C_i, C_j) = \max_{\mathbf{x} \in C_i, \mathbf{y} \in C_j} d(\mathbf{x}, \mathbf{y})$</td><td>Produces compact, spherical clusters of equal diameter; avoids chaining; sensitive to outliers.</td></tr><tr><td><strong>Average Link (UPGMA)</strong></td><td>$d(C_i, C_j) = \frac{1}{|C_i||C_j|}\sum_{\mathbf{x}} \sum_{\mathbf{y}} d(\mathbf{x}, \mathbf{y})$</td><td>Robust balance between single and complete link; resistant to noise.</td></tr><tr><td><strong>Ward's Method</strong></td><td>Merges pair that minimizes increase in total within-cluster Sum of Squared Errors ($\Delta\text{SSE}$).</td><td>Produces exceptionally balanced, dense spherical clusters (most popular in business analytics).</td></tr></tbody></table></div></div>
+
+<h2 class="section-title">Topic 46.2: Advanced Ensemble Learning & Density-Based OPTICS Algorithm</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Ensemble Method</th>
+      <th style="width: 40%;">Core Algorithmic Paradigm</th>
+      <th>Variance vs. Bias Reduction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bagging (Bootstrap Aggregating)</strong></td>
+      <td>Trains $B$ independent base models (e.g. deep unpruned Decision Trees) on bootstrap sampled subsets ($N$ with replacement). Averages predictions (regression) or takes majority vote (classification).</td>
+      <td><strong>Dramatically reduces Variance</strong> without increasing bias (e.g. Random Forests).</td>
+    </tr>
+    <tr>
+      <td><strong>Boosting (AdaBoost / GBM / XGBoost)</strong></td>
+      <td>Trains a sequence of weak learners iteratively. Each new learner is trained on the residual errors / weighted mistakes of previous learners.</td>
+      <td><strong>Dramatically reduces Bias</strong> and variance; prone to overfitting on heavy noise.</td>
+    </tr>
+    <tr>
+      <td><strong>Stacking (Stacked Generalization)</strong></td>
+      <td>Trains multiple heterogeneous base models (SVM, Random Forest, k-NN); uses a meta-classifier (e.g. Logistic Regression) to learn optimal combination weights.</td>
+      <td>Maximizes generalization performance by combining diverse hypothesis spaces.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: The OPTICS (Ordering Points To Identify Clustering Structure) Algorithm</div>
+  <p>Unlike DBSCAN (which requires a single rigid global radius $\epsilon$), <strong>OPTICS (Ankerst et al. 1999)</strong> creates an ordered list of points storing two dynamic distance attributes:</p>
+  <ul>
+    <li><strong>Core-Distance of $p$:</strong> The smallest distance $\epsilon'$ such that $p$ is a core point with respect to $\text{MinPts}$:
+      $$\mathbf{\text{core-dist}_{\epsilon, \text{MinPts}}(p) = \begin{cases} \text{UNDEFINED} & \text{if } |N_\epsilon(p)| < \text{MinPts} \\ \text{Distance to } \text{MinPts}\text{-th nearest neighbor} & \text{otherwise} \end{cases}}$$
+    </li>
+    <li><strong>Reachability-Distance of $p$ from $o$:</strong>
+      $$\mathbf{\text{reach-dist}_{\epsilon, \text{MinPts}}(p, o) = \begin{cases} \text{UNDEFINED} & \text{if } |N_\epsilon(o)| < \text{MinPts} \\ \max(\text{core-dist}(o), \text{dist}(o, p)) & \text{otherwise} \end{cases}}$$
+    </li>
+  </ul>
+  <p><em>Reachability Plot:</em> Plotting reachability distances in the OPTICS ordering produces valleys corresponding to dense clusters and peaks corresponding to noise dividers, revealing hierarchical multi-density cluster structures across all $\epsilon$ simultaneously!</p>
+</div>
+
+<h2 class="section-title">Topic 46.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 5: Naive Bayes Classification with Laplace Smoothing Calculation</div>
+  <p>A training dataset has 10 samples: 6 Class $C_1$ and 4 Class $C_2$. An attribute <strong>Color</strong> has values $\{\text{Red, Green, Blue}\}$. In class $C_1$, $\text{count}(\text{Red}) = 0, \text{count}(\text{Green}) = 4, \text{count}(\text{Blue}) = 2$.</p>
+  <p><strong>1. Zero-Frequency Problem (Without Smoothing):</strong></p>
+  $$P(\text{Red} \mid C_1) = \frac{0}{6} = 0 \implies \text{Total posterior } P(C_1 \mid \text{Red}, \dots) = 0 \quad (\text{Wipes out all evidence!})$$
+  <p><strong>2. Laplace (Add-1) Smoothing ($k = 3$ attribute values):</strong></p>
+  $$\mathbf{P(\text{Red} \mid C_1) = \frac{\text{count}(\text{Red}) + 1}{|C_1| + k} = \frac{0 + 1}{6 + 3} = \frac{1}{9} = \mathbf{0.1111}}$$
+  $$\mathbf{P(\text{Green} \mid C_1) = \frac{4 + 1}{6 + 3} = \frac{5}{9} = \mathbf{0.5556} \qquad P(\text{Blue} \mid C_1) = \frac{2 + 1}{6 + 3} = \frac{3}{9} = \mathbf{0.3333}}$$
+  $$\mathbf{\text{Sum of Smoothed Probabilities: } \frac{1}{9} + \frac{5}{9} + \frac{3}{9} = \frac{9}{9} = \mathbf{1.0000 \quad (Strictly Valid!)}}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Compare k-Means Clustering with Gaussian Mixture Models (GMM) and Expectation-Maximization (EM). (8 Marks)</div><div class="qa-a">• <strong>k-Means:</strong> Hard clustering (each point belongs strictly to exactly one cluster with probability 1 or 0), assumes spherical clusters of equal variance, minimizes Euclidean SSE.<br>• <strong>GMM with EM:</strong> <strong>Soft (Probabilistic) Clustering</strong> where each data point has a posterior membership probability $\gamma_{ik} \in [0, 1]$ across all $K$ Gaussian components ($\sum_k \gamma_{ik} = 1$). GMM learns arbitrary ellipsoidal covariance matrices $\mathbf{\Sigma}_k$ with varying cluster orientations, densities, and scales!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the Davies-Bouldin Index (DBI) for Evaluating Clustering Quality. (8 Marks)</div><div class="qa-a">The <strong>Davies-Bouldin Index (DBI)</strong> measures clustering quality based on the ratio of within-cluster scatter ($S_i$) to between-cluster separation ($R_{ij}$):
+$$\mathbf{\text{DBI} = \frac{1}{k} \sum_{i=1}^k \max_{j \neq i} \left( \frac{S_i + S_j}{M_{ij}} \right)}$$
+Where $S_i$ is the average distance from points in cluster $i$ to their centroid $c_i$, and $M_{ij} = \|c_i - c_j\|$ is the distance between centroids. <strong>A lower DBI value indicates better clustering</strong> (tighter compactness and wider separation)!</div></div>
+
+<h2 class="section-title">Topic 46.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 6: Complete Confusion Matrix & ROC Curve Coordinates Calculation</div>
+  <p>A binary classifier produces probabilities for 5 test samples: $(S_1: 0.9, +), (S_2: 0.8, +), (S_3: 0.6, -), (S_4: 0.4, +), (S_5: 0.1, -)$ ($P=3, N=2$):</p>
+  <table class="custom-table">
+    <thead><tr><th>Threshold $T$</th><th>Predictions $(\hat{Y})$</th><th>$TP$</th><th>$FP$</th><th>$\text{TPR} = \frac{TP}{3}$</th><th>$\text{FPR} = \frac{FP}{2}$</th><th>ROC Point $(x, y)$</th></tr></thead>
+    <tbody>
+      <tr><td>$> 0.9$</td><td>$[- - - - -]$</td><td>0</td><td>0</td><td>$0.00$</td><td>$0.00$</td><td>$(0, 0)$</td></tr>
+      <tr><td>$0.85$</td><td>$[+ - - - -]$</td><td>1</td><td>0</td><td>$0.33$</td><td>$0.00$</td><td>$(0, 0.33)$</td></tr>
+      <tr><td>$0.70$</td><td>$[+ + - - -]$</td><td>2</td><td>0</td><td>$0.67$</td><td>$0.00$</td><td>$(0, 0.67)$</td></tr>
+      <tr><td>$0.50$</td><td>$[+ + + - -]$</td><td>2</td><td>1</td><td>$0.67$</td><td>$0.50$</td><td>$(0.50, 0.67)$</td></tr>
+      <tr><td>$0.30$</td><td>$[+ + + + -]$</td><td>3</td><td>1</td><td>$1.00$</td><td>$0.50$</td><td>$(0.50, 1.00)$</td></tr>
+      <tr><td>$< 0.1$</td><td>$[+ + + + +]$</td><td>3</td><td>2</td><td>$1.00$</td><td>$1.00$</td><td>$(1.00, 1.00)$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Area Under the Curve (AUC) by Trapezoidal Rule:</strong></p>
+  $$\text{AUC} = (0.50 - 0)(0.67) + (1.00 - 0.50)\left(\frac{1.00 + 0.67}{2}\right) = 0.335 + 0.50(0.835) = 0.335 + 0.4175 = \mathbf{0.7525}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain BIRCH (Balanced Iterative Reducing and Clustering using Hierarchies) Algorithm and Clustering Feature (CF) Trees. (8 Marks)</div><div class="qa-a"><strong>BIRCH (Zhang, Ramakrishnan, Livny 1996)</strong> clusters massive datasets in a single database scan using <strong>Clustering Feature (CF) Vectors</strong>:
+$$\mathbf{CF = \langle N, \mathbf{LS}, SS \rangle = \langle N, \sum_{i=1}^N \mathbf{x}_i, \sum_{i=1}^N \mathbf{x}_i^2 \rangle}$$
+• <strong>Additivity Theorem:</strong> $CF_1 + CF_2 = \langle N_1+N_2, \mathbf{LS}_1+\mathbf{LS}_2, SS_1+SS_2 \rangle$.<br>• <strong>CF-Tree:</strong> A height-balanced B-tree storing CF vectors. Inserts points incrementally into leaf nodes based on radius thresholds without holding raw data points in memory! Runs in linear time $O(N)$!</div></div>
+
+<h2 class="section-title">Topic 46.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 7: Complete Support Vector Machine (SVM) Margin & Hyperplane Equations</div>
+  <p>Given 3 support vectors in 2D space: $\mathbf{x}_1 = (1, 1)^T, y_1 = -1$; $\mathbf{x}_2 = (2, 0)^T, y_2 = -1$; $\mathbf{x}_3 = (2, 3)^T, y_3 = +1$:</p>
+  <ul>
+    <li>Normal weight vector: $\mathbf{w} = (0, 1.5)^T$.</li>
+    <li>Bias intercept: $b = -3.5$.</li>
+    <li><strong>Optimal Separating Hyperplane:</strong> $\mathbf{w}^T \mathbf{x} + b = 0 \implies 0(x_1) + 1.5(x_2) - 3.5 = 0 \implies \mathbf{x_2 = 2.333}$.</li>
+    <li><strong>Margin Width ($M$):</strong>
+      $$\mathbf{M = \frac{2}{\|\mathbf{w}\|} = \frac{2}{\sqrt{0^2 + 1.5^2}} = \frac{2}{1.5} = \mathbf{1.3333 \text{ units}}}$$
+    </li>
+    <li><strong>Classification Decision Rule:</strong>
+      $$f(\mathbf{x}) = \text{sign}(1.5 x_2 - 3.5) = \begin{cases} +1 & \text{if } x_2 \ge 2.333 \\ -1 & \text{if } x_2 < 2.333 \end{cases}$$
+    </li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain the Density-Based Spatial Clustering of Applications with Noise (DBSCAN) Time Complexity and Spatial Indexing. (8 Marks)</div><div class="qa-a">• <strong>Naive Complexity:</strong> Without spatial indexing, finding the $\epsilon$-neighborhood for all $N$ points requires computing $N \times N$ pairwise distance comparisons $\implies O(N^2)$ time complexity.<br>• <strong>Spatial Indexing Acceleration:</strong> Using $R^*$-Trees, $k$-d Trees, or Ball Trees to index spatial coordinates reduces $\epsilon$-range query lookups from $O(N)$ to $O(\log N)$, slashing overall DBSCAN execution complexity to $\mathbf{O(N \log N)}$!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q8. Detail the Isolation Forest Algorithm for Fast Outlier Detection. (8 Marks)</div><div class="qa-a"><strong>Isolation Forest (Liu et al. 2008)</strong> detects anomalies by explicitly isolating outliers rather than profiling normal data points:<br>1. Randomly build an ensemble of $t$ Isolation Trees (iTrees) by recursively choosing a random feature and selecting a random split value between $\min$ and $\max$.<br>2. <strong>Core Axiom:</strong> Anomalies require far fewer random splits to isolate than normal cluster points, resulting in drastically shorter tree path lengths $h(x)$!<br>3. <strong>Anomaly Score:</strong> $s(x, n) = 2^{-\frac{\mathbb{E}[h(x)]}{c(n)}}$. If $s \rightarrow 1$, instance is definitively an outlier. Runs in blazing fast linear time $O(t \cdot \psi \log \psi)$!</div></div>
+
+<h2 class="section-title">Topic 46.6: Complete Solved Laboratory Problem Bank on Clustering & Classification</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 8: k-Medoids Partitioning Around Medoids (PAM) Execution Step</div>
+  <p>Given 5 objects with pairwise $L_1$ distances: $P_1(1, 1), P_2(2, 2), P_3(3, 3), P_4(8, 8), P_5(9, 9)$. Initial medoids $M_1 = P_2(2, 2), M_2 = P_4(8, 8)$:</p>
+  <ul>
+    <li>Initial Total Cost = $d(P_1, P_2) + d(P_3, P_2) + d(P_5, P_4) = (|1-2|+|1-2|) + (|3-2|+|3-2|) + (|9-8|+|9-8|) = 2 + 2 + 2 = \mathbf{6.0}$.</li>
+    <li>Swap $P_2$ with non-medoid candidate $P_3(3, 3)$:</li>
+    <li>New Cost = $d(P_1, P_3) + d(P_2, P_3) + d(P_5, P_4) = 4 + 2 + 2 = \mathbf{8.0}$.</li>
+    <li>$\Delta\text{Cost} = 8.0 - 6.0 = +2.0 > 0 \implies \mathbf{\text{Reject swap! Keep } P_2 \text{ as medoid!}}$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: Cost-Complexity Tree Pruning ($Minimal \alpha$ Subtree Selection)</div>
+  <p>In CART decision trees, the cost-complexity measure for subtree $T$ with parameter $\alpha \ge 0$ is:</p>
+  $$\mathbf{R_\alpha(T) = R(T) + \alpha |T|}$$
+  <p>Where $R(T)$ is the misclassification error rate and $|T|$ is the number of leaf nodes. By calculating $\alpha = \frac{R(t) - R(T_t)}{|T_t| - 1}$ for each internal node $t$, CART prunes nodes that produce the smallest error increase per leaf saved!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 14: Non-Linear Kernel Support Vector Machine (RBF Gaussian Kernel)</div>
+  <p>The Radial Basis Function (RBF) kernel is formulated as:</p>
+  $$\mathbf{K(\mathbf{x}, \mathbf{y}) = \exp\left( - \gamma \|\mathbf{x} - \mathbf{y}\|^2 \right) = \exp\left( - \frac{\|\mathbf{x} - \mathbf{y}\|^2}{2\sigma^2} \right)}$$
+  <p>Maps input points into an <em>infinite-dimensional Hilbert space</em>, allowing linear separation of any arbitrary non-linear dataset!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 12: Grid-Based Spatial Clustering with STING Algorithm</div>
+  <p><strong>STING (Statistical Information Grid - Wang et al. 1997)</strong> divides spatial area into hierarchical rectangular cells at multiple resolution levels. Stores statistical parameters ($\text{count } n, \text{mean } m, \text{standard deviation } s, \min, \max$, distribution type) in each grid cell. Queries execute in blazing fast $O(K)$ time (where $K$ is number of grid cells at bottom layer), completely independent of total dataset size $N$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Decision Tree Pruning via Pessimistic Error Estimation (PEP)</div>
+  <p>In C4.5, a subtree $T$ with $L$ leaves and $E$ training errors has pessimistic error estimate:</p>
+  $$\mathbf{E_{\text{pessimistic}}(T) = E + \frac{L}{2} + 1.96 \sqrt{\frac{(E + L/2)(N - E - L/2)}{N}}}$$
+  <p>If the pessimistic error of collapsing the subtree into a single leaf node is lower than keeping the complex subtree, C4.5 prunes the subtree, improving generalization on unseen test data!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Complete Naive Bayes Full Likelihood Table Proof</div>
+  <p>Given prior probabilities $P(\text{Play}=\text{Yes}) = \frac{9}{14}, P(\text{Play}=\text{No}) = \frac{5}{14}$, and evidence $X = (\text{Outlook}=\text{Sunny}, \text{Temp}=\text{Cool}, \text{Humidity}=\text{High}, \text{Wind}=\text{Strong})$:</p>
+  $$P(X \mid \text{Yes}) = \left(\frac{2}{9}\right) \left(\frac{3}{9}\right) \left(\frac{3}{9}\right) \left(\frac{3}{9}\right) = \frac{2 \times 3 \times 3 \times 3}{6561} = \frac{54}{6561} \approx \mathbf{0.00823}$$
+  $$P(X \mid \text{No}) = \left(\frac{3}{5}\right) \left(\frac{1}{5}\right) \left(\frac{4}{5}\right) \left(\frac{3}{5}\right) = \frac{3 \times 1 \times 4 \times 3}{625} = \frac{36}{625} = \mathbf{0.05760}$$
+  $$\mathbf{P(X, \text{Yes}) = 0.00823 \times \frac{9}{14} = \mathbf{0.00529} \qquad P(X, \text{No}) = 0.05760 \times \frac{5}{14} = \mathbf{0.02057}}$$
+  $$\mathbf{\text{Posterior: } P(\text{No} \mid X) = \frac{0.02057}{0.00529 + 0.02057} = \frac{0.02057}{0.02586} = \mathbf{79.54\% \implies \text{Predict: NO PLAY!}}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: Multi-Class Support Vector Machine (One-vs-Rest vs One-vs-One)</div>
+  <p>• <strong>One-vs-Rest (OvR):</strong> Trains $K$ binary classifiers separating class $k$ from all other $K-1$ classes combined. Fast ($K$ models), but sensitive to class imbalance.<br>• <strong>One-vs-One (OvO):</strong> Trains $\frac{K(K-1)}{2}$ binary classifiers separating all pairwise combinations. Slower training, but each classifier is trained on balanced subsets!</p>
+</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

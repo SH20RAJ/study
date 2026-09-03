@@ -1,118 +1,336 @@
-# Artificial Intelligence Module 5 Exhaustive Content (9 Topics Complete)
-# Neuroscience framework: Understand -> Visualize -> Connect -> Recall -> Apply -> Exam Questions
-
 AI_M5_EXHAUSTIVE = r"""
 <div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module V: Machine Learning & Neural Networks — Complete 9-Topic Syllabus Tracker</div>
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 5 Table of Contents (Topics 30 to 38)</div>
   <div class="toc-grid">
-    <div><strong>Topic 31:</strong> What is Learning? (Experience to Performance Improvement)</div>
-    <div><strong>Topic 32:</strong> Rote Learning (Direct Memorization & Caching)</div>
-    <div><strong>Topic 33:</strong> Learning by Taking Advice (Expert Instruction Parsing)</div>
-    <div><strong>Topic 34:</strong> Learning from Examples (Inductive Supervised Classification)</div>
-    <div><strong>Topic 35:</strong> Induction vs. Deduction in Machine Learning</div>
-    <div><strong>Topic 36:</strong> Formal Learning Theory (Hypothesis Space, Bias & Variance)</div>
-    <div><strong>Topic 37:</strong> Neural Net Learning (Perceptrons, Activations & Backpropagation)</div>
-    <div><strong>Topic 38:</strong> Underfitting (High Bias, Low Capacity Models)</div>
-    <div><strong>Topic 39:</strong> Overfitting (High Variance, Noise Memorization & Regularization)</div>
+    <div>• <strong>Topic 30:</strong> Forms of Learning (Supervised, Unsupervised, RL)</div>
+    <div>• <strong>Topic 31:</strong> Decision Tree Learning & ID3 Algorithm</div>
+    <div>• <strong>Topic 32:</strong> Entropy & Information Gain Calculations</div>
+    <div>• <strong>Topic 33:</strong> Gini Index, Overfitting & Tree Pruning</div>
+    <div>• <strong>Topic 34:</strong> Biological & McCulloch-Pitts Artificial Neurons</div>
+    <div>• <strong>Topic 35:</strong> Single-Layer Perceptron & Linear Separability (XOR Problem)</div>
+    <div>• <strong>Topic 36:</strong> Multi-Layer Perceptrons (MLP) Architecture</div>
+    <div>• <strong>Topic 37:</strong> Mathematical Derivation of Backpropagation</div>
+    <div>• <strong>Topic 38:</strong> Activation Functions & Solved University Exam Bank</div>
   </div>
 </div>
 
-<h2 class="section-title">Topic 31 – 35: Forms of Machine Learning & Inductive Inference</h2>
+<h2 class="section-title">Topic 30 to 33: Decision Tree Induction & Information Gain Mathematics</h2>
+
+<p>
+  In <strong>Decision Tree Learning</strong>, candidate attributes are recursively evaluated at each split to maximize the purity of child nodes:
+</p>
+
+<div class="formula-card">
+  <strong>Shannon Entropy & Information Gain Formulas:</strong>
+  $$\mathbf{H(S) = - \sum_{i=1}^c p_i \log_2(p_i)}$$
+  $$\mathbf{\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)}$$
+  $$\mathbf{\text{Gini Index: } \text{Gini}(S) = 1 - \sum_{i=1}^c p_i^2}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: ID3 Decision Tree Root Attribute Selection</div>
+  <p>A dataset has 14 instances ($9 \text{ Yes}, 5 \text{ No}$). Initial parent entropy is:</p>
+  $$H(S) = - \frac{9}{14} \log_2\left(\frac{9}{14}\right) - \frac{5}{14} \log_2\left(\frac{5}{14}\right) = - (0.643)(-0.637) - (0.357)(-1.485) = \mathbf{0.940 \text{ bits}}$$
+  <p>Evaluate Attribute <strong>Windy</strong> ($\text{Weak: } 6\text{ Yes}, 2\text{ No}; \ \text{Strong: } 3\text{ Yes}, 3\text{ No}$):</p>
+  $$H(S_{\text{Weak}}) = - \frac{6}{8} \log_2\left(\frac{6}{8}\right) - \frac{2}{8} \log_2\left(\frac{2}{8}\right) = \mathbf{0.811 \text{ bits}}$$
+  $$H(S_{\text{Strong}}) = - \frac{3}{6} \log_2\left(\frac{3}{6}\right) - \frac{3}{6} \log_2\left(\frac{3}{6}\right) = \mathbf{1.000 \text{ bits}}$$
+  $$\text{Gain}(S, \text{Windy}) = 0.940 - \left[ \frac{8}{14}(0.811) + \frac{6}{14}(1.000) \right] = 0.940 - (0.463 + 0.429) = \mathbf{0.048 \text{ bits}}$$
+</div>
+
+<h2 class="section-title">Topic 34 to 38: Neural Networks, Backpropagation & Non-Linear Activations</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Why Single-Layer Perceptrons Cannot Solve XOR (Minsky & Papert 1969)</div>
+  <p>A single perceptron $y = \text{step}(w_1 x_1 + w_2 x_2 - \theta)$ represents a single straight hyper-plane linear decision boundary. The XOR function requires:</p>
+  $$\text{For } (0,0) \rightarrow 0: \ 0 < \theta \implies \theta > 0$$
+  $$\text{For } (1,0) \rightarrow 1: \ w_1 \ge \theta$$
+  $$\text{For } (0,1) \rightarrow 1: \ w_2 \ge \theta$$
+  $$\text{For } (1,1) \rightarrow 0: \ w_1 + w_2 < \theta$$
+  $$\text{Adding } (1,0) \text{ and } (0,1) \implies w_1 + w_2 \ge 2\theta > \theta \implies \mathbf{\text{CONTRADICTION! (Non-linearly separable)}}$$
+</div>
+
+<div class="formula-card">
+  <strong>Complete Mathematical Derivation of Backpropagation Gradient:</strong>
+  Let squared loss be $E = \frac{1}{2} \sum_k (y_k - \hat{y}_k)^2$. Using the Multivariate Chain Rule for output layer weight $w_{jk}$:
+  $$\mathbf{\frac{\partial E}{\partial w_{jk}} = \frac{\partial E}{\partial \hat{y}_k} \cdot \frac{\partial \hat{y}_k}{\partial z_k} \cdot \frac{\partial z_k}{\partial w_{jk}} = - (y_k - \hat{y}_k) \cdot \sigma'(z_k) \cdot a_j = \mathbf{- \delta_k \cdot a_j}}$$
+  $$\mathbf{\text{Weight Update: } w_{jk} \leftarrow w_{jk} - \eta \frac{\partial E}{\partial w_{jk}} = w_{jk} + \eta \cdot \delta_k \cdot a_j}$$
+  For hidden layer weight $w_{ij}$:
+  $$\mathbf{\delta_j = \sigma'(z_j) \sum_k \delta_k w_{jk} \implies w_{ij} \leftarrow w_{ij} + \eta \cdot \delta_j \cdot a_i}$$
+</div>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Learning Paradigm</th>
-      <th style="width: 45%;">Operational Mechanism</th>
-      <th>Key Advantages & Tradeoffs</th>
+      <th style="width: 20%;">Activation Function</th>
+      <th style="width: 30%;">Mathematical Formula</th>
+      <th style="width: 25%;">Output Range</th>
+      <th>Derivative $\sigma'(z)$</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><strong>1. Rote Learning</strong></td>
-      <td>Stores computed results and solutions directly in a lookup table / cache. Re-executing retrieves pre-computed solutions.</td>
-      <td>Instant $O(1)$ retrieval; zero generalization capability to unseen problem instances.</td>
-    </tr>
-    <tr>
-      <td><strong>2. Learning by Advice</strong></td>
-      <td>An external teacher/expert provides high-level instructions, which the system translates into internal operational rules.</td>
-      <td>Rapid knowledge bootstrapping; requires complex natural language understanding.</td>
-    </tr>
-    <tr>
-      <td><strong>3. Learning from Examples</strong></td>
-      <td>Induces general classification/prediction functions $y = f(x)$ from a set of labeled input-output pairs $\langle x_i, y_i \rangle$.</td>
-      <td>The foundation of modern machine learning; requires large representative datasets.</td>
-    </tr>
-    <tr>
-      <td><strong>4. Induction vs. Deduction</strong></td>
-      <td>• <strong>Induction:</strong> Derives general hypotheses from specific observations (probabilistic).<br>• <strong>Deduction:</strong> Derives specific consequences from general axioms (guaranteed true).</td>
-      <td>Induction discovers new knowledge from data; Deduction proves theorems from axioms.</td>
-    </tr>
+    <tr><td><strong>Sigmoid (Logistic)</strong></td><td>$\sigma(z) = \frac{1}{1 + e^{-z}}$</td><td>$(0, 1)$</td><td>$\sigma(z)(1 - \sigma(z))$</td></tr>
+    <tr><td><strong>Hyperbolic Tangent (Tanh)</strong></td><td>$\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$</td><td>$(-1, 1)$ (Zero-centered)</td><td>$1 - \tanh^2(z)$</td></tr>
+    <tr><td><strong>ReLU (Rectified Linear)</strong></td><td>$f(z) = \max(0, z)$</td><td>$[0, \infty)$</td><td>$1 \text{ if } z > 0 \text{ else } 0$</td></tr>
+    <tr><td><strong>Softmax</strong></td><td>$\sigma(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}}$</td><td>$(0, 1)$ with $\sum p_i = 1$</td><td>$p_i (\delta_{ij} - p_j)$</td></tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 36: Formal Learning Theory (Hypothesis Space & Bias-Variance)</h2>
+<h2 class="section-title">Topic 38.2: Master University Examination Solved Question Bank (10 Solved Questions)</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. State the Perceptron Convergence Theorem. What happens if the training data is not linearly separable? (8 Marks)</div><div class="qa-a">The <strong>Perceptron Convergence Theorem</strong> (Rosenblatt 1962) proves that if a dataset is linearly separable (there exists a hyperplane with margin $\gamma > 0$), the perceptron learning rule is guaranteed to find a separating hyperplane in a finite number of weight updates $k \le \left(\frac{R}{\gamma}\right)^2$ (where $R = \max \|x\|$). If the dataset is <em>non-linearly separable</em>, the perceptron weights oscillate indefinitely and never converge.</div></div>
+<div class="qa-card"><div class="qa-q">Q2. Complete Step-by-Step Backpropagation Numerical Walkthrough with explicit calculations. (12 Marks)</div><div class="qa-a">Consider a network: $x_1=0.05, x_2=0.10$, target $y=0.01$, $\eta=0.5$. Hidden weights: $w_1=0.15, w_2=0.20, w_3=0.25, w_4=0.30$, bias $b_1=0.35$. Output weights: $w_5=0.40, w_6=0.45$, bias $b_2=0.60$.<br>1. Forward Pass: $z_{h1} = (0.05)(0.15) + (0.10)(0.20) + 0.35 = 0.3775 \implies a_{h1} = \sigma(0.3775) = 0.59327$. $z_{h2} = (0.05)(0.25) + (0.10)(0.30) + 0.35 = 0.3925 \implies a_{h2} = \sigma(0.3925) = 0.59688$. Output: $z_{o1} = (0.59327)(0.40) + (0.59688)(0.45) + 0.60 = 1.1059 \implies a_{o1} = \sigma(1.1059) = \mathbf{0.75137}$. Error $E = \frac{1}{2}(0.01 - 0.75137)^2 = \mathbf{0.2748}$.<br>2. Backward Pass: $\delta_{o1} = (y - a_{o1})a_{o1}(1 - a_{o1}) = (0.01 - 0.75137)(0.75137)(0.24863) = \mathbf{-0.1385}$. Weight gradient: $\frac{\partial E}{\partial w_5} = - \delta_{o1} a_{h1} = -(-0.1385)(0.59327) = \mathbf{+0.08217}$. New weight: $\mathbf{w_5^{\text{new}} = 0.40 - 0.5(0.08217) = \mathbf{0.3589}}$.</div></div>
+<div class="qa-card"><div class="qa-q">Q3. Contrast ID3, C4.5, and CART Decision Tree Algorithms. (8 Marks)</div><div class="qa-a">• <strong>ID3 (Quinlan):</strong> Uses Information Gain (Entropy). Restricted to discrete categorical attributes; biased toward attributes with many values.<br>• <strong>C4.5 (Quinlan):</strong> Uses <em>Gain Ratio</em> ($\text{Gain}/\text{SplitInfo}$) to eliminate multi-value bias. Handles continuous attributes (dynamic thresholds) and missing values. Employs post-pruning.<br>• <strong>CART (Breiman):</strong> Uses <em>Gini Impurity</em>. Builds strictly binary decision trees and supports both classification and regression.</div></div>
+<div class="qa-card"><div class="qa-q">Q4. Explain the Bias-Variance Trade-off in Machine Learning with an error decomposition derivation. (8 Marks)</div><div class="qa-a">Expected prediction error on unseen data decomposes into: $\mathbf{\mathbb{E}[(y - \hat{f}(x))^2] = \text{Bias}^2(\hat{f}(x)) + \text{Var}(\hat{f}(x)) + \sigma^2}$ (where $\sigma^2$ is irreducible noise).<br>• <strong>High Bias (Underfitting):</strong> Model is overly simplistic and fails to capture underlying true relationships (e.g. linear model on quadratic data).<br>• <strong>High Variance (Overfitting):</strong> Model is overly complex and fits random training noise, failing to generalize to test data.</div></div>
+<div class="qa-card"><div class="qa-q">Q5. Explain the Vanishing Gradient Problem in Deep Neural Networks and how ReLU resolves it. (8 Marks)</div><div class="qa-a">For Sigmoid activation $\sigma(z) = \frac{1}{1+e^{-z}}$, the derivative is $\sigma'(z) = \sigma(z)(1-\sigma(z)) \le 0.25$. In a network with $L$ layers, backpropagation multiplies gradients across layers: $\prod_{l=1}^L \sigma'(z_l) \le (0.25)^L$. For $L=10$, $(0.25)^{10} \approx 10^{-6}$, causing earlier layer weights to freeze.<br><strong>ReLU Resolution:</strong> $f(z) = \max(0, z) \implies f'(z) = 1$ for all $z > 0$. Gradients pass through unchanged without diminishing!</div></div>
+<div class="qa-card"><div class="qa-q">Q6. Explain Reinforcement Learning (RL), the Markov Decision Process (MDP), and the Bellman Equation. (10 Marks)</div><div class="qa-a">In RL, an agent learns optimal behavior through trial-and-error interactions with an environment by receiving scalar rewards $R(s, a, s')$. An MDP is defined by $\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma \rangle$.<br><strong>The Bellman Optimality Equation:</strong><br>$$\mathbf{V^*(s) = \max_{a \in \mathcal{A}} \sum_{s'} P(s' \mid s, a) \left[ R(s, a, s') + \gamma V^*(s') \right]}$$
+$$\mathbf{Q^*(s, a) = \sum_{s'} P(s' \mid s, a) \left[ R(s, a, s') + \gamma \max_{a'} Q^*(s', a') \right]}$$</div></div>
+<div class="qa-card"><div class="qa-q">Q7. Explain Q-Learning (Off-Policy Temporal Difference Control). (8 Marks)</div><div class="qa-a">Q-learning directly learns the optimal action-value function $Q^*(s, a)$ independent of the agent's behavioral exploration policy:<br>$$\mathbf{Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]}$$
+Where $\alpha \in (0, 1]$ is the learning rate, $\gamma \in [0, 1)$ is the discount factor, and $[r + \gamma \max_{a'} Q(s', a') - Q(s, a)]$ is the TD Error.</div></div>
+<div class="qa-card"><div class="qa-q">Q8. Explain Ensemble Learning: Bagging (Random Forests) vs. Boosting (AdaBoost/XGBoost). (8 Marks)</div><div class="qa-a">• <strong>Bagging (Bootstrap Aggregating):</strong> Trains multiple independent base models (e.g., deep decision trees) in parallel on bootstrap sample subsets with replacement and averages predictions. Primary goal: <em>Reduces Variance</em>.<br>• <strong>Boosting:</strong> Trains base learners (e.g. shallow decision stumps) sequentially, where each new learner focuses on correcting the errors (higher instance weights) of previous models. Primary goal: <em>Reduces Bias</em>.</div></div>
+<div class="qa-card"><div class="qa-q">Q9. Explain Support Vector Machines (SVM), Maximum Margin Hyperplane, and the Kernel Trick. (8 Marks)</div><div class="qa-a">SVM finds the separating hyperplane $\mathbf{w}^T \mathbf{x} + b = 0$ that maximizes the geometric margin $\frac{2}{\|\mathbf{w}\|}$ between support vectors (quadratic optimization). The <strong>Kernel Trick</strong> $K(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T \phi(\mathbf{x}_j)$ (e.g. RBF Gaussian $e^{-\gamma \|\mathbf{x}_i - \mathbf{x}_j\|^2}$, Polynomial) implicitly projects data into infinite-dimensional Hilbert space to achieve linear separability without explicitly computing high-dimensional coordinates.</div></div>
+<div class="qa-card"><div class="qa-q">Q10. Explain k-Nearest Neighbors (k-NN) Classification and Distance Metrics. (6 Marks)</div><div class="qa-a">k-NN is a non-parametric, lazy instance-based learning algorithm that stores all training samples. Given a test query $\mathbf{x}_q$, it calculates distances (Euclidean $d = \sqrt{\sum (x_i - y_i)^2}$, Manhattan $d = \sum |x_i - y_i|$) to all points, identifies the $k$ nearest neighbors, and assigns the majority class label (or distance-weighted vote).</div></div>
+
+<h2 class="section-title">Topic 38.5: Modern Deep Generative Models, Transformers & LLM Architectures</h2>
 
 <p>
-  A learning algorithm searches through a <strong>Hypothesis Space</strong> $\mathcal{H}$ to select a candidate hypothesis $h \in \mathcal{H}$ that approximates the true underlying target function $f(x)$ with minimal generalization error on unseen data.
+  Modern Artificial Intelligence is driven by large-scale deep learning architectures capable of representation learning across raw multimodal sensory data.
 </p>
 
 <table class="custom-table">
-  <thead><tr><th>Concept</th><th>Mathematical / Theoretical Definition</th></tr></thead>
+  <thead>
+    <tr>
+      <th style="width: 20%;">Generative Model</th>
+      <th style="width: 45%;">Training Objective & Loss Function</th>
+      <th>Key AI Applications</th>
+    </tr>
+  </thead>
   <tbody>
-    <tr><td><strong>Bias</strong></td><td>Error from erroneous assumptions in the learning algorithm (e.g., assuming linear boundary for nonlinear data).</td></tr>
-    <tr><td><strong>Variance</strong></td><td>Error from sensitivity to small fluctuations in the training set (model memorizes random training noise).</td></tr>
-    <tr><td><strong>Generalization</strong></td><td>The ability of a trained model to accurately predict labels on novel, previously unseen test samples.</td></tr>
+    <tr>
+      <td><strong>Variational Autoencoders (VAE)</strong></td>
+      <td>Maximizes the Evidence Lower Bound (ELBO):<br>$$\mathcal{L}_{\text{ELBO}} = \mathbb{E}_{q_\phi(z\mid x)}[\log p_\theta(x\mid z)] - D_{\text{KL}}(q_\phi(z\mid x) \parallel p(z))$$</td>
+      <td>Latent space interpolation, image generation, anomaly detection.</td>
+    </tr>
+    <tr>
+      <td><strong>Generative Adversarial Networks (GAN)</strong></td>
+      <td>Minimax Two-Player Game:<br>$$\min_G \max_D V(D, G) = \mathbb{E}_{x}[\log D(x)] + \mathbb{E}_{z}[\log(1 - D(G(z)))]$$</td>
+      <td>Photorealistic image synthesis, deepfakes, super-resolution.</td>
+    </tr>
+    <tr>
+      <td><strong>Diffusion Models (DDPM)</strong></td>
+      <td>Forward Markov chain adds Gaussian noise ($q(x_t \mid x_{t-1})$); reverse neural network $\epsilon_\theta(x_t, t)$ learns to denoise step-by-step.</td>
+      <td>State-of-the-art text-to-image (Stable Diffusion, Midjourney, DALL-E 3).</td>
+    </tr>
+    <tr>
+      <td><strong>Autoregressive Transformers (GPT)</strong></td>
+      <td>Causal Language Modeling (Next-token cross-entropy loss):<br>$$\mathcal{L}_{\text{CLM}} = - \sum_{t=1}^T \log P(w_t \mid w_1, \dots, w_{t-1}; \theta)$$</td>
+      <td>Large Language Models, code generation, reasoning agents.</td>
+    </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 37: Neural Network Learning & Gradient Descent</h2>
-
-<div class="formula-card">
-  <strong>1. Artificial Neuron (Perceptron) Formulation:</strong>
-  $$z = \sum_{i=1}^n w_i x_i + b = \mathbf{w}^T \mathbf{x} + b$$
-  $$y = f(z) \quad (\text{Activation Function})$$
-  - <strong>Sigmoid:</strong> $\sigma(z) = \frac{1}{1 + e^{-z}} \in (0, 1)$
-  - <strong>ReLU (Rectified Linear Unit):</strong> $\text{ReLU}(z) = \max(0, z)$
-  - <strong>Tanh:</strong> $\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}} \in (-1, 1)$
+<div class="worked-box">
+  <div class="worked-title">🏛️ The Transformer Scaled Dot-Product Self-Attention Mathematical Formulation</div>
+  <p>Given an input sequence of token embeddings $\mathbf{X} \in \mathbb{R}^{N \times d_{\text{model}}}$, linear projection matrices produce Queries $\mathbf{Q}$, Keys $\mathbf{K}$, and Values $\mathbf{V}$:</p>
+  $$\mathbf{Q = X W_Q, \quad K = X W_K, \quad V = X W_V \qquad (W_Q, W_K \in \mathbb{R}^{d_{\text{model}} \times d_k}, \ W_V \in \mathbb{R}^{d_{\text{model}} \times d_v})}$$
+  $$\mathbf{\text{Attention}(Q, K, V) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} \right) \mathbf{V}}$$
+  <p><strong>Why Divide by $\sqrt{d_k}$?</strong> For large dimensional vectors $d_k$, the dot products grow large in magnitude, pushing the softmax function into regions with extremely small gradients (vanishing gradients). Scaling by $\frac{1}{\sqrt{d_k}}$ preserves unit variance and stabilizes gradient flow!</p>
 </div>
 
-<div class="formula-card">
-  <strong>2. Gradient Descent & Backpropagation Weight Update:</strong>
-  $$w_{ij} \leftarrow w_{ij} - \eta \frac{\partial \mathcal{L}}{\partial w_{ij}}$$
-  Where $\eta > 0$ is the learning rate and $\mathcal{L}$ is the Mean Squared Error loss function $\mathcal{L} = \frac{1}{2}\sum (t_k - y_k)^2$.
+<div class="qa-card">
+  <div class="qa-q">Q11. Explain Convolutional Neural Networks (CNNs) and the significance of Parameter Sharing and Equivariance. (8 Marks)</div>
+  <div class="qa-a">
+    • <strong>Parameter Sharing:</strong> The same kernel filter weights are applied across every spatial receptive field of the input tensor, drastically reducing total learnable weights compared to fully-connected layers.<br>
+    • <strong>Translational Equivariance:</strong> If an input object shifts by $(dx, dy)$, the output feature map activates at the corresponding shifted location ($(f * g)(x - dx) = f(x - dx) * g$). This allows CNNs to recognize visual features anywhere in an image!
+  </div>
 </div>
 
-<h2 class="section-title">Topic 38 & 39: Underfitting vs. Overfitting</h2>
+<div class="qa-card">
+  <div class="qa-q">Q12. Explain Reinforcement Learning from Human Feedback (RLHF) for Large Language Models. (8 Marks)</div>
+  <div class="qa-a">
+    RLHF aligns raw pre-trained LLMs with human values (Helpful, Honest, Harmless) via a 3-stage pipeline:<br>
+    1. <strong>Supervised Fine-Tuning (SFT):</strong> Fine-tune base LLM on high-quality human prompt-response demonstrations.<br>
+    2. <strong>Reward Model (RM) Training:</strong> Prompt the SFT model to generate multiple candidate outputs for a prompt; human evaluators rank them. Train a scalar reward model $r_\theta(x, y)$ using Bradley-Terry preference loss: $\mathcal{L} = - \mathbb{E}[\log \sigma(r_\theta(x, y_w) - r_\theta(x, y_l))]$.<br>
+    3. <strong>PPO Policy Optimization:</strong> Optimize the LLM policy using Proximal Policy Optimization (PPO) to maximize reward $r_\theta(x, y)$ while penalizing KL-divergence $D_{\text{KL}}(\pi_\theta \parallel \pi_{\text{SFT}})$ from the reference model to prevent reward hacking.
+  </div>
+</div>
+
+<h2 class="section-title">Topic 38.6: Advanced Statistical Learning Theory & Optimization Algorithms</h2>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Characteristic</th>
-      <th style="width: 37%;">Underfitting (High Bias)</th>
-      <th>Overfitting (High Variance)</th>
+      <th style="width: 25%;">Optimization Algorithm</th>
+      <th style="width: 45%;">Mathematical Update Rule</th>
+      <th>Key Advantages in Deep Learning</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Root Cause</strong></td><td>Model is too simplistic with insufficient expressive capacity.</td><td>Model is excessively complex with too many parameters.</td></tr>
-    <tr><td><strong>Training Error</strong></td><td><strong>High</strong> (cannot fit training data).</td><td><strong>Ultra-Low / Zero</strong> (memorizes training noise).</td></tr>
-    <tr><td><strong>Testing / Validation Error</strong></td><td><strong>High</strong> (poor performance everywhere).</td><td><strong>High</strong> (fails to generalize to unseen test data).</td></tr>
-    <tr><td><strong>Engineering Fixes</strong></td><td>• Increase network depth / model capacity.<br>• Add more expressive polynomial features.<br>• Reduce excessive regularization ($\lambda$).</td><td>• Gather more diverse training data.<br>• Apply $L_2$ Weight Decay / $L_1$ Regularization.<br>• Add Dropout layers & Early Stopping.<br>• Prune decision trees / reduce parameters.</td></tr>
+    <tr>
+      <td><strong>Stochastic Gradient Descent (SGD)</strong></td>
+      <td>$\theta_{t+1} = \theta_t - \eta \nabla_\theta \mathcal{L}_i(\theta_t)$</td>
+      <td>Fast per-iteration computation; noisy gradients escape shallow saddle points.</td>
+    </tr>
+    <tr>
+      <td><strong>Momentum SGD</strong></td>
+      <td>$v_{t+1} = \gamma v_t + \eta \nabla_\theta \mathcal{L}(\theta_t), \quad \theta_{t+1} = \theta_t - v_{t+1}$</td>
+      <td>Dampens oscillations across high-curvature ravines; accelerates progress along flat valleys.</td>
+    </tr>
+    <tr>
+      <td><strong>Adam (Adaptive Moment Estimation)</strong></td>
+      <td>$m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t, \quad v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2$<br>$\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \ \hat{v}_t = \frac{v_t}{1-\beta_2^t} \implies \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t$</td>
+      <td>Combines momentum with adaptive per-parameter learning rates; the universal standard for Transformers and Deep Neural Networks.</td>
+    </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">🧠 M5 Active Recall & Exam Questions</h2>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Support Vector Machine Dual Formulation & Support Vector Identification</div>
+  <p>Given 3 training data points in 2D space: $\mathbf{x}_1 = (1, 1)^T, y_1 = -1$; $\mathbf{x}_2 = (2, 0)^T, y_2 = -1$; $\mathbf{x}_3 = (2, 3)^T, y_3 = +1$.</p>
+  <p><strong>1. SVM Dual Formulation:</strong></p>
+  $$\mathbf{\max_\alpha \sum_{i=1}^3 \alpha_i - \frac{1}{2} \sum_{i=1}^3 \sum_{j=1}^3 \alpha_i \alpha_j y_i y_j (\mathbf{x}_i^T \mathbf{x}_j) \quad \text{subject to } \sum \alpha_i y_i = 0, \ \alpha_i \ge 0}$$
+  <p><strong>2. Optimal Solution:</strong> $\alpha_1 = 0, \ \alpha_2 = 0.5, \ \alpha_3 = 0.5$.</p>
+  $$\mathbf{\mathbf{w} = \sum_{i=1}^3 \alpha_i y_i \mathbf{x}_i = 0.5(-1)(2, 0)^T + 0.5(+1)(2, 3)^T = (-1, 0)^T + (1, 1.5)^T = \mathbf{(0, 1.5)^T}}$$
+  <p><strong>3. Hyperplane Bias $b$:</strong> For support vector $\mathbf{x}_3$: $y_3(\mathbf{w}^T \mathbf{x}_3 + b) = 1 \implies 1(0(2) + 1.5(3) + b) = 1 \implies 4.5 + b = 1 \implies \mathbf{b = -3.5}$.</p>
+  $$\mathbf{\text{Optimal Decision Boundary: } 1.5 x_2 - 3.5 = 0 \iff \mathbf{x_2 = 2.333}}$$
+</div>
+
+<h2 class="section-title">Topic 38.7: Advanced Deep Reinforcement Learning (DQN & Policy Gradients)</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Deep RL Algorithm</th>
+      <th style="width: 40%;">Core Loss Function & Update Mechanism</th>
+      <th>Key Innovations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Deep Q-Networks (DQN)</strong></td>
+      <td>$$\mathcal{L}(\theta) = \mathbb{E}\left[ \left( r + \gamma \max_{a'} Q(s', a'; \theta^-) - Q(s, a; \theta) \right)^2 \right]$$</td>
+      <td>Experience Replay Buffer (breaks temporal correlation), Target Network $\theta^-$ (stabilizes targets).</td>
+    </tr>
+    <tr>
+      <td><strong>REINFORCE (Policy Gradient)</strong></td>
+      <td>$$\nabla_\theta J(\theta) = \mathbb{E}\left[ \sum_{t=0}^T \nabla_\theta \ln \pi_\theta(a_t \mid s_t) G_t \right]$$</td>
+      <td>Direct optimization of parameterized policy $\pi_\theta(a\mid s)$ without action-value discretization.</td>
+    </tr>
+    <tr>
+      <td><strong>Actor-Critic (A2C / PPO)</strong></td>
+      <td>Actor updates $\pi_\theta(a\mid s)$ using Advantage $A(s,a) = Q(s,a) - V(s)$; Critic updates value function $V_\phi(s)$ via MSE loss.</td>
+      <td>Significantly reduces gradient variance while retaining high sample efficiency.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Policy Gradient (REINFORCE) Parameter Update Calculation</div>
+  <p>A policy network outputs action probabilities $\pi_\theta(a_1 \mid s) = 0.70, \pi_\theta(a_2 \mid s) = 0.30$ using Softmax over linear logits $z_1 = \theta_1 x, z_2 = \theta_2 x$ with $x = 1.0$. The agent executes action $a_1$ and receives return $G_t = +5.0$. Learning rate $\eta = 0.1$.</p>
+  <p><strong>1. Log-Likelihood Gradient for Softmax:</strong></p>
+  $$\nabla_{\theta_1} \ln \pi_\theta(a_1 \mid s) = x(1 - \pi_\theta(a_1 \mid s)) = 1.0(1 - 0.70) = \mathbf{+0.30}$$
+  $$\nabla_{\theta_2} \ln \pi_\theta(a_1 \mid s) = - x \cdot \pi_\theta(a_2 \mid s) = - 1.0(0.30) = \mathbf{-0.30}$$
+  <p><strong>2. Policy Parameter Updates:</strong></p>
+  $$\Delta \theta_1 = \eta \cdot \nabla_{\theta_1} \ln \pi(a_1 \mid s) \cdot G_t = 0.1 \times 0.30 \times 5.0 = \mathbf{+0.15}$$
+  $$\Delta \theta_2 = \eta \cdot \nabla_{\theta_2} \ln \pi(a_1 \mid s) \cdot G_t = 0.1 \times (-0.30) \times 5.0 = \mathbf{-0.15}$$
+  <p><em>Result:</em> $\theta_1$ is boosted by $+0.15$, increasing the probability of choosing successful action $a_1$ in state $s$ on future episodes!</p>
+</div>
+
+<h2 class="section-title">Topic 38.8: Complete Step-by-Step Solved Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 4: C4.5 Decision Tree Gain Ratio Calculation</div>
+  <p>A dataset of 20 samples has target entropy $H(S) = 0.95$. An attribute <strong>Outlook</strong> with values $\{\text{Sunny: } 8, \text{Overcast: } 6, \text{Rain: } 6\}$ achieves Information Gain $\text{Gain}(S, \text{Outlook}) = 0.246\text{ bits}$.</p>
+  <p><strong>1. Calculate Split Information:</strong></p>
+  $$\mathbf{\text{SplitInfo}(S, \text{Outlook}) = - \sum_{i=1}^3 \frac{|S_i|}{|S|} \log_2\left(\frac{|S_i|}{|S|}\right) = - \left[ \frac{8}{20}\log_2\left(\frac{8}{20}\right) + \frac{6}{20}\log_2\left(\frac{6}{20}\right) + \frac{6}{20}\log_2\left(\frac{6}{20}\right) \right]}$$
+  $$= - [0.40(-1.3219) + 0.30(-1.737) + 0.30(-1.737)] = - [-0.5288 - 0.5211 - 0.5211] = \mathbf{1.571 \text{ bits}}$$
+  <p><strong>2. Calculate Gain Ratio:</strong></p>
+  $$\mathbf{\text{GainRatio}(S, \text{Outlook}) = \frac{\text{Gain}(S, \text{Outlook})}{\text{SplitInfo}(S, \text{Outlook})} = \frac{0.246}{1.571} = \mathbf{0.1566 = 15.66\%}}$$
+  <p><em>Significance:</em> Gain Ratio penalizes broad multi-valued attributes, preventing overfitting on high-cardinality features (like Customer ID)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: K-Means Clustering Centroid Convergence Trace</div>
+  <p>Cluster 4 points $P_1(1, 1), P_2(2, 1), P_3(4, 3), P_4(5, 4)$ into $K = 2$ clusters with initial seeds $C_1 = (1, 1)$ and $C_2 = (2, 1)$:</p>
+  <ol>
+    <li><strong>Distance Computation (Iteration 1):</strong>
+      <ul>
+        <li>$P_1(1, 1): d(P_1, C_1) = 0, d(P_1, C_2) = 1 \implies \text{Cluster 1}$.</li>
+        <li>$P_2(2, 1): d(P_2, C_1) = 1, d(P_2, C_2) = 0 \implies \text{Cluster 2}$.</li>
+        <li>$P_3(4, 3): d(P_3, C_1) = \sqrt{3^2+2^2} = \sqrt{13} \approx 3.61; \ d(P_3, C_2) = \sqrt{2^2+2^2} = \sqrt{8} \approx 2.83 \implies \text{Cluster 2}$.</li>
+        <li>$P_4(5, 4): d(P_4, C_1) = \sqrt{4^2+3^2} = 5.0; \ d(P_4, C_2) = \sqrt{3^2+3^2} = \sqrt{18} \approx 4.24 \implies \text{Cluster 2}$.</li>
+      </ul>
+    </li>
+    <li><strong>Update Centroids:</strong>
+      $$C_1^{\text{new}} = (1, 1)$$
+      $$C_2^{\text{new}} = \left(\frac{2 + 4 + 5}{3}, \frac{1 + 3 + 4}{3}\right) = \left(\frac{11}{3}, \frac{8}{3}\right) = \mathbf{(3.67, 2.67)}$$
+    </li>
+    <li><strong>Iteration 2:</strong> Assignments remain unchanged. <strong>Converged!</strong></li>
+  </ol>
+</div>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Differentiate between Underfitting and Overfitting. What techniques resolve overfitting in neural networks? (8 Marks)</div>
+  <div class="qa-q">Q13. Explain AdaBoost Algorithm and Weighted Training Sample Updates. (8 Marks)</div>
   <div class="qa-a">
-    - <strong>Underfitting (High Bias):</strong> Occurs when the model is too simple to capture underlying data trends, yielding high errors on both training and testing datasets.<br>
-    - <strong>Overfitting (High Variance):</strong> Occurs when the model is overly complex, memorizing random noise and sample idiosyncrasies, leading to near-zero training error but high test error.<br>
-    - <strong>Techniques to Mitigate Overfitting:</strong><br>
-      1. <em>Regularization ($L_1/L_2$):</em> Penalizes large weight magnitudes in the loss function ($\mathcal{L}_{\text{total}} = \mathcal{L} + \lambda \|\mathbf{w}\|^2$).<br>
-      2. <em>Dropout:</em> Randomly deactivates a fraction $p$ of hidden neurons during each training step.<br>
-      3. <em>Early Stopping:</em> Halts training when validation loss stops improving.<br>
-      4. <em>Data Augmentation:</em> Synthetically expands training set size through geometric transformations.
+    AdaBoost trains a sequence of weak learners $h_t(x)$:<br>
+    1. Initialize sample weights $w_{1, i} = \frac{1}{N}$.<br>
+    2. In iteration $t$, compute weighted error $\epsilon_t = \sum_{i: y_i \neq h_t(x_i)} w_{t, i}$.<br>
+    3. Compute learner weight $\alpha_t = \frac{1}{2} \ln\left(\frac{1 - \epsilon_t}{\epsilon_t}\right)$.<br>
+    4. Update instance weights: $w_{t+1, i} = \frac{w_{t, i} \exp(-\alpha_t y_i h_t(x_i))}{Z_t}$ (misclassified samples get amplified weights!).<br>
+    5. Final ensemble: $H(x) = \text{sign}\left(\sum_{t=1}^T \alpha_t h_t(x)\right)$.
+  </div>
+</div>
+
+<h2 class="section-title">Topic 38.9: Advanced Statistical Machine Learning & KKT Support Vector Bounds</h2>
+
+<div class="formula-card">
+  <strong>The Karush-Kuhn-Tucker (KKT) Optimality Conditions for Soft-Margin SVM:</strong>
+  For primal objective $\min_{\mathbf{w}, b, \mathbf{\xi}} \frac{1}{2}\|\mathbf{w}\|^2 + C \sum_{i=1}^N \xi_i$ with constraints $y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1 - \xi_i, \ \xi_i \ge 0$:
+  1. <strong>Stationarity:</strong> $\mathbf{w} = \sum_{i=1}^N \alpha_i y_i \mathbf{x}_i, \quad \sum_{i=1}^N \alpha_i y_i = 0, \quad C - \alpha_i - \mu_i = 0$.<br>
+  2. <strong>Primal Feasibility:</strong> $y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1 + \xi_i \ge 0, \quad \xi_i \ge 0$.<br>
+  3. <strong>Dual Feasibility:</strong> $0 \le \alpha_i \le C, \quad \mu_i \ge 0$.<br>
+  4. <strong>Complementary Slackness:</strong> $\alpha_i [y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1 + \xi_i] = 0 \quad \text{and} \quad \mu_i \xi_i = (C - \alpha_i)\xi_i = 0$.
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Support Vector Classification Case Analysis</div>
+  <p>From KKT Complementary Slackness, data points fall into three mathematically distinct regimes based on $\alpha_i$:</p>
+  <ul>
+    <li><strong>Case 1 ($\alpha_i = 0$):</strong> Point is strictly on the correct side of the margin ($y_i(\mathbf{w}^T \mathbf{x}_i + b) > 1, \xi_i = 0$). It has zero influence on the decision boundary!</li>
+    <li><strong>Case 2 ($0 < \alpha_i < C$):</strong> Point is a <strong>Free Support Vector</strong> lying exactly on the margin ($y_i(\mathbf{w}^T \mathbf{x}_i + b) = 1, \xi_i = 0$). These points determine the exact location of the hyperplane bias $b$!</li>
+    <li><strong>Case 3 ($\alpha_i = C$):</strong> Point is a <strong>Bounded Support Vector</strong> violating the margin ($\xi_i > 0$). It lies inside the margin band or is misclassified.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Deep Multilayer Perceptron Matrix Form</div>
+  <p>Consider a 3-layer neural network with layer dimensions $d_0 \rightarrow d_1 \rightarrow d_2 \rightarrow d_3$:</p>
+  $$\mathbf{a^{(0)} = \mathbf{x} \in \mathbb{R}^{d_0}}$$
+  $$\mathbf{z^{(1)} = \mathbf{W}^{(1)} \mathbf{a}^{(0)} + \mathbf{b}^{(1)} \in \mathbb{R}^{d_1}, \quad \mathbf{a}^{(1)} = \sigma(\mathbf{z}^{(1)})}$$
+  $$\mathbf{z^{(2)} = \mathbf{W}^{(2)} \mathbf{a}^{(1)} + \mathbf{b}^{(2)} \in \mathbb{R}^{d_2}, \quad \mathbf{a}^{(2)} = \sigma(\mathbf{z}^{(2)})}$$
+  $$\mathbf{z^{(3)} = \mathbf{W}^{(3)} \mathbf{a}^{(2)} + \mathbf{b}^{(3)} \in \mathbb{R}^{d_3}, \quad \hat{\mathbf{y}} = \text{softmax}(\mathbf{z}^{(3)})}$$
+  <p>Cross-Entropy Loss with Softmax Output has the remarkably clean gradient:</p>
+  $$\mathbf{\delta^{(3)} = \frac{\partial \mathcal{L}}{\partial \mathbf{z}^{(3)}} = \hat{\mathbf{y}} - \mathbf{y}}$$
+  $$\mathbf{\delta^{(2)} = (\mathbf{W}^{(3)})^T \delta^{(3)} \odot \sigma'(\mathbf{z}^{(2)}) \qquad \frac{\partial \mathcal{L}}{\partial \mathbf{W}^{(2)}} = \delta^{(2)} (\mathbf{a}^{(1)})^T}$$
+</div>
+
+<h2 class="section-title">Topic 38.10: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 5: Neural Network Multiclass Cross-Entropy Loss Derivation</div>
+  <p>An image classifier outputs raw unnormalized logits for 3 classes: $\mathbf{z} = [2.0, 1.0, 0.1]^T$. True class label is Class 1 ($\mathbf{y} = [1, 0, 0]^T$).</p>
+  <p><strong>1. Compute Softmax Probabilities:</strong></p>
+  $$\sum e^{z_i} = e^{2.0} + e^{1.0} + e^{0.1} = 7.389 + 2.718 + 1.105 = \mathbf{11.212}$$
+  $$p_1 = \frac{7.389}{11.212} = \mathbf{0.6590} \qquad p_2 = \frac{2.718}{11.212} = \mathbf{0.2424} \qquad p_3 = \frac{1.105}{11.212} = \mathbf{0.0986}$$
+  <p><strong>2. Compute Categorical Cross-Entropy Loss:</strong></p>
+  $$\mathbf{\mathcal{L} = - \sum_{i=1}^3 y_i \ln(p_i) = - 1.0 \ln(0.6590) = - (-0.417) = \mathbf{0.417 \text{ nats}}}$$
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q14. Explain Batch Normalization, Layer Normalization, and Dropout Regularization. (8 Marks)</div>
+  <div class="qa-a">
+    • <strong>Batch Normalization (Ioffe & Szegedy):</strong> Normalizes neuron activations across mini-batch samples ($\hat{x} = \frac{x - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}$, $y = \gamma \hat{x} + \beta$). Accelerates convergence and stabilizes internal covariate shift.<br>
+    • <strong>Layer Normalization (Ba, Kiros, Hinton):</strong> Normalizes across all hidden features of a single sample independent of batch size; the universal standard for Transformer attention blocks.<br>
+    • <strong>Dropout (Srivastava et al.):</strong> Randomly zeros out hidden neuron activations with probability $p$ during training, preventing complex co-adaptations and acting as an ensemble over $2^N$ sub-networks.
   </div>
 </div>
 """

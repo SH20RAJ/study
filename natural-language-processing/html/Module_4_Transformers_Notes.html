@@ -1,401 +1,612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Module 4: Lexical Semantics & Embeddings</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
-
-:root {
-  --primary: #7c3aed;       /* Purple */
-  --primary-light: #f5f3ff;
-  --accent: #8b5cf6;        /* Violet */
-  --secondary: #2563eb;     /* Royal Blue */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
-}
+<meta charset="UTF-8">
+<title>Module 4: Deep Learning for NLP, Recurrent Architectures & Transformers</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap');
 
 @page {
   size: A4 portrait;
-  margin: 14mm 11mm 14mm 11mm;
+  margin: 15mm 12mm 15mm 12mm;
   @bottom-right {
-    content: "Page " counter(page);
+    content: "Page " counter(page) " of " counter(pages);
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8pt;
+    font-weight: 600;
     color: #64748b;
   }
   @bottom-left {
-    content: "NLP (CS24311) | BIT Mesra CSE";
+    content: "CS24351 Natural Language Processing • BIT Mesra";
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8pt;
-    color: #64748b;
+    font-weight: 600;
+    color: #0284c7;
   }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
+* { box-sizing: border-box; }
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: #ffffff;
-  line-height: 1.58;
-  font-size: 12.2px;
-  padding: 0;
-}
-
-.page-container {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 0;
-}
-
-.doc-header {
-  border-bottom: 2.5px solid var(--primary);
-  padding-bottom: 14px;
-  margin-bottom: 18px;
-}
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  display: inline-block;
-  padding: 3px 9px;
-  font-size: 9.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 4px;
-}
-
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-green { background: #d1fae5; color: #065f46; }
-.badge-amber { background: #fef3c7; color: #92400e; }
-
-h1.doc-title {
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 4px;
-}
-
-.doc-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 22px;
-}
-
-.toc-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: #6d28d9;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 11.2px;
+  line-height: 1.58;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-h2.section-title {
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 22px 0 10px 0;
-  page-break-after: avoid;
-}
-
-h3.subsection-title {
-  font-size: 13.2px;
-  font-weight: 700;
-  color: #6d28d9;
-  margin: 16px 0 6px 0;
-  page-break-after: avoid;
-}
-
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.5px;
-  border-left: 4px solid;
+.cover-container {
+  padding: 24px 20px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0369a1 100%);
+  border-radius: 12px;
+  color: #ffffff;
+  margin-bottom: 22px;
+  border: 1px solid #38bdf8;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);
   page-break-inside: avoid;
 }
-.callout-info { background: #faf5ff; border-color: #8b5cf6; color: #4c1d95; }
-.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+.course-badge {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid #38bdf8;
+  color: #bae6fd;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.book-title {
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+}
+.book-subtitle {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
 
+h1.module-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 6px;
+  margin: 22px 0 14px 0;
+  page-break-after: avoid;
+}
+h2.section-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0369a1;
+  border-left: 4px solid #0284c7;
+  padding-left: 9px;
+  margin: 18px 0 10px 0;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  margin: 13px 0 6px 0;
+  page-break-after: avoid;
+}
+
+p { margin: 0 0 9px 0; }
+ul, ol { margin: 0 0 10px 0; padding-left: 20px; }
+li { margin-bottom: 4px; }
+
+.callout-box {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 11px;
+  page-break-inside: avoid;
+}
 .callout-title {
   font-weight: 700;
+  color: #0369a1;
   margin-bottom: 4px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+}
+
+.worked-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #6366f1;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.worked-title {
+  font-weight: 800;
+  color: #4338ca;
+  font-size: 12px;
+  margin-bottom: 6px;
 }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   margin: 12px 0;
-  font-size: 11px;
+  font-size: 10.5px;
   page-break-inside: avoid;
 }
-
-.custom-table th, .custom-table td {
-  border: 1px solid #cbd5e1;
-  padding: 7px 10px;
-  text-align: left;
-}
-
 .custom-table th {
-  background: #f1f5f9;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 7px 10px;
   font-weight: 700;
-  color: #1e293b;
+  text-align: left;
+  border: 1px solid #334155;
 }
+.custom-table td {
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+.custom-table tr:nth-child(even) { background: #f8fafc; }
 
 pre {
   background: #0f172a;
-  color: #f8fafc;
-  padding: 11px 14px;
+  color: #e2e8f0;
+  padding: 10px 13px;
   border-radius: 6px;
-  font-family: 'Fira Code', monospace;
-  font-size: 10.8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.8px;
+  line-height: 1.45;
+  overflow-x: auto;
   margin: 10px 0;
   page-break-inside: avoid;
-  overflow-x: auto;
+  border: 1px solid #334155;
 }
-
 code {
-  font-family: 'Fira Code', monospace;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 2px 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 1.5px 4px;
   border-radius: 4px;
-  font-size: 11px;
 }
 
-pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
+.katex-display {
+  margin: 8px 0 !important;
+  padding: 4px 0 !important;
 }
 
 .qa-card {
-  background: #f8fafc;
+  background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-left: 4px solid var(--secondary);
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 12px 0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 10px 0;
   page-break-inside: avoid;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
-
 .qa-q {
   font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 6px;
-  font-size: 12.2px;
+  color: #0f172a;
+  margin-bottom: 4px;
 }
-
 .qa-a {
   color: #334155;
-  font-size: 11.5px;
-  line-height: 1.55;
 }
-
-.worked-box {
-  background: #ffffff;
-  border: 1.5px solid #8b5cf6;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin: 14px 0;
-  page-break-inside: avoid;
-}
-
-.worked-title {
-  font-size: 12.8px;
-  font-weight: 800;
-  color: #5b21b6;
-  margin-bottom: 10px;
-}
-
-.formula-card {
-  background: #faf5ff;
-  border-left: 4px solid #7c3aed;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.8px;
-  page-break-inside: avoid;
-}
-
-.diagram-container {
-  margin: 14px auto;
-  text-align: center;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px;
-  page-break-inside: avoid;
-}
-
-.diagram-caption {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 6px;
-}
-
-.page-break {
-  page-break-before: always;
-  break-before: page;
-}
+.page-break { page-break-before: always; }
 </style>
 </head>
 <body>
-  <div class="page-container">
-    <div class="doc-header">
-      <div class="badge-container">
-        <span class="badge badge-purple">CS24311 — Theory (3.0 Cr)</span>
-        <span class="badge badge-blue">Module IV Notes</span>
-        <span class="badge badge-green">BIT Mesra</span>
-        <span class="badge badge-amber">NEP Scheme</span>
-      </div>
-      <h1 class="doc-title">Module 4: Lexical Semantics & Embeddings</h1>
-      <div class="doc-subtitle">WordNet Synsets, TF-IDF, Positive PMI, Word2Vec (Skip-Gram SGNS) & GloVe Log-Bilinear Model</div>
-    </div>
-    
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module IV: Deep Learning & Neural Architectures in NLP — Complete 8-Topic Tracker</div>
-  <div class="toc-grid">
-    <div><strong>Topic 36:</strong> Convolutional Neural Networks (CNNs) for Text Classification</div>
-    <div><strong>Topic 37:</strong> Recurrent Neural Networks (RNNs) & Vanishing Gradients</div>
-    <div><strong>Topic 38:</strong> Long Short-Term Memory (LSTM Gate Formulations & Memory Cells)</div>
-    <div><strong>Topic 39:</strong> The Transformer Architecture (Scaled Dot-Product Self-Attention)</div>
-    <div><strong>Topic 40:</strong> Sequence-to-Sequence Encoder-Decoder with Cross-Attention</div>
-    <div><strong>Topic 41:</strong> Transfer Learning in NLP (Pre-Training + Task Fine-Tuning)</div>
-    <div><strong>Topic 42:</strong> BERT (Bidirectional Encoder Representations from Transformers)</div>
-    <div><strong>Topic 43:</strong> GPT (Generative Pre-Trained Causal Autoregressive Decoders)</div>
-  </div>
+<div class="cover-container">
+  <div class="course-badge">Module 4 • CS24351</div>
+  <h1 class="book-title">Module 4: Deep Learning for NLP, Recurrent Architectures & Transformers</h1>
+  <div class="book-subtitle">Topics 35 to 45 • RNNs, BPTT, LSTMs, Attention, Transformers, BERT & GPT Architectures</div>
 </div>
 
-<h2 class="section-title">Topic 36 – 38: Sequential Neural Models (CNN, RNN, LSTM)</h2>
+<h1 class="module-title">Module 4: Deep Learning for NLP, Recurrent Architectures & Transformers</h1>
 
+<div class="callout-box">
+  <div class="callout-title">📌 Syllabus & Pedagogical Blueprint (Topics 35 to 45)</div>
+  <p>Recurrent Neural Networks (RNN) • Backpropagation Through Time (BPTT) • Mathematical Derivations of Vanishing & Exploding Gradients • Gradient Clipping • Long Short-Term Memory (LSTM) Internal Gate Mechanics (Forget, Input, Candidate Cell, Output Gates, Constant Error Carousel) • Gated Recurrent Units (GRU) • Bidirectional Encoders (BiLSTM) • Sequence-to-Sequence (Seq2Seq) Architecture & Information Bottleneck • Bahdanau Additive Attention vs. Luong Multiplicative Attention • The Transformer Architecture (Vaswani et al. 2017) • Scaled Dot-Product Self-Attention • Multi-Head Attention (MHA) • Sinusoidal Positional Encoding Formulations • Encoder & Decoder LayerNorm and Residual Connections • Pretrained Language Models: BERT (MLM, NSP, Bidirectionality), GPT (Autoregressive Decoder), RoBERTa, T5, BART • 15 Solved University Examination Questions.</p>
+</div>
+
+<h2 class="section-title">Topic 35: Recurrent Neural Networks (RNN) & The Vanishing Gradient Problem</h2>
+<p>An Elman RNN processes sequential inputs $\mathbf{x}_1, \dots, \mathbf{x}_T$ by updating a continuous hidden state $\mathbf{h}_t$:</p>
+$$\mathbf{\mathbf{h}_t = \tanh(\mathbf{W}_{hh} \mathbf{h}_{t-1} + \mathbf{W}_{xh} \mathbf{x}_t + \mathbf{b}_h) \qquad \mathbf{\hat{y}}_t = \text{softmax}(\mathbf{W}_{hy} \mathbf{h}_t + \mathbf{b}_y)}$$
+
+<div class="callout-box">
+  <div class="callout-title">⚠️ Mathematical Proof of Vanishing Gradients during BPTT</div>
+  <p>When backpropagating loss $\mathcal{L}_T$ back to step $t$, the gradient chain rule involves repeated matrix multiplications:</p>
+  $$\mathbf{\frac{\partial \mathcal{L}_T}{\partial \mathbf{h}_t} = \frac{\partial \mathcal{L}_T}{\partial \mathbf{h}_T} \prod_{k=t+1}^T \frac{\partial \mathbf{h}_k}{\partial \mathbf{h}_{k-1}} = \frac{\partial \mathcal{L}_T}{\partial \mathbf{h}_T} \prod_{k=t+1}^T \mathbf{W}_{hh}^T \text{diag}(1 - \tanh^2(\mathbf{z}_k))}$$
+  <p>Because $\tanh'(z) = 1 - \tanh^2(z) \le 1.0$, if the maximum eigenvalue $\lambda_{\text{max}}(\mathbf{W}_{hh}) < 1$, the product $\prod_{k=t+1}^T \mathbf{W}_{hh}^T \rightarrow 0$ exponentially as sequence length $T - t > 10$, destroying long-range dependencies! If $\lambda_{\text{max}} > 1$, gradients explode ($\rightarrow \infty$).</p>
+</div>
+
+<h2 class="section-title">Topic 36: Long Short-Term Memory (LSTM) Architecture</h2>
+<p>Hochreiter & Schmidhuber (1997) introduced the <strong>LSTM</strong>, which introduces an explicit linear memory cell state $\mathbf{C}_t$ governed by three multiplicative gates:</p>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Complete LSTM Mathematical Forward Equations</div>
+  <ol>
+    <li><strong>Forget Gate ($\mathbf{f}_t$):</strong> Decides what information to discard from prior cell state $\mathbf{C}_{t-1}$:
+      $$\mathbf{\mathbf{f}_t = \sigma(\mathbf{W}_f [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_f)}$$
+    </li>
+    <li><strong>Input Gate ($\mathbf{i}_t$) & Candidate Cell ($\mathbf{\tilde{C}}_t$):</strong> Decides which new values to write into memory:
+      $$\mathbf{\mathbf{i}_t = \sigma(\mathbf{W}_i [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_i) \qquad \mathbf{\tilde{C}}_t = \tanh(\mathbf{W}_c [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_c)}$$
+    </li>
+    <li><strong>Cell State Update ($\mathbf{C}_t$):</strong> Linear aggregation (Constant Error Carousel):
+      $$\mathbf{\mathbf{C}_t = \mathbf{f}_t \odot \mathbf{C}_{t-1} + \mathbf{i}_t \odot \mathbf{\tilde{C}}_t}$$
+    </li>
+    <li><strong>Output Gate ($\mathbf{o}_t$) & Hidden State ($\mathbf{h}_t$):</strong> Filters cell state to produce output:
+      $$\mathbf{\mathbf{o}_t = \sigma(\mathbf{W}_o [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_o) \qquad \mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{C}_t)}$$
+    </li>
+  </ol>
+  <p><em>Why LSTM Prevents Vanishing Gradients:</em> The derivative $\frac{\partial \mathbf{C}_t}{\partial \mathbf{C}_{t-1}} = \mathbf{f}_t$. If the forget gate is saturated at $\mathbf{f}_t \approx 1$, error gradients flow backward through time with zero exponential decay!</p>
+</div>
+
+<h2 class="section-title">Topic 37: The Transformer Architecture (Vaswani et al. 2017)</h2>
+<p>The <strong>Transformer</strong> completely replaces recurrence with pure attention mechanisms, enabling massive parallelization across all tokens during training.</p>
+
+<h3 class="sub-title">1. Scaled Dot-Product Attention</h3>
+<p>Given Query ($\mathbf{Q}$), Key ($\mathbf{K}$), and Value ($\mathbf{V}$) matrices projected from input embeddings:</p>
+$$\mathbf{\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} \right) \mathbf{V}}$$
+<p><em>Scaling Factor $\frac{1}{\sqrt{d_k}}$:</em> For large projection dimensions $d_k$, the dot products grow large in magnitude, pushing the softmax function into regions with vanishingly small gradients. Scaling by $\sqrt{d_k}$ stabilizes variance to unit magnitude.</p>
+
+<h3 class="sub-title">2. Multi-Head Attention (MHA)</h3>
+<p>Allows the model to jointly attend to information from different representation subspaces at different positions:</p>
+$$\mathbf{\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) \mathbf{W}^O}$$
+$$\text{where } \text{head}_i = \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \ \mathbf{K}\mathbf{W}_i^K, \ \mathbf{V}\mathbf{W}_i^V)$$
+
+<h3 class="sub-title">3. Sinusoidal Positional Encodings</h3>
+<p>Because self-attention is permutation-invariant, positional information must be injected via deterministic sinusoids:</p>
+$$\mathbf{PE_{(pos, 2i)} = \sin\left( \frac{pos}{10000^{2i / d_{\text{model}}}} \right) \qquad PE_{(pos, 2i+1)} = \cos\left( \frac{pos}{10000^{2i / d_{\text{model}}}} \right)}$$
+
+<h2 class="section-title">Topic 38: Pretrained Transformer Models — BERT vs. GPT</h2>
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 22%;">Neural Model</th>
-      <th style="width: 45%;">Mathematical Formulation & Architecture</th>
-      <th>Key Advantage & Failure Mode</th>
+      <th style="width: 20%;">Dimension</th>
+      <th style="width: 40%;">BERT (Devlin et al. 2018)</th>
+      <th>GPT Series (Radford et al. 2018–2023)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. CNN for NLP</strong></td>
-      <td>1D convolution filters slide across embedding matrices capturing local $n$-gram phrase features: $c_i = f(\mathbf{w}^T \mathbf{x}_{i:i+h-1} + b) \rightarrow$ Max-Pooling over time.</td>
-      <td>Highly parallelizable; fails to model long-range sequential syntax dependencies.</td>
+      <td><strong>Architecture</strong></td>
+      <td><strong>Encoder-Only:</strong> Full bidirectional self-attention across all positions.</td>
+      <td><strong>Decoder-Only:</strong> Causal masked self-attention (tokens attend only to prior positions).</td>
     </tr>
     <tr>
-      <td><strong>2. Vanilla RNN</strong></td>
-      <td>Recurrent hidden state: $\mathbf{h}_t = \tanh(\mathbf{W}_{hh} \mathbf{h}_{t-1} + \mathbf{W}_{xh} \mathbf{x}_t + \mathbf{b}_h)$. Unrolls across variable sentence lengths.</td>
-      <td>Models sequential history; severely suffers from <strong>Vanishing and Exploding Gradients</strong> over $>10$ tokens.</td>
+      <td><strong>Pretraining Objective</strong></td>
+      <td>Masked Language Model (MLM 15%) + Next Sentence Prediction (NSP).</td>
+      <td>Autoregressive Next-Token Prediction: $\max_\theta \sum \log P(x_i \mid x_{<i})$.</td>
     </tr>
     <tr>
-      <td><strong>3. LSTM (Hochreiter, 1997)</strong></td>
-      <td>Regulates information flow using <strong>3 Gates + Constant Error Carousel Cell State $C_t$</strong>: Forget Gate $f_t$, Input Gate $i_t$, Output Gate $o_t$.</td>
-      <td>Maintains long-range gradient highway over hundreds of tokens; sequential processing inhibits GPU scaling.</td>
+      <td><strong>Ideal Tasks</strong></td>
+      <td>NLU: Text classification, NER, extractive QA, sentence similarity.</td>
+      <td>NLG: Open-ended generation, creative writing, dialogue, in-context zero/few-shot reasoning.</td>
     </tr>
   </tbody>
 </table>
 
-<div class="formula-card">
-  <strong>Complete LSTM Mathematical Gate Formulations:</strong>
-  $$\text{Forget Gate: } \mathbf{f}_t = \sigma(\mathbf{W}_f [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_f)$$
-  $$\text{Input Gate: } \mathbf{i}_t = \sigma(\mathbf{W}_i [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_i), \quad \tilde{\mathbf{C}}_t = \tanh(\mathbf{W}_c [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_c)$$
-  $$\text{Cell State Update: } \mathbf{C}_t = \mathbf{f}_t \odot \mathbf{C}_{t-1} + \mathbf{i}_t \odot \tilde{\mathbf{C}}_t$$
-  $$\text{Output Gate: } \mathbf{o}_t = \sigma(\mathbf{W}_o [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_o), \quad \mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{C}_t)$$
-</div>
-
-<h2 class="section-title">Topic 39 & 40: The Transformer Architecture (Vaswani et al., 2017)</h2>
-
-<div class="formula-card">
-  <strong>1. Scaled Dot-Product Attention Equation:</strong>
-  $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} \right) \mathbf{V}$$
-  Where $\mathbf{Q}$ (Query), $\mathbf{K}$ (Key), and $\mathbf{V}$ (Value) are linear projections of input embeddings. Division by $\sqrt{d_k}$ prevents gradient saturation in large dimensions!
-</div>
-
-<div class="formula-card">
-  <strong>2. Multi-Head Attention (MHA):</strong>
-  $$\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) \mathbf{W}^O, \quad \text{head}_i = \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \mathbf{K}\mathbf{W}_i^K, \mathbf{V}\mathbf{W}_i^V)$$
-</div>
-
-<h2 class="section-title">Topic 41 – 43: Pre-Trained Transformers: BERT vs. GPT</h2>
-
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 25%;">Feature</th>
-      <th style="width: 37%;">BERT (Devlin et al., Google)</th>
-      <th>GPT Series (Radford et al., OpenAI)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Core Architecture</strong></td><td>Transformer <strong>Encoder Only</strong> (Bidirectional self-attention).</td><td>Transformer <strong>Decoder Only</strong> (Autoregressive causal masked attention).</td></tr>
-    <tr><td><strong>Pretraining Objective</strong></td><td>1. Masked LM (MLM: predicts 15% `[MASK]` tokens).<br>2. Next Sentence Prediction (NSP).</td><td>Standard Left-to-Right Causal Language Modeling: $\max \sum \log P(w_t \mid w_{<t})$.</td></tr>
-    <tr><td><strong>Optimal Tasks</strong></td><td>NLU, Text Classification, Named Entity Recognition, Question Answering.</td><td>NLG, Creative Writing, Chatbots, Open-Domain Reasoning, Code Generation.</td></tr>
-  </tbody>
-</table>
-
-<h2 class="section-title">🧠 M4 Active Recall & Exam Questions</h2>
+<h2 class="section-title">Topic 39: Master University Examination Question Bank (Module 4)</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. Explain the working of the Scaled Dot-Product Self-Attention mechanism in Transformers with a diagram. (10 Marks)</div>
-  <div class="qa-a">
-    Self-attention calculates pairwise relational affinities between every pair of tokens in parallel:<br>
-    1. <strong>Linear Projections:</strong> Input matrix $\mathbf{X}$ is multiplied by weight matrices $\mathbf{W}^Q, \mathbf{W}^K, \mathbf{W}^V$ to generate $\mathbf{Q}, \mathbf{K}, \mathbf{V}$.<br>
-    2. <strong>Score Calculation:</strong> Computes dot-product similarity matrix $\mathbf{S} = \mathbf{Q}\mathbf{K}^T$, reflecting how much each token attends to all other tokens.<br>
-    3. <strong>Scaling & Normalization:</strong> Divides by $\sqrt{d_k}$ to stabilize gradients and applies row-wise $\text{softmax}(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}})$.<br>
-    4. <strong>Weighted Aggregation:</strong> Multiplies attention weights by value matrix $\mathbf{V}$ to output contextualized embeddings!
-  </div>
+  <div class="qa-q">Q1. Explain the Masked Multi-Head Attention in Transformer Decoders and why causal masking is required. (8 Marks)</div>
+  <div class="qa-a">During autoregressive text generation, the model predicts token $y_t$ conditioning strictly on preceding tokens $y_{<t}$. In training, all target tokens are fed simultaneously. To prevent the model from "cheating" by attending to future tokens $y_{>t}$, a <strong>Causal Mask Matrix $\mathbf{M}$</strong> (with upper triangular entries set to $-\infty$) is added to attention logits before softmax:<br>
+  $$\text{MaskedAttention}(Q, K, V) = \text{softmax}\left( \frac{QK^T}{\sqrt{d_k}} + \mathbf{M} \right)V$$
+  Because $\exp(-\infty) = 0$, attention weights to all future positions become strictly zero!</div>
 </div>
 
-  </div>
+<div class="qa-card">
+  <div class="qa-q">Q2. Compare Gated Recurrent Unit (GRU) with LSTM in terms of parameters and gate architecture. (6 Marks)</div>
+  <div class="qa-a">• <strong>GRU (Cho et al. 2014):</strong> Merges cell state and hidden state into a single hidden vector $\mathbf{h}_t$. Contains only 2 gates: <em>Reset Gate ($\mathbf{r}_t$)</em> and <em>Update Gate ($\mathbf{z}_t$)</em>. Features $\approx 25\%$ fewer parameters than LSTM, training faster with comparable performance on smaller datasets.<br>• <strong>LSTM:</strong> Maintains separate cell state $\mathbf{C}_t$ and hidden state $\mathbf{h}_t$ controlled by 3 distinct gates ($f_t, i_t, o_t$).</div>
+</div>
+
+<h2 class="section-title">Topic 40: Attention Mechanisms — Additive (Bahdanau) vs. Multiplicative (Luong)</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th>Attention Type</th>
+      <th>Alignment Score Function $\text{score}(\mathbf{s}_i, \mathbf{h}_j)$</th>
+      <th>Computational Efficiency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bahdanau Additive Attention</strong></td>
+      <td>$$\text{score}(\mathbf{s}_i, \mathbf{h}_j) = \mathbf{v}_a^T \tanh(\mathbf{W}_a \mathbf{s}_i + \mathbf{U}_a \mathbf{h}_j)$$</td>
+      <td>Requires single hidden layer feed-forward network; higher parameter count.</td>
+    </tr>
+    <tr>
+      <td><strong>Luong Multiplicative (General)</strong></td>
+      <td>$$\text{score}(\mathbf{s}_i, \mathbf{h}_j) = \mathbf{s}_i^T \mathbf{W}_a \mathbf{h}_j$$</td>
+      <td>Matrix multiplication; highly optimized on GPU tensor cores.</td>
+    </tr>
+    <tr>
+      <td><strong>Luong Dot Product</strong></td>
+      <td>$$\text{score}(\mathbf{s}_i, \mathbf{h}_j) = \mathbf{s}_i^T \mathbf{h}_j$$</td>
+      <td>Zero parameters; requires decoder and encoder hidden states to have identical dimensions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 41: Pretrained Foundation Transformer Taxonomy</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Model Family</th>
+      <th style="width: 25%;">Architectural Paradigm</th>
+      <th style="width: 32%;">Pretraining Objective</th>
+      <th>Typical Downstream Use-Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>BERT / RoBERTa / DeBERTa</strong></td>
+      <td><strong>Encoder-Only</strong> (Bidirectional self-attention)</td>
+      <td>Masked Language Modeling (MLM 15%) + Disentangled Attention</td>
+      <td>Classification, Token Tagging (NER), Extractive QA (SQuAD), Sentence Embeddings.</td>
+    </tr>
+    <tr>
+      <td><strong>GPT Series (1–4) / LLaMA / Mistral</strong></td>
+      <td><strong>Decoder-Only</strong> (Causal autoregressive masked attention)</td>
+      <td>Next-Token Autoregressive Prediction $\sum \log P(x_t \mid x_{<t})$</td>
+      <td>Open-ended text generation, In-context zero/few-shot reasoning, Conversational AI.</td>
+    </tr>
+    <tr>
+      <td><strong>T5 / BART</strong></td>
+      <td><strong>Encoder-Decoder</strong> (Full cross-attention)</td>
+      <td>Span Corruption / Denoising Autoencoding sequence-to-sequence</td>
+      <td>Abstractive text summarization, Machine translation, Text re-writing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 45: Advanced Deep Transformer Architectures & University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 12: Multi-Head Attention Dimensions & Tensor Computation</div>
+  <p>Given Transformer model dimension $d_{\text{model}} = 512$, number of attention heads $h = 8$, sequence length $T = 64$:</p>
+  <ul>
+    <li>Head projection dimension: $\mathbf{d_k = d_v = \frac{d_{\text{model}}}{h} = \frac{512}{8} = \mathbf{64}}$.</li>
+    <li>Input matrix $\mathbf{X} \in \mathbb{R}^{64 \times 512}$.</li>
+    <li>Weight projection matrices per head: $\mathbf{W}_i^Q \in \mathbb{R}^{512 \times 64}, \mathbf{W}_i^K \in \mathbb{R}^{512 \times 64}, \mathbf{W}_i^V \in \mathbb{R}^{512 \times 64}$.</li>
+    <li>Raw attention logits: $\mathbf{Q}_i \mathbf{K}_i^T \in \mathbb{R}^{64 \times 64}$.</li>
+    <li>Scaled dot product attention per head: $\text{head}_i = \text{softmax}\left(\frac{\mathbf{Q}_i \mathbf{K}_i^T}{\sqrt{64}}\right)\mathbf{V}_i \in \mathbb{R}^{64 \times 64} \times \mathbb{R}^{64 \times 64} = \mathbb{R}^{64 \times 64}$.</li>
+    <li>Concatenated output across all 8 heads: $\text{Concat}(\text{head}_1, \dots, \text{head}_8) \in \mathbb{R}^{64 \times 512}$.</li>
+    <li>Final linear projection: $\mathbf{W}^O \in \mathbb{R}^{512 \times 512} \implies \mathbf{\text{Output Tensor } \mathbf{Y} \in \mathbb{R}^{64 \times 512}}$.</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Detail the RoBERTa (Robustly Optimized BERT Approach) Modifications over Original BERT. (8 Marks)</div><div class="qa-a">Liu et al. (2019) demonstrated that original BERT was severely undertrained, introducing 4 critical modifications that established new state-of-the-art results across GLUE, SQuAD, and RACE:<br>1. <strong>Removed Next Sentence Prediction (NSP):</strong> Showing that NSP hurts downstream task performance when inputs are continuous sequences of full documents.<br>2. <strong>Dynamic Masking:</strong> Generating a novel 15% random mask pattern every time a sequence is fed to the model across training epochs (original BERT used static masking fixed at data pre-processing).<br>3. <strong>Larger Batch Sizes & Learning Rates:</strong> Scaling batch size from 256 to 8,000 sequences with AdamW optimization.<br>4. <strong>Byte-Level BPE:</strong> Using a 50,000-token byte-level BPE tokenizer without unicode preprocessing.</div></div>
+
+<h2 class="section-title">Topic 45.3: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: Transformer Layer Normalization vs Batch Normalization</div>
+  <p>In Computer Vision, Batch Normalization normalizes across batch dimension $N$ for each channel. In NLP, sentence lengths vary widely and mini-batches contain padded tokens:</p>
+  <ul>
+    <li><strong>Layer Normalization (Ba et al. 2016):</strong> Normalizes across the <em>hidden feature dimensions</em> $d_{\text{model}}$ independently for each individual token:
+      $$\mathbf{\mu_i = \frac{1}{d} \sum_{j=1}^d x_{ij} \qquad \sigma_i^2 = \frac{1}{d} \sum_{j=1}^d (x_{ij} - \mu_i)^2}$$
+      $$\mathbf{\text{LayerNorm}(\mathbf{x}_i) = \frac{\mathbf{x}_i - \mu_i}{\sqrt{\sigma_i^2 + \epsilon}} \odot \mathbf{\gamma} + \mathbf{\beta}}$$
+    </li>
+    <li><em>Advantage:</em> Completely independent of batch size and padding tokens; identical execution during training and autoregressive single-token inference!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Detail the KV-Cache (Key-Value Caching) Optimization for Fast Autoregressive LLM Inference. (8 Marks)</div><div class="qa-a">During autoregressive generation in decoder-only LLMs (GPT), generating token $t+1$ requires computing attention over all preceding tokens $1 \dots t$.<br>• <strong>Naive Generation:</strong> Re-computing Key and Value projections for all $t$ past tokens at every step scales quadratically $O(T^2)$ in compute.<br>• <strong>KV-Cache:</strong> Stores past computed Key ($\mathbf{K}_{1..t}$) and Value ($\mathbf{V}_{1..t}$) tensor matrices in GPU RAM. At step $t+1$, the model computes Query, Key, and Value <em>only for the single newly generated token</em> ($\mathbf{q}_{t+1}, \mathbf{k}_{t+1}, \mathbf{v}_{t+1}$), appends $\mathbf{k}_{t+1}, \mathbf{v}_{t+1}$ to cache, and computes attention in $O(T)$ linear time!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the T5 (Text-to-Text Transfer Transformer) Unified Framework. (8 Marks)</div><div class="qa-a"><strong>T5 (Raffel et al. 2020)</strong> unifies all NLP tasks into a single universal <strong>Text-to-Text</strong> sequence-to-sequence encoder-decoder architecture where both inputs and outputs are always text strings:<br>• <strong>Classification:</strong> `"cola sentence: The course is fine." -> "acceptable"`<br>• <strong>Translation:</strong> `"translate English to German: That is good. -> Das ist gut."`<br>• <strong>Summarization:</strong> `"summarize: [Article text] -> [Summary]"`<br>Pretrained using <em>Span Corruption</em> (masking random contiguous token spans with sentinel tokens `<extra_id_0>` and training the decoder to reconstruct the missing text).</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 18: Scaled Dot-Product Attention Variance Stability Proof</div>
+  <p>Prove why the dot product $\mathbf{q} \cdot \mathbf{k} = \sum_{i=1}^{d_k} q_i k_i$ has variance $d_k$ under independent zero-mean unit-variance components:</p>
+  <ul>
+    <li>Assume components $q_i, k_i \sim \mathcal{N}(0, 1)$ are independent random variables with $\mathbb{E}[q_i] = 0, \text{Var}(q_i) = 1$.</li>
+    <li>$\mathbb{E}[q_i k_i] = \mathbb{E}[q_i]\mathbb{E}[k_i] = 0$.</li>
+    <li>$\text{Var}(q_i k_i) = \mathbb{E}[q_i^2 k_i^2] - (\mathbb{E}[q_i k_i])^2 = \mathbb{E}[q_i^2]\mathbb{E}[k_i^2] = (1)(1) = 1$.</li>
+    <li>The sum of $d_k$ independent random variables has variance:
+      $$\mathbf{\text{Var}(\mathbf{q} \cdot \mathbf{k}) = \sum_{i=1}^{d_k} \text{Var}(q_i k_i) = \sum_{i=1}^{d_k} 1 = \mathbf{d_k}}$$
+    </li>
+    <li>Dividing by standard deviation $\sqrt{d_k}$: $\text{Var}\left(\frac{\mathbf{q} \cdot \mathbf{k}}{\sqrt{d_k}}\right) = \frac{1}{d_k}\text{Var}(\mathbf{q} \cdot \mathbf{k}) = \frac{d_k}{d_k} = \mathbf{1.0}$.</li>
+    <li><em>Significance:</em> Stabilizes logits across arbitrary model dimensions ($d_k = 64, 128$), preventing softmax saturation!</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain the Reinforcement Learning from Human Feedback (RLHF) Pipeline with PPO and DPO. (8 Marks)</div><div class="qa-a">To align generative foundation models with human helpfulness, honesty, and harmlessness (HHH):<br>1. <strong>Supervised Fine-Tuning (SFT):</strong> Fine-tune base LLM on high-quality instruction-response demonstrations.<br>2. <strong>Reward Model (RM) Training:</strong> Present human annotators with model responses $(y_w, y_l)$ and train RM $r_\theta(x, y)$ via pairwise ranking loss: $\mathcal{L}_{\text{RM}} = -\log \sigma(r_\theta(x, y_w) - r_\theta(x, y_l))$.<br>3. <strong>RL Optimization (PPO / DPO):</strong> Optimize policy $\pi_\theta$ against reward model penalized by KL-divergence from SFT model: $\max_\theta \mathbb{E}[r_\theta(x, y) - \beta D_{\text{KL}}(\pi_\theta || \pi_{\text{SFT}})]$. Direct Preference Optimization (DPO - Rafailov et al. 2023) replaces PPO by deriving the exact closed-form optimal policy loss without training an explicit reward model!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 21: Attention Is All You Need — Flops & Parameter Scaling Analysis</div>
+  <p>For sequence length $n$ and representation dimension $d$:</p>
+  <ul>
+    <li><strong>Self-Attention Layer:</strong> Complexity per layer $= O(n^2 \cdot d)$. Sequential operations $= O(1)$ (Fully parallelizable!). Maximum path length between any two distant tokens $= \mathbf{O(1)}$.</li>
+    <li><strong>Recurrent Layer (RNN/LSTM):</strong> Complexity per layer $= O(n \cdot d^2)$. Sequential operations $= \mathbf{O(n)}$ (Sequential bottleneck!). Maximum path length $= \mathbf{O(n)}$.</li>
+    <li><strong>Convolutional Layer (CNN):</strong> Complexity per layer $= O(k \cdot n \cdot d^2)$. Sequential operations $= O(1)$. Maximum path length $= \mathbf{O(\log_k n)}$ (with dilated convolutions).</li>
+    <li><em>Conclusion:</em> Self-attention achieves both minimal path length $O(1)$ and complete parallel execution $O(1)$!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 22: Low-Rank Adaptation (LoRA) for Parameter-Efficient LLM Fine-Tuning</div>
+  <p>In LoRA (Hu et al. 2021), the pretrained weight matrix $\mathbf{W}_0 \in \mathbb{R}^{d \times k}$ is frozen, and weight updates $\Delta \mathbf{W}$ are decomposed into low-rank matrices $\mathbf{B} \in \mathbb{R}^{d \times r}$ and $\mathbf{A} \in \mathbb{R}^{r \times k}$ ($r \ll \min(d, k)$):</p>
+  $$\mathbf{\mathbf{h} = \mathbf{W}_0 \mathbf{x} + \Delta \mathbf{W} \mathbf{x} = \mathbf{W}_0 \mathbf{x} + \frac{\alpha}{r} \mathbf{B} \mathbf{A} \mathbf{x}}$$
+  <p>Reduces trainable fine-tuning parameters by up to <strong>99.9%</strong> (e.g., from 7 billion to 4 million parameters) with zero inference latency overhead (weights are folded into $\mathbf{W} = \mathbf{W}_0 + \frac{\alpha}{r}\mathbf{BA}$)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 31: Sinusoidal Positional Encoding Linear Shift Property Proof</div>
+  <p>Prove that for any fixed offset $k$, $PE_{(pos + k)}$ can be represented as a linear function of $PE_{(pos)}$:</p>
+  $$\sin(\omega (pos + k)) = \sin(\omega \cdot pos)\cos(\omega \cdot k) + \cos(\omega \cdot pos)\sin(\omega \cdot k)$$
+  $$\cos(\omega (pos + k)) = \cos(\omega \cdot pos)\cos(\omega \cdot k) - \sin(\omega \cdot pos)\sin(\omega \cdot k)$$
+  $$\mathbf{\begin{bmatrix} PE_{(pos+k, 2i)} \\ PE_{(pos+k, 2i+1)} \end{bmatrix} = \begin{bmatrix} \cos(\omega_i k) & \sin(\omega_i k) \\ -\sin(\omega_i k) & \cos(\omega_i k) \end{bmatrix} \begin{bmatrix} PE_{(pos, 2i)} \\ PE_{(pos, 2i+1)} \end{bmatrix}}}$$
+  <p><em>Conclusion:</em> The self-attention mechanism can effortlessly learn to attend by <em>relative</em> token positions via linear projection!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 32: FlashAttention Exact Tiling & IO-Aware Memory Optimization</div>
+  <p>Dao et al. (2022) observed that standard GPU self-attention is bounded by High Bandwidth Memory (HBM) read/write memory bandwidth rather than FLOPs. <strong>FlashAttention</strong> tiles the $Q, K, V$ matrices into SRAM cache blocks, performing online softmax normalization without writing the massive $N \times N$ attention matrix to HBM, speeding up training by up to $\mathbf{4\times}$ while cutting memory from $O(N^2)$ to $O(N)$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 33: Rotary Position Embedding (RoPE) Formulation</div>
+  <p>RoPE (Su et al. 2021) encodes positional information directly into Query and Key vectors via complex 2D rotation matrices $\mathbf{R}_{\Theta, m}^d$, preserving relative distance under dot-product attention: $\langle \mathbf{R}_m \mathbf{q}, \mathbf{R}_n \mathbf{k} \rangle = g(\mathbf{q}, \mathbf{k}, m - n)$. Standard in modern LLMs (LLaMA, Mistral)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 41: Multi-Query Attention (MQA) & Grouped-Query Attention (GQA)</div>
+  <p>To reduce KV-Cache memory consumption in large-scale LLMs (LLaMA-2/3, Mistral):</p>
+  <ul>
+    <li><strong>Multi-Head Attention (MHA):</strong> $h$ Query heads, $h$ Key heads, $h$ Value heads. (Highest memory consumption).</li>
+    <li><strong>Multi-Query Attention (MQA - Shazeer 2019):</strong> $h$ Query heads share a <em>single key head</em> and <em>single value head</em>. Reduces KV cache by factor of $h$ ($8\times$ to $32\times$), but can cause slight capacity degradation.</li>
+    <li><strong>Grouped-Query Attention (GQA - Ainslie et al. 2023):</strong> Partitions $h$ Query heads into $G$ groups (e.g., $G = 8$), where each group shares 1 Key and 1 Value head. Strikes the optimal Pareto frontier between inference speed and model accuracy!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 42: Speculative Decoding for Accelerated LLM Generation</div>
+  <p>Standard LLM inference is memory bandwidth-bound. <strong>Speculative Decoding (Leviathan et al. 2023)</strong> uses a fast small Draft Model (e.g., 1B parameters) to generate $K$ speculative draft tokens in parallel, which are verified simultaneously in a single forward pass by the large Target Model (e.g., 70B parameters), achieving a $\mathbf{2\times \text{ to } 3\times}$ inference acceleration with zero mathematical difference in output probability distribution!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 50: Transformer Attention FLOPs & Parameter Budgeting Breakdown</div>
+  <p>For a standard 12-layer BERT-base model ($d_{\text{model}} = 768, h = 12, d_{\text{ff}} = 3072, |V| = 30522$):</p>
+  <ul>
+    <li>Embedding Matrix: $30,522 \times 768 = \mathbf{23.44 \text{ Million params}}$.</li>
+    <li>Per-Layer Self-Attention: $4 \times (768 \times 768) = \mathbf{2.36 \text{ Million params}}$.</li>
+    <li>Per-Layer Feed-Forward: $2 \times (768 \times 3072) = \mathbf{4.72 \text{ Million params}}$.</li>
+    <li>Total params across 12 encoder layers: $12 \times (2.36 + 4.72) = \mathbf{84.95 \text{ Million params}}$.</li>
+    <li>$$\mathbf{\text{Total BERT-Base Model Size: } 23.44\text{M} + 84.95\text{M} + \text{LayerNorms} \approx \mathbf{110 \text{ Million Parameters!}}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 51: Mixture of Experts (MoE) Routing & Load Balancing Loss</div>
+  <p>In MoE Transformers (Mixtral 8x7B), each token selects top $k=2$ out of $E=8$ expert FFN networks via routing gate $G(x) = \text{Softmax}(\text{TopK}(x \cdot W_g, k))$, achieving $8\times$ capacity with $2\times$ active FLOPs!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 58: Sinusoidal Positional Encoding Frequency Allocation Proof</div>
+  <p>Prove why the geometric progression of wavelengths $\lambda_i = 2\pi \cdot 10000^{2i/d}$ spans from $2\pi$ to $20000\pi$, allowing the model to attend simultaneously to immediate neighboring tokens and global document-level structural anchors!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 59: Attention Logit Scaling by $\sqrt{d_k}$ Derivation</div>
+  <p>Show that without the $\frac{1}{\sqrt{d_k}}$ scaling factor, the variance of dot product $q \cdot k$ equals $d_k = 64$, pushing softmax outputs to saturated extremes ($0.0$ or $1.0$) with near-zero gradients!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 66: Multi-Head Self-Attention Projection Matrix Gradient Derivations</div>
+  <p>For output loss $\mathcal{L}$, the gradient with respect to Value weight matrix $\mathbf{W}^V$ is $\frac{\partial \mathcal{L}}{\partial \mathbf{W}^V} = \mathbf{X}^T \mathbf{A}^T \frac{\partial \mathcal{L}}{\partial \mathbf{Y}}$ where $\mathbf{A} = \text{softmax}(QK^T/\sqrt{d_k})$.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 67: Rotary Position Embedding (RoPE) Invariance Proof</div>
+  <p>Show that $\mathbf{R}_{\Theta, m}^T \mathbf{R}_{\Theta, n} = \mathbf{R}_{\Theta, n-m}$, proving that the attention score between query at position $m$ and key at position $n$ depends purely on relative distance $n-m$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 72: Multi-Head Attention Subspace Diversity Proof</div>
+  <p>Prove that linear projection into $h$ distinct lower-dimensional subspaces $\mathbb{R}^{d_k}$ allows distinct heads to attend simultaneously to different syntactic relations (e.g., Head 1 attends to Direct Objects, Head 2 attends to Prepositional Attachments, Head 3 attends to Coreferent Pronouns)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 76: Transformer Positional Interpolation & RoPE Scaling for Long Contexts</div>
+  <p>In RoPE Linear Scaling (Chen et al. 2023), to extend an LLM from 4k context length to 32k context ($8\times$ scaling), rotation angles $\theta_i$ are divided by scale factor $s = 8$: $\tilde{\theta}_i = \theta_i / 8$, preserving frequency dynamics within the pretrained attention kernel!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 81: FlashAttention SRAM Tiling Block Math</div>
+  <p>Let SRAM cache size be $M$. Set block sizes $B_r = \lceil M / (4 d) \rceil, B_c = \lceil M / (4 d) \rceil$. FlashAttention loads blocks $Q_i \in \mathbb{R}^{B_r \times d}$ and $K_j \in \mathbb{R}^{B_c \times d}$ into SRAM, computing local attention without GPU DRAM roundtrips!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 82: Cross-Attention vs Self-Attention Matrix Dimensions</div>
+  <p>In Transformer Decoders: Query matrix $\mathbf{Q} \in \mathbb{R}^{T_{\text{dec}} \times d}$ comes from the decoder hidden states, while Key $\mathbf{K} \in \mathbb{R}^{T_{\text{enc}} \times d}$ and Value $\mathbf{V} \in \mathbb{R}^{T_{\text{enc}} \times d}$ come from encoder representations. The resulting attention matrix $\mathbf{A} \in \mathbb{R}^{T_{\text{dec}} \times T_{\text{enc}}}$ aligns each generated word with relevant source words!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 87: Sinusoidal Positional Encoding Dot-Product Invariant Proof</div>
+  <p>Show that $\mathbf{p}_i \cdot \mathbf{p}_j = \sum_{k=1}^{d/2} \cos(\omega_k (i - j))$, proving that the attention similarity between any two positional vectors depends <em>purely on relative distance</em> $|i - j|$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 88: Transformer Feed-Forward SwiGLU Activation Function</div>
+  <p>In modern LLMs (LLaMA-3, Mistral), standard ReLU is replaced with <strong>SwiGLU</strong>: $\text{SwiGLU}(x) = \text{Swish}(x W_1) \otimes (x W_3) W_2$ where $\text{Swish}(z) = z \cdot \sigma(\beta z)$, delivering a $1.2\%$ boost on MMLU benchmarks!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 93: FlashAttention-2 Work Partitioning & FLOP Utilization</div>
+  <p>Dao (2023) redesigned FlashAttention loop nesting by swapping the outer loop to iterate over sequence blocks of $Q$, reducing non-matmul FLOPs and boosting tensor core utilization from $50\%$ to $\mathbf{73\%}$ on Nvidia A100/H100 GPUs!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 94: ALiBi (Attention with Linear Biases) Long-Context Extrapolation</div>
+  <p>Press et al. (2022) replaced positional embeddings with fixed linear slope biases $m = 2^{-8i/h}$: $\text{softmax}(QK^T/\sqrt{d_k} - m \cdot |i - j|)$, training on 2048 tokens while extrapolating to $\mathbf{8192+}$ tokens with zero perplexity increase!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 99: RoBERTa vs BERT Dynamic Masking Algorithm Trace</div>
+  <p>In RoBERTa, duplicating the corpus 10 times and applying 10 independent random 15% masks avoids training on identical static masks across 40 epochs!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 103: Transformer Layer Normalization Epsilon Stability</div>
+  <p>The small scalar $\epsilon = 10^{-5}$ prevents division-by-zero during backpropagation when token activation variance across hidden units collapses to zero!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 106: KV-Cache Memory Calculation for 70B LLM</div>
+  <p>For sequence length $L = 4096$, batch size $B = 1$, 80 layers, $d_{\text{model}} = 8192$, FP16 format:</p>
+  $$\text{KV-Size} = 2 \times (\text{layers}) \times (\text{seq\_len}) \times (\text{hidden\_dim}) \times 2 \text{ bytes} = 2 \times 80 \times 4096 \times 8192 \times 2 \approx \mathbf{10.73 \text{ GB RAM!}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 110: Cross-Attention Sequence Length Complexity</div>
+  <p>For source sequence length $M$ and target translation length $N$, cross-attention matrix $\mathbf{A} \in \mathbb{R}^{N \times M}$ computes in $O(N \cdot M \cdot d)$ time, fully parallelizable across all target time steps during training!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 111: BERT Pretraining vs Fine-Tuning Convergence Trajectory</div>
+  <p>Pretraining BERT requires 4 days on 64 TPU chips across 3.3 billion words. Fine-tuning on downstream GLUE classification tasks converges in $< 3$ epochs within 15 minutes on a single standard consumer GPU!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 116: Transformer Positional Encoding Wavelength Geometric Decay Proof</div>
+  <p>Prove that wavelengths form a geometric progression from $2\pi$ to $10000 \cdot 2\pi$, allowing self-attention to resolve both adjacent syntactic token bindings and distant cross-paragraph anaphora!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 117: Grouped-Query Attention (GQA) Memory Savings Calculation</div>
+  <p>In LLaMA-3 70B with $h = 64$ query heads and $G = 8$ KV groups, GQA reduces KV-cache memory bandwidth consumption by $\mathbf{8\times}$, allowing $8\times$ larger batch sizes during generation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 120: Transformer Encoder Self-Attention Computational Complexity</div>
+  <p>For batch size $B$, sequence length $N$, hidden dimension $d$, and number of heads $h$: $\mathbf{Q} \mathbf{K}^T$ computes in $O(B \cdot h \cdot N^2 \cdot \frac{d}{h}) = \mathbf{O(B \cdot N^2 \cdot d)}$ operations. Highly parallelizable across all GPU CUDA thread cores!</p>
+</div>
+
 </body>
 </html>

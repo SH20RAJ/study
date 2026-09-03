@@ -2,321 +2,708 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 4: Verification, Validation & Software Testing</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<title>Module 4: Verification, Validation & Software Testing Methodologies</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]});"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
-:root {
-  --primary: #047857;       /* Deep Emerald Green */
-  --primary-light: #ecfdf5;
-  --accent: #2563eb;        /* Blue */
-  --secondary: #0f766e;     /* Teal */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 14mm 12mm;
+  @top-right {
+    content: "CS24353 • Software Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-left {
+    content: "BIT Mesra • Department of Computer Science & Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #94a3b8;
+  }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: var(--bg-page);
-  line-height: 1.6;
-  font-size: 12.6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11.2px;
+  line-height: 1.58;
+  color: #0f172a;
+  background-color: #ffffff;
+  margin: 0;
   padding: 0;
 }
 
-.page-container {
-  max-width: 900px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 35px 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+.cover-header {
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
 }
-
-.doc-header {
-  border-bottom: 3px solid var(--primary);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
-}
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-
-.badge {
+.course-badge {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 3px 8px;
   border-radius: 4px;
-}
-
-.badge-green { background: #d1fae5; color: #065f46; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-emerald { background: #a7f3d0; color: #047857; }
-
-h1.doc-title {
-  font-size: 23px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 5px;
-}
-
-.doc-subtitle {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 25px;
-  page-break-inside: avoid;
-}
-
-.toc-title {
-  font-size: 13px;
+  font-size: 9px;
   font-weight: 700;
-  color: #047857;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
+.doc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 4px 0 6px 0;
+  letter-spacing: -0.4px;
+}
+.doc-subtitle {
   font-size: 11.5px;
+  color: #475569;
+  font-weight: 400;
+  margin: 0 0 4px 0;
+}
+.meta-info {
+  font-size: 9.5px;
+  color: #64748b;
+  margin-top: 6px;
+  display: flex;
+  gap: 14px;
 }
 
 h2.section-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 24px 0 12px 0;
+  color: #0369a1;
+  border-bottom: 1.5px solid #e0f2fe;
+  padding-bottom: 4px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  page-break-after: avoid;
 }
 
-h3.subsection-title {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--secondary);
-  margin: 15px 0 7px 0;
-}
+p { margin-top: 0; margin-bottom: 8px; text-align: justify; }
+ul, ol { margin-top: 0; margin-bottom: 8px; padding-left: 18px; }
+li { margin-bottom: 3.5px; }
 
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 11px 0;
-  font-size: 11.8px;
-  border-left: 4px solid;
-  page-break-inside: avoid;
-}
-
-.callout-info { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
-.callout-blue { background: #ecfdf5; border-color: #047857; color: #064e3b; }
-.callout-warning { background: #fffbeb; border-color: #d97706; color: #78350f; }
-.callout-pyq { background: #faf5ff; border-color: #9333ea; color: #581c87; }
-
-.callout-title {
-  font-weight: 700;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-table.custom-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 11px 0;
-  font-size: 11.5px;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  margin: 10px 0;
+  font-size: 10px;
   page-break-inside: avoid;
 }
-
-table.custom-table th {
-  background: #064e3b;
-  color: #ffffff;
+.custom-table th {
+  background-color: #f0f9ff;
+  color: #0369a1;
   font-weight: 600;
   text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
+  padding: 6px 8px;
+  border: 1px solid #bae6fd;
 }
-
-table.custom-table td {
-  padding: 5.5px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
-}
-
-table.custom-table tr:nth-child(even) td { background-color: #f8fafc; }
-
-code {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 1.5px 4px;
-  border-radius: 3px;
+.custom-table td {
+  padding: 5.5px 8px;
   border: 1px solid #e2e8f0;
+  vertical-align: top;
 }
+.custom-table tr:nth-child(even) { background-color: #f8fafc; }
 
-pre {
-  background: #0f172a;
-  color: #f8fafc;
-  padding: 9px 13px;
-  border-radius: 6px;
-  font-family: 'Fira Code', monospace;
+.callout-box {
+  background-color: #f0fdf4;
+  border-left: 3.5px solid #16a34a;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.callout-title {
+  font-weight: 700;
+  color: #15803d;
   font-size: 11px;
-  line-height: 1.4;
-  overflow-x: auto;
-  margin: 9px 0;
-  page-break-inside: avoid;
+  margin-bottom: 4px;
 }
 
-ul, ol { margin: 5px 0 9px 18px; font-size: 12px; }
-li { margin-bottom: 3px; }
-
-.diagram-container {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
-  text-align: center;
+.worked-box {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #0284c7;
+  padding: 9px 12px;
+  margin: 11px 0;
+  border-radius: 0 6px 6px 0;
   page-break-inside: avoid;
 }
+.worked-title {
+  font-weight: 700;
+  color: #0369a1;
+  font-size: 11.2px;
+  margin-bottom: 5px;
+}
 
-.diagram-caption {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.formula-card {
+  background: #fdf4ff;
+  border-left: 3.5px solid #a855f7;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
+  page-break-inside: avoid;
+}
+.formula-title {
+  font-weight: 700;
+  color: #7e22ce;
+  font-size: 11px;
+  margin-bottom: 4px;
 }
 
 .qa-card {
   background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 11px 0;
+  border: 1px solid #e2e8f0;
+  border-left: 3.5px solid #0284c7;
+  padding: 8px 11px;
+  margin: 8px 0;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
+.qa-q { font-weight: 700; color: #0369a1; font-size: 10.8px; margin-bottom: 3px; }
+.qa-a { color: #334155; font-size: 10.3px; line-height: 1.5; }
 
-.qa-q { font-weight: 700; color: #047857; font-size: 12.2px; margin-bottom: 5px; }
-.qa-a { font-size: 11.8px; color: var(--text); }
-
-@media print {
-  body { background: #ffffff; font-size: 11.8px; }
-  .page-container { padding: 0; max-width: 100%; box-shadow: none; }
-  @page {
-    size: A4 portrait;
-    margin: 14mm 11mm 14mm 11mm;
-    @bottom-right {
-      content: "Page " counter(page);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-    @bottom-left {
-      content: "Software Engineering (CS24353) Study Notes | BIT Mesra";
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8px;
-      color: #94a3b8;
-    }
-  }
-  .toc-box, .diagram-container, .callout, table, pre, .qa-card {
-    page-break-inside: avoid;
-  }
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 9.8px;
+  background-color: #f1f5f9;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  color: #0f172a;
 }
+pre code {
+  display: block;
+  padding: 8px 10px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 9.2px;
+  line-height: 1.45;
+}
+
 </style>
 </head>
 <body>
-<div class="page-container">
-  <div class="doc-header">
-    <div class="badge-container">
-      <span class="badge badge-emerald">CS24353 — Elective (3.0 Cr)</span>
-      <span class="badge badge-blue">Module IV Notes</span>
-      <span class="badge badge-green">BIT Mesra | NEP Scheme</span>
-    </div>
-    <h1 class="doc-title">Module 4: Verification, Validation & Software Testing</h1>
-    <div class="doc-subtitle">Black-Box (ECP/BVA), White-Box Cyclomatic Complexity V(G), V-Model</div>
-  </div>
-  
-<div class="toc-box">
-  <div class="toc-title">Module IV: Verification, Validation & Software Testing — Topics Covered</div>
-  <div class="toc-grid">
-    <div>1. Verification vs. Validation (Boehm's Criterion)</div>
-    <div>2. Black-Box Testing: Equivalence Partitioning & BVA</div>
-    <div>3. White-Box Testing: McCabe's Cyclomatic Complexity</div>
-    <div>4. Levels of Testing: Unit, Integration (Stubs/Drivers), System</div>
-    <div>5. Software Reliability: MTTF, MTBF & Availability</div>
+<div class="cover-header">
+  <span class="course-badge">CS24353 • MODULE 4</span>
+  <h1 class="doc-title">Module 4: Verification, Validation & Software Testing Methodologies</h1>
+  <p class="doc-subtitle">Topics 40 to 55 • Inspections, Static Analysis, McCabe Cyclomatic Complexity, Basis Path, Black-Box BVA & Reliability</p>
+  <div class="meta-info">
+    <span><strong>Author:</strong> Shaswat Raj (BIT Mesra)</span>
+    <span><strong>Academic Year:</strong> 2024–25 (5th Sem CSE)</span>
+    <span><strong>Standard:</strong> IEEE & ISO/IEC Standards</span>
   </div>
 </div>
 
-<h2 class="section-title">1. McCabe's Cyclomatic Complexity $V(G)$ Formulations</h2>
-<p>
-  Given a Control Flow Graph (CFG) $G$:
-  <ol>
-    <li>$V(G) = E - N + 2$ (where $E$ = edges, $N$ = nodes)</li>
-    <li>$V(G) = P + 1$ (where $P$ = predicate / decision nodes with multiple outgoing branches)</li>
-    <li>$V(G) = \text{Number of enclosed planar regions } R$</li>
-  </ol>
-</p>
+<h2 class="section-title">Topic 20: Verification vs. Validation & Formal Review Techniques</h2>
+<p><strong>Software Quality Engineering</strong> encompasses both static defect prevention and dynamic defect discovery:</p>
 
-<div class="callout callout-pyq">
-  <div class="callout-title">🏛️ BIT Mesra Exam Question (10 Marks)</div>
-  <strong>Problem:</strong> Draw the CFG and compute Cyclomatic Complexity for finding max of 3 numbers: `if (a > b) { if (a > c) max = a; else max = c; } else { if (b > c) max = b; else max = c; }`<br>
-  <strong>Solution:</strong> The code contains 3 predicate/decision nodes ($P=3$). Thus, $V(G) = P + 1 = 3 + 1 = \mathbf{4}$. There are 4 linearly independent execution basis paths requiring at least 4 test cases for 100% branch coverage.
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Dimension</th>
+      <th style="width: 37%;">Verification (Static Engineering)</th>
+      <th>Validation (Dynamic Execution)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Core Question</strong></td>
+      <td><strong>"Are we building the product right?"</strong> (Barry Boehm)</td>
+      <td><strong>"Are we building the right product?"</strong> (Barry Boehm)</td>
+    </tr>
+    <tr>
+      <td><strong>Execution Status</strong></td>
+      <td>Evaluates artifacts <em>without executing code</em>.</td>
+      <td>Evaluates software by <em>executing code with test inputs</em>.</td>
+    </tr>
+    <tr>
+      <td><strong>Techniques</strong></td>
+      <td>Formal Inspections, Peer Walkthroughs, Static Analysis, Desk Checking.</td>
+      <td>Unit Testing, Integration Testing, System Testing, User Acceptance Testing (UAT).</td>
+    </tr>
+    <tr>
+      <td><strong>Target Artifacts</strong></td>
+      <td>SRS, Architecture Design Documents, Source Code, Test Plans.</td>
+      <td>Executable Binaries, Deployed Web/Mobile Applications.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="sub-title">Fagan Inspection Process (6 Formal Steps)</h3>
+<ol>
+  <li><strong>Planning:</strong> Moderator prepares inspection package, allocates roles (Author, Reader, Tester, Moderator).</li>
+  <li><strong>Overview:</strong> Author gives a brief orientation on the artifact scope.</li>
+  <li><strong>Preparation (Individual Review):</strong> Inspectors independently study the document to detect potential defects using checklists.</li>
+  <li><strong>Inspection Meeting:</strong> Reader paces through artifact line-by-line; defects are logged without debating solutions.</li>
+  <li><strong>Rework:</strong> Author corrects all logged defects.</li>
+  <li><strong>Follow-Up:</strong> Moderator verifies that all corrections are complete and correct before signing off.</li>
+</ol>
+
+<h2 class="section-title">Topic 21: White-Box Testing & McCabe's Cyclomatic Complexity</h2>
+<p><strong>White-Box (Structural / Glass-Box) Testing</strong> derives test cases directly from the internal control-flow logic of the program code.</p>
+
+<div class="formula-card">
+  <div class="formula-title">📐 McCabe's Cyclomatic Complexity $V(G)$ Mathematical Formulations</div>
+  <p>For a Control Flow Graph (CFG) $G$:</p>
+  <ul>
+    <li><strong>Method 1 (Edges & Nodes):</strong> $$V(G) = E - N + 2P$$
+      Where $E = \text{Number of edges}, N = \text{Number of nodes}, P = \text{Number of connected components (usually } 1\text{)}$.
+    </li>
+    <li><strong>Method 2 (Predicate Decision Nodes):</strong> $$V(G) = P_{\text{nodes}} + 1$$
+      Where $P_{\text{nodes}}$ is the count of conditional decision nodes (`if`, `while`, `for`, `case`).
+    </li>
+    <li><strong>Method 3 (Enclosed Planar Regions):</strong> $$V(G) = \text{Number of Enclosed Regions} + 1 \ (\text{Outer Region})$$
+    </li>
+  </ul>
+  <p><strong>Significance:</strong> $V(G)$ defines the <em>exact upper bound</em> on the number of linearly independent paths required to achieve $100\%$ branch coverage!</p>
 </div>
 
-  <div style="margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); display: flex; justify-content: space-between;">
-    <span>Software Engineering (CS24353) — Comprehensive Study Suite</span>
-    <span>BIT Mesra | B.Tech CSE</span>
-  </div>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 3: Control Flow Graph & Basis Path Testing Trace</div>
+  <p>Consider the following function calculating discounts:</p>
+<pre><code class="language-java">1: void computeDiscount(int age, boolean isMember) {
+2:     if (age >= 60) {
+3:         discount = 0.20;
+4:     } else if (isMember) {
+5:         discount = 0.10;
+6:     } else {
+7:         discount = 0.0;
+8:     }
+9:     print(discount);
+10: }</code></pre>
+  <ul>
+    <li><strong>Control Flow Graph (CFG) Analysis:</strong>
+      <ul>
+        <li>Nodes $N = 7$ (Nodes: 1, 2, 3, 4, 5, 6, 9-10).</li>
+        <li>Edges $E = 8$ (Edges: $1 \rightarrow 2, 2 \rightarrow 3, 3 \rightarrow 9, 2 \rightarrow 4, 4 \rightarrow 5, 5 \rightarrow 9, 4 \rightarrow 6, 6 \rightarrow 9$).</li>
+        <li>Predicate Decision Nodes $P = 2$ (Node 2: `age >= 60`, Node 4: `isMember`).</li>
+      </ul>
+    </li>
+    <li><strong>Compute Cyclomatic Complexity:</strong>
+      $$\mathbf{V(G) = E - N + 2 = 8 - 7 + 2 = \mathbf{3}} \qquad \mathbf{V(G) = P + 1 = 2 + 1 = \mathbf{3}}$$
+    </li>
+    <li><strong>Derive the 3 Linearly Independent Basis Paths & Test Cases:</strong>
+      <ol>
+        <li><strong>Path 1:</strong> $1 \rightarrow 2 \rightarrow 3 \rightarrow 9 \implies \text{Input: } (\text{age}=65, \text{isMember}=\text{false}) \implies \text{Expected: } 0.20$.</li>
+        <li><strong>Path 2:</strong> $1 \rightarrow 2 \rightarrow 4 \rightarrow 5 \rightarrow 9 \implies \text{Input: } (\text{age}=30, \text{isMember}=\text{true}) \implies \text{Expected: } 0.10$.</li>
+        <li><strong>Path 3:</strong> $1 \rightarrow 2 \rightarrow 4 \rightarrow 6 \rightarrow 9 \implies \text{Input: } (\text{age}=30, \text{isMember}=\text{false}) \implies \text{Expected: } 0.00$.</li>
+      </ol>
+    </li>
+  </ul>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ],
-      throwOnError: false
-    });
-  });
-</script>
+
+<h2 class="section-title">Topic 22: Black-Box Testing Methodologies</h2>
+<p><strong>Black-Box (Behavioral / Functional) Testing</strong> designs test cases strictly from specifications without inspecting internal source code.</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Technique</th>
+      <th style="width: 37%;">Operating Methodology</th>
+      <th>Concrete Industry Application</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Equivalence Class Partitioning (ECP)</strong></td>
+      <td>Divides input domain into valid and invalid equivalence classes; selecting one representative from each class test the entire partition.</td>
+      <td>Input Age $[18, 60]$: Valid Class $\{25\}$, Invalid Low $\{-5, 12\}$, Invalid High $\{75\}$.</td>
+    </tr>
+    <tr>
+      <td><strong>Boundary Value Analysis (BVA)</strong></td>
+      <td>Tests values directly at, immediately above, and immediately below the boundaries ($min, min+, nom, max-, max$).</td>
+      <td>For range $[1, 100]$: Test $\{0, 1, 2, 50, 99, 100, 101\}$ ($4n+1$ robustness values).</td>
+    </tr>
+    <tr>
+      <td><strong>Decision Table Testing</strong></td>
+      <td>Constructs truth table mapping complex boolean input combinations to output actions.</td>
+      <td>Credit Card Approval based on Credit Score, Income, and Existing Debt.</td>
+    </tr>
+    <tr>
+      <td><strong>State Transition Testing</strong></td>
+      <td>Tests finite state machine state transitions triggered by valid/invalid input events.</td>
+      <td>ATM Card validation: `Idle` $\rightarrow$ `PIN Entered` $\rightarrow$ `Authenticated` vs. `Locked`.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 23: Integration Testing Strategies & The Testing Hierarchy</h2>
+<ol>
+  <li><strong>Unit Testing:</strong> Tests individual classes/functions in isolation (JUnit, pytest). Uses <strong>Mocks</strong> and <strong>Stubs</strong>.</li>
+  <li><strong>Integration Testing:</strong> Tests communication interfaces among integrated modules:
+    <ul>
+      <li><strong>Top-Down Integration:</strong> Starts at top module; lower modules replaced by temporary <strong>Stubs</strong> (dummy callees).</li>
+      <li><strong>Bottom-Up Integration:</strong> Starts at terminal leaf modules; coordinated by temporary <strong>Drivers</strong> (dummy callers).</li>
+      <li><strong>Sandwich (Hybrid) Integration:</strong> Combines top-down for high-level UI and bottom-up for low-level DB/networking.</li>
+      <li><strong>Big-Bang Integration:</strong> Dangerous approach where all modules are wired together at once; causes chaotic debugging.</li>
+    </ul>
+  </li>
+  <li><strong>System Testing:</strong> Tests the entire end-to-end system (Functional, Stress, Load, Security, Recovery, Alpha/Beta).</li>
+  <li><strong>Acceptance Testing (UAT):</strong> Final sign-off by real customer users before production rollout.</li>
+</ol>
+
+<h2 class="section-title">Topic 24: Software Reliability Engineering & Availability Mathematics</h2>
+<div class="formula-card">
+  <div class="formula-title">📐 Software Reliability & Operational Availability Formulas</div>
+  <ul>
+    <li><strong>Mean Time Between Failures (MTBF):</strong> $$\mathbf{\text{MTBF} = \text{MTTF} + \text{MTTR}}$$
+      Where $\text{MTTF} = \text{Mean Time To Failure}, \text{MTTR} = \text{Mean Time To Repair}$.
+    </li>
+    <li><strong>Operational Availability ($A$):</strong> $$\mathbf{A = \frac{\text{MTBF}}{\text{MTBF} + \text{MTTR}} \approx \frac{\text{MTTF}}{\text{MTTF} + \text{MTTR}}}$$</li>
+    <li><strong>Failure Rate ($\lambda$):</strong> $$\lambda = \frac{1}{\text{MTTF}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 4: System Reliability & Availability Calculation</div>
+  <p>A cloud database cluster runs continuously. On average, it operates for $MTTF = 990\text{ hours}$ before encountering a crash. The automated failover and repair script restores operation with $MTTR = 10\text{ hours}$:</p>
+  $$\text{MTBF} = 990 + 10 = \mathbf{1000 \text{ Hours}}$$
+  $$\mathbf{\text{Availability } A = \frac{\text{MTTF}}{\text{MTTF} + \text{MTTR}} = \frac{990}{990 + 10} = \frac{990}{1000} = \mathbf{0.990 = 99.0\%}}$$
+</div>
+
+<h2 class="section-title">Topic 25: University Exam Problem Bank & Model Answers</h2>
+
+<div class="qa-card"><div class="qa-q">Q8. Differentiate between Top-Down and Bottom-Up Integration Testing across Stubs, Drivers, and Defect Localization. (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Top-Down Integration</th><th>Bottom-Up Integration</th></tr></thead><tbody><tr><td><strong>Direction</strong></td><td>From root control module downward to leaf modules.</td><td>From primitive utility/data modules upward to root.</td></tr><tr><td><strong>Test Scaffolding</strong></td><td>Requires <strong>Stubs</strong> (simulated lower-level functions).</td><td>Requires <strong>Drivers</strong> (simulated calling harnesses).</td></tr><tr><td><strong>Major Advantage</strong></td><td>Early prototype demonstration of high-level UI workflows.</td><td>Simplifies test case creation; verifies critical low-level algorithms first.</td></tr><tr><td><strong>Defect Localization</strong></td><td>Easy for architectural flaws; difficult for low-level data errors.</td><td>Extremely easy for localized hardware/data processing faults.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q9. What is Regression Testing? Why is Test Suite Minimization Critical in Continuous Integration? (8 Marks)</div><div class="qa-a"><strong>Regression Testing</strong> is the selective re-execution of existing test cases to confirm that recent code modifications or bug fixes have not inadvertently broken previously working functionality.<br>• <strong>The CI Challenge:</strong> In large enterprise codebases with $50,000+$ test cases, running the entire suite on every git commit takes hours.<br>• <strong>Test Suite Minimization:</strong> Uses code coverage matrices and test prioritization heuristics to execute only the minimal subset of test cases affected by the modified code diff, keeping CI build times under 10 minutes while preserving $> 99\%$ defect detection capability!</div></div>
+
+<h2 class="section-title">Topic 46: Advanced White-Box Test Coverage Metrics & MC/DC</h2>
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Coverage Criterion</th>
+      <th style="width: 37%;">Formal Definition</th>
+      <th>Rigor & Industry Adoption</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Statement Coverage ($C_0$)</strong></td>
+      <td>$$\frac{\text{Executed Statements}}{\text{Total Statements}} \times 100\%$$</td>
+      <td>Weakest metric; can achieve $100\%$ while completely missing empty `else` branches!</td>
+    </tr>
+    <tr>
+      <td><strong>2. Branch / Decision Coverage ($C_1$)</strong></td>
+      <td>$$\frac{\text{Executed Decision Outcomes (True/False)}}{\text{Total Decision Outcomes}} \times 100\%$$</td>
+      <td>Standard baseline for commercial business applications.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Condition Coverage</strong></td>
+      <td>Evaluates every individual atomic boolean sub-condition to both True and False at least once.</td>
+      <td>Does not guarantee branch coverage due to boolean masking.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Modified Condition / Decision Coverage (MC/DC)</strong></td>
+      <td>Each decision takes all possible outcomes, each atomic condition takes all possible outcomes, and <em>each condition is shown to independently affect the decision outcome</em>.</td>
+      <td><strong>Mandatory Standard in Avionics & Automotive (DO-178C Level A, ISO 26262 ASIL-D)!</strong> Requires only $N+1$ test cases for $N$ conditions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 47: Software Reliability Growth Models (SRGM)</h2>
+<p>During system testing, as defects are discovered and repaired, failure rate decays over execution time $t$:</p>
+
+<div class="formula-card">
+  <div class="formula-title">📐 Jelinski-Moranda (JM) & Goel-Okumoto NHPP Reliability Models</div>
+  <ul>
+    <li><strong>Jelinski-Moranda Hazard Rate:</strong>
+      $$Z(t) = \phi (N - (i - 1)) \quad \text{for interval between }(i-1)\text{th and }i\text{th failure}$$
+      Where $N = \text{Total initial faults in program}, \phi = \text{Fault proportionality constant}$.
+    </li>
+    <li><strong>Goel-Okumoto Non-Homogeneous Poisson Process (NHPP):</strong>
+      $$m(t) = a(1 - e^{-bt}) \qquad \lambda(t) = \frac{d}{dt}m(t) = a b e^{-bt}$$
+      Where $m(t)$ is the expected cumulative number of faults detected by time $t$, $a = \text{Total expected faults}, b = \text{Fault detection rate}$.
+    </li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 9: Goel-Okumoto NHPP Reliability Growth Calculation</div>
+  <p>In a system testing campaign, parameters are estimated as $a = 200 \text{ faults}$ and $b = 0.05 \text{ faults/day}$.</p>
+  <ul>
+    <li><strong>1. Expected cumulative defects discovered by Day $t = 30$:</strong>
+      $$m(30) = 200(1 - e^{-0.05 \times 30}) = 200(1 - e^{-1.5}) = 200(1 - 0.2231) = 200(0.7769) \approx \mathbf{155.38 \implies 155 \text{ Faults}}$$
+    </li>
+    <li><strong>2. Failure intensity on Day $t = 30$:</strong>
+      $$\lambda(30) = 200(0.05)e^{-1.5} = 10(0.2231) \approx \mathbf{2.23 \text{ Failures/Day}}$$
+    </li>
+    <li><strong>3. Remaining latent faults in software:</strong>
+      $$\text{Remaining} = a - m(30) = 200 - 155 = \mathbf{45 \text{ Latent Faults}}$$
+    </li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 48: University Exam Problem Bank (Part II)</h2>
+
+<div class="qa-card"><div class="qa-q">Q18. What is Mutation Testing? Define Mutation Score and Explain Equivalent Mutants. (8 Marks)</div><div class="qa-a"><strong>Mutation Testing</strong> assesses the quality and fault-detection power of a test suite by deliberately injecting artificial defects (mutants) into the source code:<br>1. <strong>Mutant Generation:</strong> Mutate arithmetic operators (`+` $\rightarrow$ `-`), relational operators (`<` $\rightarrow$ `<=`), or invert booleans.<br>2. <strong>Mutant Execution:</strong> Run test suite against mutant. If a test fails, the mutant is <strong>Killed</strong>; if all tests pass, the mutant <strong>Survives</strong>.<br>3. <strong>Mutation Score:</strong> $$\mathbf{\text{MS} = \frac{\text{Killed Mutants}}{\text{Total Mutants} - \text{Equivalent Mutants}} \times 100\%}$$<br>4. <strong>Equivalent Mutants:</strong> Mutants that are syntactically different but semantically identical to the original program (e.g., `for(int i=0; i<10; i++)` $\rightarrow$ `for(int i=0; i!=10; i++)`), making it mathematically impossible for any test case to kill them!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q19. Explain Cause-Effect Graphing in Black-Box Test Case Design. (8 Marks)</div><div class="qa-a"><strong>Cause-Effect Graphing</strong> translates natural language specifications into formal boolean logic networks:<br>1. <strong>Causes:</strong> Distinct input conditions; <strong>Effects:</strong> Output actions or state changes.<br>2. Nodes are linked using standard boolean gates (AND, OR, NOT) and mutual exclusivity constraints ($E, I, O, R$).<br>3. The graph is converted systematically into a <strong>Decision Table</strong>, where redundant combinations are eliminated, generating the minimal set of comprehensive black-box test cases!</div></div>
+
+<h2 class="section-title">Topic 49: Modified Condition / Decision Coverage (MC/DC) Truth Table Derivation</h2>
+<p>In safety-critical avionics (DO-178C Level A), a complex decision $D = (A \lor B) \land C$ requires MC/DC test suite construction:</p>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: MC/DC Test Pair Construction ($N+1 = 4$ Test Cases)</div>
+  <table class="custom-table">
+    <thead><tr><th>Test #</th><th>Condition $A$</th><th>Condition $B$</th><th>Condition $C$</th><th>Decision Outcome $D$</th><th>Independent Effect Verified</th></tr></thead>
+    <tbody>
+      <tr><td><strong>T1</strong></td><td>True</td><td>False</td><td>True</td><td><strong>True</strong></td><td>Base True Case</td></tr>
+      <tr><td><strong>T2</strong></td><td>False</td><td>False</td><td>True</td><td><strong>False</strong></td><td><strong>$A$ independently affects $D$</strong> (Compare T1 vs T2: only $A$ flips!)</td></tr>
+      <tr><td><strong>T3</strong></td><td>False</td><td>True</td><td>True</td><td><strong>True</strong></td><td><strong>$B$ independently affects $D$</strong> (Compare T2 vs T3: only $B$ flips!)</td></tr>
+      <tr><td><strong>T4</strong></td><td>True</td><td>False</td><td>False</td><td><strong>False</strong></td><td><strong>$C$ independently affects $D$</strong> (Compare T1 vs T4: only $C$ flips!)</td></tr>
+    </tbody>
+  </table>
+  $$\mathbf{\text{Minimal MC/DC Test Suite: } \{T_1, T_2, T_3, T_4\} \quad (\text{Exactly } N+1 = 3+1 = 4 \text{ Test Cases!})}$$
+</div>
+
+<h2 class="section-title">Topic 50: Loop Testing Methodologies</h2>
+<ul>
+  <li><strong>Simple Loops ($n$ iterations):</strong> Test (1) Skip loop entirely ($0$), (2) Exactly 1 pass, (3) Exactly 2 passes, (4) Typical $m$ passes ($m < n$), (5) Boundary $n-1, n, n+1$ passes.</li>
+  <li><strong>Nested Loops:</strong> Start at innermost loop with minimum outer values, test innermost loop, work outward, and finish with all loops at maximum iterations.</li>
+</ul>
+
+<h2 class="section-title">Topic 51: Data-Flow Testing & Def-Use (DU) Anomaly Detection</h2>
+<p><strong>Data-Flow Testing</strong> tracks the lifecycle states of variables across execution paths: <strong>Undefined ($U$)</strong>, <strong>Defined ($D$)</strong>, <strong>Referenced ($R$)</strong>:</p>
+
+<table class="custom-table">
+  <thead><tr><th>Data-Flow Anomaly</th><th>Anomaly Code</th><th>Software Defect Manifestation</th></tr></thead>
+  <tbody>
+    <tr><td><strong>$UR$ Anomaly</strong></td><td>Undefined $\rightarrow$ Referenced</td><td>Reading an uninitialized variable; garbage memory access or `NullPointerException`!</td></tr>
+    <tr><td><strong>$DD$ Anomaly</strong></td><td>Defined $\rightarrow$ Defined</td><td>Overwriting a variable without using its previous value; dead computation/redundant assignment.</td></tr>
+    <tr><td><strong>$DU$ Anomaly</strong></td><td>Defined $\rightarrow$ Undefined</td><td>Variable defined and then goes out of scope without ever being used; memory leak or logical omission.</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: 3-Value Boundary Value Analysis (BVA) for Date Validation</div>
+  <p>For month input $M \in [1, 12]$ and day input $D \in [1, 31]$:</p>
+  <ul>
+    <li>3-Value BVA tests: Boundary, Boundary $- 1$, Boundary $+ 1$.</li>
+    <li>Month test set: $\{0, 1, 2, 6, 11, 12, 13\}$.</li>
+    <li>Day test set: $\{0, 1, 2, 15, 30, 31, 32\}$.</li>
+    <li>Single-fault assumption yields $6n + 1 = 6(2) + 1 = \mathbf{13 \text{ Test Cases}}$!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 24: Multiple Condition Coverage (MCC) vs MC/DC Comparison</div>
+  <p>For compound condition with $N = 4$ boolean inputs ($A \land B \lor C \land D$):</p>
+  <ul>
+    <li>Full Multiple Condition Coverage requires $\mathbf{2^N = 2^4 = 16 \text{ Test Cases}}$ (Exponential explosion!).</li>
+    <li>MC/DC requires strictly $\mathbf{N + 1 = 4 + 1 = \mathbf{5 \text{ Test Cases}}}$, slashing test suite size by $\mathbf{68.75\%}$ while preserving safety certification!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 25: Musa Basic Execution Time Reliability Model</div>
+  <p>Failure intensity $\lambda(\mu) = \lambda_0 (1 - \frac{\mu}{v_0})$ where initial intensity $\lambda_0 = 10 \text{ failures/CPU-hr}$ and total failures $v_0 = 100$. After observing $\mu = 50$ failures, $\lambda = 10(1 - 0.5) = \mathbf{5.0 \text{ Failures/CPU-Hour}}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 34: Boundary Value Analysis Worst-Case & Robust Worst-Case Test Set</div>
+  <p>For two integer variables $X \in [1, 10]$ and $Y \in [1, 5]$:</p>
+  <ul>
+    <li>Standard BVA: $4n + 1 = 4(2) + 1 = \mathbf{9 \text{ Test Cases}}$.</li>
+    <li>Worst-Case Testing ($5^n$ Cartesian product): $5^2 = \mathbf{25 \text{ Test Cases}}$.</li>
+    <li>Robust Worst-Case Testing ($7^n$ product testing $\{min-, min, min+, nom, max-, max, max+\}$): $7^2 = \mathbf{49 \text{ Test Cases}}$!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 35: Smoke Testing vs Sanity Testing</div>
+  <p>• <strong>Smoke Testing (Build Verification Test):</strong> Shallow wide execution verifying that the new build is stable enough to undergo formal deep testing (<em>"Does the software catch fire when turned on?"</em>).<br>• <strong>Sanity Testing:</strong> Deep focused subset testing verifying that a specific bug fix or minor module change actually works as expected before release.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 44: Complete White-Box MC/DC Avionics Verification Trace</div>
+  <p>For decision $D = (A \land B) \lor (C \land D)$ in Flight Control Software:</p>
+  <ul>
+    <li>Construct $N+1 = 5$ test vectors verifying each sub-condition $A, B, C, D$ independently toggles outcome $D$ from True to False without mutating other inputs!</li>
+    <li>Complies with FAA DO-178C Level A certification with zero defect escape rate!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 45: Goel-Okumoto NHPP Maximum Likelihood Parameter Estimation</div>
+  <p>Given observed failure timestamps $\{t_1, \dots, t_n\}$, log-likelihood $\ln L = \sum \ln(ab e^{-bt_i}) - a(1 - e^{-bt_n})$ is solved numerically via Newton-Raphson to yield unbiased estimates of total latent faults $a$ and detection rate $b$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 54: Orthogonal Array Testing (OAT) Combinatorial Black-Box Testing</div>
+  <p>For a web form with 4 dropdown menus each containing 3 options: Full Cartesian testing requires $3^4 = 81$ test cases. Using an $L_9(3^4)$ Orthogonal Array, pairwise combinatorial coverage is achieved in strictly $\mathbf{9 \text{ Test Cases}}$, catching $> 85\%$ of all real-world interaction faults!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 55: Defect Removal Efficiency (DRE) Metric</div>
+  <p>If $E = 160$ defects are found during development reviews/testing, and $D = 40$ defects are discovered by users in production:</p>
+  $$\mathbf{\text{DRE} = \frac{E}{E + D} \times 100\% = \frac{160}{160 + 40} \times 100\% = \frac{160}{200} \times 100\% = \mathbf{80.0\%}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 64: Multiple Condition Coverage Independence Proof</div>
+  <p>For decision `if (A || B) && C`: Prove that test pair $(T, F, T) \implies \text{True}$ and $(F, F, T) \implies \text{False}$ isolates condition $A$ as the sole independent cause of decision flipping, fulfilling FAA DO-178C Level A avionics requirements!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 65: Automated Test Oracles & Metamorphic Testing</div>
+  <p>When an exact test oracle is unavailable (e.g., testing complex machine learning algorithms or graph isomorphism): <strong>Metamorphic Testing</strong> checks relations between multiple executions: $f(\text{rotate}(image)) == \text{rotate}(f(image))$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 73: Branch Coverage vs Condition Coverage Counterexample</div>
+  <p>For `if (A && B)`: Test cases $(T, T) \implies \text{True}$ and $(F, F) \implies \text{False}$ achieve $100\%$ branch coverage, but completely fail to test condition $A=T, B=F$ or $A=F, B=T$, proving why Condition Coverage is strictly required!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 74: Automated Regression Test Prioritization (APFD Metric)</div>
+  <p>Average Percentage of Faults Detected (APFD) measures how rapidly a prioritized test suite detects all known faults: $\text{APFD} = 1 - \frac{TF_1 + \dots + TF_m}{n \cdot m} + \frac{1}{2n}$. High APFD $> 0.90$ provides rapid feedback to developers during continuous integration!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 85: Equivalence Class Partitioning Boundary Cases</div>
+  <p>For input integer $X \in [10, 50]$: Define valid class $[10, 50]$, invalid low $(-\infty, 9]$, and invalid high $[51, \infty)$. Test representatives: $\{5, 25, 65\}$. Combined with BVA $\{9, 10, 11, 49, 50, 51\}$, catches $99\%$ of comparison operator errors!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 86: Stress Testing vs Load Testing vs Spike Testing</div>
+  <p>• <strong>Load Testing:</strong> Verifies system behavior under expected normal peak traffic ($5,000 \text{ req/sec}$).<br>• <strong>Stress Testing:</strong> Pushes system beyond extreme limits until crash to observe graceful degradation and recovery ($50,000 \text{ req/sec}$).<br>• <strong>Spike Testing:</strong> Simulates instant $10\times$ traffic surges (e.g., Flash Sale / Black Friday)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 87: Code Coverage False Sense of Security</div>
+  <p>$100\%$ statement coverage does NOT guarantee bug-free software because it cannot detect <strong>Missing Logic / Omitted Code Paths</strong> or timing race conditions!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 99: Gray-Box Testing Methodologies</div>
+  <p><strong>Gray-Box Testing</strong> combines black-box user inputs with partial internal knowledge (e.g., database schema, API logs) to design high-impact security vulnerability tests (SQL injection, XSS)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 100: Software Fuzz Testing & Chaos Engineering</div>
+  <p>• <strong>Fuzz Testing:</strong> Feeding millions of randomized, malformed byte streams into parsers to uncover buffer overflows and memory leaks.<br>• <strong>Chaos Engineering (Netflix Chaos Monkey):</strong> Deliberately terminating production microservice containers at random to prove fault tolerance!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 101: Test-Driven Development (TDD) Red-Green-Refactor Cycle</div>
+  $$\text{1. Write Failing Test (Red)} \rightarrow \text{2. Write Minimal Code (Green)} \rightarrow \text{3. Refactor Code Architecture (Refactor)!}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 113: Safety-Critical Software Hazard Analysis (FTA & FMEA)</div>
+  <p>• <strong>Fault Tree Analysis (FTA):</strong> Top-down deductive failure analysis using boolean logic gates to isolate single points of failure.<br>• <strong>Failure Modes and Effects Analysis (FMEA):</strong> Bottom-up inductive tabular analysis computing Risk Priority Number $\text{RPN} = \text{Severity} \times \text{Occurrence} \times \text{Detection}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 114: Automated Mutation Testing Operator Set</div>
+  <p>Apply 5 core mutation operators: (1) Arithmetic Operator Replacement (`+` $\rightarrow$ `-`), (2) Relational Operator Replacement (`>` $\rightarrow$ `>=`), (3) Logical Operator Replacement (`&&` $\rightarrow$ `||`), (4) Statement Deletion, (5) Variable Replacement!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 115: Operational Profile-Based Statistical Software Testing</div>
+  <p>Allocate test cases proportionally to actual customer operational usage distributions ($80\%$ search, $15\%$ checkout, $5\%$ profile settings), maximizing MTTF in production environments!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 125: Dynamic Symbolic Execution & Concolic Testing</div>
+  <p>Combines concrete execution with symbolic variables to systematically solve path constraints using SMT solvers, achieving $100\%$ branch coverage in deep nested conditionals!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 126: Performance Testing Metrics (95th & 99th Percentile Latency)</div>
+  <p>Why average latency is deceptive: In a $100,000 \text{ req/sec}$ distributed system, a 99th percentile spike of $2\text{ seconds}$ degrades UX for 1,000 customers every second!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 134: Model-Based Testing (MBT) with Extended Finite State Machines (EFSM)</div>
+  <p>Automatically generating test sequences from formal statecharts using graph traversal algorithms (Chinese Postman Problem, Depth-First Search), guaranteeing $100\%$ state and transition coverage in embedded controllers!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 135: Automated Flaky Test Detection & Quarantine Strategies</div>
+  <p>Detect non-deterministic tests (flaky tests caused by asynchronous timeouts or unseeded RNGs) by re-running failed tests $10\times$ in isolation. Quarantining flaky tests prevents CI pipeline blockage while preserving developer trust!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 136: Security Fuzzing with American Fuzzy Lop (AFL) & AddressSanitizer</div>
+  <p>Using genetic algorithm feedback-directed coverage instrumentation to mutate input byte streams and detect memory corruptions (use-after-free, heap buffer overflow) within milliseconds!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 141: MC/DC Decision Table for 4-Condition Avionics Logic</div>
+  <p>Construct the exact 5 test vectors for $D = (A \land B) \lor (C \land \neg D)$, isolating each condition independently to pass FAA DO-178C Level A audit!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 147: Automated Combinatorial Pairwise Test Generation</div>
+  <p>Using the ACTS (Automated Combinatorial Testing for Software) tool to generate optimal 2-way and 3-way test suites catching $> 90\%$ of multi-variable interactions!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 148: Chaos Engineering Steady-State Hypothesis Verification</div>
+  <p>Proving that terminating $30\%$ of microservice instances causes zero drop in transaction success rate ($> 99.99\%$) due to automated Kubernetes auto-healing!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 155: Automated Security Vulnerability Testing (DAST vs SAST)</div>
+  <p>• <strong>SAST:</strong> Analyzes source code without execution to identify OWASP Top 10 vulnerabilities.<br>• <strong>DAST:</strong> Penetration tests running web binaries from the outside to catch active runtime configuration leaks!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 156: Test Suite Minimization via Integer Linear Programming (ILP)</div>
+  <p>Formulating test selection as an ILP optimization problem to maximize branch coverage while minimizing total test execution wall-clock time!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 163: Mutation Testing Operator Survival Analysis</div>
+  <p>When a mutant survives (e.g., swapping `<=` to `<` on boundary): Construct a targeted boundary test vector $(x = 100)$ that exposes the mutant, driving the Mutation Score to $100\%$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 164: Statistical Reliability Assessment via Operational Profiles</div>
+  <p>Computing operational MTTF by weighting component failure rates against real-world user interaction frequencies, ensuring maximum reliability where users spend $90\%$ of their session time!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 169: Automated Fuzzing Feedback-Directed Loop Invariant Detection</div>
+  <p>Using symbolic path conditions and dynamic binary instrumentation to synthesize inputs that break complex nested pointer invariants in legacy C/C++ libraries!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 170: Software Reliability MTTF & MTBF Derivations</div>
+  <p>For exponential failure distribution: $R(t) = e^{-\lambda t}$. Given failure rate $\lambda = 0.001 \text{ failures/hour}$, reliability at $t = 100 \text{ hours}$ is $R(100) = e^{-0.10} = \mathbf{90.48\%}$!</p>
+</div>
+
 </body>
 </html>

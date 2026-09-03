@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 4: Frequent Pattern & Association Mining</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    
+@page {
+  size: A4 portrait;
+  margin: 15mm 12mm 15mm 12mm;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 11.8px;
+  line-height: 1.60;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.cover-container {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 24px;
+}
+.course-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border: 1px solid #bfdbfe;
+}
+.book-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+.book-subtitle { font-size: 13.5px; color: #475569; margin: 0 0 16px 0; font-weight: 500; }
+.toc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 28px 0;
+}
+.toc-title { font-size: 13.5px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 11px; color: #334155; }
+h2.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 5px;
+  margin: 26px 0 14px 0;
+  page-break-after: avoid;
+}
+p { margin: 0 0 10px 0; text-align: justify; }
+.callout { border-radius: 6px; padding: 14px 18px; margin: 14px 0; font-size: 11.5px; page-break-inside: avoid; }
+.callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a8a; }
+.callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.custom-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; page-break-inside: avoid; }
+.custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }
+.custom-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; }
+.custom-table tr:nth-child(even) { background: #f8fafc; }
+.formula-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  text-align: center;
+}
+.worked-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+.worked-title { font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 8px; }
+.diagram-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin: 14px 0; text-align: center; page-break-inside: avoid; }
+.diagram-caption { font-size: 10.5px; color: #64748b; margin-top: 8px; font-weight: 500; }
+.qa-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; page-break-inside: avoid; }
+.qa-q { font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.qa-a { color: #334155; line-height: 1.55; }
+pre { background: #0f172a; color: #f8fafc; padding: 12px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 10.5px; line-height: 1.45; overflow-x: auto; margin: 12px 0; page-break-inside: avoid; }
+code { font-family: 'Fira Code', monospace; font-size: 11px; background: #f1f5f9; color: #2563eb; padding: 2px 5px; border-radius: 4px; }
+pre code { background: transparent; color: inherit; padding: 0; }
+.page-break { page-break-before: always; }
+
+  </style>
+</head>
+<body>
+  <div class="cover-container">
+    <div class="course-badge">CS24303 • Module 4</div>
+    <h1 class="book-title">Module 4: Frequent Pattern & Association Mining</h1>
+    <div class="book-subtitle">Topics 30 to 36 • Market Basket Analysis, Support/Confidence/Lift, Apriori, FP-Growth & ECLAT</div>
+  </div>
+  
+<div class="toc-box">
+  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module 4 Table of Contents (Topics 30 to 36)</div>
+  <div class="toc-grid">
+    <div>• <strong>Topic 30:</strong> Market Basket Analysis & Association Rules</div>
+    <div>• <strong>Topic 31:</strong> Support, Confidence, Lift, Conviction Metrics</div>
+    <div>• <strong>Topic 32:</strong> Apriori Algorithm (Join & Prune Steps)</div>
+    <div>• <strong>Topic 33:</strong> FP-Growth Algorithm (FP-Tree Construction)</div>
+    <div>• <strong>Topic 34:</strong> ECLAT Vertical Data Format Algorithm</div>
+    <div>• <strong>Topic 35:</strong> Closed vs. Maximal Frequent Itemsets</div>
+    <div>• <strong>Topic 36:</strong> 15 Solved University Examination Bank</div>
+  </div>
+</div>
+
+<h2 class="section-title">Topic 30 & 31: Market Basket Analysis & Association Rule Metrics</h2>
+
+<p>
+  <strong>Frequent Pattern Mining</strong> searches for recurring itemsets, subsequences, or substructures in transactional databases. In <strong>Market Basket Analysis</strong>, retailers identify customer purchasing habits by discovering associations between items placed simultaneously in shopping carts.
+</p>
+
+<div class="formula-card">
+  <strong>The 5 Fundamental Association Rule Quality Metrics ($A \implies B$):</strong>
+  $$\mathbf{\text{Support}(A \implies B) = P(A \cup B) = \frac{\text{count}(A \cup B)}{|D|}}$$
+  $$\mathbf{\text{Confidence}(A \implies B) = P(B \mid A) = \frac{P(A \cup B)}{P(A)} = \frac{\text{count}(A \cup B)}{\text{count}(A)}}$$
+  $$\mathbf{\text{Lift}(A \implies B) = \frac{P(A \cup B)}{P(A) P(B)} = \frac{\text{Confidence}(A \implies B)}{\text{Support}(B)}}$$
+  $$\mathbf{\text{Conviction}(A \implies B) = \frac{P(A) P(\neg B)}{P(A \cup \neg B)} = \frac{1 - \text{Support}(B)}{1 - \text{Confidence}(A \implies B)}}$$
+  $$\mathbf{\text{Leverage}(A \implies B) = P(A \cup B) - P(A) P(B) = \text{Support}(A \implies B) - \text{Support}(A)\text{Support}(B)}$$
+  <strong>Interpretation of Lift:</strong>
+  - $\text{Lift} = 1$: $A$ and $B$ are statistically independent (rule has zero predictive value).
+  - $\text{Lift} > 1$: $A$ and $B$ are <strong>positively correlated</strong> (buying $A$ boosts the likelihood of buying $B$).
+  - $\text{Lift} < 1$: $A$ and $B$ are <strong>negatively correlated</strong> (substitutes; buying $A$ decreases buying $B$).
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Association Rule Metric Calculation</div>
+  <p>A supermarket records $N = 10,000$ transactions. Bread is bought in 6,000 transactions, Butter in 7,500 transactions, and both Bread and Butter together in 4,500 transactions. Evaluate the rule $\text{Bread} \implies \text{Butter}$:</p>
+  $$\text{Support}(\text{Bread} \implies \text{Butter}) = \frac{4500}{10000} = \mathbf{0.45 = 45\%}$$
+  $$\text{Confidence}(\text{Bread} \implies \text{Butter}) = \frac{\text{count}(\text{Bread} \cup \text{Butter})}{\text{count}(\text{Bread})} = \frac{4500}{6000} = \mathbf{0.75 = 75\%}$$
+  $$\text{Lift}(\text{Bread} \implies \text{Butter}) = \frac{\text{Confidence}}{\text{Support}(\text{Butter})} = \frac{0.75}{7500 / 10000} = \frac{0.75}{0.75} = \mathbf{1.00}$$
+  $$\mathbf{\text{Critical Insight: } \text{Even though Confidence is high (75\%), Lift = 1.00 proves Bread and Butter are INDEPENDENT!}}}$$
+  <p>Customers buy butter 75% of the time anyway, regardless of whether they bought bread! The rule is deceptive!</p>
+</div>
+
+<h2 class="section-title">Topic 32: The Apriori Algorithm (Join & Prune Steps)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ The Apriori Principle & Anti-Monotonicity of Support</div>
+  <p><strong>Core Axiom:</strong> <em>"If an itemset is frequent, then all of its subsets must also be frequent."</em></p>
+  $$\mathbf{\forall X, Y: \ (X \subseteq Y) \implies \text{Support}(X) \ge \text{Support}(Y)}$$
+  <p><strong>Contrapositive (Pruning Rule):</strong> <em>"If an itemset $S$ is infrequent ($\text{Support}(S) < \text{min\_sup}$), then none of its supersets can ever be frequent."</em></p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Complete Apriori Execution Trace</div>
+  <p>Transactional Database ($N = 5$), $\text{min\_sup} = 2 \ (40\%)$:</p>
+  <ul>
+    <li>$T_1: \{A, C, D\}$</li>
+    <li>$T_2: \{B, C, E\}$</li>
+    <li>$T_3: \{A, B, C, E\}$</li>
+    <li>$T_4: \{B, E\}$</li>
+    <li>$T_5: \{A, B, C, E\}$</li>
+  </ul>
+  <p><strong>Pass 1:</strong> Candidate 1-itemsets $C_1$: $\{A: 3, B: 4, C: 4, D: 1, E: 4\}$.<br>
+  Prune $D$ ($1 < 2$) $\implies \mathbf{L_1 = \{ \{A\}: 3, \{B\}: 4, \{C\}: 4, \{E\}: 4 \}}$.</p>
+
+  <p><strong>Pass 2:</strong> Candidate 2-itemsets $C_2 = L_1 \Join L_1$: $\{AB, AC, AE, BC, BE, CE\}$.<br>
+  Scan DB: $\{AB: 2, AC: 3, AE: 2, BC: 3, BE: 4, CE: 3\}$. All $\ge 2 \implies \mathbf{L_2 = C_2}$.</p>
+
+  <p><strong>Pass 3:</strong> Candidate 3-itemsets $C_3 = L_2 \Join L_2$:<br>
+  - Join $\{AB\} \Join \{AC\} \rightarrow \{ABC\}$. Subsets: $AB, AC, BC \in L_2$ (Valid!).<br>
+  - Join $\{AB\} \Join \{AE\} \rightarrow \{ABE\}$. Subsets: $AB, AE, BE \in L_2$ (Valid!).<br>
+  - Join $\{AC\} \Join \{AE\} \rightarrow \{ACE\}$. Subsets: $AC, AE, CE \in L_2$ (Valid!).<br>
+  - Join $\{BC\} \Join \{BE\} \rightarrow \{BCE\}$. Subsets: $BC, BE, CE \in L_2$ (Valid!).<br>
+  Scan DB for $C_3$: $\{ABC: 2, ABE: 2, ACE: 2, BCE: 3\}$. All $\ge 2 \implies \mathbf{L_3 = C_3}$.</p>
+
+  <p><strong>Pass 4:</strong> Candidate 4-itemset $C_4 = L_3 \Join L_3$: $\{ABCE\}$.<br>
+  Prune Check: Subset $\{BCD\} \dots$ Subsets: $\{ABC\}, \{ABE\}, \{ACE\}, \{BCE\}$ all in $L_3$. Valid!<br>
+  Scan DB for $\{ABCE\}$: Appears in $T_3, T_5 \implies \text{count} = \mathbf{2} \ge 2 \implies \mathbf{L_4 = \{ \{A, B, C, E\}: 2 \}}$.</p>
+  $$\mathbf{\text{Final Max Frequent Itemset: } \{A, B, C, E\} \text{ with Support } = 40\%}$$
+</div>
+
+<h2 class="section-title">Topic 33 & 34: FP-Growth Algorithm & ECLAT Vertical Format</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Algorithm</th>
+      <th style="width: 35%;">Data Representation</th>
+      <th style="width: 25%;">Mining Mechanism</th>
+      <th>Key Advantages</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Apriori (Agrawal 1994)</strong></td>
+      <td>Horizontal transaction format $\langle \text{TID}, \text{Itemset} \rangle$.</td>
+      <td>Level-wise BFS candidate generation ($L_k \Join L_k$) and repeated database disk scans ($k$ scans).</td>
+      <td>Simple; high memory overhead for candidate itemsets ($O(2^{|I|})$).</td>
+    </tr>
+    <tr>
+      <td><strong>FP-Growth (Han et al. 2000)</strong></td>
+      <td>Compact tree structure (FP-Tree) with header table node links.</td>
+      <td>Divide-and-conquer recursive mining of conditional pattern bases; <strong>Zero candidate generation</strong>!</td>
+      <td>Only 2 database scans required; orders of magnitude faster than Apriori!</td>
+    </tr>
+    <tr>
+      <td><strong>ECLAT (Zaki 2000)</strong></td>
+      <td>Vertical data format $\langle \text{Item}, \text{TID-List} \rangle$.</td>
+      <td>Intersection of TID lists ($\text{TID}(AB) = \text{TID}(A) \cap \text{TID}(B)$).</td>
+      <td>No candidate generation; fast bitwise AND operations; large memory for long TID lists.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 35 & 36: Closed vs. Maximal Itemsets & Solved Exam Questions</h2>
+
+<div class="formula-card">
+  <strong>Closed vs. Maximal Frequent Itemsets:</strong>
+  - An itemset $X$ is <strong>Closed</strong> if $X$ is frequent and there exists NO proper superset $Y \supset X$ such that $\text{Support}(Y) = \text{Support}(X)$. (Preserves complete support information without loss!).
+  - An itemset $X$ is <strong>Maximal</strong> if $X$ is frequent and there exists NO proper superset $Y \supset X$ that is frequent ($\text{Support}(Y) \ge \text{min\_sup}$). (Lossy compression; $|Maximal| \le |Closed| \le |Frequent|$).
+</div>
+
+<div class="qa-card"><div class="qa-q">Q1. Trace the FP-Tree Construction Algorithm for transactions: $T_1=\{a, b, c\}, T_2=\{b, c, d\}, T_3=\{a, c, d, e\}$ with $\text{min\_sup}=2$. (10 Marks)</div><div class="qa-a">1. Scan DB to find frequencies: $c: 3, a: 2, b: 2, d: 2, e: 1$.<br>2. Filter and sort by descending frequency: $L_1 = [c, a, b, d]$ (Item $e$ pruned).<br>3. Re-order transactions: $T_1 \rightarrow [c, a, b]$, $T_2 \rightarrow [c, b, d]$, $T_3 \rightarrow [c, a, d]$.<br>4. Insert into FP-Tree from root `null`:<br>- Insert $T_1$: `null` $\rightarrow (c:1) \rightarrow (a:1) \rightarrow (b:1)$.<br>- Insert $T_2$: `null` $\rightarrow (c:2) \rightarrow (b:1) \rightarrow (d:1)$.<br>- Insert $T_3$: `null` $\rightarrow (c:3) \rightarrow (a:2) \rightarrow (d:1)$.<br>5. Construct Header Table with linked lists connecting identical item nodes across branches!</div></div>
+
+<h2 class="section-title">Topic 36.1: Advanced Sequence Pattern Mining & Negative Association Rules</h2>
+
+<div class="formula-card">
+  <strong>Negative Association Rules & Correlation:</strong>
+  A negative association rule takes the form $A \implies \neg B$ or $\neg A \implies B$. It is considered statistically valid and interesting if:
+  $$\mathbf{\text{Support}(A \cup \neg B) = \text{Support}(A) - \text{Support}(A \cup B) \ge \text{min\_sup}}$$
+  $$\mathbf{\text{Confidence}(A \implies \neg B) = \frac{\text{Support}(A \cup \neg B)}{\text{Support}(A)} = 1 - \text{Confidence}(A \implies B) \ge \text{min\_conf}}$$
+  $$\mathbf{\text{Correlation Measure: } \text{Corr}(A, B) = \frac{P(A \cup B)}{P(A)P(B)} < 1 \quad (\text{Substitutability Indicator})}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Generalized Sequential Pattern (GSP) Trace</div>
+  <p>Given sequence database: $S_1 = \langle (a)(b, c)(d) \rangle$, $S_2 = \langle (a, d)(c)(b) \rangle$, $S_3 = \langle (a)(c)(d) \rangle$. Minimum support = 2 ($66.7\%$):</p>
+  <ul>
+    <li>Frequent 1-sequences $L_1$: $\langle (a) \rangle: 3, \ \langle (b) \rangle: 2, \ \langle (c) \rangle: 3, \ \langle (d) \rangle: 3$.</li>
+    <li>Candidate 2-sequences $C_2$: $\langle (a)(c) \rangle, \langle (a, c) \rangle, \langle (c)(d) \rangle, \langle (a)(d) \rangle \dots$</li>
+    <li>Scan DB: $\langle (a)(c) \rangle$ appears in $S_1, S_3 \implies \text{count}=2$; $\langle (a)(d) \rangle$ appears in $S_1, S_3 \implies \text{count}=2$.</li>
+    <li>Frequent 3-sequence $L_3 = \{ \langle (a)(c)(d) \rangle: 2 \}$.</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q2. Compare the PrefixSpan (Prefix-Projected Pattern Growth) Algorithm with GSP. (8 Marks)</div><div class="qa-a">• <strong>GSP (Srikant & Agrawal):</strong> An Apriori-like breadth-first sequence mining algorithm. Generates massive sets of candidate sequences ($L_{k-1} \Join L_{k-1}$) and scans the database repeatedly, incurring severe disk I/O bottlenecks.<br>• <strong>PrefixSpan (Pei et al.):</strong> A pattern-growth algorithm that mines sequential patterns by recursively projecting sequence suffixes into smaller projected databases based on frequent prefixes. <strong>Zero candidate generation</strong>; dramatically smaller memory footprint and orders of magnitude faster execution!</div></div>
+
+<h2 class="section-title">Topic 36.2: Advanced Constraint-Based Mining & Multi-Level Association Rules</h2>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width: 25%;">Constraint Property</th>
+      <th style="width: 40%;">Formal Mathematical Invariant</th>
+      <th>Optimization in Mining Algorithms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Anti-Monotone</strong></td>
+      <td>$\forall S \supset S': \text{If } S' \text{ violates constraint } C \implies S \text{ must also violate } C$.</td>
+      <td>Can be pushed deep into candidate generation (e.g. $\text{sum}(S.\text{price}) \le 500$, $\text{Support}(S) \ge \text{min\_sup}$).</td>
+    </tr>
+    <tr>
+      <td><strong>Monotone</strong></td>
+      <td>$\forall S \supset S': \text{If } S' \text{ satisfies constraint } C \implies S \text{ must also satisfy } C$.</td>
+      <td>Once an itemset satisfies constraint (e.g. $\text{sum}(S.\text{price}) \ge 1000$), all its supersets are guaranteed valid!</td>
+    </tr>
+    <tr>
+      <td><strong>Succinct</strong></td>
+      <td>All and only itemsets satisfying $C$ can be explicitly generated upfront without testing (e.g. $\text{Item}.\text{Type} = \text{'Electronics'}$).</td>
+      <td>Pre-filters data before any mining begins; zero candidate testing overhead!</td>
+    </tr>
+    <tr>
+      <td><strong>Convertible</strong></td>
+      <td>A non-monotonic constraint becomes monotone or anti-monotone when items are arranged in a specific sorted order (e.g. $\text{avg}(S.\text{price}) \ge 50$ sorted by descending price).</td>
+      <td>Enables itemset pruning when combined with FP-Growth header sorting.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Step-by-Step Solved Problem: Multi-Level Association Rule Redundancy Filtering</div>
+  <p>Consider a product hierarchy where `Laptop` is a parent category of `Dell_XPS` and `Apple_MacBook`:</p>
+  <ul>
+    <li>Rule 1 (High-Level): $\text{Laptop} \implies \text{Mouse} \quad [\text{Support} = 10\%, \ \text{Confidence} = 70\%]$</li>
+    <li>Rule 2 (Low-Level): $\text{Dell\_XPS} \implies \text{Mouse} \quad [\text{Support} = 3\%, \ \text{Confidence} = 72\%]$</li>
+    <li>Rule 3 (Low-Level): $\text{Apple\_MacBook} \implies \text{Mouse} \quad [\text{Support} = 4\%, \ \text{Confidence} = 20\%]$</li>
+  </ul>
+  <p><strong>Redundancy Analysis:</strong></p>
+  <ul>
+    <li>Rule 2 has confidence ($72\%$) almost identical to its generalized ancestor Rule 1 ($70\%$). It provides NO new unexpected information $\implies \mathbf{\text{Rule 2 is REDUNDANT and should be pruned!}}$</li>
+    <li>Rule 3 has confidence ($20\%$) drastically lower than ancestor Rule 1 ($70\%$). It reveals a vital unexpected negative insight (Mac users buy trackpads or don't buy mice) $\implies \mathbf{\text{Rule 3 is HIGHLY INTERESTING and must be preserved!}}$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 36.3: Master University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 4: Quantitative Association Rule Mining & Equi-Depth Binning</div>
+  <p>When transactional databases contain continuous numeric attributes (e.g., $\text{Age} \in [18, 80]$, $\text{Income} \in [\$10\text{k}, \$200\text{k}]$):</p>
+  <ul>
+    <li>Continuous attributes are discretized into intervals: $\text{Age} \in [20, 30], [31, 40], \dots$</li>
+    <li><strong>Equi-Width Binning:</strong> Divides the range into $k$ equal intervals $(\text{Width} = \frac{\max - \min}{k})$. Prone to severe skew if data clusters in few bins.</li>
+    <li><strong>Equi-Depth (Equal-Frequency) Binning:</strong> Divides data such that each bin contains exactly $N/k$ tuples, guaranteeing equal statistical representation!</li>
+    <li><strong>Rule Extraction:</strong> $\text{Age} \in [20, 29] \land \text{Income} \in [\$40\text{k}, \$60\text{k}] \implies \text{BuysCar: 'Yes'}$.</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q3. Explain Rare Itemset Mining and why standard Apriori fails to discover rare patterns. (8 Marks)</div><div class="qa-a">In domains like Credit Card Fraud Detection or Rare Disease Diagnosis, critical patterns occur with extremely low frequency (e.g., 0.01% support).<br>• <strong>The Rare Item Problem:</strong> If `min_support` is set high, rare fraudulent patterns are pruned and lost. If `min_support` is set very low, Apriori suffers combinatorial explosion generating millions of uninteresting common itemset candidates!<br>• <strong>Solution (MSApriori):</strong> Multiple Minimum Support Apriori assigns individual Minimum Item Support (MIS) thresholds to each item ($MIS(i)$), allowing rare items to participate in candidate generation with low thresholds while common items require high thresholds!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q4. Explain Hash-Based Itemset Counting in the DHP (Direct Hashing and Pruning) Algorithm. (8 Marks)</div><div class="qa-a"><strong>DHP (Park et al. 1995)</strong> accelerates Apriori Pass 2 by using a hash table to filter out candidate 2-itemsets during the Pass 1 database scan:<br>1. When reading a transaction $T$ during Pass 1, generate all 2-itemset combinations in $T$ and hash them into a fixed hash bucket table ($h(x, y) = (x \cdot 10 + y) \pmod H$).<br>2. Increment the bucket count.<br>3. In Pass 2, when joining $L_1 \Join L_1$, only generate candidate pair $\{A, B\}$ if its corresponding hash bucket count $\ge \text{min\_sup}$!<br>This prunes up to 90% of invalid 2-itemset candidates before the Pass 2 database scan even starts!</div></div>
+
+<h2 class="section-title">Topic 36.4: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 5: Complete FP-Tree Conditional Pattern Base Mining Trace</div>
+  <p>Consider frequent items in descending order: $L_1 = [f: 4, c: 4, a: 3, b: 3, m: 3, p: 3]$. Suppose we are mining patterns ending in suffix <strong>$p$</strong>:</p>
+  <ul>
+    <li>Paths leading to $p$ in FP-Tree: $\langle f, c, a, m: 2 \rangle$ and $\langle c, b: 1 \rangle$.</li>
+    <li><strong>Conditional Pattern Base for $p$:</strong> $\{ (f, c, a, m): 2, \ (c, b): 1 \}$.</li>
+    <li>Accumulate item frequencies: $f: 2, c: 3, a: 2, m: 2, b: 1$.</li>
+    <li>With $\text{min\_sup} = 3$, items $f, a, m, b$ are pruned ($< 3$). Only item $c$ remains ($\text{count} = 3 \ge 3$).</li>
+    <li><strong>Conditional FP-Tree for $p$:</strong> $\langle c: 3 \rangle$.</li>
+    <li><strong>Generated Frequent Patterns ending in $p$:</strong> $\{p\}: 3$ and $\{c, p\}: 3$.</li>
+  </ul>
+  $$\mathbf{\text{Result: Zero candidate generation required! Directly mined frequent itemset } \{c, p\} \text{ in } O(1) \text{ time!}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the Apriori-Tid and Apriori-Hybrid Algorithms. (8 Marks)</div><div class="qa-a">• <strong>Apriori-Tid:</strong> Does NOT scan the raw transactional database after Pass 1. Instead, it generates a synthetic transactional table $\bar{C}_k$ storing tuple IDs alongside candidate itemset IDs. In late passes ($k \ge 3$), $\bar{C}_k$ becomes dramatically smaller than the original database, accelerating support counting.<br>• <strong>Apriori-Hybrid:</strong> Uses standard Apriori in early passes ($k=1, 2$) when $\bar{C}_k$ is larger than the raw database, and automatically switches to Apriori-Tid in later passes ($k \ge 3$) when candidate itemset lists shrink, achieving optimal execution speed!</div></div>
+
+<h2 class="section-title">Topic 36.5: Master University Exam Problem Bank (Part IV)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 6: Vertical Data Format Mining with ECLAT Algorithm Trace</div>
+  <p>Given transactional database ($N = 4$): $T_1 = \{A, B, C\}, T_2 = \{B, C, D\}, T_3 = \{A, C, D\}, T_4 = \{A, B, C, D\}$ with $\text{min\_sup} = 2$ ($50\%$):</p>
+  <ul>
+    <li><strong>Vertical TID-Lists ($k=1$):</strong>
+      <ul>
+        <li>$t(A) = \{1, 3, 4\} \ (\text{count}=3)$</li>
+        <li>$t(B) = \{1, 2, 4\} \ (\text{count}=3)$</li>
+        <li>$t(C) = \{1, 2, 3, 4\} \ (\text{count}=4)$</li>
+        <li>$t(D) = \{2, 3, 4\} \ (\text{count}=3)$</li>
+      </ul>
+    </li>
+    <li><strong>2-Itemset TID-List Intersections ($k=2$):</strong>
+      <ul>
+        <li>$t(AB) = t(A) \cap t(B) = \{1, 3, 4\} \cap \{1, 2, 4\} = \{1, 4\} \implies \text{count}=2 \ge 2$ (Frequent!)</li>
+        <li>$t(AC) = t(A) \cap t(C) = \{1, 3, 4\} \cap \{1, 2, 3, 4\} = \{1, 3, 4\} \implies \text{count}=3 \ge 2$ (Frequent!)</li>
+        <li>$t(AD) = t(A) \cap t(D) = \{1, 3, 4\} \cap \{2, 3, 4\} = \{3, 4\} \implies \text{count}=2 \ge 2$ (Frequent!)</li>
+        <li>$t(BC) = t(B) \cap t(C) = \{1, 2, 4\} \cap \{1, 2, 3, 4\} = \{1, 2, 4\} \implies \text{count}=3 \ge 2$ (Frequent!)</li>
+        <li>$t(BD) = t(B) \cap t(D) = \{1, 2, 4\} \cap \{2, 3, 4\} = \{2, 4\} \implies \text{count}=2 \ge 2$ (Frequent!)</li>
+        <li>$t(CD) = t(C) \cap t(D) = \{1, 2, 3, 4\} \cap \{2, 3, 4\} = \{2, 3, 4\} \implies \text{count}=3 \ge 2$ (Frequent!)</li>
+      </ul>
+    </li>
+    <li><strong>3-Itemset Intersections ($k=3$):</strong>
+      <ul>
+        <li>$t(ABC) = t(AB) \cap t(AC) = \{1, 4\} \cap \{1, 3, 4\} = \{1, 4\} \implies \text{count}=2 \ge 2$</li>
+        <li>$t(ABD) = t(AB) \cap t(AD) = \{1, 4\} \cap \{3, 4\} = \{4\} \implies \text{count}=1 < 2$ (Pruned!)</li>
+        <li>$t(ACD) = t(AC) \cap t(AD) = \{1, 3, 4\} \cap \{3, 4\} = \{3, 4\} \implies \text{count}=2 \ge 2$</li>
+        <li>$t(BCD) = t(BC) \cap t(BD) = \{1, 2, 4\} \cap \{2, 4\} = \{2, 4\} \implies \text{count}=2 \ge 2$</li>
+      </ul>
+    </li>
+  </ul>
+  $$\mathbf{\text{Frequent 3-Itemsets: } \{A, B, C\}, \ \{A, C, D\}, \ \{B, C, D\} \quad (\text{Computed in zero database scans!})}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q6. Explain the Concept of Correlation Rules and Chi-Square Association Testing. (8 Marks)</div><div class="qa-a">Because Support-Confidence association rules can produce misleading deceptive correlations (when the consequent item is globally popular), <strong>Correlation Rules</strong> augment association mining by testing statistical independence using the Chi-Square metric:
+$$\mathbf{\chi^2 = \sum_{i \in \{A, \neg A\}} \sum_{j \in \{B, \neg B\}} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = \frac{N(O_{11}O_{22} - O_{12}O_{21})^2}{(O_{11}+O_{12})(O_{21}+O_{22})(O_{11}+O_{21})(O_{12}+O_{22})}}$$
+If $\chi^2 > 3.841$ (at $\alpha = 0.05, df=1$), the association rule $A \implies B$ is proven to possess genuine statistical correlation rather than accidental co-occurrence!</div></div>
+
+<h2 class="section-title">Topic 36.6: Complete Solved Laboratory Problem Bank on Association Rules</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 7: Association Rule Conviction & Leverage Calculations</div>
+  <p>In a database of 1000 transactions, $\text{Support}(A) = 0.20$, $\text{Support}(B) = 0.60$, $\text{Support}(A \cup B) = 0.18$:</p>
+  <ul>
+    <li>$\text{Confidence}(A \implies B) = \frac{0.18}{0.20} = \mathbf{0.90 = 90\%}$</li>
+    <li>$\text{Lift}(A \implies B) = \frac{0.90}{0.60} = \mathbf{1.50 > 1 \implies \text{Positive correlation}}$</li>
+    <li><strong>Leverage:</strong> $\text{Leverage} = P(A \cup B) - P(A)P(B) = 0.18 - (0.20)(0.60) = 0.18 - 0.12 = \mathbf{+0.06}$</li>
+    <li><strong>Conviction:</strong> $\text{Conviction} = \frac{1 - P(B)}{1 - \text{Conf}(A \implies B)} = \frac{1 - 0.60}{1 - 0.90} = \frac{0.40}{0.10} = \mathbf{4.00}$</li>
+    <li>$\text{Conviction} = 4.00$ implies that the rule would be incorrect 4 times more often if the association were purely accidental!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 11: Multi-Dimensional Association Rule Mining on Hybrid Relational Data</div>
+  <p>When mining rules across multiple database relations (e.g. `Customer`, `Account`, `Transaction`):</p>
+  <pre><code>Rule: age(X, "20..29") ∧ income(X, "40K..60K") ⇒ buys(X, "HDTV") [Support=2%, Confidence=60%]</code></pre>
+  <ul>
+    <li><strong>Quantitative Attributes Discretization:</strong> Age and Income are mapped to discrete intervals using equi-depth binning.</li>
+    <li><strong>Predicate Itemset Representation:</strong> Each (attribute, interval) pair is treated as an item in a multidimensional transaction table.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 12: Sequence Pattern Mining with PrefixSpan Projected Databases</div>
+  <p>PrefixSpan mines sequential patterns by projecting sequence suffixes into smaller projected databases, eliminating candidate generation entirely!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 11: Quantitative Association Mining with Clustering Pre-Discretization</div>
+  <p>Instead of arbitrary binning, cluster numeric values using 1D $k$-Means, replacing continuous coordinates with cluster membership labels before applying Apriori!</p>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Explain Maximal Frequent Itemsets vs Closed Frequent Itemsets with Concrete Examples. (8 Marks)</div><div class="qa-a">Given frequent itemsets with supports: $\{A\}: 4, \{B\}: 4, \{C\}: 3, \{A, B\}: 4, \{A, C\}: 2$ with $\text{min\_sup}=2$:<br>• <strong>Closed Itemset:</strong> $\{A, B\}$ is closed (support 4) because no superset has support 4. $\{A\}$ is NOT closed because superset $\{A, B\}$ has the same support (4). $\{A, C\}$ is closed (support 2).<br>• <strong>Maximal Itemset:</strong> $\{A, B\}$ and $\{A, C\}$ are maximal because no supersets are frequent. Maximal representation is compact, but loses intermediate subset support counts!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 13: Correlation Rule Mining via Lift and Chi-Square Testing</div>
+  <p>In a dataset of $N = 1000$ retail transactions, $\text{count}(A) = 400, \text{count}(B) = 700, \text{count}(A \cup B) = 350$:</p>
+  <ul>
+    <li>$\text{Support}(A \implies B) = \frac{350}{1000} = \mathbf{35\%}$</li>
+    <li>$\text{Confidence}(A \implies B) = \frac{350}{400} = \mathbf{87.5\%}$</li>
+    <li>$\text{Lift}(A \implies B) = \frac{0.875}{0.700} = \mathbf{1.25 > 1 \implies \text{Genuine positive correlation!}}$</li>
+    <li>$\text{Leverage} = 0.35 - (0.40)(0.70) = 0.35 - 0.28 = \mathbf{+0.07}$</li>
+    <li>$\text{Conviction} = \frac{1 - 0.70}{1 - 0.875} = \frac{0.30}{0.125} = \mathbf{2.40}$</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q8. Detail the ECLAT Algorithm vs Apriori in Terms of Memory and Disk I/O. (8 Marks)</div><div class="qa-a">• <strong>Apriori:</strong> Low memory footprint per pass, but incurs heavy repeated disk I/O scanning the massive transactional database $k$ times.<br>• <strong>ECLAT:</strong> Reads the database only once to construct vertical TID lists, then performs fast bitwise AND intersections in RAM ($O(1)$ disk I/O). However, if transactions are long and item frequencies are high, storing millions of transaction IDs in memory can cause memory exhaustion!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 15: Cross-Support Property & Hyperclique Pattern Mining</div>
+  <p>When items with vastly different support levels appear together (e.g. `Caviar` (support 0.1%) and `Milk` (support 80%)), standard confidence generates spurious cross-support rules:</p>
+  <ul>
+    <li><strong>H-Confidence Metric:</strong>
+      $$\mathbf{\text{h-conf}(X) = \frac{\text{Support}(X)}{\max_{i \in X} \text{Support}(\{i\})}}$$
+    </li>
+    <li>A pattern $X$ is a <strong>Hyperclique Pattern</strong> if $\text{h-conf}(X) \ge h_{\text{min}}$. Guarantees all items in the pattern have strong mutual affinity!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 16: Multi-Dimensional Association Rules with Hybrid Quantitative Grid Discretization</div>
+  <p>Combines categorical attributes with numeric grid intervals to discover cross-domain rules: $\text{Age}(X, 20..29) \land \text{Occupation}(X, \text{'Engineer'}) \implies \text{Income}(X, \text{'High'}) \ [\text{Conf}=85\%]$.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: Constraint-Based Mining with Convertible Anti-Monotone Constraints</div>
+  <p>Given constraint $\text{avg}(S.\text{price}) \ge 50$. When items are sorted in descending order of price, if prefix subset $S'$ has $\text{avg}(S') < 50$, appending any further lower-priced items will only further decrease the average! The constraint becomes strictly anti-monotone and enables deep subtree pruning in FP-Growth!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 18: Hash-Tree Support Counting in Apriori Pass 3</div>
+  <p>To avoid checking every candidate itemset against all transactions, Apriori stores candidate $k$-itemsets in a <strong>Hash Tree</strong> where each internal node contains a hash function $h(item) = item \pmod B$. When matching a transaction $T$, the hash tree recursively routes subsets through matching hash buckets, checking candidates in $O(1)$ tree traversal time rather than linear scans!</p>
+</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

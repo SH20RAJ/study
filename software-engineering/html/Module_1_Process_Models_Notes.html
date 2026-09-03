@@ -1,425 +1,665 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Module 1: Software Processes & Agile</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+<meta charset="UTF-8">
+<title>Module 1: Software Process Models, Agile & Project Management</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]});"></script>
+<style>
 
-:root {
-  --primary: #ea580c;       /* Orange */
-  --primary-light: #fff7ed;
-  --accent: #f97316;        /* Bright Orange */
-  --secondary: #d97706;     /* Amber */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 @page {
   size: A4 portrait;
-  margin: 14mm 11mm 14mm 11mm;
-  @bottom-right {
-    content: "Page " counter(page);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 8pt;
+  margin: 14mm 12mm 14mm 12mm;
+  @top-right {
+    content: "CS24353 • Software Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
     color: #64748b;
+    font-weight: 500;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #64748b;
+    font-weight: 500;
   }
   @bottom-left {
-    content: "Software Engineering (CS24309) | BIT Mesra CSE";
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 8pt;
-    color: #64748b;
+    content: "BIT Mesra • Department of Computer Science & Engineering";
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #94a3b8;
   }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 11.2px;
   line-height: 1.58;
-  font-size: 12.2px;
+  color: #0f172a;
+  background-color: #ffffff;
+  margin: 0;
   padding: 0;
 }
 
-.page-container {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 0;
-}
-
-.doc-header {
-  border-bottom: 2.5px solid var(--primary);
-  padding-bottom: 14px;
+.cover-header {
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 12px;
   margin-bottom: 18px;
 }
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.badge {
+.course-badge {
   display: inline-block;
-  padding: 3px 9px;
-  font-size: 9.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 3px 8px;
   border-radius: 4px;
-}
-
-.badge-orange { background: #ffedd5; color: #c2410c; }
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-amber { background: #fef3c7; color: #92400e; }
-
-h1.doc-title {
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 4px;
-}
-
-.doc-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #fff7ed;
-  border: 1px solid #fed7aa;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 22px;
-}
-
-.toc-title {
-  font-size: 13px;
+  font-size: 9px;
   font-weight: 700;
-  color: #c2410c;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
-  font-size: 11.2px;
+.doc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 4px 0 6px 0;
+  letter-spacing: -0.4px;
+}
+.doc-subtitle {
+  font-size: 11.5px;
+  color: #475569;
+  font-weight: 400;
+  margin: 0 0 4px 0;
+}
+.meta-info {
+  font-size: 9.5px;
+  color: #64748b;
+  margin-top: 6px;
+  display: flex;
+  gap: 14px;
 }
 
 h2.section-title {
-  font-size: 15.5px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 22px 0 10px 0;
+  color: #0369a1;
+  border-bottom: 1.5px solid #e0f2fe;
+  padding-bottom: 4px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-top: 12px;
+  margin-bottom: 6px;
   page-break-after: avoid;
 }
 
-h3.subsection-title {
-  font-size: 13.2px;
-  font-weight: 700;
-  color: #c2410c;
-  margin: 16px 0 6px 0;
-  page-break-after: avoid;
-}
-
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.5px;
-  border-left: 4px solid;
-  page-break-inside: avoid;
-}
-.callout-info { background: #fff7ed; border-color: #ea580c; color: #7c2d12; }
-.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
-
-.callout-title {
-  font-weight: 700;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+p { margin-top: 0; margin-bottom: 8px; text-align: justify; }
+ul, ol { margin-top: 0; margin-bottom: 8px; padding-left: 18px; }
+li { margin-bottom: 3.5px; }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 12px 0;
-  font-size: 11px;
-  page-break-inside: avoid;
-}
-
-.custom-table th, .custom-table td {
-  border: 1px solid #cbd5e1;
-  padding: 7px 10px;
-  text-align: left;
-}
-
-.custom-table th {
-  background: #f1f5f9;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-pre {
-  background: #0f172a;
-  color: #f8fafc;
-  padding: 11px 14px;
-  border-radius: 6px;
-  font-family: 'Fira Code', monospace;
-  font-size: 10.8px;
   margin: 10px 0;
+  font-size: 10px;
   page-break-inside: avoid;
-  overflow-x: auto;
 }
-
-code {
-  font-family: 'Fira Code', monospace;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 11px;
+.custom-table th {
+  background-color: #f0f9ff;
+  color: #0369a1;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border: 1px solid #bae6fd;
 }
-
-pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
-}
-
-.qa-card {
-  background: #f8fafc;
+.custom-table td {
+  padding: 5.5px 8px;
   border: 1px solid #e2e8f0;
-  border-left: 4px solid var(--secondary);
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 12px 0;
+  vertical-align: top;
+}
+.custom-table tr:nth-child(even) { background-color: #f8fafc; }
+
+.callout-box {
+  background-color: #f0fdf4;
+  border-left: 3.5px solid #16a34a;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
-
-.qa-q {
+.callout-title {
   font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 6px;
-  font-size: 12.2px;
-}
-
-.qa-a {
-  color: #334155;
-  font-size: 11.5px;
-  line-height: 1.55;
+  color: #15803d;
+  font-size: 11px;
+  margin-bottom: 4px;
 }
 
 .worked-box {
-  background: #ffffff;
-  border: 1.5px solid #ea580c;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin: 14px 0;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #0284c7;
+  padding: 9px 12px;
+  margin: 11px 0;
+  border-radius: 0 6px 6px 0;
   page-break-inside: avoid;
 }
-
 .worked-title {
-  font-size: 12.8px;
-  font-weight: 800;
-  color: #c2410c;
-  margin-bottom: 10px;
+  font-weight: 700;
+  color: #0369a1;
+  font-size: 11.2px;
+  margin-bottom: 5px;
 }
 
 .formula-card {
-  background: #fff7ed;
-  border-left: 4px solid #ea580c;
-  padding: 10px 14px;
+  background: #fdf4ff;
+  border-left: 3.5px solid #a855f7;
+  padding: 8px 12px;
   margin: 10px 0;
-  font-size: 11.8px;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
+.formula-title {
+  font-weight: 700;
+  color: #7e22ce;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
 
-.diagram-container {
-  margin: 14px auto;
-  text-align: center;
+.qa-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px;
+  border-left: 3.5px solid #0284c7;
+  padding: 8px 11px;
+  margin: 8px 0;
+  border-radius: 0 5px 5px 0;
   page-break-inside: avoid;
 }
+.qa-q { font-weight: 700; color: #0369a1; font-size: 10.8px; margin-bottom: 3px; }
+.qa-a { color: #334155; font-size: 10.3px; line-height: 1.5; }
 
-.diagram-caption {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 6px;
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 9.8px;
+  background-color: #f1f5f9;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  color: #0f172a;
+}
+pre code {
+  display: block;
+  padding: 8px 10px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 9.2px;
+  line-height: 1.45;
 }
 
-.page-break {
-  page-break-before: always;
-  break-before: page;
-}
 </style>
 </head>
 <body>
-  <div class="page-container">
-    <div class="doc-header">
-      <div class="badge-container">
-        <span class="badge badge-orange">CS24309 — Theory (3.0 Cr)</span>
-        <span class="badge badge-blue">Module I Notes</span>
-        <span class="badge badge-purple">BIT Mesra</span>
-        <span class="badge badge-amber">NEP Scheme</span>
-      </div>
-      <h1 class="doc-title">Module 1: Software Processes & Agile</h1>
-      <div class="doc-subtitle">Waterfall, V-Model, Prototyping, Boehm's Spiral 4 Quadrants & Scrum Ceremonies</div>
-    </div>
-    
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module I: Introduction & Process Models — Complete 14-Topic Syllabus Tracker</div>
-  <div class="toc-grid">
-    <div><strong>Topic 1:</strong> What is Software Engineering? (Systematic Discipline)</div>
-    <div><strong>Topic 2:</strong> Why Software Engineering? (Software Crisis & Complexity)</div>
-    <div><strong>Topic 3:</strong> The Evolving Role of Software (Product, Service & System)</div>
-    <div><strong>Topic 4:</strong> Software Process Framework (Core Generic Activities)</div>
-    <div><strong>Topic 5:</strong> Classical Waterfall Model (Linear Sequential Lifecycle)</div>
-    <div><strong>Topic 6:</strong> Prototyping Model (Requirement Discovery & User Feedback)</div>
-    <div><strong>Topic 7:</strong> Boehm's Spiral Model (Risk-Driven Iterative Cycles)</div>
-    <div><strong>Topic 8:</strong> Rapid Application Development (RAD Component Reuse)</div>
-    <div><strong>Topic 9:</strong> Incremental Process Model (Progressive Feature Delivery)</div>
-    <div><strong>Topic 10:</strong> Agile Models (Agile Manifesto & Sprint Feedback Loops)</div>
-    <div><strong>Topic 11:</strong> Software Management Activities (The 4 P's Framework)</div>
-    <div><strong>Topic 12:</strong> Project Planning (Scope, Cost & Resource Allocation)</div>
-    <div><strong>Topic 13:</strong> Project Scheduling (WBS, Gantt Charts & PERT/CPM)</div>
-    <div><strong>Topic 14:</strong> Risk Management (I-A-P-M-M Risk Assessment Cycle)</div>
+<div class="cover-header">
+  <span class="course-badge">CS24353 • MODULE 1</span>
+  <h1 class="doc-title">Module 1: Software Process Models, Agile & Project Management</h1>
+  <p class="doc-subtitle">Topics 1 to 14 • Waterfall, Prototyping, Spiral, RAD, Scrum, XP, CPM/PERT Scheduling & Risk Management</p>
+  <div class="meta-info">
+    <span><strong>Author:</strong> Shaswat Raj (BIT Mesra)</span>
+    <span><strong>Academic Year:</strong> 2024–25 (5th Sem CSE)</span>
+    <span><strong>Standard:</strong> IEEE & ISO/IEC Standards</span>
   </div>
 </div>
 
-<h2 class="section-title">Topic 1 – 3: What is Software Engineering & The Software Crisis?</h2>
-<p>
-  <strong>Software Engineering (IEEE 610.12)</strong> is the systematic, disciplined, quantifiable approach to the development, operation, and maintenance of software; that is, the application of engineering principles to software.
-</p>
+<h2 class="section-title">Topic 1: Foundations of Software Engineering & The Software Crisis</h2>
+<p><strong>Software Engineering (IEEE 610.12)</strong> is defined as <em>"the application of a systematic, disciplined, quantifiable approach to the development, operation, and maintenance of software; that is, the application of engineering to software."</em></p>
+<p>The field originated during the 1968 NATO Software Engineering Conference in Garmisch, Germany, in response to the <strong>Software Crisis</strong> characterized by projects running chronically over budget, missing schedules, exhibiting high defect densities, and failing to satisfy user requirements.</p>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 25%;">Ad-Hoc Programming</th>
+      <th style="width: 25%;">Dimension</th>
+      <th style="width: 37%;">Ad-Hoc Programming (Hacker Paradigm)</th>
       <th>Software Engineering Discipline</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>Individual developer writing code without formal specifications.</td><td>Multi-person, multi-team systematic engineering development lifecycle.</td></tr>
-    <tr><td>No formal documentation; maintainability ignored.</td><td>Comprehensive SRS, architectural designs, test plans, and version control.</td></tr>
-    <tr><td>Massive budget overruns, missed deadlines, high defect rates.</td><td>Predictable cost estimation (COCOMO), scheduling (PERT/Gantt), and QA/QC.</td></tr>
+    <tr>
+      <td><strong>Primary Goal</strong></td>
+      <td>Writing code to make a program work for the immediate user.</td>
+      <td>Building reliable, maintainable, scalable software over a multi-year lifecycle.</td>
+    </tr>
+    <tr>
+      <td><strong>Documentation</strong></td>
+      <td>Minimal or non-existent; implicit in developer's memory.</td>
+      <td>Comprehensive formal artifacts (SRS, SAD, Test Plans, SCM logs).</td>
+    </tr>
+    <tr>
+      <td><strong>Lifecycle Focus</strong></td>
+      <td>Development and debugging phase ($< 20\%$ of lifecycle cost).</td>
+      <td>Maintenance, evolution, and re-engineering ($> 70\%$ of lifecycle cost).</td>
+    </tr>
+    <tr>
+      <td><strong>Team Scalability</strong></td>
+      <td>Fails on teams $> 3$ developers due to exponential $O(n^2)$ communication channels.</td>
+      <td>Hierarchical team structures, interface contracts, and automated CI/CD pipelines.</td>
+    </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">Topic 4 – 10: Software Development Process Models</h2>
+<h2 class="section-title">Topic 2: Classical & Modified Software Process Models</h2>
+<p>A <strong>Software Process Model</strong> is an abstract representation of the software development lifecycle (SDLC). It specifies the sequence of engineering activities, entry/exit criteria, and intermediate deliverables.</p>
 
 <table class="custom-table">
   <thead>
     <tr>
       <th style="width: 18%;">Process Model</th>
-      <th style="width: 45%;">Core Lifecycle Mechanism & Characteristics</th>
-      <th>Ideal Project Suitability</th>
+      <th style="width: 28%;">Architectural Workflow</th>
+      <th style="width: 28%;">Key Strengths</th>
+      <th>Primary Limitations & Risks</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Waterfall Model</strong></td>
-      <td>Strict linear sequential phases (Requirements $\rightarrow$ Design $\rightarrow$ Code $\rightarrow$ Test $\rightarrow$ Deploy). Each phase produces sign-off deliverables before the next begins.</td>
-      <td>Well-understood, stable requirements with mature technology stacks (e.g., Space flight software, banking backends).</td>
+      <td><strong>Classical Waterfall</strong></td>
+      <td>Strict linear sequential phases: Inception $\rightarrow$ Requirements $\rightarrow$ Design $\rightarrow$ Implementation $\rightarrow$ Testing $\rightarrow$ Deployment.</td>
+      <td>High discipline, explicit milestones, exhaustive documentation.</td>
+      <td>Zero customer feedback until final deployment; catastrophic rework if requirements change.</td>
     </tr>
     <tr>
-      <td><strong>2. Prototyping</strong></td>
-      <td>Builds an early disposable mock-up interface to elicit feedback, refine ambiguous user requirements, and discard/re-engineer.</td>
-      <td>High user interaction systems where clients have unclear or fuzzy initial requirements.</td>
+      <td><strong>Prototyping Model</strong></td>
+      <td>Rapid build of mockups $\rightarrow$ User evaluation $\rightarrow$ Requirement refinement $\rightarrow$ Final engineering.</td>
+      <td>Discovers tacit user needs; eliminates requirement ambiguity early.</td>
+      <td>Risk of "prototype becoming production code"; developer scope creep.</td>
     </tr>
     <tr>
-      <td><strong>3. Spiral Model (Boehm)</strong></td>
-      <td>Risk-driven iterative model structured in 4 quadrants: (1) Objective Determination, (2) <strong>Risk Analysis</strong>, (3) Engineering, (4) Customer Evaluation.</td>
-      <td>Large-scale, expensive, mission-critical, high-risk enterprise projects.</td>
+      <td><strong>Iterative / Incremental</strong></td>
+      <td>System is partitioned into functional increments delivered in staggered calendar releases.</td>
+      <td>Early business value delivery; lowers initial capital risk.</td>
+      <td>Requires robust modular architecture; risk of interface drift between increments.</td>
     </tr>
     <tr>
-      <td><strong>4. RAD Model</strong></td>
-      <td>Rapid Application Development ($60\text{–}90$ days) utilizing component-based construction, GUI builders, and automated code generators.</td>
-      <td>Well-modularized information systems with short delivery deadlines and high component reuse.</td>
+      <td><strong>RAD (Rapid Application)</strong></td>
+      <td>Time-boxed (60–90 days) component assembly using 4GL tools and reusable frameworks.</td>
+      <td>Ultra-rapid time-to-market; high user collaboration.</td>
+      <td>Requires heavy team commitment; poor fit for high-performance low-level systems.</td>
     </tr>
     <tr>
-      <td><strong>5. Incremental Model</strong></td>
-      <td>System is decomposed into modular release increments. Increment 1 delivers core functionality; subsequent releases add peripheral features.</td>
-      <td>Projects requiring early partial operational software release to capture market share.</td>
-    </tr>
-    <tr>
-      <td><strong>6. Agile (Scrum / XP)</strong></td>
-      <td>Iterative 2–4 week <strong>Sprints</strong> emphasizing working software over documentation, customer collaboration, and adaptive response to changing requirements.</td>
-      <td>Dynamic web/mobile products with volatile, continuously evolving market requirements.</td>
+      <td><strong>Boehm's Spiral Model</strong></td>
+      <td>Risk-driven metamodel traversing 4 quadrants iteratively across expanding angular cycles.</td>
+      <td>Explicit risk assessment in every cycle; ideal for mission-critical complex systems.</td>
+      <td>High overhead; heavily dependent on expert risk management acumen.</td>
     </tr>
   </tbody>
 </table>
 
-<div class="callout callout-info">
-  <div class="callout-title">🧠 Memory Hook: Process Model Selection Strategy</div>
-  • Stable requirements $\rightarrow$ <strong>Waterfall</strong><br>
-  • Unclear user requirements $\rightarrow$ <strong>Prototyping</strong><br>
-  • High financial/technical risk $\rightarrow$ <strong>Spiral</strong><br>
-  • Rapid component delivery $\rightarrow$ <strong>RAD / Incremental</strong><br>
-  • Changing, dynamic requirements $\rightarrow$ <strong>Agile</strong>
+<h3 class="sub-title">Boehm's Spiral Model — Detailed 4-Quadrant Architecture</h3>
+<ol>
+  <li><strong>Quadrant I (Determine Objectives, Alternatives & Constraints):</strong> Identify system goals, performance targets, and architectural options.</li>
+  <li><strong>Quadrant II (Identify & Resolve Risks):</strong> Perform formal risk analysis, build prototypes, run benchmarks, and simulate failure modes.</li>
+  <li><strong>Quadrant III (Develop & Verify Next-Level Product):</strong> Execute standard waterfall or incremental engineering for the current spiral iteration.</li>
+  <li><strong>Quadrant IV (Review & Plan Next Phase):</strong> Customer evaluates current increment; project team plans resources for the next spiral cycle.</li>
+</ol>
+
+<h2 class="section-title">Topic 3: Agile Methodologies, Scrum Framework & Extreme Programming (XP)</h2>
+<p>The <strong>Agile Manifesto (2001)</strong> established 4 core values and 12 principles prioritizing adaptability over rigid prediction:</p>
+<div class="callout-box">
+  <div class="callout-title">📜 The 4 Core Values of the Agile Manifesto</div>
+  <ul>
+    <li><strong>Individuals and interactions</strong> over processes and tools.</li>
+    <li><strong>Working software</strong> over comprehensive documentation.</li>
+    <li><strong>Customer collaboration</strong> over contract negotiation.</li>
+    <li><strong>Responding to change</strong> over following a plan.</li>
+  </ul>
 </div>
 
-<h2 class="section-title">Topic 11 – 14: Project Planning, Scheduling & Risk Management</h2>
+<h3 class="sub-title">The Scrum Framework — Roles, Artifacts & Ceremonies</h3>
+<ul>
+  <li><strong>Roles:</strong>
+    <ul>
+      <li><strong>Product Owner (PO):</strong> Owns the Product Backlog, prioritizes user stories by business value, and accepts/rejects deliverables.</li>
+      <li><strong>Scrum Master:</strong> Servant leader who removes organizational impediments and facilitates Scrum events.</li>
+      <li><strong>Developers:</strong> Cross-functional self-organizing team (typically 5–9 members) responsible for delivering a potentially shippable increment.</li>
+    </ul>
+  </li>
+  <li><strong>Artifacts:</strong>
+    <ul>
+      <li><strong>Product Backlog:</strong> Dynamically ordered list of user stories ($ \text{Story Point Estimation via Planning Poker} $).</li>
+      <li><strong>Sprint Backlog:</strong> Set of Product Backlog items selected for the current 2–4 week Sprint, decomposed into technical tasks.</li>
+      <li><strong>Increment & Definition of Done (DoD):</strong> Fully tested, integrated, documented, and deployable code unit.</li>
+      <li><strong>Sprint Burndown Chart:</strong> Daily plot tracking remaining effort (hours or story points) vs. calendar time.</li>
+    </ul>
+  </li>
+  <li><strong>Ceremonies:</strong> Sprint Planning $\rightarrow$ Daily Scrum (15-min standup: What did I do? What will I do? Any blockers?) $\rightarrow$ Sprint Review (Live demo to stakeholders) $\rightarrow$ Sprint Retrospective (Process improvement).</li>
+</ul>
 
-<div class="callout callout-warning">
-  <div class="callout-title">The 5-Stage Risk Management Cycle (I-A-P-M-M)</div>
-  <ol>
-    <li><strong>Risk Identification:</strong> Identify project, product, and business risks (e.g., staff turnover, scope creep).</li>
-    <li><strong>Risk Analysis (Estimation):</strong> Quantify Risk Probability ($P$) and Risk Impact / Severity ($I$). $\text{Risk Exposure } (RE) = P \times I$.</li>
-    <li><strong>Risk Prioritization:</strong> Rank risks in a Risk Matrix to focus engineering resources on top hazards.</li>
-    <li><strong>Risk Mitigation (RMMM Plan):</strong> Develop Risk Mitigation, Monitoring, and Management strategies to minimize impact.</li>
-    <li><strong>Risk Monitoring:</strong> Continuously track risk indicators throughout the project lifecycle.</li>
-  </ol>
+<h2 class="section-title">Topic 4: Project Management, CPM/PERT Scheduling & Critical Path Analysis</h2>
+<p>Project managers balance the <strong>Iron Triangle (Scope, Time, Cost)</strong> under quality constraints. Network scheduling models analyze task dependencies to identify project bottlenecks.</p>
+
+<div class="formula-card">
+  <div class="formula-title">📐 Critical Path Method (CPM) & PERT Statistical Formulas</div>
+  <ul>
+    <li><strong>PERT Beta Expected Time ($T_e$):</strong> $$T_e = \frac{a + 4m + b}{6} \qquad \sigma^2 = \left(\frac{b - a}{6}\right)^2$$
+      Where $a = \text{Optimistic time}, m = \text{Most likely time}, b = \text{Pessimistic time}$.
+    </li>
+    <li><strong>Forward Pass (Earliest Times):</strong>
+      $$ES_j = \max_{i \in \text{Pred}(j)} [EF_i] \qquad EF_j = ES_j + D_j$$
+    </li>
+    <li><strong>Backward Pass (Latest Times):</strong>
+      $$LF_i = \min_{j \in \text{Succ}(i)} [LS_j] \qquad LS_i = LF_i - D_i$$
+    </li>
+    <li><strong>Total Float (Slack):</strong> $$TF_i = LS_i - ES_i = LF_i - EF_i$$
+      $$\mathbf{\text{Critical Path: Set of activities where } TF_i = 0 \text{ (Zero Slack).}}$$
+    </li>
+  </ul>
 </div>
 
-<h2 class="section-title">🧠 M1 Active Recall & Exam Questions</h2>
-
-<div class="qa-card">
-  <div class="qa-q">Q1. Compare Waterfall, Prototyping, Spiral, and Agile models across 5 engineering parameters. (10 Marks)</div>
-  <div class="qa-a">
-    1. <strong>Requirement Flexibility:</strong> Waterfall is rigid; Prototyping clarifies fuzzy needs; Spiral adapts per cycle; Agile welcomes changes at any stage.<br>
-    2. <strong>Risk Management:</strong> Spiral explicitly incorporates formal Risk Analysis in every cycle; Waterfall and Prototyping have zero built-in risk analysis; Agile manages risk via short sprint iterations.<br>
-    3. <strong>Customer Involvement:</strong> Waterfall involves customer only at start and end; Agile and Prototyping require continuous customer collaboration.<br>
-    4. <strong>Delivery Schedule:</strong> Waterfall delivers product only at the very end; Incremental/Agile delivers functional software increments every few weeks.<br>
-    5. <strong>Cost & Documentation:</strong> Waterfall is documentation-heavy; Spiral is expensive due to risk experts; Agile prioritizes working software over extensive documentation.
-  </div>
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 1: Complete CPM Scheduling & Critical Path Calculation</div>
+  <p>A software engineering project consists of 6 activities with dependencies and durations:</p>
+  <table class="custom-table">
+    <thead>
+      <tr><th>Activity</th><th>Predecessors</th><th>Duration ($D$)</th><th>$ES$</th><th>$EF$</th><th>$LS$</th><th>$LF$</th><th>Total Float ($TF$)</th><th>Critical?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>A (SRS)</strong></td><td>—</td><td>4 days</td><td>0</td><td>4</td><td>0</td><td>4</td><td>$0 - 0 = \mathbf{0}$</td><td><strong>YES</strong></td></tr>
+      <tr><td><strong>B (DB Design)</strong></td><td>A</td><td>3 days</td><td>4</td><td>7</td><td>4</td><td>7</td><td>$4 - 4 = \mathbf{0}$</td><td><strong>YES</strong></td></tr>
+      <tr><td><strong>C (UI Mockups)</strong></td><td>A</td><td>2 days</td><td>4</td><td>6</td><td>6</td><td>8</td><td>$6 - 4 = \mathbf{2}$</td><td>NO</td></tr>
+      <tr><td><strong>D (Backend API)</strong></td><td>B</td><td>5 days</td><td>7</td><td>12</td><td>7</td><td>12</td><td>$7 - 7 = \mathbf{0}$</td><td><strong>YES</strong></td></tr>
+      <tr><td><strong>E (Frontend Code)</strong></td><td>C</td><td>4 days</td><td>6</td><td>10</td><td>8</td><td>12</td><td>$8 - 6 = \mathbf{2}$</td><td>NO</td></tr>
+      <tr><td><strong>F (Integration)</strong></td><td>D, E</td><td>3 days</td><td>12</td><td>15</td><td>12</td><td>15</td><td>$12 - 12 = \mathbf{0}$</td><td><strong>YES</strong></td></tr>
+    </tbody>
+  </table>
+  $$\mathbf{\text{Critical Path: } A \rightarrow B \rightarrow D \rightarrow F \qquad \text{Minimum Total Project Duration} = 4 + 3 + 5 + 3 = \mathbf{15 \text{ Days}}}$$
 </div>
 
-  </div>
+<h2 class="section-title">Topic 5: Risk Management & RMMM Strategies</h2>
+<p><strong>Risk ($R$)</strong> is a probabilistic future event with negative consequence. <strong>Risk Exposure ($RE$)</strong> is quantified as:</p>
+$$\mathbf{RE = P(\text{Risk Event}) \times \text{Impact Cost} \ (C)}$$
+
+<h3 class="sub-title">The RMMM Plan (Risk Mitigation, Monitoring, and Management)</h3>
+<ul>
+  <li><strong>Risk Mitigation (Proactive Prevention):</strong> Concrete actions taken before risk occurs (e.g., cross-training developers to mitigate the risk of key staff turnover).</li>
+  <li><strong>Risk Monitoring (Tracking):</strong> Continuous surveillance of early warning indicator metrics (e.g., tracking sprint velocity drops or defect backlog spikes).</li>
+  <li><strong>Risk Management (Contingency Planning):</strong> Predetermined fallback plans executed when a risk materializes into an active crisis (e.g., activating backup cloud servers upon primary DC outage).</li>
+</ul>
+
+<h2 class="section-title">Topic 6: University Exam Problem Bank & Model Answers</h2>
+
+<div class="qa-card"><div class="qa-q">Q1. Differentiate between Classical Waterfall, Spiral, and Agile Scrum Models across 5 Core Dimensions. (10 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Waterfall</th><th>Boehm's Spiral</th><th>Agile Scrum</th></tr></thead><tbody><tr><td><strong>Requirements</strong></td><td>Fixed and frozen upfront.</td><td>Refined iteratively per spiral.</td><td>Dynamic, captured as user stories.</td></tr><tr><td><strong>Risk Handling</strong></td><td>No explicit risk mechanism.</td><td>Explicit risk analysis in Quadrant II.</td><td>Continuous risk reduction via short 2-week sprints.</td></tr><tr><td><strong>Customer Involvement</strong></td><td>Only at start and end.</td><td>At completion of each spiral.</td><td>Continuous active daily collaboration.</td></tr><tr><td><strong>Delivery Paradigm</strong></td><td>Monolithic single release at end.</td><td>Progressive spiral releases.</td><td>Potentially shippable software every sprint.</td></tr><tr><td><strong>Cost of Change</strong></td><td>Exponential $O(n^2)$ late in lifecycle.</td><td>Moderate; planned per iteration.</td><td>Low; embraced by design.</td></tr></tbody></table></div></div>
+
+<div class="qa-card"><div class="qa-q">Q2. Explain the Extreme Programming (XP) Core Practices and Why Pair Programming Improves Code Quality. (8 Marks)</div><div class="qa-a"><strong>Extreme Programming (XP - Kent Beck)</strong> pushes software engineering best practices to extreme levels:<br>1. <strong>Test-Driven Development (TDD):</strong> Write automated unit tests before writing functional code (Red $\rightarrow$ Green $\rightarrow$ Refactor).<br>2. <strong>Continuous Integration (CI):</strong> Integrate and test code into the main branch multiple times per day.<br>3. <strong>Pair Programming:</strong> Two engineers collaborate at one workstation (<strong>Driver</strong> writes code; <strong>Navigator</strong> reviews syntax, architecture, and edge cases concurrently). Studies demonstrate that pair programming eliminates $> 60\%$ of defects upfront with only a $15\%$ increase in initial development time, saving massive post-release debugging costs!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q3. Detail the Activities involved in Software Project Scheduling using Gantt Charts and PERT Networks. (8 Marks)</div><div class="qa-a">1. <strong>Work Breakdown Structure (WBS):</strong> Decompose project into discrete work packages.<br>2. <strong>Activity Duration Estimation:</strong> Use PERT 3-point estimation $T_e = (a + 4m + b)/6$.<br>3. <strong>Precedence Network Modeling:</strong> Construct activity-on-node (AON) graph mapping technological dependencies.<br>4. <strong>Forward & Backward Pass Computation:</strong> Compute $ES, EF, LS, LF$ to isolate critical activities with zero slack ($TF=0$).<br>5. <strong>Resource Leveling:</strong> Smooth peak resource utilization across non-critical tasks utilizing available float.</div></div>
+
+<h2 class="section-title">Topic 12: The V-Model (Verification & Validation Dual Ladder)</h2>
+<p>The <strong>V-Model</strong> maps each development phase directly to its corresponding dynamic testing phase, establishing rigorous traceability between specification and verification:</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th>Left Wing: Decomposition & Verification</th>
+      <th>Corresponding Right Wing: Integration & Validation</th>
+      <th>Primary Testing Objectives</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Business Requirements & Concept</strong></td>
+      <td><strong>User Acceptance Testing (UAT)</strong></td>
+      <td>Validates software satisfies customer business goals and operational workflows.</td>
+    </tr>
+    <tr>
+      <td><strong>System Requirements Specification (SRS)</strong></td>
+      <td><strong>System Testing</strong></td>
+      <td>Verifies complete end-to-end functional and non-functional performance bounds.</td>
+    </tr>
+    <tr>
+      <td><strong>High-Level Architecture Design</strong></td>
+      <td><strong>Integration Testing</strong></td>
+      <td>Verifies subsystem communication interfaces, data streaming, and API contracts.</td>
+    </tr>
+    <tr>
+      <td><strong>Detailed Low-Level Module Design</strong></td>
+      <td><strong>Unit Testing</strong></td>
+      <td>Verifies algorithmic correctness of individual classes and private functions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 13: Kanban Framework & Little's Law in Agile Flow</h2>
+<p><strong>Kanban</strong> is a Lean workflow management method emphasizing continuous delivery and Work-In-Progress (WIP) constraints:</p>
+<ul>
+  <li><strong>Core Principles:</strong> (1) Visualize workflow on a Kanban board, (2) Limit Work in Progress (WIP limits per column), (3) Manage flow, (4) Make process policies explicit, (5) Implement feedback loops.</li>
+  <li><strong>Little's Law in Software Engineering:</strong>
+    $$\mathbf{\text{Lead Time} = \frac{\text{Work In Progress (WIP)}}{\text{Throughput (Velocity)}}}$$
+    <em>Engineering Insight:</em> Reducing multitasking WIP directly slashes feature delivery lead time without needing additional staff!
+  </li>
+</ul>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 7: Statistical PERT Expected Project Duration & Variance</div>
+  <p>A software engineering sub-project has 3 critical activities with estimated durations in days:</p>
+  <table class="custom-table">
+    <thead>
+      <tr><th>Activity</th><th>Optimistic ($a$)</th><th>Most Likely ($m$)</th><th>Pessimistic ($b$)</th><th>Expected Time ($T_e$)</th><th>Variance ($\sigma^2$)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Architecture Design</strong></td><td>4</td><td>7</td><td>16</td><td>$\frac{4 + 4(7) + 16}{6} = \mathbf{8.0}$</td><td>$(\frac{16 - 4}{6})^2 = 2^2 = \mathbf{4.0}$</td></tr>
+      <tr><td><strong>Core Microservice Coding</strong></td><td>6</td><td>12</td><td>24</td><td>$\frac{6 + 4(12) + 24}{6} = \mathbf{13.0}$</td><td>$(\frac{24 - 6}{6})^2 = 3^2 = \mathbf{9.0}$</td></tr>
+      <tr><td><strong>Performance Tuning</strong></td><td>2</td><td>5</td><td>8</td><td>$\frac{2 + 4(5) + 8}{6} = \mathbf{5.0}$</td><td>$(\frac{8 - 2}{6})^2 = 1^2 = \mathbf{1.0}$</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>$$\text{Total Expected Project Duration } \mathbf{\mu_T = 8.0 + 13.0 + 5.0 = \mathbf{26.0 \text{ Days}}}$$</li>
+    <li>$$\text{Total Project Variance } \mathbf{\sigma_T^2 = 4.0 + 9.0 + 1.0 = \mathbf{14.0}} \implies \mathbf{\sigma_T = \sqrt{14.0} \approx \mathbf{3.74 \text{ Days}}}$$</li>
+    <li>$$\mathbf{\text{95\% Confidence Interval (2}\sigma\text{): } 26.0 \pm 2(3.74) = \mathbf{[18.52, 33.48] \text{ Days}}}$$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 14: University Exam Problem Bank (Part II)</h2>
+
+<div class="qa-card"><div class="qa-q">Q12. Compare Throwaway Prototyping with Evolutionary Prototyping. (8 Marks)</div><div class="qa-a">• <strong>Throwaway (Rapid) Prototyping:</strong> Built rapidly using mockups/scripts solely to clarify ambiguous user requirements. Once the SRS is baselined, the prototype code is completely discarded, and the production system is engineered from scratch with clean architectural standards.<br>• <strong>Evolutionary Prototyping:</strong> Starts with an initial working core prototype that is refined, refactored, and expanded incrementally through repeated user feedback cycles until it matures directly into the final production system. Requires strict modular discipline from day one to avoid architectural rot!</div></div>
+
+<div class="qa-card"><div class="qa-q">Q13. Explain the Concept of Technical Debt and How it is Managed in Agile Projects. (8 Marks)</div><div class="qa-a"><strong>Technical Debt (Ward Cunningham)</strong> represents the implied cost of future rework caused by choosing an easy, short-term hack now instead of using a better, disciplined engineering approach.<br>• <strong>Consequences:</strong> Accumulated technical debt compounds interest over time, degrading development velocity and increasing bug regression rates.<br>• <strong>Agile Mitigation:</strong> Allocating a dedicated $15\text{–}20\%$ capacity in every sprint backlog strictly for code refactoring, dependency upgrades, automated test coverage expansion, and static analysis cleanup.</div></div>
+
+<h2 class="section-title">Topic 15: Project Network Crashing & Cost-Time Tradeoff Analysis</h2>
+<p>When a project must meet an accelerated statutory deadline, <strong>Project Crashing</strong> compresses activity durations by allocating additional engineering resources:</p>
+
+<div class="formula-card">
+  <div class="formula-title">📐 Activity Cost Slope Formula</div>
+  $$\mathbf{\text{Cost Slope} = \frac{\text{Crash Cost } (C_c) - \text{Normal Cost } (C_n)}{\text{Normal Duration } (D_n) - \text{Crash Duration } (D_c)} = \frac{\Delta C}{\Delta D}}$$
+  <p><strong>Rule of Optimal Crashing:</strong> Always crash the activity on the <em>Critical Path</em> that has the <strong>Lowest Cost Slope</strong>!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 11: Complete Critical Path Network Crashing</div>
+  <p>Critical path consists of Activity A ($D_n = 5, D_c = 3, C_n = \$1000, C_c = \$1600$) and Activity B ($D_n = 8, D_c = 5, C_n = \$2000, C_c = \$3200$):</p>
+  <ul>
+    <li>$$\text{Cost Slope (A)} = \frac{1600 - 1000}{5 - 3} = \frac{600}{2} = \mathbf{\$300/\text{day}}$$</li>
+    <li>$$\text{Cost Slope (B)} = \frac{3200 - 2000}{8 - 5} = \frac{1200}{3} = \mathbf{\$400/\text{day}}$$</li>
+    <li>$$\mathbf{\text{To crash project by 2 days: Crash Activity A by 2 days at minimum extra cost } = 2 \times \$300 = \mathbf{\$600!}}}$$</li>
+  </ul>
+</div>
+
+<h2 class="section-title">Topic 16: Boehm's Top 10 Software Risk Items & Mitigation Strategies</h2>
+<table class="custom-table">
+  <thead><tr><th>Rank</th><th>Software Risk Item</th><th>Standard Engineering Mitigation Strategy</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>Personnel Shortfalls</td><td>Staff with top talent, job matching, cross-training, retention incentives.</td></tr>
+    <tr><td><strong>2</strong></td><td>Unrealistic Schedules and Budgets</td><td>Detailed COCOMO/FP estimation, design-to-cost, incremental feature scoping.</td></tr>
+    <tr><td><strong>3</strong></td><td>Developing Wrong Software Functions</td><td>Prototyping, user journey mapping, early user surveys, acceptance tests.</td></tr>
+    <tr><td><strong>4</strong></td><td>Developing Wrong User Interface</td><td>Task analysis, prototyping, human factors interaction design, usability tests.</td></tr>
+    <tr><td><strong>5</strong></td><td>Gold Plating (Unnecessary Complexity)</td><td>Requirements scrubbing, cost-benefit analysis, strict Change Control Board.</td></tr>
+    <tr><td><strong>6</strong></td><td>Continuing Stream of Requirements Changes</td><td>High-change threshold baseline, information hiding, agile sprints.</td></tr>
+    <tr><td><strong>7</strong></td><td>Shortfalls in Externally Furnished Components</td><td>Benchmarking, vendor audits, formal capability assessments.</td></tr>
+    <tr><td><strong>8</strong></td><td>Shortfalls in Externally Performed Tasks</td><td>Pre-award audits, competitive team design, milestone inspections.</td></tr>
+    <tr><td><strong>9</strong></td><td>Real-Time Performance Shortfalls</td><td>Simulation, high-speed prototyping, architectural instrumentation.</td></tr>
+    <tr><td><strong>10</strong></td><td>Straining Computer Science Capabilities</td><td>Technical analysis, proof-of-concept prototyping, fallback algorithms.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title">Topic 17: The 12 Core Practices of Extreme Programming (XP)</h2>
+<table class="custom-table">
+  <thead><tr><th>Practice Category</th><th>Core Engineering Practice</th><th>Operational Rule & Quality Objective</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Fine-Scale Feedback</strong></td><td><strong>1. Test-Driven Development</strong></td><td>Automated unit tests written before functional code; tests must pass 100%.</td></tr>
+    <tr><td><strong>Fine-Scale Feedback</strong></td><td><strong>2. Planning Game</strong></td><td>Business determines scope and priorities; engineering estimates story points.</td></tr>
+    <tr><td><strong>Fine-Scale Feedback</strong></td><td><strong>3. Whole Team / On-Site Customer</strong></td><td>Real business user sits with the engineering team to provide immediate domain feedback.</td></tr>
+    <tr><td><strong>Fine-Scale Feedback</strong></td><td><strong>4. Pair Programming</strong></td><td>Two developers collaborate at one screen to perform continuous real-time code inspection.</td></tr>
+    <tr><td><strong>Continuous Process</strong></td><td><strong>5. Continuous Integration (CI)</strong></td><td>Code integrated, built, and tested against trunk multiple times per day.</td></tr>
+    <tr><td><strong>Continuous Process</strong></td><td><strong>6. Design Improvement (Refactoring)</strong></td><td>Ruthless restructuring of internal code without changing external behavior.</td></tr>
+    <tr><td><strong>Continuous Process</strong></td><td><strong>7. Small Releases</strong></td><td>Deploying working increments into production every 1 to 2 weeks.</td></tr>
+    <tr><td><strong>Shared Understanding</strong></td><td><strong>8. Simple Design</strong></td><td>System designed to pass current tests with zero speculative premature optimization.</td></tr>
+    <tr><td><strong>Shared Understanding</strong></td><td><strong>9. System Metaphor</strong></td><td>Shared naming taxonomy and conceptual architectural story.</td></tr>
+    <tr><td><strong>Shared Understanding</strong></td><td><strong>10. Collective Code Ownership</strong></td><td>Any developer can modify and refactor any module at any time.</td></tr>
+    <tr><td><strong>Shared Understanding</strong></td><td><strong>11. Coding Standards</strong></td><td>Enforced uniform formatting and naming conventions across the codebase.</td></tr>
+    <tr><td><strong>Programmer Welfare</strong></td><td><strong>12. Sustainable Pace (40-Hour Week)</strong></td><td>Zero sustained overtime to prevent developer burnout and cognitive defect injection.</td></tr>
+  </tbody>
+</table>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 15: Activity on Arrow (AOA) vs Activity on Node (AON) Float Calculation</div>
+  <p>For an activity with duration $D = 6$, predecessor $EF = 10$, successor $LS = 22$, and successor $ES = 18$:</p>
+  <ul>
+    <li>$$\text{Earliest Start } (ES) = 10 \implies \text{Earliest Finish } (EF) = 10 + 6 = \mathbf{16}$$</li>
+    <li>$$\text{Latest Finish } (LF) = 22 \implies \text{Latest Start } (LS) = 22 - 6 = \mathbf{16}$$</li>
+    <li>$$\mathbf{\text{Total Float (TF)} = LS - ES = 16 - 10 = \mathbf{6 \text{ Days}}}$$</li>
+    <li>$$\mathbf{\text{Free Float (FF)} = \min(ES_{\text{succ}}) - EF = 18 - 16 = \mathbf{2 \text{ Days}}}$$</li>
+    <li>$$\mathbf{\text{Independent Float (IF)} = \max(0, \min(ES_{\text{succ}}) - \max(LF_{\text{pred}}) - D) = 18 - 10 - 6 = \mathbf{2 \text{ Days}}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 19: Agile Velocity & Release Burndown Calculation</div>
+  <p>A team completes 35, 40, and 45 story points over three 2-week sprints. Total project backlog is 360 story points:</p>
+  <ul>
+    <li>$$\text{Average Velocity } \mathbf{V = \frac{35 + 40 + 45}{3} = \mathbf{40 \text{ Story Points/Sprint}}}$$</li>
+    <li>$$\text{Remaining Sprints Required } \mathbf{S = \frac{360 - 120}{40} = \frac{240}{40} = \mathbf{6 \text{ Sprints}}}$$</li>
+    <li>$$\mathbf{\text{Estimated Calendar Delivery Time} = 6 \times 2 \text{ weeks} = \mathbf{12 \text{ Weeks (3 Months)!}}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 20: Quantitative Risk Exposure (RE) Ranking & Budget Allocation</div>
+  <p>Prioritize 3 technical project risks with probabilities and damage costs:</p>
+  <ul>
+    <li>Risk 1 (Database Data Corruption): $P_1 = 0.05, C_1 = \$200,000 \implies \mathbf{RE_1 = \$10,000}$.</li>
+    <li>Risk 2 (Cloud API 24h Outage): $P_2 = 0.30, C_2 = \$50,000 \implies \mathbf{RE_2 = \$15,000 \ (Rank 1: Highest Priority!)}}$.</li>
+    <li>Risk 3 (Developer Resignation): $P_3 = 0.20, C_3 = \$30,000 \implies \mathbf{RE_3 = \$6,000}$.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 28: Dynamic Systems Development Method (DSDM) MoSCoW Prioritization</div>
+  <p>In DSDM time-boxed iterations, project scope is dynamically adjusted using the <strong>MoSCoW Rules</strong>:</p>
+  <ul>
+    <li><strong>Must Have (60% effort):</strong> Critical non-negotiable core features without which the system is illegal or non-functional.</li>
+    <li><strong>Should Have (20% effort):</strong> High-priority capabilities with viable temporary workarounds.</li>
+    <li><strong>Could Have (20% effort):</strong> Nice-to-have features dropped first if time-box deadline is threatened.</li>
+    <li><strong>Won't Have (This Time):</strong> Explicitly deferred out-of-scope backlog items.</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 29: Feature-Driven Development (FDD) 5-Step Process Trace</div>
+  $$\text{Develop Overall Model} \rightarrow \text{Build Feature List} \rightarrow \text{Plan by Feature} \rightarrow \text{Design by Feature} \rightarrow \text{Build by Feature}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 38: Agile User Story Estimation with Planning Poker & Fibonacci Series</div>
+  <p>In Planning Poker, team members independently estimate user story complexity using modified Fibonacci cards $[1, 2, 3, 5, 8, 13, 20, 40, 100]$. If estimates diverge widely (e.g., dev estimates 3, tester estimates 13), high and low estimators discuss edge cases and re-vote until consensus is reached, eliminating estimation anchoring bias!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 39: Software Capability Maturity & Process Performance Baselines</div>
+  <p>At CMMI Level 4, process performance models use historical statistical control limits $(\mu \pm 3\sigma)$ to quantitatively predict whether a project will finish within target schedule and budget parameters!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 48: Agile Velocity & Team Capacity Planning</div>
+  <p>For a sprint of 10 working days with 6 developers working 6 productive hours/day: $\text{Team Capacity} = 6 \times 10 \times 6 = \mathbf{360 \text{ Productive Engineering Hours}}$. If average historical conversion is $8 \text{ hours/story point}$, the team commits to $\frac{360}{8} = \mathbf{45 \text{ Story Points}}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 49: Earned Value Management (EVM) Metrics & Cost Performance Index (CPI)</div>
+  <p>For a project with Planned Value $\text{PV} = \$100,000$, Earned Value $\text{EV} = \$90,000$, and Actual Cost $\text{AC} = \$110,000$:</p>
+  <ul>
+    <li>$$\mathbf{\text{Cost Variance (CV)} = \text{EV} - \text{AC} = \$90,000 - \$110,000 = \mathbf{-\$20,000 \ (Over Budget!)}}$$</li>
+    <li>$$\mathbf{\text{Schedule Variance (SV)} = \text{EV} - \text{PV} = \$90,000 - \$100,000 = \mathbf{-\$10,000 \ (Behind Schedule!)}}$$</li>
+    <li>$$\mathbf{\text{Cost Performance Index (CPI)} = \frac{\text{EV}}{\text{AC}} = \frac{90,000}{110,000} \approx \mathbf{0.818}} \qquad \mathbf{\text{SPI} = \frac{\text{EV}}{\text{PV}} = \frac{90,000}{100,000} = \mathbf{0.900}}$$</li>
+    <li>$$\mathbf{\text{Estimate at Completion (EAC)} = \frac{\text{BAC}}{\text{CPI}} = \frac{\$500,000}{0.818} \approx \mathbf{\$611,247}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 58: Software Process Tailoring & Organization Standards</div>
+  <p>Process tailoring adapts standard organizational SDLC frameworks to project-specific constraints (e.g., scaling down formal gate reviews for small internal tools while mandating full Fagan inspections for safety-critical medical firmware)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 59: Agile Sprint Retrospective 4L Technique</div>
+  $$\text{Liked (Celebrate)} \quad \text{Learned (Knowledge)} \quad \text{Lacked (Gaps)} \quad \text{Longed For (Actionable improvements for next sprint)}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 68: Software Process Metric Dashboards (Lead Time vs Cycle Time)</div>
+  <p>• <strong>Lead Time:</strong> Total calendar duration from initial customer story creation to production deployment.<br>• <strong>Cycle Time:</strong> Active engineering duration from when a developer begins writing code on a task to when it passes code review and CI tests. Measuring both exposes organizational approval bottlenecks!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 77: Agile Burndown vs Burnup Charts</div>
+  <p>• <strong>Burndown Chart:</strong> Tracks remaining backlog work downwards towards zero, clearly showing whether the team will hit the sprint deadline.<br>• <strong>Burnup Chart:</strong> Tracks completed work upwards towards total scope line, distinguishing between team velocity slowdowns and customer scope creep additions!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 78: Pair Programming Driver-Navigator Communication Metrics</div>
+  <p>Studies show pair programming reduces defect density by $60\%$ with only a $15\%$ increase in initial development time, saving $> 80\%$ in total lifecycle maintenance and bug patching costs!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 91: Software Team Communication Channels Formula</div>
+  <p>For a team of $n = 10$ software engineers: $\text{Channels} = \frac{n(n - 1)}{2} = \frac{10 \times 9}{2} = \mathbf{45 \text{ Communication Channels}}$. In agile, breaking into two 5-person squads slashes channels to $2 \times 10 = \mathbf{20}$, cutting communication overhead by $\mathbf{55.6\%}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 92: Agile Definition of Ready (DoR) vs Definition of Done (DoD)</div>
+  <p>• <strong>DoR:</strong> Criteria a user story must satisfy <em>before</em> entering a sprint (clear acceptance criteria, estimated, dependencies resolved).<br>• <strong>DoD:</strong> Criteria a feature must satisfy <em>before</em> shipping (code reviewed, 100% unit tests passed, security scanned, documented)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 105: Scaled Agile Framework (SAFe) vs LeSS</div>
+  <p>• <strong>SAFe:</strong> Highly structured multi-tier enterprise agile framework organizing teams into Agile Release Trains (ARTs) aligning 50–125 engineers across Program Increments (PIs).<br>• <strong>Large-Scale Scrum (LeSS):</strong> Lightweight scaling framework extending single-team Scrum with minimal added overhead and shared Product Backlogs!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 106: Project Post-Mortem & Knowledge Retention</div>
+  <p>Institutionalize project learnings through documented Root Cause Analysis (5 Whys), archived historical effort metrics in organizational process assets, and automated retrospectives!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 119: Agile Sprint Spike vs Proof of Concept (PoC)</div>
+  <p>A <strong>Spike</strong> is a time-boxed research task (e.g., 2 days) in a sprint to explore technical feasibility, measure performance bounds, and eliminate architectural risk before estimating user stories!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 120: Software Project Risk Mitigation Monitoring & Management (RMMM) Grid</div>
+  <p>Document detailed trigger conditions, mitigation action owners, and contingency fallback procedures for all top 10 project risks!</p>
+</div>
+
 </body>
 </html>

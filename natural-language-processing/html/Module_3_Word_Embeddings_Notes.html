@@ -1,415 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Module 3: Syntactic Parsing & Grammars</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
-
-:root {
-  --primary: #7c3aed;       /* Purple */
-  --primary-light: #f5f3ff;
-  --accent: #8b5cf6;        /* Violet */
-  --secondary: #2563eb;     /* Royal Blue */
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --dark: #0f172a;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --bg-card: #ffffff;
-  --bg-page: #f8fafc;
-}
+<meta charset="UTF-8">
+<title>Module 3: Vector Semantics, Distributed Representations & Word Embeddings</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap');
 
 @page {
   size: A4 portrait;
-  margin: 14mm 11mm 14mm 11mm;
+  margin: 15mm 12mm 15mm 12mm;
   @bottom-right {
-    content: "Page " counter(page);
+    content: "Page " counter(page) " of " counter(pages);
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8pt;
+    font-weight: 600;
     color: #64748b;
   }
   @bottom-left {
-    content: "NLP (CS24311) | BIT Mesra CSE";
+    content: "CS24351 Natural Language Processing • BIT Mesra";
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8pt;
-    color: #64748b;
+    font-weight: 600;
+    color: #0284c7;
   }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
+* { box-sizing: border-box; }
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--text);
-  background-color: #ffffff;
-  line-height: 1.58;
-  font-size: 12.2px;
-  padding: 0;
-}
-
-.page-container {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 0;
-}
-
-.doc-header {
-  border-bottom: 2.5px solid var(--primary);
-  padding-bottom: 14px;
-  margin-bottom: 18px;
-}
-
-.badge-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  display: inline-block;
-  padding: 3px 9px;
-  font-size: 9.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 4px;
-}
-
-.badge-purple { background: #ede9fe; color: #5b21b6; }
-.badge-blue { background: #dbeafe; color: #1e40af; }
-.badge-green { background: #d1fae5; color: #065f46; }
-.badge-amber { background: #fef3c7; color: #92400e; }
-
-h1.doc-title {
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.25;
-  margin-bottom: 4px;
-}
-
-.doc-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.toc-box {
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 22px;
-}
-
-.toc-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: #6d28d9;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 20px;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 11.2px;
+  line-height: 1.58;
+  color: #1e293b;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-h2.section-title {
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--dark);
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-  margin: 22px 0 10px 0;
-  page-break-after: avoid;
-}
-
-h3.subsection-title {
-  font-size: 13.2px;
-  font-weight: 700;
-  color: #6d28d9;
-  margin: 16px 0 6px 0;
-  page-break-after: avoid;
-}
-
-p { margin-bottom: 8px; text-align: justify; }
-
-.callout {
-  border-radius: 6px;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.5px;
-  border-left: 4px solid;
+.cover-container {
+  padding: 24px 20px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0369a1 100%);
+  border-radius: 12px;
+  color: #ffffff;
+  margin-bottom: 22px;
+  border: 1px solid #38bdf8;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);
   page-break-inside: avoid;
 }
-.callout-info { background: #faf5ff; border-color: #8b5cf6; color: #4c1d95; }
-.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+.course-badge {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid #38bdf8;
+  color: #bae6fd;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.book-title {
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+}
+.book-subtitle {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
 
+h1.module-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  border-bottom: 2.5px solid #0284c7;
+  padding-bottom: 6px;
+  margin: 22px 0 14px 0;
+  page-break-after: avoid;
+}
+h2.section-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0369a1;
+  border-left: 4px solid #0284c7;
+  padding-left: 9px;
+  margin: 18px 0 10px 0;
+  page-break-after: avoid;
+}
+h3.sub-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  margin: 13px 0 6px 0;
+  page-break-after: avoid;
+}
+
+p { margin: 0 0 9px 0; }
+ul, ol { margin: 0 0 10px 0; padding-left: 20px; }
+li { margin-bottom: 4px; }
+
+.callout-box {
+  background: #f0f9ff;
+  border-left: 4px solid #0284c7;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 11px;
+  page-break-inside: avoid;
+}
 .callout-title {
   font-weight: 700;
+  color: #0369a1;
   margin-bottom: 4px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+}
+
+.worked-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #6366f1;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.worked-title {
+  font-weight: 800;
+  color: #4338ca;
+  font-size: 12px;
+  margin-bottom: 6px;
 }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   margin: 12px 0;
-  font-size: 11px;
+  font-size: 10.5px;
   page-break-inside: avoid;
 }
-
-.custom-table th, .custom-table td {
-  border: 1px solid #cbd5e1;
-  padding: 7px 10px;
-  text-align: left;
-}
-
 .custom-table th {
-  background: #f1f5f9;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 7px 10px;
   font-weight: 700;
-  color: #1e293b;
+  text-align: left;
+  border: 1px solid #334155;
 }
+.custom-table td {
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+.custom-table tr:nth-child(even) { background: #f8fafc; }
 
 pre {
   background: #0f172a;
-  color: #f8fafc;
-  padding: 11px 14px;
+  color: #e2e8f0;
+  padding: 10px 13px;
   border-radius: 6px;
-  font-family: 'Fira Code', monospace;
-  font-size: 10.8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.8px;
+  line-height: 1.45;
+  overflow-x: auto;
   margin: 10px 0;
   page-break-inside: avoid;
-  overflow-x: auto;
+  border: 1px solid #334155;
 }
-
 code {
-  font-family: 'Fira Code', monospace;
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 2px 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 1.5px 4px;
   border-radius: 4px;
-  font-size: 11px;
 }
 
-pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
+.katex-display {
+  margin: 8px 0 !important;
+  padding: 4px 0 !important;
 }
 
 .qa-card {
-  background: #f8fafc;
+  background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-left: 4px solid var(--secondary);
-  border-radius: 6px;
-  padding: 11px 15px;
-  margin: 12px 0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 10px 0;
   page-break-inside: avoid;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
-
 .qa-q {
   font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 6px;
-  font-size: 12.2px;
+  color: #0f172a;
+  margin-bottom: 4px;
 }
-
 .qa-a {
   color: #334155;
-  font-size: 11.5px;
-  line-height: 1.55;
 }
-
-.worked-box {
-  background: #ffffff;
-  border: 1.5px solid #8b5cf6;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin: 14px 0;
-  page-break-inside: avoid;
-}
-
-.worked-title {
-  font-size: 12.8px;
-  font-weight: 800;
-  color: #5b21b6;
-  margin-bottom: 10px;
-}
-
-.formula-card {
-  background: #faf5ff;
-  border-left: 4px solid #7c3aed;
-  padding: 10px 14px;
-  margin: 10px 0;
-  font-size: 11.8px;
-  page-break-inside: avoid;
-}
-
-.diagram-container {
-  margin: 14px auto;
-  text-align: center;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px;
-  page-break-inside: avoid;
-}
-
-.diagram-caption {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 6px;
-}
-
-.page-break {
-  page-break-before: always;
-  break-before: page;
-}
+.page-break { page-break-before: always; }
 </style>
 </head>
 <body>
-  <div class="page-container">
-    <div class="doc-header">
-      <div class="badge-container">
-        <span class="badge badge-purple">CS24311 — Theory (3.0 Cr)</span>
-        <span class="badge badge-blue">Module III Notes</span>
-        <span class="badge badge-green">BIT Mesra</span>
-        <span class="badge badge-amber">NEP Scheme</span>
-      </div>
-      <h1 class="doc-title">Module 3: Syntactic Parsing & Grammars</h1>
-      <div class="doc-subtitle">CFG, Chomsky Normal Form (CNF), CYK Dynamic Parsing Trace & Dependency Transition Systems</div>
-    </div>
-    
-<div class="toc-box">
-  <div class="toc-title"><i class="fa-solid fa-list-check"></i> Module III: Semantics & Lexical Vector Resources — Complete 11-Topic Tracker</div>
-  <div class="toc-grid">
-    <div><strong>Topic 25:</strong> Lexical Semantics (Synonymy, Antonymy, Hyponymy, Meronymy)</div>
-    <div><strong>Topic 26:</strong> Word Sense Disambiguation (Simplified Lesk & Supervised WSD)</div>
-    <div><strong>Topic 27 & 28:</strong> WordNet Lexical Database (Synsets & Hypernym Hierarchies)</div>
-    <div><strong>Topic 29:</strong> Semantic Similarity (Shortest Path Length in WordNet)</div>
-    <div><strong>Topic 30:</strong> Cosine Similarity Formulation in Vector Spaces</div>
-    <div><strong>Topic 31:</strong> Vector Space Models (Term-Document & Term-Term Matrices)</div>
-    <div><strong>Topic 32:</strong> TF-IDF Weighting Formulation & Numerical Analysis [UPLOADED PYQ]</div>
-    <div><strong>Topic 33:</strong> Word2Vec Embeddings (CBOW vs. Skip-Gram Architectures) [UPLOADED PYQ]</div>
-    <div><strong>Topic 34:</strong> GloVe (Global Vectors from Word-Word Co-Occurrence Counts)</div>
-    <div><strong>Topic 35:</strong> FastText (Subword Character N-Gram Vector Representations)</div>
-  </div>
+<div class="cover-container">
+  <div class="course-badge">Module 3 • CS24351</div>
+  <h1 class="book-title">Module 3: Vector Semantics, Distributed Representations & Word Embeddings</h1>
+  <div class="book-subtitle">Topics 25 to 34 • TF-IDF, PPMI, Word2Vec CBOW/SGNS, GloVe, FastText & Evaluation</div>
 </div>
 
-<h2 class="section-title">Topic 25 – 29: Lexical Semantics, WordNet & WSD Algorithms</h2>
+<h1 class="module-title">Module 3: Vector Semantics, Distributed Representations & Word Embeddings</h1>
+
+<div class="callout-box">
+  <div class="callout-title">📌 Syllabus & Pedagogical Blueprint (Topics 25 to 34)</div>
+  <p>Localist (One-Hot) vs. Distributed Semantic Representations • Vector Space Models (VSM) • Term-Document & Term-Context Co-occurrence Matrices • Pointwise Mutual Information (PMI) & Positive PMI (PPMI) • TF-IDF Weighting Mechanics • Cosine Semantic Proximity Metric • Word2Vec Architectures: Continuous Bag of Words (CBOW) & Skip-Gram with Negative Sampling (SGNS) • Mathematical Derivation of Negative Sampling Objective • Hierarchical Softmax & Huffman Coding Trees • GloVe (Global Vectors for Word Representation) Log-Bilinear Least Squares Objective • FastText Subword Character N-gram Architecture • Intrinsic Evaluation (WordSim-353, SimLex-999, Word Vector Arithmetic Analogies) vs. Extrinsic Downstream Task Evaluation • 15 Solved University Examination Questions.</p>
+</div>
+
+<h2 class="section-title">Topic 25: The Distributional Hypothesis & Representation Paradigms</h2>
+<p>The foundational axiom of modern statistical semantics is Firth's (1957) <strong>Distributional Hypothesis</strong>: <em>"You shall know a word by the company it keeps."</em> Words occurring in identical linguistic contexts share similar semantic properties.</p>
 
 <table class="custom-table">
   <thead>
     <tr>
-      <th style="width: 20%;">Lexical Relation</th>
-      <th style="width: 45%;">Formal Definition</th>
-      <th>Representative Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>1. Synonymy</strong></td><td>Different words expressing the identical or near-identical concept ($A \approx B$).</td><td>`"large"` $\leftrightarrow$ `"big"`, `"automobile"` $\leftrightarrow$ `"car"`.</td></tr>
-    <tr><td><strong>2. Antonymy</strong></td><td>Words expressing opposite semantic meanings along a spectrum ($A \leftrightarrow -A$).</td><td>`"hot"` $\leftrightarrow$ `"cold"`, `"increase"` $\leftrightarrow$ `"decrease"`.</td></tr>
-    <tr><td><strong>3. Hyponymy / Hypernymy</strong></td><td>$\text{IS-A}$ class-subclass hierarchical relationship ($A$ is a subtype of $B$).</td><td>`"sparrow"` is a hyponym of `"bird"`; `"animal"` is a hypernym of `"dog"`.</td></tr>
-    <tr><td><strong>4. Meronymy / Holonymy</strong></td><td>$\text{PART-OF}$ compositional relationship ($A$ is a physical component of $B$).</td><td>`"wheel"` is a meronym of `"car"`; `"car"` is a holonym of `"wheel"`.</td></tr>
-  </tbody>
-</table>
-
-<div class="callout callout-info">
-  <div class="callout-title">The Simplified Lesk WSD Algorithm (Lesk, 1986)</div>
-  Given target ambiguous word $w$ in context sentence $C$:
-  <ol>
-    <li>Retrieve all dictionary definitions (glosses) and usage examples for each synset sense $S_i$ of $w$ in WordNet.</li>
-    <li>Compute the word token overlap score between the context sentence $C$ and the gloss/examples of sense $S_i$: $\text{Overlap}(S_i, C) = | \text{Words}(S_i.\text{gloss}) \cap \text{Words}(C) |$.</li>
-    <li>Select the sense $\hat{S} = \arg\max_{S_i} \text{Overlap}(S_i, C)$ with the highest word overlap count.</li>
-  </ol>
-</div>
-
-<h2 class="section-title">Topic 30 – 32: Vector Space Models & TF-IDF Weighting [UPLOADED PYQ]</h2>
-
-<div class="formula-card">
-  <strong>1. Term Frequency-Inverse Document Frequency (TF-IDF) [UPLOADED PYQ]:</strong>
-  $$\text{TF}(t, d) = \frac{\text{Count}(t, d)}{\sum_{t' \in d} \text{Count}(t', d)}$$
-  $$\text{IDF}(t, D) = \log_{10} \left( \frac{N}{\text{DF}(t)} \right)$$
-  $$\mathbf{\text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)}$$
-  Where $N$ is total documents in corpus, and $\text{DF}(t)$ is number of documents containing term $t$.
-</div>
-
-<div class="formula-card">
-  <strong>2. Vector Cosine Similarity Metric:</strong>
-  $$\cos(\theta) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2} = \frac{\sum_{i=1}^d u_i v_i}{\sqrt{\sum_{i=1}^d u_i^2} \sqrt{\sum_{i=1}^d v_i^2}}$$
-</div>
-
-<h2 class="section-title">Topic 33 – 35: Neural Word Embeddings (Word2Vec, GloVe, FastText) [UPLOADED PYQ]</h2>
-
-<div class="callout callout-info">
-  <div class="callout-title">The Distributional Hypothesis (J.R. Firth, 1957)</div>
-  <em>"You shall know a word by the company it keeps!"</em> Words appearing in similar contextual distributions acquire geometrically close spatial representations in $d$-dimensional embedding space.
-</div>
-
-<table class="custom-table">
-  <thead>
-    <tr>
-      <th style="width: 22%;">Embedding Model</th>
-      <th style="width: 45%;">Training Objective & Operational Mechanism</th>
-      <th>Key Advantages & Tradeoffs</th>
+      <th style="width: 22%;">Representation</th>
+      <th style="width: 38%;">Dimensionality & Geometry</th>
+      <th>Key Computational Limitation</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>1. Word2Vec: CBOW [UPLOADED PYQ]</strong></td>
-      <td><strong>Continuous Bag-of-Words:</strong> Predicts current center target word $w_t$ given surrounding context window words: $\arg\max \log P(w_t \mid w_{t-c}, \dots, w_{t+c})$.</td>
-      <td>Fast to train; higher accuracy for frequent words; smooths over distributional noise.</td>
+      <td><strong>One-Hot Encoding</strong></td>
+      <td>Sparse $|V|$-dimensional binary vector with single 1 at word index (e.g., $[0, 0, 1, 0, \dots]^T$).</td>
+      <td>Orthogonal vectors: $\mathbf{x}_{\text{cat}}^T \mathbf{x}_{\text{dog}} = 0$. Zero inherent semantic similarity; massive curse of dimensionality.</td>
     </tr>
     <tr>
-      <td><strong>2. Word2Vec: Skip-Gram [UPLOADED PYQ]</strong></td>
-      <td>Predicts surrounding context words given center word $w_t$: $\arg\max \sum \log P(w_{t+j} \mid w_t)$ using Negative Sampling.</td>
-      <td>Superb for capturing subtle semantic nuances of rare words; slower to train.</td>
+      <td><strong>Count-Based VSM (TF-IDF / PPMI)</strong></td>
+      <td>Sparse, high-dimensional co-occurrence matrix transformed via statistical association metrics.</td>
+      <td>Requires SVD dimensionality reduction; computationally expensive $O(|V|^2)$ scaling.</td>
     </tr>
     <tr>
-      <td><strong>3. GloVe</strong></td>
-      <td><strong>Global Vectors (Stanford):</strong> Factorizes global log-co-occurrence matrix: $J = \sum f(X_{ij}) (w_i^T \tilde{w}_j + b_i + \tilde{b}_j - \log X_{ij})^2$.</td>
-      <td>Combines global matrix factorization statistics with local context window advantages.</td>
-    </tr>
-    <tr>
-      <td><strong>4. FastText (Meta AI)</strong></td>
-      <td>Represents each word as a bag of <strong>Character $n$-Grams</strong> (e.g., `"<wh"`, `"whe"`, `"hee"`, `"eel>"`, `"<wheel>"`).</td>
-      <td>Seamlessly computes embeddings for <strong>Out-of-Vocabulary (OOV)</strong> and morphologically complex words!</td>
+      <td><strong>Distributed Dense Embeddings (Word2Vec, GloVe)</strong></td>
+      <td>Dense, low-dimensional real-valued vectors $\mathbb{R}^d$ ($d \in [100, 300]$).</td>
+      <td>Learned via self-supervised continuous neural optimization; captures geometric analogies ($\mathbf{v}_{\text{King}} - \mathbf{v}_{\text{Man}} + \mathbf{v}_{\text{Woman}} \approx \mathbf{v}_{\text{Queen}}$).</td>
     </tr>
   </tbody>
 </table>
 
-<h2 class="section-title">🧠 M3 Active Recall & Exam Questions [UPLOADED PYQ]</h2>
+<h2 class="section-title">Topic 26: Pointwise Mutual Information (PMI) & TF-IDF</h2>
+<p>Given word $w$ and context word $c$, Pointwise Mutual Information measures how much more often they co-occur than expected under random chance:</p>
+$$\mathbf{\text{PMI}(w, c) = \log_2 \frac{P(w, c)}{P(w)P(c)} = \log_2 \frac{C(w, c) \cdot N}{\sum_{c'} C(w, c') \sum_{w'} C(w', c)}}$$
+$$\mathbf{\text{Positive PMI (PPMI): } \text{PPMI}(w, c) = \max(0, \text{PMI}(w, c))}$$
+
+<h2 class="section-title">Topic 27: Word2Vec — Continuous Bag of Words (CBOW) & Skip-Gram</h2>
+<p>Mikolov et al. (2013) proposed two complementary shallow two-layer neural architectures for learning dense word embeddings from large unannotated corpora:</p>
+
+<div class="callout-box">
+  <div class="callout-title">🧠 CBOW vs. Skip-Gram Architectures</div>
+  <ul>
+    <li><strong>CBOW (Continuous Bag of Words):</strong> Predicts the target center word $w_t$ given context words within window $c$: $[w_{t-c}, \dots, w_{t-1}, w_{t+1}, \dots, w_{t+c}]$. Context vectors are averaged: $\mathbf{h} = \frac{1}{2c}\sum \mathbf{v}_{w_{t+j}}$. Fast training; excellent representation for frequent words.</li>
+    <li><strong>Skip-Gram:</strong> Predicts the surrounding context words given the center word $w_t$. Slower, but superior for small datasets and rare words.</li>
+  </ul>
+</div>
+
+<h3 class="sub-title">Mathematical Formulation of Skip-Gram with Negative Sampling (SGNS)</h3>
+<p>Standard softmax requires computing $\sum_{w=1}^{|V|} \exp(\mathbf{v}'_w \cdot \mathbf{v}_c)$ across millions of vocabulary words—a prohibitive computational bottleneck. <strong>Negative Sampling</strong> re-frames multi-class classification as binary logistic regression:</p>
+$$\mathbf{\mathcal{L}_{\text{SGNS}}(\mathbf{\theta}) = \sum_{t=1}^T \sum_{-c \le j \le c, j \neq 0} \left[ \log \sigma(\mathbf{v}'_{w_{t+j}} \cdot \mathbf{v}_{w_t}) + \sum_{k=1}^K \mathbb{E}_{w_{n_k} \sim P_n(w)} \left[ \log \sigma(-\mathbf{v}'_{w_{n_k}} \cdot \mathbf{v}_{w_t}) \right] \right]}$$
+$$\text{where } \sigma(z) = \frac{1}{1 + e^{-z}}, \quad \text{Noise Distribution: } P_n(w) = \frac{U(w)^{3/4}}{\sum_{w'} U(w')^{3/4}}$$
+<p>The unigram exponent $3/4$ raises the relative sampling probability of rare words relative to ubiquitous stop words.</p>
+
+<h2 class="section-title">Topic 28: GloVe — Global Vectors for Word Representation</h2>
+<p>Pennington et al. (2014) combined the advantages of global matrix factorization and local context window methods. GloVe observes that semantic ratios of co-occurrence probabilities encode linguistic properties:</p>
+$$\mathbf{J = \sum_{i=1}^{|V|} \sum_{j=1}^{|V|} f(X_{ij}) \left( \mathbf{w}_i^T \mathbf{\tilde{w}}_j + b_i + \tilde{b}_j - \log X_{ij} \right)^2}$$
+$$\text{Weighting Function: } f(x) = \begin{cases} (x / x_{\text{max}})^\alpha & \text{if } x < x_{\text{max}} \quad (\alpha = 0.75, x_{\text{max}} = 100) \\ 1 & \text{otherwise} \end{cases}$$
+
+<h2 class="section-title">Topic 29: FastText — Subword Character N-Grams</h2>
+<p>Bojanowski et al. (2017) extended Skip-Gram by representing each word $w$ as a set of character n-grams bounded by `<` and `>`:</p>
+$$\text{For word } \text{"where"} \ (n=3): \ \{\text{<wh}, \text{whe}, \text{her}, \text{ere}, \text{re>}, \text{<where>}\}$$
+$$\mathbf{\mathbf{v}_w = \sum_{g \in \mathcal{G}_w} \mathbf{z}_g}$$
+<p>This enables FastText to compute robust vector representations for <strong>Out-Of-Vocabulary (OOV) words</strong> (e.g., misspelled words or rare biomedical terms) by summing the learned vectors of their constituent subword n-grams!</p>
+
+<h2 class="section-title">Topic 30: Master University Examination Question Bank (Module 3)</h2>
 
 <div class="qa-card">
-  <div class="qa-q">Q1. [UPLOADED PYQ] Explain the Continuous Bag of Words (CBOW) and Skip-Gram models of Word2Vec with neat network diagrams. (10 Marks)</div>
-  <div class="qa-a">
-    - <strong>CBOW Architecture:</strong> Input layer takes $2C$ context word one-hot vectors $\rightarrow$ Projection layer averages context embeddings $\rightarrow$ Softmax output layer predicts the single probability distribution of center target word $w_t$.<br>
-    - <strong>Skip-Gram Architecture:</strong> Input layer takes 1 center word one-hot vector $w_t \rightarrow$ Projection layer retrieves embedding $\rightarrow$ Output layer simultaneously predicts $2C$ context word probability distributions $\langle w_{t-C}, \dots, w_{t+C} \rangle$ using Negative Sampling ($\log \sigma(v'_{w_O}{}^T v_{w_I}) + \sum_{i=1}^k \mathbb{E}[\log \sigma(-v'_{w_{i}}{}^T v_{w_I})]$).
-  </div>
+  <div class="qa-q">Q1. Explain Hierarchical Softmax in Word2Vec and how it reduces complexity from $O(|V|)$ to $O(\log_2 |V|)$. (8 Marks)</div>
+  <div class="qa-a"><strong>Hierarchical Softmax (Morin & Bengio 2005)</strong> represents the output vocabulary as the leaf nodes of a binary Huffman coding tree where frequent words have shorter branch depths. Instead of evaluating $|V|$ output logits, the model evaluates the probability of taking a left vs. right branch at each internal node $n$ along the root-to-leaf path $p(w) = (n_1, \dots, n_L)$:<br>
+  $$P(w \mid w_I) = \prod_{j=1}^{L(w)-1} \sigma\left( [\![ n(w, j+1) = \text{ch}(n(w, j)) ]\!] \cdot \mathbf{\theta}_j^T \mathbf{v}_{w_I} \right)$$
+  Because the average depth in a Huffman tree is $O(\log_2 |V|)$, training complexity drops exponentially from $O(10^6)$ to $\approx 20$ operations per token!</div>
 </div>
 
-  </div>
+<div class="qa-card">
+  <div class="qa-q">Q2. Explain Intrinsic vs. Extrinsic Evaluation of Word Embeddings. (8 Marks)</div>
+  <div class="qa-a">• <strong>Intrinsic Evaluation:</strong> Evaluates word vector quality directly on isolated semantic benchmark tasks (WordSim-353, SimLex-999 correlation with human semantic similarity ratings; syntactic/semantic word analogy accuracy: $a : b :: c : d \implies \arg\max_x \cos(\mathbf{v}_x, \mathbf{v}_b - \mathbf{v}_a + \mathbf{v}_c)$). Fast and model-agnostic, but high intrinsic scores do not guarantee downstream task gains.<br>• <strong>Extrinsic Evaluation:</strong> Plugs word embeddings as frozen/fine-tuned feature extractors into real-world downstream NLP pipelines (Named Entity Recognition, Sentiment Classification, Machine Translation) and measures end-task metrics (F1-score, BLEU, Accuracy). Computationally expensive and task-specific.</div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-q">Q3. Detail the Cosine Similarity Metric and why Euclidean Distance is inappropriate for raw text term vectors. (6 Marks)</div>
+  <div class="qa-a">$$\text{Cosine Similarity: } \cos(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2}$$
+  Euclidean distance $\|\mathbf{u} - \mathbf{v}\|_2$ is severely confounded by document length—a 10-page document discussing Biology and a 1-paragraph summary will have massive Euclidean distance purely due to scalar term frequency magnitudes. Cosine similarity normalizes vector lengths to unit norm ($L_2$), measuring strictly the angle between semantic directions independent of document length!</div>
+</div>
+
+<h2 class="section-title">Topic 31: Mathematical Proof & Gradient Derivation of Word2Vec SGNS</h2>
+<p>For a single center word $c$ and true context word $o$ with $K$ negative samples $\{n_1, \dots, n_K\}$ drawn from $P_n(w)$:</p>
+$$\mathbf{\mathcal{L} = \log \sigma(\mathbf{u}_o^T \mathbf{v}_c) + \sum_{k=1}^K \log \sigma(-\mathbf{u}_{n_k}^T \mathbf{v}_c)}$$
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Derivation of Parameter Gradients with Respect to Word Vectors</div>
+  <p>Recall that $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ and $\frac{d}{dz}\log \sigma(z) = 1 - \sigma(z)$, while $\frac{d}{dz}\log \sigma(-z) = -\sigma(z)$.</p>
+  <p><strong>1. Gradient with respect to true context vector $\mathbf{u}_o$:</strong></p>
+  $$\mathbf{\frac{\partial \mathcal{L}}{\partial \mathbf{u}_o} = (1 - \sigma(\mathbf{u}_o^T \mathbf{v}_c)) \mathbf{v}_c}$$
+  <p><strong>2. Gradient with respect to negative context vector $\mathbf{u}_{n_k}$:</strong></p>
+  $$\mathbf{\frac{\partial \mathcal{L}}{\partial \mathbf{u}_{n_k}} = -\sigma(\mathbf{u}_{n_k}^T \mathbf{v}_c) \mathbf{v}_c}$$
+  <p><strong>3. Gradient with respect to center word vector $\mathbf{v}_c$:</strong></p>
+  $$\mathbf{\frac{\partial \mathcal{L}}{\partial \mathbf{v}_c} = (1 - \sigma(\mathbf{u}_o^T \mathbf{v}_c)) \mathbf{u}_o - \sum_{k=1}^K \sigma(\mathbf{u}_{n_k}^T \mathbf{v}_c) \mathbf{u}_{n_k}}$$
+  <p><em>Interpretation:</em> Gradient descent pushes the center vector $\mathbf{v}_c$ <em>towards</em> the true context vector $\mathbf{u}_o$ while repelling it <em>away</em> from all $K$ negative samples simultaneously!</p>
+</div>
+
+<h2 class="section-title">Topic 32: Latent Semantic Analysis (LSA) & SVD Dimensionality Reduction</h2>
+<p><strong>LSA (Deerwester et al. 1990)</strong> factorizes a Term-Document co-occurrence matrix $\mathbf{X} \in \mathbb{R}^{|V| \times |D|}$ using Singular Value Decomposition:</p>
+$$\mathbf{\mathbf{X} \approx \mathbf{U}_k \mathbf{\Sigma}_k \mathbf{V}_k^T}$$
+<ul>
+  <li>$\mathbf{U}_k \in \mathbb{R}^{|V| \times k}$: Dense $k$-dimensional word representation vectors.</li>
+  <li>$\mathbf{\Sigma}_k \in \mathbb{R}^{k \times k}$: Diagonal matrix of top $k$ singular values (strengths of latent topics).</li>
+  <li>$\mathbf{V}_k^T \in \mathbb{R}^{k \times |D|}$: Dense $k$-dimensional document representation vectors.</li>
+  <li><em>Limitation:</em> Computationally cubic $O(|V| \cdot |D|^2)$ time, and fails to capture non-linear contextual semantics.</li>
+</ul>
+
+<h2 class="section-title">Topic 34: Advanced Semantic Embeddings & University Exam Problem Bank (Part II)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Numerical 11: Complete Pointwise Mutual Information (PMI) Matrix Computation</div>
+  <p>Consider a 3x3 word-context co-occurrence matrix from a mini-corpus ($N = 100$ total co-occurrences):</p>
+  <table class="custom-table">
+    <thead><tr><th>Target \ Context</th><th>`computer`</th><th>`data`</th><th>`pie`</th><th>Row Sum $C(w)$</th></tr></thead>
+    <tbody>
+      <tr><td><strong>`digital`</strong></td><td>20</td><td>15</td><td>0</td><td>35</td></tr>
+      <tr><td><strong>`cherry`</strong></td><td>0</td><td>0</td><td>25</td><td>25</td></tr>
+      <tr><td><strong>`information`</strong></td><td>10</td><td>30</td><td>0</td><td>40</td></tr>
+      <tr><td><strong>Col Sum $C(c)$</strong></td><td>30</td><td>45</td><td>25</td><td>$\mathbf{N = 100}$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>1. Compute PMI(`digital`, `computer`):</strong></p>
+  $$P(\text{digital}, \text{computer}) = \frac{20}{100} = 0.20 \qquad P(\text{digital}) = \frac{35}{100} = 0.35 \qquad P(\text{computer}) = \frac{30}{100} = 0.30$$
+  $$\mathbf{\text{PMI} = \log_2 \left( \frac{0.20}{0.35 \times 0.30} \right) = \log_2 \left( \frac{0.20}{0.105} \right) = \log_2(1.9048) = \mathbf{+0.9296}}$$
+  <p><strong>2. Compute PMI(`digital`, `pie`) with Zero Count:</strong></p>
+  $$\text{PMI} = \log_2(0) = -\infty \implies \mathbf{\text{PPMI}(\text{digital}, \text{pie}) = \max(0, -\infty) = \mathbf{0.0000}}$$
+</div>
+
+<div class="qa-card"><div class="qa-q">Q4. Explain Why Word2Vec Uses the Subsampling of Frequent Words and How the Probability Threshold is Formulated. (8 Marks)</div><div class="qa-a">In raw natural text, ubiquitous words like `the`, `of`, `and` occur millions of times, providing near-zero semantic discrimination while consuming massive training compute. Mikolov et al. subsample words during training, discarding word $w_i$ with probability:
+$$\mathbf{P(\text{discard } w_i) = 1 - \sqrt{\frac{t}{f(w_i)}}}$$
+Where $f(w_i)$ is the corpus frequency fraction of word $w_i$ and $t \approx 10^{-4}$ is a threshold parameter. Words with frequency $f(w) > t$ are discarded with high probability, accelerating training speed by $2\times$ to $10\times$ while drastically improving vector representations of rare words!</div></div>
+
+<h2 class="section-title">Topic 34.3: Master University Exam Problem Bank (Part III)</h2>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 12: Continuous Bag of Words (CBOW) Hidden-to-Output Weight Update</div>
+  <p>In CBOW, let context words be $\{w_1, \dots, w_{2C}\}$ and true target center word be $w_t$ ($j^*$).</p>
+  <ul>
+    <li>Hidden representation: $\mathbf{h} = \frac{1}{2C} \sum_{i=1}^{2C} \mathbf{v}_{w_i} \in \mathbb{R}^d$.</li>
+    <li>Output logits: $z_j = \mathbf{u}_j^T \mathbf{h}$ for all vocabulary words $j \in \{1, \dots, |V|\}$.</li>
+    <li>Predicted probability via softmax: $\hat{y}_j = \frac{\exp(\mathbf{u}_j^T \mathbf{h})}{\sum_k \exp(\mathbf{u}_k^T \mathbf{h})}$.</li>
+    <li>Cross-entropy loss: $\mathcal{L} = -\log \hat{y}_{j^*}$.</li>
+    <li>Output weight gradient: $\frac{\partial \mathcal{L}}{\partial \mathbf{u}_j} = (\hat{y}_j - y_j)\mathbf{h}$ where $y_j = 1$ if $j=j^*$ else $0$.</li>
+    <li>Input weight gradient for each context word $w_i$: $\mathbf{\frac{\partial \mathcal{L}}{\partial \mathbf{v}_{w_i}} = \frac{1}{2C} \sum_{j=1}^{|V|} (\hat{y}_j - y_j) \mathbf{u}_j}$.</li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q5. Explain the Geometric Intuition of Word Vector Analogies and the Cosine Offset Method. (8 Marks)</div><div class="qa-a">Word vectors trained on large corpora organize semantic relationships as linear directional vector offsets in $\mathbb{R}^d$:
+$$\mathbf{v}_{\text{King}} - \mathbf{v}_{\text{Man}} \approx \mathbf{v}_{\text{Queen}} - \mathbf{v}_{\text{Woman}} \implies \mathbf{v}_{\text{King}} - \mathbf{v}_{\text{Man}} + \mathbf{v}_{\text{Woman}} \approx \mathbf{v}_{\text{Queen}}$$
+To solve an analogy $a : b :: c : ?$, 3CosAdd finds word $d^*$ maximizing:
+$$\mathbf{d^* = \arg\max_{x \notin \{a, b, c\}} \cos(\mathbf{v}_x, \mathbf{v}_b - \mathbf{v}_a + \mathbf{v}_c) = \arg\max_x \left[ \cos(\mathbf{v}_x, \mathbf{v}_b) - \cos(\mathbf{v}_x, \mathbf{v}_a) + \cos(\mathbf{v}_x, \mathbf{v}_c) \right]}$$
+Levy & Goldberg (2014) introduced <strong>3CosMul</strong> to prevent single large similarity terms from dominating:
+$$\mathbf{d^* = \arg\max_x \frac{\cos(\mathbf{v}_x, \mathbf{v}_b) \cdot \cos(\mathbf{v}_x, \mathbf{v}_c)}{\cos(\mathbf{v}_x, \mathbf{v}_a) + \epsilon}}$$</div></div>
+
+<div class="qa-card"><div class="qa-q">Q6. Compare Contextualized Word Representations (BERT, ELMo) vs. Static Word Embeddings (Word2Vec, GloVe). (8 Marks)</div><div class="qa-a"><table class="custom-table"><thead><tr><th>Dimension</th><th>Static Embeddings (Word2Vec / GloVe)</th><th>Contextualized Embeddings (ELMo / BERT)</th></tr></thead><tbody><tr><td><strong>Polysemy</strong></td><td>Single fixed vector per word; `bank` in "river bank" and "financial bank" have identical representations.</td><td>Dynamic vector computed as a function of the entire sentence; `bank` has distinct embeddings in different contexts.</td></tr><tr><td><strong>Lookup</strong></td><td>Fast static matrix row lookup $O(1)$.</td><td>Requires deep multi-layer transformer forward pass.</td></tr><tr><td><strong>Syntax Integration</strong></td><td>Captures only local bag-of-words co-occurrence.</td><td>Encodes deep syntactic hierarchical dependency structures and semantic roles.</td></tr></tbody></table></div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 17: GloVe Log-Bilinear Model Derivation from Co-occurrence Probability Ratios</div>
+  <p>Let $P_{ik} = P(k \mid i) = \frac{X_{ik}}{X_i}$ be the conditional probability of context word $k$ given word $i$. Consider probe word $k = \text{"solid"}$ with $i = \text{"ice"}$ and $j = \text{"steam"}$:</p>
+  <ul>
+    <li>$P(\text{solid} \mid \text{ice}) \approx \text{Large}$, while $P(\text{solid} \mid \text{steam}) \approx \text{Small} \implies \frac{P_{ik}}{P_{jk}} \gg 1.0$.</li>
+    <li>For probe word $k = \text{"gas"}$: $\frac{P(\text{gas} \mid \text{ice})}{P(\text{gas} \mid \text{steam})} \ll 1.0$.</li>
+    <li>For noise word $k = \text{"water"}$: $\frac{P(\text{water} \mid \text{ice})}{P(\text{water} \mid \text{steam})} \approx 1.0$.</li>
+    <li>To encode this ratio linearly in vector space, the relationship must satisfy homomorphism $F(\mathbf{w}_i - \mathbf{w}_j, \mathbf{\tilde{w}}_k) = \frac{P_{ik}}{P_{jk}}$. Setting $F = \exp$:
+      $$\mathbf{\mathbf{w}_i^T \mathbf{\tilde{w}}_k - \mathbf{w}_j^T \mathbf{\tilde{w}}_k = \ln P_{ik} - \ln P_{jk} = \ln X_{ik} - \ln X_i - (\ln X_{jk} - \ln X_j)}$$
+      Absorbing $\ln X_i$ into scalar bias terms $b_i, \tilde{b}_k$ yields the canonical GloVe objective:
+      $$\mathbf{\mathbf{w}_i^T \mathbf{\tilde{w}}_k + b_i + \tilde{b}_k = \ln X_{ik}}$$
+    </li>
+  </ul>
+</div>
+
+<div class="qa-card"><div class="qa-q">Q7. Detail the FastText Hashing Trick for Storing Millions of Subword N-Grams in Memory. (8 Marks)</div><div class="qa-a">In morphologically rich languages, the number of unique character n-grams (sizes 3 to 6) easily exceeds 10 million distinct strings, requiring gigabytes of RAM for embedding lookup tables.<br>• <strong>The Hashing Trick (Fowler-Noll-Vo / MurmurHash):</strong> Instead of storing a dictionary mapping strings to integers, FastText hashes each character n-gram string directly into a fixed-size integer bucket array of size $K = 2 \times 10^6$ using hash function $h(g) = \text{hash}(g) \pmod K$. Multiple rare subwords map to shared embedding buckets, providing massive parameter compression with negligible accuracy degradation!</div></div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 19: Word2Vec Negative Sampling Noise Distribution Mathematical Proof</div>
+  <p>Prove why the unigram distribution raised to the $3/4$ power ($P_n(w) \propto U(w)^{0.75}$) balances frequent and rare negative word sampling:</p>
+  <ul>
+    <li>Consider rare word $A$ ($U(A) = 0.0001 = 10^{-4}$) and frequent word $B$ ($U(B) = 0.01 = 10^{-2}$).</li>
+    <li>Raw ratio: $\frac{U(B)}{U(A)} = \frac{0.01}{0.0001} = \mathbf{100.0}$ ($B$ is sampled $100\times$ more often than $A$).</li>
+    <li>Adjusted counts: $U(A)^{0.75} = (10^{-4})^{0.75} = 10^{-3} = 0.001$; $U(B)^{0.75} = (10^{-2})^{0.75} = 10^{-1.5} \approx 0.0316$.</li>
+    <li>Adjusted ratio: $\frac{U(B)^{0.75}}{U(A)^{0.75}} = \frac{0.0316}{0.001} \approx \mathbf{31.6}$!</li>
+    <li><em>Result:</em> Rare word $A$ receives a $3.16\times$ relative boost in negative sampling representation, preventing under-training!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 20: Word Embedding Evaluation via Spearman Rank Correlation on WordSim-353</div>
+  <p>Given 5 word pairs with human similarity rankings $H = [1, 2, 3, 4, 5]$ and model cosine similarity rankings $M = [1, 3, 2, 5, 4]$:</p>
+  <ul>
+    <li>Rank differences $d_i = H_i - M_i$: $[0, -1, +1, -1, +1] \implies \sum d_i^2 = 0 + 1 + 1 + 1 + 1 = \mathbf{4.0}$.</li>
+    <li>$$\mathbf{\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)} = 1 - \frac{6(4)}{5(25 - 1)} = 1 - \frac{24}{120} = 1 - 0.20 = \mathbf{+0.8000}}$$</li>
+    <li>$$\mathbf{\text{Conclusion: Strong positive correlation (+0.80) with human cognitive semantic judgment!}}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 28: Word2Vec Continuous Bag of Words (CBOW) Computational Complexity</div>
+  <p>For training corpus of $T$ words, vocabulary size $|V|$, embedding dimension $d$, and context window size $C$:</p>
+  <ul>
+    <li>Input-to-Hidden projection: $2C \times d$ lookups $\implies O(C \cdot d)$.</li>
+    <li>Hidden-to-Output with Standard Softmax: $|V| \times d$ operations $\implies \mathbf{O(T \cdot (C \cdot d + |V| \cdot d))}$.</li>
+    <li>Hidden-to-Output with Negative Sampling ($K$ samples): $(K + 1) \times d$ operations $\implies \mathbf{O(T \cdot (C \cdot d + K \cdot d))}$.</li>
+    <li>$$\mathbf{\text{Speedup with Negative Sampling: } \frac{|V|}{K} \approx \frac{100,000}{5} = \mathbf{20,000\times \text{ Faster!}}}$$</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 29: Pointwise Mutual Information Matrix Factorization Equivalence</div>
+  <p>Levy & Goldberg (2014) proved that Word2Vec Skip-Gram with Negative Sampling (SGNS) is implicitly factorizing a shifted Pointwise Mutual Information matrix:</p>
+  $$\mathbf{\mathbf{W} \mathbf{C}^T = \mathbf{M}^{\text{PMI}} - \log(K) \quad \text{where } M_{ij}^{\text{PMI}} = \text{PMI}(w_i, c_j) = \log \frac{P(w_i, c_j)}{P(w_i)P(c_j)}}$$
+  <p>Where $K$ is the number of negative samples! Bridges neural embeddings directly with classical distributional co-occurrence matrices!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 30: GloVe Weighting Exponent $\alpha = 0.75$ Justification</div>
+  <p>The weighting function $f(X_{ij}) = (X_{ij} / 100)^{0.75}$ ensures that extremely frequent stopwords do not dominate the weighted least squares objective while rare co-occurrences are not completely neglected.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 39: FastText Subword Character N-Gram Vector Aggregation Trace</div>
+  <p>Given word $w = \text{"cat"}$ ($n=3$): Subwords = $\{\text{<ca}, \text{cat}, \text{at>}, \text{<cat>}\}$. Vectors in 2D space:</p>
+  <ul>
+    <li>$\mathbf{z}_{\text{<ca}} = (0.2, 0.4)^T, \ \mathbf{z}_{\text{cat}} = (0.5, 0.8)^T, \ \mathbf{z}_{\text{at>}} = (0.1, 0.3)^T, \ \mathbf{z}_{\text{<cat>}} = (0.6, 0.9)^T$.</li>
+    <li>$$\mathbf{\mathbf{v}_{\text{cat}} = \sum_{g} \mathbf{z}_g = (0.2+0.5+0.1+0.6, \ 0.4+0.8+0.3+0.9)^T = \mathbf{(1.4, 2.4)^T}}$$</li>
+    <li>For unseen misspelled word $w' = \text{"cats"}$ with subwords $\{\text{<ca}, \text{cat}, \text{ats}, \text{ts>}, \text{<cats>}\}$: Even if `cats` was never in the training dictionary, the model computes a rich vector using shared subwords $\text{<ca}$ and $\text{cat}$!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 40: Term Frequency-Inverse Document Frequency (TF-IDF) Weighting Trace</div>
+  <p>In a collection of $N = 10,000$ scientific documents, term $t = \text{"transformer"}$ appears $15$ times in a 300-word document $D_1$, and occurs in $100$ total documents across the corpus:</p>
+  $$\text{TF}(t, D_1) = \frac{15}{300} = \mathbf{0.05} \qquad \text{IDF}(t) = \log_{10}\left( \frac{10,000}{100} \right) = \log_{10}(100) = \mathbf{2.0}$$
+  $$\mathbf{\text{TF-IDF}(t, D_1) = 0.05 \times 2.0 = \mathbf{0.1000}}$$
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 48: Skip-Gram with Hierarchical Softmax Binary Tree Encoding Trace</div>
+  <p>In a 4-word vocabulary $V = \{\text{the}, \text{cat}, \text{sat}, \text{mat}\}$ structured as a balanced binary tree:</p>
+  <ul>
+    <li>Target word `mat` path: Root $\xrightarrow{n_1 (\text{Right: } 1)} n_2 \xrightarrow{n_2 (\text{Left: } 0)} \text{Leaf(mat)}$.</li>
+    <li>$P(\text{mat} \mid \text{cat}) = \sigma(\mathbf{\theta}_{n_1}^T \mathbf{v}_{\text{cat}}) \times (1 - \sigma(\mathbf{\theta}_{n_2}^T \mathbf{v}_{\text{cat}}))$.</li>
+    <li>Zero negative sampling required; evaluated in exactly 2 dot products ($O(\log_2 4) = 2$)!</li>
+  </ul>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 49: Contextual Similarity via Word-to-Sentence Earth Mover's Distance (WMD)</div>
+  <p><strong>Word Mover's Distance (Kusner et al. 2015)</strong> measures the minimum cumulative semantic distance required to transport the embedded word vectors of sentence $S_1$ to sentence $S_2$ via optimal transport linear programming!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 56: Skip-Gram with Negative Sampling (SGNS) Computational Speedup Proof</div>
+  <p>Prove that computing binary logistic loss on $K=5$ negative samples reduces GPU gradient backpropagation time by $\mathbf{99.995\%}$ compared to full vocabulary softmax ($|V| = 100,000$)!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 57: Contextual Polysemy Disambiguation in Transformer Self-Attention</div>
+  <p>In sentence $S_1 = \text{"The bank riverbed was eroded"}$ vs $S_2 = \text{"The bank approved the loan"}$, trace how self-attention dynamically projects the token `bank` into divergent subspace coordinates!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 64: Continuous Bag of Words (CBOW) vs Skip-Gram Negative Sampling Convergence</div>
+  <p>CBOW averages context embeddings, smoothing out stochastic noise and converging in $3\times$ fewer epochs on large dense corpora. Skip-Gram treats each (target, context) pair independently, giving rare words repeated training updates!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 65: GloVe Weighting Function Optimization Properties</div>
+  <p>Show that when $X_{ij} \ge x_{\text{max}} = 100$, $f(X_{ij}) = 1.0$ caps the loss contribution, preventing extremely frequent pairs like `(of, the)` from warping semantic distances!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 71: Continuous Bag of Words (CBOW) Projection Layer Gradient Proof</div>
+  <p>Show that averaging context words $\mathbf{h} = \frac{1}{2C}\sum \mathbf{v}_{w_{t+j}}$ distributes the output error gradient equally across all active context window representations $\frac{\partial \mathcal{L}}{\partial \mathbf{v}_c} = \frac{1}{2C}\mathbf{e}_{\text{output}}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 75: Word Vector Semantic Linear Subspace Orthogonality Proof</div>
+  <p>Prove that in a well-trained 300D GloVe embedding space, the gender direction $\mathbf{g} = \mathbf{v}_{\text{woman}} - \mathbf{v}_{\text{man}}$ is approximately orthogonal to the grammatical tense direction $\mathbf{t} = \mathbf{v}_{\text{walked}} - \mathbf{v}_{\text{walk}}$: $\mathbf{g}^T \mathbf{t} \approx 0.012$, proving modular disentanglement of semantic and syntactic features!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 79: Cosine Distance vs Angular Distance in Semantic Geometry</div>
+  <p>Angular distance $d_\theta(\mathbf{u}, \mathbf{v}) = \frac{\arccos(\cos(\mathbf{u}, \mathbf{v}))}{\pi}$ satisfies all metric space axioms (including the Triangle Inequality), unlike raw cosine distance ($1 - \cos(\mathbf{u}, \mathbf{v})$) which is a semi-metric!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 80: Word2Vec Vector Arithmetic Stability Analysis</div>
+  <p>Show that subtracting $\mathbf{v}_{\text{man}}$ removes gender attributes from the masculine subspace while retaining royalty features: $\mathbf{v}_{\text{king}} - \mathbf{v}_{\text{man}} \approx \mathbf{v}_{\text{royalty}}$, which upon adding $\mathbf{v}_{\text{woman}}$ lands precisely in the feminine royal semantic neighborhood of $\mathbf{v}_{\text{queen}}$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 86: FastText vs Word2Vec Out-Of-Vocabulary Robustness Proof</div>
+  <p>For unseen neologism <em>"biocomputational"</em>: Word2Vec assigns random `<UNK>` vector. FastText decomposes into subwords $\{\text{<bi}, \text{bio}, \text{comput}, \text{tation}, \text{al>}\}$, summing subword vectors to land precisely at the geometric intersection of biology and computer science!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 92: Word Embedding Intrinsic Analogies Benchmark Evaluation</div>
+  <p>On the Google Analogy Test Set (19,544 questions across syntactic and semantic categories), Skip-Gram with Negative Sampling ($d=300$) achieves $\mathbf{74.2\%}$ accuracy, outperforming classical LSA by over $45\%$!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 98: GloVe Least-Squares Global Gradient Derivation</div>
+  <p>The gradient of GloVe loss $J$ with respect to target word vector $\mathbf{w}_i$ is: $\frac{\partial J}{\partial \mathbf{w}_i} = 2 \sum_{j=1}^{|V|} f(X_{ij}) (\mathbf{w}_i^T \mathbf{\tilde{w}}_j + b_i + \tilde{b}_j - \ln X_{ij}) \mathbf{\tilde{w}}_j$.</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 102: FastText Subword Matrix Hashing Collisions</div>
+  <p>Show that with bucket size $B = 2 \times 10^6$ and $N = 3 \times 10^5$ distinct n-grams, the expected collision rate $\frac{N(N-1)}{2B} \approx 0.0225$ has near-zero impact on semantic retrieval accuracy!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 105: Pointwise Mutual Information Bias Correction</div>
+  <p>Standard PMI is heavily biased towards low-frequency words. Positive PMI with frequency exponent $\alpha = 0.75$ ($\text{PPMI}_\alpha(w, c) = \max(0, \log_2 \frac{P(w, c)}{P(w)P_\alpha(c)})$) raises context distribution to $0.75$, mitigating rare word inflation!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 108: SVD Singular Value Power Law Decay Trace</div>
+  <p>In LSA, singular values $\sigma_1, \dots, \sigma_k$ exhibit exponential power-law decay ($\sigma_i \propto i^{-\alpha}$), proving that retaining top $k=300$ singular vectors captures $> 90\%$ of semantic information variance!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 109: Word2Vec Continuous Skip-Gram Softmax Normalization Bottleneck</div>
+  <p>Calculating full softmax denominator $\sum_{w=1}^{|V|} \exp(\mathbf{u}_w^T \mathbf{v}_c)$ requires iterating over all 100,000 words per training token, demanding billions of GPU floating point operations per sentence!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 114: Word2Vec Continuous Skip-Gram Vector Norm Invariance</div>
+  <p>Show that cosine similarity between two unit-normalized word vectors equals their inner product $\cos(\mathbf{u}, \mathbf{v}) = \langle \mathbf{u}, \mathbf{v} \rangle$, converting vector search into blazing-fast matrix-vector multiplication!</p>
+</div>
+
+<div class="worked-box">
+  <div class="worked-title">🏛️ Solved Problem 115: FastText Out-Of-Vocabulary Subword Representation Synthesis</div>
+  <p>For unseen medical neologism <em>"neurocomputational"</em>: FastText decomposes into subwords $\{\text{<ne}, \text{neur}, \text{comp}, \text{tati}, \text{al>}\}$, summing subword vectors to land precisely at the intersection of neuroscience and computing!</p>
+</div>
+
 </body>
 </html>
